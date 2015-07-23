@@ -134,18 +134,14 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-open');
     grunt.loadNpmTasks('grunt-contrib-clean');
-
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
-
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-newer');
 
     require('time-grunt')(grunt);
 
     // 3. Where we tell Grunt what to do when we type "grunt" into the terminal.
-    //grunt.registerTask('default', [/*'clean',*/ 'copy', 'shell', 'open']);
-
     grunt.registerTask('default', ['newer:jshint', 'clean', 'copy', 'shell', 'open']);
 
 };

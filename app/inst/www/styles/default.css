@@ -417,6 +417,17 @@
   background: none !important;
   font-size: 16px; }
 
+.grid-stack .configure {
+  bottom: 0;
+  height: 60px;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80%;
+  text-align: center; }
+
 #rcap-designer {
   background: #fff;
   color: #3e3e3e;

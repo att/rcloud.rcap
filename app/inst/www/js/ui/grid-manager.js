@@ -99,7 +99,8 @@ define([
                     var grid = $('.grid-stack').data('gridstack');
                     var cell = grid.get_cell_from_pixel(ui.helper.position()); // jshint ignore:line
                     if (grid.is_area_empty(cell.x, cell.y, 2, 1)) { // jshint ignore:line
-                        var new_element = grid.add_widget($('<div><div class="grid-stack-item-content" data-gs-locked="true"><button>Configure</button></div></div>'), cell.x, cell.y, 2, 1, false); // jshint ignore:line
+                        //var new_element = grid.add_widget($('<div><div class="grid-stack-item-content" data-gs-locked="true"><button>Configure</button></div></div>'), cell.x, cell.y, 2, 1, false); // jshint ignore:line
+                        var new_element = grid.add_widget($('<div><div class="grid-stack-item-content" data-gs-locked="true"><div class="configure"><p>{{Control}} - click the button to configure</p><p><button>Configure</button></p></div></div></div>'), cell.x, cell.y, 2, 1, false); // jshint ignore:line
                         grid.locked(new_element, true); // jshint ignore:line
                     }
                 }
