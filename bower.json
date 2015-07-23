@@ -21,5 +21,8 @@
   "dependencies": {
     "requirejs-plugins": "~1.0.3",
     "requirejs-text": "~2.0.14"
+  },
+  "devDependencies": {
+    "jquery.hotkeys": "*"
   }
 }

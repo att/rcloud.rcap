@@ -136,7 +136,7 @@
                 },
                 "content": {
                     "label": "Content",
-                    "type": "text",
+                    "type": "html",
                     "defaultValue": ""
                 }
             }
