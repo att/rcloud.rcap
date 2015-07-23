@@ -1,0 +1,193 @@
+{
+    "controls": [
+        {
+            "type": "rplot",
+            "label": "R Plot",
+            "icon": "f012",
+            "initialSize": [3, 3],
+            "properties": {
+                "width": {
+                    "label": "Width",
+                    "type": "numeric",
+                    "defaultValue": 400
+                },
+                "height": {
+                    "label": "Height",
+                    "type": "numeric",
+                    "defaultValue": 400
+                },
+                "rCode": {
+                    "label": "R Code",
+                    "type": "multiline",
+                    "defaultValue": ""
+                }
+            }
+        },
+        {
+            "type": "webplot",
+            "label": "Web Plot",
+            "icon": "f080",            
+            "initialSize": [3, 3],
+            "properties": {
+                "width": {
+                    "label": "Width",
+                    "type": "numeric",
+                    "defaultValue": 400
+                },
+                "height": {
+                    "label": "Height",
+                    "type": "numeric",
+                    "defaultValue": 400
+                },
+                "rCode": {
+                    "label": "R Code",
+                    "type": "multiline",
+                    "defaultValue": ""
+                }
+            }
+        },
+        {
+            "type": "datepicker",
+            "label": "Date Picker",
+            "icon": "f073",            
+            "initialSize": [2, 1],
+            "properties": {
+                "labelText": {
+                    "label": "Label",
+                    "type": "text",
+                    "defaultValue": "Label"
+                },
+                "verticalAlignment": {
+                    "label": "Vertical Alignment",
+                    "type": "options",
+                    "values": ["Top", "Middle", "Bottom"],
+                    "defaultValue": "Top"
+                },
+                "horizontalAlignment": {
+                    "label": "Horizontal Alignment",
+                    "type": "options",
+                    "values": ["Left", "Center", "Right"],
+                    "defaultValue": "Left"
+                },
+                "backgroundColor": {
+                    "label": "Background Color",
+                    "type": "color",
+                    "defaultValue": "#fff"
+                },
+                "rCode": {
+                    "label": "R Code",
+                    "type": "multiline",
+                    "defaultValue": ""
+                }
+            }
+        }, 
+        {
+            "type": "image",
+            "label": "Image",
+            "icon": "f03e",
+            "initialSize": [2, 2],
+            "properties": {
+                "verticalAlignment": {
+                    "label": "Vertical Alignment",
+                    "type": "options",
+                    "values": ["Top", "Middle", "Bottom"],
+                    "defaultValue": "Top"
+                },
+                "horizontalAlignment": {
+                    "label": "Horizontal Alignment",
+                    "type": "options",
+                    "values": ["Left", "Center", "Right"],
+                    "defaultValue": "Left"
+                },
+                "backgroundColor": {
+                    "label": "Background Color",
+                    "type": "color",
+                    "defaultValue": "#fff"
+                },
+                "src": {
+                    "label": "Source",
+                    "type": "text",
+                    "defaultValue": ""
+                }
+            }
+        },   
+        {
+            "type": "text",
+            "label": "Text",
+            "icon": "f044",
+            "initialSize": [3, 2],
+            "properties": {
+                "verticalAlignment": {
+                    "label": "Vertical Alignment",
+                    "type": "options",
+                    "values": ["Top", "Middle", "Bottom"],
+                    "defaultValue": "Top"
+                },
+                "horizontalAlignment": {
+                    "label": "Horizontal Alignment",
+                    "type": "options",
+                    "values": ["Left", "Center", "Right"],
+                    "defaultValue": "Left"
+                },
+                "backgroundColor": {
+                    "label": "Background Color",
+                    "type": "color",
+                    "defaultValue": "#fff"
+                },
+                "content": {
+                    "label": "Content",
+                    "type": "text",
+                    "defaultValue": ""
+                }
+            }
+        },     
+        {
+            "type": "text",
+            "label": "Text",
+            "icon": "f039",
+            "initialSize": [2, 1],
+            "properties": {
+                "verticalAlignment": {
+                    "label": "Vertical Alignment",
+                    "type": "options",
+                    "values": ["Top", "Middle", "Bottom"],
+                    "defaultValue": "Top"
+                },
+                "horizontalAlignment": {
+                    "label": "Horizontal Alignment",
+                    "type": "options",
+                    "values": ["Left", "Center", "Right"],
+                    "defaultValue": "Left"
+                },
+                "backgroundColor": {
+                    "label": "Background Color",
+                    "type": "color",
+                    "defaultValue": "#fff"
+                },
+                "initialiseFunction": {
+                    "label": "Initialise",
+                    "type": "text",
+                    "defaultValue": ""
+                },
+                "onChangeFunction": {
+                    "label": "On change function",
+                    "type": "text",
+                    "defaultValue": ""
+                }
+            }
+        },
+        {
+            "type": "iframe",
+            "label": "iFrame",
+            "icon": "f0c2",
+            "initialSize": [6, 3],
+            "properties": {
+                "src": {
+                    "label": "Source",
+                    "type": "text",
+                    "defaultValue": ""
+                }
+            }
+        }     
+    ]
+}

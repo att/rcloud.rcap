@@ -1,0 +1,33 @@
+
+.grid-stack-item-content {
+    font-family: sans-serif;
+    background: white;
+    color: #2c3e50;
+    border: 1px solid #ccc;
+}
+
+.grid-stack-item .ui-remove { 
+    z-index: 90;
+    width: 20px;
+    height: 20px;
+    right: 10px;
+    top: 0;
+    position: absolute;
+}
+
+.grid-stack-item .ui-remove::before {
+    content: "\f00d";
+}
+
+.grid-stack > .grid-stack-item > .ui-resizable-se,
+.grid-stack > .grid-stack-item > .ui-resizable-sw,
+.grid-stack > .grid-stack-item > .ui-remove {
+	
+}
+
+.grid-stack > .grid-stack-item > .ui-resizable-se,
+.grid-stack > .grid-stack-item > .ui-resizable-sw,
+.grid-stack > .grid-stack-item > .ui-remove {
+	background: none!important;
+	font-size: 16px;
+}

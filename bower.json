@@ -1,0 +1,25 @@
+{
+  "name": "y",
+  "version": "0.0.0",
+  "description": "RCAP for RCloud",
+  "keywords": [
+    "rcloud",
+    "r"
+  ],
+  "authors": [
+    "Shane Porter",
+    "Douglas Ashton"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "requirejs-plugins": "~1.0.3",
+    "requirejs-text": "~2.0.14"
+  }
+}

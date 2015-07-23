@@ -1,0 +1,10 @@
+Package: rcloud.rcap
+Title: RCAP
+Version: 0.0.1
+Author: Shane Porter <sporter@mango-solutions.com>
+Maintainer: Shane Porter <sporter@mango-solutions.com>
+Description: Shane Porter <sporter@mango-solutions.com>
+Imports: rcloud.support
+Suggests:
+License:
+RCloud-Extension: gui

@@ -1,0 +1,75 @@
+$jqmColor: #3e3e3e;
+$borderColor: #cdcdcd;
+
+.jqmwindow {
+	padding: 0;
+	right: 10px!important;
+	top: 10px!important;
+	left: auto!important;
+	background: #f2f2f2;
+
+	& .header, & .body {
+		padding: 15px;
+	}
+
+	& .header {
+		border-bottom: 1px solid $borderColor;
+	}
+
+	& .jqm-footer {
+		border-top: 1px solid $borderColor;
+		display: flex;
+	}
+
+	& .jqm-footer a:link,
+    & .jqm-footer a:visited,
+    & .jqm-footer a:hover,
+    & .jqm-footer a:active
+	{
+		flex: 1;
+		text-transform: uppercase;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 44px;
+		text-decoration: none;
+		transition: background-color .1s ease-in-out;
+		-moz-transition: background-color .1s ease-in-out;
+		-webkit-transition: background-color .1s ease-in-out;
+		transition: color .1s ease-in-out;
+		-moz-transition: color .1s ease-in-out;
+		-webkit-transition: color .1s ease-in-out;
+		color: $jqmColor;
+		border-left: 1px solid $borderColor;
+	}
+
+	& .jqm-footer a:first-child {
+		border-left: none;
+	}
+
+	& .jqm-footer a:hover {
+		background-color: white;
+	}
+
+	& .jqm-footer a.delete:hover {
+		background-color: rgb(240, 82, 61);
+		color: white;
+	}
+
+	& .jqm-footer a.approve:hover {
+		background-color: C2CE89;
+	}
+
+	& .header h3 {
+		font-size: 14px;
+		margin-top: 5px;
+		margin-bottom: 5px;
+		text-transform: uppercase;
+	}
+
+	& .body {
+		max-height: 600px;
+		overflow: auto;
+	}
+}
+
