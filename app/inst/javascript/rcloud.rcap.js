@@ -2,7 +2,9 @@
 
     requirejs.config({
         paths: {
-            'rcap' : '../../shared.R/rcloud.rcap'
+            'rcap' : '../../shared.R/rcloud.rcap',
+            'controls' : '../../shared.R/rcloud.rcap/js/ui/controls',
+            'templates' : '../../shared.R/rcloud.rcap/js/ui/controls/properties/templates'
         },
         map: {
             '*' : {

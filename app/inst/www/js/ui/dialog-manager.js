@@ -3,8 +3,10 @@ define([
     'text!rcap/partials/dialogs/_pageSettings.htm',
     'text!rcap/partials/dialogs/_rPlotSettings.htm',
     'text!rcap/partials/dialogs/_siteSettings.htm',
+    'text!rcap/partials/dialogs/_controlSettings.htm',
+    'rcap/js/ui/control-dialog-manager',
     'rcap/js/vendor/jqModal.min'
-], function(addPagePartial, pageSettingsPartial, rPlotSettingsPartial, siteSettingsPartial) {
+], function(addPagePartial, pageSettingsPartial, rPlotSettingsPartial, siteSettingsPartial, controlSettingsPartial) {
 
     'use strict';
 
@@ -12,32 +14,58 @@ define([
         initialise: function() {
 
             // append the dialogs to the root of the designer:
-            $('#rcap-designer').append(addPagePartial);
-            $('#rcap-designer').append(pageSettingsPartial);
-            $('#rcap-designer').append(rPlotSettingsPartial);
-            $('#rcap-designer').append(siteSettingsPartial);
+            _.each([addPagePartial, pageSettingsPartial, rPlotSettingsPartial, siteSettingsPartial, controlSettingsPartial], function(partial) {
+                $('#rcap-designer').append(partial);
+            });
 
             // initialise each of the dialogs:
             $('.jqmWindow').each(function() {
                 $(this).jqm();
             });
 
-            //$('#dialog-pageSettings, #dialog-rPlotSettings, #dialog-addPage, #dialog-siteSettings').jqm();
-
-            $('body').on('click', '.menu .page-settings', function() {
-                $('#dialog-pageSettings').jqmShow();
+            // general jqm handler:
+            $('body').on('click', '.jqm', function() {
+                $($(this).data('jqm')).jqmShow();
             });
 
-            $('body').on('click', '.menu #controls a', function() {
-                $('#dialog-rPlotSettings').jqmShow();
+            // configuration:
+            $('body').on('click', '#inner-stage .configure button', function() {
+
+                function initialiseControlDialog(control) {
+
+                    // set the markup and the data object:
+                    $('#dialog-controlSettings .body')
+                        .html(control.getDialogMarkup())
+                        .data('control', control);
+                }
+
+                initialiseControlDialog($(this).closest('.grid-stack-item').data('control'));
+                $('#dialog-controlSettings').jqmShow();
+                
             });
 
-            $('body').on('click', '.menu #pages a.add-page, .menu #pages span.page-add', function() {
-                $('#dialog-addPage').jqmShow();
-            });
+            // MODIFY CONTROL APPROVE:
+            $('body').on('click', '#dialog-controlSettings .approve', function() {
 
-            $('body').on('click', '.menu #settings a', function() {
-                $('#dialog-siteSettings').jqmShow();
+                // get the control that was initially assigned:
+                var originatingControl = $('#dialog-controlSettings .body').data('control');
+
+                // todo: validate
+                $.each(originatingControl.controlProperties, function(index, prop) {
+
+                    // get the value:
+                    var dialogValue = prop.getDialogValue();
+
+                    // validate:
+
+                    // assign:
+
+                    originatingControl.controlProperties[index].value = dialogValue;
+                });
+
+                $('.grid-stack[data-controlid="' + originatingControl.id + '"]').data('control', originatingControl);
+
+                $('#dialog-controlSettings').jqmHide(); 
             });
 
         }

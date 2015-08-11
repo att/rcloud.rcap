@@ -428,6 +428,19 @@
   width: 80%;
   text-align: center; }
 
+#rcap-disclaimer {
+  background-color: white;
+  color: red;
+  position: absolute;
+  top: 7px;
+  left: 50%;
+  margin-left: -100px;
+  width: 200px;
+  padding: 10px;
+  z-index: 10000;
+  text-align: center;
+  font-weight: bold; }
+
 #rcap-designer {
   background: #fff;
   color: #3e3e3e;
@@ -558,5 +571,15 @@
     margin-top: 10px; }
   #rcap-designer .form-group .description {
     color: #555; }
+  #rcap-designer .configure i {
+    display: inline-block;
+    font-size: 15pt;
+    margin-right: 5px; }
+  #rcap-designer .configure p {
+    font-size: 115%;
+    margin-bottom: 0;
+    padding-bottom: 0; }
+  #rcap-designer .configure button {
+    margin-top: 4px; }
 
 /*# sourceMappingURL=default.css.map */

@@ -506,14 +506,14 @@
         
         this.container.append(this.placeholder.hide());
 
-        this.placeholder.attr("data-gs-width", 2).attr("data-gs-height", 1);
+        this.placeholder.attr("data-gs-width", width).attr("data-gs-height", height);
     };
 
     GridStack.prototype.position_placeholder = function(x, y) {
         
         this.placeholder.attr('data-gs-x', x).attr('data-gs-y', y).show();
 
-        if( !this.is_area_empty(x, y, 2, 1)) {
+        if( !this.is_area_empty(x, y, this.placeholder.attr('data-gs-width'), this.placeholder.attr('data-gs-height'))) {
             this.placeholder.hide();
         } else {
             this.placeholder.show();

@@ -1,4 +1,4 @@
-define(['rcap/js/ui', 'font!google,families:[Open Sans:400]', 'css!rcap/styles/default.css'], function(ui) {
+define(['rcap/js/ui', 'rcap/js/Class', 'font!google,families:[Open Sans:400]', 'css!rcap/styles/default.css'], function(ui) {
 
     'use strict';
 
