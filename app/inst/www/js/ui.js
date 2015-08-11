@@ -1,19 +1,13 @@
 define(['text!rcap/partials/main.htm', 
-    'rcap/js/ui/dialog-manager', 
-    'rcap/js/ui/grid-manager',
     'rcap/js/ui/menu-manager',
-    'rcap/js/ui/controls/baseControl'
-], function(mainPartial, dialogManager, gridManager, menuManager, BaseControl) {
+    'rcap/js/ui/dialog-manager', 
+    'rcap/js/ui/grid-manager'
+], function(mainPartial, MenuManager, dialogManager, gridManager) {
 
     'use strict';
 
     return {
         initialise: function() {
-
-            //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            var bc = new BaseControl();
-            console.log(bc);
-            //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             if ($('body').find('#rcap-designer').length === 0) {
 
@@ -28,7 +22,8 @@ define(['text!rcap/partials/main.htm',
                 });
 
                 // menu manager:
-                menuManager.initialise();
+                var menuManager = new MenuManager();
+                menuManager.initialiseControlsMenu();
 
                 // initialise the dialog manager:
                 dialogManager.initialise();

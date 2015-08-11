@@ -4,7 +4,6 @@ define([
     'text!rcap/partials/dialogs/_rPlotSettings.htm',
     'text!rcap/partials/dialogs/_siteSettings.htm',
     'text!rcap/partials/dialogs/_controlSettings.htm',
-    'rcap/js/ui/control-dialog-manager',
     'rcap/js/vendor/jqModal.min'
 ], function(addPagePartial, pageSettingsPartial, rPlotSettingsPartial, siteSettingsPartial, controlSettingsPartial) {
 
