@@ -55,9 +55,6 @@ define([
                   validate();
                 });
 
-
-
-
                 var validate = function () {
                   if (true === $('#demo-form').parsley().isValid()) {
                     //$('.form-errors').addClass('hidden');

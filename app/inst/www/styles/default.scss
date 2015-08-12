@@ -221,11 +221,16 @@ $defaultFont: 'Open Sans', sans-serif;
 }
 
 .parsley-errors-list {
+    display: none;
+}
+
+.parsley-errors-list.filled {
     list-style-type: none;
     margin: 0 0 3px 0;
     padding: 5px;
     background: #F0523D;
     color: white;
+    display: block;
 }
 
 li.parsley-required:before {

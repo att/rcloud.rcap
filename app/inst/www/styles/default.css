@@ -584,11 +584,15 @@
     margin-top: 4px; }
 
 .parsley-errors-list {
+  display: none; }
+
+.parsley-errors-list.filled {
   list-style-type: none;
   margin: 0 0 3px 0;
   padding: 5px;
   background: #F0523D;
-  color: white; }
+  color: white;
+  display: block; }
 
 li.parsley-required:before {
   content: "\f06a";

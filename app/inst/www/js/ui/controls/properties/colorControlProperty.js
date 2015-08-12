@@ -11,7 +11,8 @@ define(['rcap/js/ui/controls/properties/baseControlProperty',
 				label : options.label,
 				helpText : options.helpText,
 				defaultValue : options.defaultValue,
-				isRequired : options.isRequired
+				isRequired : options.isRequired,
+				value : options.value || '#ffffff'
 			});
 
 			// additional assignments go here:
