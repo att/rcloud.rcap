@@ -45,9 +45,9 @@ define([
                 // initialise validation:
                 //$('#dialog-controlSettings form').parsley();
 
-                $.listen('parsley:field:validate', function () {
-                  validate();
-                });
+                // $.listen('parsley:field:validate', function () {
+                //   validate();
+                // });
 
              //   $('#demo-form .btn').on('click', function () {
                 $('#dialog-controlSettings .approve').on('click', function() {
