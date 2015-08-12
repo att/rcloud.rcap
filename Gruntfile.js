@@ -39,6 +39,14 @@ module.exports = function(grunt) {
                     ]
                 }, 
                 {
+                    expand: true,
+                    cwd: 'bower_components/',
+                    dest: '<%= app.deployDir%>/inst/www/js/vendor',
+                    src: [
+                        '**/*.css'   
+                    ]
+                }, 
+                {
                     cwd: 'app',
                     expand: true,
                     dest: '<%= app.deployDir%>',
@@ -101,8 +109,14 @@ module.exports = function(grunt) {
             src: [
                 'Gruntfile.js',
                 '<%= app.app %>/javascript/{,*/}*.js',
-                '<%= app.app %>/inst/www/js/{,*/}*.js',
-                '!<%= app.app %>/inst/www/js/vendor/{,*/}*.js'
+               // '!<%= app.app %>/inst/www/js/vendor/{,*/}*.js',
+                '<%= app.app %>/inst/www/js/*.js',
+                '<%= app.app %>/inst/www/js/ui/*.js',
+                '<%= app.app %>/inst/www/js/ui/controls/*.js',
+                '<%= app.app %>/inst/www/js/ui/controls/dialogs/*.js',
+                '<%= app.app %>/inst/www/js/ui/controls/factories/*.js',
+                '<%= app.app %>/inst/www/js/ui/controls/properties/*.js',
+
             ]
           },
           // test: {

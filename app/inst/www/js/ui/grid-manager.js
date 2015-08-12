@@ -30,12 +30,27 @@ define([
 
             $('.grid-stack').gridstack({
                 cell_height: 80, // jshint ignore:line
-                vertical_margin: 10, // jshint ignore:line
+                vertical_margin: 40, // jshint ignore:line
                 animate: true,
                 resizable: {
                     handles: 'e, se, s'
                 }
             });
+
+            $('.grid-stack').on('dragstop', function (event) {
+                var element = $(event.target);
+                var node = element.data('_gridstack_node');
+                element.data('control').x = node.x;
+                element.data('control').y = node.y;
+            });
+
+            $('.grid-stack').on('resizestop', function (event) {
+                var element = $(event.target);
+                var node = element.data('_gridstack_node');
+                element.data('control').width = node.width;
+                element.data('control').height = node.height;
+            });
+
 
             // delete selected item:
             // $('html').keyup(function(e) {
@@ -101,6 +116,9 @@ define([
                         var newWidget = grid.add_widget($('<div data-controlid="' + control.id + '"><div class="grid-stack-item-content" data-gs-locked="true"><div class="configure">' + control.getConfigurationMarkup() + '<p><button type="button" class="btn btn-default">Configure</button></p></div></div></div>'), cell.x, cell.y, defaultWidth, defaultHeight, false); // jshint ignore:line
 
                         // set the new element's control property:
+                        control.x = cell.x;
+                        control.y = cell.y;
+
                         newWidget.data('control', control); 
 
                         grid.locked(newWidget, true); 
@@ -114,6 +132,9 @@ define([
             // configuration button click, show dialog:
             //
             $('body').on('click', '#inner-stage .configure button', function() {
+
+                console.log('controlDialog:show with data: ', $(this).closest('.grid-stack-item').data('control'));
+
                 PubSub.publish('controlDialog:show', $(this).closest('.grid-stack-item').data('control'));
             });
 

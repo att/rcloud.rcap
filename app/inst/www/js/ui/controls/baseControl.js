@@ -4,17 +4,19 @@ define([], function() {
 
 	var BaseControl = Class.extend({
 		init : function(options) {
-			var options = options || {};
+			options = options || {};
 			this.type = options.type;
 			this.label = options.label;
 			this.x = options.x;
 			this.y = options.y;
-			this.width = options.width || 2;
-			this.height = options.height || 1;
 			this.identifier = options.identifier;
 			this.icon = options.icon;
 			this.inlineIcon = options.inlineIcon;
 			this.initialSize = options.initialSize || [2, 1];
+
+			this.width = this.initialSize[0];
+			this.height = this.initialSize[1];
+
 			this.controlProperties = options.controlProperties;
 
 			// generate a random ID:

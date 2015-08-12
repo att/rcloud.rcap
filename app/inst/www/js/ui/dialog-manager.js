@@ -31,51 +31,6 @@ define([
                 $($(this).data('jqm')).jqmShow();
             });
 
-            // // configuration:
-            // $('body').on('click', '#inner-stage .configure button', function() {
-
-            //     function initialiseControlDialog(control) {
-
-            //         // set the markup and the data object:
-            //         $('#dialog-controlSettings .body')
-            //             .html(control.getDialogMarkup())
-            //             .data('control', control);
-            //     }
-
-            //     initialiseControlDialog($(this).closest('.grid-stack-item').data('control'));
-            //     $('#dialog-controlSettings').jqmShow();
-                
-            // });
-
-            // MODIFY CONTROL APPROVE:
-            //$('body').on('click', '#dialog-controlSettings .approve', function() {
-
-
-                // $('#dialog-controlSettings form').validate();
-                // return;
-
-                // // get the control that was initially assigned:
-                // var originatingControl = $('#dialog-controlSettings form').data('control');
-
-                // // todo: validate
-                // $.each(originatingControl.controlProperties, function(index, prop) {
-
-                //     // get the value:
-                //     var dialogValue = prop.getDialogValue();
-
-                //     // validate:
-
-                //     // assign:
-
-                //     originatingControl.controlProperties[index].value = dialogValue;
-                // });
-
-                // // push the updated event:
-                // PubSub.publish('controlDialog:updated', originatingControl);
-
-                // $('#dialog-controlSettings').jqmHide(); 
-            //});
-
             ////////////////////////////////////////////////////////////////////////////////
             //
             // dialog show message subscription:

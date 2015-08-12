@@ -13,6 +13,8 @@ define([], function() {
 
 			this.value = options.value;
 
+			this.isRequired = options.isRequired || false;
+
 			this.id = 'ctrl' + this.type + Math.random().toString(16).slice(2);
 
 		},

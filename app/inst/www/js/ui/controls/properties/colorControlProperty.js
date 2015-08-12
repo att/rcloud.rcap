@@ -1,11 +1,13 @@
-define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/textControl.tpl'], function(BaseControlProperty, tpl) {
-	
+define(['rcap/js/ui/controls/properties/baseControlProperty', 
+	'text!templates/colorControl.tpl', 
+	'css!spectrum/spectrum', 
+	'spectrum/spectrum'], function(BaseControlProperty, tpl) {
 	'use strict';
 
-	var TextControlProperty = BaseControlProperty.extend({
+	var ColorControlProperty = BaseControlProperty.extend({
 		init: function(options) {
 			this._super({
-				type : 'text',
+				type : 'color',
 				label : options.label,
 				helpText : options.helpText,
 				defaultValue : options.defaultValue,
@@ -25,10 +27,10 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/te
 
 		},
 		getDialogValue : function() {
-			return $('#form-group-' + this.id).find('input').val();
+			return $('#' + this.id).spectrum('get').toHexString();
 		}
 	});
 
-	return TextControlProperty;
+	return ColorControlProperty;
 
 });

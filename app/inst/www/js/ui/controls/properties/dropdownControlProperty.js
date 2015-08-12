@@ -1,11 +1,11 @@
-define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/textControl.tpl'], function(BaseControlProperty, tpl) {
+define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/dropdownControl.tpl'], function(BaseControlProperty, tpl) {
 	
 	'use strict';
 
-	var TextControlProperty = BaseControlProperty.extend({
+	var DropdownControlProperty = BaseControlProperty.extend({
 		init: function(options) {
 			this._super({
-				type : 'text',
+				type : options.type,
 				label : options.label,
 				helpText : options.helpText,
 				defaultValue : options.defaultValue,
@@ -13,6 +13,7 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/te
 			});
 
 			// additional assignments go here:
+			this.availableOptions = options.availableOptions || [];
 		},
 		render: function(childIndex) {
 
@@ -25,10 +26,10 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/te
 
 		},
 		getDialogValue : function() {
-			return $('#form-group-' + this.id).find('input').val();
+			return $('#form-group-' + this.id).find('select option:selected').val();
 		}
 	});
 
-	return TextControlProperty;
+	return DropdownControlProperty;
 
 });
