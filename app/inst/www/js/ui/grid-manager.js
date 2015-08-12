@@ -1,7 +1,8 @@
 define([
     'controls/factories/controlFactory',
+    'pubsub',
     'rcap/js/vendor/gridstack'
-], function(ControlFactory) {
+], function(ControlFactory, PubSub) {
 
     'use strict';
 
@@ -107,6 +108,31 @@ define([
                     }
                 }
             });
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //
+            // configuration button click, show dialog:
+            //
+            $('body').on('click', '#inner-stage .configure button', function() {
+                PubSub.publish('controlDialog:show', $(this).closest('.grid-stack-item').data('control'));
+            });
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //
+            // update grid control item subscription:
+            //
+            PubSub.subscribe('controlDialog:updated', function(msg, control){ 
+
+                // update the control's data: 
+                var gridItem = $('.grid-stack-item[data-controlid="' + control.id + '"]');
+
+                // and get the new markup:
+                gridItem.find('.configure p:first').html(control.getConfigurationMarkup());
+
+                // update the control:
+                gridItem.data('control', control);
+
+            });                
 
         }
     };

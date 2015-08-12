@@ -194,7 +194,8 @@ $defaultFont: 'Open Sans', sans-serif;
     }
 
     & .form-group .description { 
-    	color: #555;
+    	color: #777;
+        margin-top: 3px;
     }
 
     .configure {
@@ -217,4 +218,24 @@ $defaultFont: 'Open Sans', sans-serif;
 
     }
     
+}
+
+.parsley-errors-list {
+    list-style-type: none;
+    margin: 0 0 3px 0;
+    padding: 5px;
+    background: #F0523D;
+    color: white;
+}
+
+li.parsley-required:before {
+    content: "\f06a";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    color: #fff;
+    font-size: 14px;
+    padding-right: 6px;
+    margin-left: 3px
 }

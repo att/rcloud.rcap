@@ -7,8 +7,8 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
 			this._super({
 				type : 'iframe',
 				label : 'iFrame',
-				icon: "f0c2",  
-				inlineIcon: "cloud",
+				icon: 'f0c2',  
+				inlineIcon: 'cloud',
 				initialSize: [6, 3],
 				controlProperties: [
 					new TextControlProperty({
@@ -21,7 +21,7 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
 			});
 		},
 		getConfigurationMarkup : function() {
-			return '<p><i class="' + this.inlineIcon + '"></i>' + ' ' + this.controlProperties[0].value + '</p>';
+			return '<p><i class="icon-' + this.inlineIcon + '"></i>' + (this.controlProperties[0].value || '') + '</p>';			
 		}
 	});
 

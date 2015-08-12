@@ -13,7 +13,7 @@ define([], function() {
 			this.height = options.height || 1;
 			this.identifier = options.identifier;
 			this.icon = options.icon;
-			this.inlineIcon = options.inineIcon;
+			this.inlineIcon = options.inlineIcon;
 			this.initialSize = options.initialSize || [2, 1];
 			this.controlProperties = options.controlProperties;
 
@@ -37,7 +37,7 @@ define([], function() {
 
 		},
 		getConfigurationMarkup : function() {
-			return '<p><i class="' + this.inlineIcon + '"></i>' + this.id + ' ' + this.label + '</p>';
+			return '<p><i class="icon-' + this.inlineIcon + '"></i>' + this.label + '</p>';
 		},
 		getDialogMarkup : function() {
 			var html = '';
