@@ -171,10 +171,13 @@ $defaultFont: 'Open Sans', sans-serif;
     }
     & .stage {
         padding: 10px 0;
+        padding-right: 15px;
         height: 100%;
         & #inner-stage {
             background: lighten($bgColor, 20%);
             padding: 10px 0;
+            border: 1px solid darken($bgColor, 20%);
+            position: relative;
         }
     }
     /* form controls */
@@ -244,3 +247,37 @@ li.parsley-required:before {
     padding-right: 6px;
     margin-left: 3px
 }
+
+
+#no-items {
+    text-align: center;
+    color: $fg;
+    padding: 10px;
+    margin: 0;
+    font-size: 12pt;
+    margin: 40 auto 0 auto;
+    width: 400px;
+    margin-left: -200px;
+    left: 50%;
+    position: absolute;
+}
+#no-items p:before {
+    content: "\f064";
+    color: $fg;
+    margin: 25px 0 10px 0;
+    font: normal normal normal 10px/1 FontAwesome;
+    font-size: 40pt;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: block;
+}
+
+#rcap-temptoolbar {
+    position: absolute;
+    top: 11px;
+    z-index: 1030;
+    width: 200px;
+    text-align: right;
+    right: 70px;
+    }

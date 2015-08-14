@@ -9,6 +9,8 @@ define(['text!rcap/partials/main.htm',
     return {
         initialise: function() {
 
+            console.clear();
+
             if ($('body').find('#rcap-designer').length === 0) {
 
                 // append if necessary:
@@ -19,6 +21,16 @@ define(['text!rcap/partials/main.htm',
                 $('#rcloud-navbar-menu li.rcap').click(function() {
                     $('.container, #rcloud-navbar-main, #rcloud-navbar-main, #rcloud-navbar-menu li:not(.rcap)').show();
                     $(this).hide();
+                });
+
+                $('#rcap-save').click(function() {
+
+                    var items = [];
+                    $('.grid-stack-item[data-controlid]').each(function() {
+                        items.push($(this).data('control'));
+                    });
+                    console.log(JSON.stringify(items));
+
                 });
 
                 // menu manager:

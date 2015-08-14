@@ -42,10 +42,11 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
 					})
 				]
 			});
-		},
-		getConfigurationMarkup : function() {
-			return '<p><i class="icon-' + this.inlineIcon + '"></i>' + (this.controlProperties[0].value || '') + '</p>';			
 		}
+		// ,
+		// getConfigurationMarkup : function() {
+		// 	return '<p><i class="icon-' + this.inlineIcon + '"></i>' + (this.controlProperties[0].value || '') + '</p>';			
+		// }
 	});
 
 	return IFrameControl;

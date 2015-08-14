@@ -41,6 +41,12 @@
         },
 
         insert_css_rule: function(sheet, selector, rules, index) {
+
+            // console.log(sheet);
+            // console.log(selector);
+            // console.log(rules);
+            // console.log(index);
+
             if (typeof sheet.insertRule === 'function') {
                 sheet.insertRule(selector + '{' + rules + '}', index);
             }
@@ -266,6 +272,7 @@
         this._fix_collisions(node);
         this._pack_nodes();
         this._notify();
+
         return node;
     };
 
@@ -358,7 +365,9 @@
     };
 
     GridStackEngine.prototype.get_grid_height = function() {
-        return _.reduce(this.nodes, function(memo, n) { return Math.max(memo, n.y + n.height); }, 0);
+        var height = _.reduce(this.nodes, function(memo, n) { return Math.max(memo, n.y + n.height); }, 0);
+        var minHeight = 12;
+        return height < minHeight ? minHeight : height;
     };
 
     GridStackEngine.prototype.begin_update = function(node) {
@@ -397,6 +406,7 @@
             auto: true,
             min_width: 768,
             float: false,
+            min_height_cellcount: opts.min_height_cellcount || 12,
             _class: 'grid-stack-' + (Math.random() * 10000).toFixed(0),
             animate: Boolean(this.container.attr('data-gs-animate')) || false,
             always_show_resize_handle: opts.always_show_resize_handle || false,
@@ -436,6 +446,8 @@
             });
             self._update_styles(max_height + 10);
         }, this.opts.float, this.opts.height);
+
+        this._update_styles(opts.min_height_cellcount);
 
         if (this.opts.auto) {
             var elements = [];
@@ -503,22 +515,48 @@
     };
 
     GridStack.prototype.init_placeholder = function(width, height) {
-        
+
+        //console.log("init_placeholder, this.placeholder: ", this.placeholder);
+
         this.container.append(this.placeholder.hide());
+
+        this.placeholder.find(".placeholder-content").css({
+            "border-color": "inherit"
+        });
+
+        //console.log("init_placeholder called, width: ", width, ", height: ", height);
 
         this.placeholder.attr("data-gs-width", width).attr("data-gs-height", height);
     };
 
     GridStack.prototype.position_placeholder = function(x, y) {
-        
-        this.placeholder.attr('data-gs-x', x).attr('data-gs-y', y).show();
+
+        this.placeholder.attr({
+            'data-gs-x' : x,
+            'data-gs-y' : y
+        }).show();
 
         if( !this.is_area_empty(x, y, this.placeholder.attr('data-gs-width'), this.placeholder.attr('data-gs-height'))) {
-            this.placeholder.hide();
+            this.placeholder.find(".placeholder-content").css({
+                "border-color": "red"
+            });
         } else {
-            this.placeholder.show();
+
+            this.placeholder.find(".placeholder-content").css({
+                "border-color": "inherit"
+            });
         }
     };
+
+    GridStack.prototype.get_placeholder_position = function() {
+
+        return {
+            x : this.placeholder.attr('data-gs-x'),
+            y : this.placeholder.attr('data-gs-y')
+        };
+
+    };
+
 
     GridStack.prototype.detach_placeholder = function() {
         this.placeholder.detach();
@@ -625,6 +663,10 @@
 
         var on_start_moving = function(event, ui) {
             self.container.append(self.placeholder);
+        
+            //
+            //console.log('on_start_moving: ', self.placeholder);
+    
             var o = $(this);
             self.grid.clean_nodes();
             self.grid.begin_update(node);
@@ -711,6 +753,9 @@
     };
 
     GridStack.prototype.add_widget = function(el, x, y, width, height, auto_position) {
+
+        //console.log(arguments);
+
         el = $(el);
         if (typeof x != 'undefined') el.attr('data-gs-x', x);
         if (typeof y != 'undefined') el.attr('data-gs-y', y);
@@ -720,6 +765,8 @@
         this.container.append(el);
         this._prepare_element(el);
         this._update_container_height();
+
+        this.container.trigger('change');
 
         return el;
     };
@@ -738,6 +785,8 @@
         this._update_container_height();
         if (detach_node)
             el.remove();
+
+        this.container.trigger('change');
     };
 
     GridStack.prototype.remove_all = function(detach_node) {

@@ -1,4 +1,5 @@
-define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/controlProperty'], function(BaseControl, ControlProperty) {
+define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/controlProperty',
+	'rcap/js/ui/controls/properties/textControlProperty'], function(BaseControl, ControlProperty, TextControlProperty) {
 	
 	'use strict';
 
@@ -7,9 +8,16 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/controlProperty'
 			this._super({
 				type : 'webplot',
 				label : 'Web Plot',
-				icon: "f080",  
-				inlineIcon: "bar-chart",
-				initialSize: [3, 3]
+				icon: 'f080',  
+				inlineIcon: 'bar-chart',
+				initialSize: [3, 3],
+				controlProperties: [
+					new TextControlProperty({
+						label : 'Label',
+						defaultValue : '',
+						helpText : 'The label for the date picker'
+					})
+				]
 			});
 		}
 	});
