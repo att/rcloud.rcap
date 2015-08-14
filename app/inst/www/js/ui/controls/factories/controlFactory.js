@@ -20,7 +20,7 @@ define([
 			new TextControl(),
 			new WebPlotControl()
 		];
-	};
+	}
 
 	ControlFactory.prototype.getAll = function() {
 		return this.controls;
@@ -28,16 +28,21 @@ define([
 
 	ControlFactory.prototype.getByKey = function(key) {
 		// TODO: improve this (each 'control' knows its own string identity...)
+
+		var control;
+
 		switch(key){
-			case 'datepicker': return new DatePickerControl(); break;
-			case 'dropdown': return new DropdownControl(); break;
-			case 'iframe': return new IFrameControl(); break;
-			case 'image': return new ImageControl(); break;
-			case 'rplot': return new RPlotControl(); break;
-			case 'text': return new TextControl(); break;
-			case 'webplot': return new WebPlotControl(); break;
-			default: return undefined; break;
+			case 'datepicker': control = new DatePickerControl(); break;
+			case 'dropdown': control = new DropdownControl(); break;
+			case 'iframe': control = new IFrameControl(); break;
+			case 'image': control = new ImageControl(); break;
+			case 'rplot': control = new RPlotControl(); break;
+			case 'text': control = new TextControl(); break;
+			case 'webplot': control = new WebPlotControl(); break;
+			default: control = undefined; break;
 		}
+
+		return control;
 	};
 
 	return ControlFactory;

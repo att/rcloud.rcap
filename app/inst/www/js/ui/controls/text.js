@@ -1,5 +1,6 @@
 define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/controlProperty',
-	'rcap/js/ui/controls/properties/textControlProperty'], function(BaseControl, ControlProperty, TextControlProperty) {
+	'rcap/js/ui/controls/properties/textControlProperty',
+	'rcap/js/ui/controls/properties/wysiwygControlProperty'], function(BaseControl, ControlProperty, TextControlProperty, WysiwygControlProperty) {
 	
 	'use strict';
 
@@ -16,6 +17,10 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/controlProperty'
 						label : 'Label',
 						defaultValue : '',
 						helpText : 'The heading for the control'
+					}),
+					new WysiwygControlProperty({
+						label : 'Content',
+						defaultValue : ''
 					})
 				]
 			});

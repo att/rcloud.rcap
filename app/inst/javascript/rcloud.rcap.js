@@ -7,7 +7,8 @@
             'templates' : '../../shared.R/rcloud.rcap/js/ui/controls/properties/templates',
             'pubsub' :  '../../shared.R/rcloud.rcap/js/vendor/pubsub-js/src/pubsub',
             'parsley' : '../../shared.R/rcloud.rcap/js/vendor/parsleyjs/dist/parsley.min',
-            'spectrum' : '../../shared.R/rcloud.rcap/js/vendor/spectrum'
+            'spectrum' : '../../shared.R/rcloud.rcap/js/vendor/spectrum',
+            'wysiwyg' : '../../shared.R/rcloud.rcap/js/vendor/wysiwyg.js/dist'
         },
         map: {
             '*' : {

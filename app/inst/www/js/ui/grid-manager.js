@@ -104,9 +104,9 @@ define([
                 drag: function(event, ui) {
                     var cell = grid.get_cell_from_pixel(ui.helper.position()); // jshint ignore:line
 
-console.info(ui.helper.position());
+//console.info(ui.helper.position());
 
-console.log('Placeholder $el', $('.grid-stack-placeholder').data());
+//console.log('Placeholder $el', $('.grid-stack-placeholder').data());
 
 
 
@@ -114,8 +114,8 @@ console.log('Placeholder $el', $('.grid-stack-placeholder').data());
 
                     grid.position_placeholder(cell.x, cell.y); // jshint ignore:line
 
-var placeholderPosition = grid.get_placeholder_position(); // jshint ignore:line
-console.info('placeholder pos: ', placeholderPosition);
+//var placeholderPosition = grid.get_placeholder_position(); // jshint ignore:line
+//console.info('placeholder pos: ', placeholderPosition);
                  
 
                 },
@@ -172,7 +172,7 @@ console.info('placeholder pos: ', placeholderPosition);
             //
             $('body').on('click', '#inner-stage .configure button', function() {
 
-                console.log('controlDialog:show with data: ', $(this).closest('.grid-stack-item').data('control'));
+                //console.log('controlDialog:show with data: ', $(this).closest('.grid-stack-item').data('control'));
 
                 PubSub.publish('controlDialog:show', $(this).closest('.grid-stack-item').data('control'));
             });
