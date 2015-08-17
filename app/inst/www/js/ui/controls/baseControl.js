@@ -52,7 +52,18 @@ define([], function() {
 		},
 		getDialogValue : function() {
 			return '';
-		}
+		},
+		toJSON : function() {
+			return {
+				'type' : this.type,
+				'x' : this.x,
+				'y' : this.y,
+				'width' : this.width,
+				'height' : this.height,
+				'id' : this.id,
+				'controlProperties' : this.controlProperties
+			};
+		},
 	});
 
 	return BaseControl;
