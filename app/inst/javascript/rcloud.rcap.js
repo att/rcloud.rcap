@@ -4,7 +4,7 @@
         paths: {
             'rcap' : '../../shared.R/rcloud.rcap',
             'controls' : '../../shared.R/rcloud.rcap/js/ui/controls',
-            'props' : '../../shared.R/rcloud.rcap/js/ui/controls/properties',
+            //'properties' : '../../shared.R/rcloud.rcap/js/ui/controls/properties',
             'templates' : '../../shared.R/rcloud.rcap/js/ui/controls/properties/templates',
             'pubsub' :  '../../shared.R/rcloud.rcap/js/vendor/pubsub-js/src/pubsub',
             'parsley' : '../../shared.R/rcloud.rcap/js/vendor/parsleyjs/dist/parsley.min',

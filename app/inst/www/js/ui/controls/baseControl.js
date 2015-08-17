@@ -9,7 +9,7 @@ define([], function() {
 			this.label = options.label;
 			this.x = +options.x;
 			this.y = +options.y;
-			this.identifier = options.identifier;
+		//	this.identifier = options.identifier;
 			this.icon = options.icon;
 			this.inlineIcon = options.inlineIcon;
 			this.initialSize = options.initialSize || [2, 1];

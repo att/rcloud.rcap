@@ -13,6 +13,7 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/controlProperty'
 				initialSize: [2, 2],
 				controlProperties: [
 					new TextControlProperty({
+						uid: 'imagesource',
 						label : 'Image source',
 						defaultValue : '',
 						helpText : 'The source of this image'

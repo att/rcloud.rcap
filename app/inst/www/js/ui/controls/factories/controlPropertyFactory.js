@@ -1,8 +1,8 @@
 define([
-	'props/colorControlProperty',
-	'props/dropdownControlProperty',
-	'props/textControlProperty',
-	'props/wysiwygControlProperty'
+	'rcap/js/ui/controls/properties/colorControlProperty',
+	'rcap/js/ui/controls/properties/dropdownControlProperty',
+	'rcap/js/ui/controls/properties/textControlProperty',
+	'rcap/js/ui/controls/properties/wysiwygControlProperty'
 	], function(ColorControlProperty, DropdownControlProperty, TextControlProperty, WysiwygControlProperty) {
 	
 	'use strict';

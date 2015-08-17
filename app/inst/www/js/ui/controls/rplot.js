@@ -13,6 +13,7 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/controlProperty'
 				initialSize: [3, 3],
 				controlProperties: [
 					new TextControlProperty({
+						uid: 'heading',
 						label : 'Heading',
 						defaultValue : '',
 						helpText : 'The heading for this control'

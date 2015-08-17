@@ -7,6 +7,8 @@ define([], function() {
 			
 			options = options || {};
 
+			this.uid = options.uid;
+
 			this.type = options.type;
 			this.label = options.label;
 			this.helpText = options.helpText;
@@ -21,7 +23,7 @@ define([], function() {
 		},
 		toJSON : function() {
 			return {
-				'type': this.type,
+				'uid': this.uid,
 				'value': this.value,
 				'id':  this.id
 			};

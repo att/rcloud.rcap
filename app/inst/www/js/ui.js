@@ -2,8 +2,10 @@ define(['text!rcap/partials/main.htm',
     'rcap/js/ui/menu-manager',
     'rcap/js/ui/dialog-manager', 
     'rcap/js/ui/grid-manager',
-    'controls/image'
-], function(mainPartial, MenuManager, dialogManager, gridManager, Image) {
+    //'controls/image',
+    'pubsub',
+    'rcap/js/serializer'
+], function(mainPartial, MenuManager, dialogManager, gridManager, /*Image,*/ PubSub, serializer) {
 
     'use strict';
 
@@ -22,35 +24,12 @@ define(['text!rcap/partials/main.htm',
                 $('#rcloud-navbar-menu li.rcap').click(function() {
                     $('.container, #rcloud-navbar-main, #rcloud-navbar-main, #rcloud-navbar-menu li:not(.rcap)').show();
                     $(this).hide();
+
+                    PubSub.publish('rcap:close', {});
                 });
 
                 $('#rcap-save').click(function() {
-
-                    var items = [], currentControl;
-
-                    $('.grid-stack-item[data-controlid]').each(function() {
-
-                        currentControl = $(this).data('control');
-                        console.log('current control: ', currentControl);
-
-                        items.push(currentControl);
-                    });
-
-                    var json = JSON.stringify(items);
-
-                    console.log('serialized: ', json);
-
-                    // deserialize:
-                    var objects = JSON.parse(json);
-
-                    console.log('objects: ', objects);
-
-                    // create new dynamic object:
-                    var image = new Image(objects[0]);
-
-
-                    console.log(image);
-
+                    PubSub.publish('rcap:save', {});
                 });
 
                 // menu manager:
@@ -62,12 +41,19 @@ define(['text!rcap/partials/main.htm',
 
                 // grid:
                 gridManager.initialise();
+
+                // serializer:
+                serializer.initialise();
             }
 
             $('.container, #rcloud-navbar-main, #rcloud-navbar-main, #rcloud-navbar-menu li:not(.rcap)').hide();
 
             // it may have been hidden from a previous 'close':
             $('#rcloud-navbar-menu li.rcap').show();
+
+            // load items:
+            PubSub.publish('rcap:deserialize', {});
+            
         }
     };
 });

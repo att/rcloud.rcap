@@ -13,6 +13,7 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/controlProperty'
 				initialSize: [3, 3],
 				controlProperties: [
 					new TextControlProperty({
+						uid: 'label',
 						label : 'Label',
 						defaultValue : '',
 						helpText : 'The label for the date picker'

@@ -6,13 +6,15 @@ define(['rcap/js/ui/controls/properties/baseControlProperty',
 
 	var ColorControlProperty = BaseControlProperty.extend({
 		init: function(options) {
+			options = options || {};
 			this._super({
 				type : 'color',
-				label : options.label,
-				helpText : options.helpText,
-				defaultValue : options.defaultValue,
-				isRequired : options.isRequired,
-				value : options.value || '#ffffff'
+				label : options.label || '',
+				helpText : options.helpText || '',
+				defaultValue : options.defaultValue || '',
+				isRequired : options.isRequired || false,
+				value : options.value || '#ffffff',
+				uid : options.uid
 			});
 
 			// additional assignments go here:

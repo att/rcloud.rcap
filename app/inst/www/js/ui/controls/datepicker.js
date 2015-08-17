@@ -14,16 +14,19 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/controlProperty'
 				initialSize: [2, 1],
 				controlProperties: [
 					new TextControlProperty({
+						uid: 'label',
 						label : 'Label',
 						defaultValue : '',
 						helpText : 'The label for the date picker'
 					}),
 					new TextControlProperty({
+						uid: 'variablename',
 						label : 'Variable name',
 						defaultValue : '',
 						helpText : 'The variable associated with this control'
 					}),
 					new ColorControlProperty({
+						uid: 'backgroundcolor',
 						label : 'Background color',
 						helpText : 'The color of the background for this control'	
 					})

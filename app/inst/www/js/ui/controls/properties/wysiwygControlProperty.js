@@ -1,25 +1,21 @@
 define(['rcap/js/ui/controls/properties/baseControlProperty', 
 	'text!templates/wysiwyg.tpl', 
 	'css!wysiwyg/wysiwyg-editor.min', 
-	//'wysiwyg/wysiwyg.min',
-	//'wysiwyg/wysiwyg-editor.min'
-
 	'wysiwyg/standalone'
-
-
-
 	], function(BaseControlProperty, tpl) {
 	'use strict';
 
 	var WysiwygControlProperty = BaseControlProperty.extend({
 		init: function(options) {
+			options = options || {};
 			this._super({
 				type : 'wysiwyg',
-				label : options.label,
-				helpText : options.helpText,
-				defaultValue : options.defaultValue,
-				isRequired : options.isRequired,
-				value : options.value || ''
+				label : options.label || '',
+				helpText : options.helpText || '',
+				defaultValue : options.defaultValue || '',
+				isRequired : options.isRequired || false,
+				value : options.value || '',
+				uid : options.uid
 			});
 
 			// additional assignments go here:

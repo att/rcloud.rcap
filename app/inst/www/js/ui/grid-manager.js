@@ -192,7 +192,68 @@ define([
                 // update the control:
                 gridItem.data('control', control);
 
-            });                
+            }); 
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //
+            // get grid information and publish
+            //  
+            PubSub.subscribe('rcap:save', function(){ 
+                var items = [], currentControl;
+
+                $('.grid-stack-item[data-controlid]').each(function() {
+
+                    currentControl = $(this).data('control');
+                    items.push(currentControl);
+                });
+
+                PubSub.publish('rcap:serialize', items);
+            });
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //
+            // open
+            //  
+            PubSub.subscribe('rcap:open', function(msg, items){ 
+
+                // let's be sure :)
+                var grid = $('.grid-stack').data('gridstack'), loop = 0, control;
+                grid.remove_all(); // jshint ignore:line
+
+                // add items to the grid:
+                console.log('Gridmanager says thank for the items on rcap:open', items);
+
+                // loop through the items and add them to the grid:
+                for( ; loop < items.length; ++loop) {
+                    
+                    control = items[loop];
+
+
+
+/*control.getConfigurationMarkup()*/
+                    var newWidget = grid.add_widget($('<div data-controlid="' + control.id + '"><div class="grid-stack-item-content" data-gs-locked="true"><div class="configure">' +  // jshint ignore:line
+                        control.getConfigurationMarkup() + 
+                        '<p><button type="button" class="btn btn-default">Configure</button></p></div></div></div>'), control.x, control.y, control.width, control.height, false);  // jshint ignore:line
+
+                    newWidget.data('control', control); 
+
+                    grid.locked(newWidget, true); 
+
+                }
+
+            });
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //
+            // load
+            //  
+            PubSub.subscribe('rcap:close', function(){ 
+
+                var grid = $('.grid-stack').data('gridstack');
+                grid.remove_all(); // jshint ignore:line
+
+            });
+
 
         }
     };

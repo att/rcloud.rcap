@@ -4,12 +4,14 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/dr
 
 	var DropdownControlProperty = BaseControlProperty.extend({
 		init: function(options) {
+			options = options || {};
 			this._super({
-				type : options.type,
-				label : options.label,
-				helpText : options.helpText,
-				defaultValue : options.defaultValue,
-				isRequired : options.isRequired
+				type : 'dropdown',
+				label : options.label || '',
+				helpText : options.helpText || '',
+				defaultValue : options.defaultValue || '',
+				isRequired : options.isRequired || false,
+				uid : options.uid
 			});
 
 			// additional assignments go here:
