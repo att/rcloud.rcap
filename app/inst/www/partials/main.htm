@@ -1,11 +1,7 @@
-<!-- <div id="rcap-disclaimer">This is alpha software</div> -->
-
-
-<div id="rcap-temptoolbar">
-<button class="btn" id="rcap-save">Save</button>
-</div>
-
 <div id="rcap-designer">
+    <div id="rcap-temptoolbar">
+        <button class="btn" id="rcap-save">Save</button>
+    </div>
     <div class="row">
         <div class="col-md-2 menu">
             <!--
@@ -28,7 +24,10 @@
         </div>
         <div class="col-md-10 stage">
             <div id="inner-stage">
-                <div id="no-items"><h2>This page is empty.</h2><p>Drag an item from the controls menu onto the page to get started</p></div>
+                <div id="no-items" style="display:none">
+                    <h2>This page is empty.</h2>
+                    <p>Drag an item from the controls menu onto the page to get started</p>
+                </div>
                 <div class="grid-stack" data-gs-height="12"></div>
             </div>
         </div>

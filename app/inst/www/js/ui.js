@@ -14,6 +14,9 @@ define(['text!rcap/partials/main.htm',
 
             console.clear();
 
+            var rcloudSelector = '.container, #rcloud-navbar-main, #rcloud-navbar-main, #rcloud-navbar-menu li:not(.rcap)';
+            var rcapSelector = '#rcap-designer';
+
             if ($('body').find('#rcap-designer').length === 0) {
 
                 // append if necessary:
@@ -21,8 +24,13 @@ define(['text!rcap/partials/main.htm',
 
                 $('body').append(mainPartial);
 
+                // close:
                 $('#rcloud-navbar-menu li.rcap').click(function() {
-                    $('.container, #rcloud-navbar-main, #rcloud-navbar-main, #rcloud-navbar-menu li:not(.rcap)').show();
+                    $(rcloudSelector).show();
+
+                    // hide rcap:
+                    $(rcapSelector).hide();
+
                     $(this).hide();
 
                     PubSub.publish('rcap:close', {});
@@ -44,12 +52,13 @@ define(['text!rcap/partials/main.htm',
 
                 // serializer:
                 serializer.initialise();
-            }
+            } 
 
-            $('.container, #rcloud-navbar-main, #rcloud-navbar-main, #rcloud-navbar-menu li:not(.rcap)').hide();
+            $(rcloudSelector).hide();
 
             // it may have been hidden from a previous 'close':
             $('#rcloud-navbar-menu li.rcap').show();
+            $(rcapSelector).show();
 
             // load items:
             PubSub.publish('rcap:deserialize', {});

@@ -57,17 +57,19 @@ define([
             });
 
             $('.grid-stack').on('change', function () {
-                var items = $('.grid-stack-item[data-controlid]').length;
+                var itemCount = $('.grid-stack-item[data-controlid]').length;
 
-                //console.log('The number of widgets has changed...');
+                console.log('The number of widgets has changed to: ', itemCount);
 
-                if( items === 0) {
-                    $('#no-items').fadeTo(500, 1);
-                }
-                else {
-                    $('#no-items').fadeTo(100, 0, function() {
-                        $(this).hide(); // so that is(':visible') check returns true!
-                    });
+                if( itemCount !== undefined) {
+                    if( itemCount === 0) {
+                        $('#no-items').fadeTo(500, 1);
+                    }
+                    else {
+                        $('#no-items').fadeTo(100, 0, function() {
+                            $(this).hide(); // so that is(':visible') check returns true!
+                        });
+                    }
                 }
             });
 
@@ -228,8 +230,6 @@ define([
                     
                     control = items[loop];
 
-
-
 /*control.getConfigurationMarkup()*/
                     var newWidget = grid.add_widget($('<div data-controlid="' + control.id + '"><div class="grid-stack-item-content" data-gs-locked="true"><div class="configure">' +  // jshint ignore:line
                         control.getConfigurationMarkup() + 
@@ -239,6 +239,10 @@ define([
 
                     grid.locked(newWidget, true); 
 
+                }
+
+                if( items.length === 0) {
+                    $('#no-items').show();
                 }
 
             });
@@ -251,6 +255,10 @@ define([
 
                 var grid = $('.grid-stack').data('gridstack');
                 grid.remove_all(); // jshint ignore:line
+
+                // other code will show it, but it needs to be hidden by default so it doesn't 
+                // 'flash':
+                $('#no-items').hide();
 
             });
 
