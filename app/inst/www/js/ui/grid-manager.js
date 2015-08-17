@@ -142,7 +142,7 @@ define([
                     //var cell = grid.get_cell_from_pixel(ui.helper.position()); // jshint ignore:line
                     var placeholderPosition = grid.get_placeholder_position(); // jshint ignore:line
 
-//console.info('placeholder pos: ', placeholderPosition);
+                    //console.info('placeholder pos: ', placeholderPosition);
 
                     // get the type:
                     var control = me.controlFactory.getByKey(ui.draggable.data('type'));
