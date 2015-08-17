@@ -7,8 +7,8 @@
   position: fixed;
   top: 17%;
   left: 50%;
-  margin-left: -300px;
-  width: 600px;
+  margin-left: -800px;
+  width: 1200px;
   background-color: #EEE;
   color: #333;
   border: 1px solid black;
@@ -638,5 +638,17 @@ li.parsley-required:before {
   width: 200px;
   text-align: right;
   right: 70px; }
+
+.wysiwyg-toolbar {
+  background: #222; }
+
+a.wysiwyg-toolbar-icon {
+  color: #eee; }
+
+a.wysiwyg-toolbar-icon:hover {
+  text-decoration: none; }
+
+.wysiwyg-editor {
+  background: white; }
 
 /*# sourceMappingURL=default.css.map */

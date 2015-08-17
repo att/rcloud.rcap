@@ -281,3 +281,19 @@ li.parsley-required:before {
     text-align: right;
     right: 70px;
     }
+
+.wysiwyg-toolbar {
+    background: #222;
+}
+
+a.wysiwyg-toolbar-icon {
+    color: #eee;
+}
+
+a.wysiwyg-toolbar-icon:hover {
+    text-decoration: none;
+}
+
+.wysiwyg-editor { 
+    background: white;
+}

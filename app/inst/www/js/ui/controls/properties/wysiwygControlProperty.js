@@ -1,7 +1,14 @@
 define(['rcap/js/ui/controls/properties/baseControlProperty', 
 	'text!templates/wysiwyg.tpl', 
 	'css!wysiwyg/wysiwyg-editor.min', 
-	'wysiwyg/standalone.min'], function(BaseControlProperty, tpl) {
+	//'wysiwyg/wysiwyg.min',
+	//'wysiwyg/wysiwyg-editor.min'
+
+	'wysiwyg/standalone'
+
+
+
+	], function(BaseControlProperty, tpl) {
 	'use strict';
 
 	var WysiwygControlProperty = BaseControlProperty.extend({
