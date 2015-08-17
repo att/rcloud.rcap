@@ -16,26 +16,26 @@ define([
 		];
 	}
 
-	ControlFactory.prototype.getAll = function() {
+	ControlPropertyFactory.prototype.getAll = function() {
 		return this.controlProperties;
 	};
 
-	ControlFactory.prototype.getByKey = function(key) {
-		// TODO: improve this (each 'control' knows its own string identity...)
+	ControlPropertyFactory.prototype.getByKey = function(key) {
+		// TODO: improve this (each 'controlProperty' knows its own string identity...)
 
 		var controlProperty;
 
 		switch(key){
-			case 'color': control = new ColorControlProperty(); break;
-			case 'dropdown': control = new DropdownControlProperty(); break;
-			case 'text': control = new TextControlProperty(); break;
-			case 'wysiwyg': control = new WysiwygControlProperty(); break;
-			default: control = undefined; break;
+			case 'color': controlProperty = new ColorControlProperty(); break;
+			case 'dropdown': controlProperty = new DropdownControlProperty(); break;
+			case 'text': controlProperty = new TextControlProperty(); break;
+			case 'wysiwyg': controlProperty = new WysiwygControlProperty(); break;
+			default: controlProperty = undefined; break;
 		}
 
-		return control;
+		return controlProperty;
 	};
 
-	return ControlFactory;
+	return ControlPropertyFactory;
 
 });
