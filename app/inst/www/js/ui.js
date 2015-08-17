@@ -1,8 +1,9 @@
 define(['text!rcap/partials/main.htm', 
     'rcap/js/ui/menu-manager',
     'rcap/js/ui/dialog-manager', 
-    'rcap/js/ui/grid-manager'
-], function(mainPartial, MenuManager, dialogManager, gridManager) {
+    'rcap/js/ui/grid-manager',
+    'controls/image'
+], function(mainPartial, MenuManager, dialogManager, gridManager, Image) {
 
     'use strict';
 
@@ -25,11 +26,30 @@ define(['text!rcap/partials/main.htm',
 
                 $('#rcap-save').click(function() {
 
-                    var items = [];
+                    var items = [], currentControl;
+
                     $('.grid-stack-item[data-controlid]').each(function() {
-                        items.push($(this).data('control'));
+
+                        currentControl = $(this).data('control');
+                        console.log('current control: ', currentControl);
+
+                        items.push(currentControl);
                     });
-                    console.log(JSON.stringify(items));
+
+                    var json = JSON.stringify(items);
+
+                    console.log('serialized: ', json);
+
+                    // deserialize:
+                    var objects = JSON.parse(json);
+
+                    console.log('objects: ', objects);
+
+                    // create new dynamic object:
+                    var image = new Image(objects[0]);
+
+
+                    console.log(image);
 
                 });
 
