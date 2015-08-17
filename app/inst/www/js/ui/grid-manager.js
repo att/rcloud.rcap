@@ -142,7 +142,7 @@ define([
                     //var cell = grid.get_cell_from_pixel(ui.helper.position()); // jshint ignore:line
                     var placeholderPosition = grid.get_placeholder_position(); // jshint ignore:line
 
-console.info('placeholder pos: ', placeholderPosition);
+//console.info('placeholder pos: ', placeholderPosition);
 
                     // get the type:
                     var control = me.controlFactory.getByKey(ui.draggable.data('type'));
@@ -155,8 +155,8 @@ console.info('placeholder pos: ', placeholderPosition);
                         var newWidget = grid.add_widget($('<div data-controlid="' + control.id + '"><div class="grid-stack-item-content" data-gs-locked="true"><div class="configure">' + control.getConfigurationMarkup() + '<p><button type="button" class="btn btn-default">Configure</button></p></div></div></div>'), placeholderPosition.x, placeholderPosition.y, defaultWidth, defaultHeight, false);  // jshint ignore:line
 
                         // set the new element's control property:
-                        control.x = placeholderPosition.x;
-                        control.y = placeholderPosition.y;
+                        control.x = +placeholderPosition.x;
+                        control.y = +placeholderPosition.y;
 
                         newWidget.data('control', control); 
 
