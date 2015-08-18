@@ -1,7 +1,7 @@
 <div class="form-group" id="form-group-<%=property.id%>">
     <label for="<%=property.id%>"><%=property.label%></label>
     <div>
-    	<textarea class="form-control" rows="20" cols="50" id="<%=property.id%>" value="<%=property.value%>" />
+    	<textarea class="form-control" rows="20" cols="50" id="<%=property.id%>" />
     </div>
     <div class="description"><%=property.helpText%></div>
     <script type="text/javascript">
@@ -20,12 +20,12 @@
                     //showstatic: true,    // wanted on the toolbar
                     showselection: index == 2 ? true : false    // wanted on selection
                 },
-                insertvideo: {
-                    title: 'Insert video',
-                    image: '\uf03d', // <img src="path/to/image.png" width="16" height="16" alt="" />
-                    //showstatic: true,    // wanted on the toolbar
-                    showselection: index == 2 ? true : false    // wanted on selection
-                },
+                // insertvideo: {
+                //     title: 'Insert video',
+                //     image: '\uf03d', // <img src="path/to/image.png" width="16" height="16" alt="" />
+                //     //showstatic: true,    // wanted on the toolbar
+                //     showselection: index == 2 ? true : false    // wanted on selection
+                // },
                 insertlink: {
                     title: 'Insert link',
                     image: '\uf08e' // <img src="path/to/image.png" width="16" height="16" alt="" />
@@ -43,7 +43,7 @@
                                     'Courier New'      : 'Courier New,Courier',
                                     'Times New Roman'  : 'Times New Roman,Times'
                                 };
-                            var $list = $('<div/>').addClass('wysiwyg-plugin-list')
+                            var $list = $('<div/>').addClass('wysiwyg-plugin-list wysiwyg-fonts')
                                                    .attr('unselectable','on');
                             $.each( list_fontnames, function( name, font ) {
                                 var $link = $('<a/>').attr('href','#')
@@ -64,7 +64,7 @@
                     showselection: index == 0 ? true : false    // wanted on selection
                 },
                 // Fontsize plugin
-                fontsize: index != 1 ? false : {
+                fontsize: {
                     title: 'Size',
                     image: '\uf034', // <img src="path/to/image.png" width="16" height="16" alt="" />
                     popup: function( $popup, $button ) {
@@ -101,9 +101,9 @@
                     //showselection: true    // wanted on selection
                 },
                 // Header plugin
-                header: index != 1 ? false : {
+                header: {
                     title: 'Header',
-                    image: '\uf1dc', // <img src="path/to/image.png" width="16" height="16" alt="" />
+                    image: '\uf0fd', // <img src="path/to/image.png" width="16" height="16" alt="" />
                     popup: function( $popup, $button ) {
                             var list_headers = {
                                     // Name : Font
@@ -157,7 +157,7 @@
                 },
                 forecolor: {
                     title: 'Text color',
-                    image: '\uf1fc' // <img src="path/to/image.png" width="16" height="16" alt="" />
+                    image: '\uf111' // <img src="path/to/image.png" width="16" height="16" alt="" />
                 },
                 highlight: {
                     title: 'Background color',
@@ -380,7 +380,8 @@
 
 
 
-
+        // set the value:
+        $("#<%=property.id%>").wysiwyg('shell').setHTML('<%=property.value%>');
 
 
     </script>

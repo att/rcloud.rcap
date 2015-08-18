@@ -31,9 +31,7 @@ define(['rcap/js/ui/controls/properties/baseControlProperty',
 
 		},
 		getDialogValue : function() {
-			//return $('#' + this.id).spectrum('get').toHexString();
-
-			return 'TODO: GET HTML';
+			return $('#' + this.id).wysiwyg('shell').getHTML();
 		}
 	});
 

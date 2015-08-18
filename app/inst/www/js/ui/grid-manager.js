@@ -154,7 +154,7 @@ define([
 
                     if (grid.is_area_empty(placeholderPosition.x, placeholderPosition.y, defaultWidth, defaultHeight)) { // jshint ignore:line
 
-                        var newWidget = grid.add_widget($('<div data-controlid="' + control.id + '"><div class="grid-stack-item-content" data-gs-locked="true"><div class="configure">' + control.getConfigurationMarkup() + '<p><button type="button" class="btn btn-default">Configure</button></p></div></div></div>'), placeholderPosition.x, placeholderPosition.y, defaultWidth, defaultHeight, false);  // jshint ignore:line
+                        var newWidget = grid.add_widget($('<div data-controlid="' + control.id + '"><div class="grid-stack-item-content" data-gs-locked="true"><div class="configure">' + control.getConfigurationMarkup() + '<p><button type="button" class="btn btn-primary">Configure</button></p></div></div></div>'), placeholderPosition.x, placeholderPosition.y, defaultWidth, defaultHeight, false);  // jshint ignore:line
 
                         // set the new element's control property:
                         control.x = +placeholderPosition.x;
@@ -233,7 +233,7 @@ define([
 /*control.getConfigurationMarkup()*/
                     var newWidget = grid.add_widget($('<div data-controlid="' + control.id + '"><div class="grid-stack-item-content" data-gs-locked="true"><div class="configure">' +  // jshint ignore:line
                         control.getConfigurationMarkup() + 
-                        '<p><button type="button" class="btn btn-default">Configure</button></p></div></div></div>'), control.x, control.y, control.width, control.height, false);  // jshint ignore:line
+                        '<p><button type="button" class="btn btn-primary">Configure</button></p></div></div></div>'), control.x, control.y, control.width, control.height, false);  // jshint ignore:line
 
                     newWidget.data('control', control); 
 

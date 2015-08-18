@@ -282,12 +282,13 @@ li.parsley-required:before {
     right: 70px;
     }
 
-.wysiwyg-toolbar {
-    background: #222;
+.wysiwyg-toolbar, .wysiwyg-popuphover {
+    background: $bgColor;
+    color: darken($bgColor, 50%);
 }
 
 a.wysiwyg-toolbar-icon {
-    color: #eee;
+    color: darken($bgColor, 50%);
 }
 
 a.wysiwyg-toolbar-icon:hover {
@@ -296,4 +297,22 @@ a.wysiwyg-toolbar-icon:hover {
 
 .wysiwyg-editor { 
     background: white;
+}
+
+.wysiwyg-popup {
+    background: rgba(255, 255, 255, 1.0);
+}
+
+.wysiwyg-plugin-list a {
+    display: block; padding: 6px; text-decoration: none; 
+}
+
+.wysiwyg-plugin-list a:hover {
+    display: block; padding: 6px; 
+    color: HighlightText;
+    background-color: Highlight;
+}
+
+.wysiwyg-browse {
+    padding: 0;
 }

@@ -85,17 +85,9 @@ define([
                   }
                 };
 
-
-
-
-
-
                 $('#dialog-controlSettings').jqmShow();
 
             });
-
-
-
 
         }
     };

@@ -8,7 +8,7 @@
   top: 17%;
   left: 50%;
   margin-left: -800px;
-  width: 1200px;
+  min-width: 600px;
   background-color: #EEE;
   color: #333;
   border: 1px solid black;
@@ -640,16 +640,34 @@ li.parsley-required:before {
   text-align: right;
   right: 70px; }
 
-.wysiwyg-toolbar {
-  background: #222; }
+.wysiwyg-toolbar, .wysiwyg-popuphover {
+  background: #F2F2F2;
+  color: #737373; }
 
 a.wysiwyg-toolbar-icon {
-  color: #eee; }
+  color: #737373; }
 
 a.wysiwyg-toolbar-icon:hover {
   text-decoration: none; }
 
 .wysiwyg-editor {
   background: white; }
+
+.wysiwyg-popup {
+  background: white; }
+
+.wysiwyg-plugin-list a {
+  display: block;
+  padding: 6px;
+  text-decoration: none; }
+
+.wysiwyg-plugin-list a:hover {
+  display: block;
+  padding: 6px;
+  color: HighlightText;
+  background-color: Highlight; }
+
+.wysiwyg-browse {
+  padding: 0; }
 
 /*# sourceMappingURL=default.css.map */
