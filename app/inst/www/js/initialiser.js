@@ -1,4 +1,4 @@
-define(['rcap/js/ui', 'rcap/js/Class', 'font!google,families:[Open Sans:400]', 'css!rcap/styles/default.css'], function(ui) {
+define([], function() {
 
     'use strict';
 
@@ -31,7 +31,12 @@ define(['rcap/js/ui', 'rcap/js/Class', 'font!google,families:[Open Sans:400]', '
 
             // for rcap link, don't move away, simply initialise:
             $('body').on('click', '#share-link[href*="shared.R/rcloud.rcap/default.html"]', function(e) {
-                ui.initialise();
+                //ui.initialise();
+
+                require(['rcap/js/ui'], function(ui){
+                    ui.initialise();
+                });
+
                 e.preventDefault();
                 return false;
             });

@@ -1,6 +1,6 @@
-define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/controlProperty',
+define(['rcap/js/ui/controls/baseControl', 
 	'rcap/js/ui/controls/properties/textControlProperty',
-	'rcap/js/ui/controls/properties/wysiwygControlProperty'], function(BaseControl, ControlProperty, TextControlProperty, WysiwygControlProperty) {
+	'rcap/js/ui/controls/properties/wysiwygControlProperty'], function(BaseControl, TextControlProperty, WysiwygControlProperty) {
 	
 	'use strict';
 

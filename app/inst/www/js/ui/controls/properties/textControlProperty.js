@@ -27,7 +27,7 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/te
 
 		},
 		getDialogValue : function() {
-			return $('#form-group-' + this.id).find('input').val();
+			return $('#' + this.id).val();
 		}
 	});
 

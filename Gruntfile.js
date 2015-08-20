@@ -4,10 +4,19 @@ module.exports = function(grunt) {
 
     // Configurable paths for the application
     var appConfig = {
-        app: require('./bower.json').appPath || 'app',
-        deployDir: 'C:/VAGRANT/vagrantRcloud-master/rcloud.rcap-develop',
+        appPath: require('./bower.json').appPath || 'app',
+        devDeployDir: 'C:/VAGRANT/vagrantRcloud-master/rcloud.rcap-develop',
+        distDeployDir: 'C:/VAGRANT/vagrantRcloud-master/rcloud.rcap-dist',
         cmdDir: 'C:/VAGRANT/vagrantRcloud-master',
-        dist: 'dist'
+        dist: 'dist',
+        distFiles: [
+            'DESCRIPTION',
+            'README.md',    
+            'inst/javascript/rcloud.rcap.js',
+            'inst/www/js/initialiser.js',
+            // 'inst/www/js/ui.js',
+            'R/**/*'
+        ]
     };
 
     // 1. All configuration goes here 
@@ -15,55 +24,144 @@ module.exports = function(grunt) {
 
         pkg: grunt.file.readJSON('package.json'),
 
-        app: appConfig,
+        appConfig: appConfig,
+
+        sass: {
+            all: {
+                options: {
+
+                },
+                files: {
+                    'app/inst/www/styles/default.css': 'app/inst/www/styles/default.scss'
+                },
+                trace: true
+            }
+        },
+
+        // Make sure code styles are up to par and there are no obvious mistakes
+        jshint: {
+            options: {
+                jshintrc: '.jshintrc',
+                reporter: require('jshint-stylish')
+            },
+            all: {
+                src: [
+                    'Gruntfile.js',
+                    '<%= appConfig.appPath %>/javascript/{,*/}*.js',
+                    '<%= appConfig.appPath %>/inst/www/js/*.js',
+                    '<%= appConfig.appPath %>/inst/www/js/ui/*.js',
+                    '<%= appConfig.appPath %>/inst/www/js/ui/controls/*.js',
+                    '<%= appConfig.appPath %>/inst/www/js/ui/controls/dialogs/*.js',
+                    '<%= appConfig.appPath %>/inst/www/js/ui/controls/factories/*.js',
+                    '<%= appConfig.appPath %>/inst/www/js/ui/controls/properties/*.js',
+                ]
+            }
+
+        },
+
+        watch: {
+            css: {
+                files: '**/*.scss',
+                tasks: ['sass']
+            },
+            js: {
+                files: ['<%= appConfig.app %>/scripts/{,*/}*.js'],
+                tasks: ['newer:jshint:all'],
+                options: {
+
+                }
+            }
+        },
 
         copy: {
-            deploy: {
-                files: [
-                {
+            dev: {
+                files: [{
                     expand: true,
                     cwd: 'app',
-                    dest: '<%= app.deployDir%>/',
+                    dest: '<%= appConfig.devDeployDir%>/',
                     src: [
                         'inst/**/*',
                         'R/**/*',
-                        '!**/*.scss'    // we don't want the scss file(s)
+                        '!**/*.scss' // we don't want the scss file(s)
                     ]
-                },
-                {
+                }, {
                     expand: true,
                     cwd: 'bower_components/',
-                    dest: '<%= app.deployDir%>/inst/www/js/vendor',
+                    dest: '<%= appConfig.devDeployDir%>/inst/www/bower_components',
                     src: [
-                        '**/*.js'   
+                        '**/*.js'
                     ]
-                }, 
-                {
+                }, {
                     expand: true,
                     cwd: 'bower_components/',
-                    dest: '<%= app.deployDir%>/inst/www/js/vendor',
+                    dest: '<%= appConfig.devDeployDir%>/inst/www/bower_components',
                     src: [
-                        '**/*.css'   
+                        '**/*.css'
                     ]
-                }, 
-                {
+                }, {
                     cwd: 'app',
                     expand: true,
-                    dest: '<%= app.deployDir%>',
+                    dest: '<%= appConfig.devDeployDir%>',
                     src: [
                         'DESCRIPTION',
                         'README.md'
+                    ]
+                }]
+            },
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: 'app',
+                    dest: '<%= appConfig.distDeployDir%>/',
+                    src: '<%= appConfig.distFiles%>'
+                }]
+            }
+        },
+
+        clean: {
+            dev: {
+                options: {
+                    force: true
+                },
+                files: [{
+                    dot: true,
+                    src: [
+                        '<%= appConfig.devDeployDir %>/{,*/}*'
+                    ]
+                }]
+            },
+            dist: {
+                options: {
+                    force: true
+                },
+                files: [{
+                    dot: true,
+                    src: [
+                        '<%= appConfig.distDeployDir %>/{,*/}*'
                     ]
                 }]
             }
         },
 
         shell: {
-            multiple: {
+            dev: {
                 command: [
-                    'cd <%= app.cmdDir %>',
-                    'vagrant ssh -- sh doit.sh'
+                    'cd <%= appConfig.cmdDir %>',
+                    'vagrant ssh -- sh rebuild.sh'
                 ].join('&& ')
+            },
+            dist: {
+                command: [
+                    'node r.js -o build.js',
+                    'move ui.js <%= appConfig.distDeployDir %>/inst/www/js/ui.js',
+                    'cd <%= appConfig.cmdDir %>',
+                    'vagrant ssh -- sh rebuild.sh dist'
+                ].join(' && '),
+                options: {
+                    execOptions: {
+                        cwd: 'build'
+                    }
+                }
             }
         },
 
@@ -73,73 +171,6 @@ module.exports = function(grunt) {
                 app: 'chrome'
             }
         },
-
-        clean: {
-            dist: {
-                options: {
-                    force: true
-                },
-                files: [{
-                    dot: true,
-                    src: [
-                        '<%= app.deployDir %>/{,*/}*'
-                    ]
-                }]
-            }
-        },
-
-        sass: {
-            dist: {
-                options: {
-               //     style: 'compressed'
-                },                
-                files: {
-                    'app/inst/www/styles/default.css': 'app/inst/www/styles/default.scss'
-                }
-            }
-        },
-
-        // Make sure code styles are up to par and there are no obvious mistakes
-        jshint: {
-          options: {
-            jshintrc: '.jshintrc',
-            reporter: require('jshint-stylish')
-          },
-          all: {
-            src: [
-                'Gruntfile.js',
-                '<%= app.app %>/javascript/{,*/}*.js',
-               // '!<%= app.app %>/inst/www/js/vendor/{,*/}*.js',
-                '<%= app.app %>/inst/www/js/*.js',
-                '<%= app.app %>/inst/www/js/ui/*.js',
-                '<%= app.app %>/inst/www/js/ui/controls/*.js',
-                '<%= app.app %>/inst/www/js/ui/controls/dialogs/*.js',
-                '<%= app.app %>/inst/www/js/ui/controls/factories/*.js',
-                '<%= app.app %>/inst/www/js/ui/controls/properties/*.js',
-
-            ]
-          },
-          // test: {
-          //   options: {
-          //     jshintrc: 'test/.jshintrc'
-          //   },
-          //   src: ['test/spec/{,*/}*.js']
-          // }
-        },
-
-        watch: {
-            css: {
-                files: '**/*.scss',
-                tasks: ['sass']
-            },
-            js: {
-                files: ['<%= app.app %>/scripts/{,*/}*.js'],
-                tasks: ['newer:jshint:all'],
-                options: {
-                  //livereload: '<%= connect.options.livereload %>'
-                }
-            }
-        }
 
     });
 
@@ -156,6 +187,7 @@ module.exports = function(grunt) {
     require('time-grunt')(grunt);
 
     // 3. Where we tell Grunt what to do when we type "grunt" into the terminal.
-    grunt.registerTask('default', ['newer:jshint', 'clean', 'copy', 'shell', 'open']);
+    grunt.registerTask('default', ['newer:jshint', 'clean:dev', 'copy:dev', 'shell:dev', 'open:dev']);
+    grunt.registerTask('dist', ['newer:jshint', 'clean:dist', 'copy:dist', 'shell:dist' /*, 'open'*/ ]);
 
 };

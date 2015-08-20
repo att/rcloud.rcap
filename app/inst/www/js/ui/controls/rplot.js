@@ -1,5 +1,5 @@
-define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/controlProperty',
-	'rcap/js/ui/controls/properties/textControlProperty'], function(BaseControl, ControlProperty, TextControlProperty) {
+define(['rcap/js/ui/controls/baseControl', 
+	'rcap/js/ui/controls/properties/textControlProperty'], function(BaseControl, TextControlProperty) {
 	
 	'use strict';
 

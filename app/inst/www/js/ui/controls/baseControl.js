@@ -1,4 +1,4 @@
-define([], function() {
+define(['rcap/js/Class'], function() {
 	
 	'use strict';
 
@@ -36,7 +36,7 @@ define([], function() {
 
 		},
 		render : function() {
-
+			
 		},
 		getConfigurationMarkup : function() {
 			return '<p><i class="icon-' + this.inlineIcon + '"></i>' + this.label + '</p>';

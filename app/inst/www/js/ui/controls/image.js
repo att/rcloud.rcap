@@ -1,5 +1,5 @@
-define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/controlProperty',
-	'rcap/js/ui/controls/properties/textControlProperty'], function(BaseControl, ControlProperty, TextControlProperty) {
+define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textControlProperty'], 
+	function(BaseControl, TextControlProperty) {
 	
 	'use strict';
 
@@ -16,7 +16,8 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/controlProperty'
 						uid: 'imagesource',
 						label : 'Image source',
 						defaultValue : '',
-						helpText : 'The source of this image'
+						helpText : 'The source of this image',
+						isRequired: true
 					})
 				]
 			});

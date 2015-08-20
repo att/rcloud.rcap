@@ -26,6 +26,7 @@
     "RCloud" : false,
     "Notebook" : false,
     "alert" : false,
-    "Class" : false
+    "Class" : false,
+    "requirejs": false
   }
 }

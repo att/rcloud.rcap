@@ -1,6 +1,5 @@
 define(['rcap/js/ui/controls/properties/baseControlProperty', 
 	'text!templates/colorControl.tpl', 
-	'css!spectrum/spectrum', 
 	'spectrum/spectrum'], function(BaseControlProperty, tpl) {
 	'use strict';
 

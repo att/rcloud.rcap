@@ -59,7 +59,7 @@ define([
             $('.grid-stack').on('change', function () {
                 var itemCount = $('.grid-stack-item[data-controlid]').length;
 
-                console.log('The number of widgets has changed to: ', itemCount);
+                //console.log('The number of widgets has changed to: ', itemCount);
 
                 if( itemCount !== undefined) {
                     if( itemCount === 0) {
@@ -223,7 +223,7 @@ define([
                 grid.remove_all(); // jshint ignore:line
 
                 // add items to the grid:
-                console.log('Gridmanager says thank for the items on rcap:open', items);
+//                console.log('Gridmanager says thank for the items on rcap:open', items);
 
                 // loop through the items and add them to the grid:
                 for( ; loop < items.length; ++loop) {

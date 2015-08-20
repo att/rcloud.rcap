@@ -1,4 +1,4 @@
-define([], function() {
+define(['rcap/js/Class'], function() {
 	
 	'use strict';
 

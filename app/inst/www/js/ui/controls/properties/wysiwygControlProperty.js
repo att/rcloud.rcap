@@ -1,6 +1,5 @@
 define(['rcap/js/ui/controls/properties/baseControlProperty', 
 	'text!templates/wysiwyg.tpl', 
-	'css!wysiwyg/wysiwyg-editor.min', 
 	'wysiwyg/standalone'
 	], function(BaseControlProperty, tpl) {
 	'use strict';

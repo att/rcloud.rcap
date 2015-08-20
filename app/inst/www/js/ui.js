@@ -2,10 +2,11 @@ define(['text!rcap/partials/main.htm',
     'rcap/js/ui/menu-manager',
     'rcap/js/ui/dialog-manager', 
     'rcap/js/ui/grid-manager',
-    //'controls/image',
     'pubsub',
-    'rcap/js/serializer'
-], function(mainPartial, MenuManager, dialogManager, gridManager, /*Image,*/ PubSub, serializer) {
+    'rcap/js/serializer',
+    //'font!google,families:[Open Sans:400]',
+    'css!rcap/styles/default.css'
+], function(mainPartial, MenuManager, dialogManager, gridManager, PubSub, serializer) {
 
     'use strict';
 
