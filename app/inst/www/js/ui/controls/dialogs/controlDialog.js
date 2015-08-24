@@ -2,10 +2,10 @@ define([], function() {
 	
 	'use strict';
 
-	function ControlDialog(control)  {
+	function ControlDialog()  {
 		//var control;
 
-	};
+	}
 
 	return ControlDialog;
 
