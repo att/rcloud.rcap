@@ -1,16 +1,17 @@
-define(['text!rcap/partials/main.htm', 
-    'rcap/js/ui/menu-manager',
-    'rcap/js/ui/dialog-manager', 
-    'rcap/js/ui/grid-manager',
+define(['text!rcap/partials/designer.htm', 
+    'rcap/js/ui/menuManager',
+    'rcap/js/ui/dialogManager', 
+    'rcap/js/ui/gridManager',
     'pubsub',
     'rcap/js/serializer',
     //'font!google,families:[Open Sans:400]',
     'css!rcap/styles/default.css'
-], function(mainPartial, MenuManager, dialogManager, gridManager, PubSub, serializer) {
+], function(mainPartial, MenuManager, dialogManager, GridManager, PubSub, serializer) {
 
     'use strict';
 
     return {
+
         initialise: function() {
 
             console.clear();
@@ -49,7 +50,8 @@ define(['text!rcap/partials/main.htm',
                 dialogManager.initialise();
 
                 // grid:
-                gridManager.initialise();
+                var gridManager = new GridManager();
+                gridManager.initialiseDesignGrid();
 
                 // serializer:
                 serializer.initialise();

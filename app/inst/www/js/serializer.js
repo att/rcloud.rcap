@@ -9,10 +9,8 @@ define(['pubsub', 'controls/factories/controlFactory'/*, 'controls/factories/con
         initialise: function() {
 
             PubSub.subscribe('rcap:serialize', function(msg, gridItems) {
-
                 // todo: persist to notebook:
                 localStorage.setItem('rcap', JSON.stringify(gridItems));
-
             });
 
 			PubSub.subscribe('rcap:deserialize', function() {
@@ -58,16 +56,11 @@ define(['pubsub', 'controls/factories/controlFactory'/*, 'controls/factories/con
 					}
 
 					controls.push(control);
-
 				}
 
                 // publish:
                 PubSub.publish('rcap:open', controls);
-
             });
-
         }
-
     };
-
 });
