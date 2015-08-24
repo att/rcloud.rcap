@@ -21,6 +21,9 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
 					})
 				]
 			});
+		},
+		render: function() {
+			return '<img src="' + this.controlProperties[0].value + '" />';
 		}
 	});
 

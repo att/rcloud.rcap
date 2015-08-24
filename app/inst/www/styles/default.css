@@ -429,6 +429,10 @@
   width: 80%;
   text-align: center; }
 
+.viewer .grid-stack-item-content {
+  border: 0 !important;
+  overflow-x: auto; }
+
 /***
 Spectrum Colorpicker v1.7.1
 https://github.com/bgrins/spectrum

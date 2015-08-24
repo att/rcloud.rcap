@@ -42,3 +42,10 @@
         text-align: center;
     }
 }
+
+.viewer {
+    .grid-stack-item-content {
+        border: 0!important;
+        overflow-x: auto;
+    }
+}

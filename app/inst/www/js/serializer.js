@@ -21,8 +21,11 @@ define(['pubsub', 'controls/factories/controlFactory'/*, 'controls/factories/con
 					jsonControlProperty,
 					controlLoop = 0,
 					propertyLoop,
+					data,
 					controlFactory = new ControlFactory(),
-					data = JSON.parse(localStorage.getItem('rcap'));
+					rawData = localStorage.getItem('rcap');
+
+				data = rawData.length > 0 ? JSON.parse(rawData) : [];
 
 				// loop through each control:
 				for( ; controlLoop < data.length; ++controlLoop) {

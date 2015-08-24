@@ -5,6 +5,7 @@
             'rcap' : '../../shared.R/rcloud.rcap',
             'controls' : '../../shared.R/rcloud.rcap/js/ui/controls',
             'templates' : '../../shared.R/rcloud.rcap/js/ui/controls/properties/templates',
+            'controlTemplates' : '../../shared.R/rcloud.rcap/js/ui/controls/templates',
             'pubsub' :  '../../shared.R/rcloud.rcap/bower_components/pubsub-js/src/pubsub',
             'parsley' : '../../shared.R/rcloud.rcap/bower_components/parsleyjs/dist/parsley.min',
             'spectrum' : '../../shared.R/rcloud.rcap/bower_components/spectrum',

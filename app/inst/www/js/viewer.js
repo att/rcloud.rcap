@@ -11,7 +11,7 @@ define(['text!rcap/partials/viewer.htm',
 
         initialise: function() {
 
-            $('body').html('').append(mainPartial);
+            $('body').append(mainPartial);
 
             // grid:
             var gridManager = new GridManager();
@@ -23,7 +23,12 @@ define(['text!rcap/partials/viewer.htm',
             // kick off:
             PubSub.publish('rcap:deserialize', {});
 
-            $('body').css('padding', '10px 0 0 0!important');
+            //$('body').css('padding', '10px 0 0 0!important');
+
+            $('#rcap-viewer').show();
+            $('#rcap-viewer .close-viewer').click(function() {
+                $('#rcap-viewer').remove();
+            });
             
         }
     };
