@@ -7,12 +7,12 @@ rcap.result <- function(rcapConfigFileName="rcap_designer.json") {
   # Convert the JSON into a list
   rcapConfig <- rjson::fromJSON(rcapJson)
   
-  return(rcapConfig)
-  
   # Parse for functions
   
   # Wrap plot and data functions
   
   # Call rcw.result
   
+  # Trigger the client-side builder
+  rcap.initViewer(rcapConfig)
 }
