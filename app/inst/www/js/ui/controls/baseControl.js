@@ -16,7 +16,7 @@ define(['rcap/js/Class'], function() {
 			this.height = +this.initialSize[1];
 			this.controlProperties = options.controlProperties;
 			// generate a random ID:
-			this.id = Math.random().toString(16).slice(2);
+			this.id = 'rcap' + Math.random().toString(16).slice(2);
 
 		},
 		initialWidth : function() {
