@@ -22,7 +22,7 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
                         defaultValue: '',
                         helpText: 'The URL that the iFrame will show',
                         isRequired: true
-                    }),
+                    })/*,
                     new DropdownControlProperty({
                         uid: 'testdropdown',
                         label: 'Test dropdown',
@@ -45,7 +45,7 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
                         uid: 'backgroundcolor',
                         label: 'Background color',
                         helpText: 'The color of the background for this control'
-                    })
+                    })*/
                 ]
             });
         },
