@@ -1,5 +1,6 @@
 define(['rcap/js/ui/controls/baseControl', 
-	'rcap/js/ui/controls/properties/textControlProperty'], function(BaseControl, TextControlProperty) {
+	'rcap/js/ui/controls/properties/textControlProperty',
+	'rcap/js/ui/controls/properties/multilineTextControlProperty'], function(BaseControl, TextControlProperty, MultilineTextControlProperty) {
 	
 	'use strict';
 
@@ -17,6 +18,14 @@ define(['rcap/js/ui/controls/baseControl',
 						label : 'Heading',
 						defaultValue : '',
 						helpText : 'The heading for this control'
+					}),
+					// code box
+					new MultilineTextControlProperty({
+						uid: 'code',
+						label: 'Code',
+						defaultValue: '',
+						helpText: 'Code for this control',
+						className: 'code'
 					})
 				]
 			});
