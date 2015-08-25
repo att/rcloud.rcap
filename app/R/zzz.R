@@ -14,3 +14,5 @@ rcloud.rcap.caps <- NULL
     rcloud.rcap.caps$init(ocaps)
   }
 }
+
+rcap.initViewer <- function(content) rcloud.rcap.caps$initViewer(content)
