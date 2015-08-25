@@ -14,10 +14,11 @@ rcap.result <- function(rcapConfigFileName="rcap_designer.json", inline=FALSE) {
   for(rcapControl in rcapConfig) {
     if (rcapControl$type == "rplot") {
       
-      funArgs <- "width=500, height=500"
-      
       funName <- rcapControl$id
-      funText <- paste0(funName, " <- function(", funArgs ,") {")
+      funText <- paste0(funName, " <- function(jsArgs=list(width=500,height=500)) {")
+      
+      funText <- c(funText, "  if (!is.null(jsArgs$width)) width=jsArgs$width")
+      funText <- c(funText, "  if (!is.null(jsArgs$height)) height=jsArgs$height")
       
       funText <- c(funText, "  wp1 <- WebPlot(width=width,height=height)")
       
