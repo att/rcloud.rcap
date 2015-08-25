@@ -9,7 +9,7 @@ define(['text!rcap/partials/viewer.htm',
 
     return {
 
-        initialise: function() {
+        initialiseFromMenu: function() {
 
             if ($('body').find('#rcap-viewer').length === 0) {
 

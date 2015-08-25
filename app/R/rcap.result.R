@@ -14,12 +14,12 @@ rcap.result <- function(rcapConfigFileName="rcap_designer.json", inline=FALSE) {
   for(rcapControl in rcapConfig) {
     if (rcapControl$type == "rplot") {
       
-      funArgs <- ""
+      funArgs <- "width=500, height=500"
       
       funName <- rcapControl$id
       funText <- paste0(funName, " <- function(", funArgs ,") {")
       
-      funText <- c(funText, "  wp1 <- WebPlot(width=500,height=500)")
+      funText <- c(funText, "  wp1 <- WebPlot(width=width,height=height)")
       
       funText <- c(funText, rcapControl$controlProperties[[2]]$value)
       
@@ -42,7 +42,8 @@ rcap.result <- function(rcapConfigFileName="rcap_designer.json", inline=FALSE) {
     }
   } 
   
-  # Wrap plot and data functions and add to rcw call
+  # Fire up the viewer
+  rcap.initViewer(rcapJson)
   
   # Call rcw.result
   if(inline) {

@@ -31,7 +31,7 @@
         },
         initViewer: function(content, k) {
             require(['rcap/js/viewer'], function(viewer) {
-                viewer.initialise();
+                viewer.initialise(content);
                 k();
             });
         }
