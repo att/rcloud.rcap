@@ -1,0 +1,1 @@
+<iframe src="<%=control.controlProperties[0].value%>" id="<%=control.id%>"></iframe>

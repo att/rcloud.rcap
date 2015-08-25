@@ -29,12 +29,52 @@ define([], function() {
                 }
             });
 
+
+
+
+
+
+
+
+
+
+
+
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            RCloud.UI.share_button.add({ // jshint ignore:line
+                'View': {
+                    sort: 1002,
+                    page: 'shared.R/rcloud.rcap/view.html'
+                }
+            });
+
+            // for rcap link, don't move away, simply initialise:
+            $('body').on('click', '#share-link[href*="shared.R/rcloud.rcap/view.html"]', function(e) {
+
+                require(['rcap/js/viewer'], function(viewer){
+                    viewer.initialise();
+                });
+
+                e.preventDefault();
+                return false;
+            });
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
             // for rcap link, don't move away, simply initialise:
             $('body').on('click', '#share-link[href*="shared.R/rcloud.rcap/default.html"]', function(e) {
-                //ui.initialise();
 
-                require(['rcap/js/ui'], function(ui){
-                    ui.initialise();
+                require(['rcap/js/designer'], function(designer){
+                    designer.initialise();
                 });
 
                 e.preventDefault();
@@ -45,31 +85,10 @@ define([], function() {
                 rcappp: {
                     sort: 2000,
                     process: function(div) {
-
                         console.log('rcappp', div);
-
-                        // var iip_cell = div.find('.iipsettings');
-                        // if (iip_cell.size()) {
-                        //     // Only get here if it's a settings cell
-                        //     try {
-                        //         var opts = YAML.parse(iip_cell.text());
-                        //         if ($.isPlainObject(opts)) {
-                        //             iip.applyGlobalSettings(opts);
-
-                        //         } else {
-                        //             throw 'YAML parse failed';
-                        //         }
-                        //     } catch (er) {
-                        //         console.log('Options errors:' + er);
-                        //     }
-                        // }
                     }
                 }
             });
-
-
         }
-
     };
-
 });

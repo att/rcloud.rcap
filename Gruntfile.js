@@ -5,6 +5,13 @@ module.exports = function(grunt) {
     // Configurable paths for the application
     var appConfig = {
         appPath: require('./bower.json').appPath || 'app',
+
+        /**************************************************************************
+        //
+        //  this should change:
+        //
+        //
+        **************************************************************************/
         devDeployDir: 'C:/VAGRANT/vagrantRcloud-master/rcloud.rcap-develop',
         distDeployDir: 'C:/VAGRANT/vagrantRcloud-master/rcloud.rcap-dist',
         cmdDir: 'C:/VAGRANT/vagrantRcloud-master',
@@ -14,10 +21,11 @@ module.exports = function(grunt) {
             'README.md',    
             'inst/javascript/rcloud.rcap.js',
             'inst/www/js/initialiser.js',
-            // 'inst/www/js/ui.js',
             'R/**/*'
         ]
     };
+
+    
 
     // 1. All configuration goes here 
     grunt.initConfig({
@@ -154,8 +162,8 @@ module.exports = function(grunt) {
                 command: [
                     'node r.js -o build.js',
                     'move ui.js <%= appConfig.distDeployDir %>/inst/www/js/ui.js',
-                    'cd <%= appConfig.cmdDir %>',
-                    'vagrant ssh -- sh rebuild.sh dist'
+                    //'cd <%= appConfig.cmdDir %>',
+                    //'vagrant ssh -- sh rebuild.sh dist'
                 ].join(' && '),
                 options: {
                     execOptions: {
@@ -187,7 +195,6 @@ module.exports = function(grunt) {
     require('time-grunt')(grunt);
 
     // 3. Where we tell Grunt what to do when we type "grunt" into the terminal.
-
     // dev, opens chrome with built dev:
     grunt.registerTask('default', ['newer:jshint', 'clean:dev', 'copy:dev', 'shell:dev', 'open:dev']);
 

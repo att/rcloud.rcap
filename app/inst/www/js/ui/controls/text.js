@@ -26,6 +26,9 @@ define(['rcap/js/ui/controls/baseControl',
 					})
 				]
 			});
+		},
+		render: function() {
+			return this.controlProperties[1].value;
 		}
 	});
 
