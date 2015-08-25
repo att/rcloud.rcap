@@ -24,7 +24,7 @@ define(['pubsub', 'controls/factories/controlFactory'],
 					currProp,
 					data,
 					controlFactory = new ControlFactory(),
-					rawData = localStorage.getItem('rcap');
+					rawData = msgData.hasOwnProperty('jsonData') ? msgData.jsonData : localStorage.getItem('rcap');
 
 				data = rawData.length > 0 ? JSON.parse(rawData) : [];
 

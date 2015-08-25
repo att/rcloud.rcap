@@ -35,6 +35,21 @@ define(['text!rcap/partials/viewer.htm',
                 type: 'viewer'
             });
 
+        },
+
+        initialise: function(json) {
+
+            $('body').append(mainPartial);
+
+            // initialise grid:
+            var gridManager = new GridManager();
+
+            // and pub:
+            PubSub.publish('rcap:deserialize', {
+                type: 'viewer',
+                jsonData: json
+            });
+
         }
     };
 });
