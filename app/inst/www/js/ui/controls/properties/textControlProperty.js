@@ -11,7 +11,8 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/te
 				helpText : options.helpText || '',
 				defaultValue : options.defaultValue || '',
 				isRequired : options.isRequired || false,
-				uid : options.uid
+				uid : options.uid,
+				className : options.className				
 			});
 
 			// additional assignments go here:

@@ -18,6 +18,8 @@ define(['rcap/js/Class'], function() {
 
 			this.isRequired = options.isRequired || false;
 
+			this.className = options.className || '';
+
 			this.id = 'ctrl' + this.type + Math.random().toString(16).slice(2);
 
 		},

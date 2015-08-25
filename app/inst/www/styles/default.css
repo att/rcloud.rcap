@@ -1305,6 +1305,10 @@ textarea.parsley-error {
   #rcap-designer .form-group .description {
     color: #777;
     margin-top: 3px; }
+  #rcap-designer .form-group textarea.code {
+    font-family: Monaco, 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, monospace;
+    height: 250px;
+    font-size: 13px; }
   #rcap-designer .configure i {
     display: inline-block;
     font-size: 15pt;

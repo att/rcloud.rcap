@@ -13,7 +13,8 @@ define(['rcap/js/ui/controls/properties/baseControlProperty',
 				defaultValue : options.defaultValue || '',
 				isRequired : options.isRequired || false,
 				value : options.value || '#ffffff',
-				uid : options.uid
+				uid : options.uid,
+				className : options.className
 			});
 
 			// additional assignments go here:

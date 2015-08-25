@@ -204,6 +204,12 @@ $defaultFont: 'Open Sans', sans-serif;
         margin-top: 3px;
     }
 
+    & .form-group textarea.code {
+        font-family: Monaco, 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, monospace;
+        height: 250px;
+        font-size: 13px;
+    }
+
     .configure {
 
         i {

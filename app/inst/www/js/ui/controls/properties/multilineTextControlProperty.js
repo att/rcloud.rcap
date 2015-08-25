@@ -1,12 +1,12 @@
-define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/dropdownControl.tpl'], function(BaseControlProperty, tpl) {
+define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/multlineTextControl.tpl'], function(BaseControlProperty, tpl) {
 	
 	'use strict';
 
-	var DropdownControlProperty = BaseControlProperty.extend({
+	var TextControlProperty = BaseControlProperty.extend({
 		init: function(options) {
 			options = options || {};
 			this._super({
-				type : 'dropdown',
+				type : 'multilinetext',
 				label : options.label || '',
 				helpText : options.helpText || '',
 				defaultValue : options.defaultValue || '',
@@ -16,7 +16,8 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/dr
 			});
 
 			// additional assignments go here:
-			this.availableOptions = options.availableOptions || [];
+			this.rows = options.rows || 20;
+			this.cols = options.cols || 80;
 		},
 		render: function(childIndex) {
 
@@ -29,10 +30,10 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/dr
 
 		},
 		getDialogValue : function() {
-			return $('#form-group-' + this.id).find('select option:selected').val();
+			return $('#' + this.id).val();
 		}
 	});
 
-	return DropdownControlProperty;
+	return TextControlProperty;
 
 });
