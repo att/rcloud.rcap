@@ -1,6 +1,7 @@
 define(['rcap/js/ui/controls/baseControl', 
 	'rcap/js/ui/controls/properties/textControlProperty',
-	'rcap/js/ui/controls/properties/multilineTextControlProperty'], function(BaseControl, TextControlProperty, MultilineTextControlProperty) {
+	'rcap/js/ui/controls/properties/multilineTextControlProperty',
+	'text!controlTemplates/rPlot.tpl'], function(BaseControl, TextControlProperty, MultilineTextControlProperty, tpl) {
 	
 	'use strict';
 
@@ -29,6 +30,15 @@ define(['rcap/js/ui/controls/baseControl',
 					})
 				]
 			});
+		},
+		render: function() {
+
+            var template = _.template(tpl);
+
+            return template({
+                control: this
+            });
+
 		}
 	});
 
