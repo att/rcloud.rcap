@@ -14,10 +14,11 @@ define(['text!rcap/partials/designer.htm',
 
         initialise: function() {
 
-            console.clear();
+            //console.clear();
 
             var rcloudSelector = '.container, #rcloud-navbar-main, #rcloud-navbar-main, #rcloud-navbar-menu li:not(.rcap)';
             var rcapSelector = '#rcap-designer';
+
 
             if ($('body').find('#rcap-designer').length === 0) {
 
@@ -64,7 +65,9 @@ define(['text!rcap/partials/designer.htm',
             $(rcapSelector).show();
 
             // load items:
-            PubSub.publish('rcap:deserialize', {});
+            PubSub.publish('rcap:deserialize', {
+                type: 'designer'
+            });
             
         }
     };

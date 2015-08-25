@@ -162,8 +162,8 @@ module.exports = function(grunt) {
                 command: [
                     'node r.js -o build.js',
                     'move ui.js <%= appConfig.distDeployDir %>/inst/www/js/ui.js',
-                    'cd <%= appConfig.cmdDir %>',
-                    'vagrant ssh -- sh rebuild.sh dist'
+                    //'cd <%= appConfig.cmdDir %>',
+                    //'vagrant ssh -- sh rebuild.sh dist'
                 ].join(' && '),
                 options: {
                     execOptions: {

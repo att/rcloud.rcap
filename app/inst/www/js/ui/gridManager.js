@@ -10,10 +10,14 @@ define([
         this.cellHeight = 80;
         this.verticalMargin = 20;
         this.minHeightCellCount = 12;
+        this.id = 'GM-' + Math.random().toString(16).slice(2);
     };
 
     GridManager.prototype.initialise = function() {
-        $('.grid-stack').gridstack({
+
+        var selector = '#rcap-viewer .grid-stack';
+
+        $(selector).gridstack({
             min_height_cellcount: this.minHeightCellCount, // jshint ignore:line
             cell_height: this.cellHeight, // jshint ignore:line
             vertical_margin: this.verticalMargin, // jshint ignore:line
@@ -25,9 +29,11 @@ define([
         //
         // open
         //  
-        PubSub.subscribe('rcap:open', function(msg, items) {
+        PubSub.subscribe('grid:viewer-init', function(msg, items) {
 
-            var grid = $('.grid-stack').data('gridstack'),
+            console.log('rcap:open for view grid');
+
+            var grid = $(selector).data('gridstack'),
                 loop = 0;
             grid.remove_all(); // jshint ignore:line
 
@@ -44,11 +50,12 @@ define([
 
     GridManager.prototype.initialiseDesignGrid = function() {
 
-        var me = this;
+        var me = this,
+            selector = '#rcap-designer .grid-stack';
 
         me.controlFactory = new ControlFactory();
 
-        $('.grid-stack').gridstack({
+        $(selector).gridstack({
             min_height_cellcount: this.minHeightCellCount, // jshint ignore:line
             cell_height: this.cellHeight, // jshint ignore:line
             vertical_margin: this.verticalMargin, // jshint ignore:line
@@ -59,21 +66,21 @@ define([
             float: true
         });
 
-        $('.grid-stack').on('dragstop', function(event) {
+        $(selector).on('dragstop', function(event) {
             var element = $(event.target);
             var node = element.data('_gridstack_node');
             element.data('control').x = node.x;
             element.data('control').y = node.y;
         });
 
-        $('.grid-stack').on('resizestop', function(event) {
+        $(selector).on('resizestop', function(event) {
             var element = $(event.target);
             var node = element.data('_gridstack_node');
             element.data('control').width = node.width;
             element.data('control').height = node.height;
         });
 
-        $('.grid-stack').on('change', function() {
+        $(selector).on('change', function() {
             var itemCount = $('.grid-stack-item[data-controlid]').length;
 
             //console.log('The number of widgets has changed to: ', itemCount);
@@ -89,7 +96,7 @@ define([
             }
         });
 
-        var grid = $('.grid-stack').data('gridstack');
+        var grid = $(selector).data('gridstack');
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //
@@ -124,14 +131,14 @@ define([
         //
         // drop control onto grid
         //
-        $('.grid-stack').droppable({
+        $(selector).droppable({
             accept: '#controls li',
             hoverClass: 'grid-stack-item',
             over: function(event, ui) {
                 ui.helper.css('z-index', 9999);
             },
             drop: function(event, ui) {
-                var grid = $('.grid-stack').data('gridstack');
+                var grid = $(selector).data('gridstack');
                 //var cell = grid.get_cell_from_pixel(ui.helper.position()); // jshint ignore:line
                 var placeholderPosition = grid.get_placeholder_position(); // jshint ignore:line
 
@@ -205,9 +212,13 @@ define([
         //
         // open
         //  
-        PubSub.subscribe('rcap:open', function(msg, items) {
+        PubSub.subscribe('grid:designer-init', function(msg, items) {
 
-            var grid = $('.grid-stack').data('gridstack'),
+
+console.log('rcap:open for design grid');
+
+
+            var grid = $(selector).data('gridstack'),
                 loop = 0,
                 control;
             grid.remove_all(); // jshint ignore:line
@@ -238,7 +249,7 @@ define([
         //  
         PubSub.subscribe('rcap:close', function() {
 
-            var grid = $('.grid-stack').data('gridstack');
+            var grid = $(selector).data('gridstack');
             grid.remove_all(); // jshint ignore:line
 
             // other code will show it, but it needs to be hidden by default so it doesn't 

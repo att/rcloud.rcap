@@ -1,7 +1,6 @@
-define(['pubsub', 'controls/factories/controlFactory'/*, 'controls/factories/controlPropertyFactory'*/], 
+define(['pubsub', 'controls/factories/controlFactory'], 
 	function(PubSub, ControlFactory) {
 
-    // serializer code in yur:
     'use strict';
 
     return {
@@ -13,7 +12,7 @@ define(['pubsub', 'controls/factories/controlFactory'/*, 'controls/factories/con
                 localStorage.setItem('rcap', JSON.stringify(gridItems));
             });
 
-			PubSub.subscribe('rcap:deserialize', function() {
+			PubSub.subscribe('rcap:deserialize', function(msg, msgData) {
 
 				var controls = [],
 					control,
@@ -21,6 +20,8 @@ define(['pubsub', 'controls/factories/controlFactory'/*, 'controls/factories/con
 					jsonControlProperty,
 					controlLoop = 0,
 					propertyLoop,
+					property,
+					currProp,
 					data,
 					controlFactory = new ControlFactory(),
 					rawData = localStorage.getItem('rcap');
@@ -36,7 +37,7 @@ define(['pubsub', 'controls/factories/controlFactory'/*, 'controls/factories/con
 					control = controlFactory.getByKey(jsonControl.type);
 
 					// set control properties:
-					for (var property in jsonControl) {
+					for (property in jsonControl) {
 						// don't overwrite the control properties, they will be updated separately below:
 					    if (jsonControl.hasOwnProperty(property) && property !== 'controlProperties') {
 					        control[property] = jsonControl[property];
@@ -50,7 +51,7 @@ define(['pubsub', 'controls/factories/controlFactory'/*, 'controls/factories/con
 						// uid, value, id:
 
 						// get the property:
-						var currProp = _.findWhere(control.controlProperties, { uid : jsonControlProperty.uid });
+						currProp = _.findWhere(control.controlProperties, { uid : jsonControlProperty.uid });
 
 						if( currProp !== undefined) {
 							currProp.value = jsonControlProperty.value;
@@ -62,7 +63,7 @@ define(['pubsub', 'controls/factories/controlFactory'/*, 'controls/factories/con
 				}
 
                 // publish:
-                PubSub.publish('rcap:open', controls);
+                PubSub.publish('grid:' + msgData.type + '-init', controls);
             });
         }
     };

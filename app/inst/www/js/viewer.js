@@ -1,4 +1,4 @@
-define(['text!rcap/partials/viewer.htm', 
+define(['text!rcap/partials/viewer.htm',
     'rcap/js/ui/gridManager',
     'pubsub',
     'rcap/js/serializer',
@@ -11,25 +11,30 @@ define(['text!rcap/partials/viewer.htm',
 
         initialise: function() {
 
-            $('body').append(mainPartial);
+            if ($('body').find('#rcap-viewer').length === 0) {
 
-            // grid:
-            var gridManager = new GridManager();
-            gridManager.initialise();
+                $('body').append(mainPartial);
 
-            // initialise
-            serializer.initialise();
+                // grid:
+                var gridManager = new GridManager();
+                gridManager.initialise();
 
-            // kick off:
-            PubSub.publish('rcap:deserialize', {});
+                // initialise
+                serializer.initialise();
 
-            //$('body').css('padding', '10px 0 0 0!important');
+                $('#rcap-viewer .close-viewer').click(function() {
+                    $('#rcap-viewer').hide();
+                });
+
+            }
 
             $('#rcap-viewer').show();
-            $('#rcap-viewer .close-viewer').click(function() {
-                $('#rcap-viewer').remove();
+
+            // kick off:
+            PubSub.publish('rcap:deserialize', {
+                type: 'viewer'
             });
-            
+
         }
     };
 });
