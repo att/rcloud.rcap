@@ -43,6 +43,9 @@ define(['text!rcap/partials/viewer.htm',
 
             // initialise grid:
             var gridManager = new GridManager();
+            gridManager.initialise();
+
+            serializer.initialise();
 
             // and pub:
             PubSub.publish('rcap:deserialize', {
