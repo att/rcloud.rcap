@@ -1,5 +1,5 @@
 
-rcap.result <- function(rcapConfigFileName="rcap_designer.json") {
+rcap.result <- function(rcapConfigFileName="rcap_designer.json", inline=FALSE) {
   
   # Retrieve the designer config from the notebook
   rcapJson <- rcloud.get.asset(name=rcapConfigFileName)
@@ -23,7 +23,7 @@ rcap.result <- function(rcapConfigFileName="rcap_designer.json") {
       
       funText <- c(funText, rcapControl$controlProperties[[2]]$value)
       
-      funText <- c(funText, paste0("  rcw.set(\"#",rcapControl$id,"\", wp1)}"))
+      funText <- c(funText, paste0("  rcloud.web::rcw.set(\"#",rcapControl$id,"\", wp1)}"))
       
       # Make a temporary file
       sourceFile <- tempfile(fileext=".R")
@@ -45,7 +45,10 @@ rcap.result <- function(rcapConfigFileName="rcap_designer.json") {
   # Wrap plot and data functions and add to rcw call
   
   # Call rcw.result
-  
-  do.call(rcw.result, rcwResultList)
+  if(inline) {
+    rcloud.web::rcw.inline(do.call(rcloud.web::rcw.result, rcwResultList))
+  } else {
+    do.call(rcloud.web::rcw.result, rcwResultList)
+  }
   
 }
