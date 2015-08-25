@@ -1,7 +1,7 @@
 <div id="<%=control.id%>" class="r"></div>
 <script type="text/javascript">
 if (typeof notebook_result.<%=control.id%> === 'function') { 
-    notebook.result<%=control.id%>(function() {});
+    notebook_result.<%=control.id%>(function() {});
 } else {
 	$('#<%=control.id%>')
 		.css({
