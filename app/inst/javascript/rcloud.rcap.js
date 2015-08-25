@@ -27,6 +27,11 @@
                 initialiser.bootstrap();
                 k();
             });
+        },
+        
+        initViewer: function(content, k) {
+          console.log(content);
+          k();
         }
     };
 })());
