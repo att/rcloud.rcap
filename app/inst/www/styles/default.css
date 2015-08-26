@@ -1240,6 +1240,8 @@ textarea.parsley-error {
       content: "\f039"; }
     #rcap-designer .menu ul#controls a.control-iframe::before {
       content: "\f0c2"; }
+    #rcap-designer .menu ul#controls a.control-form::before {
+      content: "\f022"; }
     #rcap-designer .menu ul#settings a::before {
       content: "\f013"; }
     #rcap-designer .menu a span {

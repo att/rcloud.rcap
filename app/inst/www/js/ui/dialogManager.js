@@ -35,8 +35,8 @@ define([
             //
             // dialog show message subscription:
             //
-            PubSub.subscribe('controlDialog:show', function(msg, control){
-                
+            PubSub.subscribe('controlDialog:show', function(msg, control) {
+
                 // set the markup and the data object:
                 $('#dialog-controlSettings form')
                     .html(control.getDialogMarkup())
@@ -49,40 +49,40 @@ define([
                 //   validate();
                 // });
 
-             //   $('#demo-form .btn').on('click', function () {
+                //   $('#demo-form .btn').on('click', function () {
                 $('#dialog-controlSettings .approve').on('click', function() {
-                  $('#demo-form').parsley().validate();
-                  validate();
+                    $('#demo-form').parsley().validate();
+                    validate();
                 });
 
-                var validate = function () {
-                  if (true === $('#demo-form').parsley().isValid()) {
-                    //$('.form-errors').addClass('hidden');
+                var validate = function() {
+                    if (true === $('#demo-form').parsley().isValid()) {
+                        //$('.form-errors').addClass('hidden');
 
-                    // get the control that was initially assigned:
-                    var originatingControl = $('#dialog-controlSettings form').data('control');
+                        // get the control that was initially assigned:
+                        var originatingControl = $('#dialog-controlSettings form').data('control');
 
-                    // todo: validate
-                    $.each(originatingControl.controlProperties, function(index, prop) {
+                        // todo: validate
+                        $.each(originatingControl.controlProperties, function(index, prop) {
 
-                        // get the value:
-                        var dialogValue = prop.getDialogValue();
+                            // get the value:
+                            var dialogValue = prop.getDialogValue();
 
-                        // validate:
+                            // validate:
 
-                        // assign:
+                            // assign:
 
-                        originatingControl.controlProperties[index].value = dialogValue;
-                    });
+                            originatingControl.controlProperties[index].value = dialogValue;
+                        });
 
-                    // push the updated event:
-                    PubSub.publish('controlDialog:updated', originatingControl);
+                        // push the updated event:
+                        PubSub.publish('controlDialog:updated', originatingControl);
 
-                    $('#dialog-controlSettings').jqmHide(); 
+                        $('#dialog-controlSettings').jqmHide();
 
-                  } else {
-                    //$('.form-errors').removeClass('hidden');
-                  }
+                    } else {
+                        //$('.form-errors').removeClass('hidden');
+                    }
                 };
 
                 $('#dialog-controlSettings').jqmShow();

@@ -1,24 +1,26 @@
 define([
 	'controls/datePicker',
-	'controls/dropdown',
+	//'controls/dropdown',
 	'controls/iframe',
 	'controls/image',
 	'controls/rPlot',
 	'controls/text',
-	'controls/webPlot'
-	], function(DatePickerControl, DropdownControl, IFrameControl, ImageControl, RPlotControl, TextControl, WebPlotControl) {
+	'controls/webPlot',
+	'controls/form'
+	], function(DatePickerControl, /*DropdownControl,*/ IFrameControl, ImageControl, RPlotControl, TextControl, WebPlotControl, FormControl) {
 	
 	'use strict';
 
 	function ControlFactory()  {
 		this.controls = [
 			new DatePickerControl(),
-			new DropdownControl(),
+			//new DropdownControl(),
 			new IFrameControl(),
 			new ImageControl(),
 			new RPlotControl(),
 			new TextControl(),
-			new WebPlotControl()
+			new WebPlotControl(),
+			new FormControl()
 		];
 	}
 
@@ -33,12 +35,13 @@ define([
 
 		switch(key){
 			case 'datepicker': control = new DatePickerControl(); break;
-			case 'dropdown': control = new DropdownControl(); break;
+			//case 'dropdown': control = new DropdownControl(); break;
 			case 'iframe': control = new IFrameControl(); break;
 			case 'image': control = new ImageControl(); break;
 			case 'rplot': control = new RPlotControl(); break;
 			case 'text': control = new TextControl(); break;
 			case 'webplot': control = new WebPlotControl(); break;
+			case 'form': control = new FormControl(); break;
 			default: control = undefined; break;
 		}
 

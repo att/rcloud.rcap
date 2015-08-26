@@ -112,6 +112,9 @@ $defaultFont: 'Open Sans', sans-serif;
         & ul#controls a.control-iframe::before {
             content: "\f0c2";
         }
+        & ul#controls a.control-form::before {
+            content: "\f022";
+        }
         & ul#settings a::before {
             content: "\f013";
         }
