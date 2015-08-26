@@ -1,11 +1,11 @@
 define([
-	'controls/datepicker',
+	'controls/datePicker',
 	'controls/dropdown',
 	'controls/iframe',
 	'controls/image',
-	'controls/rplot',
+	'controls/rPlot',
 	'controls/text',
-	'controls/webplot'
+	'controls/webPlot'
 	], function(DatePickerControl, DropdownControl, IFrameControl, ImageControl, RPlotControl, TextControl, WebPlotControl) {
 	
 	'use strict';

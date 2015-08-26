@@ -439,9 +439,11 @@
     width: 100%;
     height: 100%;
     border: none; }
-  #rcap-viewer .grid-stack-item-content r {
+  #rcap-viewer .grid-stack-item-content .r {
     width: 100%;
     height: 100%; }
+  #rcap-viewer .grid-stack-item-content .r img {
+    width: 100%; }
 
 /***
 Spectrum Colorpicker v1.7.1

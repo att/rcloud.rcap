@@ -22,7 +22,9 @@ define(['text!rcap/partials/viewer.htm',
                 // initialise
                 serializer.initialise();
 
-                $('#rcap-viewer .close-viewer').click(function() {
+                $('#rcap-viewer .close').show();
+
+                $('#rcap-viewer .close').click(function() {
                     $('#rcap-viewer').hide();
                 });
 
@@ -38,6 +40,28 @@ define(['text!rcap/partials/viewer.htm',
         },
 
         initialise: function(json) {
+
+            // subscribe to grid done event:
+            PubSub.subscribe('grid:initcomplete', function() {
+
+                var noop = function() {};
+                var notebookResult = window.notebook_result; // jshint ignore:line
+
+                $('.r').each(function(i, e) {
+                    if (typeof notebookResult[$(e).attr('id')] === 'function') {
+                        var $enclosingDiv = $(e).closest('.grid-stack-item-content');
+                        notebookResult[$(e).attr('id')]($enclosingDiv.width() * 1.5, $enclosingDiv.height() * 1.5, noop);
+                    } else {
+                        $(e).css({
+                                'color': 'red',
+                                'font-weight': 'bold',
+                                'border': '1px solid red'
+                            })
+                            .text('the function ' + $(e).attr('id') + '() does not exist...');
+                    }
+                });
+
+            });
 
             $('body').append(mainPartial);
 

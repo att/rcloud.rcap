@@ -25,7 +25,7 @@ define([], function() {
             $('body').on('click', '#share-link[href*="shared.R/rcloud.rcap/view.html"]', function(e) {
 
                 require(['rcap/js/viewer'], function(viewer){
-                    viewer.initialise();
+                    viewer.initialiseFromMenu();
                 });
 
                 e.preventDefault();

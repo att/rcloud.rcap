@@ -13,6 +13,10 @@ define([
         this.id = 'GM-' + Math.random().toString(16).slice(2);
     };
 
+    GridManager.prototype.publishComplete = function() {
+        setTimeout(function() { PubSub.publish('grid:initcomplete', {}); }, 500);
+    };
+
     GridManager.prototype.initialise = function() {
 
         var selector = '#rcap-viewer .grid-stack';
@@ -46,6 +50,8 @@ define([
                 grid.locked(newWidget, true);
             }
         });
+
+        this.publishComplete();
     };
 
     GridManager.prototype.initialiseDesignGrid = function() {
@@ -258,6 +264,7 @@ console.log('rcap:open for design grid');
 
         });
 
+        this.publishComplete();
     };
 
     return GridManager;
