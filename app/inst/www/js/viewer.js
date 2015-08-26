@@ -51,12 +51,12 @@ define(['text!rcap/partials/viewer.htm',
                     if (typeof notebookResult[$(e).attr('id')] === 'function') {
                         var $enclosingDiv = $(e).closest('.grid-stack-item-content');
                         
-                        notebookResult[$(e).attr('id')]($enclosingDiv.width() * 1.5, $enclosingDiv.height() * 1.5, noop);
+                        //notebookResult[$(e).attr('id')]($enclosingDiv.width() * 1.5, $enclosingDiv.height() * 1.5, noop);
 
-                        // notebookResult[$(e).attr('id')]({
-                        //     width: $enclosingDiv.width() * 1.5, 
-                        //     height: $enclosingDiv.height() * 1.5
-                        // }, noop);  
+                        notebookResult[$(e).attr('id')]({
+                            width: $enclosingDiv.width() * 1.5, 
+                            height: $enclosingDiv.height() * 1.5
+                        }, noop);  
 
                     } else {
                         $(e).css({
