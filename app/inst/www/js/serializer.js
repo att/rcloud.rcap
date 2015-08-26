@@ -10,6 +10,23 @@ define(['pubsub', 'controls/factories/controlFactory'],
             PubSub.subscribe('rcap:serialize', function(msg, gridItems) {
                 // todo: persist to notebook:
                 localStorage.setItem('rcap', JSON.stringify(gridItems));
+
+                // Look for the config file in the assets
+                var assetConfigName = 'rcap_designer.json';
+      			var assetNames = shell.notebook.model.assets.map(function(x) {return x.filename();});
+                
+                var configIndex = assetNames.indexOf(assetConfigName);
+                if (configIndex > -1) {
+                	// Overwrite it.
+                	var targetAsset = shell.notebook.model.assets[configIndex];
+                	targetAsset.content(JSON.stringif(gridItems));
+                	shell.notebook.controller.update_asset(targetAsset);
+
+
+                } else {
+                	// We're going to have to create it.
+                	shell.notebook.controller.append_asset(JSON.stringify(gridItems), assetConfigName);
+                }
             });
 
 			PubSub.subscribe('rcap:deserialize', function(msg, msgData) {
