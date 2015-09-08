@@ -1,32 +1,26 @@
-define(['rcap/js/ui/controls/properties/baseControlProperty', 
-	'text!templates/wysiwyg.tpl', 
-	'wysiwyg/standalone'
-	], function(BaseControlProperty, tpl) {
+define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/radioButtonGroup.tpl'], function(BaseControlProperty, tpl) {
+	
 	'use strict';
 
-	var WysiwygControlProperty = BaseControlProperty.extend({
+	var RadioButtonGroupControlProperty = BaseControlProperty.extend({
 		init: function(options) {
 			options = options || {};
 			this._super({
-				type : 'wysiwyg',
+				type : 'radiobuttongroup',
 				label : options.label || '',
 				helpText : options.helpText || '',
 				defaultValue : options.defaultValue || '',
 				isRequired : options.isRequired || false,
-				value : options.value || '',
 				uid : options.uid,
-				className : options.className
+				className : options.className				
 			});
 
 			// additional assignments go here:
+			this.radioButtonOptions = options.radioButtonOptions || [];
 		},
 		render: function(childIndex) {
 
 			var template = _.template(tpl);
-
-			// replace stuff:
-			this.value = this.value.replace(/'/g, '\\\'');
-			this.value = this.value.replace(/"/g, '\"');
             
             return template({
             	property : this,
@@ -35,10 +29,10 @@ define(['rcap/js/ui/controls/properties/baseControlProperty',
 
 		},
 		getDialogValue : function() {
-			return $('#' + this.id).wysiwyg('shell').getHTML();
+			return $('#' + this.id + ' input[type="radio"]:checked:first').val();
 		}
 	});
 
-	return WysiwygControlProperty;
+	return RadioButtonGroupControlProperty;
 
 });

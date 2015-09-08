@@ -65,6 +65,10 @@
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  display: none;
+}
+.grid-stack > .grid-stack-item:hover > .ui-remove {
+    display: block;
 }
 .grid-stack > .grid-stack-item > .ui-resizable-se::before,
 .grid-stack > .grid-stack-item > .ui-resizable-sw::before {

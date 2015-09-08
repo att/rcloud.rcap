@@ -13,6 +13,38 @@ define([
         this.id = 'GM-' + Math.random().toString(16).slice(2);
     };
 
+    var getDesignTimeControlOuterMarkup = function(control) {
+        return $('<div data-controlid="' + control.id + '"></div>').append(getDesignTimeControlInnerMarkup(control));
+    };
+
+    var getDesignTimeControlInnerMarkup = function(control) {
+        var outer = $('<div class="grid-stack-item-content" data-gs-locked="true"><div class="configure"></div></div>');
+        var configure = outer.find('.configure');
+
+        if( !control.isValid()) {
+            outer.addClass('invalid');
+        } else {
+            outer.addClass('valid');
+            outer.append('<div class="valid-overlay"></div>');
+            configure.append(control.render({
+                'designTime' : true
+            }));
+        }
+
+        // append button (and icon if the state is not valid):
+        outer.append('<p>' + 
+            (control.isValid() ? '' : '<i class="config-icon icon-' + control.inlineIcon + '"></i>')+ 
+            '<button type="button" class="btn btn-primary btn-configure">Configure</button></p>');
+
+        return outer;
+
+        /*
+        return '<div class="grid-stack-item-content" data-gs-locked="true"><div class="configure">' + // jshint ignore:line
+            '<p><i class="icon-' + control.inlineIcon + '"></i></p>' + '<p><button type="button" class="btn btn-primary">Configure</button></p></div></div>';
+
+            */
+    };
+
     GridManager.prototype.publishComplete = function() {
         setTimeout(function() { PubSub.publish('grid:initcomplete', {}); }, 500);
     };
@@ -108,7 +140,7 @@ define([
         //
         // draggable initiation
         //
-        $('#controls li').draggable({
+        $('#main-menu .controls li').draggable({
             revert: true,
             revertDuration: 0,
             appendTo: '.grid-stack',
@@ -138,7 +170,7 @@ define([
         // drop control onto grid
         //
         $(selector).droppable({
-            accept: '#controls li',
+            accept: '#main-menu .controls li',
             hoverClass: 'grid-stack-item',
             over: function(event, ui) {
                 ui.helper.css('z-index', 9999);
@@ -158,7 +190,7 @@ define([
 
                 if (grid.is_area_empty(placeholderPosition.x, placeholderPosition.y, defaultWidth, defaultHeight)) { // jshint ignore:line
 
-                    var newWidget = grid.add_widget($('<div data-controlid="' + control.id + '"><div class="grid-stack-item-content" data-gs-locked="true"><div class="configure">' + control.getConfigurationMarkup() + '<p><button type="button" class="btn btn-primary">Configure</button></p></div></div></div>'), placeholderPosition.x, placeholderPosition.y, defaultWidth, defaultHeight, false); // jshint ignore:line
+                    var newWidget = grid.add_widget(getDesignTimeControlOuterMarkup(control), placeholderPosition.x, placeholderPosition.y, defaultWidth, defaultHeight, false); // jshint ignore:line
 
                     // set the new element's control property:
                     control.x = +placeholderPosition.x;
@@ -176,8 +208,8 @@ define([
         //
         // configuration button click, show dialog:
         //
-        $('body').on('click', '#inner-stage .configure button', function() {
-            PubSub.publish('controlDialog:show', $(this).closest('.grid-stack-item').data('control'));
+        $('body').on('click', '#inner-stage .btn-configure', function() {
+            PubSub.publish('control:configure', $(this).closest('.grid-stack-item').data('control'));
         });
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -190,7 +222,8 @@ define([
             var gridItem = $('.grid-stack-item[data-controlid="' + control.id + '"]');
 
             // and get the new markup:
-            gridItem.find('.configure p:first').html(control.getConfigurationMarkup());
+            gridItem.empty()
+                    .append(getDesignTimeControlInnerMarkup(control));
 
             // update the control:
             gridItem.data('control', control);
@@ -220,9 +253,7 @@ define([
         //  
         PubSub.subscribe('grid:designer-init', function(msg, items) {
 
-
-console.log('rcap:open for design grid');
-
+            console.log('rcap:open for design grid');
 
             var grid = $(selector).data('gridstack'),
                 loop = 0,
@@ -234,8 +265,7 @@ console.log('rcap:open for design grid');
 
                 control = items[loop];
 
-                var newWidget = grid.add_widget($('<div data-controlid="' + control.id + '"><div class="grid-stack-item-content" data-gs-locked="true"><div class="configure">' + // jshint ignore:line
-                    control.getConfigurationMarkup() + '<p><button type="button" class="btn btn-primary">Configure</button></p></div></div></div>'), control.x, control.y, control.width, control.height, false); // jshint ignore:line
+                var newWidget = grid.add_widget(getDesignTimeControlOuterMarkup(control), control.x, control.y, control.width, control.height, false); // jshint ignore:line
 
                 newWidget.data('control', control);
 

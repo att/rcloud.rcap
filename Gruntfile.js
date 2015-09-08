@@ -59,6 +59,7 @@ module.exports = function(grunt) {
                     '<%= appConfig.appPath %>/inst/www/js/*.js',
                     '<%= appConfig.appPath %>/inst/www/js/ui/*.js',
                     '<%= appConfig.appPath %>/inst/www/js/ui/controls/*.js',
+                    '<%= appConfig.appPath %>/inst/www/js/ui/controls/child/*.js',
                     '<%= appConfig.appPath %>/inst/www/js/ui/controls/dialogs/*.js',
                     '<%= appConfig.appPath %>/inst/www/js/ui/controls/factories/*.js',
                     '<%= appConfig.appPath %>/inst/www/js/ui/controls/properties/*.js',

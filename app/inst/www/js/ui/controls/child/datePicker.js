@@ -1,5 +1,5 @@
 define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textControlProperty',
-	'rcap/js/ui/controls/properties/colorControlProperty'], function(BaseControl, TextControlProperty, ColorControlProperty) {
+	'rcap/js/ui/controls/properties/colorControlProperty', 'text!rcap/js/ui/controls/child/templates/datePicker.tpl'], function(BaseControl, TextControlProperty, ColorControlProperty, tpl) {
 	
 	'use strict';
 
@@ -10,27 +10,29 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
 				label : 'Date Picker',
 				icon: 'f073',  
 				inlineIcon: 'calendar',
-				initialSize: [2, 1],
 				controlProperties: [
 					new TextControlProperty({
 						uid: 'label',
 						label : 'Label',
-						defaultValue : '',
-						helpText : 'The label for the date picker'
+						defaultValue : 'Label',
+						helpText : 'The label for this control'
 					}),
 					new TextControlProperty({
 						uid: 'variablename',
 						label : 'Variable name',
 						defaultValue : '',
-						helpText : 'The variable associated with this control'
-					}),
-					new ColorControlProperty({
-						uid: 'backgroundcolor',
-						label : 'Background color',
-						helpText : 'The color of the background for this control'	
+						helpText : 'The variable associated with this control',
+						isRequired: true
 					})
 				]
 			});
+		},
+		render: function() {
+			var template = _.template(tpl);
+
+            return template({
+                control: this
+            });
 		}
 	});
 

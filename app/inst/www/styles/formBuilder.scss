@@ -1,0 +1,99 @@
+#dialog-form-builder {
+    width: 1000px;
+    background: #dedede;
+    //font-size: 14px;
+    & .form-item {
+        padding: 9px;
+        margin-bottom: 5px;
+        width: 605px;
+        cursor: n-resize;
+        position: relative;
+        border: 1px solid $bgColor;
+        background: $bgColor;
+        color: $fg;
+    }
+
+    & .form-item .ui-remove {
+        z-index: 90;
+        right: 2px;
+        top: 1px;
+        position: absolute;
+        cursor: default;
+        display: none;
+    }
+
+    & .form-item .ui-remove::before {
+        content: "\f00d";
+        font: normal normal normal 16px FontAwesome;
+    }
+
+    & .dropped {
+        border: 1px dotted #dedede;
+        background: transparent;
+    }
+
+    & .dropped:hover {
+        border-color: #bcbcbc;
+    }
+
+    & .dropped:hover .ui-remove {
+        display: block;
+    }
+
+    & hr {
+        margin-top: 9px !important;
+        margin-bottom: 0!important;
+        border-style: inset;
+        box-sizing: border-box;
+        width: 90%;
+        margin-left: 0;
+    }
+
+    & h1, h2, h3, h4 {
+        margin-top: 0;
+    }
+
+    & .selected {
+        border-color: #000;
+    }
+    & .form-item:hover {
+        border-color: #000;
+    }
+    & .form-item-placeholder {
+        padding: 9px;
+        background: #cdcdcd;
+        border: 1px solid #cdcdcd;
+        color: black;
+        margin-bottom: 5px;
+        width: 605px;
+    }
+    & .drop-zone {
+        min-height: 400px;
+        background: #fff;
+        padding: 5px;
+    }
+    & .tab-content {
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        min-height: 358px;
+        background: white;
+    }
+    & #form-builder-configuration {
+        padding: 10px;
+    }
+    & .tab-content::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    & .nav-tabs {
+        margin-bottom: 0;
+    }
+    .nav-tabs > li.active > a {
+        background-color: $bg!important;
+    }
+    .nav-tabs > li {
+        font-size: 14px;
+    }
+    
+}

@@ -1,18 +1,19 @@
-define(['rcap/js/ui/controls/baseControl', 
+define(['rcap/js/ui/controls/gridControl', 
 	'rcap/js/ui/controls/properties/textControlProperty',
 	'rcap/js/ui/controls/properties/multilineTextControlProperty',
-	'text!controlTemplates/rPlot.tpl'], function(BaseControl, TextControlProperty, MultilineTextControlProperty, tpl) {
+	'text!controlTemplates/rPlot.tpl',
+	'text!controlTemplates/rPlot-design.tpl'], function(GridControl, TextControlProperty, MultilineTextControlProperty, tpl, dtpl) {
 	
 	'use strict';
 
-	var RPlotControl = BaseControl.extend({
+	var RPlotControl = GridControl.extend({
 		init: function() {
 			this._super({
 				type : 'rplot',
 				label : 'R Plot',
 				icon: 'f012',  
 				inlineIcon: 'signal',
-				initialSize: [3, 3],
+				initialSize: [2, 2],
 				controlProperties: [
 					new TextControlProperty({
 						uid: 'heading',
@@ -31,9 +32,12 @@ define(['rcap/js/ui/controls/baseControl',
 				]
 			});
 		},
-		render: function() {
+		render: function(options) {
 
-            var template = _.template(tpl);
+			options = options || {};
+			var isDesignTime = options.isDesignTime || true;
+
+            var template = isDesignTime ? _.template(dtpl) : _.template(tpl);
 
             return template({
                 control: this

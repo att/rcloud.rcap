@@ -12,7 +12,8 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/dr
 				defaultValue : options.defaultValue || '',
 				isRequired : options.isRequired || false,
 				uid : options.uid,
-				className : options.className
+				className : options.className,
+				value: options.value
 			});
 
 			// additional assignments go here:

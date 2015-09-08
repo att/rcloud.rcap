@@ -1,20 +1,23 @@
-define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textControlProperty',
+define(['rcap/js/ui/controls/gridControl', 'rcap/js/ui/controls/properties/textControlProperty',
     'rcap/js/ui/controls/properties/dropdownControlProperty',
     'rcap/js/ui/controls/properties/colorControlProperty', 
+    'rcap/js/ui/controls/properties/radioButtonGroupControlProperty', 
+    'rcap/js/ui/controls/properties/checkboxListControlProperty',
     'text!controlTemplates/iframe.tpl'
 
-], function(BaseControl, TextControlProperty, DropdownControlProperty, ColorControlProperty, tpl) {
+], function(GridControl, TextControlProperty, DropdownControlProperty, ColorControlProperty, RadioButtonGroupControlProperty,
+    CheckboxListControlProperty, tpl) {
 
     'use strict';
 
-    var IFrameControl = BaseControl.extend({
+    var IFrameControl = GridControl.extend({
         init: function() {
             this._super({
                 type: 'iframe',
                 label: 'iFrame',
                 icon: 'f0c2',
                 inlineIcon: 'cloud',
-                initialSize: [6, 3],
+                initialSize: [2, 2],
                 controlProperties: [
                     new TextControlProperty({
                         uid: 'source',
@@ -22,7 +25,47 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
                         defaultValue: '',
                         helpText: 'The URL that the iFrame will show',
                         isRequired: true
-                    })/*,
+                    }),
+                    new RadioButtonGroupControlProperty({
+                        uid: 'testRbg',
+                        radioButtonOptions: [{
+                            label: 'Option 1',
+                            value: '1'
+                        }, {
+                            label: 'Option 2',
+                            value: '2'
+                        }, {
+                            label: 'Option 3',
+                            value: '3'
+                        }, {
+                            label: 'Option 4',
+                            value: '4'
+                        }, {
+                            label: 'Option 5',
+                            value: '5'
+                        }, {
+                            label: 'Option 6',
+                            value: '6'
+                        }]
+                    }),
+                    new CheckboxListControlProperty({
+                        uid: 'testCbl',
+                        checkboxListOptions: [{
+                            label: 'Option 1',
+                            value: '1'
+                        }, {
+                            label: 'Option 2',
+                            value: '2'
+                        }, {
+                            label: 'Option 3',
+                            value: '3'
+                        }]
+                    }),
+
+
+
+
+                    /*,
                     new DropdownControlProperty({
                         uid: 'testdropdown',
                         label: 'Test dropdown',

@@ -5,12 +5,34 @@
 @import "spectrum/spectrum.scss";
 @import "wysiwyg.js/wysiwyg-editor.scss";
 @import "parsleyjs/parsley.scss";
-
 $bg: #fff;
 $fg: rgb(62, 62, 62);
 $defaultFontSize: 12px;
 $bgColor: #F2F2F2;
-$defaultFont: 'Open Sans', sans-serif;
+$defaultFont: 'Open Sans',
+sans-serif;
+/// Stroke font-character
+/// @param  {Integer} $stroke - Stroke width
+/// @param  {Color}   $color  - Stroke color
+/// @return {List}            - text-shadow list
+@function stroke($stroke, $color) {
+    $shadow: ();
+    $from: $stroke*-1;
+    @for $i from $from through $stroke {
+        @for $j from $from through $stroke {
+            $shadow: append($shadow, $i*1px $j*1px 0 $color, comma);
+        }
+    }
+    @return $shadow;
+}
+
+/// Stroke font-character
+/// @param  {Integer} $stroke - Stroke width
+/// @param  {Color}   $color  - Stroke color
+/// @return {Style}           - text-shadow
+@mixin stroke($stroke, $color) {
+    text-shadow: stroke($stroke, $color);
+}
 
 #rcap-disclaimer {
     background-color: white;
@@ -43,7 +65,7 @@ $defaultFont: 'Open Sans', sans-serif;
         padding: 0;
         margin: 0;
         height: 100%;
- //       overflow-y: auto;
+        //       overflow-y: auto;
         & h4 {
             padding-left: 5px;
         }
@@ -72,9 +94,9 @@ $defaultFont: 'Open Sans', sans-serif;
         & a span::after {
             display: block;
         }
-        & ul#pages a::before,
-        & ul#controls a::before,
-        & ul#settings a::before {
+        & ul.pages a::before,
+        & ul.controls a::before,
+        & ul.settings a::before {
             text-align: left;
             color: $fg;
             padding: 2px 8px 0 0;
@@ -85,37 +107,49 @@ $defaultFont: 'Open Sans', sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
-        & ul#pages a::before {
+        & ul.pages a::before {
             content: "\f0f6";
         }
-        & ul#pages a.add-page::before {
+        & ul.pages a.add-page::before {
             content: "\f055";
         }
-        & ul#controls a.control-rplot::before {
+        & ul.controls a.control-rplot::before {
             content: "\f012";
         }
-        & ul#controls a.control-webplot::before {
+        & ul.controls a.control-webplot::before {
             content: "\f080";
         }
-        & ul#controls a.control-datepicker::before {
-        	content: "\f073";
+        & ul.controls a.control-datepicker::before {
+            content: "\f073";
         }
-        & ul#controls a.control-image::before {
+        & ul.controls a.control-separator::before {
+            content: "\f141";
+        }
+        & ul.controls a.control-image::before {
             content: "\f03e";
         }
-        & ul#controls a.control-text::before {
+        & ul.controls a.control-text::before {
             content: "\f044";
         }
-        & ul#controls a.control-dropdown::before {
+        & ul.controls a.control-dropdown::before {
             content: "\f039";
         }
-        & ul#controls a.control-iframe::before {
+        & ul.controls a.control-iframe::before {
             content: "\f0c2";
         }
-        & ul#controls a.control-form::before {
+        & ul.controls a.control-form::before {
             content: "\f022";
         }
-        & ul#settings a::before {
+        & ul.controls a.control-heading::before {
+            content: "\f031";
+        }
+        & ul.controls a.control-checkboxlist::before {
+            content: "\f00c";
+        }
+        & ul.controls a.control-radiobuttongroup::before {
+            content: "\f10c";
+        }
+        & ul.settings a::before {
             content: "\f013";
         }
         & a span {
@@ -153,7 +187,10 @@ $defaultFont: 'Open Sans', sans-serif;
         & a span.page-add::after {
             content: "\f055";
         }
-        & ul#controls a {
+        & ul.controls a {
+            cursor: move;
+        }
+        & ul.form-controls a {
             cursor: move;
         }
         & a span::after {
@@ -187,7 +224,6 @@ $defaultFont: 'Open Sans', sans-serif;
         }
     }
     /* form controls */
-    
     & .form-control {
         background: white;
         width: 100%;
@@ -197,42 +233,35 @@ $defaultFont: 'Open Sans', sans-serif;
         display: block;
         width: 100%;
     }
-
     & form .form-group:not(:first-child) {
-    	margin-top: 10px;
+        margin-top: 10px;
     }
-
-    & .form-group .description { 
-    	color: #777;
+    & .form-group .description {
+        color: #777;
         margin-top: 3px;
     }
-
     & .form-group textarea.code {
         font-family: Monaco, 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, monospace;
         height: 250px;
         font-size: 13px;
     }
-
     .configure {
-
-        i {
-            display: inline-block;
-            font-size: 15pt;
-            margin-right: 5px;
-        }
-
         p {
             font-size: 115%;
             margin-bottom: 0;
             padding-bottom: 0;
         }
-
         button {
             margin-top: 4px;
         }
-
     }
-    
+    i.config-icon {
+        display: block;
+        text-align: center;
+        font-size: 30pt;
+        margin-top: -24px;
+        @include stroke(2, #fff);
+    }
 }
 
 .parsley-errors-list {
@@ -260,7 +289,6 @@ li.parsley-required:before {
     margin-left: 3px
 }
 
-
 #no-items {
     text-align: center;
     color: $fg;
@@ -273,6 +301,7 @@ li.parsley-required:before {
     left: 50%;
     position: absolute;
 }
+
 #no-items p:before {
     content: "\f064";
     color: $fg;
@@ -292,9 +321,10 @@ li.parsley-required:before {
     width: 200px;
     text-align: right;
     right: 70px;
-    }
+}
 
-.wysiwyg-toolbar, .wysiwyg-popuphover {
+.wysiwyg-toolbar,
+.wysiwyg-popuphover {
     background: $bgColor;
     color: darken($bgColor, 50%);
 }
@@ -307,7 +337,7 @@ a.wysiwyg-toolbar-icon:hover {
     text-decoration: none;
 }
 
-.wysiwyg-editor { 
+.wysiwyg-editor {
     background: white;
 }
 
@@ -316,15 +346,45 @@ a.wysiwyg-toolbar-icon:hover {
 }
 
 .wysiwyg-plugin-list a {
-    display: block; padding: 6px; text-decoration: none; 
+    display: block;
+    padding: 6px;
+    text-decoration: none;
 }
 
 .wysiwyg-plugin-list a:hover {
-    display: block; padding: 6px; 
+    display: block;
+    padding: 6px;
     color: HighlightText;
     background-color: Highlight;
 }
 
 .wysiwyg-browse {
     padding: 0;
+}
+
+@import "formBuilder.scss";
+// SVG TEMP :)
+.dt {
+    svg.graph {
+        width: 100%;
+        height: 100%;
+    }
+    svg.graph .grid {
+        stroke: black;
+        stroke-dasharray: 1 2;
+        stroke-width: 1;
+    }
+    svg.graph .points {
+        stroke: white;
+        stroke-width: 3;
+    }
+    svg.graph .first_set {
+        fill: #00554d;
+    }
+    svg.graph .surfaces {
+        fill-opacity: 0.5;
+    }
+    svg.graph .grid.double {
+        stroke-opacity: 0.4;
+    }
 }

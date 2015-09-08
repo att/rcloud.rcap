@@ -2,7 +2,7 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/mu
 	
 	'use strict';
 
-	var TextControlProperty = BaseControlProperty.extend({
+	var MultiLineTextControlProperty = BaseControlProperty.extend({
 		init: function(options) {
 			options = options || {};
 			this._super({
@@ -12,11 +12,12 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/mu
 				defaultValue : options.defaultValue || '',
 				isRequired : options.isRequired || false,
 				uid : options.uid,
-				className : options.className
+				className : options.className,
+				value: options.value
 			});
 
 			// additional assignments go here:
-			this.rows = options.rows || 20;
+			this.rows = options.rows || 10;
 			this.cols = options.cols || 80;
 		},
 		render: function(childIndex) {
@@ -34,6 +35,6 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/mu
 		}
 	});
 
-	return TextControlProperty;
+	return MultiLineTextControlProperty;
 
 });
