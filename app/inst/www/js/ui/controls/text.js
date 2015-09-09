@@ -13,16 +13,18 @@ define(['rcap/js/ui/controls/gridControl',
 				inlineIcon: 'pencil',
 				initialSize: [2, 2],
 				controlProperties: [
+				/*
 					new TextControlProperty({
 						uid: 'label',
 						label : 'Label',
 						defaultValue : '',
 						helpText : 'The heading for the control'
-					}),
+					}),*/
 					new WysiwygControlProperty({
 						uid: 'content',
 						label : 'Content',
-						defaultValue : ''
+						defaultValue : '',
+						isRequired: true
 					})
 				]
 			});

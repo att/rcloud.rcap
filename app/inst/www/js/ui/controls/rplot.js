@@ -15,19 +15,20 @@ define(['rcap/js/ui/controls/gridControl',
 				inlineIcon: 'signal',
 				initialSize: [2, 2],
 				controlProperties: [
-					new TextControlProperty({
-						uid: 'heading',
-						label : 'Heading',
-						defaultValue : '',
-						helpText : 'The heading for this control'
-					}),
+					// new TextControlProperty({
+					// 	uid: 'heading',
+					// 	label : 'Heading',
+					// 	defaultValue : '',
+					// 	helpText : 'The heading for this control'
+					// }),
 					// code box
 					new MultilineTextControlProperty({
 						uid: 'code',
 						label: 'Code',
 						defaultValue: '',
 						helpText: 'Code for this control',
-						className: 'code'
+						className: 'code',
+						isRequired: true
 					})
 				]
 			});
