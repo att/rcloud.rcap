@@ -19,13 +19,13 @@ define(['rcap/js/ui/controls/gridControl', 'text!rcap/partials/dialogs/_formBuil
                 // initially empty, will be modified by the user
             ];
         },
-        render: function(/*options*/) {
+        render: function(options) {
           
             var html = '';
 
             $.each(this.childControls, function(key, child) {
                 html += '<div class="form-group">';
-                html += child.render();
+                html += child.render(options);
                 html += '</div>';
             });
 

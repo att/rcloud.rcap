@@ -27,7 +27,7 @@ define([
             outer.addClass('valid');
             outer.append('<div class="valid-overlay"></div>');
             configure.append(control.render({
-                'designTime' : true
+                'isDesignTime' : true
             }));
         }
 

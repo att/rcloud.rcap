@@ -1,23 +1,13 @@
 define(['rcap/js/ui/controls/baseControl',
-	'rcap/js/ui/controls/properties/textControlProperty',
-	'rcap/js/ui/controls/properties/multilineTextControlProperty',
-    'text!rcap/js/ui/controls/child/templates/radioButtonGroup.tpl'//,
-    //'text!rcap/js/ui/controls/child/templates/radioButtonGroup-dialog.tpl'
-], function(BaseControl, TextControlProperty, MultilineTextControlProperty, tpl) {
+    'rcap/js/ui/controls/properties/textControlProperty',
+    'rcap/js/ui/controls/properties/multiOptionControlProperty',
+    'text!rcap/js/ui/controls/child/templates/radioButtonGroup.tpl'
+], function(BaseControl, TextControlProperty, MultiOptionControlProperty, tpl) {
 
     'use strict';
 
     var RadioButtonGroupControl = BaseControl.extend({
         init: function() {
-
-        	// initialise radio button options
-            this.radioButtonOptions = [{
-                label: 'Option 1',
-                value: '1'
-            }, {
-                label: 'Option 2',
-                value: '2'
-            }];
 
             this._super({
                 type: 'radiobuttongroup',
@@ -31,47 +21,42 @@ define(['rcap/js/ui/controls/baseControl',
                         defaultValue: 'Description',
                         helpText: 'Instructions / help text for this control'
                     }),
+                    new TextControlProperty({
+                        uid: 'variablename',
+                        label: 'Variable name',
+                        defaultValue: '',
+                        helpText: 'The variable associated with this control',
+                        isRequired: true
+                    }),
                     // options:
-					new MultilineTextControlProperty({
-						uid: 'options',
-						label: 'Options',
-						defaultValue: '',
-						helpText: 'Enter options, one per line',
-						value: this.translateOptionsToText()
-					})
+                    new MultiOptionControlProperty({
+                        uid: 'options',
+                        label: 'Options',
+                        helpText: 'Enter options, one per line',
+                        value: [{
+                            label: 'Option 1',
+                            value: '1'
+                        }, {
+                            label: 'Option 2',
+                            value: '2'
+                        }],
+                        isRequired: true
+                    })
                 ]
             });
         },
-        translateOptionsToText: function() {
-            return _.pluck(this.radioButtonOptions, 'label').join('\n');
-        },
-        translateTextToOptions: function(text) {
-            _.filter(
-                _.map(text.split('\n'), function(obj) {
-                    return {
-                        label: obj,
-                        value: ''
-                    };
-                }),
-                function(obj) {
-                    return obj.label.length > 0;
-                });
-        },
-        render: function() {
+        render: function(options) {
+
+            options = options || {};
+
             var template = _.template(tpl);
 
             return template({
-                control: this
+                control: this,
+                isDesignTime: options.isDesignTime || false
             });
-        },
-        // getDialogMarkup: function() {
 
-        //     var template = _.template(dtpl);
-
-        //     return template({
-        //         control: this
-        //     });
-        // }
+        }
 
     });
 

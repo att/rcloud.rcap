@@ -104,6 +104,9 @@ define(['pubsub', 'controls/factories/controlFactory'],
                                     if (currProp !== undefined) {
                                         currProp.value = jsonControl.childControls[propertyLoop].controlProperties[childControlLoop].value;
                                         currProp.id = jsonControl.childControls[propertyLoop].controlProperties[childControlLoop].id;
+
+                                        // call finalise method:
+                                        currProp.finalise();
                                     }
                                 }
 

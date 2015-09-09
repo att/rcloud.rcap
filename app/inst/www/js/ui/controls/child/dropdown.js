@@ -1,6 +1,6 @@
 define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textControlProperty',
-	'rcap/js/ui/controls/properties/colorControlProperty', 'text!rcap/js/ui/controls/child/templates/dropdown.tpl'],
-	function(BaseControl, TextControlProperty, ColorControlProperty, tpl) {
+	'rcap/js/ui/controls/properties/multiOptionControlProperty', 'text!rcap/js/ui/controls/child/templates/dropdown.tpl'],
+	function(BaseControl, TextControlProperty, MultiOptionControlProperty, tpl) {
 	
 	'use strict';
 
@@ -24,16 +24,35 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
 						defaultValue : '',
 						helpText : 'The variable associated with this control',
 						isRequired: true
-					})
+					}),
+					// options:
+                    new MultiOptionControlProperty({
+                        uid: 'options',
+                        label: 'Options',
+                        helpText: 'Enter options, one per line',
+                        value: [{
+                            label: 'Option 1',
+                            value: '1'
+                        }, {
+                            label: 'Option 2',
+                            value: '2'
+                        }],
+                        isRequired: true
+                    })
 				]
 			});
 		},
-		render: function() {
-			var template = _.template(tpl);
+		render: function(options) {
+			
+			options = options || {};
+
+            var template = _.template(tpl);
 
             return template({
-                control: this
+                control: this,
+                isDesignTime: options.isDesignTime || false
             });
+            
 		}
 	});
 

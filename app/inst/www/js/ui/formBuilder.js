@@ -10,10 +10,10 @@ define(['controls/factories/controlFactory', 'pubsub'], function(ControlFactory,
                 $('#formbuilder-form').html(control.getDialogMarkup());
 
                 // don't forget the 'save' button, if there are control properties:
-                if( control.controlProperties.length > 0) {
-                    $('#formbuilder-form').append($('<button class="btn btn-primary">Update</button>'));    
+                if (control.controlProperties.length > 0) {
+                    $('#formbuilder-form').append($('<button class="btn btn-primary">Update</button>'));
                 }
-                
+
             };
 
             var updateChildControls = function() {
@@ -32,6 +32,11 @@ define(['controls/factories/controlFactory', 'pubsub'], function(ControlFactory,
 
             var me = this;
             me.controlFactory = new ControlFactory();
+
+            // parsley:
+            $('#formbuilder-form').parsley({
+                excluded: 'input[type=button], input[type=submit], input[type=reset], :input[type=hidden], :disabled, textarea:hidden'
+            });
 
             $('.drop-zone').on('click', '.ui-remove', function(e) {
                 updateChildControls();
@@ -62,6 +67,9 @@ define(['controls/factories/controlFactory', 'pubsub'], function(ControlFactory,
 
                 if (true === $('#formbuilder-form').parsley().isValid()) {
 
+                    // remove any 'parsley valid' classes:
+                    $('#formbuilder-form *').removeClass('parsley-success');
+
                     var originatingControl = $('#dialog-form-builder .form-item.selected').data('control');
 
                     $.each(originatingControl.controlProperties, function(index, prop) {
@@ -70,17 +78,25 @@ define(['controls/factories/controlFactory', 'pubsub'], function(ControlFactory,
                     });
 
                     // set:
+                    $('#dialog-form-builder .form-item.selected').effect('highlight', {
+                        color: '#f7a24d'
+                    }, 1000);
+
                     $('#dialog-form-builder .form-item.selected').data('control', originatingControl);
 
                     // update UI:
                     var updateItem = $('#dialog-form-builder .form-item.selected').find('.js-dynamic');
-                    updateItem.html(originatingControl.render());
+                    updateItem.html(originatingControl.render({
+                        'isDesignTime': true
+                    }));
+
+                    //console.log('VALID');
 
                     return false;
 
                 } else {
 
-                    
+                    //console.log('INVALID');
 
                 }
             });
@@ -138,7 +154,9 @@ define(['controls/factories/controlFactory', 'pubsub'], function(ControlFactory,
                     var child = me.controlFactory.getChildByKey(ui.item.data('type'));
 
                     // render the item's content based on the child's information:
-                    ui.helper.find('.js-dynamic').html(child.render());
+                    ui.helper.find('.js-dynamic').html(child.render({
+                        'isDesignTime': true
+                    }));
 
                     // update the data for this child control:
                     ui.helper.data('control', child);
@@ -174,7 +192,9 @@ define(['controls/factories/controlFactory', 'pubsub'], function(ControlFactory,
             $.each(control.childControls, function(key, child) {
                 // add an item and set its data:
                 var item = $('<div class="form-item dropped"><div class="ui-remove" href="javascript:void(0)"></div><div class="js-dynamic">' +
-                    child.render() + '</div></div>').data('control', child);
+                    child.render({
+                        'isDesignTime': true
+                    }) + '</div></div>').data('control', child);
 
                 $('#dialog-form-builder .drop-zone').append(item);
 

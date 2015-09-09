@@ -24,9 +24,7 @@ module.exports = function(grunt) {
             'R/**/*'
         ]
     };
-
     
-
     // 1. All configuration goes here 
     grunt.initConfig({
 
@@ -162,7 +160,7 @@ module.exports = function(grunt) {
             dist: {
                 command: [
                     'node r.js -o build.js',
-                    'move ui.js <%= appConfig.distDeployDir %>/inst/www/js/ui.js',
+                    'move initialiser.js <%= appConfig.distDeployDir %>/inst/www/js/initialiser.js',
                     //'cd <%= appConfig.cmdDir %>',
                     //'vagrant ssh -- sh rebuild.sh dist'
                 ].join(' && '),

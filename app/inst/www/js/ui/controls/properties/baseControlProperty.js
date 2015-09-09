@@ -38,6 +38,9 @@ define(['rcap/js/Class'], function() {
 		// },
 		getDialogValue : function() {
 			return '';
+		},
+		finalise: function() {
+			
 		}
 	});
 

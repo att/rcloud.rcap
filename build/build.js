@@ -29,9 +29,9 @@
         }
     },
     //optimize: 'none',
-    name: 'rcap/js/ui',
+    name: 'rcap/js/initialiser',
     preserveLicenseComments: false,
-    out: 'ui.js',
+    out: 'initialiser.js',
     exclude: ['text',
         'css'
     ],

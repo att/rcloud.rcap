@@ -4,9 +4,12 @@ define(['text!rcap/partials/designer.htm',
     'rcap/js/ui/gridManager',
     'pubsub',
     'rcap/js/serializer',
+
+    'text!rcap/partials/_top-banner.htm',                       // DEMO
+
     //'font!google,families:[Open Sans:400]',
     'css!rcap/styles/default.css'
-], function(mainPartial, MenuManager, dialogManager, GridManager, PubSub, serializer) {
+], function(mainPartial, MenuManager, dialogManager, GridManager, PubSub, serializer, topBannerPartial) {
 
     'use strict';
 
@@ -26,6 +29,18 @@ define(['text!rcap/partials/designer.htm',
                 $('#rcloud-navbar-menu').append('<li class="rcap"><a href="#">Close</a></li>');
 
                 $('body').append(mainPartial);
+
+                /////////////////////////////////////////////////////////////////////
+                //
+                //
+                //
+
+                $('#top-banner').replaceWith(topBannerPartial);
+                
+                //
+                //
+                //
+                /////////////////////////////////////////////////////////////////////
 
                 // close:
                 $('#rcloud-navbar-menu li.rcap').click(function() {

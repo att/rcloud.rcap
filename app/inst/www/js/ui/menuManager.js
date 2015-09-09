@@ -22,7 +22,7 @@ define([
         },
         intialiseFormBuilderMenu : function() {
             var childControls = controlFactory.getChildControls();
-            var templateStr = '<% _.each(controls, function(control){ %><li data-type="<%=control.type%>"><a href="#" class="control-<%=control.type %>" title="Add <%=control.type%>"><%= control.label %></a></li><% }); %>'; 
+            var templateStr = '<% _.each(controls, function(control){ %><li data-type="<%=control.type%>"><a href="#" class="control-<%=control.type %>" title="Add <%=control.label%>"><%= control.label %></a></li><% }); %>'; 
             var template = _.template(templateStr);
             $('#dialog-form-builder .controls').append(template({
                 controls: childControls

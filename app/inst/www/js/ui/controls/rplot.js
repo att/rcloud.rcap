@@ -35,9 +35,9 @@ define(['rcap/js/ui/controls/gridControl',
 		render: function(options) {
 
 			options = options || {};
-			var isDesignTime = options.isDesignTime || true;
+			var isDesignTime = options.isDesignTime || false;
 
-            var template = isDesignTime ? _.template(dtpl) : _.template(tpl);
+            var template = isDesignTime ? _.template(tpl) : _.template(dtpl);
 
             return template({
                 control: this

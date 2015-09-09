@@ -8,4 +8,10 @@
     <%=control.controlProperties[0].defaultValue%>
 <% } %>
 </label>
+
+
+
+
+
+
 <input type="date" id="<%=control.id%>"></input>
