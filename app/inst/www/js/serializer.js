@@ -47,7 +47,7 @@ define(['pubsub', 'controls/factories/controlFactory'],
                         currentChild,
                         rawData = msgData.hasOwnProperty('jsonData') ? msgData.jsonData : localStorage.getItem('rcap');
 
-                    data = rawData.length > 0 ? JSON.parse(rawData) : [];
+                    data = rawData && rawData.length > 0 ? JSON.parse(rawData) : [];
 
                     // loop through each control:
                     for (; controlLoop < data.length; ++controlLoop) {
