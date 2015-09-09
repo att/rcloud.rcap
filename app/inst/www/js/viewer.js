@@ -75,6 +75,9 @@ define(['text!rcap/partials/viewer.htm',
 
             $('body').html(mainPartial);
 
+
+            $('#top-banner').replaceWith(topBannerPartial);
+
             // initialise grid:
             var gridManager = new GridManager();
             gridManager.initialise();
