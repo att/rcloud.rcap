@@ -48,5 +48,6 @@ define(['rcap/js/ui/controls/gridControl',
 	});
 
 	return RPlotControl;
+	
 
 });
