@@ -22,7 +22,7 @@ rcap.result <- function(rcapConfigFileName="rcap_designer.json", inline=FALSE) {
       
       funText <- c(funText, "  wp1 <- WebPlot(width=width,height=height)")
       
-      funText <- c(funText, rcapControl$controlProperties[[2]]$value)
+      funText <- c(funText, rcapControl$controlProperties[[1]]$value)
       
       funText <- c(funText, paste0("  rcloud.web::rcw.set(\"#",rcapControl$id,"\", wp1)}"))
       
