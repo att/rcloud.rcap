@@ -2,8 +2,9 @@ define(['text!rcap/partials/viewer.htm',
     'rcap/js/ui/gridManager',
     'pubsub',
     'rcap/js/serializer',
+    'text!rcap/partials/_top-banner.htm',                       // DEMO
     'css!rcap/styles/default.css'
-], function(mainPartial, GridManager, PubSub, serializer) {
+], function(mainPartial, GridManager, PubSub, serializer, topBannerPartial) {
 
     'use strict';
 
@@ -29,6 +30,8 @@ define(['text!rcap/partials/viewer.htm',
                 });
 
             }
+
+            $('#top-banner').replaceWith(topBannerPartial);
 
             $('#rcap-viewer').show();
 
