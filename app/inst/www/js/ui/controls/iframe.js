@@ -26,6 +26,7 @@ define(['rcap/js/ui/controls/gridControl', 'rcap/js/ui/controls/properties/textC
                         helpText: 'The URL that the iFrame will show',
                         isRequired: true
                     }),
+                    /*
                     new RadioButtonGroupControlProperty({
                         uid: 'testRbg',
                         radioButtonOptions: [{
@@ -60,7 +61,7 @@ define(['rcap/js/ui/controls/gridControl', 'rcap/js/ui/controls/properties/textC
                             label: 'Option 3',
                             value: '3'
                         }]
-                    }),
+                    }),*/
 
 
 

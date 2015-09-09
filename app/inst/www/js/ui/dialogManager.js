@@ -71,7 +71,8 @@ define([
                 // set the markup and the data object:
                 $('#dialog-controlSettings form')
                     .html(control.getDialogMarkup())
-                    .data('control', control);
+                    .data('control', control)
+                    .keydown(function(e) { if( e.which === 13) { return false; }});
 
                 // initialise validation:
                 //$('#dialog-controlSettings form').parsley();
