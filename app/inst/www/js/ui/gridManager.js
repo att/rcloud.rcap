@@ -18,7 +18,7 @@ define([
     };
 
     var getDesignTimeControlInnerMarkup = function(control) {
-        var outer = $('<div class="grid-stack-item-content" data-gs-locked="true"><div class="configure"></div></div>');
+        var outer = $('<div class="grid-stack-item-content ui-draggable-handle" data-gs-locked="true"><div class="configure"></div></div>');
         var configure = outer.find('.configure');
 
         if( !control.isValid()) {
@@ -219,11 +219,13 @@ define([
         PubSub.subscribe('controlDialog:updated', function(msg, control) {
 
             // update the control's data: 
-            var gridItem = $('.grid-stack-item[data-controlid="' + control.id + '"]');
+            var gridItem = $('.grid-stack-item[data-controlid="' + control.id + '"] .grid-stack-item-content');
 
             // and get the new markup:
-            gridItem.empty()
-                    .append(getDesignTimeControlInnerMarkup(control));
+            //gridItem.empty()
+            //        .append(getDesignTimeControlInnerMarkup(control));
+
+            gridItem.replaceWith(getDesignTimeControlInnerMarkup(control));
 
             // update the control:
             gridItem.data('control', control);
