@@ -71,7 +71,10 @@ define([
                 // set the markup and the data object:
                 $('#dialog-controlSettings form')
                     .html(control.getDialogMarkup())
-                    .data('control', control)
+                    .data('control', control);
+
+                $('#dialog-controlSettings form')
+                    .find('input')
                     .keydown(function(e) { if( e.which === 13) { console.log(e); return false; }});
 
                 // initialise validation:
