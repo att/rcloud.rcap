@@ -9,6 +9,7 @@
   left: 50%;
   margin-left: -800px;
   min-width: 600px;
+  max-width: 80%;
   background-color: #EEE;
   color: #333;
   border: 1px solid black;
