@@ -1,10 +1,11 @@
 Package: rcloud.rcap
 Title: RCAP
 Version: 0.0.1
-Author: Shane Porter <sporter@mango-solutions.com>
-Maintainer: Shane Porter <sporter@mango-solutions.com>
-Description: Shane Porter <sporter@mango-solutions.com>
-Imports: rcloud.support, rcloud.web, rjson
+Authors@R: c(person("Douglas", "Ashton", email = "dashton@mango-solutions.com", role = c("aut", "cre")),
+             person("Shane", "Porter", email = "sporter@mango-solutions.com", role = c("aut")))
+Maintainer: Douglas Ashton <dashton@mango-solutions.com>
+Description: Website designer for RCloud's mini interface.
+Imports: rcloud.support, rcloud.web, jsonlite
 Suggests:
 License:
 RCloud-Extension: gui
