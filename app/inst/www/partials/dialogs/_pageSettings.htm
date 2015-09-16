@@ -3,27 +3,27 @@
         <h3>Page Settings</h3>
     </div>
     <div class="body">
-        <form>
+        <form data-parsley-validate id="page-form">
             <div class="form-group">
-                <label for="inputNavigationTitle">Navigation Title</label>
-                <input type="text" class="form-control" id="inputNavigationTitle" placeholder="New Page">
+                <label for="inputPageNavigationTitle">Navigation Title</label>
+                <input type="text" class="form-control" id="inputPageNavigationTitle" placeholder="New Page">
                 <div class="description">The name for this page, as it appears in the menu.</div>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="inputPageTitle">Page Title</label>
                 <input type="text" class="form-control" id="inputPageTitle" placeholder="New Page">
                 <div class="description">The name of this page, as it appears in the top of the browser window.</div>
             </div>
             <div class="form-group">
-                <label for="inputUrlSlug">URL Slug</label>
-                <input type="text" class="form-control" id="inputUrlSlug" placeholder="/newpage">
+                <label for="inputPageUrlSlug">URL Slug</label>
+                <input type="text" class="form-control" id="inputPageUrlSlug" placeholder="/newpage">
                 <div class="description">A unique identifier for the page; leave it blank to use a default</div>
-            </div>
+            </div> -->
         </form>
     </div>
     <div class="jqm-footer">
-        <a href="javascript:noop()" class="jqmClose">Cancel</a>
-        <a href="javascript:noop()" class="delete jqmClose">Delete</a>
-        <a href="javascript:noop()" class="jqmClose approve">Save</a>
+        <a href="javascript:void(0)" class="jqmClose">Cancel</a>
+        <a href="javascript:void(0)" class="delete">Delete</a>
+        <a href="javascript:void(0)" class="jqmClose approve">Save</a>
     </div>
 </div>

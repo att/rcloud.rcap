@@ -2,14 +2,14 @@ define(['text!rcap/partials/designer.htm',
     'rcap/js/ui/menuManager',
     'rcap/js/ui/dialogManager', 
     'rcap/js/ui/gridManager',
+    'site/siteManager',
     'pubsub',
+    'site/pubSubTable',
     'rcap/js/serializer',
-
     'text!rcap/partials/_top-banner.htm',                       // DEMO
-
     //'font!google,families:[Open Sans:400]',
     'css!rcap/styles/default.css'
-], function(mainPartial, MenuManager, dialogManager, GridManager, PubSub, serializer, topBannerPartial) {
+], function(mainPartial, MenuManager, dialogManager, GridManager, SiteManager, PubSub, pubSubTable, serializer, topBannerPartial) {
 
     'use strict';
 
@@ -51,15 +51,35 @@ define(['text!rcap/partials/designer.htm',
 
                     $(this).hide();
 
-                    PubSub.publish('rcap:close', {});
+                    PubSub.publish(pubSubTable.close, {});
                 });
 
                 $('#rcap-save').click(function() {
-                    PubSub.publish('rcap:save', {});
+                    PubSub.publish(pubSubTable.save);
                 });
+
+
+
+
+
+                // site manager:
+                //////////////////////////////////////////////////////////////////////
+                $('#page-header a').click(function() {
+                    PubSub.publish(pubSubTable.addPage, {});
+                });
+
+                var siteManager = new SiteManager();
+                siteManager.initialise();
+                //////////////////////////////////////////////////////////////////////
+
+
+
+
+
 
                 // menu manager:
                 var menuManager = new MenuManager();
+                menuManager.initialise();
                 menuManager.initialiseControlsMenu();
 
                 // initialise the dialog manager:
@@ -67,11 +87,17 @@ define(['text!rcap/partials/designer.htm',
 
                 // grid:
                 var gridManager = new GridManager();
-                gridManager.initialiseDesignGrid();
+                gridManager.initialise();
+                //gridManager.initialiseDesignGrids();
 
                 // serializer:
                 serializer.initialise();
+
+
             } 
+
+
+            
 
             $(rcloudSelector).hide();
 
@@ -80,10 +106,13 @@ define(['text!rcap/partials/designer.htm',
             $(rcapSelector).show();
 
             // load items:
-            PubSub.publish('rcap:deserialize', {
+            PubSub.publish(pubSubTable.deserialize, {
                 type: 'designer'
             });
             
+
+
+
         }
     };
 });

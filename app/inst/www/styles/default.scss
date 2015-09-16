@@ -61,13 +61,15 @@ sans-serif;
         background-color: $bgColor;
     }
     & .menu {
-        text-transform: uppercase;
+        //text-transform: uppercase;
         padding: 0;
         margin: 0;
         height: 100%;
         //       overflow-y: auto;
         & h4 {
             padding-left: 5px;
+            text-transform: uppercase;
+            font-size: 14px;
         }
         & ul {
             list-style-type: none;
@@ -88,13 +90,31 @@ sans-serif;
             font-family: $defaultFont;
             text-decoration: none;
         }
-        & a:hover {
-            background-color: darken($bgColor, 10%);
+        & a:hover,
+        & li.selected a {
+            background-color: darken($bgColor, 5%);
         }
         & a span::after {
             display: block;
         }
-        & ul.pages a::before,
+
+
+        & h4#page-header a {
+            padding: 0;
+            float: right;
+            margin-right: 12px;
+            opacity: 0.5;
+        }
+        & h4#page-header a:hover {
+            background-color: $bgColor;
+            opacity: 1.0;
+        }
+        & h4#page-header a::before {
+            font: normal normal normal 16px/1 FontAwesome;
+            content: "\f067";
+        }
+
+        & ul#pages a::before,
         & ul.controls a::before,
         & ul.settings a::before {
             text-align: left;
@@ -107,11 +127,14 @@ sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
-        & ul.pages a::before {
+        & ul#pages a::before {
             content: "\f0f6";
         }
-        & ul.pages a.add-page::before {
+        & ul#pages a.add-page::before {
             content: "\f055";
+        }
+        & ul#pages em {
+            font-style: normal;
         }
         & ul.controls a.control-rplot::before {
             content: "\f012";
@@ -216,6 +239,7 @@ sans-serif;
         padding: 10px 0;
         padding-right: 15px;
         height: 100%;
+        overflow-y: auto;
         & #inner-stage {
             background: lighten($bgColor, 20%);
             padding: 10px 0;
@@ -236,8 +260,11 @@ sans-serif;
     & form .form-group:not(:first-child) {
         margin-top: 10px;
     }
+    & .form-group label {
+        font-size: 12pt;
+    }
     & .form-group .description {
-        color: #777;
+        color: #222;
         margin-top: 3px;
     }
     & .form-group textarea.code {
@@ -390,22 +417,15 @@ a.wysiwyg-toolbar-icon:hover {
 }
 
 
-
-
-
-
 /*****************************************************************************************************/
 
-    // top banner
-
-    #top-banner {
-        background-color: #222222;
-        color: #eee;
-        margin: 0 10px 10px 10px;
-        padding: 10px;
-    }
-
-
+// top banner
+#top-banner {
+    background-color: #222222;
+    color: #eee;
+    margin: 0 10px 10px 10px;
+    padding: 10px;
+}
 
 
 /*****************************************************************************************************/

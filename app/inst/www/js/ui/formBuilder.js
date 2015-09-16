@@ -1,4 +1,4 @@
-define(['controls/factories/controlFactory', 'pubsub'], function(ControlFactory, PubSub) {
+define(['controls/factories/controlFactory', 'pubsub', 'site/pubSubTable'], function(ControlFactory, PubSub, pubSubTable) {
 
     'use strict';
 
@@ -114,7 +114,7 @@ define(['controls/factories/controlFactory', 'pubsub'], function(ControlFactory,
                 // validate();
 
 
-                PubSub.publish('controlDialog:updated', $('#dialog-form-builder').data('control'));
+                PubSub.publish(pubSubTable.updateControl, $('#dialog-form-builder').data('control'));
 
                 $('#dialog-form-builder').jqmHide();
             });

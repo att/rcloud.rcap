@@ -1,10 +1,11 @@
 define(['text!rcap/partials/viewer.htm',
     'rcap/js/ui/gridManager',
     'pubsub',
+    'site/pubSubTable',
     'rcap/js/serializer',
     'text!rcap/partials/_top-banner.htm',                       // DEMO
     'css!rcap/styles/default.css'
-], function(mainPartial, GridManager, PubSub, serializer, topBannerPartial) {
+], function(mainPartial, GridManager, PubSub, pubSubTable, serializer, topBannerPartial) {
 
     'use strict';
 
@@ -36,7 +37,7 @@ define(['text!rcap/partials/viewer.htm',
             $('#rcap-viewer').show();
 
             // kick off:
-            PubSub.publish('rcap:deserialize', {
+            PubSub.publish(pubSubTable.deserialize, {
                 type: 'viewer'
             });
 
@@ -45,7 +46,9 @@ define(['text!rcap/partials/viewer.htm',
         initialise: function(json) {
 
             // subscribe to grid done event:
-            PubSub.subscribe('grid:initcomplete', function() {
+            PubSub.subscribe(pubSubTable.gridInitComplete, function() {
+
+                console.info('viewer: pubSubTable.gridInitComplete');
 
                 var noop = function() {};
                 var notebookResult = window.notebook_result; // jshint ignore:line
@@ -85,7 +88,7 @@ define(['text!rcap/partials/viewer.htm',
             serializer.initialise();
 
             // and pub:
-            PubSub.publish('rcap:deserialize', {
+            PubSub.publish(pubSubTable.deserialize, {
                 type: 'viewer',
                 jsonData: json
             });

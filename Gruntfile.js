@@ -55,6 +55,8 @@ module.exports = function(grunt) {
                     'Gruntfile.js',
                     '<%= appConfig.appPath %>/javascript/{,*/}*.js',
                     '<%= appConfig.appPath %>/inst/www/js/*.js',
+                    '<%= appConfig.appPath %>/inst/www/js/pages/*.js',
+                    '<%= appConfig.appPath %>/inst/www/js/site/*.js',
                     '<%= appConfig.appPath %>/inst/www/js/ui/*.js',
                     '<%= appConfig.appPath %>/inst/www/js/ui/controls/*.js',
                     '<%= appConfig.appPath %>/inst/www/js/ui/controls/child/*.js',

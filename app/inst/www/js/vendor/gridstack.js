@@ -475,6 +475,7 @@
 
         this._init_styles();
 
+
         this.grid = new GridStackEngine(this.opts.width, function(nodes) {
             var max_height = 0;
             _.each(nodes, function(n) {
@@ -609,6 +610,9 @@
     };
 
     GridStack.prototype._init_styles = function() {
+
+        console.log('_init_styles has been called');
+
         if (this._styles_id) {
             $('[data-gs-id="' + this._styles_id + '"]').remove();
         }
@@ -703,10 +707,7 @@
         // shane edit:
         if (!node.read_only) {
             el.append($('<div />', {
-                'class': 'ui-remove',
-                'click': function() {
-                    self.remove_widget(el, true);
-                }
+                'class': 'ui-remove'
             }));
         }
 

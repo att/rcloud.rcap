@@ -19,6 +19,13 @@
     color: #333;
     border: 1px solid black;
     padding: 12px;
+
+    max-height: calc(100% - 23px);
+}
+
+.jqmWindow .body {
+    max-height: calc(100% - 102px);
+    overflow: auto;
 }
 
 .jqmOverlay { background-color: #000; }
