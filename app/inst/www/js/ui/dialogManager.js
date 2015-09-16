@@ -245,7 +245,6 @@ define([
                     }
                 };
 
-
                 $('#page-form').data('pageid', page.id);
                 $('#dialog-pageSettings').jqmShow();
             });
