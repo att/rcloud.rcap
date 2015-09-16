@@ -51,7 +51,9 @@ define(['text!rcap/partials/designer.htm',
 
                     $(this).hide();
 
-                    PubSub.publish(pubSubTable.close, {});
+                    console.info('designer: PUBLISH : pubSubTable.close');
+
+                    PubSub.publish(pubSubTable.close);
                 });
 
                 $('#rcap-save').click(function() {

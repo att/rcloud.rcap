@@ -112,7 +112,7 @@
   bottom: 0;
   width: auto;
   z-index: 0 !important;
-  background: #eee; }
+  background: #efefef; }
 
 .grid-stack > .grid-stack-item {
   min-width: 8.33333333%;
@@ -419,7 +419,8 @@
   font-family: sans-serif;
   background: white;
   color: #2c3e50;
-  border: 1px solid #ccc; }
+  border: 1px solid #ccc;
+  cursor: move; }
 
 .grid-stack-item .ui-remove {
   z-index: 90;
@@ -1309,6 +1310,8 @@ textarea.parsley-error {
       content: "\f039"; }
     #rcap-designer .menu ul.controls a.control-iframe::before {
       content: "\f0c2"; }
+    #rcap-designer .menu ul.controls a.control-pagemenu::before {
+      content: "\f0c9"; }
     #rcap-designer .menu ul.controls a.control-form::before {
       content: "\f022"; }
     #rcap-designer .menu ul.controls a.control-heading::before {
@@ -1371,7 +1374,7 @@ textarea.parsley-error {
   #rcap-designer .stage {
     padding: 10px 0;
     padding-right: 15px;
-    height: 100%;
+    height: calc(100% - 51px);
     overflow-y: auto; }
     #rcap-designer .stage #inner-stage {
       background: white;

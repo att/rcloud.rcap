@@ -71,87 +71,6 @@ define([
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    PubSub.subscribe(pubSubTable.initSite, function(msg, site) {
-
-        console.info('gridManager: pubSubTable.initSite');
-
-        // each page has its own grid:
-        _.each(site.pages, function(page) {
-            addGrid(page.id);
-        });
-
-        // initialise the grids:
-        initialiseDesignGrids(_.pluck(site.pages, 'id'));
-
-        // add controls:
-        _.each(site.pages, function(page) {
-            // get the current grid, based on the page id:
-            var grid = $('.grid-stack[data-pageid="' + page.id + '"]').data('gridstack');
-
-            grid.remove_all(); // jshint ignore:line
-
-            // add items to the grid:
-            _.each(page.controls, function(control) {
-                var newWidget = grid.add_widget(getDesignTimeControlOuterMarkup(control), control.x, control.y, control.width, control.height, false); // jshint ignore:line
-
-                newWidget.data('control', control);
-
-                grid.locked(newWidget, true);
-            });
-        });
-    });
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    PubSub.subscribe('ui:' + pubSubTable.addPage, function(msg, page) {
-
-        console.info('gridManager: pubSubTable.addPage');
-
-        addGrid(page.id);
-        initialiseDesignGrids([page.id]);
-
-        // new page won't have any controls:
-        $('#no-items').show().css({
-            opacity: 1.0
-        });
-    });
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    PubSub.subscribe(pubSubTable.changeSelectedPage, function(msg, page) {
-
-        console.info('gridManager: pubSubTable.changeSelectedPage');
-
-        $('.grid-stack').hide();
-        $('.grid-stack[data-pageid="' + page.id + '"]').show();
-
-        if (page.controls.length === 0) {
-            $('#no-items').show();
-            $('#no-items').css({
-                opacity: 1.0
-            });
-        } else {
-            $('#no-items').hide();
-        }
-
-    });
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    PubSub.subscribe(pubSubTable.deletePageConfirm, function(msg, pageId) {
-
-        console.info('gridManager: pubSubTable.deletePageConfirm');
-
-        $('.grid-stack[data-pageid="' + pageId + '"]').remove();
-
-        // select the first item:
-        $('.grid-stack:eq(0)').show();
-    });
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    GridManager.prototype.initialise = function() {
-
-    };
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////
     var getGrid = function() {
         return $('.grid-stack:visible').data('gridstack');
     };
@@ -173,21 +92,21 @@ define([
             float: true
         });
 
-        $(selector).on('dragstop', function(event) {
+        $(selector).off('dragstop').on('dragstop', function(event) {
             var element = $(event.target);
             var node = element.data('_gridstack_node');
             element.data('control').x = node.x;
             element.data('control').y = node.y;
         });
 
-        $(selector).on('resizestop', function(event) {
+        $(selector).off('resizestop').on('resizestop', function(event) {
             var element = $(event.target);
             var node = element.data('_gridstack_node');
             element.data('control').width = node.width;
             element.data('control').height = node.height;
         });
 
-        $(selector).on('change', function() {
+        $(selector).off('change').on('change', function() {
 
             var hasItem = false,
                 dataItems = [];
@@ -219,7 +138,7 @@ define([
     var initialiseDesignGrids = function(pageIds) {
 
         //var me = this,
-        var selector; // = '#rcap-designer .grid-stack';
+        //var selector; // = '#rcap-designer .grid-stack';
 
         var controlFactory = new ControlFactory();
 
@@ -303,13 +222,127 @@ define([
             }
         });
 
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        $('body').off('click').on('click', '.ui-remove', function() {
+            PubSub.publish(pubSubTable.showConfirmDialog, {
+                heading: 'Delete control',
+                message: 'Are you sure you want to delete this control?',
+                pubSubMessage: pubSubTable.deleteControlConfirm,
+                dataItem: $(this).closest('.grid-stack-item').data('controlid')
+            });
+        });
+
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //
+            // configuration button click, show dialog:
+            //
+            $('body').off('click').on('click', '.btn-configure', function() {
+
+                console.info('gridManager: PUBLISH : pubSubTable.configureControl');
+
+                PubSub.publish(pubSubTable.configureControl, $(this).closest('.grid-stack-item').data('control'));
+            });
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //
-        // configuration button click, show dialog:
-        //
-        $('body').on('click', '#inner-stage .btn-configure', function() {
-            PubSub.publish(pubSubTable.configureControl, $(this).closest('.grid-stack-item').data('control'));
+        // save
+        //  
+        // PubSub.subscribe('rcap:save', function() {
+        //     var items = [],
+        //         currentControl;
+
+        //     $('.grid-stack-item[data-controlid]').each(function() {
+
+        //         currentControl = $(this).data('control');
+        //         items.push(currentControl);
+        //     });
+
+        //     PubSub.publish('rcap:serialize', items);
+        // });
+
+
+
+        publishComplete();
+    };
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    GridManager.prototype.initialise = function() {
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PubSub.subscribe(pubSubTable.initSite, function(msg, site) {
+
+            console.info('gridManager: pubSubTable.initSite');
+
+            // each page has its own grid:
+            _.each(site.pages, function(page) {
+                addGrid(page.id);
+            });
+
+            // initialise the grids:
+            initialiseDesignGrids(_.pluck(site.pages, 'id'));
+
+            // add controls:
+            _.each(site.pages, function(page) {
+                // get the current grid, based on the page id:
+                var grid = $('.grid-stack[data-pageid="' + page.id + '"]').data('gridstack');
+
+                grid.remove_all(); // jshint ignore:line
+
+                // add items to the grid:
+                _.each(page.controls, function(control) {
+                    var newWidget = grid.add_widget(getDesignTimeControlOuterMarkup(control), control.x, control.y, control.width, control.height, false); // jshint ignore:line
+
+                    newWidget.data('control', control);
+
+                    grid.locked(newWidget, true);
+                });
+            });
+        });
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PubSub.subscribe('ui:' + pubSubTable.addPage, function(msg, page) {
+
+            console.info('gridManager: pubSubTable.addPage');
+
+            addGrid(page.id);
+            initialiseDesignGrids([page.id]);
+
+            // new page won't have any controls:
+            $('#no-items').show().css({
+                opacity: 1.0
+            });
+        });
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PubSub.subscribe(pubSubTable.changeSelectedPage, function(msg, page) {
+
+            console.info('gridManager: pubSubTable.changeSelectedPage');
+
+            $('.grid-stack').hide();
+            $('.grid-stack[data-pageid="' + page.id + '"]').show();
+
+            if (page.controls.length === 0) {
+                $('#no-items').show();
+                $('#no-items').css({
+                    opacity: 1.0
+                });
+            } else {
+                $('#no-items').hide();
+            }
+
+        });
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PubSub.subscribe(pubSubTable.deletePageConfirm, function(msg, pageId) {
+
+            console.info('gridManager: pubSubTable.deletePageConfirm');
+
+            $('.grid-stack[data-pageid="' + pageId + '"]').remove();
+
+            // select the first item:
+            $('.grid-stack:eq(0)').show();
         });
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -331,18 +364,6 @@ define([
 
         });
 
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        $('body').on('click', '.ui-remove', function() {
-            PubSub.publish(pubSubTable.showConfirmDialog, {
-                heading: 'Delete control',
-                message: 'Are you sure you want to delete this control?',
-                pubSubMessage: pubSubTable.deleteControlConfirm,
-                dataItem: $(this).closest('.grid-stack-item').data('controlid')
-            });
-        });
-
-
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //
         // delete grid control after dialog confirm
@@ -352,30 +373,14 @@ define([
 
             // find the item:
             var gridItem = $('.grid-stack-item[data-controlid="' + controlID + '"]');
-            grid.remove_widget(gridItem, true);  // jshint ignore:line
+            grid.remove_widget(gridItem, true); // jshint ignore:line
         });
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //
-        // save
-        //  
-        // PubSub.subscribe('rcap:save', function() {
-        //     var items = [],
-        //         currentControl;
-
-        //     $('.grid-stack-item[data-controlid]').each(function() {
-
-        //         currentControl = $(this).data('control');
-        //         items.push(currentControl);
-        //     });
-
-        //     PubSub.publish('rcap:serialize', items);
-        // });
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //
         // open
         //  
+        /*
         PubSub.subscribe(pubSubTable.designerInit, function(msg, items) {
 
             console.info('gridManager: pubSubTable.designerInit');
@@ -404,7 +409,7 @@ define([
                 $('#no-items').show();
             }
 
-        });
+        });*/
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //
@@ -418,7 +423,6 @@ define([
                 $(this).data('gridstack').remove_all(); // jshint ignore:line
             });
 
-
             //var grid = $(selector).data('gridstack');
             //grid.remove_all(); // jshint ignore:line
 
@@ -428,9 +432,6 @@ define([
 
         });
 
-        //this.publishComplete();
-
-        publishComplete();
     };
 
     return GridManager;

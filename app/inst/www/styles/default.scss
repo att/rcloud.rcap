@@ -160,6 +160,9 @@ sans-serif;
         & ul.controls a.control-iframe::before {
             content: "\f0c2";
         }
+        & ul.controls a.control-pagemenu::before {
+            content: "\f0c9";
+        }
         & ul.controls a.control-form::before {
             content: "\f022";
         }
@@ -238,7 +241,7 @@ sans-serif;
     & .stage {
         padding: 10px 0;
         padding-right: 15px;
-        height: 100%;
+        height: calc(100% - 51px);
         overflow-y: auto;
         & #inner-stage {
             background: lighten($bgColor, 20%);

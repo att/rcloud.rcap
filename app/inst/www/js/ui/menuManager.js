@@ -16,48 +16,14 @@ define([
         },
         initialise: function() {
 
+            console.info('MenuManager: initialise');
+
             var pageListItemMarkup = '<li data-pageid="<%=p.id%>"><a href="#"><em class="navigation-title"><%=p.navigationTitle%></em> <span class="page-settings" title="Modify page settings">Settings</span></a></li>';
 
-            // subscribe here - is this the best place?:
-            PubSub.subscribe(pubSubTable.initSite, function(msg, site) {
-
-                console.info('menuManager: pubSubTable.initSite');
-
-                // do stuff with the site's pages:
-                var templateStr = '<% _.each(pages, function(p){ %>' + pageListItemMarkup + '<% }); %>';
-                var template = _.template(templateStr);
-                $('#pages').html(template({
-                    pages: site.pages
-                }));
-
-                // click handler for page:
-                $('body').on('click', '#pages a', function() {
-                    $('#pages li').removeClass('selected');
-                    var li = $(this).closest('li');
-                    li.addClass('selected');
-
-                    // just the id:
-                    PubSub.publish(pubSubTable.changeSelectedPageId, li.data('pageid'));
-                });
-
-                // sort 'em':
-                $('#pages').sortable({
-                    containment: 'parent',
-                    update: function( /*event, ui*/ ) {
-
-                        var pageIds = [];
-                        $('#pages li').each(function() {
-                            pageIds.push($(this).data('pageid'));
-                        });
-
-                        PubSub.publish(pubSubTable.changePageOrder, pageIds);
-                    }
-                });
-
-                // the first is as good as any:
-                $('#pages a:eq(0)').trigger('click');
-            });
-
+            //////////////////////////////////////////////////////////////////////////////////////////
+            //
+            //
+            //
             PubSub.subscribe('ui:' + pubSubTable.addPage, function(msg, page) {
 
                 console.info('menuManager: pubSubTable.addPage');
@@ -71,6 +37,10 @@ define([
                 $('#pages li[data-pageid="' + page.id + '"] a').trigger('click');
             });
 
+            //////////////////////////////////////////////////////////////////////////////////////////
+            //
+            //
+            //
             PubSub.subscribe(pubSubTable.updatePage, function(msg, pageObj) {
 
                 console.info('menuManager: pubSubTable.updatePage');
@@ -78,6 +48,10 @@ define([
                 $('#pages li[data-pageid="' + pageObj.id + '"] .navigation-title').text(pageObj.navigationTitle);
             });
 
+            //////////////////////////////////////////////////////////////////////////////////////////
+            //
+            //
+            //
             PubSub.subscribe(pubSubTable.deletePageConfirm, function(msg, pageId) {
 
                 console.info('menuManager: pubSubTable.deletePageConfirm');
@@ -89,6 +63,50 @@ define([
                 $('#pages li:eq(0)').addClass('selected');
             });
 
+            //////////////////////////////////////////////////////////////////////////////////////////
+            //
+            //
+            //
+            PubSub.subscribe(pubSubTable.initSite, function(msg, site) {
+
+                console.info('menuManager: pubSubTable.initSite');
+
+                // do stuff with the site's pages:
+                var templateStr = '<% _.each(pages, function(p){ %>' + pageListItemMarkup + '<% }); %>';
+                var template = _.template(templateStr);
+                $('#pages').html(template({
+                    pages: site.pages
+                }));
+
+                // the first is as good as any:
+                $('#pages a:eq(0)').trigger('click');
+            });
+
+            // click handler for page:
+            $('body').on('click', '#pages a', function() {
+                $('#pages li').removeClass('selected');
+                var li = $(this).closest('li');
+                li.addClass('selected');
+
+                console.info('menuManager: PUBLISH : pubSubTable.changeSelectedPageId');
+
+                // just the id:
+                PubSub.publish(pubSubTable.changeSelectedPageId, li.data('pageid'));
+            });
+
+            // sort 'em':
+            $('#pages').sortable({
+                containment: 'parent',
+                update: function( /*event, ui*/ ) {
+
+                    var pageIds = [];
+                    $('#pages li').each(function() {
+                        pageIds.push($(this).data('pageid'));
+                    });
+
+                    PubSub.publish(pubSubTable.changePageOrder, pageIds);
+                }
+            });
         },
         initialiseControlsMenu: function() {
             var controls = controlFactory.getGridControls();

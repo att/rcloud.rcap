@@ -45,6 +45,17 @@ define(['rcap/js/Class'], function() {
                 'controlProperties': this.controlProperties
             };
         },
+        getControlPropertyValue : function(uid) {
+
+            var prop = _.findWhere(this.controlProperties, { 'uid' : uid });
+    
+            if(prop === undefined) {
+                throw new Error('control property ' + uid + ' not found.');
+            } else {
+                return prop.value;   
+            }
+            
+        }
     });
 
     return BaseControl;

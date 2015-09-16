@@ -133,7 +133,7 @@ define([
                 // });
 
                 //   $('#demo-form .btn').on('click', function () {
-                $('#dialog-controlSettings .approve').on('click', function() {
+                $('#dialog-controlSettings .approve').off('click').on('click', function() {
                     $('#control-form').parsley().validate();
                     validate();
                 });
@@ -178,13 +178,13 @@ define([
             //
             // control/form delete message subscription:
             //
-            $('body').on('click', '#dialog-controlSettings .delete, #dialog-form-builder .delete', function() {
+            $('body').off('click').on('click', '#dialog-controlSettings .delete, #dialog-form-builder .delete', function() {
                 PubSub.publish(pubSubTable.showConfirmDialog, {
-                    heading : 'Delete control',
-                    message : 'Are you sure you want to delete this control?',
-                    pubSubMessage : pubSubTable.deleteControlConfirm,
+                    heading: 'Delete control',
+                    message: 'Are you sure you want to delete this control?',
+                    pubSubMessage: pubSubTable.deleteControlConfirm,
                     // use general selector, applying to both form and 'general' control dialogs:
-                    dataItem : $(this).closest('.jqmWindow').data('control').id 
+                    dataItem: $(this).closest('.jqmWindow').data('control').id
                 });
             });
 
@@ -210,13 +210,13 @@ define([
                         }
                     });
 
-                $('#dialog-pageSettings .approve').on('click', function() {
+                $('#dialog-pageSettings .approve').off('click').on('click', function() {
                     $('#page-form').parsley().validate();
                     validate();
                 });
 
                 // update the details for 'delete button':
-                $('#dialog-pageSettings .delete').on('click', function() {
+                $('#dialog-pageSettings .delete').off('click').on('click', function() {
                     PubSub.publish(pubSubTable.showConfirmDialog, {
                         heading: 'Delete ' + page.navigationTitle,
                         message: 'Are you sure you want to delete ' + page.navigationTitle + '?',

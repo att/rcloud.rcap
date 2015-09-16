@@ -25,36 +25,24 @@ define([
         },
         initialise: function() {
 
-            //setSite(this.site);
-
-            // subscribe:
-            // PubSub.subscribe('pubSubTable.initSite', function(msg, data) {
-
-            // });
-
-            // PubSub.subscribe('pubSubTable.designerInit', function(msg, data) {
-
-            // });
-
+            ////////////////////////////////////////////////////////////////////////////////////
+            //
+            //
+            //
             PubSub.subscribe(pubSubTable.save, function() {
 
                 console.info('siteManager: pubSubTable.save');
 
-                PubSub.publish(pubSubTable.serialize, getSite());
+                var site = getSite();
+                site.save();
+
+                PubSub.publish(pubSubTable.serialize, site);
             });
 
-            // PubSub.subscribe('pubSubTable.load', function(msg, data) {
-
-            // });
-
-            // PubSub.subscribe('pubSubTable.close', function(msg, data) {
-
-            // });
-
-            // PubSub.subscribe('pubSubTable.deserialize', function(msg, data) {
-
-            // });
-
+            ////////////////////////////////////////////////////////////////////////////////////
+            //
+            //
+            //
             PubSub.subscribe(pubSubTable.initSite, function(msg, site) {
 
                 console.info('siteManager: pubSubTable.initSite');
@@ -62,6 +50,10 @@ define([
                 setSite(site);
             });
 
+            ////////////////////////////////////////////////////////////////////////////////////
+            //
+            //
+            //
             PubSub.subscribe(pubSubTable.gridItemAdded, function(msg, item) {
 
                 console.info('siteManager: pubSubTable.gridItemAdded');
@@ -70,6 +62,10 @@ define([
                 setSite(site.addControl(item));
             });
 
+            ////////////////////////////////////////////////////////////////////////////////////
+            //
+            //
+            //
             PubSub.subscribe(pubSubTable.gridItemsChanged, function(msg, items) {
 
                 console.info('siteManager: pubSubTable.gridItemsChanged');
@@ -79,6 +75,10 @@ define([
                 setSite(site.setCurrentPageControls(items));
             });
 
+            ////////////////////////////////////////////////////////////////////////////////////
+            //
+            //
+            //
             PubSub.subscribe(pubSubTable.addPage, function(/*msg, data*/) {
 
                 console.info('siteManager: pubSubTable.addPage');
@@ -94,6 +94,10 @@ define([
                 PubSub.publish('ui:' + pubSubTable.addPage, newPage);
             });
 
+            ////////////////////////////////////////////////////////////////////////////////////
+            //
+            //
+            //
             PubSub.subscribe(pubSubTable.updatePage, function(msg, pageObj) {
 
                 console.info('siteManager: pubSubTable.updatePage');
@@ -101,6 +105,10 @@ define([
                 setSite(getSite().updatePage(pageObj));
             });
 
+            ////////////////////////////////////////////////////////////////////////////////////
+            //
+            //
+            //
             PubSub.subscribe(pubSubTable.deletePageConfirm, function(msg, pageId) {
 
                 console.info('siteManager: pubSubTable.deletePageConfirm');
@@ -108,6 +116,10 @@ define([
                 setSite(getSite().deletePage(pageId));
             });
 
+            ////////////////////////////////////////////////////////////////////////////////////
+            //
+            //
+            //
             PubSub.subscribe(pubSubTable.changeSelectedPageId, function(msg, pageId) {
 
                 console.info('siteManager: pubSubTable.changeSelectedPageId');
@@ -120,6 +132,10 @@ define([
                 PubSub.publish(pubSubTable.changeSelectedPage, getSite().getPageByID(pageId));
             });
 
+            ////////////////////////////////////////////////////////////////////////////////////
+            //
+            //
+            //
             PubSub.subscribe(pubSubTable.pageSettingsClicked, function(msg, pageId) {
 
                 console.info('siteManager: pubSubTable.pageSettingsClicked');
@@ -127,6 +143,10 @@ define([
                 PubSub.publish(pubSubTable.showPageSettingsDialog, getSite().getPageByID(pageId));
             });
 
+            ////////////////////////////////////////////////////////////////////////////////////
+            //
+            //
+            //
             PubSub.subscribe(pubSubTable.changePageOrder, function(msg, pageIds) {
 
                 console.info('siteManager: pubSubTable.changePageOrder');
@@ -136,14 +156,10 @@ define([
 
             });
 
-            // PubSub.subscribe('pubSubTable.gridInitComplete', function(msg, data) {
-
-            // });
-
-            // PubSub.subscribe('pubSubTable.addControl', function(msg, data) {
-
-            // });
-
+            ////////////////////////////////////////////////////////////////////////////////////
+            //
+            //
+            //
             PubSub.subscribe(pubSubTable.updateControl, function(msg, control) {
 
                 console.info('siteManager: pubSubTable.updateControl');
@@ -152,6 +168,10 @@ define([
                 setSite(site.updateControl(control));
             });
 
+            ////////////////////////////////////////////////////////////////////////////////////
+            //
+            //
+            //
             PubSub.subscribe(pubSubTable.deleteControlConfirm, function(msg, controlID) {
 
                 console.log('siteManager: pubSubTable.deleteControlConfirm');
@@ -159,6 +179,31 @@ define([
                 var site = getSite();
                 setSite(site.deleteControl(controlID));
             });
+
+            // subscribe:
+            // PubSub.subscribe('pubSubTable.initSite', function(msg, data) {
+
+            // });
+
+            // PubSub.subscribe('pubSubTable.designerInit', function(msg, data) {
+
+            // });
+
+            // PubSub.subscribe('pubSubTable.load', function(msg, data) {
+
+            // });
+
+            // PubSub.subscribe('pubSubTable.deserialize', function(msg, data) {
+
+            // });
+
+            // PubSub.subscribe('pubSubTable.gridInitComplete', function(msg, data) {
+
+            // });
+
+            // PubSub.subscribe('pubSubTable.addControl', function(msg, data) {
+
+            // });
         }
     });
 

@@ -611,7 +611,7 @@
 
     GridStack.prototype._init_styles = function() {
 
-        console.log('_init_styles has been called');
+        //console.log('_init_styles has been called');
 
         if (this._styles_id) {
             $('[data-gs-id="' + this._styles_id + '"]').remove();
