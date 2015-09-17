@@ -1,5 +1,4 @@
 define([
-    'rcap/js/ui/menuManager',
     'rcap/js/ui/formBuilder',
     'text!rcap/partials/dialogs/_addPage.htm',
     'text!rcap/partials/dialogs/_pageSettings.htm',
@@ -11,14 +10,13 @@ define([
     'site/pubSubTable',
     'parsley',
     'rcap/js/vendor/jqModal.min'
-], function(MenuManager, FormBuilder, addPagePartial, pageSettingsPartial, siteSettingsPartial, controlSettingsPartial, formBuilderPartial, confirmDialogPartial, PubSub, pubSubTable) {
+], function(FormBuilder, addPagePartial, pageSettingsPartial, siteSettingsPartial, controlSettingsPartial, formBuilderPartial, confirmDialogPartial, PubSub, pubSubTable) {
 
     'use strict';
 
-    //console.log(parsley);
+    var DialogManager = function() {
 
-    return {
-        initialise: function() {
+        this.initialise = function() {
 
             // append the dialogs to the root of the designer:
             _.each([addPagePartial, pageSettingsPartial, siteSettingsPartial, controlSettingsPartial, formBuilderPartial, confirmDialogPartial], function(partial) {
@@ -26,22 +24,13 @@ define([
             });
 
             // initialise each of the dialogs:
-            $('.jqmWindow').each(function() {
-                $(this).jqm({
-                    modal: true
-                });
-            });
+            $('.jqmWindow').each(function() { $(this).jqm({ modal: true }); });
 
             // initialise the form builder dialog:
-            var menuManager = new MenuManager();
-            menuManager.intialiseFormBuilderMenu();
             var formBuilder = new FormBuilder();
-            formBuilder.initialise();
-
-            // general jqm handler:
-            // $('body').on('click', '.jqm', function() {
-            //     $($(this).data('jqm')).jqmShow();
-            // });
+            formBuilder
+                .initialise()
+                .intialiseFormBuilderMenu();
 
             // page settings:
             $('body').on('click', '.page-settings', function() {
@@ -132,8 +121,8 @@ define([
                 //   validate();
                 // });
 
-                //   $('#demo-form .btn').on('click', function () {
-                $('#dialog-controlSettings .approve').off('click').on('click', function() {
+                //$('#dialog-controlSettings .approve').off('click').on('click', function() {
+                $('#dialog-controlSettings .approve').on('click', function() {
                     $('#control-form').parsley().validate();
                     validate();
                 });
@@ -178,7 +167,8 @@ define([
             //
             // control/form delete message subscription:
             //
-            $('body').off('click').on('click', '#dialog-controlSettings .delete, #dialog-form-builder .delete', function() {
+            //$('body').off('click').on('click', '#dialog-controlSettings .delete, #dialog-form-builder .delete', function() {
+            $('body').on('click', '#dialog-controlSettings .delete, #dialog-form-builder .delete', function() {                
                 PubSub.publish(pubSubTable.showConfirmDialog, {
                     heading: 'Delete control',
                     message: 'Are you sure you want to delete this control?',
@@ -210,13 +200,15 @@ define([
                         }
                     });
 
-                $('#dialog-pageSettings .approve').off('click').on('click', function() {
+                //$('#dialog-pageSettings .approve').off('click').on('click', function() {
+                $('#dialog-pageSettings .approve').on('click', function() {                    
                     $('#page-form').parsley().validate();
                     validate();
                 });
 
                 // update the details for 'delete button':
-                $('#dialog-pageSettings .delete').off('click').on('click', function() {
+//                $('#dialog-pageSettings .delete').off('click').on('click', function() {
+                $('#dialog-pageSettings .delete').on('click', function() {
                     PubSub.publish(pubSubTable.showConfirmDialog, {
                         heading: 'Delete ' + page.navigationTitle,
                         message: 'Are you sure you want to delete ' + page.navigationTitle + '?',
@@ -232,8 +224,6 @@ define([
                         PubSub.publish(pubSubTable.updatePage, {
                             id: $('#page-form').data('pageid'),
                             navigationTitle: $('#inputPageNavigationTitle').val(),
-                            // title : $('#inputPageTitle').val(),
-                            // urlSlug : $('#inputPageUrlSlug').val()
                         });
 
                         $('#dialog-controlSettings').jqmHide();
@@ -241,7 +231,7 @@ define([
                         return false;
 
                     } else {
-                        //$('.form-errors').removeClass('hidden');
+                        
                     }
                 };
 
@@ -249,6 +239,8 @@ define([
                 $('#dialog-pageSettings').jqmShow();
             });
 
-        }
+        };
     };
+
+    return DialogManager;
 });

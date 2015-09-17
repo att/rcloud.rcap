@@ -18,7 +18,7 @@ define([
 
             console.info('MenuManager: initialise');
 
-            var pageListItemMarkup = '<li data-pageid="<%=p.id%>"><a href="#"><em class="navigation-title"><%=p.navigationTitle%></em> <span class="page-settings" title="Modify page settings">Settings</span></a></li>';
+            var pageListItemMarkup = '<li class="js-rcap-dynamic" data-pageid="<%=p.id%>"><a href="#"><em class="navigation-title"><%=p.navigationTitle%></em> <span class="page-settings" title="Modify page settings">Settings</span></a></li>';
 
             //////////////////////////////////////////////////////////////////////////////////////////
             //
@@ -82,6 +82,10 @@ define([
                 $('#pages a:eq(0)').trigger('click');
             });
 
+            $('body').on('click', '#page-header a', function() {
+                PubSub.publish(pubSubTable.addPage, {});
+            });
+
             // click handler for page:
             $('body').on('click', '#pages a', function() {
                 $('#pages li').removeClass('selected');
@@ -107,6 +111,11 @@ define([
                     PubSub.publish(pubSubTable.changePageOrder, pageIds);
                 }
             });
+
+            // add styling info to the first page:
+            $('#pages li:eq(0) a').trigger('click');
+
+            return this;
         },
         initialiseControlsMenu: function() {
             var controls = controlFactory.getGridControls();
@@ -115,14 +124,8 @@ define([
             $('.menu .controls').append(template({
                 controls: controls
             }));
-        },
-        intialiseFormBuilderMenu: function() {
-            var childControls = controlFactory.getChildControls();
-            var templateStr = '<% _.each(controls, function(control){ %><li data-type="<%=control.type%>"><a href="#" class="control-<%=control.type %>" title="Add <%=control.label%>"><%= control.label %></a></li><% }); %>';
-            var template = _.template(templateStr);
-            $('#dialog-form-builder .controls').append(template({
-                controls: childControls
-            }));
+
+            return this;
         },
         getPages: function() {
             // get the page items:

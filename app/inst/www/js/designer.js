@@ -1,105 +1,66 @@
-define(['text!rcap/partials/designer.htm', 
+define([
+    'rcap/js/serializer',
     'rcap/js/ui/menuManager',
-    'rcap/js/ui/dialogManager', 
+    'rcap/js/ui/dialogManager',
     'rcap/js/ui/gridManager',
     'site/siteManager',
     'pubsub',
     'site/pubSubTable',
-    'rcap/js/serializer',
-    'text!rcap/partials/_top-banner.htm',                       // DEMO
-    //'font!google,families:[Open Sans:400]',
+    'text!rcap/partials/designer.htm',
     'css!rcap/styles/default.css'
-], function(mainPartial, MenuManager, dialogManager, GridManager, SiteManager, PubSub, pubSubTable, serializer, topBannerPartial) {
+], function(Serializer, MenuManager, DialogManager, GridManager, SiteManager, PubSub, pubSubTable, mainPartial) {
 
     'use strict';
 
-    return {
+    var rcloudSelector = '.container, #rcloud-navbar-main, #rcloud-navbar-main, #rcloud-navbar-menu li:not(.rcap)';
+    var rcapSelector = '#rcap-designer';
 
-        initialise: function() {
+    var bootstrap = function() {
 
-            //console.clear();
+        $('#rcloud-navbar-menu').append('<li class="rcap"><a href="#">Close</a></li>');
 
-            var rcloudSelector = '.container, #rcloud-navbar-main, #rcloud-navbar-main, #rcloud-navbar-menu li:not(.rcap)';
-            var rcapSelector = '#rcap-designer';
+        $('body').append(mainPartial);
 
+        // close:
+        $('#rcloud-navbar-menu li.rcap').click(function() {
+            $(rcloudSelector).show();
 
-            if ($('body').find('#rcap-designer').length === 0) {
+            // hide rcap:
+            $(rcapSelector).hide();
 
-                // append if necessary:
-                $('#rcloud-navbar-menu').append('<li class="rcap"><a href="#">Close</a></li>');
+            $(this).hide();
 
-                $('body').append(mainPartial);
+            console.info('designer: PUBLISH : pubSubTable.close');
+            PubSub.publish(pubSubTable.close);
+        });
 
-                /////////////////////////////////////////////////////////////////////
-                //
-                //
-                //
+        $('#rcap-save').click(function() {
+            PubSub.publish(pubSubTable.save);
+        });
 
-                $('#top-banner').replaceWith(topBannerPartial);
-                
-                //
-                //
-                //
-                /////////////////////////////////////////////////////////////////////
+        // site manager: 
+        new SiteManager().initialise();
 
-                // close:
-                $('#rcloud-navbar-menu li.rcap').click(function() {
-                    $(rcloudSelector).show();
+        // menu manager:
+        new MenuManager().initialise().initialiseControlsMenu();
 
-                    // hide rcap:
-                    $(rcapSelector).hide();
+        // initialise the dialog manager:
+        new DialogManager().initialise();
 
-                    $(this).hide();
+        // grid manager:
+        new GridManager().initialise();
 
-                    console.info('designer: PUBLISH : pubSubTable.close');
+        // serializer:
+        new Serializer().initialise();
 
-                    PubSub.publish(pubSubTable.close);
-                });
+        bootstrap = function() {};
+    };
 
-                $('#rcap-save').click(function() {
-                    PubSub.publish(pubSubTable.save);
-                });
+    var Designer = function() {
 
+        this.initialise = function() {
 
-
-
-
-                // site manager:
-                //////////////////////////////////////////////////////////////////////
-                $('#page-header a').click(function() {
-                    PubSub.publish(pubSubTable.addPage, {});
-                });
-
-                var siteManager = new SiteManager();
-                siteManager.initialise();
-                //////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-                // menu manager:
-                var menuManager = new MenuManager();
-                menuManager.initialise();
-                menuManager.initialiseControlsMenu();
-
-                // initialise the dialog manager:
-                dialogManager.initialise();
-
-                // grid:
-                var gridManager = new GridManager();
-                gridManager.initialise();
-                //gridManager.initialiseDesignGrids();
-
-                // serializer:
-                serializer.initialise();
-
-
-            } 
-
-
-            
+            bootstrap();
 
             $(rcloudSelector).hide();
 
@@ -111,10 +72,9 @@ define(['text!rcap/partials/designer.htm',
             PubSub.publish(pubSubTable.deserialize, {
                 type: 'designer'
             });
-            
+        };
 
-
-
-        }
     };
+
+    return Designer;
 });
