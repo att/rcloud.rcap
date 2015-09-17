@@ -84,28 +84,31 @@ define([
 
         $(selector).off('change').on('change', function() {
 
-            var hasItem = false,
-                dataItems = [];
+            // don't fire an event if this grid hasn't been initialised
+            if ($('.grid-stack:visible').hasClass('initialised')) {
 
-            $('.grid-stack-item:visible').each(function() {
-                hasItem = true;
+                var hasItem = false,
+                    dataItems = [];
 
-                if ($(this).data('control') !== undefined) {
-                    dataItems.push(($(this).data('control')));
-                }
-            });
+                $('.grid-stack-item:visible').each(function() {
+                    hasItem = true;
 
-            if (!hasItem) {
-                $('#no-items').fadeTo(500, 1);
-            } else {
-                $('#no-items').fadeTo(100, 0, function() {
-                    $(this).hide(); // so that is(':visible') check returns true!
+                    if ($(this).data('control') !== undefined) {
+                        dataItems.push(($(this).data('control')));
+                    }
                 });
-            }
 
-            // this is a bit belt and braces, but there are no events that are more granular than this
-            // "something's changed" event:
-            PubSub.publish(pubSubTable.gridItemsChanged, dataItems);
+                if (!hasItem) {
+                    $('#no-items').fadeTo(500, 1);
+                } else {
+                    $('#no-items').fadeTo(100, 0, function() {
+                        $(this).hide(); // so that is(':visible') check returns true!
+                    });
+                }
+
+                PubSub.publish(pubSubTable.gridItemsChanged, dataItems);
+            } 
+
         });
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -224,7 +227,8 @@ define([
             // add controls:
             _.each(site.pages, function(page) {
                 // get the current grid, based on the page id:
-                var grid = $('.grid-stack[data-pageid="' + page.id + '"]').data('gridstack');
+                var selector = $('.grid-stack[data-pageid="' + page.id + '"]');
+                var grid = selector.data('gridstack');
 
                 // add items to the grid:
                 _.each(page.controls, function(control) {
@@ -234,6 +238,11 @@ define([
 
                     grid.locked(newWidget, true);
                 });
+
+                // has now been initialised, so any further changes to the grid's 
+                // items will result in a publish of a 'changed' event:
+                selector.addClass('initialised');
+
             });
         });
 
@@ -351,9 +360,12 @@ define([
 
             console.info('gridManager: pubSubTable.close');
 
-            $('.grid-stack').each(function() {
-                $(this).data('gridstack').remove_all(); // jshint ignore:line
-            });
+            // $('.grid-stack').each(function() {
+            //     $(this).data('gridstack').remove_all(); // jshint ignore:line
+            // });
+
+            // time to say goodbye:
+            $('.grid-stack').remove();
 
             //var grid = $(selector).data('gridstack');
             //grid.remove_all(); // jshint ignore:line

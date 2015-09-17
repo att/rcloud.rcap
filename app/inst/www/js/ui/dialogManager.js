@@ -14,6 +14,56 @@ define([
 
     'use strict';
 
+    var validateControl = function() {
+        if (true === $('#control-form').parsley().isValid()) {
+            //$('.form-errors').addClass('hidden');
+
+            // get the control that was initially assigned:
+            var originatingControl = $('#dialog-controlSettings').data('control');
+
+            // todo: validate
+            $.each(originatingControl.controlProperties, function(index, prop) {
+
+                // get the value:
+                var dialogValue = prop.getDialogValue();
+
+                // validate:
+
+                // assign:
+
+                originatingControl.controlProperties[index].value = dialogValue;
+            });
+
+            // push the updated event:
+            PubSub.publish(pubSubTable.updateControl, originatingControl);
+
+            $('#dialog-controlSettings').jqmHide();
+
+            return false;
+
+        } else {
+            //$('.form-errors').removeClass('hidden');
+        }
+    };
+
+    var validateForm = function() {
+        if (true === $('#page-form').parsley().isValid()) {
+
+            // push the updated event:
+            PubSub.publish(pubSubTable.updatePage, {
+                id: $('#page-form').data('pageid'),
+                navigationTitle: $('#inputPageNavigationTitle').val(),
+            });
+
+            $('#dialog-controlSettings').jqmHide();
+
+            return false;
+
+        } else {
+
+        }
+    };
+
     var DialogManager = function() {
 
         this.initialise = function() {
@@ -24,7 +74,11 @@ define([
             });
 
             // initialise each of the dialogs:
-            $('.jqmWindow').each(function() { $(this).jqm({ modal: true }); });
+            $('.jqmWindow').each(function() {
+                $(this).jqm({
+                    modal: true
+                });
+            });
 
             // initialise the form builder dialog:
             var formBuilder = new FormBuilder();
@@ -114,53 +168,14 @@ define([
                         }
                     });
 
-                // initialise validation:
-                //$('#dialog-controlSettings form').parsley();
-
-                // $.listen('parsley:field:validate', function () {
-                //   validate();
-                // });
-
-                //$('#dialog-controlSettings .approve').off('click').on('click', function() {
-                $('#dialog-controlSettings .approve').on('click', function() {
-                    $('#control-form').parsley().validate();
-                    validate();
-                });
-
-                var validate = function() {
-                    if (true === $('#control-form').parsley().isValid()) {
-                        //$('.form-errors').addClass('hidden');
-
-                        // get the control that was initially assigned:
-                        var originatingControl = $('#dialog-controlSettings').data('control');
-
-                        // todo: validate
-                        $.each(originatingControl.controlProperties, function(index, prop) {
-
-                            // get the value:
-                            var dialogValue = prop.getDialogValue();
-
-                            // validate:
-
-                            // assign:
-
-                            originatingControl.controlProperties[index].value = dialogValue;
-                        });
-
-                        // push the updated event:
-                        PubSub.publish(pubSubTable.updateControl, originatingControl);
-
-                        $('#dialog-controlSettings').jqmHide();
-
-                        return false;
-
-                    } else {
-                        //$('.form-errors').removeClass('hidden');
-                    }
-                };
-
                 $('#dialog-controlSettings').jqmShow();
 
+            });
+
+            //$('#dialog-controlSettings .approve').off('click').on('click', function() {
+            $('#dialog-controlSettings .approve').on('click', function() {
+                $('#control-form').parsley().validate();
+                validateControl();
             });
 
             ////////////////////////////////////////////////////////////////////////////////
@@ -168,7 +183,7 @@ define([
             // control/form delete message subscription:
             //
             //$('body').off('click').on('click', '#dialog-controlSettings .delete, #dialog-form-builder .delete', function() {
-            $('body').on('click', '#dialog-controlSettings .delete, #dialog-form-builder .delete', function() {                
+            $('body').on('click', '#dialog-controlSettings .delete, #dialog-form-builder .delete', function() {
                 PubSub.publish(pubSubTable.showConfirmDialog, {
                     heading: 'Delete control',
                     message: 'Are you sure you want to delete this control?',
@@ -200,14 +215,8 @@ define([
                         }
                     });
 
-                //$('#dialog-pageSettings .approve').off('click').on('click', function() {
-                $('#dialog-pageSettings .approve').on('click', function() {                    
-                    $('#page-form').parsley().validate();
-                    validate();
-                });
-
                 // update the details for 'delete button':
-//                $('#dialog-pageSettings .delete').off('click').on('click', function() {
+                //                $('#dialog-pageSettings .delete').off('click').on('click', function() {
                 $('#dialog-pageSettings .delete').on('click', function() {
                     PubSub.publish(pubSubTable.showConfirmDialog, {
                         heading: 'Delete ' + page.navigationTitle,
@@ -217,26 +226,13 @@ define([
                     });
                 });
 
-                var validate = function() {
-                    if (true === $('#page-form').parsley().isValid()) {
-
-                        // push the updated event:
-                        PubSub.publish(pubSubTable.updatePage, {
-                            id: $('#page-form').data('pageid'),
-                            navigationTitle: $('#inputPageNavigationTitle').val(),
-                        });
-
-                        $('#dialog-controlSettings').jqmHide();
-
-                        return false;
-
-                    } else {
-                        
-                    }
-                };
-
                 $('#page-form').data('pageid', page.id);
                 $('#dialog-pageSettings').jqmShow();
+            });
+
+            $('#dialog-pageSettings .approve').on('click', function() {
+                $('#page-form').parsley().validate();
+                validateForm();
             });
 
         };

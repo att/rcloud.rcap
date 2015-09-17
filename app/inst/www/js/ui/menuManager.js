@@ -82,6 +82,15 @@ define([
                 $('#pages a:eq(0)').trigger('click');
             });
 
+            //////////////////////////////////////////////////////////////////////////////////////////
+            //
+            //
+            //
+            PubSub.subscribe(pubSubTable.close, function() { 
+                $('#pages li').remove();
+            });
+
+
             $('body').on('click', '#page-header a', function() {
                 PubSub.publish(pubSubTable.addPage, {});
             });
