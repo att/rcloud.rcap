@@ -34,6 +34,8 @@ define(['pubsub', 'site/site', 'site/pubSubTable', 'controls/factories/controlFa
                     // We're going to have to create it.
                     shell.notebook.controller.append_asset(JSON.stringify(data), assetConfigName); // jshint ignore:line
                 }
+
+                PubSub.publish(pubSubTable.showMessage, 'Saved');
             });
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -12,6 +12,8 @@ define(['pubsub', 'rcap/js/Class'], function() {
         close : 'close',
         deserialize: 'deserialize',
 
+        showMessage: 'showMessage',
+
         showConfirmDialog : 'showConfirmDialog',
 
         // page:

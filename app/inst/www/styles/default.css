@@ -1236,6 +1236,19 @@ textarea.parsley-error {
     top: 50%;
     position: absolute; }
 
+#rcap-message {
+  background-color: #E3D178;
+  padding: 5px;
+  text-align: left;
+  color: black;
+  font-weight: 400;
+  left: 50%;
+  margin-left: -200px;
+  position: absolute;
+  top: 12px;
+  z-index: 1030;
+  width: 400px; }
+
 #rcap-disclaimer {
   background-color: white;
   color: red;
@@ -1398,7 +1411,7 @@ textarea.parsley-error {
     #rcap-designer .stage #inner-stage {
       background: white;
       padding: 10px 0;
-      border: 1px solid #bfbfbf;
+      border: 1px solid #8c8c8c;
       position: relative; }
   #rcap-designer .form-control {
     background: white;
@@ -1475,14 +1488,6 @@ li.parsley-required:before {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: block; }
-
-#rcap-temptoolbar {
-  position: absolute;
-  top: 11px;
-  z-index: 1030;
-  width: 200px;
-  text-align: right;
-  right: 70px; }
 
 .wysiwyg-toolbar,
 .wysiwyg-popuphover {

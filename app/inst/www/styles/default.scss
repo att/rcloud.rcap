@@ -41,7 +41,6 @@ sans-serif;
     background-color: rgba(0, 0, 0, 0.5);
     position: absolute;
     top: 0;
-
     & svg {
         margin-left: -32px;
         margin-top: -32px;
@@ -49,6 +48,20 @@ sans-serif;
         top: 50%;
         position: absolute;
     }
+}
+
+#rcap-message {
+    background-color: #E3D178;
+    padding: 5px;
+    text-align: left;
+    color: black;
+    font-weight: 400;
+    left: 50%;
+    margin-left: -200px;
+    position: absolute;
+    top: 12px;
+    z-index: 1030;
+    width: 400px;
 }
 
 #rcap-disclaimer {
@@ -114,8 +127,6 @@ sans-serif;
         & a span::after {
             display: block;
         }
-
-
         & h4#page-header a {
             padding: 0;
             float: right;
@@ -130,7 +141,6 @@ sans-serif;
             font: normal normal normal 16px/1 FontAwesome;
             content: "\f067";
         }
-
         & ul#pages a::before,
         & ul.controls a::before,
         & ul.settings a::before {
@@ -263,7 +273,7 @@ sans-serif;
         & #inner-stage {
             background: lighten($bgColor, 20%);
             padding: 10px 0;
-            border: 1px solid darken($bgColor, 20%);
+            border: 1px solid darken($bgColor, 40%);
             position: relative;
         }
     }
@@ -359,15 +369,6 @@ li.parsley-required:before {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     display: block;
-}
-
-#rcap-temptoolbar {
-    position: absolute;
-    top: 11px;
-    z-index: 1030;
-    width: 200px;
-    text-align: right;
-    right: 70px;
 }
 
 .wysiwyg-toolbar,

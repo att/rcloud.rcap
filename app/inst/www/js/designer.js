@@ -2,13 +2,14 @@ define([
     'rcap/js/serializer',
     'rcap/js/ui/menuManager',
     'rcap/js/ui/dialogManager',
+    'rcap/js/ui/messageManager',
     'rcap/js/ui/gridManager',
     'site/siteManager',
     'pubsub',
     'site/pubSubTable',
     'text!rcap/partials/designer.htm',
     'css!rcap/styles/default.css'
-], function(Serializer, MenuManager, DialogManager, GridManager, SiteManager, PubSub, pubSubTable, mainPartial) {
+], function(Serializer, MenuManager, DialogManager, MessageManager, GridManager, SiteManager, PubSub, pubSubTable, mainPartial) {
 
     'use strict';
 
@@ -17,19 +18,19 @@ define([
 
     var bootstrap = function() {
 
-        $('#rcloud-navbar-menu').append('<li class="rcap"><a href="#">Close</a></li>');
+        $('#rcloud-navbar-menu').append('<li style="display:none" class="rcap"><button class="btn btn-primary" id="rcap-save">Save</button></li><li style="display:none" class="rcap"><a href="#">Close</a></li>');
 
         $('body').append(mainPartial);
 
-        // close:
-        $('#rcloud-navbar-menu li.rcap').click(function() {
+        // close (link)
+        $('#rcloud-navbar-menu li.rcap a').click(function() {
 
             $(rcloudSelector).show();
 
             // hide rcap:
             $(rcapSelector).hide();
 
-            $(this).hide();
+            $('#rcloud-navbar-menu li.rcap').hide();
 
             console.info('designer: PUBLISH : pubSubTable.close');
             PubSub.publish(pubSubTable.close);
@@ -47,6 +48,9 @@ define([
 
         // initialise the dialog manager:
         new DialogManager().initialise();
+
+        // initialise the message manager:
+        new MessageManager().initialise();
 
         // grid manager:
         new GridManager().initialise();
