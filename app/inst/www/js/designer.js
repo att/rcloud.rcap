@@ -23,6 +23,7 @@ define([
 
         // close:
         $('#rcloud-navbar-menu li.rcap').click(function() {
+
             $(rcloudSelector).show();
 
             // hide rcap:
@@ -53,6 +54,7 @@ define([
         // serializer:
         new Serializer().initialise();
 
+        // this should only run once, even if it's called more than once.
         bootstrap = function() {};
     };
 
@@ -62,11 +64,25 @@ define([
 
             bootstrap();
 
-            $(rcloudSelector).hide();
+            $('#rcap-preloader').show();
 
-            // it may have been hidden from a previous 'close':
-            $('#rcloud-navbar-menu li.rcap').show();
-            $(rcapSelector).show();
+            // we want to be told when all has been done:
+            PubSub.subscribe(pubSubTable.gridInitComplete, function() {
+
+                setTimeout(function() {
+
+                    $(rcloudSelector).hide();
+
+                    // it may have been hidden from a previous 'close':
+                    $('#rcloud-navbar-menu li.rcap').show();
+
+                    $(rcapSelector).show();
+
+                    $('#rcap-preloader').fadeOut();
+
+                }, 1500);
+
+            });
 
             // load items:
             PubSub.publish(pubSubTable.deserialize, {

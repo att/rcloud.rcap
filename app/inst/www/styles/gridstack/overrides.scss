@@ -65,6 +65,11 @@
     .btn-configure {
         display: block;
         margin: 0 auto;
+        border: 3px solid;
+        border-radius: 40px;
+        font-weight: 200;
+        letter-spacing: 1px;
+        text-transform: uppercase;
     }
     .grid-stack-item-content p:last-child {
         position: absolute;
@@ -75,11 +80,9 @@
         padding: 4px 0;
         margin-top: -11px;
     }
-
     .grid-stack-item-content.valid .btn-configure {
         display: none;
     }
-
     .grid-stack-item-content.valid:hover {
         & .btn-configure {
             display: block;
@@ -91,8 +94,6 @@
             //background-color: rgba(255, 255, 255, 0.2);
         }
     }
-
-
 }
 
 #rcap-viewer {

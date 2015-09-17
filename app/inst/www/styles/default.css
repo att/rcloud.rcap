@@ -467,7 +467,12 @@
   width: 100%; }
 .grid-stack .btn-configure {
   display: block;
-  margin: 0 auto; }
+  margin: 0 auto;
+  border: 3px solid;
+  border-radius: 40px;
+  font-weight: 200;
+  letter-spacing: 1px;
+  text-transform: uppercase; }
 .grid-stack .grid-stack-item-content p:last-child {
   position: absolute;
   pointer-events: all;
@@ -1216,6 +1221,20 @@ textarea.parsley-error {
 
 .parsley-errors-list.filled {
   opacity: 1; }
+
+#rcap-preloader {
+  width: 100%;
+  height: 100%;
+  z-index: 1500;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0; }
+  #rcap-preloader svg {
+    margin-left: -32px;
+    margin-top: -32px;
+    left: 50%;
+    top: 50%;
+    position: absolute; }
 
 #rcap-disclaimer {
   background-color: white;
