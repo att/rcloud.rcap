@@ -83,7 +83,7 @@ define([
                     $(rcapSelector).show();
 
                     $('#rcap-preloader').fadeOut();
-
+                
                 }, 1500);
 
             });
