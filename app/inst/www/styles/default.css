@@ -1237,7 +1237,6 @@ textarea.parsley-error {
     position: absolute; }
 
 #rcap-message {
-  background-color: #E3D178;
   padding: 5px;
   text-align: left;
   color: black;
@@ -1248,6 +1247,18 @@ textarea.parsley-error {
   top: 12px;
   z-index: 1030;
   width: 400px; }
+
+#rcap-message.information {
+  background-color: #3c763d;
+  color: white; }
+
+#rcap-message.warning {
+  background-color: #ddc033;
+  color: black; }
+
+#rcap-message.error {
+  background-color: #a94442;
+  color: white; }
 
 #rcap-disclaimer {
   background-color: white;

@@ -1,4 +1,5 @@
-define(['pubsub', 'site/site', 'site/pubSubTable', 'controls/factories/controlFactory'], function(PubSub, Site, pubSubTable, ControlFactory) {
+define(['pubsub', 'site/site', 'site/pubSubTable', 'rcap/js/ui/message', 'controls/factories/controlFactory'], 
+    function(PubSub, Site, pubSubTable, Message, ControlFactory) {
 
     'use strict';
 
@@ -35,7 +36,10 @@ define(['pubsub', 'site/site', 'site/pubSubTable', 'controls/factories/controlFa
                     shell.notebook.controller.append_asset(JSON.stringify(data), assetConfigName); // jshint ignore:line
                 }
 
-                PubSub.publish(pubSubTable.showMessage, 'Saved');
+                PubSub.publish(pubSubTable.showMessage, new Message({
+                    messageType : 'Information',
+                    content : 'Saved'
+                }));
             });
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -16,7 +16,11 @@ define(['pubsub', 'site/pubSubTable'], function(PubSub, pubSubTable) {
 
                 // set the text and show for a little while:
                 $(selector)
-                	.text(message)
+                	.stop()	// cancel any previous animation shenanigans
+                	.hide()	// and start from a hidden state
+                	.removeClass(message.getValidMessageTypes().join(' ').toLowerCase())
+                	.addClass(message.messageType.toLowerCase())
+                	.text(message.content)
                 	.fadeIn(500, function() {
                         setTimeout(function() {
                             $(selector).fadeOut(500);
