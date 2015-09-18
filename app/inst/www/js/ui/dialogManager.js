@@ -182,7 +182,6 @@ define([
             //
             // control/form delete message subscription:
             //
-            //$('body').off('click').on('click', '#dialog-controlSettings .delete, #dialog-form-builder .delete', function() {
             $('body').on('click', '#dialog-controlSettings .delete, #dialog-form-builder .delete', function() {
                 PubSub.publish(pubSubTable.showConfirmDialog, {
                     heading: 'Delete control',
@@ -201,11 +200,7 @@ define([
 
                 console.info('dialogManager: pubSubTable.showPageSettingsDialog');
 
-                // show the settings dialog:
-
                 $('#inputPageNavigationTitle').val(page.navigationTitle);
-                //$('#inputPageTitle').val(page.pageTitle);
-                //$('#inputPageUrlSlug').val(page.urlSlug);
 
                 $('#dialog-pageSettings form')
                     .find('input')
@@ -215,9 +210,10 @@ define([
                         }
                     });
 
-                // update the details for 'delete button':
-                //                $('#dialog-pageSettings .delete').off('click').on('click', function() {
-                $('#dialog-pageSettings .delete').on('click', function() {
+                // update the details for 'delete page'
+                // deregister the event first, otherwise, it'll add another, the result being that 
+                // it'll fire multiple times:
+                $('#dialog-pageSettings .delete').off('click').on('click', function() {
                     PubSub.publish(pubSubTable.showConfirmDialog, {
                         heading: 'Delete ' + page.navigationTitle,
                         message: 'Are you sure you want to delete ' + page.navigationTitle + '?',
