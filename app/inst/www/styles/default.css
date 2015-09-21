@@ -488,6 +488,14 @@
 .grid-stack .grid-stack-item-content.valid:hover .valid-overlay {
   background-color: rgba(255, 255, 255, 0.7); }
 
+.grid-stack[data-pageid='header'] {
+  background-color: rgba(255, 255, 0, 0.3);
+  margin-bottom: 10px; }
+
+.grid-stack[data-pageid='footer'] {
+  background-color: rgba(255, 255, 0, 0.3);
+  margin-top: 10px; }
+
 #rcap-viewer .grid-stack-item-content {
   border: 0 !important;
   overflow-x: auto; }
@@ -1630,31 +1638,5 @@ a.wysiwyg-toolbar-icon:hover {
     background-color: #fff !important; }
   #dialog-form-builder .nav-tabs > li {
     font-size: 14px; }
-
-.dt svg.graph {
-  width: 100%;
-  height: 100%; }
-.dt svg.graph .grid {
-  stroke: black;
-  stroke-dasharray: 1 2;
-  stroke-width: 1; }
-.dt svg.graph .points {
-  stroke: white;
-  stroke-width: 3; }
-.dt svg.graph .first_set {
-  fill: #00554d; }
-.dt svg.graph .surfaces {
-  fill-opacity: 0.5; }
-.dt svg.graph .grid.double {
-  stroke-opacity: 0.4; }
-
-/*****************************************************************************************************/
-#top-banner {
-  background-color: #222222;
-  color: #eee;
-  margin: 0 10px 10px 10px;
-  padding: 10px; }
-
-/*****************************************************************************************************/
 
 /*# sourceMappingURL=default.css.map */

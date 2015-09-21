@@ -8,10 +8,10 @@ define([
     'use strict';
 
     var GridManager = function() {
-        this.cellHeight = 80;
-        this.verticalMargin = 20;
-        this.minHeightCellCount = 12;
-        this.id = 'GM-' + Math.random().toString(16).slice(2);
+        // this.cellHeight = 80;
+        // this.verticalMargin = 20;
+        // this.minHeightCellCount = 12;
+        // this.id = 'GM-' + Math.random().toString(16).slice(2);
     };
 
     var getDesignTimeControlOuterMarkup = function(control) {
@@ -41,32 +41,29 @@ define([
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    var addGrid = function(pageId) {
+    var addGrid = function(pageId, options) {
 
-        $('#inner-stage').append('<div class="grid-stack" data-pageid="' + pageId + '" data-gs-height="12"></div>');
-
+        options = options || {};
         var selector = '.grid-stack[data-pageid="' + pageId + '"]';
 
-        $(selector).gridstack({
-            min_height_cellcount: 12, // jshint ignore:line
-            cell_height: 80, // jshint ignore:line
-            vertical_margin: 20, // jshint ignore:line
-            static_grid: true, // jshint ignore:line
-            float: true
-        });
+        $('#inner-stage').append('<div class="grid-stack" data-pageid="' + pageId + '" data-gs-height="' + (options.minHeight || 12) + '"></div>');
 
         $(selector).gridstack({
-
-            min_height_cellcount: 12, // jshint ignore:line
-            cell_height: 80, // jshint ignore:line
-            vertical_margin: 20, // jshint ignore:line
-
             animate: true,
             resizable: {
                 handles: 'e, se, s'
             },
-            float: true
+            min_height_cellcount: options.minHeight || 12, // jshint ignore:line
+            cell_height: options.cellHeight || 80, // jshint ignore:line
+            vertical_margin: options.verticalMargin || 20, // jshint ignore:line
+            static_grid: options.staticGrid || true, // jshint ignore:line
+            float: options.float || true,
+            height: options.minHeight || 12
         });
+
+        if(options.isGlobalPageItem) { // header or footer
+            $(selector).addClass('js-gridstack-global');
+        }
 
         $(selector).off('dragstop').on('dragstop', function(event) {
             var element = $(event.target);
@@ -107,7 +104,7 @@ define([
                 }
 
                 PubSub.publish(pubSubTable.gridItemsChanged, dataItems);
-            } 
+            }
 
         });
 
@@ -166,8 +163,8 @@ define([
         $('#main-menu .controls li').draggable({
             revert: true,
             revertDuration: 0,
-            appendTo: '.grid-stack:visible',
-            containment: '.grid-stack:visible',
+            appendTo: '.grid-stack:not(.js-gridstack-global):visible',
+            containment: '.grid-stack:not(.js-gridstack-global):visible',
             start: function() {
 
                 var control = controlFactory.getByKey($(this).data('type'));
@@ -186,7 +183,7 @@ define([
                 getVisibleGrid().detach_placeholder(); // jshint ignore:line
             },
             helper: function() {
-                return $('<div style="background-color: #ddd; width: 75px; height: 75px;">+</div>');
+                return $('<div style="background-color: #ddd; width: 75px; height: 75px;"></div>');
             }
         });
 
@@ -218,10 +215,14 @@ define([
 
             console.info('gridManager: pubSubTable.initSite');
 
+            //addGrid('header', { minHeight: 2, isGlobalPageItem : true });
+
             // each page has its own grid:
             _.each(site.pages, function(page) {
                 addGrid(page.id);
             });
+
+            //addGrid('footer', { minHeight: 2, isGlobalPageItem : true });
 
             // add controls:
             _.each(site.pages, function(page) {
@@ -266,14 +267,15 @@ define([
 
             console.info('gridManager: pubSubTable.changeSelectedPage');
 
-            // hide all grid stacks and the 'no items' - which will be shown if there are no items:
-            $('.grid-stack, #no-items').hide();
+            // hide all (individual page) grid stacks and the 'no items' - which will be shown if there are no items:
+            $('.grid-stack:not(.js-gridstack-global), #no-items').hide();
             $('.grid-stack[data-pageid="' + page.id + '"]').show();
 
             if (page.controls.length === 0) {
-                $('#no-items').show();
-                $('#no-items').css({
-                    opacity: 1.0
+
+                // append to the specific gridstack:
+                $('#no-items').remove().appendTo('.grid-stack:not(.js-gridstack-global):visible').show().css({
+                    opacity : 1.0
                 });
             }
 
@@ -321,61 +323,12 @@ define([
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //
-        // open
-        //  
-        /*
-        PubSub.subscribe(pubSubTable.designerInit, function(msg, items) {
-
-            console.info('gridManager: pubSubTable.designerInit');
-
-            //console.log('rcap:open for design grid');
-
-            var grid = $(selector).data('gridstack'),
-                loop = 0,
-                control;
-            grid.remove_all(); // jshint ignore:line
-
-            // add items to the grid:
-            for (; loop < items.length; ++loop) {
-
-                control = items[loop];
-
-                var newWidget = grid.add_widget(getDesignTimeControlOuterMarkup(control), control.x, control.y, control.width, control.height, false); // jshint ignore:line
-
-                newWidget.data('control', control);
-
-                grid.locked(newWidget, true);
-
-            }
-
-            if (items.length === 0) {
-                $('#no-items').show();
-            }
-
-        });*/
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //
         // close
         //  
         PubSub.subscribe(pubSubTable.close, function() {
-
             console.info('gridManager: pubSubTable.close');
-
-            // $('.grid-stack').each(function() {
-            //     $(this).data('gridstack').remove_all(); // jshint ignore:line
-            // });
-
-            // time to say goodbye:
             $('.grid-stack').remove();
-
-            //var grid = $(selector).data('gridstack');
-            //grid.remove_all(); // jshint ignore:line
-
-            // other code will show it, but it needs to be hidden by default so it doesn't 
-            // momentarily appear:
             $('#no-items').hide();
-
         });
 
     };

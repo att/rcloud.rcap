@@ -406,11 +406,12 @@
     };
 
     GridStackEngine.prototype.get_grid_height = function() {
-        var height = _.reduce(this.nodes, function(memo, n) {
+        return _.reduce(this.nodes, function(memo, n) {
             return Math.max(memo, n.y + n.height);
-        }, 0);
-        var minHeight = 12;
-        return height < minHeight ? minHeight : height;
+        }, this.height);
+
+        //var minHeight = 12;
+        //return height < minHeight ? minHeight : height;
     };
 
     GridStackEngine.prototype.begin_update = function(node) {
