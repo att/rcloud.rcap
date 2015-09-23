@@ -1,21 +1,21 @@
 define([
     'pubsub',
     'site/pubSubTable',
-   // 'site/site'
-], function(PubSub, pubSubTable/*, Site*/) {
+    // 'site/site'
+], function(PubSub, pubSubTable /*, Site*/ ) {
 
     'use strict';
 
-    var el = '#rcap-designer';
+    var el = 'body';
 
     // get the site:
     var getSite = function() {
-        return $(el).data('site');
+        return $(el).data('rcap-site');
     };
 
     // set the site:
     var setSite = function(site) {
-        $(el).data('site', site);
+        $(el).data('rcap-site', site);
     };
 
     var SiteManager = Class.extend({
@@ -48,6 +48,11 @@ define([
                 console.info('siteManager: pubSubTable.initSite');
 
                 setSite(site);
+
+                PubSub.publish(pubSubTable.pagesChanged, {
+                    pages: site.pages,
+                    currentPageID: site.currentPageID
+                });
             });
 
             ////////////////////////////////////////////////////////////////////////////////////
@@ -79,7 +84,7 @@ define([
             //
             //
             //
-            PubSub.subscribe(pubSubTable.addPage, function(/*msg, data*/) {
+            PubSub.subscribe(pubSubTable.addPage, function( /*msg, data*/ ) {
 
                 console.info('siteManager: pubSubTable.addPage');
 
@@ -89,9 +94,14 @@ define([
                 site.addPage(newPage);
                 site.currentPageID = newPage.id;
                 setSite(site);
-                
+
                 // let interested parties know that a page has been added:
                 PubSub.publish('ui:' + pubSubTable.addPage, newPage);
+
+                PubSub.publish(pubSubTable.pagesChanged, {
+                    pages: site.pages,
+                    currentPageID: site.currentPageID
+                });
             });
 
             ////////////////////////////////////////////////////////////////////////////////////
@@ -113,7 +123,14 @@ define([
 
                 console.info('siteManager: pubSubTable.deletePageConfirm');
 
-                setSite(getSite().deletePage(pageId));
+                var site = getSite().deletePage(pageId);
+
+                setSite(site);
+
+                PubSub.publish(pubSubTable.pagesChanged, {
+                    pages: site.pages,
+                    currentPageID: site.currentPageID
+                });
             });
 
             ////////////////////////////////////////////////////////////////////////////////////
@@ -130,6 +147,32 @@ define([
 
                 // fire off the specific page:
                 PubSub.publish(pubSubTable.changeSelectedPage, getSite().getPageByID(pageId));
+
+                PubSub.publish(pubSubTable.pagesChanged, {
+                    pages: site.pages,
+                    currentPageID: site.currentPageID
+                });
+            });
+
+            ////////////////////////////////////////////////////////////////////////////////////
+            //
+            //
+            //
+            PubSub.subscribe(pubSubTable.changeSelectedPageByTitle, function(msg, pageTitle) {
+
+                console.info('siteManager: pubSubTable.changeSelectedPageByTitle');
+
+                // update the site's current page:
+                var site = getSite();
+
+                // and find the page by it's navigation title:
+                var currentPage = site.getPageByNavigationTitle(pageTitle);
+
+                site.currentPageID = currentPage.id;
+
+                // fire off the specific page:
+                PubSub.publish(pubSubTable.changeSelectedPage, currentPage);
+
             });
 
             ////////////////////////////////////////////////////////////////////////////////////
@@ -153,6 +196,11 @@ define([
 
                 var site = getSite();
                 setSite(site.updatePageOrder(pageIds));
+
+                PubSub.publish(pubSubTable.pagesChanged, {
+                    pages: site.pages,
+                    currentPageID: site.currentPageID
+                });
 
             });
 

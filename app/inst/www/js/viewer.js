@@ -1,68 +1,60 @@
 define(['text!rcap/partials/viewer.htm',
     'rcap/js/ui/gridManager',
+    'rcap/js/utils/historyManager',
     'pubsub',
     'site/pubSubTable',
     'rcap/js/serializer',
-    'text!rcap/partials/_top-banner.htm',                       // DEMO
+    'site/siteManager',
     'css!rcap/styles/default.css'
-], function(mainPartial, GridManager, PubSub, pubSubTable, serializer, topBannerPartial) {
+], function(mainPartial, GridManager, HistoryManager, PubSub, pubSubTable, Serializer, SiteManager) {
 
     'use strict';
 
-    return {
+    var Viewer = function() {
 
-        initialiseFromMenu: function() {
+        var me = this;
 
-            if ($('body').find('#rcap-viewer').length === 0) {
+        this.setup = function() {
 
-                $('body').append(mainPartial);
+            $('body').append(mainPartial);
 
-                // grid:
-                var gridManager = new GridManager();
-                gridManager.initialise();
+            // site manager: 
+            new SiteManager().initialise();
 
-                // initialise
-                serializer.initialise();
-
-                $('#rcap-viewer .close').show();
-
-                $('#rcap-viewer .close').click(function() {
-                    $('#rcap-viewer').hide();
-                });
-
-            }
-
-            $('#top-banner').replaceWith(topBannerPartial);
-
-            $('#rcap-viewer').show();
-
-            // kick off:
-            PubSub.publish(pubSubTable.deserialize, {
-                type: 'viewer'
+            // grid manager:
+            new GridManager().initialise({
+                isDesignTime: false
             });
 
-        },
+            // serializer:
+            new Serializer().initialise();
 
-        initialise: function(json) {
+            // history manager:
+            new HistoryManager().initialise();
 
             // subscribe to grid done event:
             PubSub.subscribe(pubSubTable.gridInitComplete, function() {
 
                 console.info('viewer: pubSubTable.gridInitComplete');
 
-                var noop = function() {};
-                var notebookResult = window.notebook_result; // jshint ignore:line
+                me.initialiseControls();
+            });
+        };
 
+        this.initialiseControls = function() {
+
+            var notebookResult = window.notebook_result; // jshint ignore:line
+
+            // some controls are dependent on having a valid notebook result:
+            if (notebookResult) {
                 $('.r').each(function(i, e) {
                     if (typeof notebookResult[$(e).attr('id')] === 'function') {
                         var $enclosingDiv = $(e).closest('.grid-stack-item-content');
-                        
-                        //notebookResult[$(e).attr('id')]($enclosingDiv.width() * 1.5, $enclosingDiv.height() * 1.5, noop);
 
                         notebookResult[$(e).attr('id')]({
-                            width: $enclosingDiv.width() * 1.5, 
+                            width: $enclosingDiv.width() * 1.5,
                             height: $enclosingDiv.height() * 1.5
-                        }, noop);  
+                        }, $.noop());
 
                     } else {
                         $(e).css({
@@ -73,26 +65,57 @@ define(['text!rcap/partials/viewer.htm',
                             .text('the function ' + $(e).attr('id') + '() does not exist...');
                     }
                 });
+            }
+
+            // everything that doesn't rely on a notebook result:
+            $('.rcap-pageMenu').each(function( /*i, e*/ ) {
+
+                $(this).find('a').click(function() {
+                    // get the nav title:
+                    PubSub.publish(pubSubTable.changeSelectedPageByTitle, $(this).data('href'));
+                });
 
             });
 
-            $('body').html(mainPartial);
+        };
 
+        this.initialiseFromMenu = function() {
 
-            $('#top-banner').replaceWith(topBannerPartial);
+            this.setup();
 
-            // initialise grid:
-            var gridManager = new GridManager();
-            gridManager.initialise();
+            $('#rcap-viewer').css({
+                'margin-top': '-50px'
+            }).show();
 
-            serializer.initialise();
-
-            // and pub:
             PubSub.publish(pubSubTable.deserialize, {
-                type: 'viewer',
-                jsonData: json
+                isDesignTime: false
             });
+        };
 
-        }
+        /*
+                this.initialise = function(json) {
+
+                    this.setup();
+
+                    // subscribe to grid done event:
+                    PubSub.subscribe(pubSubTable.gridInitComplete, function() {
+
+                        console.info('viewer: pubSubTable.gridInitComplete');
+
+                        me.initialiseControls();
+                    });
+
+                    // and pub:
+                    PubSub.publish(pubSubTable.deserialize, {
+                        isDesignTime: false,
+                        jsonData: json
+                    });
+
+                };
+        */
+
     };
+
+    return Viewer;
+
 });

@@ -27,8 +27,8 @@
     return {
         init: function(ocaps, k) {
 
-            RCloud.UI.advanced_menu.add({   // jshint ignore:line
-                rcap: {
+            RCloud.UI.advanced_menu.add({ // jshint ignore:line
+                rcapDesigner: {
                     sort: 10000,
                     text: 'RCAP Designer',
                     modes: ['edit'],
@@ -41,13 +41,32 @@
             });
 
             // this is a temporary menu item:
-            
+            RCloud.UI.advanced_menu.add({ // jshint ignore:line
+                rcapViewer: {
+                    sort: 11000,
+                    text: 'RCAP Viewer',
+                    modes: ['edit'],
+                    action: function() {
+
+                        function getParameterByName(name) {
+                            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+                            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                                results = regex.exec(location.search);
+                            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+                        }
+
+                        window.open('/shared.R/rcloud.rcap/standaloneviewer.htm?notebook=' + getParameterByName('notebook'));
+                    }
+                }
+            });
 
             k();
 
         },
+
         initViewer: function(content, k) {
             require(['rcap/js/viewer'], function(viewer) {
+                setTimeout(function() { $(document).off('scroll'); }, 2500);
                 viewer.initialise(content);
                 k();
             });

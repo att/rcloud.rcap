@@ -3,35 +3,27 @@ define(['pages/page'], function(Page) {
     'use strict';
 
     var Site = Class.extend({
+        
         init: function(options) {
             options = options || {};
             
-            this.saveTicks = options.saveTicks; 
+            this.saveTicks = options.saveTicks;
+            this.isDesignTime = options.isDesignTime; 
 
             // initialise with a single page:
             this.pages = options.pages || [
                 new Page({
                     navigationTitle : 'Home Page'
-                }),  
-                // new Page({
-                //     navigationTitle : 'Data Conclusions'
-                // }),
-                // new Page({
-                //     navigationTitle : 'Main overview'
-                // }),
-                // new Page({
-                //     navigationTitle : 'Breakdown 1'
-                // }),
-                // new Page({
-                //     navigationTitle : 'Breakdown 2'
-                // }),
+                }), 
             ];
 
             this.currentPageID = this.pages.length > 0 ? this.pages[0].id : undefined;
         },
+
         save: function() {
         	this.saveTicks = new Date().getTime();
         },
+
         toJSON: function() {
 
             return {
@@ -104,6 +96,10 @@ define(['pages/page'], function(Page) {
 
         getPageByID : function(pageId) {
             return _.findWhere(this.pages, { id : pageId });
+        },
+
+        getPageByNavigationTitle : function(navigationTitle) {
+            return _.find(this.pages, function(p) { return p.navigationTitle === navigationTitle; });
         },
 
         addControl : function(control) {

@@ -422,6 +422,9 @@
   border: 1px solid #ccc;
   cursor: move; }
 
+.grid-stack-readonly .grid-stack-item-content {
+  cursor: default; }
+
 .grid-stack-item .ui-remove {
   z-index: 90;
   width: 20px;

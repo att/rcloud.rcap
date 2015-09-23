@@ -90,7 +90,7 @@ define([
 
             // load items:
             PubSub.publish(pubSubTable.deserialize, {
-                type: 'designer'
+                isDesignTime: true
             });
         };
 

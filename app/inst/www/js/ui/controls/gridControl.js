@@ -21,6 +21,7 @@ define(['rcap/js/ui/controls/baseControl'], function(BaseControl) {
             this.height = +this.initialSize[1];
             this.controlProperties = options.controlProperties;
 
+            this.renderEvents = options.renderEvents || [];
         },
         initialWidth: function() {
             return this.initialSize[0];

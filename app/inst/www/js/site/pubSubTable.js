@@ -4,12 +4,15 @@ define(['pubsub', 'rcap/js/Class'], function() {
 
     var events = {
 
+        broadcastSiteRequest : 'broadcastSiteRequest',
+        broadcastSiteResponse : 'broadcastSiteResponse',
         initSite : 'initSite',
         designerInit : 'designerInit',
         serialize : 'serialize',
         save : 'save',
         load : 'load',
         close : 'close',
+        closeViewer : 'closeViewer',
         deserialize: 'deserialize',
 
         showMessage: 'showMessage',
@@ -23,8 +26,14 @@ define(['pubsub', 'rcap/js/Class'], function() {
         deletePage : 'deletePage',
         deletePageConfirm : 'deletePageConfirm',
 
+        pagesChanged : 'pagesChanged',
+
         // just the ID:
         changeSelectedPageId : 'changeSelectedPageId',
+
+        // change by navigation title:
+        changeSelectedPageByTitle : 'changeSelectedPageByTitle',
+
         // the whole page:
         changeSelectedPage :'changeSelectedPage',
         changePageOrder : 'changePageOrder',
@@ -39,6 +48,7 @@ define(['pubsub', 'rcap/js/Class'], function() {
         // control/form:
         addControl : 'addControl',
         updateControl : 'updateControl',
+        updateControlMarkup : 'updateControlMarkup',
         deleteControl : 'deleteControl',
         deleteControlConfirm : 'deleteControlConfirm',
         configureControl : 'configureControl',

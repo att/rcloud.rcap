@@ -65,10 +65,13 @@ define(['pubsub', 'site/site', 'site/pubSubTable', 'rcap/js/ui/message', 'contro
                     data,
                     controlFactory = new ControlFactory(),
                     currentChild,
-                    rawData = msgData.hasOwnProperty('jsonData') ? msgData.jsonData : localStorage.getItem('rcap');
+                    rawData = msgData.hasOwnProperty('jsonData') ? msgData.jsonData : localStorage.getItem('rcap'),
+                    isDesignTime = msgData.hasOwnProperty('isDesignTime') ? msgData.isDesignTime : true;
 
                 // create a site:
-                var site = new Site();
+                var site = new Site({
+                    isDesignTime : isDesignTime
+                });
 
                 data = rawData && rawData.length > 0 ? JSON.parse(rawData) : [];
 

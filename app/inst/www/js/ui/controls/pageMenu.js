@@ -1,8 +1,9 @@
 define(['rcap/js/ui/controls/gridControl',
     'rcap/js/ui/controls/properties/dropdownControlProperty',
+    'pubsub',
+    'site/pubSubTable',
     'text!controlTemplates/pageMenu.tpl'
-
-], function(GridControl, DropdownControlProperty, tpl) {
+], function(GridControl, DropdownControlProperty, PubSub, pubSubTable, tpl) {
 
     'use strict';
 
@@ -31,18 +32,38 @@ define(['rcap/js/ui/controls/gridControl',
                             value: 'vertical'
                         }]
                     })
-                ]
+                ],
+                renderEvents: [pubSubTable.addPage, pubSubTable.deletePageConfirm, pubSubTable.initSite]
             });
         },
-        render: function() {
+        render: function(options) {
 
-            var template = _.template(tpl);
+            options = options || {};
 
-            return template({
-                control: this
-            });
+            var isDesignTime = options.isDesignTime || false,
+                template = _.template(tpl);
 
-		}
+            if (isDesignTime) {
+                return template({
+                    pages: [{
+                        navigationTitle: 'Page 1',
+                        id: '1'
+                    }, {
+                        navigationTitle: 'Page 2',
+                        id: '2'
+                    }],
+                    siteCurrentPageID: '1'
+                });
+            } else {
+
+                var rcap = JSON.parse(localStorage.getItem('rcap'));
+
+                return template({
+                    pages: rcap.pages,
+                    siteCurrentPageID: rcap.pages !== undefined && rcap.pages.length > 0 ? rcap.pages[0].id : ''
+                });
+            }
+        }
     });
 
     return PageMenuControl;
