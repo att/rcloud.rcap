@@ -1,15 +1,30 @@
-define([], function() {
-	
-	var HistoryManager = function() {
+define([
+    'pubsub',
+    'site/pubSubTable'
+], function(PubSub, pubSubTable) {
 
-		this.initialise = function() {
-			window.addEventListener('popstate', function(e) {
-				console.log('history manager: popstate');
-			});
-		};
+    'use strict';
 
-	};
+    var HistoryManager = function() {
 
-	return HistoryManager;
+        this.initialise = function() {
+            window.addEventListener('popstate', function( /*e*/ ) {
+                console.log('history manager: popstate');
+            });
+
+            window.onhashchange = function() {
+                PubSub.publish(pubSubTable.changeSelectedPageByTitle, location.hash.substring(1));
+            };
+        };
+
+        this.setInitialState = function() {
+            if (location.hash.length) {
+                PubSub.publish(pubSubTable.changeSelectedPageByTitle, location.hash.substring(1));
+            }
+        };
+
+    };
+
+    return HistoryManager;
 
 });

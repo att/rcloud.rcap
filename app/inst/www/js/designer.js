@@ -82,9 +82,12 @@ define([
 
                     $(rcapSelector).show();
 
+                    // ensure that the top of the design surface is shown:
+                    location.hash = 'inner-stage';
+
                     $('#rcap-preloader').fadeOut();
                 
-                }, 1500);
+                }, 0);
 
             });
 

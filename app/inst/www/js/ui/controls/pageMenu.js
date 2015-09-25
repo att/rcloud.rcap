@@ -201,6 +201,7 @@ define(['rcap/js/ui/controls/gridControl',
 
             $('#rcap-viewer').on('click', '.rcap-pagemenu a', function() {
                 // get the nav title:
+                location.hash = $(this).data('href');
                 PubSub.publish(pubSubTable.changeSelectedPageByTitle, $(this).data('href'));
             });
         }

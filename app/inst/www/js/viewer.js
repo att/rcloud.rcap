@@ -31,7 +31,8 @@ define(['text!rcap/partials/viewer.htm',
             new Serializer().initialise();
 
             // history manager:
-            new HistoryManager().initialise();
+            var historyManager = new HistoryManager();
+            historyManager.initialise();
 
             // subscribe to grid done event:
             PubSub.subscribe(pubSubTable.gridInitComplete, function() {
@@ -39,6 +40,9 @@ define(['text!rcap/partials/viewer.htm',
                 console.info('viewer: pubSubTable.gridInitComplete');
 
                 me.initialiseControls();
+
+                // if there's a hash value (method that is used to bookmark a 'page'):
+                historyManager.setInitialState();
             });
         };
 
@@ -60,8 +64,10 @@ define(['text!rcap/partials/viewer.htm',
                 isDesignTime: false
             });
 
-            setTimeout(function() { $(document).off('scroll'); }, 2000);
-            
+            setTimeout(function() {
+                $(document).off('scroll');
+            }, 2000);
+
         };
 
         /*
