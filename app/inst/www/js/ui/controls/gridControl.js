@@ -21,7 +21,7 @@ define(['rcap/js/ui/controls/baseControl'], function(BaseControl) {
             this.height = +this.initialSize[1];
             this.controlProperties = options.controlProperties;
 
-            this.renderEvents = options.renderEvents || [];
+            this.isOnGrid = options.isOnGrid || false;
         },
         initialWidth: function() {
             return this.initialSize[0];
@@ -58,7 +58,8 @@ define(['rcap/js/ui/controls/baseControl'], function(BaseControl) {
                 'width': this.width,
                 'height': this.height,
                 'id': this.id,
-                'controlProperties': this.controlProperties
+                'controlProperties': this.controlProperties,
+                'isOnGrid': true
             };
         },
         isValid: function() {

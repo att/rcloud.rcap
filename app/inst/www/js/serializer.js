@@ -105,6 +105,7 @@ define(['pubsub', 'site/site', 'site/pubSubTable', 'rcap/js/ui/message', 'contro
                             jsonControl = jsonPage.controls[controlLoop];
 
                             control = controlFactory.getByKey(jsonControl.type);
+                            control.isOnGrid = true;
 
                             // set control's properties, excluding 'controlProperties' property:
                             for (property in jsonControl) {

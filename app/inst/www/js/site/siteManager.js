@@ -20,8 +20,7 @@ define([
 
     var SiteManager = Class.extend({
         init: function() {
-            // create a new site:
-            //this.site = new Site();
+
         },
         initialise: function() {
 
@@ -65,6 +64,12 @@ define([
 
                 var site = getSite();
                 setSite(site.addControl(item));
+
+                // publish an event for the control:
+                PubSub.publish(pubSubTable.gridItemAddedInit, {
+                    site : site,
+                    controlID : item.id
+                });
             });
 
             ////////////////////////////////////////////////////////////////////////////////////

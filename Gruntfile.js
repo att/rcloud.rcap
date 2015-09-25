@@ -160,7 +160,7 @@ module.exports = function(grunt) {
                 ].join('&& ')
             },
             dist: {
-                command: [
+                commandcd: [
                     'node r.js -o build.js',
                     'move initialiser.js <%= appConfig.distDeployDir %>/inst/www/js/initialiser.js',
                     //'cd <%= appConfig.cmdDir %>',

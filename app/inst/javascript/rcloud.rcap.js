@@ -66,7 +66,6 @@
 
         initViewer: function(content, k) {
             require(['rcap/js/viewer'], function(viewer) {
-                setTimeout(function() { $(document).off('scroll'); }, 2500);
                 viewer.initialise(content);
                 k();
             });

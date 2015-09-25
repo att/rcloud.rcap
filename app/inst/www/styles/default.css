@@ -1642,4 +1642,22 @@ a.wysiwyg-toolbar-icon:hover {
   #dialog-form-builder .nav-tabs > li {
     font-size: 14px; }
 
+.rcap-pageMenu {
+  margin: 0;
+  padding: 0; }
+
+.rcap-pageMenu li {
+  padding: 0;
+  color: #369; }
+
+.rcap-pageMenu a {
+  padding: 5px;
+  display: block; }
+
+.rcap-pageMenu li.current {
+  background-color: #369; }
+
+.rcap-pageMenu li.current a {
+  color: white; }
+
 /*# sourceMappingURL=default.css.map */

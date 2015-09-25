@@ -43,6 +43,7 @@ define(['pubsub', 'rcap/js/Class'], function() {
         // grid:
         gridInitComplete : 'gridInitComplete',
         gridItemAdded : 'gridItemAdded',
+        gridItemAddedInit : 'gridItemAddedInit',
         gridItemsChanged : 'gridItemsChanged',
 
         // control/form:

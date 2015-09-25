@@ -41,7 +41,7 @@ define([
 
         var item = $('<div data-controlid="' + control.id + '" data-gs-locked="true" data-gs-no-resize="true" data-gs-no-move="true" data-gs-readonly="true"></div>')
             .append('<div class="grid-stack-item-content"></div>');
-         
+
         item.find('.grid-stack-item-content').append(control.render());
 
         return item;
@@ -66,7 +66,7 @@ define([
             gridStackRoot.addClass('js-gridstack-global');
         }
 
-        if(!options.isDesignTime) {
+        if (!options.isDesignTime) {
             gridStackRoot.addClass('grid-stack-readonly');
             gridStackRoot.css('display', 'none');
         }
@@ -162,6 +162,7 @@ define([
                         // set the new element's control property:
                         control.x = +placeholderPosition.x;
                         control.y = +placeholderPosition.y;
+                        control.isOnGrid = true;
 
                         newWidget.data('control', control);
 
@@ -301,15 +302,28 @@ define([
 
                 console.info('gridManager: pubSubTable.updateControl');
 
-                // update the control's data: 
-                var gridItem = $('.grid-stack-item[data-controlid="' + control.id + '"] .grid-stack-item-content');
 
-                // and get the new markup:
-                gridItem.replaceWith(getDesignTimeControlInnerMarkup(control));
+                // update the control's data, depending on whether the grid is in design mode:
+                var item = $('.grid-stack-item[data-controlid="' + control.id + '"]');
+                var itemGrid = item.closest('.grid-stack');
 
-                // update the control:
-                gridItem.data('control', control);
+                if (itemGrid.hasClass('grid-stack-readonly')) {
+                    //item.find('.grid-stack-item-content').html(data.markup);
 
+                    item.find('.grid-stack-item-content').html(control.render());
+
+                } else {
+
+                    // update the control's data: 
+                    var gridItem = $('.grid-stack-item[data-controlid="' + control.id + '"] .grid-stack-item-content');
+
+                    // and get the new markup:
+                    gridItem.replaceWith(getDesignTimeControlInnerMarkup(control));
+
+                    // update the control:
+                    gridItem.data('control', control);
+
+                }
             });
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -345,12 +359,16 @@ define([
 
             console.info('gridManager: pubSubTable.updateControlMarkup');
 
-            // update the control's data: 
-            var gridItem = $('.grid-stack-item[data-controlid="' + data.controlId + '"] .grid-stack-item-content');
+            // update the control's data, depending on whether the grid is in design mode:
+            var item = $('.grid-stack-item[data-controlid="' + data.controlId + '"]');
+            var itemGrid = item.closest('.grid-stack');
 
-            // and get the new markup:
-            gridItem.replaceWith(data.markup);
-
+            if (itemGrid.hasClass('grid-stack-readonly')) {
+                item.find('.grid-stack-item-content').html(data.markup);
+            } else {
+                // this is design mode, so use the utility method:
+                item.find('.configure').html(data.markup);
+            }
         });
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -380,18 +398,18 @@ define([
 
                     var newWidget = grid.add_widget( // jshint ignore:line
 
-                        site.isDesignTime ? getDesignTimeControlOuterMarkup(control) : getViewerControlMarkup(control), 
-                        control.x, 
-                        control.y, 
-                        control.width, 
-                        control.height, 
+                        site.isDesignTime ? getDesignTimeControlOuterMarkup(control) : getViewerControlMarkup(control),
+                        control.x,
+                        control.y,
+                        control.width,
+                        control.height,
                         false); // jshint ignore:line
 
-                        // site.isDesignTime ? getDesignTimeControlOuterMarkup(control) : $(control.render()).attr({
-                        //     'data-gs-no-resize': true,
-                        //     'data-gs-no-move': true,
-                        //     'data-gs-readonly': true
-                        // }), control.x, control.y, control.width, control.height, false); // jshint ignore:line
+                    // site.isDesignTime ? getDesignTimeControlOuterMarkup(control) : $(control.render()).attr({
+                    //     'data-gs-no-resize': true,
+                    //     'data-gs-no-move': true,
+                    //     'data-gs-readonly': true
+                    // }), control.x, control.y, control.width, control.height, false); // jshint ignore:line
 
                     newWidget.data('control', control);
 
@@ -407,7 +425,7 @@ define([
 
             //updatePageDependentControls(site.pages, site.currentPageID);
 
-            if(!site.isDesignTime) {
+            if (!site.isDesignTime) {
                 // all grid stacks will have been hidden at the point of DOM addition,
                 // so show the first one to get things started:
                 $('.grid-stack:eq(0)').show();

@@ -68,13 +68,9 @@ define(['text!rcap/partials/viewer.htm',
             }
 
             // everything that doesn't rely on a notebook result:
-            $('.rcap-pageMenu').each(function( /*i, e*/ ) {
-
-                $(this).find('a').click(function() {
-                    // get the nav title:
-                    PubSub.publish(pubSubTable.changeSelectedPageByTitle, $(this).data('href'));
-                });
-
+            $('#rcap-viewer').on('click', '.rcap-pageMenu a', function() {
+                // get the nav title:
+                PubSub.publish(pubSubTable.changeSelectedPageByTitle, $(this).data('href'));
             });
 
         };
@@ -90,6 +86,8 @@ define(['text!rcap/partials/viewer.htm',
             PubSub.publish(pubSubTable.deserialize, {
                 isDesignTime: false
             });
+
+            $(document).off('scroll');
         };
 
         /*
