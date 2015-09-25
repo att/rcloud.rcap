@@ -17,10 +17,10 @@ define(['rcap/js/ui/controls/gridControl',
         } else {
 
             var template = _.template(tpl),
-            markup = template({
-                pages: control.pages,
-                currentPageID: control.currentPageID
-            });
+                markup = template({
+                    pages: control.pages,
+                    currentPageID: control.currentPageID
+                });
 
             return markup;
         }
@@ -190,9 +190,15 @@ define(['rcap/js/ui/controls/gridControl',
         },
         render: function() {
 
-            // don't publish an update event:
+            // don't publish an update event since this is being called directly:
             return renderControl(this, false);
 
+        },
+        initialiseViewerItems: function() {
+            $('#rcap-viewer').on('click', '.rcap-pageMenu a', function() {
+                // get the nav title:
+                PubSub.publish(pubSubTable.changeSelectedPageByTitle, $(this).data('href'));
+            });
         }
     });
 

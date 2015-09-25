@@ -35,7 +35,7 @@ define(['rcap/js/ui/controls/baseControl'], function(BaseControl) {
         serialize: function() {
 
         },
-        render: function(/*options*/) {
+        render: function( /*options*/ ) {
             return '<p><i class="icon-' + this.inlineIcon + '"></i>' + this.label + ': RENDER</p>';
         },
         getDialogMarkup: function() {
@@ -63,10 +63,13 @@ define(['rcap/js/ui/controls/baseControl'], function(BaseControl) {
             };
         },
         isValid: function() {
-        	// ensure that the 'invalid' item count is 0:
+            // ensure that the 'invalid' item count is 0:
             return _.filter(this.controlProperties, function(p) {
                 return p.isRequired && (typeof p.value === 'undefined' || p.value.length === 0);
             }).length === 0;
+        },
+        initialiseViewerItems: function() {
+
         }
     });
 
