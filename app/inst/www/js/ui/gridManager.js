@@ -294,37 +294,6 @@ define([
 
             });
 
-            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            //
-            // update grid control after dialog update
-            //
-            PubSub.subscribe(pubSubTable.updateControl, function(msg, control) {
-
-                console.info('gridManager: pubSubTable.updateControl');
-
-
-                // update the control's data, depending on whether the grid is in design mode:
-                var item = $('.grid-stack-item[data-controlid="' + control.id + '"]');
-                var itemGrid = item.closest('.grid-stack');
-
-                if (itemGrid.hasClass('grid-stack-readonly')) {
-                    //item.find('.grid-stack-item-content').html(data.markup);
-
-                    item.find('.grid-stack-item-content').html(control.render());
-
-                } else {
-
-                    // update the control's data: 
-                    var gridItem = $('.grid-stack-item[data-controlid="' + control.id + '"] .grid-stack-item-content');
-
-                    // and get the new markup:
-                    gridItem.replaceWith(getDesignTimeControlInnerMarkup(control));
-
-                    // update the control:
-                    gridItem.data('control', control);
-
-                }
-            });
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
             //
@@ -338,6 +307,37 @@ define([
                 grid.remove_widget(gridItem, true); // jshint ignore:line
             });
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //
+        // update grid control after dialog update
+        //
+        PubSub.subscribe(pubSubTable.updateControl, function(msg, control) {
+
+            console.info('gridManager: pubSubTable.updateControl');
+
+            // update the control's data, depending on whether the grid is in design mode:
+            var item = $('.grid-stack-item[data-controlid="' + control.id + '"]');
+            var itemGrid = item.closest('.grid-stack');
+
+            if (itemGrid.hasClass('grid-stack-readonly')) {
+                //item.find('.grid-stack-item-content').html(data.markup);
+
+                item.find('.grid-stack-item-content').html(control.render());
+
+            } else {
+
+                // update the control's data: 
+                var gridItem = $('.grid-stack-item[data-controlid="' + control.id + '"] .grid-stack-item-content');
+
+                // and get the new markup:
+                gridItem.replaceWith(getDesignTimeControlInnerMarkup(control));
+
+                // update the control:
+                gridItem.data('control', control);
+
+            }
+        });
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //
