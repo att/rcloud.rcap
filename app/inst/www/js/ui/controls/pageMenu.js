@@ -18,8 +18,7 @@ define(['rcap/js/ui/controls/gridControl',
 
             var template = _.template(tpl),
                 markup = template({
-                    pages: control.pages,
-                    currentPageID: control.currentPageID
+                    control: control
                 });
 
             return markup;
@@ -40,10 +39,10 @@ define(['rcap/js/ui/controls/gridControl',
                         label: 'Menu Style',
                         helpText: 'The visual style of the menu',
                         isRequired: true,
-                        availableOptions: [{
+                        availableOptions: [/*{
                             text: 'Hamburger',
                             value: 'hamburger'
-                        }, {
+                        },*/ {
                             text: 'Horizontal',
                             value: 'horizontal'
                         }, {
@@ -195,7 +194,12 @@ define(['rcap/js/ui/controls/gridControl',
 
         },
         initialiseViewerItems: function() {
-            $('#rcap-viewer').on('click', '.rcap-pageMenu a', function() {
+
+            // $('.menu-btn').click(function() {
+            //     $('.responsive-menu').toggleClass('expand');
+            // });
+
+            $('#rcap-viewer').on('click', '.rcap-pagemenu a', function() {
                 // get the nav title:
                 PubSub.publish(pubSubTable.changeSelectedPageByTitle, $(this).data('href'));
             });

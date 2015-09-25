@@ -1642,22 +1642,30 @@ a.wysiwyg-toolbar-icon:hover {
   #dialog-form-builder .nav-tabs > li {
     font-size: 14px; }
 
-.rcap-pageMenu {
+.rcap-pagemenu {
   margin: 0;
   padding: 0; }
 
-.rcap-pageMenu li {
+.rcap-pagemenu li {
   padding: 0;
-  color: #369; }
+  color: #369;
+  list-style-type: none; }
 
-.rcap-pageMenu a {
+.rcap-pagemenu a {
   padding: 5px;
-  display: block; }
+  display: block;
+  text-decoration: none; }
 
-.rcap-pageMenu li.current {
+.rcap-pagemenu li.current {
   background-color: #369; }
 
-.rcap-pageMenu li.current a {
+.rcap-pagemenu li.current a {
   color: white; }
+
+.rcap-pagemenu li:not(.current) a:hover {
+  background-color: #d9e6f2; }
+
+.rcap-pagemenu-horizontal li {
+  float: left; }
 
 /*# sourceMappingURL=default.css.map */

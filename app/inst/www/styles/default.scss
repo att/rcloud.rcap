@@ -464,22 +464,4 @@ a.wysiwyg-toolbar-icon:hover {
 }
 
 @import "formBuilder.scss";
-
-
-.rcap-pageMenu {
-    margin: 0;
-    padding: 0;
-}
-
-.rcap-pageMenu li {
-    padding: 0;
-    color: #369;
-}
-
-.rcap-pageMenu a {
-    padding: 5px;
-    display: block;
-}
-
-.rcap-pageMenu li.current { background-color: #369;  }
-.rcap-pageMenu li.current a { color: white; }
+@import "viewercontrols.scss";

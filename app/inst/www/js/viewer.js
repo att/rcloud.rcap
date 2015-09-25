@@ -45,7 +45,7 @@ define(['text!rcap/partials/viewer.htm',
         this.initialiseControls = function() {
             _.each(new ControlFactory().getGridControls(), function(control) {
                 control.initialiseViewerItems();
-            });         
+            });
         };
 
         this.initialiseFromMenu = function() {
