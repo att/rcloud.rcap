@@ -83,8 +83,8 @@ define([
             // initialise the form builder dialog:
             var formBuilder = new FormBuilder();
             formBuilder
-                .initialise()
-                .intialiseFormBuilderMenu();
+                .intialiseFormBuilderMenu()
+                .initialise();
 
             // page settings:
             $('body').on('click', '.page-settings', function() {
