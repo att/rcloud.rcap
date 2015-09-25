@@ -465,3 +465,12 @@ a.wysiwyg-toolbar-icon:hover {
 
 @import "formBuilder.scss";
 @import "viewercontrols.scss";
+
+// 404 stuff:
+
+#viewer-404 {
+    margin: 50px auto;
+    width: 500px;
+    padding: 100px;
+    border: 1px solid #ccc;
+}

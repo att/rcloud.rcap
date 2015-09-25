@@ -67,8 +67,8 @@ define([
 
                 // publish an event for the control:
                 PubSub.publish(pubSubTable.gridItemAddedInit, {
-                    site : site,
-                    controlID : item.id
+                    site: site,
+                    controlID: item.id
                 });
             });
 
@@ -173,10 +173,17 @@ define([
                 // and find the page by it's navigation title:
                 var currentPage = site.getPageByNavigationTitle(pageTitle);
 
-                site.currentPageID = currentPage.id;
+                if (currentPage) {
+                    site.currentPageID = currentPage.id;
 
-                // fire off the specific page:
-                PubSub.publish(pubSubTable.changeSelectedPage, currentPage);
+                    // fire off the specific page:
+                    PubSub.publish(pubSubTable.changeSelectedPage, currentPage);
+                } else {
+                    PubSub.publish(pubSubTable.show404, {
+                        site : site,
+                        requestedPage : pageTitle
+                    });
+                }
 
             });
 

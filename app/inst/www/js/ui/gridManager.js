@@ -428,11 +428,21 @@ define([
             if (!site.isDesignTime) {
                 // all grid stacks will have been hidden at the point of DOM addition,
                 // so show the first one to get things started:
-                $('.grid-stack:eq(0)').show();
+                //$('.grid-stack:eq(0)').show();
             }
 
             // publish an event signalling that the grid's have finished processing their data:
             PubSub.publish(pubSubTable.gridInitComplete);
+        });
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PubSub.subscribe(pubSubTable.viewerShowFirstPage, function() {
+            $('.grid-stack:eq(0)').show();
+        });
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PubSub.subscribe(pubSubTable.show404, function() {
+            $('.grid-stack').hide();
         });
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////

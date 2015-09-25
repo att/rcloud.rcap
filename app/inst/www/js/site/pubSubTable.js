@@ -13,7 +13,10 @@ define(['pubsub', 'rcap/js/Class'], function() {
         load : 'load',
         close : 'close',
         closeViewer : 'closeViewer',
+        viewerShowFirstPage : 'viewerShowFirstPage',
         deserialize: 'deserialize',
+
+        show404 : 'show404',
 
         showMessage: 'showMessage',
 

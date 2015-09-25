@@ -1671,4 +1671,10 @@ a.wysiwyg-toolbar-icon:hover {
 .rcap-pagemenu-horizontal li {
   float: left; }
 
+#viewer-404 {
+  margin: 50px auto;
+  width: 500px;
+  padding: 100px;
+  border: 1px solid #ccc; }
+
 /*# sourceMappingURL=default.css.map */
