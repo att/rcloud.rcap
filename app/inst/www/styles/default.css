@@ -1384,7 +1384,7 @@ textarea.parsley-error {
       font-style: normal; }
     #rcap-designer .menu ul.controls a.control-rplot::before {
       content: "\f012"; }
-    #rcap-designer .menu ul.controls a.control-webplot::before {
+    #rcap-designer .menu ul.controls a.control-interactiveplot::before {
       content: "\f080"; }
     #rcap-designer .menu ul.controls a.control-datepicker::before {
       content: "\f073"; }

@@ -70,27 +70,26 @@ define(['text!rcap/partials/viewer.htm',
 
         };
 
-        /*
-                this.initialise = function(json) {
 
-                    this.setup();
+        this.initialise = function(json) {
 
-                    // subscribe to grid done event:
-                    PubSub.subscribe(pubSubTable.gridInitComplete, function() {
+            this.setup();
 
-                        console.info('viewer: pubSubTable.gridInitComplete');
+            // subscribe to grid done event:
+            PubSub.subscribe(pubSubTable.gridInitComplete, function() {
 
-                        me.initialiseControls();
-                    });
+                console.info('viewer: pubSubTable.gridInitComplete');
 
-                    // and pub:
-                    PubSub.publish(pubSubTable.deserialize, {
-                        isDesignTime: false,
-                        jsonData: json
-                    });
+                me.initialiseControls();
+            });
 
-                };
-        */
+            // and pub:
+            PubSub.publish(pubSubTable.deserialize, {
+                isDesignTime: false,
+                jsonData: json
+            });
+
+        };
 
     };
 

@@ -4,7 +4,7 @@ define([
 	'controls/rPlot',
 	'controls/text',
 	'controls/pageMenu',
-	//'controls/webPlot',
+	'controls/interactivePlot',
 	'controls/form',
 	//////////////////////
 	'controls/child/datePicker',
@@ -14,7 +14,7 @@ define([
 	'controls/child/checkboxList',
 	'controls/child/radioButtonGroup'
 
-	], function(IFrameControl, ImageControl, RPlotControl, TextControl, PageMenuControl, /* WebPlotControl,*/ FormControl,
+	], function(IFrameControl, ImageControl, RPlotControl, TextControl, PageMenuControl, InteractivePlotControl, FormControl,
 		///////////////////////
 		DatePickerControl, 
 		DropdownControl,
@@ -32,7 +32,7 @@ define([
 			new RPlotControl(),
 			new TextControl(),
 			new PageMenuControl(),
-			//new WebPlotControl(),
+			new InteractivePlotControl(),
 			new FormControl(),
 
 			//new DatePickerControl(),
@@ -72,9 +72,9 @@ define([
 			case 'iframe': control = new IFrameControl(); break;
 			case 'image': control = new ImageControl(); break;
 			case 'rplot': control = new RPlotControl(); break;
+			case 'interactiveplot': control = new InteractivePlotControl(); break;
 			case 'text': control = new TextControl(); break;
 			case 'pagemenu': control = new PageMenuControl(); break;
-			//case 'webplot': control = new WebPlotControl(); break;
 			case 'form': control = new FormControl(); break;
 			default: control = undefined; break;
 		}
