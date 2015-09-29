@@ -215,12 +215,23 @@ define(['rcap/js/ui/controls/gridControl',
             //     $('.responsive-menu').toggleClass('expand');
             // });
 
-            $('#rcap-viewer').on('click', '.rcap-pagemenu a', function() {
+            $('#rcap-viewer').on('click', '.rcap-pagemenu a, .hamburger a', function() {
                 // get the nav title:
                 location.hash = $(this).data('href');
                 PubSub.publish(pubSubTable.changeSelectedPageByTitle, $(this).data('href'));
             });
-        }
+
+            $('#rcap-viewer').on('click', '.hamburger button', function() {
+                $(this).toggleClass('expanded').siblings('div').slideToggle({
+                    duration: 200
+                });
+
+                $(this).closest('.grid-stack-item-content').css({
+                    'overflow-x' : 'visible',
+                    'overflow-y' : 'visible'
+                });
+            });
+        },
     });
 
     return PageMenuControl;
