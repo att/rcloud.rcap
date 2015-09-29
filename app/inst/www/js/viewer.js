@@ -1,95 +1,98 @@
 define(['text!rcap/partials/viewer.htm',
     'rcap/js/ui/gridManager',
+    'rcap/js/utils/historyManager',
     'pubsub',
+    'site/pubSubTable',
+    'controls/factories/controlFactory',
     'rcap/js/serializer',
-    'text!rcap/partials/_top-banner.htm',                       // DEMO
+    'site/siteManager',
     'css!rcap/styles/default.css'
-], function(mainPartial, GridManager, PubSub, serializer, topBannerPartial) {
+], function(mainPartial, GridManager, HistoryManager, PubSub, pubSubTable, ControlFactory, Serializer, SiteManager) {
 
     'use strict';
 
-    return {
+    var Viewer = function() {
 
-        initialiseFromMenu: function() {
+        var me = this;
 
-            if ($('body').find('#rcap-viewer').length === 0) {
+        this.setup = function() {
 
-                $('body').append(mainPartial);
+            $('body').append(mainPartial);
 
-                // grid:
-                var gridManager = new GridManager();
-                gridManager.initialise();
+            // site manager: 
+            new SiteManager().initialise();
 
-                // initialise
-                serializer.initialise();
-
-                $('#rcap-viewer .close').show();
-
-                $('#rcap-viewer .close').click(function() {
-                    $('#rcap-viewer').hide();
-                });
-
-            }
-
-            $('#top-banner').replaceWith(topBannerPartial);
-
-            $('#rcap-viewer').show();
-
-            // kick off:
-            PubSub.publish('rcap:deserialize', {
-                type: 'viewer'
+            // grid manager:
+            new GridManager().initialise({
+                isDesignTime: false
             });
 
-        },
+            // serializer:
+            new Serializer().initialise();
 
-        initialise: function(json) {
+            // history manager:
+            var historyManager = new HistoryManager();
+            historyManager.initialise();
 
             // subscribe to grid done event:
-            PubSub.subscribe('grid:initcomplete', function() {
+            PubSub.subscribe(pubSubTable.gridInitComplete, function() {
 
-                var noop = function() {};
-                var notebookResult = window.notebook_result; // jshint ignore:line
+                console.info('viewer: pubSubTable.gridInitComplete');
 
-                $('.r').each(function(i, e) {
-                    if (typeof notebookResult[$(e).attr('id')] === 'function') {
-                        var $enclosingDiv = $(e).closest('.grid-stack-item-content');
-                        
-                        //notebookResult[$(e).attr('id')]($enclosingDiv.width() * 1.5, $enclosingDiv.height() * 1.5, noop);
+                me.initialiseControls();
 
-                        notebookResult[$(e).attr('id')]({
-                            width: $enclosingDiv.width() * 1.5, 
-                            height: $enclosingDiv.height() * 1.5
-                        }, noop);  
+                // if there's a hash value (method that is used to bookmark a 'page'):
+                historyManager.setInitialState();
+            });
+        };
 
-                    } else {
-                        $(e).css({
-                                'color': 'red',
-                                'font-weight': 'bold',
-                                'border': '1px solid red'
-                            })
-                            .text('the function ' + $(e).attr('id') + '() does not exist...');
-                    }
-                });
+        this.initialiseControls = function() {
+            _.each(new ControlFactory().getGridControls(), function(control) {
+                control.initialiseViewerItems();
+            });
+        };
 
+        this.initialiseFromMenu = function() {
+
+            this.setup();
+
+            $('#rcap-viewer').css({
+                'margin-top': '-50px'
+            }).show();
+
+            PubSub.publish(pubSubTable.deserialize, {
+                isDesignTime: false
             });
 
-            $('body').html(mainPartial);
+            setTimeout(function() {
+                $(document).off('scroll');
+            }, 2000);
+
+        };
 
 
-            $('#top-banner').replaceWith(topBannerPartial);
+        this.initialise = function(json) {
 
-            // initialise grid:
-            var gridManager = new GridManager();
-            gridManager.initialise();
+            this.setup();
 
-            serializer.initialise();
+            // subscribe to grid done event:
+            PubSub.subscribe(pubSubTable.gridInitComplete, function() {
+
+                console.info('viewer: pubSubTable.gridInitComplete');
+
+                me.initialiseControls();
+            });
 
             // and pub:
-            PubSub.publish('rcap:deserialize', {
-                type: 'viewer',
+            PubSub.publish(pubSubTable.deserialize, {
+                isDesignTime: false,
                 jsonData: json
             });
 
-        }
+        };
+
     };
+
+    return Viewer;
+
 });

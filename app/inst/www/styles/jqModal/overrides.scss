@@ -1,6 +1,19 @@
 $jqmColor: #3e3e3e;
 $borderColor: #cdcdcd;
 
+#dialog-confirm {
+	width: 370px;
+	min-width: inherit;
+	text-align: center;
+
+	& h1 {
+		font-size: 15px;
+		margin-top: 12px;
+		margin-bottom: 16px;
+		text-transform: uppercase;
+	}
+}
+
 .jqmwindow {
 	padding: 0;
 	right: 10px!important;

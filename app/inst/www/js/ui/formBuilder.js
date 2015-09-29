@@ -1,4 +1,4 @@
-define(['controls/factories/controlFactory', 'pubsub'], function(ControlFactory, PubSub) {
+define(['controls/factories/controlFactory', 'pubsub', 'site/pubSubTable'], function(ControlFactory, PubSub, pubSubTable) {
 
     'use strict';
 
@@ -13,7 +13,6 @@ define(['controls/factories/controlFactory', 'pubsub'], function(ControlFactory,
                 if (control.controlProperties.length > 0) {
                     $('#formbuilder-form').append($('<button class="btn btn-primary">Update</button>'));
                 }
-
             };
 
             var updateChildControls = function() {
@@ -27,7 +26,6 @@ define(['controls/factories/controlFactory', 'pubsub'], function(ControlFactory,
                 $('#dialog-form-builder .form-item').each(function() {
                     parentControl.childControls.push($(this).data('control'));
                 });
-
             };
 
             var me = this;
@@ -102,10 +100,6 @@ define(['controls/factories/controlFactory', 'pubsub'], function(ControlFactory,
             });
 
 
-
-
-
-
             $('#dialog-form-builder .approve').on('click', function() {
 
                 // TODO: apply validation on the form's control properties (TOP LEVEL - NOT CHILD CONTROLS' PROPERTIES)
@@ -114,7 +108,7 @@ define(['controls/factories/controlFactory', 'pubsub'], function(ControlFactory,
                 // validate();
 
 
-                PubSub.publish('controlDialog:updated', $('#dialog-form-builder').data('control'));
+                PubSub.publish(pubSubTable.updateControl, $('#dialog-form-builder').data('control'));
 
                 $('#dialog-form-builder').jqmHide();
             });
@@ -148,8 +142,6 @@ define(['controls/factories/controlFactory', 'pubsub'], function(ControlFactory,
                 },
                 receive: function(event, ui) {
 
-                    // a new child control has been added to the 'parent' control:
-
                     // create a default child with default properties:
                     var child = me.controlFactory.getChildByKey(ui.item.data('type'));
 
@@ -175,6 +167,19 @@ define(['controls/factories/controlFactory', 'pubsub'], function(ControlFactory,
                     updateChildControls();
                 }
             });
+
+            return this;
+        },
+
+        intialiseFormBuilderMenu: function() {
+            var childControls = new ControlFactory().getChildControls();
+            var templateStr = '<% _.each(controls, function(control){ %><li data-type="<%=control.type%>"><a href="#" class="control-<%=control.type %>" title="Add <%=control.label%>"><%= control.label %></a></li><% }); %>';
+            var template = _.template(templateStr);
+            $('#dialog-form-builder .controls').append(template({
+                controls: childControls
+            }));
+
+            return this;
         },
 
         setFormControl: function(control) {
@@ -200,7 +205,6 @@ define(['controls/factories/controlFactory', 'pubsub'], function(ControlFactory,
 
             });
         }
-
     });
 
     return FormBuilder;

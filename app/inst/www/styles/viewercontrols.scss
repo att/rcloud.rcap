@@ -1,0 +1,41 @@
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//	RCAP Controls, View Mode
+//
+
+
+////////////////////////////////////////////// page menu /////////////////////////////////////////////////
+.rcap-pagemenu {
+    margin: 0;
+    padding: 0;
+}
+
+.rcap-pagemenu li {
+    padding: 0;
+    color: #369;
+    list-style-type: none;
+}
+
+.rcap-pagemenu a {
+    padding: 5px;
+    display: block;
+    text-decoration: none;
+}
+
+.rcap-pagemenu li.current {
+    background-color: #369;
+}
+
+.rcap-pagemenu li.current a {
+    color: white;
+}
+
+.rcap-pagemenu li:not(.current) a:hover {
+	background-color: lighten(#369, 50%);
+}
+
+.rcap-pagemenu-horizontal li {
+    float: left;
+}
+
+.rcap-pagemenu-hamburger {}

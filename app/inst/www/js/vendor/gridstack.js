@@ -406,11 +406,12 @@
     };
 
     GridStackEngine.prototype.get_grid_height = function() {
-        var height = _.reduce(this.nodes, function(memo, n) {
+        return _.reduce(this.nodes, function(memo, n) {
             return Math.max(memo, n.y + n.height);
-        }, 0);
-        var minHeight = 12;
-        return height < minHeight ? minHeight : height;
+        }, this.height);
+
+        //var minHeight = 12;
+        //return height < minHeight ? minHeight : height;
     };
 
     GridStackEngine.prototype.begin_update = function(node) {
@@ -474,6 +475,7 @@
         }
 
         this._init_styles();
+
 
         this.grid = new GridStackEngine(this.opts.width, function(nodes) {
             var max_height = 0;
@@ -609,6 +611,9 @@
     };
 
     GridStack.prototype._init_styles = function() {
+
+        //console.log('_init_styles has been called');
+
         if (this._styles_id) {
             $('[data-gs-id="' + this._styles_id + '"]').remove();
         }
@@ -703,10 +708,7 @@
         // shane edit:
         if (!node.read_only) {
             el.append($('<div />', {
-                'class': 'ui-remove',
-                'click': function() {
-                    self.remove_widget(el, true);
-                }
+                'class': 'ui-remove'
             }));
         }
 

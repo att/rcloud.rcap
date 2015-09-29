@@ -1,0 +1,1 @@
+<div id="<%=control.id%>" class="r-interactiveplot"></div>

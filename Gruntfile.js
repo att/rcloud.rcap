@@ -55,12 +55,15 @@ module.exports = function(grunt) {
                     'Gruntfile.js',
                     '<%= appConfig.appPath %>/javascript/{,*/}*.js',
                     '<%= appConfig.appPath %>/inst/www/js/*.js',
+                    '<%= appConfig.appPath %>/inst/www/js/pages/*.js',
+                    '<%= appConfig.appPath %>/inst/www/js/site/*.js',
                     '<%= appConfig.appPath %>/inst/www/js/ui/*.js',
                     '<%= appConfig.appPath %>/inst/www/js/ui/controls/*.js',
                     '<%= appConfig.appPath %>/inst/www/js/ui/controls/child/*.js',
                     '<%= appConfig.appPath %>/inst/www/js/ui/controls/dialogs/*.js',
                     '<%= appConfig.appPath %>/inst/www/js/ui/controls/factories/*.js',
                     '<%= appConfig.appPath %>/inst/www/js/ui/controls/properties/*.js',
+                    '<%= appConfig.appPath %>/inst/www/js/utils/*.js',
                 ]
             }
 
@@ -158,7 +161,7 @@ module.exports = function(grunt) {
                 ].join('&& ')
             },
             dist: {
-                command: [
+                commandcd: [
                     'node r.js -o build.js',
                     'move initialiser.js <%= appConfig.distDeployDir %>/inst/www/js/initialiser.js',
                     //'cd <%= appConfig.cmdDir %>',

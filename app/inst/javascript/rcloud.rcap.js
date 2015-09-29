@@ -3,6 +3,8 @@
     requirejs.config({
         paths: {
             'rcap': '../../shared.R/rcloud.rcap',
+            'site': '../../shared.R/rcloud.rcap/js/site',
+            'pages': '../../shared.R/rcloud.rcap/js/pages',
             'controls': '../../shared.R/rcloud.rcap/js/ui/controls',
             'templates': '../../shared.R/rcloud.rcap/js/ui/controls/properties/templates',
             'controlTemplates': '../../shared.R/rcloud.rcap/js/ui/controls/templates',
@@ -24,11 +26,44 @@
 
     return {
         init: function(ocaps, k) {
-            require(['rcap/js/initialiser'], function(initialiser) {
-                initialiser.bootstrap();
-                k();
+
+            RCloud.UI.advanced_menu.add({ // jshint ignore:line
+                rcapDesigner: {
+                    sort: 10000,
+                    text: 'RCAP Designer',
+                    modes: ['edit'],
+                    action: function() {
+                        require(['rcap/js/designer'], function(Designer) {
+                            new Designer().initialise();
+                        });
+                    }
+                }
             });
+
+            // this is a temporary menu item:
+            RCloud.UI.advanced_menu.add({ // jshint ignore:line
+                rcapViewer: {
+                    sort: 11000,
+                    text: 'RCAP Viewer',
+                    modes: ['edit'],
+                    action: function() {
+
+                        function getParameterByName(name) {
+                            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+                            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                                results = regex.exec(location.search);
+                            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+                        }
+
+                        window.open('/shared.R/rcloud.rcap/standaloneviewer.htm?notebook=' + getParameterByName('notebook'));
+                    }
+                }
+            });
+
+            k();
+
         },
+
         initViewer: function(content, k) {
             require(['rcap/js/viewer'], function(viewer) {
                 viewer.initialise(content);

@@ -1,89 +1,103 @@
-define(['text!rcap/partials/designer.htm', 
-    'rcap/js/ui/menuManager',
-    'rcap/js/ui/dialogManager', 
-    'rcap/js/ui/gridManager',
-    'pubsub',
+define([
     'rcap/js/serializer',
-
-    'text!rcap/partials/_top-banner.htm',                       // DEMO
-
-    //'font!google,families:[Open Sans:400]',
+    'rcap/js/ui/menuManager',
+    'rcap/js/ui/dialogManager',
+    'rcap/js/ui/messageManager',
+    'rcap/js/ui/gridManager',
+    'site/siteManager',
+    'pubsub',
+    'site/pubSubTable',
+    'text!rcap/partials/designer.htm',
     'css!rcap/styles/default.css'
-], function(mainPartial, MenuManager, dialogManager, GridManager, PubSub, serializer, topBannerPartial) {
+], function(Serializer, MenuManager, DialogManager, MessageManager, GridManager, SiteManager, PubSub, pubSubTable, mainPartial) {
 
     'use strict';
 
-    return {
+    var rcloudSelector = '.container, #rcloud-navbar-main, #rcloud-navbar-main, #rcloud-navbar-menu li:not(.rcap)';
+    var rcapSelector = '#rcap-designer';
 
-        initialise: function() {
+    var bootstrap = function() {
 
-            //console.clear();
+        $('#rcloud-navbar-menu').append('<li style="display:none" class="rcap"><button class="btn btn-primary" id="rcap-save">Save</button></li><li style="display:none" class="rcap"><a href="#">Close</a></li>');
 
-            var rcloudSelector = '.container, #rcloud-navbar-main, #rcloud-navbar-main, #rcloud-navbar-menu li:not(.rcap)';
-            var rcapSelector = '#rcap-designer';
+        $('body').append(mainPartial);
 
+        // close (link)
+        $('#rcloud-navbar-menu li.rcap a').click(function() {
 
-            if ($('body').find('#rcap-designer').length === 0) {
+            $(rcloudSelector).show();
 
-                // append if necessary:
-                $('#rcloud-navbar-menu').append('<li class="rcap"><a href="#">Close</a></li>');
+            // hide rcap:
+            $(rcapSelector).hide();
 
-                $('body').append(mainPartial);
+            $('#rcloud-navbar-menu li.rcap').hide();
 
-                /////////////////////////////////////////////////////////////////////
-                //
-                //
-                //
+            console.info('designer: PUBLISH : pubSubTable.close');
+            PubSub.publish(pubSubTable.close);
+        });
 
-                $('#top-banner').replaceWith(topBannerPartial);
+        $('#rcap-save').click(function() {
+            PubSub.publish(pubSubTable.save);
+        });
+
+        // site manager: 
+        new SiteManager().initialise();
+
+        // menu manager:
+        new MenuManager().initialise().initialiseControlsMenu();
+
+        // initialise the dialog manager:
+        new DialogManager().initialise();
+
+        // initialise the message manager:
+        new MessageManager().initialise();
+
+        // grid manager:
+        new GridManager().initialise();
+
+        // serializer:
+        new Serializer().initialise();
+
+        // this should only run once, even if it's called more than once.
+        bootstrap = function() {};
+    };
+
+    var Designer = function() {
+
+        this.initialise = function() {
+
+            bootstrap();
+
+            $('#rcap-preloader').show();
+
+            // we want to be told when all has been done:
+            PubSub.subscribe(pubSubTable.gridInitComplete, function() {
+
+                setTimeout(function() {
+
+                    $(rcloudSelector).hide();
+
+                    // it may have been hidden from a previous 'close':
+                    $('#rcloud-navbar-menu li.rcap').show();
+
+                    $(rcapSelector).show();
+
+                    // ensure that the top of the design surface is shown:
+                    location.hash = 'inner-stage';
+
+                    $('#rcap-preloader').fadeOut();
                 
-                //
-                //
-                //
-                /////////////////////////////////////////////////////////////////////
+                }, 0);
 
-                // close:
-                $('#rcloud-navbar-menu li.rcap').click(function() {
-                    $(rcloudSelector).show();
-
-                    // hide rcap:
-                    $(rcapSelector).hide();
-
-                    $(this).hide();
-
-                    PubSub.publish('rcap:close', {});
-                });
-
-                $('#rcap-save').click(function() {
-                    PubSub.publish('rcap:save', {});
-                });
-
-                // menu manager:
-                var menuManager = new MenuManager();
-                menuManager.initialiseControlsMenu();
-
-                // initialise the dialog manager:
-                dialogManager.initialise();
-
-                // grid:
-                var gridManager = new GridManager();
-                gridManager.initialiseDesignGrid();
-
-                // serializer:
-                serializer.initialise();
-            } 
-
-            $(rcloudSelector).hide();
-
-            // it may have been hidden from a previous 'close':
-            $('#rcloud-navbar-menu li.rcap').show();
-            $(rcapSelector).show();
+            });
 
             // load items:
-            PubSub.publish('rcap:deserialize', {
-                type: 'designer'
+            PubSub.publish(pubSubTable.deserialize, {
+                isDesignTime: true
             });
-            
-        }
+        };
+
     };
+
+    return Designer;
 });

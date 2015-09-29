@@ -1,38 +1,32 @@
-define(['rcap/js/ui/controls/gridControl', 
-	'rcap/js/ui/controls/properties/textControlProperty',
-	'rcap/js/ui/controls/properties/multilineTextControlProperty',
-	'text!controlTemplates/rPlot.tpl',
-	'text!controlTemplates/rPlot-design.tpl'], function(GridControl, TextControlProperty, MultilineTextControlProperty, tpl, dtpl) {
-	
-	'use strict';
+define(['rcap/js/ui/controls/gridControl',
+    'rcap/js/ui/controls/properties/textControlProperty',
+    'rcap/js/ui/controls/properties/multilineTextControlProperty',
+    'text!controlTemplates/rPlot.tpl',
+    'text!controlTemplates/rPlot-design.tpl'
+], function(GridControl, TextControlProperty, MultilineTextControlProperty, tpl, dtpl) {
 
-	var RPlotControl = GridControl.extend({
-		init: function() {
-			this._super({
-				type : 'rplot',
-				label : 'R Plot',
-				icon: 'f012',  
-				inlineIcon: 'signal',
-				initialSize: [2, 2],
-				controlProperties: [
-					// new TextControlProperty({
-					// 	uid: 'heading',
-					// 	label : 'Heading',
-					// 	defaultValue : '',
-					// 	helpText : 'The heading for this control'
-					// }),
-					// code box
-					new MultilineTextControlProperty({
-						uid: 'code',
-						label: 'Code',
-						defaultValue: '',
-						helpText: 'Code for this control',
-						className: 'code',
-						isRequired: true
-					})
-				]
-			});
-		},
+    'use strict';
+
+    var InteractivePlotControl = GridControl.extend({
+        init: function() {
+            this._super({
+                type: 'interactiveplot',
+                label: 'Interactive Plot',
+                icon: 'f080',
+                inlineIcon: 'bar-chart',
+                initialSize: [2, 2],
+                controlProperties: [
+                    new MultilineTextControlProperty({
+                        uid: 'code',
+                        label: 'Code',
+                        defaultValue: '',
+                        helpText: 'Code for this control',
+                        className: 'code',
+                        isRequired: true
+                    })
+                ]
+            });
+        },
 		render: function(options) {
 
 			options = options || {};
@@ -51,7 +45,7 @@ define(['rcap/js/ui/controls/gridControl',
 
             // some controls are dependent on having a valid notebook result:
             if (notebookResult) {
-                $('.r-rplot').each(function(i, e) {
+                $('.r-interactiveplot').each(function(i, e) {
                     if (typeof notebookResult[$(e).attr('id')] === 'function') {
                         var $enclosingDiv = $(e).closest('.grid-stack-item-content');
 
@@ -71,9 +65,8 @@ define(['rcap/js/ui/controls/gridControl',
                 });
             }
 		}
-	});
+    });
 
-	return RPlotControl;
-
+    return InteractivePlotControl;
 
 });

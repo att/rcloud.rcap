@@ -1,1 +1,1 @@
-<div id="<%=control.id%>" class="r"></div>
+<div id="<%=control.id%>" class="r-rplot"></div>

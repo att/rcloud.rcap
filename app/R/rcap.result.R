@@ -5,7 +5,7 @@ rcap.result <- function(rcapConfigFileName="rcap_designer.json", inline=FALSE) {
   rcapJson <- rcloud.get.asset(name=rcapConfigFileName)
   
   # Convert the JSON into a list
-  rcapConfig <- rjson::fromJSON(rcapJson)
+  rcapConfig <- jsonlite::fromJSON(rcapJson)
   
   # Start building rcw call
   rcwResultList <- list(run=rcap.run, body="", rcapJson=rcapJson)
