@@ -456,8 +456,7 @@ define([
 
             if (page.controls.length === 0) {
 
-                // append to the specific gridstack:
-                $('#no-items').remove().appendTo('.grid-stack:not(.js-gridstack-global):visible').show().css({
+                $('#no-items').remove().appendTo('.grid-stack[data-pageid="' + page.id + '"]').show().css({
                     opacity: 1.0
                 });
             }

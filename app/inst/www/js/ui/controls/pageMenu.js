@@ -39,15 +39,31 @@ define(['rcap/js/ui/controls/gridControl',
                         label: 'Menu Style',
                         helpText: 'The visual style of the menu',
                         isRequired: true,
-                        availableOptions: [/*{
-                            text: 'Hamburger',
+                        availableOptions: [{
+                            text: 'Mobile Style \'Hamburger icon\'',
                             value: 'hamburger'
-                        },*/ {
+                        }, {
                             text: 'Horizontal',
                             value: 'horizontal'
                         }, {
                             text: 'Vertical',
                             value: 'vertical'
+                        }]
+                    }),
+                    new DropdownControlProperty({
+                        uid: 'alignment',
+                        label: 'Alignment',
+                        helpText: 'The menu alignment',
+                        isRequired: true,
+                        availableOptions: [{
+                            text: 'Left',
+                            value: 'left'
+                        }, {
+                            text: 'Center',
+                            value: 'center'
+                        }, {
+                            text: 'Right',
+                            value: 'right'
                         }]
                     })
                 ]

@@ -113,9 +113,14 @@ define([
                 // set confirmation dialog properties:
                 $('#dialog-confirm h1').text(data.heading);
                 $('#dialog-confirm p').text(data.message);
-                $('#dialog-confirm .approve').attr({
-                    'data-message': data.pubSubMessage,
-                    'data-dataitem': data.dataItem
+                // $('#dialog-confirm .approve').attr({
+                //     'data-message': data.pubSubMessage,
+                //     'data-dataitem': data.dataItem
+                // });
+
+                $('#dialog-confirm .approve').data({
+                    message : data.pubSubMessage,
+                    dataitem : data.dataItem
                 });
 
                 $('#dialog-confirm').jqmShow();
