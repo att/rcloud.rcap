@@ -30,9 +30,9 @@ define([
 			new IFrameControl(),
 			new ImageControl(),
 			new RPlotControl(),
+			new InteractivePlotControl(),
 			new TextControl(),
 			new PageMenuControl(),
-			new InteractivePlotControl(),
 			new FormControl(),
 
 			//new DatePickerControl(),
