@@ -44,6 +44,7 @@ define(['rcap/js/ui/controls/gridControl',
 			var notebookResult = window.notebook_result; // jshint ignore:line
 
             // some controls are dependent on having a valid notebook result:
+            var func = function() {
             if (notebookResult) {
                 $('.r-interactiveplot').each(function(i, e) {
                     if (typeof notebookResult[$(e).attr('id')] === 'function') {
@@ -63,7 +64,10 @@ define(['rcap/js/ui/controls/gridControl',
                             .text('the function ' + $(e).attr('id') + '() does not exist...');
                     }
                 });
-            }
+            }};
+
+            
+            setTimeout(func, 3000);
 		}
     });
 

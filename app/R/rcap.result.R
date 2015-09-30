@@ -5,43 +5,21 @@ rcap.result <- function(rcapConfigFileName="rcap_designer.json", inline=FALSE) {
   rcapJson <- rcloud.get.asset(name=rcapConfigFileName)
   
   # Convert the JSON into a list
-  rcapConfig <- jsonlite::fromJSON(rcapJson)
+  rcapConfig <- jsonlite::fromJSON(rcapJson, simplifyVector = FALSE)
   
   # Start building rcw call
   rcwResultList <- list(run=rcap.run, body="", rcapJson=rcapJson)
   
   # Parse for functions
-  for(rcapControl in rcapConfig) {
-    if (rcapControl$type == "rplot") {
-      
-      funName <- rcapControl$id
-      funText <- paste0(funName, " <- function(jsArgs=list(width=500,height=500)) {")
-      
-      funText <- c(funText, "  if (!is.null(jsArgs$width)) width=jsArgs$width")
-      funText <- c(funText, "  if (!is.null(jsArgs$height)) height=jsArgs$height")
-      
-      funText <- c(funText, "  wp1 <- WebPlot(width=width,height=height)")
-      
-      funText <- c(funText, rcapControl$controlProperties[[1]]$value)
-      
-      funText <- c(funText, paste0("  rcloud.web::rcw.set(\"#",rcapControl$id,"\", wp1)}"))
-      
-      # Make a temporary file
-      sourceFile <- tempfile(fileext=".R")
-      
-      # Write our code to it
-      writeLines(funText, sourceFile)
-      
-      # source has a nice wrapper around eval(parse())
-      source(sourceFile)
-      
-      # Make sure it's gone
-      unlink(sourceFile)
-      
-      # Attach the function to the rcw call list
-      rcwResultList[[funName]] <- eval(parse(text=funName))
-    }
-  } 
+  # Attach the function to the rcw call list
+  allFunctions <- parseConfig(rcapConfig)
+  
+  allFunctions <- unlist(allFunctions)
+  names(allFunctions) <- allFunctions
+  
+  for(funName in allFunctions) {
+    rcwResultList[[funName]] <- eval(parse(text=funName))
+  }
   
   # Fire up the viewer
   rcap.initViewer(rcapJson)

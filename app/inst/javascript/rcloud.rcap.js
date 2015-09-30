@@ -27,21 +27,23 @@
     return {
         init: function(ocaps, k) {
 
-            RCloud.UI.advanced_menu.add({ // jshint ignore:line
-                rcapDesigner: {
-                    sort: 10000,
-                    text: 'RCAP Designer',
-                    modes: ['edit'],
-                    action: function() {
-                        require(['rcap/js/designer'], function(Designer) {
-                            new Designer().initialise();
-                        });
-                    }
-                }
-            });
+            if( RCloud.UI.advanced_menu.add) {
+              RCloud.UI.advanced_menu.add({ // jshint ignore:line
+                  rcapDesigner: {
+                      sort: 10000,
+                      text: 'RCAP Designer',
+                      modes: ['edit'],
+                      action: function() {
+                          require(['rcap/js/designer'], function(Designer) {
+                              new Designer().initialise();
+                          });
+                      }
+                  }
+              });
+            }
 
             // this is a temporary menu item:
-            RCloud.UI.advanced_menu.add({ // jshint ignore:line
+            /*RCloud.UI.advanced_menu.add({ // jshint ignore:line
                 rcapViewer: {
                     sort: 11000,
                     text: 'RCAP Viewer',
@@ -58,15 +60,16 @@
                         window.open('/shared.R/rcloud.rcap/standaloneviewer.htm?notebook=' + getParameterByName('notebook'));
                     }
                 }
-            });
+            });*/
 
             k();
 
         },
 
         initViewer: function(content, k) {
-            require(['rcap/js/viewer'], function(viewer) {
-                viewer.initialise(content);
+            require(['rcap/js/viewer'], function(Viewer) {
+                //viewer.initialise(content);
+                new Viewer().initialise(content);
                 k();
             });
         }

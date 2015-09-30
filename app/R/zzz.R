@@ -4,7 +4,7 @@ rcloud.rcap.caps <- NULL
 {
   f <- function(module.name, module.path) {
     path <- system.file("javascript", module.path, package="rcloud.rcap")
-    caps <- rcloud.install.js.module(module.name,
+    caps <- rcloud.support::rcloud.install.js.module(module.name,
                                      paste(readLines(path), collapse='\n'))
     caps
   }
