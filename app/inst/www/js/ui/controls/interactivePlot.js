@@ -1,8 +1,8 @@
 define(['rcap/js/ui/controls/gridControl',
     'rcap/js/ui/controls/properties/textControlProperty',
     'rcap/js/ui/controls/properties/multilineTextControlProperty',
-    'text!controlTemplates/rPlot.tpl',
-    'text!controlTemplates/rPlot-design.tpl'
+    'text!controlTemplates/interactivePlot.tpl',
+    'text!controlTemplates/interactivePlot-design.tpl'
 ], function(GridControl, TextControlProperty, MultilineTextControlProperty, tpl, dtpl) {
 
     'use strict';

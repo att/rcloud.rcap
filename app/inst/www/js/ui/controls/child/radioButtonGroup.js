@@ -24,7 +24,7 @@ define(['rcap/js/ui/controls/baseControl',
                     new TextControlProperty({
                         uid: 'variablename',
                         label: 'Variable name',
-                        defaultValue: '',
+                        defaultValue: 'variable',
                         helpText: 'The variable associated with this control',
                         isRequired: true
                     }),
