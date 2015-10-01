@@ -27,13 +27,13 @@ define([
 
 	function ControlFactory()  {
 		this.gridControls = [
+			new RPlotControl(),
+			new InteractivePlotControl(),		
+			new FormControl(),
 			new IFrameControl(),
 			new ImageControl(),
-			new RPlotControl(),
-			new InteractivePlotControl(),
-			new TextControl(),
 			new PageMenuControl(),
-			new FormControl(),
+			new TextControl(),
 
 			//new DatePickerControl(),
 			//new DropdownControl(),

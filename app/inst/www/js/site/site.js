@@ -21,7 +21,7 @@ define(['pages/page'], function(Page) {
         },
 
         save: function() {
-        	this.saveTicks = new Date().getTime();
+            this.saveTicks = new Date().getTime();
         },
 
         toJSON: function() {
@@ -100,6 +100,10 @@ define(['pages/page'], function(Page) {
 
         getPageByNavigationTitle : function(navigationTitle) {
             return _.find(this.pages, function(p) { return p.navigationTitle === navigationTitle; });
+        },
+
+        getFirstPage : function() {
+            return typeof this.pages[0] === 'undefined' ? undefined : this.pages[0];
         },
 
         addControl : function(control) {

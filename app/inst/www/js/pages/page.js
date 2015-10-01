@@ -7,8 +7,8 @@ define(['rcap/js/Class'], function() {
             options = options || {};
             
             this.navigationTitle = options.navigationTitle || 'New Page';
-            //this.pageTitle = options.pageTitle || 'New Page';
-            //this.urlSlug = options.urlSlug || '/new-page';
+
+            this.isEnabled = true;
 
             this.controls = options.controls || [];
 

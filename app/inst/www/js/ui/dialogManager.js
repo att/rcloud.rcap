@@ -53,6 +53,7 @@ define([
             PubSub.publish(pubSubTable.updatePage, {
                 id: $('#page-form').data('pageid'),
                 navigationTitle: $('#inputPageNavigationTitle').val(),
+                isEnabled: $('#inputIsEnabled').val()
             });
 
             $('#dialog-controlSettings').jqmHide();
@@ -206,6 +207,7 @@ define([
                 console.info('dialogManager: pubSubTable.showPageSettingsDialog');
 
                 $('#inputPageNavigationTitle').val(page.navigationTitle);
+                $('#intputIsEnabled').prop('checked', page.isEnabled);
 
                 $('#dialog-pageSettings form')
                     .find('input')

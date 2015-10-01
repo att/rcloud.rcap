@@ -3,6 +3,40 @@ define(['pubsub', 'site/site', 'site/pubSubTable', 'rcap/js/ui/message', 'contro
 
     'use strict';
 
+    var RawDataManager = function() {
+
+        var assetIdentifier = 'rcap_designer.json';
+        var shell = window.shell;
+
+        var getNotebookAsset = function() {
+            return _.find(shell.notebook.model.assets, function(ass) { return ass.filename() === assetIdentifier; });
+        };
+
+        this.save = function(data) {
+
+            var existingAsset = getNotebookAsset();
+
+            if(existingAsset) {
+
+                existingAsset.content(JSON.stringify(data)); // jshint ignore:line
+                shell.notebook.controller.update_asset(existingAsset); // jshint ignore:line
+
+            } else {
+
+                shell.notebook.controller.append_asset(JSON.stringify(data), assetIdentifier); // jshint ignore:line
+
+            }
+        };
+
+        this.load = function() {
+            var existingAsset = getNotebookAsset();
+
+            return existingAsset ? existingAsset.content() : '';
+        };
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     var Serializer = function() {
 
         this.initialise = function() {
@@ -15,26 +49,7 @@ define(['pubsub', 'site/site', 'site/pubSubTable', 'rcap/js/ui/message', 'contro
 
                 console.info('serializer: pubSubTable.serialize');
 
-                localStorage.setItem('rcap', JSON.stringify(data));
-
-                var shell = window.shell;
-
-                // Look for the config file in the assets
-                var assetConfigName = 'rcap_designer.json';
-                var assetNames = shell.notebook.model.assets.map(function(x) {
-                    return x.filename();
-                });
-
-                var configIndex = assetNames.indexOf(assetConfigName);
-                if (configIndex !== -1) {
-                    // Overwrite it.
-                    var targetAsset = shell.notebook.model.assets[configIndex];
-                    targetAsset.content(JSON.stringify(data)); // jshint ignore:line
-                    shell.notebook.controller.update_asset(targetAsset); // jshint ignore:line
-                } else {
-                    // We're going to have to create it.
-                    shell.notebook.controller.append_asset(JSON.stringify(data), assetConfigName); // jshint ignore:line
-                }
+                new RawDataManager().save(data);
 
                 PubSub.publish(pubSubTable.showMessage, new Message({
                     messageType : 'Information',
@@ -65,7 +80,7 @@ define(['pubsub', 'site/site', 'site/pubSubTable', 'rcap/js/ui/message', 'contro
                     data,
                     controlFactory = new ControlFactory(),
                     currentChild,
-                    rawData = msgData.hasOwnProperty('jsonData') ? msgData.jsonData : localStorage.getItem('rcap'),
+                    rawData = msgData.hasOwnProperty('jsonData') ? msgData.jsonData : new RawDataManager().load(),
                     isDesignTime = msgData.hasOwnProperty('isDesignTime') ? msgData.isDesignTime : true;
 
                 // create a site:

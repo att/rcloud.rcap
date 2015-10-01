@@ -9,9 +9,9 @@ define(['rcap/js/ui/controls/gridControl', 'text!rcap/partials/dialogs/_formBuil
                 label: 'Form',
                 icon: 'f022',
                 inlineIcon: 'list-alt',
-                initialSize: [2, 2],
+                initialSize: [2, 1],
                 controlProperties: [
-                	// TODO : general form properties!
+                    // TODO : general form properties!
                 ]
             });
 
@@ -33,7 +33,7 @@ define(['rcap/js/ui/controls/gridControl', 'text!rcap/partials/dialogs/_formBuil
 
         },
         getDialogMarkup: function() {
-        	return tpl;
+            return tpl;
         },
         toJSON : function() {
             return {

@@ -417,10 +417,19 @@
     height: auto !important; } }
 .grid-stack-item-content {
   font-family: sans-serif;
-  background: white;
   color: #2c3e50;
   border: 1px solid #ccc;
   cursor: move; }
+
+.grid-stack-item-content .configure .form-group {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%); }
+
+.grid-stack-item-content .form-group {
+  transform: translateY(-50%);
+  top: 50%;
+  position: absolute; }
 
 .grid-stack-readonly .grid-stack-item-content {
   cursor: default; }
@@ -450,7 +459,6 @@
   background-position: 20px 25px, 10px 0px; }
   .grid-stack .invalid .configure {
     bottom: 0;
-    height: 85px;
     left: 0;
     margin: auto;
     position: absolute;
@@ -488,7 +496,7 @@
     z-index: 10002;
     width: 100%;
     padding: 4px 0;
-    margin-top: -11px; }
+    margin-top: -18px; }
   .grid-stack .grid-stack-item-content.valid .btn-configure {
     display: none; }
   .grid-stack .grid-stack-item-content.valid:hover .btn-configure {
@@ -508,8 +516,8 @@
   border: 0 !important;
   overflow-x: auto; }
   #rcap-viewer .grid-stack-item-content img {
-    width: 100%;
-    height: 100%; }
+    max-width: 100%;
+    max-height: 100%; }
   #rcap-viewer .grid-stack-item-content iframe {
     width: 100%;
     height: 100%;
@@ -1330,7 +1338,8 @@ textarea.parsley-error {
   #rcap-designer .menu {
     padding: 0;
     margin: 0;
-    height: 100%; }
+    height: 100%;
+    border-right: 1px solid #e5e5e5; }
     #rcap-designer .menu h4 {
       padding-left: 5px;
       text-transform: uppercase;
@@ -1468,7 +1477,8 @@ textarea.parsley-error {
       background: white;
       padding: 10px 0;
       border: 1px solid #8c8c8c;
-      position: relative; }
+      position: relative;
+      margin: 0 15px; }
   #rcap-designer .form-control {
     background: white;
     width: 100%;
@@ -1496,8 +1506,8 @@ textarea.parsley-error {
   #rcap-designer i.config-icon {
     display: block;
     text-align: center;
-    font-size: 30pt;
-    margin-top: -30px;
+    font-size: 26pt;
+    margin-top: -22px;
     text-shadow: -2px -2px 0 #fff, -2px -1px 0 #fff, -2px 0px 0 #fff, -2px 1px 0 #fff, -2px 2px 0 #fff, -1px -2px 0 #fff, -1px -1px 0 #fff, -1px 0px 0 #fff, -1px 1px 0 #fff, -1px 2px 0 #fff, 0px -2px 0 #fff, 0px -1px 0 #fff, 0px 0px 0 #fff, 0px 1px 0 #fff, 0px 2px 0 #fff, 1px -2px 0 #fff, 1px -1px 0 #fff, 1px 0px 0 #fff, 1px 1px 0 #fff, 1px 2px 0 #fff, 2px -2px 0 #fff, 2px -1px 0 #fff, 2px 0px 0 #fff, 2px 1px 0 #fff, 2px 2px 0 #fff; }
 
 .parsley-errors-list {
@@ -1687,10 +1697,11 @@ a.wysiwyg-toolbar-icon:hover {
 
 .hamburger button {
   position: absolute;
-  top: 15px;
+  top: 50%;
+  margin-top: -15px !important;
   right: 15px;
   border: 0;
-  text-indent: 200%;
+  text-indent: -9999px;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.8) url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAABmJLR0QA/wD/AP+gvaeTAAAB6ElEQVR4nO3cvWqTYRzG4Z/WFgcRBMHdtersLuiBCHo2gqDg4O4htOhRuIiLi5OgWxeHig51UWrzNh9N4nNdcG9P3jzhH/L1hLsAAAAAAAAAAAAAAIBtdWmO2+xXj6uH1a3q5lJ3xHl9q75U76rX1YdV3dFe9aI6rn7KRua4el7t/mOGc9ur3m7AA5RpOfw9s6V5tQEPSs6Xl6dO8i9TPgPcqd5Xl6dckI3xo7rXjM8EU4b6dOI6NstO9WTWoimDfbD4XliTmbOb8hZwVF1bfC+swVF1/awFU14B5vmtgC0x5QnweeW7YFVmzm7KE+BwCRthPQ5mLZjy8r7fydfAnYW3w0U6ru5WH89aNGWoX6sb1f0lbIqL86x6s6yL7XbyVrDuX7dkWg6qK6dOcgEOgzY/5z4MWuQ4+FF1u7o6xzVYnu/Vp04O61Z6HAwAAAAAAAAAbAf9ANtPP4DM/5ewqfQDbFf0A4h+gNHpBxicfgD0A4xOPwBn0w/wf9MPMDj9AAPTDzA4/QADRz/AoNEPMCD9AAAAAAAAAADAH/QDbD/9ADL/X8Km0g+wXdEPIPoBRqcfYHD6AdAPMDr9AJxNP8D/TT/A4PQDDEw/wOD0Awwc/QCDRj/AgPQDAAAAAAAAAAAAAADAoH4BvT2IpUa1RFMAAAAASUVORK5CYII=") center no-repeat;
   border: 1px solid #ddd;
@@ -1700,7 +1711,26 @@ a.wysiwyg-toolbar-icon:hover {
   height: 30px;
   outline: none;
   -webkit-transition: all 400ms ease;
-  transition: all 400ms ease; }
+  transition: all 400ms ease;
+  z-index: 1000; }
+
+.hamburger > div {
+  z-index: 999;
+  position: absolute;
+  width: 100%; }
+
+.hamburger-valign-middle > div {
+  top: 50%;
+  margin-top: -27px !important; }
+
+.hamburger-valign-top button, .hamburger-valign-top > div {
+  top: 5px;
+  margin-top: 0 !important; }
+
+.hamburger-valign-bottom button, .hamburger-valign-bottom > div {
+  top: initial;
+  bottom: 5px;
+  margin-top: 0 !important; }
 
 .hamburger button.expanded {
   -webkit-transform: rotate(90deg);

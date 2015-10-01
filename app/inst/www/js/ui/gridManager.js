@@ -16,7 +16,7 @@ define([
     };
 
     var getDesignTimeControlInnerMarkup = function(control) {
-        var outer = $('<div class="grid-stack-item-content ui-draggable-handle" data-gs-locked="true"><div class="configure"></div></div>');
+        var outer = $('<div class="grid-stack-item-content ui-draggable-handle"><div class="configure"></div></div>');
         var configure = outer.find('.configure');
 
         if (!control.isValid()) {
@@ -30,7 +30,7 @@ define([
         }
 
         // append button (and icon if the state is not valid):
-        outer.append('<p>' +
+        outer.append('<p style="margin-bottom:0">' +
             (control.isValid() ? '' : '<i class="config-icon icon-' + control.inlineIcon + '"></i>') +
             '<button type="button" class="btn btn-primary btn-configure">Configure</button></p>');
 
@@ -39,7 +39,7 @@ define([
 
     var getViewerControlMarkup = function(control) {
 
-        var item = $('<div data-controlid="' + control.id + '" data-gs-locked="true" data-gs-no-resize="true" data-gs-no-move="true" data-gs-readonly="true"></div>')
+        var item = $('<div data-controlid="' + control.id + '" data-gs-no-resize="true" data-gs-no-move="true" data-gs-readonly="true"></div>')
             .append('<div class="grid-stack-item-content"></div>');
 
         item.find('.grid-stack-item-content').append(control.render());

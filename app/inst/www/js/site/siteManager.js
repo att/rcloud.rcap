@@ -168,11 +168,21 @@ define([
                 console.info('siteManager: pubSubTable.changeSelectedPageByTitle');
 
                 // update the site's current page:
-                var site = getSite();
+                var site = getSite(),
+                    currentPage;
 
-                // and find the page by it's navigation title:
-                var currentPage = site.getPageByNavigationTitle(pageTitle);
+                if (pageTitle.length === 0) {
 
+                    // no page, so show them the first page:
+                    currentPage = site.getFirstPage();
+
+                } else {
+
+                    // and find the page by it's navigation title:
+                    currentPage = site.getPageByNavigationTitle(pageTitle);
+                }
+
+                // evaluate currentPage, which may be undefined:
                 if (currentPage) {
                     site.currentPageID = currentPage.id;
 
@@ -180,8 +190,8 @@ define([
                     PubSub.publish(pubSubTable.changeSelectedPage, currentPage);
                 } else {
                     PubSub.publish(pubSubTable.show404, {
-                        site : site,
-                        requestedPage : pageTitle
+                        site: site,
+                        requestedPage: pageTitle
                     });
                 }
 

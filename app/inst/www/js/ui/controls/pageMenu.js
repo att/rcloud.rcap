@@ -1,9 +1,10 @@
 define(['rcap/js/ui/controls/gridControl',
     'rcap/js/ui/controls/properties/dropdownControlProperty',
+    'rcap/js/ui/controls/properties/colorControlProperty', 
     'pubsub',
     'site/pubSubTable',
     'text!controlTemplates/pageMenu.tpl'
-], function(GridControl, DropdownControlProperty, PubSub, pubSubTable, tpl) {
+], function(GridControl, DropdownControlProperty, ColorControlProperty, PubSub, pubSubTable, tpl) {
 
     'use strict';
 
@@ -48,24 +49,60 @@ define(['rcap/js/ui/controls/gridControl',
                         }, {
                             text: 'Vertical',
                             value: 'vertical'
-                        }]
+                        }],
+                        value: 'hamburger'
                     }),
+                    // new DropdownControlProperty({
+                    //     uid: 'horizontalalignment',
+                    //     label: 'Horizontal Alignment',
+                    //     isRequired: true,
+                    //     availableOptions: [{
+                    //         text: 'Left',
+                    //         value: 'left'
+                    //     }, {
+                    //         text: 'Center',
+                    //         value: 'center'
+                    //     }, {
+                    //         text: 'Right',
+                    //         value: 'right'
+                    //     }]
+                    // }),
                     new DropdownControlProperty({
-                        uid: 'alignment',
-                        label: 'Alignment',
-                        helpText: 'The menu alignment',
+                        uid: 'verticalalignment',
+                        label: 'Vertical Alignment',
                         isRequired: true,
                         availableOptions: [{
-                            text: 'Left',
-                            value: 'left'
+                            text: 'Top',
+                            value: 'top'
                         }, {
-                            text: 'Center',
-                            value: 'center'
+                            text: 'Middle',
+                            value: 'middle'
                         }, {
-                            text: 'Right',
-                            value: 'right'
-                        }]
-                    })
+                            text: 'Bottom',
+                            value: 'bottom'
+                        }],
+                        value: 'middle'
+                    }),/*
+                    new ColorControlProperty({
+                        uid: 'linkColor',
+                        label: 'Link color',
+                        helpText: 'The color of the menu links'
+                    }),
+                    new ColorControlProperty({
+                        uid: 'backgroundColor',
+                        label: 'Link background color',
+                        helpText: 'The background color of the menu links'
+                    }),
+                    new ColorControlProperty({
+                        uid: 'hoverBackgroundColor',
+                        label: 'Link hover background color',
+                        helpText: 'The hover background color of the menu links'
+                    }),
+                    new ColorControlProperty({
+                        uid: 'selectedBackgroundColor',
+                        label: 'Link selected background color',
+                        helpText: 'The selected background color of the menu links'
+                    })*/
                 ]
             });
 
@@ -138,9 +175,12 @@ define(['rcap/js/ui/controls/gridControl',
                 if (me.isOnGrid) {
 
                     // update the page's details:
-                    _.findWhere(me.pages, {
+                    var page = _.findWhere(me.pages, {
                         id: pageObj.id
-                    }).navigationTitle = pageObj.navigationTitle;
+                    });
+
+                    page.navigationTitle = pageObj.navigationTitle;
+                    page.isEnabled = pageObj.isEnabled;
 
                     me.currentPageID = pageObj.id;
 
@@ -211,14 +251,18 @@ define(['rcap/js/ui/controls/gridControl',
         },
         initialiseViewerItems: function() {
 
-            // $('.menu-btn').click(function() {
-            //     $('.responsive-menu').toggleClass('expand');
-            // });
+            $('.hamburger, .rcap-pagemenu').closest('.grid-stack-item').css('z-index', '1');
 
             $('#rcap-viewer').on('click', '.rcap-pagemenu a, .hamburger a', function() {
                 // get the nav title:
                 location.hash = $(this).data('href');
                 PubSub.publish(pubSubTable.changeSelectedPageByTitle, $(this).data('href'));
+
+                if ($(this).attr('data-ishamburger') === 'true') {
+                    $(this).toggleClass('expanded').siblings('div').slideToggle({
+                        duration: 200
+                    });
+                }
             });
 
             $('#rcap-viewer').on('click', '.hamburger button', function() {
@@ -227,9 +271,10 @@ define(['rcap/js/ui/controls/gridControl',
                 });
 
                 $(this).closest('.grid-stack-item-content').css({
-                    'overflow-x' : 'visible',
-                    'overflow-y' : 'visible'
+                    'overflow-x': 'visible',
+                    'overflow-y': 'visible'
                 });
+
             });
         },
     });

@@ -23,8 +23,9 @@ define(['rcap/js/ui/controls/gridControl', 'rcap/js/ui/controls/properties/textC
                         uid: 'source',
                         label: 'Source',
                         defaultValue: '',
-                        helpText: 'The URL that the iFrame will show',
-                        isRequired: true
+                        helpText: 'The URL that the iFrame will show (prefix with http://)',
+                        isRequired: true,
+                        validationDataType: 'url'
                     }),
                     /*
                     new RadioButtonGroupControlProperty({
@@ -62,10 +63,6 @@ define(['rcap/js/ui/controls/gridControl', 'rcap/js/ui/controls/properties/textC
                             value: '3'
                         }]
                     }),*/
-
-
-
-
                     /*,
                     new DropdownControlProperty({
                         uid: 'testdropdown',
@@ -101,10 +98,10 @@ define(['rcap/js/ui/controls/gridControl', 'rcap/js/ui/controls/properties/textC
                 control: this
             });
 
-		}
+        }
             // ,
             // getConfigurationMarkup : function() {
-            // 	return '<p><i class="icon-' + this.inlineIcon + '"></i>' + (this.controlProperties[0].value || '') + '</p>';			
+            //  return '<p><i class="icon-' + this.inlineIcon + '"></i>' + (this.controlProperties[0].value || '') + '</p>';            
             // }
     });
 

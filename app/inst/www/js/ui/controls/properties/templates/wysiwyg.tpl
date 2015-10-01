@@ -1,7 +1,7 @@
 <div class="form-group" id="form-group-<%=property.id%>">
     <label for="<%=property.id%>"><%=property.label%></label>
     <div>
-    	<textarea class="form-control" rows="20" cols="50" id="<%=property.id%>" />
+        <textarea class="form-control" rows="20" cols="50" id="<%=property.id%>" />
     </div>
     <div class="description"><%=property.helpText%></div>
 
@@ -39,7 +39,7 @@
                                                     .css( 'font-family', font )
                                                     .html( name )
                                                     .click(function(event) {
-                                                        $(element).wysiwyg('shell').fontName(font).closePopup();
+                                                        $('#<%=property.id%>').wysiwyg('shell').fontName(font).closePopup();
                                                         // prevent link-href-#
                                                         event.stopPropagation();
                                                         event.preventDefault();
@@ -73,8 +73,8 @@
                                 var $link = $('<a/>').attr('href','#')
                                                     .html( size )
                                                     .click(function(event) {
-                                                        $(element).wysiwyg('shell').fontSize(7).closePopup();
-                                                        $(element).wysiwyg('container')
+                                                        $('#<%=property.id%>').wysiwyg('shell').fontSize(7).closePopup();
+                                                        $('#<%=property.id%>').wysiwyg('container')
                                                                 .find('font[size=7]')
                                                                 .removeAttr('size')
                                                                 .css('font-size', size);
@@ -110,7 +110,7 @@
                                                      .css( 'font-family', format )
                                                      .html( name )
                                                      .click(function(event) {
-                                                        $(element).wysiwyg('shell').format(format).closePopup();
+                                                        $('#<%=property.id%>').wysiwyg('shell').format(format).closePopup();
                                                         // prevent link-href-#
                                                         event.stopPropagation();
                                                         event.preventDefault();
