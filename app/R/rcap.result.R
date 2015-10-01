@@ -1,4 +1,6 @@
 
+# rcapConfig <- jsonlite::fromJSON(system.file(package="rcloud.rcap", file="testData/testConfig.json"), simplifyVector = FALSE)
+
 rcap.result <- function(rcapConfigFileName="rcap_designer.json", inline=FALSE) {
   
   # Retrieve the designer config from the notebook
