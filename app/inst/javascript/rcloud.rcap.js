@@ -42,26 +42,6 @@
               });
             }
 
-            // this is a temporary menu item:
-            /*RCloud.UI.advanced_menu.add({ // jshint ignore:line
-                rcapViewer: {
-                    sort: 11000,
-                    text: 'RCAP Viewer',
-                    modes: ['edit'],
-                    action: function() {
-
-                        function getParameterByName(name) {
-                            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-                            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-                                results = regex.exec(location.search);
-                            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-                        }
-
-                        window.open('/shared.R/rcloud.rcap/standaloneviewer.htm?notebook=' + getParameterByName('notebook'));
-                    }
-                }
-            });*/
-
             k();
 
         },
