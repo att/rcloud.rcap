@@ -18,10 +18,12 @@ module.exports = function(grunt) {
         dist: 'dist',
         distFiles: [
             'DESCRIPTION',
-            'README.md',    
+            'README.md',
+	    'NAMESPACE',
             'inst/javascript/rcloud.rcap.js',
             'inst/www/js/initialiser.js',
-            'R/**/*'
+            'R/**/*',
+            'man/**/*'
         ]
     };
     
