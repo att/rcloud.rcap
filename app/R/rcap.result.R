@@ -1,6 +1,19 @@
 
 # rcapConfig <- jsonlite::fromJSON(system.file(package="rcloud.rcap", file="testData/testConfig.json"), simplifyVector = FALSE)
 
+#' Load site configuration and setup OCAPs
+#'
+#' @param rcapConfigFileName Character vector: The name of the json file in the assets.
+#' @param inline logical: If TRUE this will attempt to call rcw.result with the rcw.inline wrapper
+#'
+#' @return NULL
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' rcap.result("rcap_designer.json")
+#' }
+#' 
 rcap.result <- function(rcapConfigFileName="rcap_designer.json", inline=FALSE) {
   
   # Retrieve the designer config from the notebook
