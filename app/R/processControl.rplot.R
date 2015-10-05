@@ -1,3 +1,6 @@
+#' @rdname processControl
+#' @method processControl rplot
+#' 
 processControl.rplot <- function(rcapControl) {
   
   funName <- rcapControl$id
