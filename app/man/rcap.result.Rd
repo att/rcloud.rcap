@@ -2,7 +2,7 @@
 % Please edit documentation in R/rcap.result.R
 \name{rcap.result}
 \alias{rcap.result}
-\title{Load site configuration and setup OCAPs}
+\title{Read rcap configuration and create OCAPs}
 \usage{
 rcap.result(rcapConfigFileName = "rcap_designer.json", inline = FALSE)
 }
@@ -12,7 +12,9 @@ rcap.result(rcapConfigFileName = "rcap_designer.json", inline = FALSE)
 \item{inline}{logical: If TRUE this will attempt to call rcw.result with the rcw.inline wrapper}
 }
 \description{
-Load site configuration and setup OCAPs
+Load site configuration from the json file in the notebook assests.
+Parse the controls for any functions that need creating and and setup the OCAPs.
+This function is a wrapper around \code{rcloud.web::rcw.result}.
 }
 \examples{
 \dontrun{

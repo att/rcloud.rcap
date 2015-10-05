@@ -1,7 +1,11 @@
 
 # rcapConfig <- jsonlite::fromJSON(system.file(package="rcloud.rcap", file="testData/testConfig.json"), simplifyVector = FALSE)
 
-#' Load site configuration and setup OCAPs
+#' Read rcap configuration and create OCAPs
+#' 
+#' @description Load site configuration from the json file in the notebook assests.
+#' Parse the controls for any functions that need creating and and setup the OCAPs.
+#' This function is a wrapper around \code{rcloud.web::rcw.result}.
 #'
 #' @param rcapConfigFileName Character vector: The name of the json file in the assets.
 #' @param inline logical: If TRUE this will attempt to call rcw.result with the rcw.inline wrapper
