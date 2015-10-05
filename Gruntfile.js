@@ -92,6 +92,7 @@ module.exports = function(grunt) {
                     src: [
                         'inst/**/*',
                         'R/**/*',
+                        'man/**/*',
                         '!**/*.scss' // we don't want the scss file(s)
                     ]
                 }, {
@@ -114,6 +115,7 @@ module.exports = function(grunt) {
                     dest: '<%= appConfig.devDeployDir%>',
                     src: [
                         'DESCRIPTION',
+                        'NAMESPACE',
                         'README.md'
                     ]
                 }]
