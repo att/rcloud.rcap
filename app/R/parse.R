@@ -1,4 +1,12 @@
 
+#' Parse Configuration List
+#'
+#' @param rcapConfig 
+#'
+#' @return List of R function names in same hierachy as page structure
+#'
+#' @examples
+#' rcapConfig <- fromJSON()
 parseConfig <- function(rcapConfig) {
   
   if (!is.null(rcapConfig$pages)) {
