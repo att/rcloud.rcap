@@ -3,17 +3,13 @@
 #' 
 processControl.rplot <- function(rcapControl) {
   
+  # The OCAP function name is the control id
   funName <- rcapControl$id
-  funText <- paste0(funName, " <- function(jsArgs=list(width=500,height=500)) {")
   
-  funText <- c(funText, "  if (!is.null(jsArgs$width)) width=jsArgs$width")
-  funText <- c(funText, "  if (!is.null(jsArgs$height)) height=jsArgs$height")
-  
-  funText <- c(funText, "  wp1 <- WebPlot(width=width,height=height)")
-  
-  funText <- c(funText, rcapControl$controlProperties[[1]]$value)
-  
-  funText <- c(funText, paste0("  rcloud.web::rcw.set(\"#",rcapControl$id,"\", wp1)}"))
+  # Pass the contents of the control to the template
+  funText <- fillTemplate("rplotTemplate.R",
+                          list(control.id=rcapControl$id,
+                               control.controlProperties.1=rcapControl$controlProperties[[1]]$value))
   
   # Make a temporary file
   sourceFile <- tempfile(fileext=".R")
