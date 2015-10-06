@@ -23,6 +23,7 @@ module.exports = function(grunt) {
             'inst/javascript/rcloud.rcap.js',
             'inst/www/js/initialiser.js',
             'R/**/*',
+            'tests/**/*'
             'man/**/*'
         ]
     };
@@ -94,6 +95,7 @@ module.exports = function(grunt) {
                     src: [
                         'inst/**/*',
                         'R/**/*',
+                        'tests/**/*'
                         'man/**/*',
                         '!**/*.scss' // we don't want the scss file(s)
                     ]
