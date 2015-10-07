@@ -5,6 +5,7 @@ This repository contains the full development code for the `rcloud.rcap` pacakge
 
 ```
 bower install
+npm install
 ```
 
 This installs the required Bower components. Then you will need to edit the Grunt.js file to change the dev directory and disable the shell commands. Then do
