@@ -28,6 +28,10 @@
         init: function(ocaps, k) {
 
             if( RCloud.UI.advanced_menu.add) {
+              
+              // Not currently doing anything...
+              ocaps = RCloud.promisify_paths(ocaps, [["getRFunctions"]], true);
+              
               RCloud.UI.advanced_menu.add({ // jshint ignore:line
                   rcapDesigner: {
                       sort: 10000,

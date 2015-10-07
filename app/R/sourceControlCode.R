@@ -1,4 +1,21 @@
 
+#' Evaluate OCAP functions into global namespace
+#'
+#' @param funText Character vector of each line of the function to be sourced
+#' @param controlId The control ID, as it is in the json so that errors can be reported
+#'
+#' @return Nothing
+#'
+#' @examples
+#' \dontrun {
+#'   funText <- fillTemplate("rplotTemplate.R",
+#'                           list(control.id=rcapControl$id,
+#'                           control.controlProperties.1=rcapControl$controlProperties[[1]]$value))
+#'
+#' sourceControlCode(funText, rcapControl$id)
+#'
+#' }
+#' 
 sourceControlCode <- function(funText, controlId) {
   
   # Make a temporary file
