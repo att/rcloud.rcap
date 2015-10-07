@@ -4,10 +4,19 @@
   if (!is.null(jsArgs$width)) width=jsArgs$width
   if (!is.null(jsArgs$height)) height=jsArgs$height
   
-  library(rcloud.dcplot)
-  x <- <%=control.controlProperties.1%>
+  # Trap errors at run time
+  error <- try({})
+    library(rcloud.dcplot)
+    x <- <%=control.controlProperties.1%>
+  })
+
+  if(class(error)=="try-error") {
+    # Create an error output
+    errorMsg <- paste0("<pre class=\"rcaperror\">", error, "</pre>")
+    rcloud.web::rcw.set("#<%=control.id%>", errorMsg)
     
-  rcloud.web::rcw.set("#<%=control.id%>", rcloud.web::rcw.resolve(x))
-  
+  } else {
+    rcloud.web::rcw.set("#<%=control.id%>", rcloud.web::rcw.resolve(x))
+  }
 }
 # Must end with a line break

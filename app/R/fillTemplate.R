@@ -26,7 +26,8 @@ fillTemplate <- function(templateName=NULL, funParams) {
   
   # Don't error, just inform that it wasn't found
   if(templateFile=="") {
-    errorMsg <- paste("fillTemplate.R:: Template file,", templateName, "not found")
+    errorMsg <- paste("fillTemplate.R:: Template file,",
+                      templateName, "not found")
     warning(errorMsg)
     if(!is.null(funParams$control.id)) {
       return(fillTemplate("errorTemplate.R", list(control.id=funParams$control.id,
@@ -49,7 +50,8 @@ fillTemplate <- function(templateName=NULL, funParams) {
   if (sum(leftOvers) > 0) {
     # Match the variables are add to the error message
     unMatched <- gsub(".*<%=(.*?)%>.*", "\\1", funText[leftOvers])
-    errorMsg <- paste(c("fillTemplate.R:: Some template variables have not been matched:", unMatched), collapse=", ")
+    errorMsg <- paste(c("fillTemplate.R:: Some template variables have not been matched:",
+                        unMatched), collapse=", ")
     
     warning(errorMsg)
     

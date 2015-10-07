@@ -9,12 +9,13 @@ sourceControlCode <- function(funText, controlId) {
   
   # source has a nice wrapper around eval(parse())
   error <- try(source(sourceFile), silent=TRUE)
+  
   if(class(error)=="try-error") {
     # Create an error output
     if(!is.null(controlId)) {
       
       # Make it look codey
-      errorMsg <- paste0("<pre>", as.character(error), "</pre>")
+      errorMsg <- as.character(error)
       
       # Populate the error template
       funText <- fillTemplate("errorTemplate.R", list(control.id=controlId,
