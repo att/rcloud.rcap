@@ -1,200 +1,213 @@
-define(['pubsub', 'site/site', 'site/pubSubTable', 'rcap/js/ui/message', 'controls/factories/controlFactory'], 
+define(['pubsub', 'site/site', 'site/pubSubTable', 'rcap/js/ui/message', 'controls/factories/controlFactory'],
     function(PubSub, Site, pubSubTable, Message, ControlFactory) {
 
-    'use strict';
+        'use strict';
 
-    var RawDataManager = function() {
+        var RawDataManager = function() {
 
-        var assetIdentifier = 'rcap_designer.json';
-        var shell = window.shell;
+            var assetIdentifier = 'rcap_designer.json';
+            var shell = window.shell;
 
-        var getNotebookAsset = function() {
-            return _.find(shell.notebook.model.assets, function(ass) { return ass.filename() === assetIdentifier; });
+            var getNotebookAsset = function() {
+                return _.find(shell.notebook.model.assets, function(ass) {
+                    return ass.filename() === assetIdentifier;
+                });
+            };
+
+            this.save = function(data) {
+
+                var existingAsset = getNotebookAsset();
+
+                if (existingAsset) {
+                    existingAsset.content(JSON.stringify(data)); // jshint ignore:line
+                    shell.notebook.controller.update_asset(existingAsset); // jshint ignore:line
+                } else {
+                    shell.notebook.controller.append_asset(JSON.stringify(data), assetIdentifier); // jshint ignore:line
+                }
+
+                // temporary: local storage:
+                localStorage.setItem(assetIdentifier, JSON.stringify(data));
+            };
+
+            this.load = function(loadFromLocalStorage) {
+                if (loadFromLocalStorage) {
+                    return localStorage.getItem(assetIdentifier);
+                } else {
+                    var existingAsset = getNotebookAsset();
+
+                    return existingAsset ? existingAsset.content() : '';
+                }
+            };
         };
 
-        this.save = function(data) {
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            var existingAsset = getNotebookAsset();
+        var Serializer = function() {
 
-            if(existingAsset) {
+            this.initialise = function() {
 
-                existingAsset.content(JSON.stringify(data)); // jshint ignore:line
-                shell.notebook.controller.update_asset(existingAsset); // jshint ignore:line
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //
+                // serialize
+                //
+                PubSub.subscribe(pubSubTable.serialize, function(msg, data) {
 
-            } else {
+                    console.info('serializer: pubSubTable.serialize');
 
-                shell.notebook.controller.append_asset(JSON.stringify(data), assetIdentifier); // jshint ignore:line
+                    new RawDataManager().save(data);
 
-            }
-        };
-
-        this.load = function() {
-            var existingAsset = getNotebookAsset();
-
-            return existingAsset ? existingAsset.content() : '';
-        };
-    };
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    var Serializer = function() {
-
-        this.initialise = function() {
-
-            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            //
-            // serialize
-            //
-            PubSub.subscribe(pubSubTable.serialize, function(msg, data) {
-
-                console.info('serializer: pubSubTable.serialize');
-
-                new RawDataManager().save(data);
-
-                PubSub.publish(pubSubTable.showMessage, new Message({
-                    messageType : 'Information',
-                    content : 'Saved'
-                }));
-            });
-
-            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            //
-            // deserialize
-            //
-            PubSub.subscribe(pubSubTable.deserialize, function(msg, msgData) {
-
-                console.info('serializer: pubSubTable.deserialize');
-
-                var controls,
-                    control,
-                    jsonControl,
-                    jsonControlProperty,
-                    pageLoop = 0,
-                    currentPage,
-                    jsonPage,
-                    jsonPageProperty,
-                    controlLoop,
-                    propertyLoop,
-                    property,
-                    currProp,
-                    data,
-                    controlFactory = new ControlFactory(),
-                    currentChild,
-                    rawData = msgData.hasOwnProperty('jsonData') ? msgData.jsonData : new RawDataManager().load(),
-                    isDesignTime = msgData.hasOwnProperty('isDesignTime') ? msgData.isDesignTime : true;
-
-                // create a site:
-                var site = new Site({
-                    isDesignTime : isDesignTime
+                    PubSub.publish(pubSubTable.showMessage, new Message({
+                        messageType: 'Information',
+                        content: 'Saved'
+                    }));
                 });
 
-                data = rawData && rawData.length > 0 ? JSON.parse(rawData) : [];
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //
+                // deserialize
+                //
+                PubSub.subscribe(pubSubTable.deserialize, function(msg, msgData) {
 
-                // loop through each page:
-                if (data.pages !== undefined) {
+                    console.info('serializer: pubSubTable.deserialize');
 
-                    // we have at least a single page, so get rid of the pages we started with and 
-                    // replace with what's coming in:
-                    site.pages = [];
+                    var controls,
+                        control,
+                        jsonControl,
+                        jsonControlProperty,
+                        currentPage,
+                        jsonPageProperty,
+                        controlLoop,
+                        propertyLoop,
+                        property,
+                        currProp,
+                        data,
+                        controlFactory = new ControlFactory(),
+                        currentChild,
+                        rawData = msgData.hasOwnProperty('jsonData') ? msgData.jsonData : new RawDataManager().load(msgData.loadFromLocalStorage),
+                        isDesignTime = msgData.hasOwnProperty('isDesignTime') ? msgData.isDesignTime : true;
 
-                    // and also set the current page:
-                    site.currentPageID = data.pages[0].id;
+                    // create a site:
+                    var site = new Site({
+                        isDesignTime: isDesignTime
+                    });
 
-                    for (; pageLoop < data.pages.length; ++pageLoop) {
-                        currentPage = site.createPage();
+                    data = rawData && rawData.length > 0 ? JSON.parse(rawData) : [];
 
-                        jsonPage = data.pages[pageLoop];
-                        controls = [];
+                    // loop through each page:
+                    if (data.pages !== undefined) {
 
-                        // assign all properties, but ignore the controls:
-                        for (jsonPageProperty in jsonPage) {
-                            if (jsonPage.hasOwnProperty(jsonPageProperty) && jsonPageProperty !== 'controls') {
-                                currentPage[jsonPageProperty] = jsonPage[jsonPageProperty];
-                            }
-                        }
+                        // we have at least a single page, so get rid of the pages we started with and 
+                        // replace with what's coming in:
+                        site.pages = [];
 
-                        // now loop through the controls:
-                        for (controlLoop = 0; controlLoop < jsonPage.controls.length; ++controlLoop) {
+                        // and also set the current page:
+                        site.currentPageID = data.pages[0].id;
 
-                            // create the appropriate control type:
-                            jsonControl = jsonPage.controls[controlLoop];
+                        _.each(data.pages, function(jsonPage) {
 
-                            control = controlFactory.getByKey(jsonControl.type);
-                            control.isOnGrid = true;
+                            //var newContainer = [];
 
-                            // set control's properties, excluding 'controlProperties' property:
-                            for (property in jsonControl) {
-                                // don't overwrite the control properties, they will be updated separately below:
-                                if (jsonControl.hasOwnProperty(property) && property !== 'controlProperties' && property !== 'childControls') {
-                                    control[property] = jsonControl[property];
+                            // this page isn't enabled, so carry on:
+                            if (jsonPage.hasOwnProperty('isEnabled') && jsonPage.isEnabled) {
+
+                                currentPage = site.createPage();
+
+                                controls = [];
+
+                                // assign all properties, but ignore 
+                                // controls and pages:
+                                for (jsonPageProperty in jsonPage) {
+                                    if (jsonPage.hasOwnProperty(jsonPageProperty) && 
+                                        ['controls'].indexOf(jsonPageProperty) === -1) {
+                                        currentPage[jsonPageProperty] = jsonPage[jsonPageProperty];
+                                    }
                                 }
-                            }
 
-                            // loop through each specific controlProperties property:
-                            for (propertyLoop = 0; propertyLoop < jsonControl.controlProperties.length; ++propertyLoop) {
-                                jsonControlProperty = jsonControl.controlProperties[propertyLoop];
+                                // now loop through the controls:
+                                for (controlLoop = 0; controlLoop < jsonPage.controls.length; ++controlLoop) {
 
-                                // uid, value, id:
+                                    // create the appropriate control type:
+                                    jsonControl = jsonPage.controls[controlLoop];
 
-                                // get the property:
-                                currProp = _.findWhere(control.controlProperties, {
-                                    uid: jsonControlProperty.uid
-                                });
+                                    control = controlFactory.getByKey(jsonControl.type);
+                                    control.isOnGrid = true;
 
-                                if (currProp !== undefined) {
-                                    currProp.value = jsonControlProperty.value;
-                                    currProp.id = jsonControlProperty.id;
-                                }
-                            }
-
-                            // loop through each child control:
-                            if (jsonControl.hasOwnProperty('childControls')) {
-
-                                for (propertyLoop = 0; propertyLoop < jsonControl.childControls.length; ++propertyLoop) {
-                                    jsonControlProperty = jsonControl.childControls[propertyLoop];
-
-                                    // what type is it?
-                                    currentChild = controlFactory.getChildByKey(jsonControl.childControls[propertyLoop].type);
-                                    currentChild.id = jsonControl.childControls[propertyLoop].id;
-
-                                    // now loop through the child control's control properties:
-                                    for (var childControlLoop = 0; childControlLoop < jsonControl.childControls[propertyLoop].controlProperties.length;
-                                        ++childControlLoop) {
-
-                                        // get the property:
-                                        currProp = _.findWhere(currentChild.controlProperties, {
-                                            uid: jsonControl.childControls[propertyLoop].controlProperties[childControlLoop].uid
-                                        });
-
-                                        if (currProp !== undefined) {
-                                            currProp.value = jsonControl.childControls[propertyLoop].controlProperties[childControlLoop].value;
-                                            currProp.id = jsonControl.childControls[propertyLoop].controlProperties[childControlLoop].id;
-
-                                            // call finalise method:
-                                            currProp.finalise();
+                                    // set control's properties, excluding 'controlProperties' property:
+                                    for (property in jsonControl) {
+                                        // don't overwrite the control properties, they will be updated separately below:
+                                        if (jsonControl.hasOwnProperty(property) && property !== 'controlProperties' && property !== 'childControls') {
+                                            control[property] = jsonControl[property];
                                         }
                                     }
 
-                                    control.childControls.push(currentChild);
+                                    // loop through each specific controlProperties property:
+                                    for (propertyLoop = 0; propertyLoop < jsonControl.controlProperties.length; ++propertyLoop) {
+                                        jsonControlProperty = jsonControl.controlProperties[propertyLoop];
+
+                                        // uid, value, id:
+
+                                        // get the property:
+                                        currProp = _.findWhere(control.controlProperties, {
+                                            uid: jsonControlProperty.uid
+                                        });
+
+                                        if (currProp !== undefined) {
+                                            currProp.value = jsonControlProperty.value;
+                                            currProp.id = jsonControlProperty.id;
+                                        }
+                                    }
+
+                                    // loop through each child control:
+                                    if (jsonControl.hasOwnProperty('childControls')) {
+
+                                        for (propertyLoop = 0; propertyLoop < jsonControl.childControls.length; ++propertyLoop) {
+                                            jsonControlProperty = jsonControl.childControls[propertyLoop];
+
+                                            // what type is it?
+                                            currentChild = controlFactory.getChildByKey(jsonControl.childControls[propertyLoop].type);
+                                            currentChild.id = jsonControl.childControls[propertyLoop].id;
+
+                                            // now loop through the child control's control properties:
+                                            for (var childControlLoop = 0; childControlLoop < jsonControl.childControls[propertyLoop].controlProperties.length;
+                                                ++childControlLoop) {
+
+                                                // get the property:
+                                                currProp = _.findWhere(currentChild.controlProperties, {
+                                                    uid: jsonControl.childControls[propertyLoop].controlProperties[childControlLoop].uid
+                                                });
+
+                                                if (currProp !== undefined) {
+                                                    currProp.value = jsonControl.childControls[propertyLoop].controlProperties[childControlLoop].value;
+                                                    currProp.id = jsonControl.childControls[propertyLoop].controlProperties[childControlLoop].id;
+
+                                                    // call finalise method:
+                                                    currProp.finalise();
+                                                }
+                                            }
+
+                                            control.childControls.push(currentChild);
+                                        }
+                                    }
+
+                                    // add the control:
+                                    controls.push(control);
                                 }
+
+                                currentPage.controls = controls;
                             }
 
-                            // add the control:
-                            controls.push(control);
-                        }
-
-                        currentPage.controls = controls;
-                        site.addPage(currentPage);
-
+                            site.pages.push(currentPage);
+                            
+                        });
+                        
                     }
-                }
 
-                PubSub.publish(pubSubTable.initSite, site);
-            });
+                    PubSub.publish(pubSubTable.initSite, site);
+                });
+            };
+
         };
 
-    };
+        return Serializer;
 
-    return Serializer;
-
-});
+    });

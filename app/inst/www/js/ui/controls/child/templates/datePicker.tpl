@@ -19,4 +19,4 @@ if(typeof control.controlProperties[0].value !== 'undefined' && control.controlP
     <%=control.controlProperties[0].value%>
 </label>
 <% } %>
-<input type="date" id="<%=control.id%>"></input>
+<input type="date" id="<%=control.id%>" data-variablename="<%=control.controlProperties[1].value%>"></input>

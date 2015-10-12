@@ -53,7 +53,7 @@ define([
             PubSub.publish(pubSubTable.updatePage, {
                 id: $('#page-form').data('pageid'),
                 navigationTitle: $('#inputPageNavigationTitle').val(),
-                isEnabled: $('#inputIsEnabled').val()
+                isEnabled: $('#inputIsEnabled').prop('checked')
             });
 
             $('#dialog-controlSettings').jqmHide();
@@ -90,6 +90,17 @@ define([
             // page settings:
             $('body').on('click', '.page-settings', function() {
                 PubSub.publish(pubSubTable.pageSettingsClicked, $(this).closest('li').data('pageid'));
+            });
+
+            // duplicate page:
+            $('body').on('click', '.page-duplicate', function() {
+                // show confirmation:
+                PubSub.publish(pubSubTable.showConfirmDialog, {
+                    heading: 'Duplicate Page?',
+                    message: 'Are you sure you wish to duplicate this page?',
+                    pubSubMessage: pubSubTable.duplicatePageConfirm,  
+                    dataItem: $(this).closest('li').data('pageid')
+                });
             });
 
             // confirmation 'confirm':
@@ -207,7 +218,7 @@ define([
                 console.info('dialogManager: pubSubTable.showPageSettingsDialog');
 
                 $('#inputPageNavigationTitle').val(page.navigationTitle);
-                $('#intputIsEnabled').prop('checked', page.isEnabled);
+                $('#inputIsEnabled').prop('checked', page.isEnabled);
 
                 $('#dialog-pageSettings form')
                     .find('input')

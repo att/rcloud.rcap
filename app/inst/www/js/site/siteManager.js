@@ -89,19 +89,23 @@ define([
             //
             //
             //
-            PubSub.subscribe(pubSubTable.addPage, function( /*msg, data*/ ) {
+            PubSub.subscribe(pubSubTable.addPage, function(msg, options) {
 
                 console.info('siteManager: pubSubTable.addPage');
 
                 var site = getSite();
-                var newPage = site.createPage();
+                var newPage = site.createPage(options);
 
-                site.addPage(newPage);
+                site.pages.push(newPage);
+                
                 site.currentPageID = newPage.id;
                 setSite(site);
 
                 // let interested parties know that a page has been added:
-                PubSub.publish('ui:' + pubSubTable.addPage, newPage);
+                PubSub.publish(pubSubTable.pageAdded, {
+                    page: newPage,
+                    options: options
+                });
 
                 PubSub.publish(pubSubTable.pagesChanged, {
                     pages: site.pages,
@@ -135,6 +139,32 @@ define([
                 PubSub.publish(pubSubTable.pagesChanged, {
                     pages: site.pages,
                     currentPageID: site.currentPageID
+                });
+
+                PubSub.publish(pubSubTable.changeSelectedPageId, site.currentPageID);
+            });
+
+            ////////////////////////////////////////////////////////////////////////////////////
+            //
+            //
+            //
+            PubSub.subscribe(pubSubTable.duplicatePageConfirm, function(msg, pageId) {
+
+                console.info('siteManager: pubSubTable.duplicatePageConfirm');
+
+                var site = getSite();
+                var newPageId = site.duplicatePage(pageId);
+
+                // duplicate page doesn't return this, but does add a page, so reset:
+                setSite(site);
+
+                PubSub.publish(pubSubTable.pageAdded, {
+                    page: site.getPageByID(newPageId)
+                });
+
+                PubSub.publish(pubSubTable.pagesChanged, {
+                    pages: site.pages,
+                    currentPageID: newPageId
                 });
             });
 
