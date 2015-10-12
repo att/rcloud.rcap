@@ -7,13 +7,12 @@
 #' @return Nothing
 #'
 #' @examples
-#' \dontrun {
-#'   funText <- fillTemplate("rplotTemplate.R",
-#'                           list(control.id=rcapControl$id,
-#'                           control.controlProperties.1=rcapControl$controlProperties[[1]]$value))
+#' \dontrun{
+#' funText <- fillTemplate("rplotTemplate.R",
+#'                         list(control.id=rcapControl$id,
+#'                         control.controlProperties.1=rcapControl$controlProperties[[1]]$value))
 #'
 #' sourceControlCode(funText, rcapControl$id)
-#'
 #' }
 #' 
 sourceControlCode <- function(funText, controlId) {
