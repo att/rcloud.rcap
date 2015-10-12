@@ -10,7 +10,7 @@ rcloud.rcap.caps <- NULL
   }
   rcloud.rcap.caps <<- f("rcloud.rcap", "rcloud.rcap.js")
   if(!is.null(rcloud.rcap.caps)) {
-    ocaps <- list()
+    ocaps <- list(getRFunctions = rcloud.support:::make.oc(rcloud.rcap.global.functions))
     rcloud.rcap.caps$init(ocaps)
   }
 }

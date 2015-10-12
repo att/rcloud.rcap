@@ -6,6 +6,6 @@ Authors@R: c(person("Douglas", "Ashton", email = "dashton@mango-solutions.com", 
 Maintainer: Douglas Ashton <dashton@mango-solutions.com>
 Description: Website designer for RCloud's mini interface.
 Imports: rcloud.support, rcloud.web, jsonlite
-Suggests:
-License:
+Suggests: testthat
+License: 
 RCloud-Extension: gui

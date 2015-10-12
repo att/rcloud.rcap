@@ -18,10 +18,13 @@ module.exports = function(grunt) {
         dist: 'dist',
         distFiles: [
             'DESCRIPTION',
-            'README.md',    
+            'README.md',
+	    'NAMESPACE',
             'inst/javascript/rcloud.rcap.js',
             'inst/www/js/initialiser.js',
-            'R/**/*'
+            'R/**/*',
+            'tests/**/*',
+            'man/**/*'
         ]
     };
     
@@ -92,6 +95,8 @@ module.exports = function(grunt) {
                     src: [
                         'inst/**/*',
                         'R/**/*',
+                        'tests/**/*',
+                        'man/**/*',
                         '!**/*.scss' // we don't want the scss file(s)
                     ]
                 }, {
@@ -114,6 +119,7 @@ module.exports = function(grunt) {
                     dest: '<%= appConfig.devDeployDir%>',
                     src: [
                         'DESCRIPTION',
+                        'NAMESPACE',
                         'README.md'
                     ]
                 }]
@@ -198,7 +204,7 @@ module.exports = function(grunt) {
 
     // 3. Where we tell Grunt what to do when we type "grunt" into the terminal.
     // dev, opens chrome with built dev:
-    grunt.registerTask('default', ['newer:jshint', 'clean:dev', 'copy:dev', 'shell:dev', 'open:dev']);
+    grunt.registerTask('default', ['newer:jshint', 'clean:dev', 'copy:dev'/*, 'shell:dev', 'open:dev'*/]);
 
     // dist, build production code:
     grunt.registerTask('dist', ['newer:jshint', 'clean:dist', 'copy:dist', 'shell:dist' /*, 'open'*/ ]);
