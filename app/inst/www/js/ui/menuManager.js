@@ -1,8 +1,15 @@
 define([
+    'text!ui/templates/pageMenuItem.tpl',
     'pubsub',
     'site/pubSubTable',
-    'controls/factories/controlFactory'
-], function(PubSub, pubSubTable, ControlFactory) {
+    'controls/factories/controlFactory',
+    //
+    //  THIS OVERWRITES THE $.FN.SORTABLE FUNCTION, WHICH SPOILS THE FUN FOR EVERYONE ELSE
+    //  BEFORE UNCOMMENTING, AND USING FOR THE PAGE SORTING MENU, IT NEEDS TO BE ALIASED IN
+    //  SOME WAY:
+    //
+    //'jquery-sortable'
+], function(pageMenuItemTemplate, PubSub, pubSubTable, ControlFactory) {
 
     'use strict';
 
@@ -18,25 +25,6 @@ define([
 
             console.info('MenuManager: initialise');
 
-            var pageListItemMarkup = '<li class="js-rcap-dynamic" data-pageid="<%=p.id%>"><a href="#"><em class="navigation-title"><%=p.navigationTitle%></em> <span class="page-settings" title="Modify page settings">Settings</span></a></li>';
-
-            //////////////////////////////////////////////////////////////////////////////////////////
-            //
-            //
-            //
-            PubSub.subscribe('ui:' + pubSubTable.addPage, function(msg, page) {
-
-                console.info('menuManager: pubSubTable.addPage');
-
-                var template = _.template(pageListItemMarkup);
-                $('#pages').append(template({
-                    p: page
-                }));
-
-                // select the newly added page:
-                $('#pages li[data-pageid="' + page.id + '"] a').trigger('click');
-            });
-
             //////////////////////////////////////////////////////////////////////////////////////////
             //
             //
@@ -44,8 +32,16 @@ define([
             PubSub.subscribe(pubSubTable.updatePage, function(msg, pageObj) {
 
                 console.info('menuManager: pubSubTable.updatePage');
+                $('#pages li[data-pageid="' + pageObj.id + '"] .navigation-title:eq(0)').text(pageObj.navigationTitle);
 
-                $('#pages li[data-pageid="' + pageObj.id + '"] .navigation-title').text(pageObj.navigationTitle);
+                var pagesSelector = $('#pages li[data-pageid="' + pageObj.id + '"], #pages li[data-pageid="' + pageObj.id + '"] li');
+
+                if (pageObj.isEnabled) {
+                    pagesSelector.removeClass('not-enabled');
+                } else {
+                    pagesSelector.addClass('not-enabled');
+                }
+
             });
 
             //////////////////////////////////////////////////////////////////////////////////////////
@@ -71,12 +67,26 @@ define([
 
                 console.info('menuManager: pubSubTable.initSite');
 
-                // do stuff with the site's pages:
-                var templateStr = '<% _.each(pages, function(p){ %>' + pageListItemMarkup + '<% }); %>';
-                var template = _.template(templateStr);
-                $('#pages').html(template({
-                    pages: site.pages
-                }));
+                var buildTree = function(pages, container) {
+                    _.each(pages, function(item) {
+
+                        var template = _.template(pageMenuItemTemplate);
+                        var markup = template({
+                            p: item,
+                            canAddChild: item.depth < 3
+                        });
+
+                        var newContainer = $(markup);
+
+                        if (item.depth === 1) {
+                            container.append(newContainer);
+                        } else {
+                            container.find('li[data-pageid="' + item.parentId + '"] ol:first').append(newContainer);
+                        }
+                    });
+                };
+
+                buildTree(site.pages, $('#pages'));
 
                 // the first is as good as any:
                 $('#pages a:eq(0)').trigger('click');
@@ -86,15 +96,61 @@ define([
             //
             //
             //
-            PubSub.subscribe(pubSubTable.close, function() { 
+            PubSub.subscribe(pubSubTable.close, function() {
                 $('#pages li').remove();
             });
 
+            //////////////////////////////////////////////////////////////////////////////////////////
+            //
+            // click handler for add page (both 'root' level and child):
+            //
+            $('body').on('click', '#page-header a, .page-addchild', function() {
 
-            $('body').on('click', '#page-header a', function() {
-                PubSub.publish(pubSubTable.addPage, {});
+                var parentPageId;
+
+                // child page:
+                if ($(this).hasClass('page-addchild')) {
+                    parentPageId = $(this).parent().closest('li').data('pageid');
+                }
+
+                PubSub.publish(pubSubTable.addPage, {
+                    parentPageId: parentPageId
+                });
+
+                // verify that this a child can be added.
+                // var maxLevels = $(this).closest('ol').data('maxlevels');
+                //$(this).parent().siblings('ol').append('<li><a href="#">' + new Date().toString().substr(16, 8) + ' <span class="page-addchild">+</span></a> <ol></ol></li>');
+
             });
 
+            //////////////////////////////////////////////////////////////////////////////////////////
+            //
+            //
+            //
+            PubSub.subscribe(pubSubTable.pageAdded, function(msg, msgData) {
+
+                console.info('menuManager: pubSubTable.addPage');
+
+                var template = _.template(pageMenuItemTemplate),
+                    newPageMarkup = template({
+                        p: msgData.page,
+                        canAddChild: msgData.page.canAddChild()
+                    });
+
+                if (msgData.options.parentPageId) {
+                    $('#pages li[data-pageid="' + msgData.options.parentPageId + '"]').children('ol').append(newPageMarkup);
+                } else {
+                    $('#pages').append(newPageMarkup);
+                }
+
+                // select the newly added page:
+                $('#pages li[data-pageid="' + msgData.page.id + '"] a').trigger('click');
+            });
+
+            //////////////////////////////////////////////////////////////////////////////////////////
+            //
+            //
+            //
             // click handler for page:
             $('body').on('click', '#pages a', function() {
                 $('#pages li').removeClass('selected');
@@ -107,10 +163,13 @@ define([
                 PubSub.publish(pubSubTable.changeSelectedPageId, li.data('pageid'));
             });
 
+
+
             // sort 'em':
+            /*
             $('#pages').sortable({
                 containment: 'parent',
-                update: function( /*event, ui*/ ) {
+                update: function() {
 
                     var pageIds = [];
                     $('#pages li').each(function() {
@@ -119,7 +178,34 @@ define([
 
                     PubSub.publish(pubSubTable.changePageOrder, pageIds);
                 }
-            });
+            });*/
+
+            /*var group = */
+
+
+            // $('ol#pages').sortable({
+            //     group: 'pages',
+            //     delay: 500,
+            //     // onDrop: function($item, container, _super) {
+                    
+            //     //     // var data = group.sortable('serialize').get();
+            //     //     // var jsonString = JSON.stringify(data, null, '  ');
+
+            //     //     // console.log(jsonString);
+
+            //     //     // _super($item, container);
+                    
+
+            //     //     // determine the parent and the sibling of the moved item:
+            //     //     var info = {
+            //     //         movedItem: $item.data('pageid'),
+            //     //         parent: $item.parent().closest('li').data('pageid'),
+            //     //         previousSibling: $item.prev().data('pageid')
+            //     //     };
+            //     // }
+            // });
+
+
 
             // add styling info to the first page:
             $('#pages li:eq(0) a').trigger('click');

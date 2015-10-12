@@ -1,10 +1,11 @@
 define(['rcap/js/ui/controls/gridControl',
     'rcap/js/ui/controls/properties/dropdownControlProperty',
-    'rcap/js/ui/controls/properties/colorControlProperty', 
+    'rcap/js/ui/controls/properties/colorControlProperty',
     'pubsub',
     'site/pubSubTable',
+    'rcap/js/utils/pageWalker',
     'text!controlTemplates/pageMenu.tpl'
-], function(GridControl, DropdownControlProperty, ColorControlProperty, PubSub, pubSubTable, tpl) {
+], function(GridControl, DropdownControlProperty, ColorControlProperty, PubSub, pubSubTable, PageWalker, tpl) {
 
     'use strict';
 
@@ -17,12 +18,40 @@ define(['rcap/js/ui/controls/gridControl',
             PubSub.publish(pubSubTable.updateControl, control);
         } else {
 
-            var template = _.template(tpl),
-                markup = template({
-                    control: control
-                });
+            if (['horizontal', 'vertical'].indexOf(control.controlProperties[0].value) !== -1) {
+                var template = _.template(tpl),
+                    markup = template({
+                        control: control
+                    });
 
-            return markup;
+                return markup;
+            } else {
+
+                var hamburgerTemplate =
+                    $('<nav class="hamburger hamburger-valign-' + control.controlProperties[1].value + '"><button>Toggle</button><div></div></nav>');
+
+                var buildTree = function(pages) {
+                    _.each(pages, function(page) {
+
+                        var template = _.template('<a style="padding-left:<%=((p.depth - 1) * 20) + 15%>px" href="javascript:void(0)" data-ishamburger="true" data-pageid="<%=p.id%>" data-href="<%=p.navigationTitle%>"><%=p.navigationTitle%></a>');
+                        var markup = template({
+                            p: page
+                        });
+
+                        if (page.isEnabled) {
+                            hamburgerTemplate.find('> div').append(markup);
+                        }
+
+                        if (page.pages) {
+                            buildTree(page.pages);
+                        }
+                    });
+                };
+
+                buildTree(control.pages);
+
+                return hamburgerTemplate[0].outerHTML;
+            }
         }
     };
 
@@ -33,7 +62,7 @@ define(['rcap/js/ui/controls/gridControl',
                 label: 'Page Menu',
                 icon: 'f0c9',
                 inlineIcon: 'reorder',
-                initialSize: [2, 2],
+                initialSize: [2, 1],
                 controlProperties: [
                     new DropdownControlProperty({
                         uid: 'menustyle',
@@ -82,27 +111,28 @@ define(['rcap/js/ui/controls/gridControl',
                             value: 'bottom'
                         }],
                         value: 'middle'
-                    }),/*
-                    new ColorControlProperty({
-                        uid: 'linkColor',
-                        label: 'Link color',
-                        helpText: 'The color of the menu links'
                     }),
-                    new ColorControlProperty({
-                        uid: 'backgroundColor',
-                        label: 'Link background color',
-                        helpText: 'The background color of the menu links'
-                    }),
-                    new ColorControlProperty({
-                        uid: 'hoverBackgroundColor',
-                        label: 'Link hover background color',
-                        helpText: 'The hover background color of the menu links'
-                    }),
-                    new ColorControlProperty({
-                        uid: 'selectedBackgroundColor',
-                        label: 'Link selected background color',
-                        helpText: 'The selected background color of the menu links'
-                    })*/
+                    /*
+                                        new ColorControlProperty({
+                                            uid: 'linkColor',
+                                            label: 'Link color',
+                                            helpText: 'The color of the menu links'
+                                        }),
+                                        new ColorControlProperty({
+                                            uid: 'backgroundColor',
+                                            label: 'Link background color',
+                                            helpText: 'The background color of the menu links'
+                                        }),
+                                        new ColorControlProperty({
+                                            uid: 'hoverBackgroundColor',
+                                            label: 'Link hover background color',
+                                            helpText: 'The hover background color of the menu links'
+                                        }),
+                                        new ColorControlProperty({
+                                            uid: 'selectedBackgroundColor',
+                                            label: 'Link selected background color',
+                                            helpText: 'The selected background color of the menu links'
+                                        })*/
                 ]
             });
 
@@ -147,18 +177,21 @@ define(['rcap/js/ui/controls/gridControl',
             //
             //
             //
-            PubSub.subscribe('ui:' + pubSubTable.addPage, function(msg, page) {
+            PubSub.subscribe(pubSubTable.pageAdded, function(msg, msgData) {
 
                 if (me.isOnGrid) {
 
                     // if the page doesn't already exist:
                     if (!_.find(me.pages, function(p) {
-                            return p.id === page.id;
+                            return p.id === msgData.page.id;
                         })) {
                         //console.log('pageMenu control : adding page with id ' + page.id);
 
-                        me.pages.push(page);
-                        me.currentPageID = page.id;
+                        /*
+
+                        msgData.page
+                                                me.pages.push(page);
+                                                me.currentPageID = page.id;*/
 
                         renderControl(me, true);
                     }
@@ -175,9 +208,7 @@ define(['rcap/js/ui/controls/gridControl',
                 if (me.isOnGrid) {
 
                     // update the page's details:
-                    var page = _.findWhere(me.pages, {
-                        id: pageObj.id
-                    });
+                    var page = _.findWhere(me.pages, { id : pageObj.id });
 
                     page.navigationTitle = pageObj.navigationTitle;
                     page.isEnabled = pageObj.isEnabled;
@@ -196,9 +227,8 @@ define(['rcap/js/ui/controls/gridControl',
             PubSub.subscribe(pubSubTable.deletePageConfirm, function(msg, pageId) {
 
                 if (me.isOnGrid) {
-                    me.pages = _.without(me.pages, _.findWhere(me.pages, {
-                        id: pageId
-                    }));
+
+                    me.pages = new PageWalker(me.pages).deletePage(pageId);
 
                     me.currentPageID = me.pages.length > 0 ? me.pages[0].id : '';
 

@@ -4,8 +4,6 @@ define(['pubsub', 'rcap/js/Class'], function() {
 
     var events = {
 
-        broadcastSiteRequest : 'broadcastSiteRequest',
-        broadcastSiteResponse : 'broadcastSiteResponse',
         initSite : 'initSite',
         designerInit : 'designerInit',
         serialize : 'serialize',
@@ -24,10 +22,12 @@ define(['pubsub', 'rcap/js/Class'], function() {
 
         // page:
         addPage : 'addPage',
+        pageAdded : 'pageAdded',
         updatePage : 'updatePage',
 
         deletePage : 'deletePage',
         deletePageConfirm : 'deletePageConfirm',
+        duplicatePageConfirm : 'duplicatePageConfirm',
 
         pagesChanged : 'pagesChanged',
 
@@ -57,7 +57,6 @@ define(['pubsub', 'rcap/js/Class'], function() {
         deleteControlConfirm : 'deleteControlConfirm',
         configureControl : 'configureControl',
         configureForm : 'configureForm',
-
         showControlDialog : 'showControlDialog',
         showFormBuilderDialog : 'showFormBuilderDialog'
 

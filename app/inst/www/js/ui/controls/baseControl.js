@@ -2,6 +2,10 @@ define(['rcap/js/Class'], function() {
 
     'use strict';
 
+    var generateId = function() {
+        return 'rcap' + Math.random().toString(16).slice(2);
+    };
+
     var BaseControl = Class.extend({
         init: function(options) {
             options = options || {};
@@ -11,7 +15,11 @@ define(['rcap/js/Class'], function() {
             this.inlineIcon = options.inlineIcon;
             this.controlProperties = options.controlProperties;
             // generate a random ID:
-            this.id = 'rcap' + Math.random().toString(16).slice(2);
+            this.id = generateId();
+        },
+        regenerateId : function() {
+            this.id = generateId();
+            return this;
         },
         deserialize: function() {
 

@@ -10,11 +10,7 @@
 </label>
 
 
-
-
-
-
-<select id="<%=control.id%>">
+<select id="<%=control.id%>" data-variablename="<%=control.controlProperties[1].value%>">
 
 
 <%

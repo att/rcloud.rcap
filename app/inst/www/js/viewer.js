@@ -47,29 +47,20 @@ define(['text!rcap/partials/viewer.htm',
         };
 
         this.initialiseControls = function() {
-            _.each(new ControlFactory().getGridControls(), function(control) {
-                control.initialiseViewerItems();
-            });
+
+            // dependent on notebook_result:
+            var interval = setInterval(function() {
+                if (window.notebook_result) { // jshint ignore:line
+
+                    clearInterval(interval);
+
+                    _.each(new ControlFactory().getGridControls(), function(control) {
+                        control.initialiseViewerItems();
+                    });
+
+                }
+            }, 500);
         };
-
-        this.initialiseFromMenu = function() {
-
-            this.setup();
-
-            $('#rcap-viewer').css({
-                'margin-top': '-50px'
-            }).show();
-
-            PubSub.publish(pubSubTable.deserialize, {
-                isDesignTime: false
-            });
-
-            setTimeout(function() {
-                $(document).off('scroll');
-            }, 2000);
-
-        };
-
 
         this.initialise = function(json) {
 
@@ -88,6 +79,39 @@ define(['text!rcap/partials/viewer.htm',
                 isDesignTime: false,
                 jsonData: json
             });
+
+        };
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////
+        //
+        // this is a temporary function (Shane to remove at the appropriate time):
+        //
+        this.initialiseFromMenu = function() {
+
+            this.setup();
+
+            $('#rcap-viewer').css({
+                'margin-top': '-50px'
+            }).show();
+
+            // subscribe to grid done event:
+            PubSub.subscribe(pubSubTable.gridInitComplete, function() {
+
+                console.info('viewer: pubSubTable.gridInitComplete');
+
+                _.each(new ControlFactory().getGridControls(), function(control) {
+                    control.initialiseViewerItems();
+                });
+            });
+
+            PubSub.publish(pubSubTable.deserialize, {
+                isDesignTime: false,
+                loadFromLocalStorage: true
+            });
+
+            setTimeout(function() {
+                $(document).off('scroll');
+            }, 2000);
 
         };
 
