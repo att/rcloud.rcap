@@ -163,8 +163,10 @@ module.exports = function(grunt) {
             dev: {
                 command: [
                     'cd <%= appConfig.cmdDir %>',
+                    //'vagrant ssh -- sed -i \'s\/\\r\/\/\' \/vagrant\/rcloud.rcap-develop\/DESCRIPTION', <-- this also removed some instances of the 'r' character :|
+                    'vagrant ssh -- dos2unix \/vagrant\/rcloud.rcap-develop\/DESCRIPTION \/vagrant\/rcloud.rcap-develop\/DESCRIPTION',
                     'vagrant ssh -- sh rebuild.sh'
-                ].join('&& ')
+                ].join(' && ')
             },
             dist: {
                 commandcd: [
@@ -204,7 +206,7 @@ module.exports = function(grunt) {
 
     // 3. Where we tell Grunt what to do when we type "grunt" into the terminal.
     // dev, opens chrome with built dev:
-    grunt.registerTask('default', ['newer:jshint', 'clean:dev', 'copy:dev'/*, 'shell:dev', 'open:dev'*/]);
+    grunt.registerTask('default', ['newer:jshint', 'clean:dev', 'copy:dev', 'shell:dev', 'open:dev']);
 
     // dist, build production code:
     grunt.registerTask('dist', ['newer:jshint', 'clean:dist', 'copy:dist', 'shell:dist' /*, 'open'*/ ]);
