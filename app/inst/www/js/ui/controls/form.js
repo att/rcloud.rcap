@@ -7,8 +7,7 @@ define(['rcap/js/ui/controls/gridControl', 'text!rcap/partials/dialogs/_formBuil
             this._super({
                 type: 'form',
                 label: 'Form',
-                icon: 'f022',
-                inlineIcon: 'list-alt',
+                icon: 'list-alt',
                 initialSize: [2, 1],
                 controlProperties: [
                     // TODO : general form properties!

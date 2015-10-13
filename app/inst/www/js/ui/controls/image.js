@@ -9,8 +9,7 @@ define(['rcap/js/ui/controls/gridControl', 'rcap/js/ui/controls/properties/textC
 			this._super({
 				type : 'image',
 				label : 'Image',
-				icon: 'f03e',  
-				inlineIcon: 'picture',
+				icon: 'picture',
 				initialSize: [2, 2],
 				controlProperties: [
 					new TextControlProperty({

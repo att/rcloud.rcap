@@ -9,8 +9,7 @@ define(['rcap/js/ui/controls/baseControl'], function(BaseControl) {
             this._super({
                 type: options.type,
                 label: options.label,
-                icon: options.icon,
-                inlineIcon: options.inlineIcon
+                icon: options.icon
             });
 
             this.x = +options.x;
@@ -36,7 +35,7 @@ define(['rcap/js/ui/controls/baseControl'], function(BaseControl) {
 
         },
         render: function( /*options*/ ) {
-            return '<p><i class="icon-' + this.inlineIcon + '"></i>' + this.label + ': RENDER</p>';
+            return '<p><i class="icon-' + this.icon + '"></i>' + this.label + ': RENDER</p>';
         },
         getDialogMarkup: function() {
             var html = '';

@@ -31,7 +31,7 @@ define([
 
         // append button (and icon if the state is not valid):
         outer.append('<p style="margin-bottom:0">' +
-            (control.isValid() ? '' : '<i class="config-icon icon-' + control.inlineIcon + '"></i>') +
+            (control.isValid() ? '' : '<i class="config-icon icon-' + control.icon + '"></i>') +
             '<button type="button" class="btn btn-primary btn-configure">Configure</button></p>');
 
         return outer;

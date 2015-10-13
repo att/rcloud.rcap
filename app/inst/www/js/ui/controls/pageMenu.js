@@ -60,8 +60,7 @@ define(['rcap/js/ui/controls/gridControl',
             this._super({
                 type: 'pagemenu',
                 label: 'Page Menu',
-                icon: 'f0c9',
-                inlineIcon: 'reorder',
+                icon: 'reorder',
                 initialSize: [2, 1],
                 controlProperties: [
                     new DropdownControlProperty({

@@ -214,7 +214,7 @@ define([
         },
         initialiseControlsMenu: function() {
             var controls = controlFactory.getGridControls();
-            var templateStr = '<% _.each(controls, function(control){ %><li data-type="<%=control.type%>"><a href="#" class="control-<%=control.type %>" title="Add <%=control.type%>"><%= control.label %></a></li><% }); %>';
+            var templateStr = '<% _.each(controls, function(control){ %><li data-type="<%=control.type%>"><a href="#" class="control-<%=control.type %>" title="Add <%=control.type%>"><i class="icon-<%=control.icon%>"></i><%= control.label %></a></li><% }); %>';
             var template = _.template(templateStr);
             $('.menu .controls').append(template({
                 controls: controls

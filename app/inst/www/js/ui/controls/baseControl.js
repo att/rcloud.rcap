@@ -12,7 +12,6 @@ define(['rcap/js/Class'], function() {
             this.type = options.type;
             this.label = options.label;
             this.icon = options.icon;
-            this.inlineIcon = options.inlineIcon;
             this.controlProperties = options.controlProperties;
             // generate a random ID:
             this.id = generateId();
@@ -28,7 +27,7 @@ define(['rcap/js/Class'], function() {
 
         },
         render: function(/*options*/) {
-            return '<p><i class="icon-' + this.inlineIcon + '"></i></p>';
+            return '<p><i class="icon-' + this.icon + '"></i></p>';
         },
         getDialogMarkup: function() {
             var html = '';

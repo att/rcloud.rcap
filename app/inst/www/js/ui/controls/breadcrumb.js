@@ -37,8 +37,7 @@ define(['rcap/js/ui/controls/gridControl',
                 this._super({
                     type: 'breadcrumb',
                     label: 'Breadcrumb',
-                    icon: 'f141',
-                    inlineIcon: 'ellipsis-horizontal',
+                    icon: 'ellipsis-horizontal',
                     initialSize: [2, 1],
                     controlProperties: [
                         new TextControlProperty({

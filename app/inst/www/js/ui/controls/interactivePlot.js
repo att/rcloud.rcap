@@ -12,8 +12,7 @@ define(['rcap/js/ui/controls/gridControl',
             this._super({
                 type: 'interactiveplot',
                 label: 'Interactive Plot',
-                icon: 'f080',
-                inlineIcon: 'bar-chart',
+                icon: 'bar-chart',
                 initialSize: [2, 2],
                 controlProperties: [
                     new MultilineTextControlProperty({
