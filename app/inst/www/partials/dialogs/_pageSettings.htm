@@ -6,7 +6,7 @@
         <form data-parsley-validate id="page-form">
             <div class="form-group">
                 <label for="inputPageNavigationTitle">Navigation Title</label>
-                <input type="text" class="form-control" id="inputPageNavigationTitle" placeholder="New Page">
+                <input type="text" class="form-control" id="inputPageNavigationTitle" placeholder="New Page" data-parsley-required data-parsley-pagenamevalidator>
                 <div class="description">The name for this page, as it appears in the menu.</div>
             </div>
             
@@ -24,6 +24,6 @@
     <div class="jqm-footer">
         <a href="javascript:void(0)" class="jqmClose">Cancel</a>
         <a href="javascript:void(0)" class="delete">Delete</a>
-        <a href="javascript:void(0)" class="jqmClose approve">Save</a>
+        <a href="javascript:void(0)" class="approve">Save</a>
     </div>
 </div>

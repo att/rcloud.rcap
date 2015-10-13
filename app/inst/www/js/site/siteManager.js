@@ -235,7 +235,11 @@ define([
 
                 console.info('siteManager: pubSubTable.pageSettingsClicked');
 
-                PubSub.publish(pubSubTable.showPageSettingsDialog, getSite().getPageByID(pageId));
+                // for validation purposes, get the current list of page navigation titles:
+                PubSub.publish(pubSubTable.showPageSettingsDialog, {
+                    page : getSite().getPageByID(pageId),
+                    currentPageNavigationTitles : getSite().getPageNavigationTitles()
+                });
             });
 
             ////////////////////////////////////////////////////////////////////////////////////

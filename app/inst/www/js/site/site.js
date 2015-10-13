@@ -141,6 +141,10 @@ define(['pages/page', 'rcap/js/utils/pageWalker'], function(Page, PageWalker) {
             return this;
         },
 
+        getPageNavigationTitles: function() {
+            return _.pluck(this.pages, 'navigationTitle');
+        },
+
         getPageByID: function(pageId) {
             return _.findWhere(this.pages, {
                 id: pageId

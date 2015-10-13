@@ -98,7 +98,7 @@ define([
                 PubSub.publish(pubSubTable.showConfirmDialog, {
                     heading: 'Duplicate Page?',
                     message: 'Are you sure you wish to duplicate this page?',
-                    pubSubMessage: pubSubTable.duplicatePageConfirm,  
+                    pubSubMessage: pubSubTable.duplicatePageConfirm,
                     dataItem: $(this).closest('li').data('pageid')
                 });
             });
@@ -131,8 +131,8 @@ define([
                 // });
 
                 $('#dialog-confirm .approve').data({
-                    message : data.pubSubMessage,
-                    dataitem : data.dataItem
+                    message: data.pubSubMessage,
+                    dataitem: data.dataItem
                 });
 
 
@@ -214,9 +214,12 @@ define([
             //
             // control configure message subscription:
             //
-            PubSub.subscribe(pubSubTable.showPageSettingsDialog, function(msg, page) {
+            PubSub.subscribe(pubSubTable.showPageSettingsDialog, function(msg, pageInfo) {
 
                 console.info('dialogManager: pubSubTable.showPageSettingsDialog');
+
+                var page = pageInfo.page;
+                var currentPageTitles = _.map(pageInfo.currentPageNavigationTitles, function(s) { return s.toUpperCase(); });
 
                 $('#inputPageNavigationTitle').val(page.navigationTitle);
                 $('#inputIsEnabled').prop('checked', page.isEnabled);
@@ -242,6 +245,14 @@ define([
                 });
 
                 $('#page-form').data('pageid', page.id);
+
+                // custom validator:
+                window.ParsleyValidator.addValidator('pagenamevalidator',
+                        function(value) {
+                            return currentPageTitles.indexOf(value.toUpperCase()) === -1;
+                        })
+                    .addMessage('en', 'pagenamevalidator', 'This page already exists');
+
                 $('#dialog-pageSettings').jqmShow();
             });
 
