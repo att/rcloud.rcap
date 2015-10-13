@@ -11,16 +11,12 @@ define(['rcap/js/Class'], function() {
             options = options || {};
 
             this.navigationTitle = options.navigationTitle || 'New Page';
-
             this.isEnabled = true;
+            this.depth = 1;
+            this.parentId = options.parentId;
+            this.id = options.id || generateId();
 
             this.controls = options.controls || [];
-
-            this.depth = 1;
-
-            this.parentId = options.parentId;
-
-            this.id = options.id || generateId();
         },
         deserialize: function() {
 
@@ -70,41 +66,9 @@ define(['rcap/js/Class'], function() {
 
             return dupe;
         },
-        /*
-        createP: function(page) {
-            if (this.canAddChild()) {
-
-                // set the appropriate child page properties:
-                page.depth = this.depth + 1;
-                page.parentId = this.id;
-
-                this.pages = this.pages || [];
-                this.pages.push(page);
-            }
-        },*/
         canAddChild: function() {
             return this.depth <= 2;
         }
-        //,
-        // hasChildren: function() {
-        //     return this.pages && this.pages.length;
-        // },
-        // setEnabledStatus: function(isEnabled) {
-        //     // push to all descendants:
-        //     var pushToDescendants = function(pages) {
-        //         _.each(pages, function(page) {
-                    
-        //             page.isEnabled = isEnabled;
-
-        //             if (page.pages) {
-        //                 pushToDescendants(page.pages);
-        //             }
-        //         });
-        //     };
-
-        //     this.isEnabled = isEnabled;
-        //     pushToDescendants(this.pages);
-        // }
     });
 
     return Page;
