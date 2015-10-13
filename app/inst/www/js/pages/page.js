@@ -70,6 +70,7 @@ define(['rcap/js/Class'], function() {
 
             return dupe;
         },
+        /*
         createP: function(page) {
             if (this.canAddChild()) {
 
@@ -80,7 +81,7 @@ define(['rcap/js/Class'], function() {
                 this.pages = this.pages || [];
                 this.pages.push(page);
             }
-        },
+        },*/
         canAddChild: function() {
             return this.depth <= 2;
         }

@@ -135,6 +135,7 @@ define([
                     dataitem : data.dataItem
                 });
 
+
                 $('#dialog-confirm').jqmShow();
             });
 
