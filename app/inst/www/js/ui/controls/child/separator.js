@@ -7,8 +7,7 @@ define(['rcap/js/ui/controls/baseControl'], function(BaseControl) {
 			this._super({
 				type : 'separator',
 				label : 'Separator',
-				icon: 'f141',  
-				inlineIcon: 'ellipsis-horizontal',
+				icon: 'ellipsis-horizontal',
 				controlProperties: [
 					
 				]

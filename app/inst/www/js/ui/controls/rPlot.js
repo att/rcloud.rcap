@@ -12,8 +12,7 @@ define(['rcap/js/ui/controls/gridControl',
             this._super({
                 type: 'rplot',
                 label: 'R Plot',
-                icon: 'f012',
-                inlineIcon: 'signal',
+                icon: 'signal',
                 initialSize: [2, 2],
                 controlProperties: [
                     // new TextControlProperty({

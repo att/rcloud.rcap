@@ -4,7 +4,7 @@ define([
     'site/pubSubTable',
     'controls/factories/controlFactory',
     //
-    //  THIS OVERWRITES THE $.FN.SORTABLE FUNCTION, WHICH SPOILS THE FUN FOR EVERYONE ELSE
+    //  THIS OVERWRITES THE $.FN.SORTABLE FUNCTION, WHICH SPOILS THE FUN FOR EVERYONE ELSE.
     //  BEFORE UNCOMMENTING, AND USING FOR THE PAGE SORTING MENU, IT NEEDS TO BE ALIASED IN
     //  SOME WAY:
     //
@@ -131,20 +131,24 @@ define([
 
                 console.info('menuManager: pubSubTable.addPage');
 
-                var template = _.template(pageMenuItemTemplate),
-                    newPageMarkup = template({
-                        p: msgData.page,
-                        canAddChild: msgData.page.canAddChild()
-                    });
+                _.each(msgData.pageData, function(page) {
 
-                if (msgData.options.parentPageId) {
-                    $('#pages li[data-pageid="' + msgData.options.parentPageId + '"]').children('ol').append(newPageMarkup);
-                } else {
-                    $('#pages').append(newPageMarkup);
-                }
+                    var template = _.template(pageMenuItemTemplate),
+                        newPageMarkup = template({
+                            p: page,
+                            canAddChild: page.canAddChild()
+                        });
+
+                    if (page.parentId) {
+                        $('#pages li[data-pageid="' + page.parentId + '"]').children('ol').append(newPageMarkup);
+                    } else {
+                        $('#pages').append(newPageMarkup);
+                    }
+
+                });
 
                 // select the newly added page:
-                $('#pages li[data-pageid="' + msgData.page.id + '"] a').trigger('click');
+                $('#pages li[data-pageid="' + msgData.pageData[0].id + '"] a').trigger('click');
             });
 
             //////////////////////////////////////////////////////////////////////////////////////////
@@ -187,14 +191,14 @@ define([
             //     group: 'pages',
             //     delay: 500,
             //     // onDrop: function($item, container, _super) {
-                    
+
             //     //     // var data = group.sortable('serialize').get();
             //     //     // var jsonString = JSON.stringify(data, null, '  ');
 
             //     //     // console.log(jsonString);
 
             //     //     // _super($item, container);
-                    
+
 
             //     //     // determine the parent and the sibling of the moved item:
             //     //     var info = {
@@ -214,7 +218,7 @@ define([
         },
         initialiseControlsMenu: function() {
             var controls = controlFactory.getGridControls();
-            var templateStr = '<% _.each(controls, function(control){ %><li data-type="<%=control.type%>"><a href="#" class="control-<%=control.type %>" title="Add <%=control.type%>"><%= control.label %></a></li><% }); %>';
+            var templateStr = '<% _.each(controls, function(control){ %><li data-type="<%=control.type%>"><a href="#" class="control-<%=control.type %>" title="Add <%=control.type%>"><i class="icon-<%=control.icon%>"></i><%= control.label %></a></li><% }); %>';
             var template = _.template(templateStr);
             $('.menu .controls').append(template({
                 controls: controls

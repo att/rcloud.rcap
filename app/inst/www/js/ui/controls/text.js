@@ -9,8 +9,7 @@ define(['rcap/js/ui/controls/gridControl',
 			this._super({
 				type : 'text',
 				label : 'Text',
-				icon: 'f044',  
-				inlineIcon: 'pencil',
+				icon: 'pencil',
 				initialSize: [2, 2],
 				controlProperties: [
 					new WysiwygControlProperty({

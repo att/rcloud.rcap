@@ -8,8 +8,7 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
 			this._super({
 				type : 'datepicker',
 				label : 'Date Picker',
-				icon: 'f073',  
-				inlineIcon: 'calendar',
+				icon: 'calendar',
 				controlProperties: [
 					new TextControlProperty({
 						uid: 'label',

@@ -9,8 +9,7 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
             this._super({
                 type: 'heading',
                 label: 'Heading',
-                icon: 'f031',
-                inlineIcon: 'font',
+                icon: 'font',
                 controlProperties: [
                     new TextControlProperty({
                         uid: 'text',

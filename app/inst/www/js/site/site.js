@@ -2,6 +2,32 @@ define(['pages/page', 'rcap/js/utils/pageWalker'], function(Page, PageWalker) {
 
     'use strict';
 
+    var generateCopiedPageName = function(pages, pageName) {
+        var existingPages = _.map(pages, function(p) {
+                return p.navigationTitle.toUpperCase();
+            }),
+            test,
+            index = 0,
+            generatePageNameTest = function(page, index) {
+                return index === 0 ? page : (page + ' (' + index.toString() + ')');
+            };
+
+        for (;; index++) {
+            // naming convention is for 
+            // 'Home Page' -> 'Home Page(n)', where n is positive integer and unique to existing page collection:
+
+            // case insensitive:
+            test = generatePageNameTest(pageName, index).toUpperCase();
+
+            if (existingPages.indexOf(test) === -1) {
+                break;
+            }
+        }
+
+        // preserve case:
+        return generatePageNameTest(pageName, index);
+    };
+
     var Site = Class.extend({
 
         init: function(options) {
@@ -38,16 +64,20 @@ define(['pages/page', 'rcap/js/utils/pageWalker'], function(Page, PageWalker) {
             options = options || {};
             var newPage = new Page(options);
 
+            newPage.navigationTitle = generateCopiedPageName(this.pages, newPage.navigationTitle);
+
             if (options.parentPageId) {
 
-                var parentPage = _.findWhere(this.pages, { id : options.parentPageId });
+                var parentPage = _.findWhere(this.pages, {
+                    id: options.parentPageId
+                });
 
-                if(parentPage) {
+                if (parentPage) {
                     newPage.depth = parentPage.depth + 1;
                     newPage.parentId = parentPage.id;
                 }
 
-            } 
+            }
 
             return newPage;
         },
@@ -77,7 +107,13 @@ define(['pages/page', 'rcap/js/utils/pageWalker'], function(Page, PageWalker) {
             var page = this.getPageByID(pageObj.id);
             page.navigationTitle = pageObj.navigationTitle;
 
-            page.setEnabledStatus(pageObj.isEnabled);
+            // update the enabled status of this and all its (if any) child pages:
+            var pages = new PageWalker(this.pages).getDescendantsAndSelf(pageObj.id);
+
+            _.each(pages, function(p) {
+                p.isEnabled = pageObj.isEnabled;
+            });           
+
             //page.pageTitle = pageObj.title;
             //page.urlSlug = pageObj.urlSlug;
 
@@ -93,6 +129,18 @@ define(['pages/page', 'rcap/js/utils/pageWalker'], function(Page, PageWalker) {
             return this;
         },
 
+        canDeletePage: function(pageId) {
+            var page = _.findWhere(this.pages, { id : pageId });
+
+            // if it's a child page, then let it go:
+            if(page.depth > 1) {
+                return true;
+            } else {
+                // if this is a root page, ensure that there is another root level page:
+                return _.filter(this.pages, function(p) { return p.depth === 1; }).length > 1;
+            }
+        },
+
         deletePage: function(pageId) {
 
             this.pages = new PageWalker(this.pages).removePage(pageId);
@@ -102,24 +150,50 @@ define(['pages/page', 'rcap/js/utils/pageWalker'], function(Page, PageWalker) {
             return this;
         },
 
-        duplicatePage: function(pageId) {
+        duplicatePage: function(rootPageId) {
 
-            // at time of writing, version of underscore is < 1.8, which supports
-            // findIndex method:
-            var index = 0;
+            // get the page(s) that need to be duplicated;
+            // if the page has child pages, they will also need to be duplicated:
+            var me = this,
+                pagesToCopy = new PageWalker(this.pages).getDescendantsAndSelf(rootPageId),
+                newPage,
+                mappings = [],
+                newPages = [];
 
-            for (; index < this.pages.length; index++) {
-                if (this.pages[index].id === pageId) {
-                    break;
+            // generate, rename and push:
+            _.each(pagesToCopy, function(pageToCopy) { 
+                // if this is the root page, retain its parent ID,
+                // otherwise reassign:
+                newPage = pageToCopy.duplicate();
+
+                // update the mappings:
+                mappings.push({
+                    oldId : pageToCopy.id,
+                    newId : newPage.id
+                });
+
+                // update the page name:
+                newPage.navigationTitle = generateCopiedPageName(me.pages, newPage.navigationTitle);
+                
+                // does this new page's parent ID need to be updated? (based on the mappings that have
+                // been collated):
+                if(pageToCopy.id !== rootPageId) { // root page should stay the same since it will have the same parent!
+                    var foundMapping = _.findWhere(mappings, { oldId : newPage.parentId });
+
+                    if(foundMapping) {
+                        newPage.parentId = foundMapping.newId;  
+                    }
                 }
-            }
 
-            // and insert after the current page:
-            //this.pages.splice(index + 1, 0, this.pages[index].duplicate());
+                // add the new page to the new pages:
+                newPages.push(newPage);
 
-            // insert at end:
-            this.pages.push(this.pages[index].duplicate());
-            return this.pages[this.pages.length - 1].id;
+                // and add to the site:
+                me.pages.push(newPage);
+
+            });
+
+            return newPages;
         },
 
         updateControl: function(control) {
@@ -139,6 +213,10 @@ define(['pages/page', 'rcap/js/utils/pageWalker'], function(Page, PageWalker) {
             currentPage.controls = currentPageControls;
 
             return this;
+        },
+
+        getPageNavigationTitles: function() {
+            return _.pluck(this.pages, 'navigationTitle');
         },
 
         getPageByID: function(pageId) {

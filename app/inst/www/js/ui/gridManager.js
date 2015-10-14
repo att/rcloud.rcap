@@ -31,7 +31,7 @@ define([
 
         // append button (and icon if the state is not valid):
         outer.append('<p style="margin-bottom:0">' +
-            (control.isValid() ? '' : '<i class="config-icon icon-' + control.inlineIcon + '"></i>') +
+            (control.isValid() ? '' : '<i class="config-icon icon-' + control.icon + '"></i>') +
             '<button type="button" class="btn btn-primary btn-configure">Configure</button></p>');
 
         return outer;
@@ -304,11 +304,13 @@ define([
             });
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////////
-            PubSub.subscribe(pubSubTable.pageAdded, function(msg, msgData) {
+            PubSub.subscribe(pubSubTable.pageAdded, function(msg, pageData) {
 
                 console.info('gridManager: pubSubTable.pageAdded');
 
-                addGrid(msgData.page);
+                _.each(pageData.pageData, function(page) {
+                    addGrid(page);
+                });
 
                 // new page won't have any controls:
                 $('#no-items').show().css({

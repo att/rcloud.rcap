@@ -56,7 +56,7 @@ define([
                 isEnabled: $('#inputIsEnabled').prop('checked')
             });
 
-            $('#dialog-controlSettings').jqmHide();
+            $('.jqmWindow').jqmHide();
 
             return false;
 
@@ -98,7 +98,7 @@ define([
                 PubSub.publish(pubSubTable.showConfirmDialog, {
                     heading: 'Duplicate Page?',
                     message: 'Are you sure you wish to duplicate this page?',
-                    pubSubMessage: pubSubTable.duplicatePageConfirm,  
+                    pubSubMessage: pubSubTable.duplicatePageConfirm,
                     dataItem: $(this).closest('li').data('pageid')
                 });
             });
@@ -131,9 +131,10 @@ define([
                 // });
 
                 $('#dialog-confirm .approve').data({
-                    message : data.pubSubMessage,
-                    dataitem : data.dataItem
+                    message: data.pubSubMessage,
+                    dataitem: data.dataItem
                 });
+
 
                 $('#dialog-confirm').jqmShow();
             });
@@ -213,9 +214,19 @@ define([
             //
             // control configure message subscription:
             //
-            PubSub.subscribe(pubSubTable.showPageSettingsDialog, function(msg, page) {
+            PubSub.subscribe(pubSubTable.showPageSettingsDialog, function(msg, pageInfo) {
 
                 console.info('dialogManager: pubSubTable.showPageSettingsDialog');
+
+                var page = pageInfo.page;
+
+                // get the current page title, excluding THIS one:
+                var currentPageTitles =
+                    _.without(
+                        _.map(pageInfo.currentPageNavigationTitles, function(s) {
+                            return s.toUpperCase();
+                        }),
+                        pageInfo.page.navigationTitle.toUpperCase());
 
                 $('#inputPageNavigationTitle').val(page.navigationTitle);
                 $('#inputIsEnabled').prop('checked', page.isEnabled);
@@ -231,16 +242,31 @@ define([
                 // update the details for 'delete page'
                 // deregister the event first, otherwise, it'll add another, the result being that 
                 // it'll fire multiple times:
-                $('#dialog-pageSettings .delete').off('click').on('click', function() {
-                    PubSub.publish(pubSubTable.showConfirmDialog, {
-                        heading: 'Delete ' + page.navigationTitle,
-                        message: 'Are you sure you want to delete ' + page.navigationTitle + '?',
-                        pubSubMessage: pubSubTable.deletePageConfirm,
-                        dataItem: page.id
+                if (pageInfo.canDelete) {
+
+                    $('#dialog-pageSettings .jqm-footer .delete').show();
+
+                    $('#dialog-pageSettings .delete').off('click').on('click', function() {
+                        PubSub.publish(pubSubTable.showConfirmDialog, {
+                            heading: 'Delete ' + page.navigationTitle,
+                            message: 'Are you sure you want to delete ' + page.navigationTitle + '?',
+                            pubSubMessage: pubSubTable.deletePageConfirm,
+                            dataItem: page.id
+                        });
                     });
-                });
+                } else {
+                    $('#dialog-pageSettings .jqm-footer .delete').hide();
+                }
 
                 $('#page-form').data('pageid', page.id);
+
+                // custom validator:
+                window.ParsleyValidator.addValidator('pagenamevalidator',
+                        function(value) {
+                            return currentPageTitles.indexOf(value.toUpperCase()) === -1;
+                        })
+                    .addMessage('en', 'pagenamevalidator', 'This page already exists');
+
                 $('#dialog-pageSettings').jqmShow();
             });
 

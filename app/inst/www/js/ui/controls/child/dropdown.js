@@ -9,8 +9,7 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
 			this._super({
 				type : 'dropdown',
 				label : 'Dropdown',
-				icon: 'f00b',  
-				inlineIcon: 'list',
+				icon: 'list',
 				controlProperties: [
 					new TextControlProperty({
 						uid: 'label',

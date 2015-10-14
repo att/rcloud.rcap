@@ -264,51 +264,20 @@ sans-serif;
             background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAsCAYAAACpOaImAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuNvyMY98AAAAkSURBVDhPY7Czs/vPgAuMSgLBqCQQUCaJC0OVjIJRQHfAwAAAplYwPfTIX0YAAAAASUVORK5CYII=');
         }
 
-        & ul.controls a.control-rplot::before {
-            content: "\f012";
+        & ul.controls a i {
+            font-size: 12pt;
+            padding-right: 8px;
         }
-        & ul.controls a.control-interactiveplot::before {
-            content: "\f080";
-        }
-        & ul.controls a.control-datepicker::before {
-            content: "\f073";
-        }
-        & ul.controls a.control-separator::before {
-            content: "\f141";
-        }
-        & ul.controls a.control-image::before {
-            content: "\f03e";
-        }
-        & ul.controls a.control-text::before {
-            content: "\f044";
-        }
-        & ul.controls a.control-dropdown::before {
-            content: "\f039";
-        }
-        & ul.controls a.control-iframe::before {
-            content: "\f0c2";
-        }
-        & ul.controls a.control-pagemenu::before {
-            content: "\f0c9";
-        }
-        & ul.controls a.control-form::before {
-            content: "\f022";
-        }
-        & ul.controls a.control-heading::before {
-            content: "\f031";
-        }
-        & ul.controls a.control-checkboxlist::before {
-            content: "\f00c";
-        }
-        & ul.controls a.control-radiobuttongroup::before {
-            content: "\f10c";
-        }
-        & ul.controls a.control-breadcrumb::before {
-            content: "\f141";
-        }        
+
+/*
+    this settings ul is not currently shown, was intended to be a 'designer' settings
+    menu item
+    
         & ul.settings a::before {
             content: "\f013";
         }
+*/
+
         & a span {
             display: block;
             float: right;

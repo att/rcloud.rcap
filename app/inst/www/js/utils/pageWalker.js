@@ -29,7 +29,7 @@ define([], function() {
                     }
                 });
             };
-            
+
             walkPages(_.filter(pages, function(p) {
                 return rootPageId ? p.id === rootPageId : !p.parentId;
             }));
@@ -71,7 +71,6 @@ define([], function() {
             });
 
         };
-
 
     };
 

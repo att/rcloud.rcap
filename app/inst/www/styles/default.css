@@ -39,16 +39,6 @@
   position: absolute;
   top: expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(17 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px'); }
 
-#dialog-confirm {
-  width: 370px;
-  min-width: inherit;
-  text-align: center; }
-  #dialog-confirm h1 {
-    font-size: 15px;
-    margin-top: 12px;
-    margin-bottom: 16px;
-    text-transform: uppercase; }
-
 .jqmwindow {
   padding: 0;
   right: 10px !important;
@@ -95,6 +85,18 @@
   .jqmwindow .body {
     max-height: 600px;
     overflow: auto; }
+
+#dialog-confirm {
+  width: 370px;
+  min-width: inherit;
+  text-align: center;
+  right: calc(50% - 184px) !important;
+  top: calc(50% - 180px) !important; }
+  #dialog-confirm h1 {
+    font-size: 15px;
+    margin-top: 12px;
+    margin-bottom: 16px;
+    text-transform: uppercase; }
 
 :root .grid-stack-item > .ui-resizable-handle {
   filter: none; }
@@ -1335,7 +1337,15 @@ textarea.parsley-error {
     padding: 0;
     margin: 0;
     height: 100%;
-    border-right: 1px solid #d9d9d9; }
+    border-right: 1px solid #d9d9d9;
+    /*
+        this settings ul is not currently shown, was intended to be a 'designer' settings
+        menu item
+        
+            & ul.settings a::before {
+                content: "\f013";
+            }
+    */ }
     #rcap-designer .menu h4 {
       padding-left: 5px;
       text-transform: uppercase;
@@ -1422,36 +1432,9 @@ textarea.parsley-error {
       background-repeat: no-repeat !important; }
     #rcap-designer .menu ol li ol li:last-child > a {
       background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAsCAYAAACpOaImAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuNvyMY98AAAAkSURBVDhPY7Czs/vPgAuMSgLBqCQQUCaJC0OVjIJRQHfAwAAAplYwPfTIX0YAAAAASUVORK5CYII="); }
-    #rcap-designer .menu ul.controls a.control-rplot::before {
-      content: "\f012"; }
-    #rcap-designer .menu ul.controls a.control-interactiveplot::before {
-      content: "\f080"; }
-    #rcap-designer .menu ul.controls a.control-datepicker::before {
-      content: "\f073"; }
-    #rcap-designer .menu ul.controls a.control-separator::before {
-      content: "\f141"; }
-    #rcap-designer .menu ul.controls a.control-image::before {
-      content: "\f03e"; }
-    #rcap-designer .menu ul.controls a.control-text::before {
-      content: "\f044"; }
-    #rcap-designer .menu ul.controls a.control-dropdown::before {
-      content: "\f039"; }
-    #rcap-designer .menu ul.controls a.control-iframe::before {
-      content: "\f0c2"; }
-    #rcap-designer .menu ul.controls a.control-pagemenu::before {
-      content: "\f0c9"; }
-    #rcap-designer .menu ul.controls a.control-form::before {
-      content: "\f022"; }
-    #rcap-designer .menu ul.controls a.control-heading::before {
-      content: "\f031"; }
-    #rcap-designer .menu ul.controls a.control-checkboxlist::before {
-      content: "\f00c"; }
-    #rcap-designer .menu ul.controls a.control-radiobuttongroup::before {
-      content: "\f10c"; }
-    #rcap-designer .menu ul.controls a.control-breadcrumb::before {
-      content: "\f141"; }
-    #rcap-designer .menu ul.settings a::before {
-      content: "\f013"; }
+    #rcap-designer .menu ul.controls a i {
+      font-size: 12pt;
+      padding-right: 8px; }
     #rcap-designer .menu a span {
       display: block;
       float: right;

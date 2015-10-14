@@ -60,8 +60,7 @@ define(['rcap/js/ui/controls/gridControl',
             this._super({
                 type: 'pagemenu',
                 label: 'Page Menu',
-                icon: 'f0c9',
-                inlineIcon: 'reorder',
+                icon: 'reorder',
                 initialSize: [2, 1],
                 controlProperties: [
                     new DropdownControlProperty({
@@ -177,24 +176,18 @@ define(['rcap/js/ui/controls/gridControl',
             //
             //
             //
-            PubSub.subscribe(pubSubTable.pageAdded, function(msg, msgData) {
+            PubSub.subscribe(pubSubTable.pageAdded, function(/*msg, msgData*/) {
 
                 if (me.isOnGrid) {
 
                     // if the page doesn't already exist:
-                    if (!_.find(me.pages, function(p) {
-                            return p.id === msgData.page.id;
-                        })) {
-                        //console.log('pageMenu control : adding page with id ' + page.id);
-
-                        /*
-
-                        msgData.page
-                                                me.pages.push(page);
-                                                me.currentPageID = page.id;*/
+                   // if (!_.find(me.pages, function(p) {
+                       //     return p.id === msgData.page.id;
+                       // })) {
+                        
 
                         renderControl(me, true);
-                    }
+                  //  }
 
                 }
             });

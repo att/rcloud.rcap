@@ -15,8 +15,7 @@ define(['rcap/js/ui/controls/gridControl', 'rcap/js/ui/controls/properties/textC
             this._super({
                 type: 'iframe',
                 label: 'iFrame',
-                icon: 'f0c2',
-                inlineIcon: 'cloud',
+                icon: 'cloud',
                 initialSize: [2, 2],
                 controlProperties: [
                     new TextControlProperty({
@@ -99,10 +98,6 @@ define(['rcap/js/ui/controls/gridControl', 'rcap/js/ui/controls/properties/textC
             });
 
         }
-            // ,
-            // getConfigurationMarkup : function() {
-            //  return '<p><i class="icon-' + this.inlineIcon + '"></i>' + (this.controlProperties[0].value || '') + '</p>';            
-            // }
     });
 
     return IFrameControl;
