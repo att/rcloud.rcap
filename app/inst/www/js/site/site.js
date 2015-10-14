@@ -129,6 +129,18 @@ define(['pages/page', 'rcap/js/utils/pageWalker'], function(Page, PageWalker) {
             return this;
         },
 
+        canDeletePage: function(pageId) {
+            var page = _.findWhere(this.pages, { id : pageId });
+
+            // if it's a child page, then let it go:
+            if(page.depth > 1) {
+                return true;
+            } else {
+                // if this is a root page, ensure that there is another root level page:
+                return _.filter(this.pages, function(p) { return p.depth === 1; }).length > 1;
+            }
+        },
+
         deletePage: function(pageId) {
 
             this.pages = new PageWalker(this.pages).removePage(pageId);

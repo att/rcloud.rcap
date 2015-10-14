@@ -240,10 +240,13 @@ define([
 
                 console.info('siteManager: pubSubTable.pageSettingsClicked');
 
+                var site = getSite();
+
                 // for validation purposes, get the current list of page navigation titles:
                 PubSub.publish(pubSubTable.showPageSettingsDialog, {
-                    page : getSite().getPageByID(pageId),
-                    currentPageNavigationTitles : getSite().getPageNavigationTitles()
+                    page : site.getPageByID(pageId),
+                    currentPageNavigationTitles : site.getPageNavigationTitles(),
+                    canDelete : site.canDeletePage(pageId)
                 });
             });
 

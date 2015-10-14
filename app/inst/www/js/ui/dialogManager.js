@@ -242,14 +242,21 @@ define([
                 // update the details for 'delete page'
                 // deregister the event first, otherwise, it'll add another, the result being that 
                 // it'll fire multiple times:
-                $('#dialog-pageSettings .delete').off('click').on('click', function() {
-                    PubSub.publish(pubSubTable.showConfirmDialog, {
-                        heading: 'Delete ' + page.navigationTitle,
-                        message: 'Are you sure you want to delete ' + page.navigationTitle + '?',
-                        pubSubMessage: pubSubTable.deletePageConfirm,
-                        dataItem: page.id
+                if (pageInfo.canDelete) {
+
+                    $('#dialog-pageSettings .jqm-footer .delete').show();
+
+                    $('#dialog-pageSettings .delete').off('click').on('click', function() {
+                        PubSub.publish(pubSubTable.showConfirmDialog, {
+                            heading: 'Delete ' + page.navigationTitle,
+                            message: 'Are you sure you want to delete ' + page.navigationTitle + '?',
+                            pubSubMessage: pubSubTable.deletePageConfirm,
+                            dataItem: page.id
+                        });
                     });
-                });
+                } else {
+                    $('#dialog-pageSettings .jqm-footer .delete').hide();
+                }
 
                 $('#page-form').data('pageid', page.id);
 
