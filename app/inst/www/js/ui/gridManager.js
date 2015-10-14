@@ -304,11 +304,13 @@ define([
             });
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////////
-            PubSub.subscribe(pubSubTable.pageAdded, function(msg, msgData) {
+            PubSub.subscribe(pubSubTable.pageAdded, function(msg, pageData) {
 
                 console.info('gridManager: pubSubTable.pageAdded');
 
-                addGrid(msgData.page);
+                _.each(pageData.pageData, function(page) {
+                    addGrid(page);
+                });
 
                 // new page won't have any controls:
                 $('#no-items').show().css({

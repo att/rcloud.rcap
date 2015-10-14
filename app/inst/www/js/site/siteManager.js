@@ -103,8 +103,8 @@ define([
 
                 // let interested parties know that a page has been added:
                 PubSub.publish(pubSubTable.pageAdded, {
-                    page: newPage,
-                    options: options
+                    pageData: [newPage]//,
+                    //options: options
                 });
 
                 PubSub.publish(pubSubTable.pagesChanged, {
@@ -153,18 +153,23 @@ define([
                 console.info('siteManager: pubSubTable.duplicatePageConfirm');
 
                 var site = getSite();
-                var newPageId = site.duplicatePage(pageId);
+                var newPages = site.duplicatePage(pageId);
 
                 // duplicate page doesn't return this, but does add a page, so reset:
                 setSite(site);
 
                 PubSub.publish(pubSubTable.pageAdded, {
-                    page: site.getPageByID(newPageId)
+                    pageData: newPages//,
+                    // options: { 
+                    //     // this is already present in the new page,
+                    //     // but is passed separately for DRY on message receiver:
+                    //     parentPageId : newPage.parentId 
+                    // }
                 });
 
                 PubSub.publish(pubSubTable.pagesChanged, {
                     pages: site.pages,
-                    currentPageID: newPageId
+                    currentPageID: newPages[0].id
                 });
             });
 

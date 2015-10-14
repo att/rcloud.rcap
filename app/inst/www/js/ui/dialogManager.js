@@ -56,7 +56,7 @@ define([
                 isEnabled: $('#inputIsEnabled').prop('checked')
             });
 
-            $('#dialog-controlSettings').jqmHide();
+            $('.jqmWindow').jqmHide();
 
             return false;
 
@@ -219,7 +219,14 @@ define([
                 console.info('dialogManager: pubSubTable.showPageSettingsDialog');
 
                 var page = pageInfo.page;
-                var currentPageTitles = _.map(pageInfo.currentPageNavigationTitles, function(s) { return s.toUpperCase(); });
+
+                // get the current page title, excluding THIS one:
+                var currentPageTitles =
+                    _.without(
+                        _.map(pageInfo.currentPageNavigationTitles, function(s) {
+                            return s.toUpperCase();
+                        }),
+                        pageInfo.page.navigationTitle.toUpperCase());
 
                 $('#inputPageNavigationTitle').val(page.navigationTitle);
                 $('#inputIsEnabled').prop('checked', page.isEnabled);

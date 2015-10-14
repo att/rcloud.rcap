@@ -57,7 +57,6 @@ define(['rcap/js/Class'], function() {
             // returns a duplicate page, with new (unique) page ID and control IDs:
             var dupe = $.extend(true, {}, this);
             dupe.id = generateId();
-            dupe.navigationTitle = 'Copy of ' + dupe.navigationTitle;
             dupe.controls = [];
 
             _.each(this.controls, function(c) {
@@ -69,6 +68,7 @@ define(['rcap/js/Class'], function() {
         canAddChild: function() {
             return this.depth <= 2;
         }
+
     });
 
     return Page;
