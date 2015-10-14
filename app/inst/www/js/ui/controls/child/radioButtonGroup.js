@@ -12,8 +12,7 @@ define(['rcap/js/ui/controls/baseControl',
             this._super({
                 type: 'radiobuttongroup',
                 label: 'Radio Button Group',
-                icon: 'f10c',
-                inlineIcon: 'circle-blank',
+                icon: 'circle-blank',
                 controlProperties: [
                     new TextControlProperty({
                         uid: 'description',
