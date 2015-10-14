@@ -29,6 +29,8 @@ rcloud.rcap.global.functions <- function() {
     }
   }
   
+  rcap.consoleMsg("inside global functions")
+  
   return(functionList)
   
 }

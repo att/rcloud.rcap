@@ -57,6 +57,11 @@
                 new Viewer().initialise(content);
                 k();
             });
+        },
+        
+        consoleMsg: function(content, k) {
+          console.log(content);
+          k();
         }
     };
 

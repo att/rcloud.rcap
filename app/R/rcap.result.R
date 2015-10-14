@@ -40,7 +40,7 @@ rcap.result <- function(rcapConfigFileName="rcap_designer.json", inline=FALSE) {
     rcwResultList[[funName]] <- eval(parse(text=funName))
   }
   
-  rcwResultList[['test']] <- function() {return(list(a=1,b=list(c=1,d=5)))}
+  rcwResultList[['test']] <- function() {rcap.consoleMsg(list(a="asd", b=list(c=1,d=2)))}
   
   # Fire up the viewer
   rcap.initViewer(rcapJson)
