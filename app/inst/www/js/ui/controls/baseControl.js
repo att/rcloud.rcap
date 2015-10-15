@@ -62,6 +62,16 @@ define(['rcap/js/Class'], function() {
                 return prop.value;   
             }
             
+        },
+        getControlPropertyValueOrDefault : function(uid) {
+
+            var propValue = this.getControlPropertyValue(uid);
+
+            if(propValue !== 'undefined' && propValue.length > 0) {
+                return propValue;
+            } else {
+                return _.findWhere(this.controlProperties, { 'uid' : uid }).defaultValue;
+            }
         }
     });
 
