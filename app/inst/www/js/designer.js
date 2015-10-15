@@ -13,24 +13,22 @@ define([
 
     'use strict';
 
-    var rcloudSelector = '.container, #rcloud-navbar-main, #rcloud-navbar-main, #rcloud-navbar-menu li:not(.rcap)';
+    var rcloudSelector = '.container, #rcloud-navbar-main, #rcloud-navbar-main';
     var rcapSelector = '#rcap-designer';
 
     var bootstrap = function() {
 
-        $('#rcloud-navbar-menu').append('<li style="display:none" class="rcap"><button class="btn btn-primary" id="rcap-save">Save</button></li><li style="display:none" class="rcap"><a href="#">Close</a></li>');
-
         $('body').append(mainPartial);
 
         // close (link)
-        $('#rcloud-navbar-menu li.rcap a').click(function() {
+        $('#rcap-close').click(function() {
 
             $(rcloudSelector).show();
 
             // hide rcap:
             $(rcapSelector).hide();
 
-            $('#rcloud-navbar-menu li.rcap').hide();
+            //$('#rcloud-navbar-menu li.rcap').hide();
 
             console.info('designer: PUBLISH : pubSubTable.close');
             PubSub.publish(pubSubTable.close);
