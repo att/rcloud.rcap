@@ -26,6 +26,9 @@ processControl <- function(rcapControl) {
   UseMethod("processControl", rcapControl)
 }
 
+
+# Default -----------------------------------------------------------------
+
 processControl.default <- function(rcapControl) {
   return(list())
 }
@@ -54,7 +57,7 @@ processControl.rplot <- function(rcapControl) {
 }
 
 
-# interactive plot --------------------------------------------------------
+# Interactive plot --------------------------------------------------------
 
 
 #' @rdname processControl
