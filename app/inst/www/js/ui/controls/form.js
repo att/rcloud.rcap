@@ -20,7 +20,7 @@ define(['rcap/js/ui/controls/gridControl', 'text!rcap/partials/dialogs/_formBuil
         },
         render: function(options) {
 
-            var html = '<div id="' + this.id + '" class="rcap-form">';
+            var html = '<form action=""><div id="' + this.id + '" class="rcap-form">';
 
             $.each(this.childControls, function(key, child) {
                 html += '<div class="form-group">';
@@ -28,7 +28,7 @@ define(['rcap/js/ui/controls/gridControl', 'text!rcap/partials/dialogs/_formBuil
                 html += '</div>';
             });
 
-            html += '</div>';
+            html += '</div></form>';
 
             return html;
 
@@ -59,24 +59,48 @@ define(['rcap/js/ui/controls/gridControl', 'text!rcap/partials/dialogs/_formBuil
         },
         initialiseViewerItems: function() {
 
-            //$('#' + this.id).find('.rcap-form [data-variablename]').change(function() { 
+            var data;
 
-            $('[data-variablename]').change(function() {
-
-                var data = {
-                    variableName: $(this).attr('data-variablename'),
-                    value: $(this).val()
+            var getVarData = function(el) {
+                return {
+                    variableName: el.attr('data-variablename'),
+                    value: el.val()
                 };
+            };
 
+            var submitVariableChange = function(data) {
                 var notebookResult = window.notebook_result; // jshint ignore:line
                 if (notebookResult) {
                     notebookResult.updateVariable(data);
                 } else {
-                    console.log('window.notebook_result is not available, so logging to console: ', data);    
+                    console.log('window.notebook_result is not available, varchange data is: ', JSON.stringify(data));
                 }
-               
-            });
+            };
 
+            // if a form has a submit button, its data will be submitted when the form is submitted.
+            // otherwise, the individual control will submit data following a change:
+            $('.rcap-controltype-form').each(function() {
+                if ($(this).find('input[type="submit"]')) {
+                    $(this).find('form').submit(function(e) {
+
+                        e.preventDefault();
+
+                        // loop through each item:
+                        data = [];
+                        $(this).find('[data-variablename]').each(function() {
+                            data.push(getVarData($(this)));
+                        });
+
+                        submitVariableChange(data);
+                    });
+                } else {
+                    $('[data-variablename]').change(function() {
+                        submitVariableChange([
+                            getVarData($(this))
+                        ]);
+                    });
+                }
+            });
         }
     });
 

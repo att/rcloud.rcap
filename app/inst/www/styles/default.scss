@@ -267,7 +267,22 @@ sans-serif;
         & ul.controls a i {
             font-size: 12pt;
             padding-right: 8px;
+            width: 26px;
+            display: inline-block;
         }
+
+        & ul.controls a.control-submitbutton i {
+            border-radius: 3px;
+            background-color: #3e3e3e;
+            width: 20px;
+            margin-right: 6px;
+
+            &::before {
+                height: 14px;
+            }
+        }
+
+        
 
 /*
     this settings ul is not currently shown, was intended to be a 'designer' settings
@@ -354,7 +369,7 @@ sans-serif;
             padding: 10px 0;
             border: 1px solid darken($bgColor, 40%);
             position: relative;
-            margin: 0 15px;
+            margin: 0 0 0 15px;
         }
     }
     /* form controls */

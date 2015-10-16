@@ -1434,7 +1434,16 @@ textarea.parsley-error {
       background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAsCAYAAACpOaImAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuNvyMY98AAAAkSURBVDhPY7Czs/vPgAuMSgLBqCQQUCaJC0OVjIJRQHfAwAAAplYwPfTIX0YAAAAASUVORK5CYII="); }
     #rcap-designer .menu ul.controls a i {
       font-size: 12pt;
-      padding-right: 8px; }
+      padding-right: 8px;
+      width: 26px;
+      display: inline-block; }
+    #rcap-designer .menu ul.controls a.control-submitbutton i {
+      border-radius: 3px;
+      background-color: #3e3e3e;
+      width: 20px;
+      margin-right: 6px; }
+      #rcap-designer .menu ul.controls a.control-submitbutton i::before {
+        height: 14px; }
     #rcap-designer .menu a span {
       display: block;
       float: right;
@@ -1498,7 +1507,7 @@ textarea.parsley-error {
       padding: 10px 0;
       border: 1px solid #8c8c8c;
       position: relative;
-      margin: 0 15px; }
+      margin: 0 0 0 15px; }
   #rcap-designer .form-control {
     background: white;
     width: 100%;

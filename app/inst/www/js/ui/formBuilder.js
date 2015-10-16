@@ -189,7 +189,8 @@ define(['controls/factories/controlFactory', 'pubsub', 'site/pubSubTable'], func
 
             $('#formbuilder-form').append($('<div>Add or select a control to configure its properties.</div>'));
 
-            $('#dialog-form-builder .nav-tabs li:eq(1) a').tab('show');
+            // ensure that the 'items' tab is selected:
+            $('#dialog-form-builder .nav-tabs li:eq(0) a').tab('show');
 
             // set the data:
             $('#dialog-form-builder').data('control', control);

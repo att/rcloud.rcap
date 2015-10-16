@@ -13,7 +13,8 @@ define([
 	'controls/child/separator',
 	'controls/child/heading',
 	'controls/child/checkboxList',
-	'controls/child/radioButtonGroup'
+	'controls/child/radioButtonGroup',
+	'controls/child/submitButton',
 
 	], function(IFrameControl, ImageControl, RPlotControl, TextControl, PageMenuControl, BreadcrumbControl, InteractivePlotControl, FormControl,
 		///////////////////////
@@ -22,7 +23,8 @@ define([
 		SeparatorControl,
 		HeadingControl,
 		CheckboxListControl,
-		RadioButtonGroup) {
+		RadioButtonGroupControl,
+		SubmitButtonControl) {
 	
 	'use strict';
 
@@ -35,7 +37,7 @@ define([
 			new ImageControl(),
 			new PageMenuControl(),
 			new BreadcrumbControl(),
-			new TextControl(),
+			new TextControl()
 
 			//new DatePickerControl(),
 			//new DropdownControl(),
@@ -47,7 +49,8 @@ define([
 			new SeparatorControl(),
 			new HeadingControl(),
 			new CheckboxListControl(),
-			new RadioButtonGroup()
+			new RadioButtonGroupControl(),
+			new SubmitButtonControl()
 		];
 	}
 
@@ -96,7 +99,8 @@ define([
 			case 'heading': control = new HeadingControl(); break;
 			case 'separator': control = new SeparatorControl(); break;
 			case 'checkboxlist': control = new CheckboxListControl(); break;
-			case 'radiobuttongroup': control = new RadioButtonGroup(); break;
+			case 'radiobuttongroup': control = new RadioButtonGroupControl(); break;
+			case 'submitbutton': control = new SubmitButtonControl(); break;
 			default: control = undefined; break;
 		}
 

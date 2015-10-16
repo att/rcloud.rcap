@@ -3,12 +3,7 @@ define([
     'pubsub',
     'site/pubSubTable',
     'controls/factories/controlFactory',
-    //
-    //  THIS OVERWRITES THE $.FN.SORTABLE FUNCTION, WHICH SPOILS THE FUN FOR EVERYONE ELSE.
-    //  BEFORE UNCOMMENTING, AND USING FOR THE PAGE SORTING MENU, IT NEEDS TO BE ALIASED IN
-    //  SOME WAY:
-    //
-    //'jquery-sortable'
+    'nestedSortable'
 ], function(pageMenuItemTemplate, PubSub, pubSubTable, ControlFactory) {
 
     'use strict';
@@ -168,47 +163,25 @@ define([
             });
 
 
-
-            // sort 'em':
-            /*
-            $('#pages').sortable({
-                containment: 'parent',
-                update: function() {
-
-                    var pageIds = [];
-                    $('#pages li').each(function() {
-                        pageIds.push($(this).data('pageid'));
-                    });
-
-                    PubSub.publish(pubSubTable.changePageOrder, pageIds);
-                }
-            });*/
-
-            /*var group = */
+            $('ol#page').nestedSortable({
+                handle: 'div',
+                items: 'li',
+                toleranceElement: '> div'
+            });
 
 
-            // $('ol#pages').sortable({
-            //     group: 'pages',
-            //     delay: 500,
-            //     // onDrop: function($item, container, _super) {
-
-            //     //     // var data = group.sortable('serialize').get();
-            //     //     // var jsonString = JSON.stringify(data, null, '  ');
-
-            //     //     // console.log(jsonString);
-
-            //     //     // _super($item, container);
 
 
-            //     //     // determine the parent and the sibling of the moved item:
-            //     //     var info = {
-            //     //         movedItem: $item.data('pageid'),
-            //     //         parent: $item.parent().closest('li').data('pageid'),
-            //     //         previousSibling: $item.prev().data('pageid')
-            //     //     };
-            //     // }
-            // });
 
+            //     // determine the parent and the sibling of the moved item:
+            //     var info = {
+            //         movedItem: $item.data('pageid'),
+            //         parent: $item.parent().closest('li').data('pageid'),
+            //         previousSibling: $item.prev().data('pageid')
+            //     };
+
+            //     console.log(info);
+            // }
 
 
             // add styling info to the first page:
