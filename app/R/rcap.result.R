@@ -30,12 +30,12 @@ rcap.result <- function(rcapConfigFileName="rcap_designer.json", inline=FALSE) {
   # This builds all the control objects and sets up the dependencies
   rcapController <- Controller(rcapConfig)
   
-  # Almost all of this will be replaced with controller functions --------------
-  
   # Start building rcw call
   rcwResultList <- list(run=rcap.run, body="", rcapJson=rcapJson)
   
-
+  # Add an updateVariable OCAP (it may be moved)
+  # No longer exposing the control functions to the front end.
+  
   rcwResultList[['test']] <- function() {rcap.consoleMsg(list(a="asd", b=list(c=1,d=2)))}
   
   # Fire up the viewer
