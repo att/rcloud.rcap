@@ -30,7 +30,7 @@ processControl <- function(rcapControl) {
 # Default -----------------------------------------------------------------
 
 processControl.default <- function(rcapControl) {
-  return(list())
+  return(NULL)
 }
 
 

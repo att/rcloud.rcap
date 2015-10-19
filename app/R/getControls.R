@@ -8,45 +8,69 @@
 #' @examples
 getControls <- function(rcapConfig) {
   
-  if (!is.null(rcapConfig$pages)) {
-    return(unlist(lapply(rcapConfig$pages, getControlsPage), recursive=FALSE))
-  } else {
-    return(list())
+  ## This is the best way I could come up with to recursively parse the JSON and
+  ## flatten into a list of controls
+  
+  allJsonControls <- list()
+  
+  #' Parse an RCAP page for functions
+  #'
+  #' @description Process and return each control that creates an OCAP R function 
+  #' on a page. This function will call itself recursively for all child pages in
+  #' a depth first search.
+  #'
+  #' @param rcapPage a list containing the controls on a page
+  #'
+  #' @return list of the controls (each a list) on the page and the functions of child pages in
+  #' a tree structure.
+  #'
+  #' @examples
+  #' \dontrun{
+  #' pageFunctions <- lapply(rcapConfig$pages, getControlsPage)
+  #' }
+  getControlsPage <- function(rcapPage) {
+    
+    # Check for child pages
+    if(!is.null(rcapPage$pages)) {
+      childControls <- lapply(rcapPage$pages, getControlsPage)
+    } else {
+      childControls <- list()
+    }
+    
+    # Now check for controls
+    if (!is.null(rcapPage$controls)) {
+      pageControls <- lapply(rcapPage$controls, getControlsControl)
+    } else {
+      pageControls <- list()
+    }
+    
+    return(append(childControls, pageControls))
+    
   }
+  
+  getControlsControl <- function(rcapControl) {
+    
+    # Check for child controls
+    if(!is.null(rcapControl$childControls)) {
+      childControls <- lapply(rcapControl$childControls, getControlsControl)
+    } else {
+      childControls <- list()
+    }
+    
+    allJsonControls <<- append(allJsonControls, list(rcapControl))
+    
+    # Append the children and return
+    class(rcapControl) <- "rcapControl"
+    return(append(childControls, list(rcapControl)))
+  }
+  
+  
+  
+  if (!is.null(rcapConfig$pages)) {
+    lapply(rcapConfig$pages, getControlsPage)
+  } 
+  
+  return(allJsonControls)
   
 }
 
-#' Parse an RCAP page for functions
-#'
-#' @description Process and return each control that creates an OCAP R function 
-#' on a page. This function will call itself recursively for all child pages in
-#' a depth first search.
-#'
-#' @param rcapPage a list containing the controls on a page
-#'
-#' @return list of the controls (each a list) on the page and the functions of child pages in
-#' a tree structure.
-#'
-#' @examples
-#' \dontrun{
-#' pageFunctions <- lapply(rcapConfig$pages, getControlsPage)
-#' }
-getControlsPage <- function(rcapPage) {
-  
-  # Check for child pages
-  if(!is.null(rcapPage$pages)) {
-    childControls <- lapply(rcapPage$pages, getControlsPage)
-  } else {
-    childControls <- list()
-  }
-  
-  # Now check for controls
-  if (!is.null(rcapPage$controls)) {
-    pageControls <- rcapPage$controls
-  } else {
-    pageControls <- list()
-  }
-  
-  return(append(childControls, pageControls))
-  
-}
