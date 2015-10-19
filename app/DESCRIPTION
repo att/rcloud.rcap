@@ -5,7 +5,7 @@ Authors@R: c(person("Douglas", "Ashton", email = "dashton@mango-solutions.com", 
              person("Shane", "Porter", email = "sporter@mango-solutions.com", role = c("aut")))
 Maintainer: Douglas Ashton <dashton@mango-solutions.com>
 Description: Website designer for RCloud's mini interface.
-Imports: rcloud.support, rcloud.web, jsonlite, Rserve
+Imports: rcloud.support, rcloud.web, jsonlite, Rserve, R6
 Suggests: testthat
 License: 
 RCloud-Extension: gui
