@@ -35,18 +35,7 @@ rcap.result <- function(rcapConfigFileName="rcap_designer.json", inline=FALSE) {
   # Start building rcw call
   rcwResultList <- list(run=rcap.run, body="", rcapJson=rcapJson)
   
-  
-  # Parse for functions
-  # Attach the function to the rcw call list
-  allFunctions <- parseConfig(rcapConfig)
-  
-  allFunctions <- unlist(allFunctions)
-  names(allFunctions) <- allFunctions
-  
-  for(funName in allFunctions) {
-    rcwResultList[[funName]] <- eval(parse(text=funName))
-  }
-  
+
   rcwResultList[['test']] <- function() {rcap.consoleMsg(list(a="asd", b=list(c=1,d=2)))}
   
   # Fire up the viewer
