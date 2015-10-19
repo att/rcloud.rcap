@@ -26,8 +26,15 @@ rcap.result <- function(rcapConfigFileName="rcap_designer.json", inline=FALSE) {
   # Convert the JSON into a list
   rcapConfig <- jsonlite::fromJSON(rcapJson, simplifyVector = FALSE)
   
+  # Create the controller object from the JSON
+  # This builds all the control objects and sets up the dependencies
+  rcapController <- Controller(rcapConfig)
+  
+  # Almost all of this will be replaced with controller functions --------------
+  
   # Start building rcw call
   rcwResultList <- list(run=rcap.run, body="", rcapJson=rcapJson)
+  
   
   # Parse for functions
   # Attach the function to the rcw call list
