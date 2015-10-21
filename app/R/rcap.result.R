@@ -26,19 +26,17 @@ rcap.result <- function(rcapConfigFileName="rcap_designer.json", inline=FALSE) {
   # Convert the JSON into a list
   rcapConfig <- jsonlite::fromJSON(rcapJson, simplifyVector = FALSE)
   
+  # Create the controller object from the JSON
+  # This builds all the control objects and sets up the dependencies
+  rcapController <- Controller(rcapConfig)
+  
   # Start building rcw call
   rcwResultList <- list(run=rcap.run, body="", rcapJson=rcapJson)
   
-  # Parse for functions
-  # Attach the function to the rcw call list
-  allFunctions <- parseConfig(rcapConfig)
+  # Add an updateVariable OCAP (it may be moved)
+  # No longer exposing the control functions to the front end.
   
-  allFunctions <- unlist(allFunctions)
-  names(allFunctions) <- allFunctions
-  
-  for(funName in allFunctions) {
-    rcwResultList[[funName]] <- eval(parse(text=funName))
-  }
+  rcwResultList[['test']] <- function() {rcap.consoleMsg(list(a="asd", b=list(c=1,d=2)))}
   
   # Fire up the viewer
   rcap.initViewer(rcapJson)
