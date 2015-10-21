@@ -23,7 +23,14 @@ define(['pubsub', 'site/pubSubTable'], function(PubSub, pubSubTable) {
                 	.text(message.content)
                 	.fadeIn(500, function() {
                         setTimeout(function() {
-                            $(selector).fadeOut(500);
+
+                            var preMoveTop = $(selector).css('top');
+
+                            $(selector).animate({ 'top' : '-=100' }, 500, function() { 
+                                $(this).hide(); 
+                                $(this).css('top', preMoveTop); 
+                            });
+
                         }, messageTimeout);
                     });
             });

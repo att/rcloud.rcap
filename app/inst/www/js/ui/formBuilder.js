@@ -7,11 +7,14 @@ define(['controls/factories/controlFactory', 'pubsub', 'site/pubSubTable'], func
         initialise: function() {
 
             var updateConfigurationContent = function(control) {
-                $('#formbuilder-form').html(control.getDialogMarkup());
+
+                $('#formbuilder-form-no-item').hide();
+
+                $('#formbuilder-form .js-rcap-dynamic').html(control.getDialogMarkup());
 
                 // don't forget the 'save' button, if there are control properties:
                 if (control.controlProperties.length > 0) {
-                    $('#formbuilder-form').append($('<button class="btn btn-primary">Update</button>'));
+                    $('#formbuilder-form .js-rcap-dynamic').append($('<button class="btn btn-primary">Update</button>'));
                 }
             };
 
@@ -39,6 +42,10 @@ define(['controls/factories/controlFactory', 'pubsub', 'site/pubSubTable'], func
             $('.drop-zone').on('click', '.ui-remove', function(e) {
                 updateChildControls();
                 $(this).parent().remove();
+
+                $('#formbuilder-form-no-item').show();
+                $('#formbuilder-form .js-rcap-dynamic').html('');
+
                 e.preventDefault();
                 return false;
             });
@@ -187,9 +194,7 @@ define(['controls/factories/controlFactory', 'pubsub', 'site/pubSubTable'], func
         setFormControl: function(control) {
 
             // clear stuff and reset:
-            $('#dialog-form-builder .drop-zone, #formbuilder-form').empty();
-
-            $('#formbuilder-form').append($('<div>Add or select a control to configure its properties.</div>'));
+            $('#dialog-form-builder .drop-zone, #formbuilder-form .js-rcap-dynamic').empty();
 
             // styling information:
             $('#formbuilder-form-style').html(control.getStyleDialogMarkup());
