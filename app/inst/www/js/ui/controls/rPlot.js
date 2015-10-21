@@ -61,12 +61,12 @@ define(['rcap/js/ui/controls/gridControl',
                         }, function() {});
 
                     } else {
-                        $(e).css({
+                        $(e).text('the function ' + $(e).attr('id') + '() does not exist...');
+                        $(e).closest('.grid-stack-item-content').css({
                                 'color': 'red',
                                 'font-weight': 'bold',
                                 'border': '1px solid red'
-                            })
-                            .text('the function ' + $(e).attr('id') + '() does not exist...');
+                            });
                     }
                 });
             }

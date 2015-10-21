@@ -39,17 +39,17 @@ define([
                 originatingControl.styleProperties[index].value = prop.getDialogValue();
             });
 
-/*
-            // get style properties:
-            originatingControl.styleProperties.padding = $('#' + originatingControl.id + '-padding').slider('option', 'value');
-            originatingControl.styleProperties.borderWidth = $('#' + originatingControl.id + '-borderWidth').slider('option', 'value');
+            /*
+                        // get style properties:
+                        originatingControl.styleProperties.padding = $('#' + originatingControl.id + '-padding').slider('option', 'value');
+                        originatingControl.styleProperties.borderWidth = $('#' + originatingControl.id + '-borderWidth').slider('option', 'value');
 
-            var bgColor = $('#' + originatingControl.id + '-backgroundColor').spectrum('get');
-            var borderColor = $('#' + originatingControl.id + '-borderColor').spectrum('get');
+                        var bgColor = $('#' + originatingControl.id + '-backgroundColor').spectrum('get');
+                        var borderColor = $('#' + originatingControl.id + '-borderColor').spectrum('get');
 
-            originatingControl.styleProperties.backgroundColor = bgColor ? bgColor.toHexString() : undefined;
-            originatingControl.styleProperties.borderColor = borderColor ? borderColor.toHexString() : undefined;
-*/
+                        originatingControl.styleProperties.backgroundColor = bgColor ? bgColor.toHexString() : undefined;
+                        originatingControl.styleProperties.borderColor = borderColor ? borderColor.toHexString() : undefined;
+            */
 
             // push the updated event:
             PubSub.publish(pubSubTable.updateControl, originatingControl);
@@ -71,7 +71,7 @@ define([
             $.each(page.styleProperties, function(index, prop) {
                 page.styleProperties[index].value = prop.getDialogValue();
             });
-            
+
             // push the updated event:
             PubSub.publish(pubSubTable.updatePage, {
                 id: $('#page-form').data('pageid'),
@@ -288,11 +288,14 @@ define([
                 $('#page-form').data('page', page);
 
                 // custom validator:
-                window.ParsleyValidator.addValidator('pagenamevalidator',
-                        function(value) {
-                            return currentPageTitles.indexOf(value.toUpperCase()) === -1;
-                        })
-                    .addMessage('en', 'pagenamevalidator', 'This page already exists');
+                // only need to add once
+                if (!window.ParsleyValidator.validators.rcappagenamevalidator) {
+                    window.ParsleyValidator.addValidator('rcappagenamevalidator',
+                            function(value) {
+                                return currentPageTitles.indexOf(value.toUpperCase()) === -1;
+                            })
+                        .addMessage('en', 'rcappagenamevalidator', 'This page already exists');
+                }
 
                 $('#dialog-pageSettings').jqmShow();
             });
