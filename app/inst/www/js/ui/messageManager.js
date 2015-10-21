@@ -26,9 +26,12 @@ define(['pubsub', 'site/pubSubTable'], function(PubSub, pubSubTable) {
 
                             var preMoveTop = $(selector).css('top');
 
-                            $(selector).animate({ 'top' : '-=100' }, 500, function() { 
+                            $(selector).animate({ 'top' : '-=50', 'opacity' : '0' }, 250, function() { 
                                 $(this).hide(); 
-                                $(this).css('top', preMoveTop); 
+                                $(this).css({ 
+                                    'top' : preMoveTop,
+                                    'opacity' : '1'
+                                }); 
                             });
 
                         }, messageTimeout);
