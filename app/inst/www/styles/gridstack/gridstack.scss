@@ -42,7 +42,18 @@
   display: flex;
 }
 
-
+.rcap-controltype-rplot pre, .rcap-controltype-interactiveplot pre, {
+  display: block;
+  text-align: center;
+  position: absolute;
+  top: 46%;
+  text-align: center;
+  width: 100%;
+  background-color: rgba(195, 126, 0, 0.9);
+  color: white;
+  padding: 10px;
+  letter-spacing: 1px;
+}
 
 
 .grid-stack > .grid-stack-item > .ui-resizable-handle {

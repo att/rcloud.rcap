@@ -11,6 +11,21 @@ define([
 
     };
 
+    // var getControlStyleProperties = function(control) {
+    //     var styleInfo = {
+    //         'background-color' : control.styleProperties.backgroundColor,
+    //         'padding' : control.styleProperties.padding,
+    //     };
+
+    //     // if a border has been specified, use that, otherwise use the default:
+    //     if(control.styleProperties.borderWidth > 0 && control.styleProperties.borderColor) {
+    //         styleInfo['border-color'] = control.styleProperties.borderColor;
+    //         styleInfo['border-width'] = control.styleProperties.borderWidth;           
+    //     }
+
+    //     return styleInfo;
+    // };
+
     var getDesignTimeControlOuterMarkup = function(control) {
         return $('<div data-controlid="' + control.id + '"></div>').append(getDesignTimeControlInnerMarkup(control));
     };
@@ -27,6 +42,9 @@ define([
             configure.append(control.render({
                 isDesignTime: true
             }));
+
+            // only apply styling information if the control is in a valid state:
+            configure.css(control.getStyleProperties());
         }
 
         // append button (and icon if the state is not valid):
@@ -42,7 +60,9 @@ define([
         var item = $('<div data-controlid="' + control.id + '" data-gs-no-resize="true" data-gs-no-move="true" data-gs-readonly="true"></div>')
             .append('<div class="grid-stack-item-content rcap-controltype-' + control.type + '"></div>');
 
-        item.find('.grid-stack-item-content').append(control.render());
+        item.find('.grid-stack-item-content')
+            .css(control.getStyleProperties())
+            .append(control.render());
 
         return item;
 
@@ -89,7 +109,8 @@ define([
         gridstackOptions.height = options.minHeight || 12;
 
         $(rootElement).append(gridStackRoot);
-        $(selector).gridstack(gridstackOptions);
+        $(selector).gridstack(gridstackOptions)
+                   .css(page.getStyleProperties());
 
         // designer events:
         if (options.isDesignTime) {
@@ -303,6 +324,14 @@ define([
                 PubSub.publish(pubSubTable.configureControl, $(this).closest('.grid-stack-item').data('control'));
             });
 
+
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////
+            PubSub.subscribe(pubSubTable.updatePage, function(msg, pageData) {
+
+                $('.grid-stack[data-pageid="' + pageData.id + '"]').css('background-color', _.findWhere(pageData.styleProperties, { uid : 'backgroundColor' }).value);
+
+            });
+            
             /////////////////////////////////////////////////////////////////////////////////////////////////////////
             PubSub.subscribe(pubSubTable.pageAdded, function(msg, pageData) {
 

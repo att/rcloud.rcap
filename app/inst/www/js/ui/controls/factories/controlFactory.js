@@ -1,113 +1,153 @@
 define([
-	'controls/iframe',
-	'controls/image',
-	'controls/rPlot',
-	'controls/text',
-	'controls/pageMenu',
-	'controls/breadcrumb',
-	'controls/interactivePlot',
-	'controls/form',
-	//////////////////////
-	'controls/child/datePicker',
-	'controls/child/dropdown',
-	'controls/child/separator',
-	'controls/child/heading',
-	'controls/child/checkboxList',
-	'controls/child/radioButtonGroup',
-	'controls/child/submitButton',
+    'controls/iframe',
+    'controls/image',
+    'controls/rPlot',
+    'controls/text',
+    'controls/pageMenu',
+    'controls/breadcrumb',
+    'controls/interactivePlot',
+    'controls/form',
+    //////////////////////
+    'controls/child/datePicker',
+    'controls/child/dropdown',
+    'controls/child/separator',
+    'controls/child/heading',
+    'controls/child/multiSelect',
+    'controls/child/checkboxList',
+    'controls/child/radioButtonGroup',
+    'controls/child/submitButton',
 
-	], function(IFrameControl, ImageControl, RPlotControl, TextControl, PageMenuControl, BreadcrumbControl, InteractivePlotControl, FormControl,
-		///////////////////////
-		DatePickerControl, 
-		DropdownControl,
-		SeparatorControl,
-		HeadingControl,
-		CheckboxListControl,
-		RadioButtonGroupControl,
-		SubmitButtonControl) {
-	
-	'use strict';
+], function(IFrameControl, ImageControl, RPlotControl, TextControl, PageMenuControl, BreadcrumbControl, InteractivePlotControl, FormControl,
+    ///////////////////////
+    DatePickerControl,
+    DropdownControl,
+    SeparatorControl,
+    HeadingControl,
+    MultiSelectControl,
+    CheckboxListControl,
+    RadioButtonGroupControl,
+    SubmitButtonControl) {
 
-	function ControlFactory()  {
-		this.gridControls = [
-			new RPlotControl(),
-			new InteractivePlotControl(),		
-			new FormControl(),
-			new IFrameControl(),
-			new ImageControl(),
-			new PageMenuControl(),
-			new BreadcrumbControl(),
-			new TextControl()
+    'use strict';
 
-			//new DatePickerControl(),
-			//new DropdownControl(),
-		];
+    function ControlFactory() {
+        this.gridControls = [
+            new RPlotControl(),
+            new InteractivePlotControl(),
+            new FormControl(),
+            new IFrameControl(),
+            new ImageControl(),
+            new PageMenuControl(),
+            new BreadcrumbControl(),
+            new TextControl()
 
-		this.childControls = [
-			new DatePickerControl(),
-			new DropdownControl(),
-			new SeparatorControl(),
-			new HeadingControl(),
-			new CheckboxListControl(),
-			new RadioButtonGroupControl(),
-			new SubmitButtonControl()
-		];
-	}
+            //new DatePickerControl(),
+            //new DropdownControl(),
+        ];
 
-	ControlFactory.prototype.getGridControls = function() {
-		return this.gridControls;
-	};
+        this.childControls = [
+            new DatePickerControl(),
+            new DropdownControl(),
+            new MultiSelectControl(),
+            new CheckboxListControl(),
+            new RadioButtonGroupControl(),
+            new SeparatorControl(),
+            new HeadingControl(),
+            new SubmitButtonControl()
+        ];
+    }
 
-	ControlFactory.prototype.getChildControls = function() {
-		return this.childControls;
-	};
+    ControlFactory.prototype.getGridControls = function() {
+        return this.gridControls;
+    };
 
-	// ControlFactory.prototype.getAll = function() {
-	// 	return this.controls;
-	// };
+    ControlFactory.prototype.getChildControls = function() {
+        return this.childControls;
+    };
 
-	ControlFactory.prototype.getByKey = function(key) {
-		// TODO: improve this (each 'control' knows its own string identity...)
+    // ControlFactory.prototype.getAll = function() {
+    // 	return this.controls;
+    // };
 
-		var control;
+    ControlFactory.prototype.getByKey = function(key) {
+        // TODO: improve this (each 'control' knows its own string identity...)
 
-		switch(key){
-			//case 'datepicker': control = new DatePickerControl(); break;
-			//case 'dropdown': control = new DropdownControl(); break;
-			case 'iframe': control = new IFrameControl(); break;
-			case 'image': control = new ImageControl(); break;
-			case 'rplot': control = new RPlotControl(); break;
-			case 'interactiveplot': control = new InteractivePlotControl(); break;
-			case 'text': control = new TextControl(); break;
-			case 'pagemenu': control = new PageMenuControl(); break;
-			case 'breadcrumb': control  = new BreadcrumbControl(); break;
-			case 'form': control = new FormControl(); break;
-			default: control = undefined; break;
-		}
+        var control;
 
-		return control;
-	};
+        switch (key) {
+            //case 'datepicker': control = new DatePickerControl(); break;
+            //case 'dropdown': control = new DropdownControl(); break;
+            case 'iframe':
+                control = new IFrameControl();
+                break;
+            case 'image':
+                control = new ImageControl();
+                break;
+            case 'rplot':
+                control = new RPlotControl();
+                break;
+            case 'interactiveplot':
+                control = new InteractivePlotControl();
+                break;
+            case 'text':
+                control = new TextControl();
+                break;
+            case 'pagemenu':
+                control = new PageMenuControl();
+                break;
+            case 'breadcrumb':
+                control = new BreadcrumbControl();
+                break;
+            case 'form':
+                control = new FormControl();
+                break;
+            default:
+                control = undefined;
+                break;
+        }
 
-	ControlFactory.prototype.getChildByKey = function(key) {
-		// TODO: improve this (each 'control' knows its own string identity...)
+        return control;
+    };
 
-		var control;
+    ControlFactory.prototype.getChildByKey = function(key) {
+        // TODO: improve this (each 'control' knows its own string identity...)
 
-		switch(key){
-			case 'datepicker': control = new DatePickerControl(); break;
-			case 'dropdown': control = new DropdownControl(); break;
-			case 'heading': control = new HeadingControl(); break;
-			case 'separator': control = new SeparatorControl(); break;
-			case 'checkboxlist': control = new CheckboxListControl(); break;
-			case 'radiobuttongroup': control = new RadioButtonGroupControl(); break;
-			case 'submitbutton': control = new SubmitButtonControl(); break;
-			default: control = undefined; break;
-		}
+        var control;
 
-		return control;
-	};
+        switch (key) {
+            case 'datepicker':
+                control = new DatePickerControl();
+                break;
+            case 'dropdown':
+                control = new DropdownControl();
+                break;
+            case 'multiselect':
+                control = new MultiSelectControl();
+                break;
+            case 'checkboxlist':
+                control = new CheckboxListControl();
+                break;
+            case 'radiobuttongroup':
+                control = new RadioButtonGroupControl();
+                break;
+            case 'heading':
+                control = new HeadingControl();
+                break;
+            case 'separator':
+                control = new SeparatorControl();
+                break;
+            case 'submitbutton':
+                control = new SubmitButtonControl();
+                break;
+            default:
+                control = undefined;
+                break;
+        }
+
+        return control;
+    };
 
 
-	return ControlFactory;
+    return ControlFactory;
 
 });

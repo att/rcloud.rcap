@@ -107,6 +107,11 @@ define(['pages/page', 'rcap/js/utils/pageWalker'], function(Page, PageWalker) {
             var page = this.getPageByID(pageObj.id);
             page.navigationTitle = pageObj.navigationTitle;
 
+            // style information:
+            _.each(pageObj.styleProperties, function(index, prop) {
+                _.findWhere(pageObj.styleProperties, { uid : prop.uid }).value = prop.value;
+            });
+
             // update the enabled status of this and all its (if any) child pages:
             var pages = new PageWalker(this.pages).getDescendantsAndSelf(pageObj.id);
 

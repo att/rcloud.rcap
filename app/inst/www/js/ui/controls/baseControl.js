@@ -12,11 +12,12 @@ define(['rcap/js/Class'], function() {
             this.type = options.type;
             this.label = options.label;
             this.icon = options.icon;
+
             this.controlProperties = options.controlProperties;
             // generate a random ID:
             this.id = generateId();
         },
-        regenerateId : function() {
+        regenerateId: function() {
             this.id = generateId();
             return this;
         },
@@ -26,14 +27,14 @@ define(['rcap/js/Class'], function() {
         serialize: function() {
 
         },
-        render: function(/*options*/) {
+        render: function( /*options*/ ) {
             return '<p><i class="icon-' + this.icon + '"></i></p>';
         },
         getDialogMarkup: function() {
             var html = '';
 
             if (this.controlProperties.length === 0) {
-            	html = 'There are no configurable properties for this control';
+                html = 'There are no configurable properties for this control';
             } else {
                 $.each(this.controlProperties, function(key, prop) {
                     html += prop.render(key);
@@ -52,25 +53,29 @@ define(['rcap/js/Class'], function() {
                 'controlProperties': this.controlProperties
             };
         },
-        getControlPropertyValue : function(uid) {
+        getControlPropertyValue: function(uid) {
 
-            var prop = _.findWhere(this.controlProperties, { 'uid' : uid });
-    
-            if(prop === undefined) {
+            var prop = _.findWhere(this.controlProperties, {
+                'uid': uid
+            });
+
+            if (prop === undefined) {
                 throw new Error('control property ' + uid + ' not found.');
             } else {
-                return prop.value;   
+                return prop.value;
             }
-            
+
         },
-        getControlPropertyValueOrDefault : function(uid) {
+        getControlPropertyValueOrDefault: function(uid) {
 
             var propValue = this.getControlPropertyValue(uid);
 
-            if(propValue !== 'undefined' && propValue.length > 0) {
+            if (propValue !== undefined && propValue.length > 0) {
                 return propValue;
             } else {
-                return _.findWhere(this.controlProperties, { 'uid' : uid }).defaultValue;
+                return _.findWhere(this.controlProperties, {
+                    'uid': uid
+                }).defaultValue;
             }
         }
     });

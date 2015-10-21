@@ -13,7 +13,7 @@ define([
 
     'use strict';
 
-    var rcloudSelector = '.container, #rcloud-navbar-main, #rcloud-navbar-main';
+    var rcloudSelector = '.container, #rcloud-navbar-main, #rcloud-navbar-main, .navbar-fixed-top';
     var rcapSelector = '#rcap-designer';
 
     var bootstrap = function() {
@@ -56,6 +56,18 @@ define([
         // serializer:
         new Serializer().initialise();
 
+
+
+        $.getJSON('https://api.github.com/users/' + window.shell.notebook.model.user(), function(data) { 
+
+            var templateStr = '<a href="<%=data.html_url%>" target="_blank"><img src="<%=data.avatar_url%>" /></a>';
+            var template = _.template(templateStr);
+            $('#rcap-userplaceholder').append(template({
+                data: data
+            }));
+        });
+
+
         // this should only run once, even if it's called more than once.
         bootstrap = function() {};
     };
@@ -81,7 +93,7 @@ define([
                     $(rcapSelector).show();
 
                     // ensure that the top of the design surface is shown:
-                    location.hash = 'inner-stage';
+                    location.hash = 'rcap-stage';
 
                     $('#rcap-preloader').fadeOut();
                 

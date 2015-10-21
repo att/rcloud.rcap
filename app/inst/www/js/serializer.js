@@ -74,12 +74,15 @@ define(['pubsub', 'site/site', 'site/pubSubTable', 'rcap/js/ui/message', 'contro
                         control,
                         jsonControl,
                         jsonControlProperty,
+                        jsonStyleProperty,
                         currentPage,
                         jsonPageProperty,
                         controlLoop,
                         propertyLoop,
+                        stylePropertyLoop,
                         property,
                         currProp,
+                        currStyleProp,
                         data,
                         controlFactory = new ControlFactory(),
                         currentChild,
@@ -117,9 +120,23 @@ define(['pubsub', 'site/site', 'site/pubSubTable', 'rcap/js/ui/message', 'contro
                                 // assign all properties, but ignore 
                                 // controls and pages:
                                 for (jsonPageProperty in jsonPage) {
-                                    if (jsonPage.hasOwnProperty(jsonPageProperty) && 
-                                        ['controls'].indexOf(jsonPageProperty) === -1) {
+                                    if (jsonPage.hasOwnProperty(jsonPageProperty) && ['controls', 'styleProperties'].indexOf(jsonPageProperty) === -1) {
                                         currentPage[jsonPageProperty] = jsonPage[jsonPageProperty];
+                                    }
+                                }
+
+                                // page style info:
+                                // loop through each specific styleProperties property:
+                                for (stylePropertyLoop = 0; stylePropertyLoop < jsonPage.styleProperties.length; ++stylePropertyLoop) {
+                                    jsonStyleProperty = jsonPage.styleProperties[stylePropertyLoop];
+
+                                    currStyleProp = _.findWhere(currentPage.styleProperties, {
+                                        uid: jsonStyleProperty.uid
+                                    });
+
+                                    if (currStyleProp !== undefined) {
+                                        currStyleProp.value = jsonStyleProperty.value;
+                                        currStyleProp.id = jsonStyleProperty.id;
                                     }
                                 }
 
@@ -132,10 +149,11 @@ define(['pubsub', 'site/site', 'site/pubSubTable', 'rcap/js/ui/message', 'contro
                                     control = controlFactory.getByKey(jsonControl.type);
                                     control.isOnGrid = true;
 
-                                    // set control's properties, excluding 'controlProperties' property:
+                                    // set control's properties, excluding 'controlProperties', 'childControls'
+                                    // and 'styleProperties' properties:
                                     for (property in jsonControl) {
                                         // don't overwrite the control properties, they will be updated separately below:
-                                        if (jsonControl.hasOwnProperty(property) && property !== 'controlProperties' && property !== 'childControls') {
+                                        if (jsonControl.hasOwnProperty(property) && ['controlProperties', 'styleProperties', 'childControls'].indexOf(property) === -1) {
                                             control[property] = jsonControl[property];
                                         }
                                     }
@@ -156,6 +174,21 @@ define(['pubsub', 'site/site', 'site/pubSubTable', 'rcap/js/ui/message', 'contro
                                             currProp.id = jsonControlProperty.id;
                                         }
                                     }
+
+                                    // loop through each specific styleProperties property:
+                                    for (stylePropertyLoop = 0; stylePropertyLoop < jsonControl.styleProperties.length; ++stylePropertyLoop) {
+                                        jsonStyleProperty = jsonControl.styleProperties[stylePropertyLoop];
+
+                                        currStyleProp = _.findWhere(control.styleProperties, {
+                                            uid: jsonStyleProperty.uid
+                                        });
+
+                                        if (currStyleProp !== undefined) {
+                                            currStyleProp.value = jsonStyleProperty.value;
+                                            currStyleProp.id = jsonStyleProperty.id;
+                                        }
+                                    }
+
 
                                     // loop through each child control:
                                     if (jsonControl.hasOwnProperty('childControls')) {
@@ -197,9 +230,9 @@ define(['pubsub', 'site/site', 'site/pubSubTable', 'rcap/js/ui/message', 'contro
                             }
 
                             site.pages.push(currentPage);
-                            
+
                         });
-                        
+
                     }
 
                     PubSub.publish(pubSubTable.initSite, site);

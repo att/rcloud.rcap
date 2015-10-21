@@ -1,4 +1,7 @@
-define(['rcap/js/ui/controls/baseControl'], function(BaseControl) {
+define(['rcap/js/ui/controls/baseControl',
+    'rcap/js/ui/controls/properties/colorControlProperty',
+    'rcap/js/ui/controls/properties/rangeControlProperty'
+], function(BaseControl, ColorControlProperty, RangeControlProperty) {
 
     'use strict';
 
@@ -15,12 +18,57 @@ define(['rcap/js/ui/controls/baseControl'], function(BaseControl) {
             this.x = +options.x;
             this.y = +options.y;
 
+            this.styleProperties = [
+                new RangeControlProperty({
+                    uid: 'padding',
+                    label: 'Padding',
+                    helpText: '',
+                    defaultValue: '',
+                }),
+                new ColorControlProperty({
+                    uid: 'backgroundColor',
+                    label: 'Background Color',
+                    helpText: '',
+                    defaultValue: ''
+                }),
+                new ColorControlProperty({
+                    uid: 'borderColor',
+                    label: 'Border Color',
+                    helpText: '',
+                    defaultValue: ''
+                }),
+                new RangeControlProperty({
+                    uid: 'borderWidth',
+                    label: 'Border Width',
+                    helpText: '',
+                    defaultValue: ''
+                })
+            ];
+
             this.initialSize = options.initialSize || [2, 1];
             this.width = +this.initialSize[0];
             this.height = +this.initialSize[1];
             this.controlProperties = options.controlProperties;
 
             this.isOnGrid = options.isOnGrid || false;
+        },
+        getStylePropertyByName: function(identifier) {
+            return _.findWhere(this.styleProperties, { uid : identifier });
+        },
+        getStyleProperties: function() {
+            var styleInfo = {
+                'background-color': this.getStylePropertyByName('backgroundColor').value,
+                'padding': this.getStylePropertyByName('padding').value,
+            };
+
+            // if a border has been specified, use that, otherwise use the default:
+            if (+this.getStylePropertyByName('borderWidth').value > 0 && this.getStylePropertyByName('borderColor').value) {
+                styleInfo['border-color'] = this.getStylePropertyByName('borderColor').value;
+                styleInfo['border-width'] = this.getStylePropertyByName('borderWidth').value;
+                styleInfo['border-style'] = 'solid';
+            }
+
+            return styleInfo;
         },
         initialWidth: function() {
             return this.initialSize[0];
@@ -44,7 +92,23 @@ define(['rcap/js/ui/controls/baseControl'], function(BaseControl) {
                 html += prop.render(key);
             });
 
+            // general style information controls:
+            html += this.getStyleDialogMarkup();
+
             return html;
+        },
+        getStyleDialogMarkup: function() {
+            // general style information controls:
+
+            var markup = '<div class="style-details">';
+
+            _.each(this.styleProperties, function(prop, index) {
+                markup += prop.render(index);
+            });
+
+            markup += '<div style="clear:both" /></div>';
+
+            return markup;
         },
         getDialogValue: function() {
             return '';
@@ -57,6 +121,7 @@ define(['rcap/js/ui/controls/baseControl'], function(BaseControl) {
                 'width': this.width,
                 'height': this.height,
                 'id': this.id,
+                'styleProperties': this.styleProperties,
                 'controlProperties': this.controlProperties,
                 'isOnGrid': true
             };

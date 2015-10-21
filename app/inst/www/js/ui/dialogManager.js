@@ -1,5 +1,6 @@
 define([
     'rcap/js/ui/formBuilder',
+    'pages/page',
     'text!rcap/partials/dialogs/_addPage.htm',
     'text!rcap/partials/dialogs/_pageSettings.htm',
     'text!rcap/partials/dialogs/_siteSettings.htm',
@@ -10,7 +11,7 @@ define([
     'site/pubSubTable',
     'parsley',
     'rcap/js/vendor/jqModal.min'
-], function(FormBuilder, addPagePartial, pageSettingsPartial, siteSettingsPartial, controlSettingsPartial, formBuilderPartial, confirmDialogPartial, PubSub, pubSubTable) {
+], function(FormBuilder, Page, addPagePartial, pageSettingsPartial, siteSettingsPartial, controlSettingsPartial, formBuilderPartial, confirmDialogPartial, PubSub, pubSubTable) {
 
     'use strict';
 
@@ -34,6 +35,22 @@ define([
                 originatingControl.controlProperties[index].value = dialogValue;
             });
 
+            $.each(originatingControl.styleProperties, function(index, prop) {
+                originatingControl.styleProperties[index].value = prop.getDialogValue();
+            });
+
+/*
+            // get style properties:
+            originatingControl.styleProperties.padding = $('#' + originatingControl.id + '-padding').slider('option', 'value');
+            originatingControl.styleProperties.borderWidth = $('#' + originatingControl.id + '-borderWidth').slider('option', 'value');
+
+            var bgColor = $('#' + originatingControl.id + '-backgroundColor').spectrum('get');
+            var borderColor = $('#' + originatingControl.id + '-borderColor').spectrum('get');
+
+            originatingControl.styleProperties.backgroundColor = bgColor ? bgColor.toHexString() : undefined;
+            originatingControl.styleProperties.borderColor = borderColor ? borderColor.toHexString() : undefined;
+*/
+
             // push the updated event:
             PubSub.publish(pubSubTable.updateControl, originatingControl);
 
@@ -46,14 +63,21 @@ define([
         }
     };
 
-    var validateForm = function() {
+    var validatePageSettingsForm = function() {
         if (true === $('#page-form').parsley().isValid()) {
 
+            var page = $('#page-form').data('page');
+
+            $.each(page.styleProperties, function(index, prop) {
+                page.styleProperties[index].value = prop.getDialogValue();
+            });
+            
             // push the updated event:
             PubSub.publish(pubSubTable.updatePage, {
                 id: $('#page-form').data('pageid'),
                 navigationTitle: $('#inputPageNavigationTitle').val(),
-                isEnabled: $('#inputIsEnabled').prop('checked')
+                isEnabled: $('#inputIsEnabled').prop('checked'),
+                styleProperties: page.styleProperties
             });
 
             $('.jqmWindow').jqmHide();
@@ -190,7 +214,6 @@ define([
 
             });
 
-            //$('#dialog-controlSettings .approve').off('click').on('click', function() {
             $('#dialog-controlSettings .approve').on('click', function() {
                 $('#control-form').parsley().validate();
                 validateControl();
@@ -231,6 +254,9 @@ define([
                 $('#inputPageNavigationTitle').val(page.navigationTitle);
                 $('#inputIsEnabled').prop('checked', page.isEnabled);
 
+                // styling information:
+                $('#page-styling').html(pageInfo.page.getStyleDialogMarkup());
+
                 $('#dialog-pageSettings form')
                     .find('input')
                     .keydown(function(e) {
@@ -259,6 +285,7 @@ define([
                 }
 
                 $('#page-form').data('pageid', page.id);
+                $('#page-form').data('page', page);
 
                 // custom validator:
                 window.ParsleyValidator.addValidator('pagenamevalidator',
@@ -272,7 +299,7 @@ define([
 
             $('#dialog-pageSettings .approve').on('click', function() {
                 $('#page-form').parsley().validate();
-                validateForm();
+                validatePageSettingsForm();
             });
 
         };

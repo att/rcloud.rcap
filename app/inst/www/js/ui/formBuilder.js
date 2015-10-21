@@ -53,7 +53,7 @@ define(['controls/factories/controlFactory', 'pubsub', 'site/pubSubTable'], func
 
                 updateConfigurationContent(currentControl);
 
-                $('#dialog-form-builder .nav-tabs li:eq(1) a').tab('show');
+                $('#dialog-form-builder .nav-tabs li:eq(2) a').tab('show');
             });
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -102,13 +102,15 @@ define(['controls/factories/controlFactory', 'pubsub', 'site/pubSubTable'], func
 
             $('#dialog-form-builder .approve').on('click', function() {
 
-                // TODO: apply validation on the form's control properties (TOP LEVEL - NOT CHILD CONTROLS' PROPERTIES)
+                var formControl = $('#dialog-form-builder').data('control');
 
-                // $('#control-form').parsley().validate();
-                // validate();
+                // update the control with styling information:
+                // get style properties:
+                $.each(formControl.styleProperties, function(index, prop) {
+                    formControl.styleProperties[index].value = prop.getDialogValue();
+                });
 
-
-                PubSub.publish(pubSubTable.updateControl, $('#dialog-form-builder').data('control'));
+                PubSub.publish(pubSubTable.updateControl, formControl);
 
                 $('#dialog-form-builder').jqmHide();
             });
@@ -134,7 +136,7 @@ define(['controls/factories/controlFactory', 'pubsub', 'site/pubSubTable'], func
 
                 },
                 stop: function() {
-                    $('#dialog-form-builder .nav-tabs li:eq(1) a').tab('show');
+                    $('#dialog-form-builder .nav-tabs li:eq(2) a').tab('show');
                     updateChildControls();
                 },
                 remove: function() {
@@ -189,6 +191,9 @@ define(['controls/factories/controlFactory', 'pubsub', 'site/pubSubTable'], func
 
             $('#formbuilder-form').append($('<div>Add or select a control to configure its properties.</div>'));
 
+            // styling information:
+            $('#formbuilder-form-style').html(control.getStyleDialogMarkup());
+
             // ensure that the 'items' tab is selected:
             $('#dialog-form-builder .nav-tabs li:eq(0) a').tab('show');
 
@@ -196,10 +201,12 @@ define(['controls/factories/controlFactory', 'pubsub', 'site/pubSubTable'], func
             $('#dialog-form-builder').data('control', control);
 
             $.each(control.childControls, function(key, child) {
+
                 // add an item and set its data:
                 var item = $('<div class="form-item dropped"><div class="ui-remove" href="javascript:void(0)"></div><div class="js-dynamic">' +
                     child.render({
-                        'isDesignTime': true
+                        'isDesignTime': true,
+                        'isInFormBuilder' : true,
                     }) + '</div></div>').data('control', child);
 
                 $('#dialog-form-builder .drop-zone').append(item);

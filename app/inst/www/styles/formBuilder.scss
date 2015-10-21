@@ -12,7 +12,6 @@
         background: $bgColor;
         color: $fg;
     }
-
     & .form-item .ui-remove {
         z-index: 90;
         right: 2px;
@@ -21,25 +20,20 @@
         cursor: default;
         display: none;
     }
-
     & .form-item .ui-remove::before {
         content: "\f00d";
         font: normal normal normal 16px FontAwesome;
     }
-
     & .dropped {
         border: 1px dotted #dedede;
         background: transparent;
     }
-
     & .dropped:hover {
         border-color: #bcbcbc;
     }
-
     & .dropped:hover .ui-remove {
         display: block;
     }
-
     & hr {
         margin-top: 9px !important;
         margin-bottom: 0!important;
@@ -48,11 +42,12 @@
         width: 90%;
         margin-left: 0;
     }
-
-    & h1, h2, h3, h4 {
+    & h1,
+    h2,
+    h3,
+    h4 {
         margin-top: 0;
     }
-
     & .selected {
         border-color: #000;
     }
@@ -80,6 +75,20 @@
     }
     & #form-builder-configuration {
         padding: 10px;
+        max-height: 500px;
+
+        overflow: auto;
+        &::-webkit-scrollbar-track {
+            background-color: lighten($mainNavBackgroundColor, 75%);
+        }
+        &::-webkit-scrollbar {
+            width: 10px;
+            background-color: lightne($mainNavBackgroundColor, 75%);
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: lighten($mainNavBackgroundColor, 55%);
+        }
+
     }
     & .tab-content::after {
         content: "";
@@ -95,5 +104,4 @@
     .nav-tabs > li {
         font-size: 14px;
     }
-    
 }

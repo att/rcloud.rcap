@@ -1,0 +1,20 @@
+$bg: #fff;
+$fg: rgb(62, 62, 62);
+$defaultFontSize: 12px;
+$bgColor: #F2F2F2;
+$defaultFont: 'Open Sans',sans-serif;
+
+
+$mainNavBackgroundColor: #222;
+$mainNavColor: lighten($mainNavBackgroundColor, 70%);
+$noItemsColor: lighten($mainNavBackgroundColor, 30%);
+
+
+$toolbarButtonColorHover: #fff;
+$toolbarButtonColor: darken($toolbarButtonColorHover, 15%);
+
+$messageInformationColor: #3c763d;
+$messageWarningColor: #ddc033;
+$messageErrorColor: #a94442;
+
+$topLevelButtonColor: #c37e00;

@@ -12,6 +12,7 @@
             'pubsub': '../../shared.R/rcloud.rcap/bower_components/pubsub-js/src/pubsub',
             'parsley': '../../shared.R/rcloud.rcap/bower_components/parsleyjs/dist/parsley.min',
             'spectrum': '../../shared.R/rcloud.rcap/bower_components/spectrum',
+            'select2': '../../shared.R/rcloud.rcap/bower_components/select2/dist',
             'wysiwyg': '../../shared.R/rcloud.rcap/bower_components/wysiwyg.js/dist',
             'nestedSortable': '../../shared.R/rcloud.rcap/bower_components/jquery-nested-sortable/jquery.ui.nestedSortable'
         },

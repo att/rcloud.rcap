@@ -1,9 +1,9 @@
 define(['rcap/js/ui/controls/gridControl',
     'rcap/js/ui/controls/properties/textControlProperty',
-    'rcap/js/ui/controls/properties/multilineTextControlProperty',
+    'rcap/js/ui/controls/properties/dropdownControlProperty',
     'text!controlTemplates/interactivePlot.tpl',
     'text!controlTemplates/interactivePlot-design.tpl'
-], function(GridControl, TextControlProperty, MultilineTextControlProperty, tpl, dtpl) {
+], function(GridControl, TextControlProperty, DropdownControlProperty, tpl, dtpl) {
 
     'use strict';
 
@@ -15,21 +15,27 @@ define(['rcap/js/ui/controls/gridControl',
                 icon: 'bar-chart',
                 initialSize: [2, 2],
                 controlProperties: [
-                    new MultilineTextControlProperty({
+                    new DropdownControlProperty({
                         uid: 'code',
                         label: 'Code',
-                        defaultValue: '',
-                        helpText: 'Code for this control',
-                        className: 'code',
-                        isRequired: true
+                        helpText: 'Code for this control.',
+                        isRequired: true,
+                        availableOptions: [{
+                            text: 'func1(arg1, arg2)',
+                            value: 'func1'
+                        }, {
+                            text: 'func2(arg1, arg2)',
+                            value: 'func2'
+                        }],
+                        value: 'background-repeat:no-repeat;'
                     })
                 ]
             });
         },
-		render: function(options) {
+        render: function(options) {
 
-			options = options || {};
-			var isDesignTime = options.isDesignTime || false;
+            options = options || {};
+            var isDesignTime = options.isDesignTime || false;
 
             var template = isDesignTime ? _.template(dtpl) : _.template(tpl);
 
@@ -37,10 +43,10 @@ define(['rcap/js/ui/controls/gridControl',
                 control: this
             });
 
-		},
-		initialiseViewerItems: function() {
-			
-			var notebookResult = window.notebook_result; // jshint ignore:line
+        },
+        initialiseViewerItems: function() {
+
+            var notebookResult = window.notebook_result; // jshint ignore:line
 
             // some controls are dependent on having a valid notebook result:
             if (notebookResult) {
@@ -64,8 +70,8 @@ define(['rcap/js/ui/controls/gridControl',
                     }
                 });
             }
-            
-		}
+
+        }
     });
 
     return InteractivePlotControl;

@@ -50,19 +50,19 @@ define(['rcap/js/ui/controls/gridControl',
                         new ColorControlProperty({
                             uid: 'linkColor',
                             label: 'Link color',
-                            helpText: 'The color of the links',
+                            helpText: '',
                             defaultValue: '#336699'
                         }),
                         new ColorControlProperty({
                             uid: 'separatorColor',
                             label: 'Separator color',
-                            helpText: 'The color of the separator',
+                            helpText: '',
                             defaultValue: '#666666'
                         }),
                         new ColorControlProperty({
                             uid: 'currentPageColor',
                             label: 'Current page color',
-                            helpText: 'The color of the current page',
+                            helpText: '',
                             defaultValue: '#111111'
                         })
                     ]

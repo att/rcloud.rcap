@@ -1,9 +1,9 @@
 define(['rcap/js/ui/controls/gridControl',
     'rcap/js/ui/controls/properties/textControlProperty',
-    'rcap/js/ui/controls/properties/multilineTextControlProperty',
+    'rcap/js/ui/controls/properties/dropdownControlProperty',
     'text!controlTemplates/rPlot.tpl',
     'text!controlTemplates/rPlot-design.tpl'
-], function(GridControl, TextControlProperty, MultilineTextControlProperty, tpl, dtpl) {
+], function(GridControl, TextControlProperty, DropdownControlProperty, tpl, dtpl) {
 
     'use strict';
 
@@ -15,20 +15,19 @@ define(['rcap/js/ui/controls/gridControl',
                 icon: 'signal',
                 initialSize: [2, 2],
                 controlProperties: [
-                    // new TextControlProperty({
-                    // 	uid: 'heading',
-                    // 	label : 'Heading',
-                    // 	defaultValue : '',
-                    // 	helpText : 'The heading for this control'
-                    // }),
-                    // code box
-                    new MultilineTextControlProperty({
+                    new DropdownControlProperty({
                         uid: 'code',
                         label: 'Code',
-                        defaultValue: '',
-                        helpText: 'Code for this control',
-                        className: 'code',
-                        isRequired: true
+                        helpText: 'Code for this control.',
+                        isRequired: true,
+                        availableOptions: [{
+                            text: 'func1(arg1, arg2)',
+                            value: 'func1'
+                        }, {
+                            text: 'func2(arg1, arg2)',
+                            value: 'func2'
+                        }],
+                        value: ''
                     })
                 ]
             });

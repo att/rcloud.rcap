@@ -1,4 +1,4 @@
-define(['rcap/js/ui/controls/gridControl', 'text!rcap/partials/dialogs/_formBuilder.htm'], function(GridControl, tpl) {
+define(['rcap/js/ui/controls/gridControl', 'text!rcap/partials/dialogs/_formBuilder.htm', 'rcap/js/ui/controls/properties/colorControlProperty'], function(GridControl, tpl, ColorControlProperty) {
 
     'use strict';
 
@@ -17,6 +17,16 @@ define(['rcap/js/ui/controls/gridControl', 'text!rcap/partials/dialogs/_formBuil
             this.childControls = [
                 // initially empty, will be modified by the user
             ];
+
+            // additional property specifically for forms:
+            this.styleProperties.push(
+                new ColorControlProperty({
+                    uid: 'labelColor',
+                    label: 'Label Color',
+                    helpText: '',
+                    defaultValue: '#000000',
+                    value: '#000000'
+                }));
         },
         render: function(options) {
 
@@ -36,17 +46,16 @@ define(['rcap/js/ui/controls/gridControl', 'text!rcap/partials/dialogs/_formBuil
         getDialogMarkup: function() {
             return tpl;
         },
+        getStyleProperties: function() {
+            var styleInfo = this._super();
+            styleInfo.color = this.getStylePropertyByName('labelColor').value;
+
+            return styleInfo;
+        },
         toJSON: function() {
-            return {
-                'type': this.type,
-                'x': this.x,
-                'y': this.y,
-                'width': this.width,
-                'height': this.height,
-                'id': this.id,
-                'controlProperties': this.controlProperties,
-                'childControls': this.childControls
-            };
+            var json = this._super();
+            json.childControls = this.childControls;
+            return json;
         },
         isValid: function() {
             // ensure that the 'invalid' item count is 0:
@@ -64,6 +73,7 @@ define(['rcap/js/ui/controls/gridControl', 'text!rcap/partials/dialogs/_formBuil
             var getVarData = function(el) {
                 return {
                     variableName: el.attr('data-variablename'),
+                    controlId: el.attr('id'),
                     value: el.val()
                 };
             };

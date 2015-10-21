@@ -21,6 +21,8 @@
     padding: 12px;
 
     max-height: calc(100% - 23px);
+
+    @include noselect();
 }
 
 .jqmWindow .body {
