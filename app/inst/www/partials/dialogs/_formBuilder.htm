@@ -1,12 +1,15 @@
 <div class="jqmWindow" id="dialog-form-builder">
     <div class="header">
         <h3>Form settings</h3>
+        <div class="top-level-tabs">
+            <a href="javascript:void(0)" data-body-id="items">Items</a>
+            <a href="javascript:void(0)" data-body-id="styling">Styling</a>
+        </div>
     </div>
-    <div class="body">
+    <div class="body" data-body-id="items">
         <div class="col-md-4">
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#form-builder-items" aria-controls="controls" role="tab" data-toggle="tab">Items</a></li>
-                <li role="presentation"><a href="#form-builder-style" aria-controls="form-builder-style" role="tab" data-toggle="tab">Styling</a></li>
                 <li role="presentation"><a href="#form-builder-configuration" aria-controls="form-builder-configuration" role="tab" data-toggle="tab">Configuration</a></li>
             </ul>
             <!-- Tab panes -->
@@ -15,10 +18,6 @@
                     <ul class="controls">
                         <!-- control list will be dynamically added in here -->
                     </ul>
-                </div>
-                <div role="tabpanel" class="tab-pane" id="form-builder-style">
-                    <form id="formbuilder-form-style" style="margin-top:-1px;">
-                    </form>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="form-builder-configuration">
                     <div class="form-errors hidden">
@@ -33,6 +32,16 @@
         </div>
         <div class="col-md-8">
             <div class="drop-zone"></div>
+        </div>
+    </div>
+    <div class="body" style="display:none" data-body-id="styling">
+        <div class="row">
+            <div class="col-md-5">
+                <form id="formbuilder-form-style">
+                </form>
+            </div>
+            <div class="col-md-7">
+            </div>
         </div>
     </div>
     <div class="jqm-footer">

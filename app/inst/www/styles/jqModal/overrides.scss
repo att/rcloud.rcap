@@ -18,6 +18,26 @@ $borderColor: #cdcdcd;
 
 	& .header {
 		border-bottom: 1px solid $borderColor;
+		position: relative;
+
+		& .top-level-tabs {
+			position: absolute;
+			right: 16px;
+			top: 24px;
+
+			& a {
+				font-size: 13px;
+				text-transform: uppercase;
+				padding-top: 9px;
+				margin-left: 10px;
+				font-weight: 300;
+				text-decoration: none;
+				top: 23px;
+				right: 15px;
+				color: rgb(51, 51, 51);
+				font-weight: bold;
+			}
+		}
 	}
 
 	& .jqm-footer {
@@ -69,6 +89,7 @@ $borderColor: #cdcdcd;
 		margin-top: 5px;
 		margin-bottom: 5px;
 		text-transform: uppercase;
+		padding-top: 9px;
 	}
 
 	& .body {

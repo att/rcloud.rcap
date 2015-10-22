@@ -104,4 +104,8 @@
     .nav-tabs > li {
         font-size: 14px;
     }
+
+    & [data-body-id="styling"] .row {
+        background-color: white;
+    }
 }

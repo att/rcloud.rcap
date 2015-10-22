@@ -60,7 +60,7 @@ define(['controls/factories/controlFactory', 'pubsub', 'site/pubSubTable'], func
 
                 updateConfigurationContent(currentControl);
 
-                $('#dialog-form-builder .nav-tabs li:eq(2) a').tab('show');
+                $('#dialog-form-builder .nav-tabs li:eq(1) a').tab('show');
             });
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -143,7 +143,7 @@ define(['controls/factories/controlFactory', 'pubsub', 'site/pubSubTable'], func
 
                 },
                 stop: function() {
-                    $('#dialog-form-builder .nav-tabs li:eq(2) a').tab('show');
+                    $('#dialog-form-builder .nav-tabs li:eq(1) a').tab('show');
                     updateChildControls();
                 },
                 remove: function() {

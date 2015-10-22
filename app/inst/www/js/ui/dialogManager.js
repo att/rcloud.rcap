@@ -187,6 +187,7 @@ define([
 
                 $('#dialog-form-builder').jqmShow();
 
+                $('#dialog-form-builder .body:eq(1)').height($('#dialog-form-builder .body:eq(0)').height());
             });
 
             ////////////////////////////////////////////////////////////////////////////////
@@ -217,6 +218,14 @@ define([
             $('#dialog-controlSettings .approve').on('click', function() {
                 $('#control-form').parsley().validate();
                 validateControl();
+            });
+
+            $('#dialog-form-builder .top-level-tabs a').on('click', function() {
+                $('#dialog-form-builder .body').hide();
+
+                var tabToShow = $(this).attr('data-body-id');
+
+                $('#dialog-form-builder .body[data-body-id="' + tabToShow + '"]').show();
             });
 
             ////////////////////////////////////////////////////////////////////////////////

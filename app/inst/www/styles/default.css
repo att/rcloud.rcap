@@ -56,7 +56,23 @@
   .jqmwindow .header, .jqmwindow .body {
     padding: 15px; }
   .jqmwindow .header {
-    border-bottom: 1px solid #cdcdcd; }
+    border-bottom: 1px solid #cdcdcd;
+    position: relative; }
+    .jqmwindow .header .top-level-tabs {
+      position: absolute;
+      right: 16px;
+      top: 24px; }
+      .jqmwindow .header .top-level-tabs a {
+        font-size: 13px;
+        text-transform: uppercase;
+        padding-top: 9px;
+        margin-left: 10px;
+        font-weight: 300;
+        text-decoration: none;
+        top: 23px;
+        right: 15px;
+        color: #333333;
+        font-weight: bold; }
   .jqmwindow .jqm-footer {
     border-top: 1px solid #cdcdcd;
     display: flex; }
@@ -89,7 +105,8 @@
     font-size: 14px;
     margin-top: 5px;
     margin-bottom: 5px;
-    text-transform: uppercase; }
+    text-transform: uppercase;
+    padding-top: 9px; }
   .jqmwindow .body {
     max-height: 600px;
     overflow: auto; }
@@ -1373,6 +1390,8 @@ textarea.parsley-error {
     background-color: #fff !important; }
   #dialog-form-builder .nav-tabs > li {
     font-size: 14px; }
+  #dialog-form-builder [data-body-id="styling"] .row {
+    background-color: white; }
 
 .rcap-pagemenu {
   margin: 0;
@@ -1761,7 +1780,6 @@ textarea.parsley-error {
     height: 250px;
     font-size: 13px; }
   #rcap-designer .style-details {
-    border-top: 1px solid #ccc;
     padding-top: 15px; }
     #rcap-designer .style-details .ui-slider {
       margin-top: 7px; }
