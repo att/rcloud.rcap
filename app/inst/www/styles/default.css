@@ -71,7 +71,7 @@
         text-decoration: none;
         top: 23px;
         right: 15px;
-        color: #333333;
+        color: #666;
         font-weight: bold; }
   .jqmwindow .jqm-footer {
     border-top: 1px solid #cdcdcd;
@@ -1783,6 +1783,12 @@ textarea.parsley-error {
     padding-top: 15px; }
     #rcap-designer .style-details .ui-slider {
       margin-top: 7px; }
+    #rcap-designer .style-details .ui-slider-handle {
+      cursor: pointer;
+      border-radius: 50%; }
+      #rcap-designer .style-details .ui-slider-handle:hover {
+        background: #999;
+        border-color: inherit; }
     #rcap-designer .style-details .ui-slider-value {
       margin-top: 1px;
       padding: 4px; }
