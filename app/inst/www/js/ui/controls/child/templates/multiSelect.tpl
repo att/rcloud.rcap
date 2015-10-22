@@ -6,7 +6,7 @@ if(typeof control.controlProperties[0].value !== 'undefined' && control.controlP
 </label>
 <% } %>
 
-<select id="<%=controlId%>" data-variablename="<%=control.controlProperties[1].value%>" multiple="multiple">
+<select id="<%=controlId%>" data-variablename="<%=control.controlProperties[2].value%>" multiple="multiple">
 
 
 <%
@@ -15,7 +15,7 @@ if(typeof control.controlProperties[0].value !== 'undefined' && control.controlP
 
 		<% _.each(control.controlProperties[3].value, function(o, i){ %>
 
-			<option value="<%=o.value%>" ><%=o.label%></option>
+			<option value="<%=o.label%>"><%=o.label%></option>
 
        <% }); %>  
 
@@ -41,5 +41,8 @@ if(typeof control.controlProperties[0].value !== 'undefined' && control.controlP
 		width : '250px',
 		placeholder: '<%=control.getControlPropertyValueOrDefault('placeholder')%>'
 	}); 
+
+	$('#<%=controlId%> + .select2').find('.select2-search__field').removeAttr('style')
+	
 
 </script>
