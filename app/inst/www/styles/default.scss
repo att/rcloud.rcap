@@ -475,6 +475,7 @@
         & .ui-slider-handle {
             cursor: pointer;
             border-radius: 50%;
+            outline: none;
 
             &:hover {
                 background: #999;

@@ -1785,7 +1785,8 @@ textarea.parsley-error {
       margin-top: 7px; }
     #rcap-designer .style-details .ui-slider-handle {
       cursor: pointer;
-      border-radius: 50%; }
+      border-radius: 50%;
+      outline: none; }
       #rcap-designer .style-details .ui-slider-handle:hover {
         background: #999;
         border-color: inherit; }
