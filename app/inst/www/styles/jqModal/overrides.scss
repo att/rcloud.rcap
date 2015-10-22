@@ -22,7 +22,7 @@ $borderColor: #cdcdcd;
 
 		& .top-level-tabs {
 			position: absolute;
-			right: 16px;
+			right: 30px;
 			top: 24px;
 
 			& a {
@@ -34,8 +34,12 @@ $borderColor: #cdcdcd;
 				text-decoration: none;
 				top: 23px;
 				right: 15px;
-				color: #666;
+				color: #888;
 				font-weight: bold;
+
+				&.active, &:hover {
+					color: #000;
+				}
 			}
 		}
 	}

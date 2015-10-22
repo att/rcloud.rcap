@@ -187,6 +187,12 @@ define([
 
                 $('#dialog-form-builder').jqmShow();
 
+                $('#dialog-form-builder .body').hide();
+                $('#dialog-form-builder .body:eq(0)').show();
+
+                $('#dialog-form-builder .top-level-tabs a').removeClass('active');
+                $('#dialog-form-builder .top-level-tabs a:eq(0)').addClass('active');
+
                 $('#dialog-form-builder .body:eq(1)').height($('#dialog-form-builder .body:eq(0)').height());
             });
 
@@ -222,6 +228,9 @@ define([
 
             $('#dialog-form-builder .top-level-tabs a').on('click', function() {
                 $('#dialog-form-builder .body').hide();
+
+                $(this).addClass('active');
+                $(this).siblings().removeClass('active');
 
                 var tabToShow = $(this).attr('data-body-id');
 

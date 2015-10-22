@@ -60,7 +60,7 @@
     position: relative; }
     .jqmwindow .header .top-level-tabs {
       position: absolute;
-      right: 16px;
+      right: 30px;
       top: 24px; }
       .jqmwindow .header .top-level-tabs a {
         font-size: 13px;
@@ -71,8 +71,10 @@
         text-decoration: none;
         top: 23px;
         right: 15px;
-        color: #666;
+        color: #888;
         font-weight: bold; }
+        .jqmwindow .header .top-level-tabs a.active, .jqmwindow .header .top-level-tabs a:hover {
+          color: #000; }
   .jqmwindow .jqm-footer {
     border-top: 1px solid #cdcdcd;
     display: flex; }
