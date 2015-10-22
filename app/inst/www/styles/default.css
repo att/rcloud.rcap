@@ -51,6 +51,8 @@
   top: 10px !important;
   left: auto !important;
   background: #f2f2f2; }
+  .jqmwindow .label {
+    padding-top: 6px; }
   .jqmwindow .header, .jqmwindow .body {
     padding: 15px; }
   .jqmwindow .header {
@@ -1027,6 +1029,30 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   background-position: center;
   background-image: url(data:image/gif;base64,R0lGODlhFAAUAPcAAAAAAJmZmZ2dnZ6enqKioqOjo6SkpKWlpaampqenp6ioqKmpqaqqqqurq/Hx8fLy8vT09PX19ff39/j4+Pn5+fr6+vv7+wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAP8ALAAAAAAUABQAAAihAP9FoPCvoMGDBy08+EdhQAIJCCMybCDAAYUEARBAlFiQQoMABQhKUJBxY0SPICEYHBnggEmDKAuoPMjS5cGYMxHW3IiT478JJA8M/CjTZ0GgLRekNGpwAsYABHIypcAgQMsITDtWJYBR6NSqMico9cqR6tKfY7GeBCuVwlipDNmefAtTrkSzB1RaIAoXodsABiZAEFB06gIBWC1mLVgBa0AAOw==); }
 
+/*********************************************************************************
+
+    ** RCAP mods
+
+*********************************************************************************/
+.sp-container {
+  margin-top: 2px; }
+
+.sp-replacer {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 0, 0, 0.2); }
+  .sp-replacer:hover, .sp-replacer.sp-active {
+    border-color: rgba(0, 0, 0, 0.6); }
+  .sp-replacer .sp-preview {
+    width: 22px;
+    height: 22px;
+    border: 0;
+    margin-right: 0; }
+  .sp-replacer .sp-dd {
+    display: none; }
+
 /*
  * If you prefer to host 'FontAwesome' on your server
 @font-face {
@@ -1737,6 +1763,11 @@ textarea.parsley-error {
   #rcap-designer .style-details {
     border-top: 1px solid #ccc;
     padding-top: 15px; }
+    #rcap-designer .style-details .ui-slider {
+      margin-top: 7px; }
+    #rcap-designer .style-details .ui-slider-value {
+      margin-top: 1px;
+      padding: 4px; }
     #rcap-designer .style-details .form-group {
       width: 40%;
       padding-right: 4%;

@@ -19,7 +19,7 @@
 		    </script>
         </div>
         <div class="col-md-2">
-		    <div id="<%=property.id%>-value"><%=property.value%></div>
+		    <div id="<%=property.id%>-value" class="ui-slider-value"><%=property.value%></div>
         </div>
     </div>
 
@@ -28,7 +28,7 @@
 	<div class="form-group">
 	    <label for="<%=property.id%>"><%=property.label%></label>
 	    <div id="<%=property.id%>" />
-	    <div id="<%=property.id%>-value"><%=property.value%></div>
+	    <div id="<%=property.id%>-value" class="ui-slider-value"><%=property.value%></div>
 	    <script type="text/javascript">
 			$("#<%=property.id%>").slider({
 				value: '<%=property.value%>',

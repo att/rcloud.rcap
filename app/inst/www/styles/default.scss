@@ -469,6 +469,15 @@
         border-top: 1px solid #ccc;
         padding-top: 15px;
 
+        & .ui-slider {
+            margin-top: 7px;
+        }
+
+        & .ui-slider-value {
+            margin-top: 1px;
+            padding: 4px;
+        }
+
         & .form-group {
             width: 40%;
             padding-right: 4%;
