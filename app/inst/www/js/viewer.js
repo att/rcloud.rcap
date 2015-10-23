@@ -82,39 +82,6 @@ define(['text!rcap/partials/viewer.htm',
 
         };
 
-        ///////////////////////////////////////////////////////////////////////////////////////////////////
-        //
-        // this is a temporary function (Shane to remove at the appropriate time):
-        //
-        this.initialiseFromMenu = function() {
-
-            this.setup();
-
-            $('#rcap-viewer').css({
-                'margin-top': '-50px'
-            }).show();
-
-            // subscribe to grid done event:
-            PubSub.subscribe(pubSubTable.gridInitComplete, function() {
-
-                console.info('viewer: pubSubTable.gridInitComplete');
-
-                _.each(new ControlFactory().getGridControls(), function(control) {
-                    control.initialiseViewerItems();
-                });
-            });
-
-            PubSub.publish(pubSubTable.deserialize, {
-                isDesignTime: false,
-                loadFromLocalStorage: true
-            });
-
-            setTimeout(function() {
-                $(document).off('scroll');
-            }, 2000);
-
-        };
-
     };
 
     return Viewer;
