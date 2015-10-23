@@ -53,6 +53,7 @@ Control <- R6::R6Class("Control",
              },
              
              # Call the ocap
+             # Fix the environment
              update = function() {
                if(is.function(get(self$ocapFunction))) {
                  do.call(self$ocapFunction, list()) 
