@@ -30,23 +30,43 @@
     return {
         init: function(ocaps, k) {
 
-            if( RCloud.UI.advanced_menu.add) {
-              
-              // Not currently doing anything...
-              ocaps = RCloud.promisify_paths(ocaps, [["getRFunctions"]], true);
-              
-              RCloud.UI.advanced_menu.add({ // jshint ignore:line
-                  rcapDesigner: {
-                      sort: 10000,
-                      text: 'RCAP Designer',
-                      modes: ['edit'],
-                      action: function() {
-                          require(['rcap/js/designer'], function(Designer) {
-                              new Designer().initialise();
-                          });
-                      }
-                  }
-              });
+            if (RCloud.UI.advanced_menu.add) {
+
+                // set up RFunction ocap:
+                promise = RCloud.promisify_paths(ocaps, [
+                    ['getRFunctions'],
+                    ['getDummyFunctions'],
+                    ['getRTime']
+                ], true);
+
+                RCloud.UI.advanced_menu.add({ // jshint ignore:line
+                    rcapDesigner: {
+                        sort: 10000,
+                        text: 'RCAP Designer',
+                        modes: ['edit'],
+                        action: function() {
+
+                            promise.getRFunctions().then(function(res) {
+                                window.RCAP = window.RCAP || {};
+                                window.RCAP.getRFunctions = function() {
+                                    if(typeof res === 'string') {
+                                      return [res];
+                                    }
+                                    
+                                    return res;
+                                };
+                            });
+
+                            promise.getRTime().then(function(res) {
+                                console.log('%cgetRTime says hello with: ' + res, 'padding: 5px; font-size: 16pt; border: 1px solid black; background: #eee; color: #f00');
+                            });
+
+                            require(['rcap/js/designer'], function(Designer) {
+                                new Designer().initialise();
+                            });
+                        }
+                    }
+                });
             }
 
             k();
@@ -60,10 +80,10 @@
                 k();
             });
         },
-        
+
         consoleMsg: function(content, k) {
-          console.log(content);
-          k();
+            console.log(content);
+            k();
         }
     };
 

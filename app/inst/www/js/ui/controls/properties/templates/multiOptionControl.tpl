@@ -28,52 +28,15 @@
 
     <script type="text/javascript">
 
-    $(function() {
-
-
     	$('#form-group-<%=property.id%> :radio').click(function() {
   			$('#form-group-<%=property.id%> .j-optiontype').hide();
   			$('#group-' + $(this).attr('id')).show();
     	});
 
-
-
-
-
       // utilise the service:
-      var serviceName = '<%=property.serviceName%>';
-
-      // ### temporary code
-      window.notebook_result = {};
-      window.notebook_result[serviceName] = function() {
-            return [
-                  'getPlot',
-                  'getTowersPlot',
-                  'getCellPlot',
-                  'getComplicatedPlot',
-                  'getAmazingColorfulPlot',
-                  'getLatticePlot',
-                  'getSpaghettiPlot',
-                  'getSine',
-                  'getCosine',
-                  'getTangent',
-                  'getSecant',
-                  'getCotangent'
-            ];
-      };
-      // ### end temporary code
-
-      var autocompleteSrc = window.notebook_result[serviceName]();
-
       $('#autocomplete-code-<%=property.id%>').autocomplete({
-            source: autocompleteSrc
+          response(window.RCAP['<%=property.serviceName%>']());
       });
-
-
-
-    });
-
-
 
     </script>
 </div>

@@ -16,7 +16,7 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/au
 				value: options.value
 			});
 
-			this.serviceName = options.serviceName || 'getFunctions';
+			this.serviceName = options.serviceName || 'getRFunctions';
 		},
 		render: function(childIndex) {
 

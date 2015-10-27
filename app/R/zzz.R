@@ -10,7 +10,13 @@ rcloud.rcap.caps <- NULL
   }
   rcloud.rcap.caps <<- f("rcloud.rcap", "rcloud.rcap.js")
   if(!is.null(rcloud.rcap.caps)) {
-    ocaps <- list(getRFunctions = rcloud.support:::make.oc(rcloud.rcap.global.functions))
+    
+    #ocaps <- list(getRFunctions = rcloud.support:::make.oc(rcloud.rcap.global.functions))
+
+    ocaps <- list(getRFunctions = rcloud.support:::make.oc(rcloud.rcap.global.functions),
+                  getDummyFunctions = rcloud.support:::make.oc(function() { list("funky1", "funky2", "funky2000" ) }),
+                  getRTime = rcloud.support:::make.oc(function() { Sys.time() }))
+
     rcloud.rcap.caps$init(ocaps)
   }
 }

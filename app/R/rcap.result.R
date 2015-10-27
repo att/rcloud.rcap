@@ -55,8 +55,8 @@ rcap.result <- function(rcapConfigFileName="rcap_designer.json", inline=FALSE) {
   
   #rcwResultList[['test']] <- function() {rcap.consoleMsg(list(a="asd", b=list(c=1,d=2)))}
 
-  rcwResultList[['fib']] <- rcloud.support:::make.oc(fib)
-  rcwResultList[['getRFunctions']] <- rcloud.support:::make.oc(function() { list("func1", "func2") })
+  #rcwResultList[['fib']] <- rcloud.support:::make.oc(fib)
+  #rcwResultList[['getRFunctions']] <- rcloud.support:::make.oc(function() { list("func1", "func2") })
   
   # Fire up the viewer
   rcap.initViewer(rcapJson)
