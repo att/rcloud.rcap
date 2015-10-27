@@ -17,8 +17,8 @@ define(['rcap/js/ui/controls/gridControl',
                 controlProperties: [
                     new AutocompleteControlProperty({
                         uid: 'code',
-                        label: 'Code',
-                        helpText: 'Code for this control.',
+                        label: 'R Function',
+                        helpText: 'R Function for this control.',
                         isRequired: true
                     })
                 ]

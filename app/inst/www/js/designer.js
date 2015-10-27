@@ -18,7 +18,7 @@ define([
 
     var bootstrap = function() {
 
-        $('body').addClass('rcap-designer').append(mainPartial);
+        $('body').append(mainPartial);
 
         // close (link)
         $('#rcap-close').click(function() {
@@ -73,6 +73,8 @@ define([
         this.initialise = function() {
 
             bootstrap();
+
+            $('body').addClass('rcap-designer');
 
             $('#rcap-preloader').show();
 

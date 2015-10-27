@@ -9,7 +9,7 @@
     <label for="optionType-manual-<%=property.id%>">Manual</label>
   	<input type="radio" name="optionType" id="optionType-manual-<%=property.id%>" value="manual" <%= property.optionType === 'manual' ? ' checked="checked"' : ''%>>
 
-  	<label for="optionType-code-<%=property.id%>">Code</label>
+  	<label for="optionType-code-<%=property.id%>">R Function</label>
   	<input type="radio" name="optionType" id="optionType-code-<%=property.id%>" value="code" <%= property.optionType === 'code' ? ' checked="checked"' : ''%>>
 
 
