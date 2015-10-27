@@ -32,7 +32,7 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/mu
             // instead of testing for this everywhere, set a member property:
             this.optionType = getValueType(options.value);
 
-            this.codeHelpText = options.codeHelpText || 'Enter code that retrieves the values at runtime';
+            this.codeHelpText = options.codeHelpText || 'Enter a function that retrieves the values at runtime';
 
         },
         render: function(childIndex) {
@@ -68,7 +68,7 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/mu
                 this.optionType = 'code';
 
                 // return a string:
-                return $('#ta-code-' + this.id).val();
+                return $('#autocomplete-code-' + this.id).val();
             }
         },
         translateValueToText: function() {

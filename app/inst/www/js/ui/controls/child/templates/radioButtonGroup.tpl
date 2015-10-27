@@ -26,7 +26,7 @@
 	<!-- if it's design time -->
 	<% if(isDesignTime) { %>
 
-		<label for="des-<%=control.id%>">This radio button group's items will be rendered at runtime</label>
+		<label for="des-<%=control.id%>">{{ Runtime generated }}</label>
 		<input type="radio" name="des-<%=control.id%>" id="des-<%=control.id%>" value="">
 
 

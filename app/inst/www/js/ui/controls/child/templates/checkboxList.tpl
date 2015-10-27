@@ -21,7 +21,7 @@
 	<!-- if it's design time -->
 	<% if(isDesignTime) { %>
 
-		<input type="checkbox" style="cursor:help" title="<%=control.controlProperties[2].value%>">This checkbox list's items will be rendered at runtime</input>
+		<input type="checkbox" style="cursor:help" title="<%=control.controlProperties[2].value%>">{{ Runtime generated }}</input>
 
 	<% } else { %>
 

@@ -13,18 +13,18 @@
   	<input type="radio" name="optionType" id="optionType-code-<%=property.id%>" value="code" <%= property.optionType === 'code' ? ' checked="checked"' : ''%>>
 
 
-  	<!-- text areas -->
+  	<!-- text area/autocomplete -->
 
-	<div class="j-optiontype" id="group-optionType-manual-<%=property.id%>" <%= property.optionType !== 'manual' ? ' style="display:none" '  : '' %>>
+    <div class="j-optiontype" id="group-optionType-manual-<%=property.id%>" <%= property.optionType !== 'manual' ? ' style="display:none" '  : '' %>>
 	    <textarea class="<%=property.className%>" rows="10" cols="20" id="ta-manual-<%=property.id%>" spellcheck="false" <%= property.isRequired ? ' data-parsley-required data-parsley-trigger="change" '  : '' %>><%if( property.optionType == 'manual') {%><%=property.translateValueToText()%><% } else { %><% } %></textarea>
-	    <div class="description"><%=property.helpText%></div>
+      <div class="description"><%=property.helpText%></div>
     </div>
+
 
     <div class="j-optiontype" id="group-optionType-code-<%=property.id%>" <%= property.optionType !== 'code' ? ' style="display:none" '  : '' %>>
-	    <textarea class="<%=property.className%>" rows="10" cols="20" id="ta-code-<%=property.id%>" spellcheck="false" <%= property.isRequired ? ' data-parsley-required data-parsley-group="block-code" data-parsley-trigger="change" '  : '' %>><%if( property.optionType == 'code') {%><%=property.value%><% } else { %><% } %></textarea>
-	    <div class="description"><%=property.codeHelpText%></div>
+      <input class="<%=property.className%>" id="autocomplete-code-<%=property.id%>" spellcheck="false" <%= property.isRequired ? ' data-parsley-required data-parsley-group="block-code" data-parsley-trigger="change"' : '' %> <%if(property.optionType === 'code'){%>value="<%=property.value%>" <% } %> />
+      <div class="description"><%=property.codeHelpText%></div>
     </div>
-
 
     <script type="text/javascript">
 
@@ -35,6 +35,41 @@
   			$('#form-group-<%=property.id%> .j-optiontype').hide();
   			$('#group-' + $(this).attr('id')).show();
     	});
+
+
+
+
+
+      // utilise the service:
+      var serviceName = '<%=property.serviceName%>';
+
+      // ### temporary code
+      window.notebook_result = {};
+      window.notebook_result[serviceName] = function() {
+            return [
+                  'getPlot',
+                  'getTowersPlot',
+                  'getCellPlot',
+                  'getComplicatedPlot',
+                  'getAmazingColorfulPlot',
+                  'getLatticePlot',
+                  'getSpaghettiPlot',
+                  'getSine',
+                  'getCosine',
+                  'getTangent',
+                  'getSecant',
+                  'getCotangent'
+            ];
+      };
+      // ### end temporary code
+
+      var autocompleteSrc = window.notebook_result[serviceName]();
+
+      $('#autocomplete-code-<%=property.id%>').autocomplete({
+            source: autocompleteSrc
+      });
+
+
 
     });
 

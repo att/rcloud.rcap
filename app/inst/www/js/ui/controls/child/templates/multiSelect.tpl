@@ -24,7 +24,7 @@ if(typeof control.controlProperties[0].value !== 'undefined' && control.controlP
 	<!-- if it's design time -->
 	<% if(isDesignTime) { %>
 
-		<option value="">This dropdown's items will be rendered at runtime</option>
+		<option value="">{{ Runtime generated }}</option>
 
 	<% } else { %>
 
