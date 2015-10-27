@@ -1,7 +1,7 @@
 <% if(property.isHorizontal) { %>
 
 	<div class="row">
-        <div class="col-md-6">
+        <div class="col-md-3">
             <label for="<%=property.id%>"><%=property.label%></label>
         </div>
         <div class="col-md-4">
@@ -18,7 +18,7 @@
 				});
 		    </script>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-5">
 		    <div id="<%=property.id%>-value" class="ui-slider-value"><%=property.value%></div>
         </div>
     </div>

@@ -1,10 +1,10 @@
 <%if(property.isHorizontal) { %>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-3">
             <label for="<%=property.id%>"><%=property.label%></label>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-9">
             <input class="form-control" id="<%=property.id%>" value="<%=property.value%>" />
             <div class="description"><%=property.helpText%></div>
             <script type="text/javascript">
