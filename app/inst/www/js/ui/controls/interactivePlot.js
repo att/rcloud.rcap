@@ -1,9 +1,9 @@
 define(['rcap/js/ui/controls/gridControl',
     'rcap/js/ui/controls/properties/textControlProperty',
-    'rcap/js/ui/controls/properties/dropdownControlProperty',
+    'rcap/js/ui/controls/properties/autocompleteControlProperty',
     'text!controlTemplates/interactivePlot.tpl',
     'text!controlTemplates/interactivePlot-design.tpl'
-], function(GridControl, TextControlProperty, DropdownControlProperty, tpl, dtpl) {
+], function(GridControl, TextControlProperty, AutocompleteControlProperty, tpl, dtpl) {
 
     'use strict';
 
@@ -15,19 +15,11 @@ define(['rcap/js/ui/controls/gridControl',
                 icon: 'bar-chart',
                 initialSize: [2, 2],
                 controlProperties: [
-                    new DropdownControlProperty({
+                    new AutocompleteControlProperty({
                         uid: 'code',
                         label: 'Code',
                         helpText: 'Code for this control.',
-                        isRequired: true,
-                        availableOptions: [{
-                            text: 'func1(arg1, arg2)',
-                            value: 'func1'
-                        }, {
-                            text: 'func2(arg1, arg2)',
-                            value: 'func2'
-                        }],
-                        value: 'background-repeat:no-repeat;'
+                        isRequired: true
                     })
                 ]
             });

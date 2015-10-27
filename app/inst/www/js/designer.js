@@ -18,17 +18,17 @@ define([
 
     var bootstrap = function() {
 
-        $('body').append(mainPartial);
+        $('body').addClass('rcap-designer').append(mainPartial);
 
         // close (link)
         $('#rcap-close').click(function() {
+
+            $('body').removeClass('rcap-designer');
 
             $(rcloudSelector).show();
 
             // hide rcap:
             $(rcapSelector).hide();
-
-            //$('#rcloud-navbar-menu li.rcap').hide();
 
             console.info('designer: PUBLISH : pubSubTable.close');
             PubSub.publish(pubSubTable.close);
@@ -56,17 +56,13 @@ define([
         // serializer:
         new Serializer().initialise();
 
-
-
         $.getJSON('https://api.github.com/users/' + window.shell.notebook.model.user(), function(data) { 
-
             var templateStr = '<a href="<%=data.html_url%>" target="_blank"><img src="<%=data.avatar_url%>" /></a>';
             var template = _.template(templateStr);
             $('#rcap-userplaceholder').append(template({
                 data: data
             }));
         });
-
 
         // this should only run once, even if it's called more than once.
         bootstrap = function() {};

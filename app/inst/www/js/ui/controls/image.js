@@ -55,6 +55,21 @@ define(['rcap/js/ui/controls/gridControl', 'rcap/js/ui/controls/properties/textC
             return template({
                 control: this
             });
+		},
+		initialiseViewerItems : function() {
+
+			$('.grid-stack-item-content.rcap-controltype-image').click(function() {
+				$('#rcap-stretcher .js-rcap-dynamic').append($('<img />').attr('src', $(this).find('div').attr('data-imgsrc')));
+				$('body').addClass('rcap-stretched');
+				$('#rcap-stretcher').show();
+			});
+
+			$('#rcap-stretcher .stretcher-close').click(function() {
+				$('#rcap-stretcher .js-rcap-dynamic img').remove();
+				$('body').removeClass('rcap-stretched');
+				$('#rcap-stretcher').hide();
+			});
+
 		}
 	});
 

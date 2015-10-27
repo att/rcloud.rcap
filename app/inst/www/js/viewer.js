@@ -66,14 +66,6 @@ define(['text!rcap/partials/viewer.htm',
 
             this.setup();
 
-            // subscribe to grid done event:
-            PubSub.subscribe(pubSubTable.gridInitComplete, function() {
-
-                console.info('viewer: pubSubTable.gridInitComplete');
-
-                me.initialiseControls();
-            });
-
             // and pub:
             PubSub.publish(pubSubTable.deserialize, {
                 isDesignTime: false,
