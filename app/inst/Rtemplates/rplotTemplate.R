@@ -5,10 +5,13 @@
   if (!is.null(jsArgs$height)) height=jsArgs$height
   
   # Start a webplot device
-  wp1 <- WebPlot(width=width,height=height)
+  #wp1 <- WebPlot(width=width,height=height)
   
-  #contextId <- rcloud.support::rcloud.output.context("#<%=control.id%>")
-  #Rserve::Rserve.context(contextId)
+  contextId <- rcloud.support::rcloud.output.context("#<%=control.id%>")
+  Rserve::Rserve.context(contextId)
+  
+  rcloud.support::RCloudDevice(floor(width), floor(height))
+  rcloud.support::rcloud.html.out(paste("width", width, "height", height))
   
   # Catch errors
   error <- try({
@@ -20,14 +23,14 @@
   if(class(error)=="try-error") {
     # Create an error output
     errorMsg <- paste0("<pre class=\"rcaperror\">", error, "</pre>")
-  #  rcloud.support::rcloud.html.out(errorMsg)
-    rcloud.web::rcw.set("#<%=control.id%>", errorMsg)
+    rcloud.support::rcloud.html.out(errorMsg)
+  #  rcloud.web::rcw.set("#<%=control.id%>", errorMsg)
   } else {
     # Update the right div
-    rcloud.web::rcw.set("#<%=control.id%>", wp1)
+  #  rcloud.web::rcw.set("#<%=control.id%>", wp1)
   }
   
   # Flush the plot
-  #rcloud.support::rcloud.flush.plot()
+  rcloud.support::rcloud.flush.plot()
   
 }

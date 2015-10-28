@@ -48,8 +48,8 @@ define(['rcap/js/ui/controls/gridControl',
                         var $enclosingDiv = $(e).closest('.grid-stack-item-content');
 
                         notebookResult[$(e).attr('id')]({
-                            width: $enclosingDiv.width() * 1.5,
-                            height: $enclosingDiv.height() * 1.5
+                            width: $enclosingDiv.width() * 1.0,
+                            height: $enclosingDiv.height() * 1.0
                         }, function() {});
 
                     } else {

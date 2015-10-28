@@ -5,7 +5,6 @@
 #'
 #' @return List of controls (each a list)
 #'
-#' @examples
 getControls <- function(rcapConfig) {
   
   ## This is the best way I could come up with to recursively parse the JSON and
