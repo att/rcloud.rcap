@@ -716,6 +716,10 @@ a.wysiwyg-toolbar-icon:hover {
 .rcap-designer {
     & .ui-autocomplete {
         z-index: 4000;
+        & li {
+            font-family: "Open Sans", sans-serif;
+            font-size: 12px;
+        }
         & li:hover,
         & li.ui-state-focus {
             border: none;

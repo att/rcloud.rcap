@@ -32,8 +32,7 @@
 
             if (RCloud.UI.advanced_menu.add) {
 
-                // set up RFunction ocap:
-                promise = RCloud.promisify_paths(ocaps, [
+                po = RCloud.promisify_paths(ocaps, [
                     ['getRFunctions'],
                     ['getDummyFunctions'],
                     ['getRTime']
@@ -46,7 +45,7 @@
                         modes: ['edit'],
                         action: function() {
 
-                            promise.getRFunctions().then(function(res) {
+                            po.getRFunctions().then(function(res) {
                                 window.RCAP = window.RCAP || {};
                                 window.RCAP.getRFunctions = function() {
                                     if(typeof res === 'string') {
@@ -57,8 +56,8 @@
                                 };
                             });
 
-                            promise.getRTime().then(function(res) {
-                                console.log('%cgetRTime says hello with: ' + res, 'padding: 5px; font-size: 16pt; border: 1px solid black; background: #eee; color: #f00');
+                            po.getRTime().then(function(res) {
+                                console.log('%cgetRTime returned ' + res, 'padding: 5px; font-size: 16pt; border: 1px solid black; background: #eee; color: #f00');
                             });
 
                             require(['rcap/js/designer'], function(Designer) {
@@ -75,7 +74,6 @@
 
         initViewer: function(content, k) {
             require(['rcap/js/viewer'], function(Viewer) {
-                //viewer.initialise(content);
                 new Viewer().initialise(content);
                 k();
             });

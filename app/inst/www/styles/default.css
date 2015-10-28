@@ -2032,6 +2032,9 @@ a.wysiwyg-toolbar-icon:hover {
 
 .rcap-designer .ui-autocomplete {
   z-index: 4000; }
+  .rcap-designer .ui-autocomplete li {
+    font-family: "Open Sans", sans-serif;
+    font-size: 12px; }
   .rcap-designer .ui-autocomplete li:hover, .rcap-designer .ui-autocomplete li.ui-state-focus {
     border: none;
     background: #ddd;
