@@ -14,6 +14,6 @@ Imports:
     codetools
 Suggests:
     testthat
-License: MIT
+License: MIT + file LICENSE
 RCloud-Extension: gui
 RoxygenNote: 4.1.1.9001
