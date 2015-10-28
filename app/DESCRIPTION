@@ -16,3 +16,4 @@ Suggests:
     testthat
 License: MIT
 RCloud-Extension: gui
+RoxygenNote: 4.1.1.9001
