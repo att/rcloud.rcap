@@ -25,8 +25,11 @@ lines.
 }
 \examples{
 funText <- fillTemplate("rplotTemplate.R",
-                        list(control.id="rcapid123",
-                             control.controlProperties.1="hist(rnorm(1000))"))
+  list(
+    control.id = "rcapid123",
+    control.controlProperties.1 = "hist(rnorm(1000))"
+  )
+)
 cat(paste(funText, collapse="\\n"))
 }
 

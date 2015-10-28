@@ -13,12 +13,16 @@
 #' @return Character vector with the filled in template, each line with its own
 #' entry in the vector.
 #'
+#' @export
 #' @examples
 #' funText <- fillTemplate("rplotTemplate.R",
-#'                         list(control.id="rcapid123",
-#'                              control.controlProperties.1="hist(rnorm(1000))"))
+#'   list(
+#'     control.id = "rcapid123",
+#'     control.controlProperties.1 = "hist(rnorm(1000))"
+#'   )
+#' )
 #' cat(paste(funText, collapse="\n"))
-#'              
+
 fillTemplate <- function(templateName=NULL, funParams) {
   
   templateFile <- system.file(package="rcloud.rcap",
