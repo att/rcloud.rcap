@@ -9,7 +9,6 @@ Imports:
     rcloud.support,
     rcloud.web,
     jsonlite,
-    Rserve,
     R6,
     codetools
 Suggests:
