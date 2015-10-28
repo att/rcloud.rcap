@@ -4,7 +4,6 @@
 #'
 #' @return A character vector of function names
 #' @export
-#'
 #' @examples
 #' f <- function(x) {x}
 #' g <- "not a function"
