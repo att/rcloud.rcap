@@ -20,7 +20,9 @@
   ],
   "dependencies": {
     "requirejs-plugins": "~1.0.3",
-    "requirejs-text": "~2.0.14"
+    "requirejs-text": "~2.0.14",
+    "select2": "~4.0.0",
+    "spectrum": "~1.7.1"
   },
   "devDependencies": {
     "jquery.hotkeys": "*",
