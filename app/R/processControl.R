@@ -10,7 +10,6 @@
 #' @param rcapControl A list version of the control JSON object
 #'
 #' @return The function name of the OCAP or an empty list
-#' @rdname processControl
 #' 
 #' @examples
 #' \dontrun{

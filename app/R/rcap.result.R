@@ -12,7 +12,6 @@
 #'
 #' @return NULL
 #' @export
-#'
 #' @examples
 #' \dontrun{
 #' rcap.result("rcap_designer.json")
