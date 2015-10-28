@@ -1,5 +1,7 @@
 # R6 class for controls
 
+#' @importFrom codetools findGlobals
+
 Control <- R6::R6Class("Control",
            public = list(
              id = NA,     # eg rcapac34a

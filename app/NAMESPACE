@@ -2,3 +2,5 @@
 
 export(rcap.result)
 export(rcloud.rcap.global.functions)
+importFrom(R6,R6Class)
+importFrom(codetools,findGlobals)

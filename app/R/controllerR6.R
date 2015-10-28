@@ -5,6 +5,7 @@
 # This is because all variables that a control might be dependent on need to be
 # updated before that control is itself updated.
 
+#' @importFrom R6 R6Class
 
 Controller <- R6::R6Class("Controller",
            public = list(
