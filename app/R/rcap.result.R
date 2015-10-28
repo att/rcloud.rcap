@@ -18,6 +18,8 @@
 #' rcap.result("rcap_designer.json")
 #' }
 #' 
+#' @importFrom rcloud.support rcloud.get.asset
+
 rcap.result <- function(rcapConfigFileName="rcap_designer.json", inline=FALSE) {
   
   # Retrieve the designer config from the notebook
