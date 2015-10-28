@@ -13,12 +13,16 @@ rcloud.rcap.caps <- NULL
     
     #ocaps <- list(getRFunctions = rcloud.support:::make.oc(rcloud.rcap.global.functions))
 
-    ocaps <- list(getRFunctions = rcloud.support:::make.oc(rcloud.rcap.global.functions),
-                  getDummyFunctions = rcloud.support:::make.oc(function() { list("funky1", "funky2", "funky2000" ) }),
-                  getRTime = rcloud.support:::make.oc(function() { Sys.time() }))
+    ocaps <- list(getRFunctions = make_oc(rcloud.rcap.global.functions),
+                  getDummyFunctions = make_oc(function() { list("funky1", "funky2", "funky2000" ) }),
+                  getRTime = make_oc(function() { Sys.time() }))
 
     rcloud.rcap.caps$init(ocaps)
   }
+}
+
+make_oc <- function(...) {
+  do.call(":::", list("rcloud.support", "make.oc")(...))
 }
 
 rcap.initViewer <- function(content) rcloud.rcap.caps$initViewer(content)
