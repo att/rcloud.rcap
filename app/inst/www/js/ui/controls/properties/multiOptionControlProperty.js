@@ -34,6 +34,8 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/mu
 
             this.codeHelpText = options.codeHelpText || 'Enter a function that retrieves the values at runtime';
 
+            this.serviceName = options.serviceName || 'getRFunctions';
+
         },
         render: function(childIndex) {
 

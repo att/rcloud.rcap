@@ -35,7 +35,9 @@
 
       // utilise the service:
       $('#autocomplete-code-<%=property.id%>').autocomplete({
-          response(window.RCAP['<%=property.serviceName%>']());
+          source: function(request, response) {
+            response(window.RCAP['<%=property.serviceName%>']());  
+          }
       });
 
     </script>
