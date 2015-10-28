@@ -5,6 +5,9 @@
 #'
 #' @return List of controls (each a list)
 #'
+#' @examples
+#' ## TODO
+
 getControls <- function(rcapConfig) {
   
   ## This is the best way I could come up with to recursively parse the JSON and
@@ -12,21 +15,21 @@ getControls <- function(rcapConfig) {
   
   allJsonControls <- list()
   
-  #' Parse an RCAP page for functions
-  #'
-  #' @description Process and return each control that creates an OCAP R function 
-  #' on a page. This function will call itself recursively for all child pages in
-  #' a depth first search.
-  #'
-  #' @param rcapPage a list containing the controls on a page
-  #'
-  #' @return list of the controls (each a list) on the page and the functions of child pages in
-  #' a tree structure.
-  #'
-  #' @examples
-  #' \dontrun{
-  #' pageFunctions <- lapply(rcapConfig$pages, getControlsPage)
-  #' }
+  ## Parse an RCAP page for functions
+  ##
+  ## @description Process and return each control that creates an OCAP R function 
+  ## on a page. This function will call itself recursively for all child pages in
+  ## a depth first search.
+  ##
+  ## @param rcapPage a list containing the controls on a page
+  ##
+  ## @return list of the controls (each a list) on the page and the functions of child pages in
+  ## a tree structure.
+  ##
+  ## @examples
+  ## \dontrun{
+  ## pageFunctions <- lapply(rcapConfig$pages, getControlsPage)
+  ## }
   getControlsPage <- function(rcapPage) {
     
     # Check for child pages

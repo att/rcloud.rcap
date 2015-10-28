@@ -15,4 +15,7 @@ List of controls (each a list)
 \description{
 Return a list of all controls
 }
+\examples{
+## TODO
+}
 
