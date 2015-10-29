@@ -78,7 +78,7 @@ controlUpdate <- function(self, private) {
 ## Return the matches
 #' @importFrom codetools findGlobals
 
-dependentVariables = function(clientVars) {
+dependentVariables = function(self, private, clientVars) {
 
   varsUsed <- character(0)
 
