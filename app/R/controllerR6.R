@@ -13,7 +13,8 @@ Controller <- R6::R6Class("Controller",
 
   private = list(
     controls = NULL,                    # controls
-    succList = list()                   # dependency graph
+    succList = list(),                  # dependency graph
+    topoSort = character()              # update order of controls
   )
 )
 
@@ -38,6 +39,9 @@ controllerInitialize <- function(self, private, rcapConfig) {
   )
 
   private$succList <- twistAdjlist(predList)
+
+  ## Pre-calculate the order of control updates
+  private$topoSort <- topologicalSort(private$succList)
 
   invisible(self)
 }
