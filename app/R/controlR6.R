@@ -9,6 +9,7 @@ Control <- R6::R6Class("Control",
       controlInitialize(self, private, cl),
 
     getId = function() private$id %||% NA_character_,
+    getVariableName = function() private$variableName %||% NA_character_,
 
     update = function()
       controlUpdate(self, private),
