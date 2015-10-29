@@ -1,0 +1,61 @@
+
+## Topological sorting of a directed graph, represented by
+## adjacency lists. Graph vertices are represented by strings.
+##
+## It uses Taarjan's depth-first search algorithm, see
+## https://en.wikipedia.org/wiki/Topological_sorting#Tarjan.27s_algorithm
+##
+## ```
+## L <- Empty list that will contain the sorted nodes
+## while there are unmarked nodes do
+##     select an unmarked node n
+##     visit(n)
+##
+## function visit(node n)
+##     if n has a temporary mark then stop (not a DAG)
+##     if n is not marked (i.e. has not been visited yet) then
+##         mark n temporarily
+##         for each node m with an edge from n to m do
+##             visit(m)
+##         mark n permanently
+##         unmark n temporarily
+##         add n to head of L
+## ```
+##
+## @param adjlist List of successors of all vertices.
+##   Itmust be named, and the vertex names must be the vertices.
+## @return The vertex ids, in topologically sorted order. I.e.
+##   if v2 comes after v1 in the list, then there must not be an
+##   edge from v2 to v1.
+
+topologicalSort <- function(adjlist) {
+
+  V <- names(adjlist)
+  N <- length(V)
+
+  ## some easy cases
+  if (length(adjlist) <= 1 ||
+      sum(sapply(adjlist, length)) == 0) return(V)
+
+  marked <- 1L; temp_marked <- 2L; unmarked <- 3L
+  marks <- structure(rep(unmarked, N), names = V)
+  result <- character(N)
+  result_ptr <- N
+
+  visit <- function(n) {
+    if (marks[n] == temp_marked) stop("Dependency graph not a DAG")
+    if (marks[n] == unmarked) {
+      marks[n] <<- temp_marked
+      for (m in adjlist[[n]]) visit(m)
+      marks[n] <<- marked
+      result[result_ptr] <<- n
+      result_ptr <<- result_ptr - 1
+    }
+  }
+
+  while (any(marks == unmarked)) {
+    visit(names(which(marks == unmarked))[1])
+  }
+  
+  result
+}
