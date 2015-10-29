@@ -39,6 +39,10 @@ rcap.result <- function(rcapConfigFileName="rcap_designer.json", inline=FALSE) {
   # Convert the JSON into a list
   rcapConfig <- jsonlite::fromJSON(rcapJson, simplifyVector = FALSE)
   
+  # Create the controller object from the JSON
+  # This builds all the control objects and sets up the dependencies
+  createController(rcapConfig)
+  
   # Start building rcw call
   rcwResultList <- list(run=rcap.run, body="", rcapJson=rcapJson)
   
@@ -63,4 +67,17 @@ rcap.result <- function(rcapConfigFileName="rcap_designer.json", inline=FALSE) {
     do.call(rcloud.web::rcw.result, rcwResultList)
   }
   
+}
+
+rcapEnv <- new.env()
+
+createController <- function(config) {
+  cnt <- Controller$new(config)
+  assign("rcapController", cnt, envir = rcapEnv)
+  invisible(cnt)
+}
+
+updateController <- function(controls) {
+  cnt <- get("rcapController", envir = rcapEnv)
+  cnt$update(controls)
 }

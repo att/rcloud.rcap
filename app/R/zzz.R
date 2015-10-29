@@ -16,7 +16,8 @@ rcloud.rcap.caps <- NULL
     ocaps <- list(
       getRFunctions = make_oc(rcloud.rcap.global.functions),
       getDummyFunctions = make_oc(function() { list("funky1", "funky2", "funky2000" ) }),
-      getRTime = make_oc(function() { Sys.time() })
+      getRTime = make_oc(function() { Sys.time() }),
+      updateControls = make_oc(updateController)
     )
 
     rcloud.rcap.caps$init(ocaps)
