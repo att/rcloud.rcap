@@ -56,6 +56,25 @@ topologicalSort <- function(adjlist) {
   while (any(marks == unmarked)) {
     visit(names(which(marks == unmarked))[1])
   }
-  
+
   result
+}
+
+## Convert an in-adjacency list to an out-adjacency list
+## Or the other way.
+
+twistAdjlist <- function(adjlist) {
+
+  res <- structure(
+    replicate(length(adjlist), character()),
+    names = names(adjlist)
+  )
+
+  for (v in names(adjlist)) {
+    for (w in adjlist[[v]]) {
+      res[[w]] <- c(res[[w]], v)
+    }
+  }
+
+  res
 }

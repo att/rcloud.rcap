@@ -13,3 +13,33 @@ test_that("controls public API is OK", {
       "datePicker3", NA)
   )
 })
+
+test_that("dependentVariables works", {
+
+  resp <- paste(readLines("testConfig.json"), collapse = "\n")
+  cnt <- Controller$new(resp)
+  ctrls <- cnt$.__enclos_env__$private$controls
+
+  makePlot1 <- function() {
+    var1 + var2
+  }
+
+  expect_equal(
+    ctrls[[6]]$dependentVariables(
+      c("var1", "var2", "var3"),
+      envir = environment()
+    ),
+    c("var1", "var2")
+  )
+
+  expect_equal(
+    ctrls[[6]]$dependentVariables(c("var1"), envir = environment()),
+    "var1"
+  )
+
+  expect_equal(
+    ctrls[[6]]$dependentVariables(character(), envir = environment()),
+    character()
+  )
+
+})

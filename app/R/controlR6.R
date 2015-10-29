@@ -14,14 +14,8 @@ Control <- R6::R6Class("Control",
     update = function()
       controlUpdate(self, private),
 
-    dependentVariables = function(clientVars)
-      controlDependentVariables(self, private, clientVars),
-
-    addDownStream = function(downControl)
-      controlAddDownStream(self, private, downControl),
-
-    addUpstream = function(upControl)
-      controlAddUpstream(self, private, upcontrol)
+    dependentVariables = function(clientVars, envir = .GlobalEnv)
+      controlDependentVariables(self, private, clientVars, envir)
   ),
 
   private = list(
@@ -33,11 +27,7 @@ Control <- R6::R6Class("Control",
     ## Control Properties
     controlFunction = NULL,
     variableName = NULL,
-    ocapFunction = NULL,
-
-    ## Out an in-coming edges from the dependency graph
-    downStream = list(),
-    upStream = list()
+    ocapFunction = NULL
   )
 )
 
@@ -47,13 +37,12 @@ controlInitialize <- function(self, private, cl) {
   if (!is.null(cl$type)) private$type <- cl$type
 
   ## Grab the code if it's there
-  if (!is.null(cl$controlProperties)) {
-    if (length(cl$controlProperties) > 0) {
-      ## Pulling various properties
-      for (cp in cl$controlProperties) {
-        if (cp$uid == "code") private$controlFunction <- cp$value
-        if (cp$uid == "variablename") private$variableName <- cp$value
-      }
+  if (!is.null(cl$controlProperties) &&
+       length(cl$controlProperties) > 0) {
+    ## Pulling various properties
+    for (cp in cl$controlProperties) {
+      if (cp$uid == "code") private$controlFunction <- cp$value
+      if (cp$uid == "variablename") private$variableName <- cp$value
     }
   }
 
@@ -78,30 +67,12 @@ controlUpdate <- function(self, private) {
 ## Return the matches
 #' @importFrom codetools findGlobals
 
-dependentVariables = function(self, private, clientVars) {
-
-  varsUsed <- character(0)
-
+controlDependentVariables <- function(self, private, clientVars, envir) {
   if (!is.null(private$controlFunction) &&
-       exists(private$controlFunction) &&
-       is.function(get(private$controlFunction))) {
-    varsUsed <- codetools::findGlobals(get(private$controlFunction))
+       exists(private$controlFunction, envir = envir) &&
+       is.function(fun <- get(private$controlFunction, envir = envir))) {
+    intersect(clientVars, findGlobals(fun))
+  } else {
+    character()
   }
-
-  ## Only choose from client variables
-  clientVars[clientVars %in% varsUsed]
-}
-
-
-## Add a control that should update when this one does
-contolAddDownStream <- function(self, private, downControl) {
-  private$downStream <- append(private$downStream, downControl)
-  invisible(self)
-}
-
-## Add a control that causes this one to update
-controlAddUpStream <- function(self, private, upControl) {
-  private$upStream <- append(private$upStream, upControl)
-  upControl$addDownStream(self)
-  invisible(self)
 }
