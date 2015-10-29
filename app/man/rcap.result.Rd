@@ -21,5 +21,6 @@ This function is a wrapper around \code{rcloud.web::rcw.result}.
 \dontrun{
 rcap.result("rcap_designer.json")
 }
+
 }
 
