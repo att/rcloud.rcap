@@ -13,7 +13,6 @@
 #' @return NULL
 #' @importFrom rcloud.support rcloud.get.asset
 #' @export
-#'
 #' @examples
 #' \dontrun{
 #' rcap.result("rcap_designer.json")

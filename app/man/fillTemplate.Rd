@@ -10,18 +10,20 @@ fillTemplate(templateName = NULL, funParams)
 \item{templateName}{The file name (without directory) of the template. This
 should be stored in \code{inst/Rtemplates}.}
 
-\item{funParams}{A named list. The item name is the variable name in the
+\item{funParams}{A named list. The item name is the variable name in the 
 template. The item value is what it should be replaced with.}
 }
 \value{
 Character vector with the filled in template, each line with its own
 entry in the vector.
+
 }
 \description{
 The template is an R function with variables between tags with a
 <%=VARIABLENAME%> format. On calling this function all the variables are
 replaced with the supplied values and the function returned as a vector of
 lines.
+
 }
 \examples{
 funText <- fillTemplate("rplotTemplate.R",
