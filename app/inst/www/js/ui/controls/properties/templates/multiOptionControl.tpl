@@ -15,14 +15,13 @@
 
   	<!-- text area/autocomplete -->
 
-    <div class="j-optiontype" id="group-optionType-manual-<%=property.id%>" <%= property.optionType !== 'manual' ? ' style="display:none" '  : '' %>>
+    <div class="j-optiontype" data-group="block-manual" id="group-optionType-manual-<%=property.id%>" <%= property.optionType !== 'manual' ? ' style="display:none" '  : '' %>>
 	    <textarea class="<%=property.className%>" rows="10" cols="20" id="ta-manual-<%=property.id%>" spellcheck="false" <%= property.isRequired ? ' data-parsley-required data-parsley-trigger="change" '  : '' %>><%if( property.optionType == 'manual') {%><%=property.translateValueToText()%><% } else { %><% } %></textarea>
       <div class="description"><%=property.helpText%></div>
     </div>
 
-
-    <div class="j-optiontype" id="group-optionType-code-<%=property.id%>" <%= property.optionType !== 'code' ? ' style="display:none" '  : '' %>>
-      <input class="<%=property.className%>" id="autocomplete-code-<%=property.id%>" spellcheck="false" <%= property.isRequired ? ' data-parsley-required data-parsley-group="block-code" data-parsley-trigger="change"' : '' %> <%if(property.optionType === 'code'){%>value="<%=property.value%>" <% } %> />
+    <div class="j-optiontype" data-group="block-code" id="group-optionType-code-<%=property.id%>" <%= property.optionType !== 'code' ? ' style="display:none" '  : '' %>>
+      <input class="<%=property.className%>" id="autocomplete-code-<%=property.id%>" spellcheck="false" <%= property.isRequired ? ' data-parsley-required data-parsley-trigger="change"' : '' %> <%if(property.optionType === 'code'){%>value="<%=property.value%>" <% } %> />
       <div class="description"><%=property.codeHelpText%></div>
     </div>
 
