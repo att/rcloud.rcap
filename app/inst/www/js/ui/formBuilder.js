@@ -40,8 +40,10 @@ define(['controls/factories/controlFactory', 'pubsub', 'site/pubSubTable'], func
             });
 
             $('.drop-zone').on('click', '.ui-remove', function(e) {
-                updateChildControls();
+
                 $(this).parent().remove();
+
+                updateChildControls();
 
                 $('#formbuilder-form-no-item').show();
                 $('#formbuilder-form .js-rcap-dynamic').html('');
