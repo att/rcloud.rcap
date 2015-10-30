@@ -4,6 +4,7 @@ context("Controls")
 test_that("controls public API is OK", {
 
   resp <- paste(readLines("testConfig.json"), collapse = "\n")
+  resp <- fromJSON(resp, simplifyVector = FALSE)
   cnt <- Controller$new(resp)
   ctrls <- cnt$.__enclos_env__$private$controls
 
@@ -17,6 +18,7 @@ test_that("controls public API is OK", {
 test_that("dependentVariables works", {
 
   resp <- paste(readLines("testConfig.json"), collapse = "\n")
+  resp <- fromJSON(resp, simplifyVector = FALSE)
   cnt <- Controller$new(resp)
   ctrls <- cnt$.__enclos_env__$private$controls
 

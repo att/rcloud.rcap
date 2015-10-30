@@ -4,6 +4,7 @@ context("Controller")
 test_that("controller builds dependency graph and update order", {
 
   resp <- paste(readLines("testConfig.json"), collapse = "\n")
+  resp <- fromJSON(resp, simplifyVector = FALSE)
 
   ## TODO: this is a hack that will break at some point
   on.exit(rm(list = "makePlot1", envir = .GlobalEnv), add = TRUE)

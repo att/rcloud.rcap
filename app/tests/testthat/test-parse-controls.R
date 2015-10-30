@@ -3,6 +3,7 @@ context("Parsing controls")
 
 test_that("we can parse controls from JSON", {
   resp <- paste(readLines("testConfig.json"), collapse = "\n")
+  resp <- fromJSON(resp, simplifyVector = FALSE)
   ctrls <- getControls(resp)
 
   expect_equal(length(ctrls), 11)

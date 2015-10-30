@@ -11,8 +11,6 @@
 
 getControls <- function(rcapConfig) {
 
-  rcapConfig <- fromJSON(rcapConfig, simplifyVector = FALSE)
-  
   ## This is the best way I could come up with to recursively parse the JSON and
   ## flatten into a list of controls
   
