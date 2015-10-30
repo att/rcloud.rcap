@@ -120,7 +120,7 @@ define(['rcap/js/ui/controls/gridControl', 'text!rcap/partials/dialogs/_formBuil
             // if a form has a submit button, its data will be submitted when the form is submitted.
             // otherwise, the individual control will submit data following a change:
             $('.rcap-controltype-form').each(function() {
-                if ($(this).find('input[type="submit"]')) {
+                if ($(this).find('input[type="submit"]').length > 0) {
                     $(this).find('form').submit(function(e) {
 
                         e.preventDefault();
@@ -134,7 +134,7 @@ define(['rcap/js/ui/controls/gridControl', 'text!rcap/partials/dialogs/_formBuil
                         submitVariableChange(data);
                     });
                 } else {
-                    $('[data-variablename]').change(function() {
+                    $(this).find('[data-variablename]').change(function() {
                         submitVariableChange([
                             getVarData($(this))
                         ]);
