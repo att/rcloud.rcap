@@ -50,6 +50,7 @@ define(['pubsub', 'rcap/js/Class'], function() {
         gridItemsChanged : 'gridItemsChanged',
 
         // control/form:
+        startControlDrag: 'startControlDrag',
         addControl : 'addControl',
         updateControl : 'updateControl',
         updateControlMarkup : 'updateControlMarkup',

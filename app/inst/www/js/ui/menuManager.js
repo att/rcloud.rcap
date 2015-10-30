@@ -97,9 +97,28 @@ define([
 
             //////////////////////////////////////////////////////////////////////////////////////////
             //
+            // flyout menu handler
+            //
+            $('body').on('click', '#main-menu a[data-flyoutid]', function() {
+                // hide all:
+                $('.menu-flyout').hide();
+                $('.menu-flyout[data-flyoutid="' + $(this).attr('data-flyoutid') + '"]').show();
+            });
+
+            $('body').on('click', '.menu-flyout a.panel-close', function() {
+                $('.menu-flyout').hide();
+            });
+
+            PubSub.subscribe(pubSubTable.startControlDrag, function() {
+                // hide all:
+                $('.menu-flyout').hide();
+            });
+
+            //////////////////////////////////////////////////////////////////////////////////////////
+            //
             // click handler for add page (both 'root' level and child):
             //
-            $('body').on('click', '#page-header a, .page-addchild', function() {
+            $('body').on('click', '#page-header a.add-page, .page-addchild', function() {
 
                 var parentPageId;
 
@@ -163,11 +182,11 @@ define([
             });
 
 
-            $('ol#page').nestedSortable({
-                handle: 'div',
-                items: 'li',
-                toleranceElement: '> div'
-            });
+            // $('ol#page').nestedSortable({
+            //     handle: 'div',
+            //     items: 'li',
+            //     toleranceElement: '> div'
+            // });
 
 
 
@@ -191,9 +210,9 @@ define([
         },
         initialiseControlsMenu: function() {
             var controls = controlFactory.getGridControls();
-            var templateStr = '<% _.each(controls, function(control){ %><li data-type="<%=control.type%>"><a href="#" class="control-<%=control.type %>" title="Add <%=control.label%>"><i class="icon-<%=control.icon%>"></i><span><%= control.label %></span></a></li><% }); %>';
+            var templateStr = '<% _.each(controls, function(control){ %><li data-type="<%=control.type%>"><a href="#" class="control-<%=control.type %>" title="Add <%=control.label%>"><i class="icon-<%=control.icon%>"></i><p><%= control.label %></p></a></li><% }); %>';
             var template = _.template(templateStr);
-            $('.menu .controls').append(template({
+            $('.menu-flyout .controls').append(template({
                 controls: controls
             }));
 

@@ -163,7 +163,7 @@ define([
             // drop control onto grid
             //
             $(selector).droppable({
-                accept: '#main-menu .controls li',
+                accept: '.menu-flyout .controls li',
                 hoverClass: 'grid-stack-item',
                 over: function(event, ui) {
                     ui.helper.css('z-index', 9999);
@@ -274,13 +274,16 @@ define([
             //
             // draggable initiation
             //
-            $('#main-menu .controls li').draggable({
+            $('.menu-flyout .controls li').draggable({
                 revert: true,
                 revertDuration: 0,
                 appendTo: '.grid-stack:not(.js-gridstack-global):visible',
                 containment: '.grid-stack:not(.js-gridstack-global):visible',
                 start: function() {
 
+                    // fire off an event:
+                    PubSub.publish(pubSubTable.startControlDrag);
+                    
                     var control = controlFactory.getByKey($(this).data('type'));
 
                     getVisibleGrid().init_placeholder(control.initialWidth(), control.initialHeight()); // jshint ignore:line

@@ -79,12 +79,14 @@ define(['rcap/js/ui/controls/gridControl', 'text!rcap/partials/dialogs/_formBuil
             };
 
             var submitVariableChange = function(data) {
-                var notebookResult = window.notebook_result; // jshint ignore:line
-                if (notebookResult) {
-                    notebookResult.updateVariable(data);
-                } else {
-                    console.log('window.notebook_result is not available, varchange data is: ', JSON.stringify(data));
-                }
+                // var notebookResult = window.notebook_result; // jshint ignore:line
+                // if (notebookResult) {
+                //     notebookResult.updateVariable(data);
+                // } else {
+                //     console.log('window.notebook_result is not available, varchange data is: ', JSON.stringify(data));
+                // }
+
+                console.log('Submitting data: ', JSON.stringify(data));
             };
 
             // if a form has a submit button, its data will be submitted when the form is submitted.
