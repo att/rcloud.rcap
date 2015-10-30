@@ -71,10 +71,38 @@ define(['rcap/js/ui/controls/gridControl', 'text!rcap/partials/dialogs/_formBuil
             var data;
 
             var getVarData = function(el) {
+
+                // value dependent on control type:
+                var value;
+
+/*
+                if( el.data('select2')) {
+                    value = _.pluck(el.select2('data'), 'text');
+                } else if( el.is('select')) {
+                    value = el.find('option:selected').val();
+                } else */
+
+                if( el.hasClass('checkbox-group')) {
+                    // get all selected checkboxes:
+                    value = [];
+                    el.find('input:checkbox:checked').each(function() 
+                    {
+                       value.push($(this).val());
+                    });
+
+                } else if( el.hasClass('radiobutton-group')) {
+                    // get selected radio button:
+                    value = el.find('input:checked').val();
+                } else {
+                    // either a checkbox list, radio buttons, or something 
+                    // that we can use val() with:
+                    value = el.val();
+                }
+
                 return {
                     variableName: el.attr('data-variablename'),
                     controlId: el.attr('id'),
-                    value: el.val()
+                    value: value
                 };
             };
 

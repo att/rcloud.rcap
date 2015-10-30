@@ -1435,6 +1435,9 @@ textarea.parsley-error {
   #dialog-form-builder [data-body-id="styling"] .row {
     background-color: white; }
 
+.select2-selection__choice {
+  color: black; }
+
 .rcap-pagemenu {
   margin: 0;
   padding: 0; }

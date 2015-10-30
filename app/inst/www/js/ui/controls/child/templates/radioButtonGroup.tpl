@@ -2,7 +2,7 @@
 
     <h3><%=control.controlProperties[0].value%></h3>
 
-
+<div class="radiobutton-group" data-variablename="<%=control.controlProperties[1].value%>">
 
 
 <%
@@ -15,10 +15,10 @@
 		<% _.each(control.controlProperties[2].value, function(o, i){ %>
 
 			<label for="radio-<%=control.id%><%=i%>"><%=o.label%></label>
-			<input type="radio" name="radio-<%=control.id%>" id="radio-<%=control.id%><%=i%>" value="<%=o.value%>" <%= control.value === o.value ? ' checked="checked"' : ''%>><br>
+			<input type="radio" name="radio-<%=control.id%>" id="radio-<%=control.id%><%=i%>" value="<%=o.label%>" <%= control.value === o.value ? ' checked="checked"' : ''%>><br>
 
         <% }); %>    
-   
+
 
 
 <% } else { %>
@@ -32,8 +32,12 @@
 
 	<% } else { %>
 
+
 		<!-- do some funky stuff -->
+
 
 	<% } %>
 
 <% } %>
+
+</div>
