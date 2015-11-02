@@ -1647,7 +1647,7 @@ textarea.parsley-error {
       font: normal normal normal 16px/1 FontAwesome;
       content: "\f067"; }
     #rcap-designer .menu-flyout ol#pages {
-      max-height: calc(100% - 400px);
+      max-height: calc(100% - 75px);
       overflow: auto; }
       #rcap-designer .menu-flyout ol#pages::-webkit-scrollbar-track {
         background-color: #222; }

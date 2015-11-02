@@ -231,7 +231,7 @@
             content: "\f067";
         }
         & ol#pages {
-            max-height: calc(100% - 400px);
+            max-height: calc(100% - 75px);
             overflow: auto;
             &::-webkit-scrollbar-track {
                 background-color: $mainNavBackgroundColor;
