@@ -573,7 +573,7 @@
   z-index: 9999;
   width: 100%;
   height: 100%;
-  background-color: rgba(127, 127, 127, 0.9);
+  background-color: rgba(127, 127, 127, 0.99);
   overflow: hidden; }
   #rcap-viewer #rcap-stretcher .stretcher-close {
     position: absolute;
