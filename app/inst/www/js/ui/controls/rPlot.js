@@ -43,7 +43,7 @@ define(['rcap/js/ui/controls/gridControl',
             // some controls are dependent on having a valid notebook result:
             if (notebookResult) {
 
-                $('.r-rplot').each(function(i, e) {
+                $('.rplot').each(function(i, e) {
                     if (typeof notebookResult[$(e).attr('id')] === 'function') {
                         var $enclosingDiv = $(e).closest('.grid-stack-item-content');
 

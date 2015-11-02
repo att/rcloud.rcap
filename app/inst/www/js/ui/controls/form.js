@@ -106,13 +106,29 @@ define(['rcap/js/ui/controls/gridControl', 'text!rcap/partials/dialogs/_formBuil
                 };
             };
 
-            var submitVariableChange = function(data) {
+            var submitVariableChange = function(variableData) {
                 // var notebookResult = window.notebook_result; // jshint ignore:line
                 // if (notebookResult) {
                 //     notebookResult.updateVariable(data);
                 // } else {
                 //     console.log('window.notebook_result is not available, varchange data is: ', JSON.stringify(data));
                 // }
+
+                var plotSizes = [];
+
+                $('.rplot').each(function() {
+                    var container = $(this).closest('.grid-stack-item-content');
+                    plotSizes.push({
+                        id : $(this).attr('id'),
+                        width : container.width() - 25,
+                        height: container.height() - 25
+                    });
+                });
+ 
+                data = {
+                    updatedVariables : variableData,
+                    plotSizes : plotSizes
+                };
 
                 console.log('Submitting data: ', JSON.stringify(data));
             };

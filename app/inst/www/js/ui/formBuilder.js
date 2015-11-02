@@ -94,7 +94,8 @@ define(['controls/factories/controlFactory', 'pubsub', 'site/pubSubTable'], func
                     // update UI:
                     var updateItem = $('#dialog-form-builder .form-item.selected').find('.js-dynamic');
                     updateItem.html(originatingControl.render({
-                        'isDesignTime': true
+                        isDesignTime: true,
+                        isInFormBuilder: true
                     }));
 
                     //console.log('VALID');

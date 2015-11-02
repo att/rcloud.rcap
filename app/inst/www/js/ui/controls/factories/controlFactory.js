@@ -8,6 +8,7 @@ define([
     'controls/interactivePlot',
     'controls/form',
     //////////////////////
+    'controls/child/textField',
     'controls/child/datePicker',
     'controls/child/dropdown',
     'controls/child/separator',
@@ -15,10 +16,12 @@ define([
     'controls/child/multiSelect',
     'controls/child/checkboxList',
     'controls/child/radioButtonGroup',
+    'controls/child/slider',
     'controls/child/submitButton',
 
 ], function(IFrameControl, ImageControl, RPlotControl, TextControl, PageMenuControl, BreadcrumbControl, InteractivePlotControl, FormControl,
     ///////////////////////
+    TextFieldControl,
     DatePickerControl,
     DropdownControl,
     SeparatorControl,
@@ -26,6 +29,7 @@ define([
     MultiSelectControl,
     CheckboxListControl,
     RadioButtonGroupControl,
+    SliderControl,
     SubmitButtonControl) {
 
     'use strict';
@@ -46,11 +50,13 @@ define([
         ];
 
         this.childControls = [
+            new TextFieldControl(),
             new DatePickerControl(),
             new DropdownControl(),
             new MultiSelectControl(),
             new CheckboxListControl(),
             new RadioButtonGroupControl(),
+            new SliderControl(),
             new SeparatorControl(),
             new HeadingControl(),
             new SubmitButtonControl()
@@ -115,6 +121,9 @@ define([
         var control;
 
         switch (key) {
+            case 'textfield': 
+                control = new TextFieldControl();
+                break;
             case 'datepicker':
                 control = new DatePickerControl();
                 break;
@@ -138,6 +147,9 @@ define([
                 break;
             case 'submitbutton':
                 control = new SubmitButtonControl();
+                break;
+            case 'slider': 
+                control = new SliderControl();
                 break;
             default:
                 control = undefined;

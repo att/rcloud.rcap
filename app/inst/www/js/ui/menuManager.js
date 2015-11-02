@@ -2,8 +2,7 @@ define([
     'text!ui/templates/pageMenuItem.tpl',
     'pubsub',
     'site/pubSubTable',
-    'controls/factories/controlFactory',
-    'nestedSortable'
+    'controls/factories/controlFactory'
 ], function(pageMenuItemTemplate, PubSub, pubSubTable, ControlFactory) {
 
     'use strict';
@@ -180,14 +179,6 @@ define([
                 // just the id:
                 PubSub.publish(pubSubTable.changeSelectedPageId, li.data('pageid'));
             });
-
-
-            // $('ol#page').nestedSortable({
-            //     handle: 'div',
-            //     items: 'li',
-            //     toleranceElement: '> div'
-            // });
-
 
 
 
