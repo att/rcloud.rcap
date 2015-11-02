@@ -1,4 +1,8 @@
-define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/rangeControl.tpl'], function(BaseControlProperty, tpl) {
+define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/rangeControl.tpl',
+    'ionrangeslider/js/ion.rangeSlider',
+    'css!ionrangeslider/css/ion.rangeSlider.css',
+    'css!ionrangeslider/css/ion.rangeSlider.skinFlat.css'
+    ], function(BaseControlProperty, tpl) {
 
     'use strict';
 

@@ -6,7 +6,7 @@ if(typeof control.controlProperties[0].value !== 'undefined' && control.controlP
 </label>
 <% } %>
 
-<input type="text" id="<%=controlId%>" name="<%=control.getControlPropertyValueOrDefault('variablename')%>" data-variablename="<%=control.getControlPropertyValueOrDefault('variablename')%>" value=""></div>
+<input type="text" id="<%=controlId%>" name="<%=control.getControlPropertyValueOrDefault('variablename')%>" data-variablename="<%=control.getControlPropertyValueOrDefault('variablename')%>" value=""></input>
 
 <script type="text/javascript">
 
@@ -19,7 +19,7 @@ $(function() {
 		from: <%=control.getControlPropertyValueOrDefault('value')%>,
 		min: <%=control.getControlPropertyValueOrDefault('min')%>,
 		max: <%=control.getControlPropertyValueOrDefault('max')%>,
-		step: <%=control.getControlPropertyValueOrDefault('step')%>,
+		step: <%=control.getControlPropertyValueOrDefault('step')%>
 
     });
 	

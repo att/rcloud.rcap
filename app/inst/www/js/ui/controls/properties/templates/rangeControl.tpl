@@ -4,22 +4,8 @@
         <div class="col-md-3">
             <label for="<%=property.id%>"><%=property.label%></label>
         </div>
-        <div class="col-md-4">
-            <div id="<%=property.id%>" />
-		    <script type="text/javascript">
-				$("#<%=property.id%>").slider({
-					value: '<%=property.value%>',
-					min: '<%=property.minValue%>',
-					max: '<%=property.maxValue%>',
-					step: 1,
-					slide: function(event, ui) {
-						$("#<%=property.id%>-value").text(ui.value);
-					}
-				});
-		    </script>
-        </div>
-        <div class="col-md-5">
-		    <div id="<%=property.id%>-value" class="ui-slider-value"><%=property.value%></div>
+        <div class="col-md-9">
+            <input id="<%=property.id%>" value="" />
         </div>
     </div>
 
@@ -27,19 +13,20 @@
 
 	<div class="form-group">
 	    <label for="<%=property.id%>"><%=property.label%></label>
-	    <div id="<%=property.id%>" />
-	    <div id="<%=property.id%>-value" class="ui-slider-value"><%=property.value%></div>
-	    <script type="text/javascript">
-			$("#<%=property.id%>").slider({
-				value: '<%=property.value%>',
-				min: '<%=property.minValue%>',
-				max: '<%=property.maxValue%>',
-				step: 1,
-				slide: function(event, ui) {
-					$("#<%=property.id%>-value").text(ui.value);
-				}
-			});
-	    </script>
+	    <input id="<%=property.id%>" value="" />
 	</div>
 
 <% } %>
+
+
+<script type="text/javascript">
+	$("#<%=property.id%>").ionRangeSlider({
+		keyboard: true,
+		grid: true,
+		hide_min_max: true,
+		from: <%=property.value === '' ? 0 : property.value %>,
+		min: <%=property.minValue%>,
+		max: <%=property.maxValue%>,
+		step: 1
+    });
+</script>

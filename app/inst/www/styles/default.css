@@ -1919,9 +1919,6 @@ textarea.parsley-error {
       #rcap-designer .style-details .ui-slider-handle:hover {
         background: #999;
         border-color: inherit; }
-    #rcap-designer .style-details .ui-slider-value {
-      margin-top: 1px;
-      padding: 4px; }
     #rcap-designer .style-details .form-group {
       width: 40%;
       padding-right: 4%;
