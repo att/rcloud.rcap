@@ -37,7 +37,7 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/ra
 
         },
         getDialogValue: function() {
-            return $('#' + this.id).slider('option', 'value');
+            return $('#' + this.id).val();
         }
     });
 
