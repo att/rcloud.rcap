@@ -1573,6 +1573,20 @@ textarea.parsley-error {
   #rcap-designer #top-status-bar {
     background-color: #222;
     height: 50px; }
+    #rcap-designer #top-status-bar #current-page-status {
+      display: inline-block;
+      line-height: 50px;
+      padding-left: 10px;
+      padding-right: 10px;
+      cursor: hand;
+      transition: background-color .25s ease-in-out;
+      -moz-transition: background-color .25s ease-in-out;
+      -webkit-transition: background-color .25s ease-in-out; }
+    #rcap-designer #top-status-bar #current-page-status:hover {
+      background-color: #2f2f2f; }
+    #rcap-designer #top-status-bar #current-page {
+      margin-left: 4px;
+      color: white; }
   #rcap-designer .menu-flyout {
     width: 400px;
     position: absolute;

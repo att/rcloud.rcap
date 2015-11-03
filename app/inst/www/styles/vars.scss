@@ -7,6 +7,7 @@ $defaultFont: 'Open Sans',sans-serif;
 
 $mainNavBackgroundColor: #222;
 $mainNavBackgroundColorHover: lighten($mainNavBackgroundColor, 5%);
+$mainNavCurrentPageHover: lighten($mainNavBackgroundColor, 5%);
 $mainNavColor: lighten($mainNavBackgroundColor, 70%);
 $noItemsColor: lighten($mainNavBackgroundColor, 30%);
 

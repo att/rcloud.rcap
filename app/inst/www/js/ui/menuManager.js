@@ -115,6 +115,14 @@ define([
 
             //////////////////////////////////////////////////////////////////////////////////////////
             //
+            // showPageFlyout event handler:
+            //
+            PubSub.subscribe(pubSubTable.showPageFlyout, function() {
+                $('#main-menu a[data-flyoutid="pages"]').trigger('click');
+            });
+
+            //////////////////////////////////////////////////////////////////////////////////////////
+            //
             // click handler for add page (both 'root' level and child):
             //
             $('body').on('click', '#page-header a.add-page, .page-addchild', function() {

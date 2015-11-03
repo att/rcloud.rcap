@@ -143,6 +143,26 @@
     & #top-status-bar {
         background-color: $mainNavBackgroundColor;
         height: 50px;
+
+        #current-page-status {
+            display: inline-block;
+            line-height: 50px;
+            padding-left: 10px;
+            padding-right: 10px;
+            cursor: hand;
+            transition: background-color .25s ease-in-out;
+            -moz-transition: background-color .25s ease-in-out;
+            -webkit-transition: background-color .25s ease-in-out;
+        }
+
+        #current-page-status:hover {
+            background-color: $mainNavCurrentPageHover;
+        }
+
+        #current-page {
+            margin-left: 4px;
+            color: white;
+        }
     }
     & .menu-flyout {
         width: 400px;

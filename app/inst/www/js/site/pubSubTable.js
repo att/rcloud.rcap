@@ -19,6 +19,7 @@ define(['pubsub', 'rcap/js/Class'], function() {
         showMessage: 'showMessage',
 
         showConfirmDialog : 'showConfirmDialog',
+        showPageFlyout: 'showPageFlyout',
 
         // page:
         addPage : 'addPage',

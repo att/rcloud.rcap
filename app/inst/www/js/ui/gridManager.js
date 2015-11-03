@@ -106,7 +106,7 @@ define([
         gridstackOptions.cell_height = options.cellHeight || 80; // jshint ignore:line
         gridstackOptions.vertical_margin = options.verticalMargin || 20; // jshint ignore:line
         gridstackOptions.static_grid = options.staticGrid || true; // jshint ignore:line
-        gridstackOptions.height = options.minHeight || 12;
+        gridstackOptions.height = options.minHeight || 12;   // 0 -> no maximum rows
 
         $(rootElement).append(gridStackRoot);
         $(selector).gridstack(gridstackOptions)

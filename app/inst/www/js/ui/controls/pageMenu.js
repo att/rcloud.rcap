@@ -158,6 +158,7 @@ define(['rcap/js/ui/controls/gridControl',
                     me.currentPageID = page.id;
                     renderControl(me, true);
                 }
+
             });
 
             //////////////////////////////////////////////////////////////////////////////////////////
