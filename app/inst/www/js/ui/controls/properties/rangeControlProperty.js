@@ -17,7 +17,7 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/ra
                 isRequired: options.isRequired || false,
                 uid: options.uid,
                 className: options.className,
-                value: options.value
+                value: options.value || '0'
             });
 
             // additional assignments go here:
