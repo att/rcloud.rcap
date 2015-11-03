@@ -2073,7 +2073,8 @@ a.wysiwyg-toolbar-icon:hover {
 .hamburger > div {
   z-index: 999;
   position: absolute;
-  width: 100%; }
+  width: 100%;
+  display: none; }
 
 .hamburger-valign-middle > div {
   top: 50%;
