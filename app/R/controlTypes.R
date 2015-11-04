@@ -1,204 +1,112 @@
 
 #' @include controlR6.R
 #' @importFrom R6 R6Class
+#' @importFrom rcloud.support rcloud.output.context RCloudDevice
+#'   rcloud.html.out rcloud.flush.plot
+#' @importFrom Rserve Rserve.context
 
 RPlotControl <- R6Class("RPlotControl",
   inherit = Control,
   public = list(
 
-    updateFrontend = function() {
+    update = function(new_value = NULL) {
 
+      contextId <- rcloud.output.context(private$id)
+      Rserve.context(contextId)
+
+      ## If there were no updates from the client, then
+      ## the size might be unknown
+      width <- private$width %||% 500
+      height <- private$height %||% 500
+      RCloudDevice(round(width), round(height))
+      rcloud.html.out(paste("width", width, "height", height))
+
+      ## TODO: this should be stored in the constructor
+      func <- private$json$controlProperties[[1]]$value
+      if (!is.null(func)) do.call(func, envir = rcloudEnv())
+
+      rcloud.flush.plot()
+
+      super$update(new_value)
     }
 
+  ),
+
+  private = list(
+    ## TODO: update these when client updates, or we need
+    ## some better defaults based on the designer (?)
+    width = NULL,
+    height = NULL
   )
 )
 
 
 InteractivePlotControl <- R6Class("InteractivePlotControl",
-  inherit = Control,
-  public = list(
-
-    updateFrontend = function() {
-      ## TODO
-    }
-
-  )
+  inherit = Control
 )
 
 FormControl <- R6Class("FormControl",
-  inherit = Control,
-  public = list(
-
-    updateFrontend = function() {
-      ## TODO
-    }
-
-  )
+  inherit = Control
 )
 
 TextFieldControl <- R6Class("TextFieldControl",
-  inherit = Control,
-  public = list(
-
-    updateFrontend = function() {
-      ## TODO
-    }
-
-  )
+  inherit = Control
 )
 
 DatePickerControl <- R6Class("DatePickerControl",
-  inherit = Control,
-  public = list(
-
-    updateFrontend = function() {
-      ## TODO
-    }
-
-  )
+  inherit = Control
 )
 
 DropdownControl <- R6Class("DropdownControl",
-  inherit = Control,
-  public = list(
-
-    updateFrontend = function() {
-      ## TODO
-    }
-
-  )
+  inherit = Control
 )
 
 MultiSelectControl <- R6Class("MultiSelectControl",
-  inherit = Control,
-  public = list(
-
-    updateFrontend = function() {
-      ## TODO
-    }
-
-  )
+  inherit = Control
 )
 
 CheckboxListControl <- R6Class("CheckboxListControl",
-  inherit = Control,
-  public = list(
-
-    updateFrontend = function() {
-      ## TODO
-    }
-
-  )
+  inherit = Control
 )
 
 RadioButtonGroupControl <- R6Class("RadioButtonGroupControl",
-  inherit = Control,
-  public = list(
-
-    updateFrontend = function() {
-      ## TODO
-    }
-
-  )
+  inherit = Control
 )
 
 SliderControl <- R6Class("Slidercontrol",
-  inherit = Control,
-  public = list(
-
-    updateFrontend = function() {
-      ## TODO
-    }
-
-  )
+  inherit = Control
 )
 
 SeparatorControl <- R6Class("SeparatorControl",
-  inherit = Control,
-  public = list(
-
-    updateFrontend = function() {
-      ## TODO
-    }
-
-  )
+  inherit = Control
 )
 
 HeadingControl <- R6Class("HeadingControl",
-  inherit = Control,
-  public = list(
-
-    updateFrontend = function() {
-      ## TODO
-    }
-
-  )
+  inherit = Control
 )
 
 SubmitButtonControl <- R6Class("SubmitButtonControl",
-  inherit = Control,
-  public = list(
-
-    updateFrontend = function() {
-      ## TODO
-    }
-
-  )
+  inherit = Control
 )
 
 IFrameControl <- R6Class("IFrameControl",
-  inherit = Control,
-  public = list(
-
-    updateFrontend = function() {
-      ## TODO
-    }
-
-  )
+  inherit = Control
 )
 
 ImageControl <- R6Class("ImageControl",
-  inherit = Control,
-  public = list(
-
-    updateFrontend = function() {
-      ## TODO
-    }
-
-  )
+  inherit = Control
 )
 
 PageMenuControl <- R6Class("PageMenuControl",
-  inherit = Control,
-  public = list(
-
-    updateFrontend = function() {
-      ## TODO
-    }
-
-  )
+  inherit = Control
 )
 
 BreadCrumbControl <- R6Class("BreadCrumbControl",
-  inherit = Control,
-  public = list(
-
-    updateFrontend = function() {
-      ## TODO
-    }
-
-  )
+  inherit = Control
 )
 
 TextControl <- R6Class("TextControl",
-  inherit = Control,
-  public = list(
-
-    updateFrontend = function() {
-      ## TODO
-    }
-
-  )
+  inherit = Control
 )
 
 control_classes <- list(
@@ -222,7 +130,6 @@ control_classes <- list(
   "text"             = TextControl
 )
 
-controlFactory <- function(type = names(control_classes), cl) {
-  type <- match.arg(type)
+controlFactory <- function(cl, type = cl$type) {
   control_classes[[type]]$new(cl)
 }

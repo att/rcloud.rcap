@@ -12,11 +12,11 @@
 rcloud.rcap.global.functions <- function() {
   
   ## Get all objects
-  globalObjects <- ls(envir = .GlobalEnv)
+  globalObjects <- ls(envir = rcloudEnv())
 
   ## Keep the functions
   Filter(
-    function(x) is.function(get(x, envir = .GlobalEnv)),
+    function(x) is.function(get(x, envir = rcloudEnv())),
     globalObjects
   )
 }

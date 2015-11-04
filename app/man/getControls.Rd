@@ -11,7 +11,6 @@ getControls(rcapConfig)
 }
 \value{
 List of controls (each a list)
-
 }
 \description{
 Return a list of all controls

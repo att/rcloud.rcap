@@ -17,8 +17,8 @@ Controller <- R6::R6Class("Controller",
     topoSort = character(),             # update order of controls
 
     ## Update these controls, in the specified order
-    updateInOrder = function(ids)
-      controllerUpdateInOrder(self, private, ids)
+    updateInOrder = function(ids, values)
+      controllerUpdateInOrder(self, private, ids, values)
   )
 )
 
@@ -28,7 +28,7 @@ controllerInitialize <- function(self, private, rcapConfig) {
   allControls <- getControls(rcapConfig)
 
   ## Create the objects from the JSON
-  private$controls <- lapply(allControls, Control$new)
+  private$controls <- lapply(allControls, controlFactory)
 
   ## Use the ids to name the list items
   names(private$controls) <-
@@ -48,17 +48,21 @@ controllerInitialize <- function(self, private, rcapConfig) {
   private$topoSort <- topologicalSort(private$succList)
 
   ## Update everything
-  private$updateInOrder(private$topoSort)
+  private$updateInOrder(private$topoSort, values = NULL)
 
   invisible(self)
 }
 
+
+## Extract the updated controls, and their dependencies
 
 controllerUpdate <- function(self, private, controls) {
   ## TODO
 }
 
 
-controllerUpdateInOrder <- function(self, private, ids) {
-  ## TODO
+controllerUpdateInOrder <- function(self, private, ids, values) {
+  for (id in ids) private$controls[[id]]$update(values[[id]])
+
+  invisible(self)
 }

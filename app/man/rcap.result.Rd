@@ -13,7 +13,6 @@ rcap.result(rcapConfigFileName = "rcap_designer.json")
 Load site configuration from the json file in the notebook assests.
 Parse the controls for any functions that need creating and and setup the OCAPs.
 This function is a wrapper around \code{rcloud.web::rcw.result}.
-
 }
 \examples{
 \dontrun{
