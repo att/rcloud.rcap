@@ -1,4 +1,8 @@
-define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/rangeControl.tpl'], function(BaseControlProperty, tpl) {
+define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/rangeControl.tpl',
+    'ionrangeslider/js/ion.rangeSlider',
+    'css!ionrangeslider/css/ion.rangeSlider.css',
+    'css!ionrangeslider/css/ion.rangeSlider.skinFlat.css'
+    ], function(BaseControlProperty, tpl) {
 
     'use strict';
 
@@ -13,7 +17,7 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/ra
                 isRequired: options.isRequired || false,
                 uid: options.uid,
                 className: options.className,
-                value: options.value
+                value: options.value || '0'
             });
 
             // additional assignments go here:
@@ -33,7 +37,7 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/ra
 
         },
         getDialogValue: function() {
-            return $('#' + this.id).slider('option', 'value');
+            return $('#' + this.id).val();
         }
     });
 

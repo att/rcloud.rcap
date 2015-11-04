@@ -63,7 +63,6 @@
 }
 
 #rcap-navbar-header {
-    text-indent: -9999px;
     width: 180px;
     height: 25px;
     display: block;
@@ -71,12 +70,15 @@
     margin-top: 10px;
     margin-left: 10px;
     //margin-bottom: 40px;
+    & span {
+        display: none;
+    }
 }
 
 #rcap-toplevelbuttons {
     position: absolute;
-    top: 12px;
-    right: 12px;
+    top: 1px;
+    right: 4px;
     & button {
         background-color: $topLevelButtonColor;
         border-radius: 5px;
@@ -105,8 +107,7 @@
     left: 50%;
     margin-left: -200px;
     position: absolute;
-    top: 15px;
-    box-shadow: 0px 0px 0px 10px rgba(0, 0, 0, 0.3);
+    top: 12px;
     z-index: 1030;
     width: 400px;
 }
@@ -139,67 +140,78 @@
     & .row {
         background-color: $bgColor;
     }
-    & #main-menu {
-        overflow: auto;
+    & #top-status-bar {
         background-color: $mainNavBackgroundColor;
-        color: $mainNavColor;
-        padding-top: 15px;
-        position: relative;
-        & #rcap-userplaceholder {
-            bottom: 0;
-            right: 0;
-            position: absolute;
-            //@include menuseparator();
-            & a {
-                display: inline-block;
-                background-color: transparent;
-                opacity: 0.2;
-                transition: opacity .25s ease-in-out;
-                -moz-transition: opacity .25s ease-in-out;
-                -webkit-transition: opacity .25s ease-in-out;
-            }
-            & a:hover {
-                background-color: transparent;
-                opacity: 1.0;
-            }
-            & img {
-                width: 80px;
-                border-radius: 40px;
-            }
+        height: 50px;
+
+        #current-page-status {
+            display: inline-block;
+            line-height: 50px;
+            padding-left: 10px;
+            padding-right: 10px;
+            cursor: hand;
+            transition: background-color .25s ease-in-out;
+            -moz-transition: background-color .25s ease-in-out;
+            -webkit-transition: background-color .25s ease-in-out;
         }
+
+        #current-page-status:hover {
+            background-color: $mainNavCurrentPageHover;
+        }
+
+        #current-page {
+            margin-left: 4px;
+            color: white;
+        }
+    }
+    & .menu-flyout {
+        width: 400px;
+        position: absolute;
+        top: 50px;
+        padding: 5px 20px 20px 20px;
+        left: 50px;
+        height: calc(100% - 50px);
+        background-color: $mainNavBackgroundColor;
         & ul.controls {
             & li {
                 float: left;
-                margin-left: 5px;
+                text-align: center;
+                margin: 0 5px 5px 0;
             }
             & a span {
                 display: none;
             }
             & a {
+                border: 1px solid $mainNavColor;
                 cursor: move;
+                height: 90px;
+                width: 170px;
+                padding: 19px;
+                &:hover {
+                    background-color: $mainNavBackgroundColorHover;
+                    transition: background-color .25s ease-in-out;
+                    -moz-transition: background-color .25s ease-in-out;
+                    -webkit-transition: background-color .25s ease-in-out;
+                }
                 & i {
-                    font-size: 14pt;
+                    font-size: 21px;
                     text-align: center;
+                    margin-bottom: 10px;
                 }
             }
         }
-    }
-    & .menu {
-        padding: 0;
-        margin: 0;
-        height: 100%;
+        & .panel-close {
+            position: absolute;
+            top: 0;
+            right: 10px;
+        }
         @include noselect();
         & h4 {
             text-transform: uppercase;
             font-size: 14px;
             letter-spacing: 2px;
             clear: left;
-            margin-top: 25px;
-            @include menuseparator();
-            padding-left: 12px;
-        }
-        & h4:first-child {
-            margin-top: 30px;
+            margin-top: 0;
         }
         & ul {
             list-style-type: none;
@@ -215,36 +227,31 @@
         a:hover,
         a:active {
             display: block;
-            padding: 13px;
             color: $mainNavColor;
             font-family: $defaultFont;
             text-decoration: none;
+            padding: 10px 0 5px 15px;
         }
-        & a:hover {
-            background-color: darken($mainNavBackgroundColor, 10%);
-        }
-        & li.selected > a {
-            background-color: darken($mainNavBackgroundColor, 10%);
-        }
+        & a:hover {}
+        & li.selected > a {}
         & a span::after {
             display: block;
         }
         & h4#page-header a {
             padding: 0;
-            float: right;
-            margin-right: 12px;
             opacity: 0.5;
+            margin-left: 6px;
+            display: inline-block;
         }
         & h4#page-header a:hover {
-            //background-color: $bgColor;
             opacity: 1.0;
         }
-        & h4#page-header a::before {
+        & h4#page-header a.add-page::before {
             font: normal normal normal 16px/1 FontAwesome;
             content: "\f067";
         }
         & ol#pages {
-            max-height: calc(100% - 400px);
+            max-height: calc(100% - 75px);
             overflow: auto;
             &::-webkit-scrollbar-track {
                 background-color: $mainNavBackgroundColor;
@@ -323,7 +330,7 @@
             background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAsCAYAAACpOaImAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuNvyMY98AAAAkSURBVDhPY7Czs/vPgAuMSgLBqCQQUCaJC0OVjIJRQHfAwAAAplYwPfTIX0YAAAAASUVORK5CYII=');
         }
         & ul.controls a i {
-            font-size: 12pt;
+            font-size: 17pt;
             width: 26px;
             display: inline-block;
         }
@@ -336,14 +343,6 @@
                 height: 14px;
             }
         }
-        /*
-    this settings ul is not currently shown, was intended to be a 'designer' settings
-    menu item
-    
-        & ul.settings a::before {
-            content: "\f013";
-        }
-*/
         & a span {
             display: block;
             float: right;
@@ -353,6 +352,7 @@
             transition: opacity .25s ease-in-out;
             -moz-transition: opacity .25s ease-in-out;
             -webkit-transition: opacity .25s ease-in-out;
+            margin-top: 5px;
         }
         & a span::after {
             text-align: right;
@@ -407,9 +407,127 @@
             display: block;
         }
     }
-    & .tab-pane.menu li a,
-    & .tab-pane.menu li a i {
+    & #main-menu {
+        overflow: auto;
+        background-color: $mainNavBackgroundColor;
+        color: $mainNavColor;
+        position: relative;
+        float: left;
+        width: 50px;
+        & ul {
+            & a {
+                display: block;
+                padding: 5px;
+                width: 40px;
+                height: 40px;
+                margin-left: 3px;
+                margin-bottom: 10px;
+            }
+        }
+        & li {}
+        & li i {
+            font-size: 30px;
+            width: 30px;
+            display: block;
+            margin: 3px auto 0 3px;
+        }
+        & li span {
+            display: none;
+        }
+        & #rcap-userplaceholder {
+            bottom: 5px;
+            left: 3px;
+            position: absolute;
+            //@include menuseparator();
+            & a {
+                display: inline-block;
+                background-color: transparent;
+                opacity: 0.2;
+                transition: opacity .25s ease-in-out;
+                -moz-transition: opacity .25s ease-in-out;
+                -webkit-transition: opacity .25s ease-in-out;
+            }
+            & a:hover {
+                background-color: transparent;
+                opacity: 1.0;
+            }
+            & img {
+                width: 40px;
+                border-radius: 20px;
+            }
+        }
+    }
+    & .menu {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        @include noselect();
+        & h4 {
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 2px;
+            clear: left;
+            margin-top: 25px;
+            @include menuseparator();
+            padding-left: 12px;
+        }
+        & h4:first-child {
+            margin-top: 30px;
+        }
+        & ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        & li {
+            padding: 0;
+            margin: 0;
+        }
+        & a:link,
+        a:visited,
+        a:hover,
+        a:active {
+            display: block;
+            color: $mainNavColor;
+            font-family: $defaultFont;
+            text-decoration: none;
+        }
+        & a:hover {
+            background-color: darken($mainNavBackgroundColor, 10%);
+        }
+        & li.selected > a {
+            background-color: darken($mainNavBackgroundColor, 10%);
+        }
+        & a span::after {
+            display: block;
+        }
+        & ol#pages a::before,
+        & ul.controls a::before,
+        & ul.settings a::before {
+            text-align: left;
+            color: $mainNavColor;
+            padding: 2px 8px 0 0;
+            margin: 0;
+            font: normal normal normal 10px/1 FontAwesome;
+            font-size: 12pt;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .dragged {
+            z-index: 2000;
+            position: absolute;
+            opacity: 0.8;
+        }
+    }
+    & .tab-pane.menu li a {
         color: $mainNavBackgroundColor;
+        padding: 5px 0 5px 5px;
+        font-size: 15px;
+        & i {
+            color: $mainNavBackgroundColor;
+            margin-right: 7px;
+        }
     }
     & .tab-pane.menu a:hover,
     & .tab-pane.menu li.selected a {
@@ -421,6 +539,8 @@
         overflow-y: auto;
         padding-right: 0;
         padding-left: 0;
+        float: left;
+        width: calc(100% - 50px);
         & #rcap-topbar {
             background-color: rgba(0, 255, 0, 0.3);
             position: fixed;
@@ -477,10 +597,6 @@
                 background: #999;
                 border-color: inherit;
             }
-        }
-        & .ui-slider-value {
-            margin-top: 1px;
-            padding: 4px;
         }
         & .form-group {
             width: 40%;
@@ -624,10 +740,6 @@ a.wysiwyg-toolbar-icon:hover {
     top: 0;
 }
 
-.hamburger div {
-    display: none;
-}
-
 .hamburger button {
     position: absolute;
     top: 50%;
@@ -652,6 +764,7 @@ a.wysiwyg-toolbar-icon:hover {
     z-index: 999;
     position: absolute;
     width: 100%;
+    display: none;
 }
 
 .hamburger-valign-middle > div {

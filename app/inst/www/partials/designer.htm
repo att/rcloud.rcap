@@ -20,24 +20,23 @@
     </div>
     -->
     <div id="rcap-message" style="display:none"></div>
-    <div class="row">
-        <div class="col-md-2 menu" id="main-menu">
-            <div id="rcap-navbar-header">RCloud Designer</div>
-            <div id="rcap-toplevelbuttons">
-                <button id="rcap-save" title="Save" type="button" class="btn btn-link navbar-btn" style=""><i class="icon-save"></i></button>
-                <button id="rcap-close" title="Close" type="button" class="btn btn-link navbar-btn" style=""><i class="icon-remove"></i></button>
-            </div>
-
-            <div id="rcap-userplaceholder" />
-
-            <h4 id="page-header">Pages <a href="#" title="Add page"></a></h4>
-            <ol id="pages"></ol>
-            <h4>Controls</h4>
-            <ul class="controls"></ul>
-
+    <div class="row" id="top-status-bar">
+        <div id="rcap-navbar-header" class="navbar-header"><span>RCloud Designer</span></div>
+        <div id="current-page-status">Page: <span id="current-page"></span></div>
+        <div id="rcap-toplevelbuttons">
+            <button id="rcap-save" title="Save" type="button" class="btn btn-link navbar-btn" style=""><i class="icon-save"></i></button>
+            <button id="rcap-close" title="Close" type="button" class="btn btn-link navbar-btn" style=""><i class="icon-remove"></i></button>
         </div>
-        <div class="col-md-10 stage" id="rcap-stage">
-            <!-- <div id="rcap-topbar">SHANE</div> -->
+    </div>
+    <div class="row" style="height: calc(100% - 50px)">
+        <div class="menu" id="main-menu">
+            <ul>
+                <li><a href="javascript:void(0)" data-flyoutid="pages"><i class="icon-file"></i><span>Pages</span></a></li>
+                <li><a href="javascript:void(0)" data-flyoutid="controls"><i class="icon-puzzle-piece"></i><span>Controls</span></a></li>
+            </ul>
+            <div id="rcap-userplaceholder" />
+        </div>
+        <div class="stage" id="rcap-stage">
             <div id="inner-stage">
                 <div id="no-items" style="display:none">
                     <h2>This page is empty.</h2>
@@ -45,6 +44,17 @@
                 </div>
             </div>
         </div>
+    </div>
+    <!-- main-menu-panel -->
+    <div class="menu-flyout" data-flyoutid="pages" style="display:none">
+        <h4 id="page-header">Pages <a href="#" class="add-page" title="Add page"></a></h4>
+        <a class="panel-close" href="#" title="close"><i class="icon-remove"></i></a>
+        <ol id="pages"></ol>
+    </div>
+    <div class="menu-flyout" data-flyoutid="controls" style="display:none">
+        <h4>Controls</h4>
+        <a class="panel-close" href="#" title="close"><i class="icon-remove"></i></a>
+        <ul class="controls"></ul>
     </div>
 </div>
 <div id="rcap-preloader" style="display:none">

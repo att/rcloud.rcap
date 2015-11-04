@@ -15,7 +15,7 @@ if(typeof control.controlProperties[0].value !== 'undefined' && control.controlP
 
 		<% _.each(control.controlProperties[2].value, function(o, i){ %>
 
-			<option value="<%=o.value%>" ><%=o.label%></option>
+			<option value="<%=o.label%>" ><%=o.label%></option>
 
        <% }); %>  
 

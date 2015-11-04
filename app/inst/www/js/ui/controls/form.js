@@ -71,26 +71,72 @@ define(['rcap/js/ui/controls/gridControl', 'text!rcap/partials/dialogs/_formBuil
             var data;
 
             var getVarData = function(el) {
+
+                // value dependent on control type:
+                var value;
+
+/*
+                if( el.data('select2')) {
+                    value = _.pluck(el.select2('data'), 'text');
+                } else if( el.is('select')) {
+                    value = el.find('option:selected').val();
+                } else */
+
+                if( el.hasClass('checkbox-group')) {
+                    // get all selected checkboxes:
+                    value = [];
+                    el.find('input:checkbox:checked').each(function() 
+                    {
+                       value.push($(this).val());
+                    });
+
+                } else if( el.hasClass('radiobutton-group')) {
+                    // get selected radio button:
+                    value = el.find('input:checked').val();
+                } else {
+                    // either a checkbox list, radio buttons, or something 
+                    // that we can use val() with:
+                    value = el.val();
+                }
+
                 return {
                     variableName: el.attr('data-variablename'),
                     controlId: el.attr('id'),
-                    value: el.val()
+                    value: value
                 };
             };
 
-            var submitVariableChange = function(data) {
-                var notebookResult = window.notebook_result; // jshint ignore:line
-                if (notebookResult) {
-                    notebookResult.updateVariable(data);
-                } else {
-                    console.log('window.notebook_result is not available, varchange data is: ', JSON.stringify(data));
-                }
+            var submitVariableChange = function(variableData) {
+                // var notebookResult = window.notebook_result; // jshint ignore:line
+                // if (notebookResult) {
+                //     notebookResult.updateVariable(data);
+                // } else {
+                //     console.log('window.notebook_result is not available, varchange data is: ', JSON.stringify(data));
+                // }
+
+                var plotSizes = [];
+
+                $('.rplot').each(function() {
+                    var container = $(this).closest('.grid-stack-item-content');
+                    plotSizes.push({
+                        id : $(this).attr('id'),
+                        width : container.width() - 25,
+                        height: container.height() - 25
+                    });
+                });
+ 
+                data = {
+                    updatedVariables : variableData,
+                    plotSizes : plotSizes
+                };
+
+                console.log('Submitting data: ', JSON.stringify(data));
             };
 
             // if a form has a submit button, its data will be submitted when the form is submitted.
             // otherwise, the individual control will submit data following a change:
             $('.rcap-controltype-form').each(function() {
-                if ($(this).find('input[type="submit"]')) {
+                if ($(this).find('input[type="submit"]').length > 0) {
                     $(this).find('form').submit(function(e) {
 
                         e.preventDefault();
@@ -104,7 +150,7 @@ define(['rcap/js/ui/controls/gridControl', 'text!rcap/partials/dialogs/_formBuil
                         submitVariableChange(data);
                     });
                 } else {
-                    $('[data-variablename]').change(function() {
+                    $(this).find('[data-variablename]').change(function() {
                         submitVariableChange([
                             getVarData($(this))
                         ]);

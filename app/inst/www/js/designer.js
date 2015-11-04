@@ -1,6 +1,7 @@
 define([
     'rcap/js/serializer',
     'rcap/js/ui/menuManager',
+    'rcap/js/ui/infoBarManager',
     'rcap/js/ui/dialogManager',
     'rcap/js/ui/messageManager',
     'rcap/js/ui/gridManager',
@@ -9,7 +10,7 @@ define([
     'site/pubSubTable',
     'text!rcap/partials/designer.htm',
     'css!rcap/styles/default.css'
-], function(Serializer, MenuManager, DialogManager, MessageManager, GridManager, SiteManager, PubSub, pubSubTable, mainPartial) {
+], function(Serializer, MenuManager, InfoBarManager, DialogManager, MessageManager, GridManager, SiteManager, PubSub, pubSubTable, mainPartial) {
 
     'use strict';
 
@@ -43,6 +44,9 @@ define([
 
         // menu manager:
         new MenuManager().initialise().initialiseControlsMenu();
+
+        // info bar manager:
+        new InfoBarManager().initialise();
 
         // initialise the dialog manager:
         new DialogManager().initialise();

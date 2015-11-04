@@ -14,7 +14,7 @@
             'spectrum': '../../shared.R/rcloud.rcap/bower_components/spectrum',
             'select2': '../../shared.R/rcloud.rcap/bower_components/select2/dist',
             'wysiwyg': '../../shared.R/rcloud.rcap/bower_components/wysiwyg.js/dist',
-            'nestedSortable': '../../shared.R/rcloud.rcap/bower_components/jquery-nested-sortable/jquery.ui.nestedSortable'
+            'ionrangeslider': '../../shared.R/rcloud.rcap/bower_components/ionrangeslider',
         },
         map: {
             '*': {

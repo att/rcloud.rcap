@@ -36,12 +36,14 @@ define(['controls/factories/controlFactory', 'pubsub', 'site/pubSubTable'], func
 
             // parsley:
             $('#formbuilder-form').parsley({
-                excluded: 'input[type=button], input[type=submit], input[type=reset], :input[type=hidden], :disabled, textarea:hidden'
+                excluded: 'input[type=button], input[type=submit], input[type=reset], :input[type=hidden], :disabled, input:hidden'
             });
 
             $('.drop-zone').on('click', '.ui-remove', function(e) {
-                updateChildControls();
+
                 $(this).parent().remove();
+
+                updateChildControls();
 
                 $('#formbuilder-form-no-item').show();
                 $('#formbuilder-form .js-rcap-dynamic').html('');
@@ -92,7 +94,8 @@ define(['controls/factories/controlFactory', 'pubsub', 'site/pubSubTable'], func
                     // update UI:
                     var updateItem = $('#dialog-form-builder .form-item.selected').find('.js-dynamic');
                     updateItem.html(originatingControl.render({
-                        'isDesignTime': true
+                        isDesignTime: true,
+                        isInFormBuilder: true
                     }));
 
                     //console.log('VALID');

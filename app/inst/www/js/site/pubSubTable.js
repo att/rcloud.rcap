@@ -19,6 +19,7 @@ define(['pubsub', 'rcap/js/Class'], function() {
         showMessage: 'showMessage',
 
         showConfirmDialog : 'showConfirmDialog',
+        showPageFlyout: 'showPageFlyout',
 
         // page:
         addPage : 'addPage',
@@ -50,6 +51,7 @@ define(['pubsub', 'rcap/js/Class'], function() {
         gridItemsChanged : 'gridItemsChanged',
 
         // control/form:
+        startControlDrag: 'startControlDrag',
         addControl : 'addControl',
         updateControl : 'updateControl',
         updateControlMarkup : 'updateControlMarkup',

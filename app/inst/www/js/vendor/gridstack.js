@@ -579,17 +579,20 @@
 
     GridStack.prototype.position_placeholder = function(x, y) {
 
+// ****************
+        //console.log('positioning placeholder at: ', x, y, ' for placeholder of size ', this.placeholder.attr('data-gs-width'), this.placeholder.attr('data-gs-height'));
+// ****************
+
         this.placeholder.attr({
             'data-gs-x': x,
             'data-gs-y': y
         }).show();
 
-        if (!this.is_area_empty(x, y, this.placeholder.attr('data-gs-width'), this.placeholder.attr('data-gs-height'))) {
+        if (!this.is_area_empty(x, y, +this.placeholder.attr('data-gs-width'), +this.placeholder.attr('data-gs-height'))) {
             this.placeholder.find(".placeholder-content").css({
                 "border-color": "red"
             });
         } else {
-
             this.placeholder.find(".placeholder-content").css({
                 "border-color": "inherit"
             });
@@ -1023,7 +1026,7 @@
     };
 
     GridStack.prototype.is_area_empty = function(x, y, width, height) {
-        return this.grid.is_area_empty(x, y, width, height);
+        return this.grid.is_area_empty(+x, +y, +width, +height);
     };
 
     scope.GridStackUI = GridStack;

@@ -62,6 +62,8 @@ define(['rcap/js/ui/controls/gridControl', 'rcap/js/ui/controls/properties/textC
 				$('#rcap-stretcher .js-rcap-dynamic').append($('<img />').attr('src', $(this).find('div').attr('data-imgsrc')));
 				$('body').addClass('rcap-stretched');
 				$('#rcap-stretcher').show();
+
+				$('#rcap-stretcher img').resizable({ aspectRatio: true, maxHeight: $('#rcap-stretcher img').height() });
 			});
 
 			$('#rcap-stretcher .stretcher-close').click(function() {

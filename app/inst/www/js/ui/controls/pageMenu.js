@@ -33,18 +33,25 @@ define(['rcap/js/ui/controls/gridControl',
                 var buildTree = function(pages) {
                     _.each(pages, function(page) {
 
-                        var template = _.template('<a style="padding-left:<%=((p.depth - 1) * 20) + 15%>px" href="javascript:void(0)" data-ishamburger="true" data-pageid="<%=p.id%>" data-href="<%=p.navigationTitle%>"><%=p.navigationTitle%></a>');
+                        var template = _.template('<div data-pageid="<%=p.id%>"><a style="padding-left:<%=((p.depth - 1) * 20) + 15%>px" href="javascript:void(0)" data-ishamburger="true" data-pageid="<%=p.id%>" data-href="<%=p.navigationTitle%>"><%=p.navigationTitle%></a></div>');
                         var markup = template({
                             p: page
                         });
 
                         if (page.isEnabled) {
-                            hamburgerTemplate.find('> div').append(markup);
+
+                            if(page.parentId) {
+                                // this is a child page
+                                hamburgerTemplate.find('div[data-pageid="' + page.parentId + '"]').append(markup);
+                            } else {
+                                hamburgerTemplate.find('> div').append(markup);
+                            }
+                           
                         }
 
-                        if (page.pages) {
-                            buildTree(page.pages);
-                        }
+                        // if (page.pages) {
+                        //     buildTree(page.pages);
+                        // }
                     });
                 };
 
@@ -71,13 +78,13 @@ define(['rcap/js/ui/controls/gridControl',
                         availableOptions: [{
                             text: 'Mobile Style \'Hamburger icon\'',
                             value: 'hamburger'
-                        }, {
+                        }/*, {
                             text: 'Horizontal',
                             value: 'horizontal'
                         }, {
                             text: 'Vertical',
                             value: 'vertical'
-                        }],
+                        }*/],
                         value: 'hamburger'
                     }),
                     // new DropdownControlProperty({
@@ -151,6 +158,7 @@ define(['rcap/js/ui/controls/gridControl',
                     me.currentPageID = page.id;
                     renderControl(me, true);
                 }
+
             });
 
             //////////////////////////////////////////////////////////////////////////////////////////

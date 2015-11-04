@@ -19,7 +19,7 @@ module.exports = function(grunt) {
         distFiles: [
             'DESCRIPTION',
             'README.md',
-	    'NAMESPACE',
+            'NAMESPACE',
             'inst/javascript/rcloud.rcap.js',
             'inst/www/js/initialiser.js',
             'R/**/*',
@@ -27,7 +27,7 @@ module.exports = function(grunt) {
             'man/**/*'
         ]
     };
-    
+
     // 1. All configuration goes here 
     grunt.initConfig({
 
@@ -112,6 +112,13 @@ module.exports = function(grunt) {
                     dest: '<%= appConfig.devDeployDir%>/inst/www/bower_components',
                     src: [
                         '**/*.css'
+                    ]
+                }, {
+                    expand: true,
+                    cwd: 'bower_components/',
+                    dest: '<%= appConfig.devDeployDir%>/inst/www/bower_components',
+                    src: [
+                        '**/*.png'
                     ]
                 }, {
                     cwd: 'app',

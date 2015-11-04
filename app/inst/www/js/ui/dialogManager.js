@@ -273,7 +273,7 @@ define([
                 $('#inputIsEnabled').prop('checked', page.isEnabled);
 
                 // styling information:
-                $('#page-styling').html(pageInfo.page.getStyleDialogMarkup());
+                //$('#page-styling').html(pageInfo.page.getStyleDialogMarkup());
 
                 $('#dialog-pageSettings form')
                     .find('input')

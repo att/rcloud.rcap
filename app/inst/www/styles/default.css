@@ -573,7 +573,7 @@
   z-index: 9999;
   width: 100%;
   height: 100%;
-  background-color: rgba(127, 127, 127, 0.9);
+  background-color: rgba(127, 127, 127, 0.99);
   overflow: hidden; }
   #rcap-viewer #rcap-stretcher .stretcher-close {
     position: absolute;
@@ -1435,6 +1435,9 @@ textarea.parsley-error {
   #dialog-form-builder [data-body-id="styling"] .row {
     background-color: white; }
 
+.select2-selection__choice {
+  color: black; }
+
 .rcap-pagemenu {
   margin: 0;
   padding: 0; }
@@ -1505,18 +1508,19 @@ textarea.parsley-error {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg); } }
 #rcap-navbar-header {
-  text-indent: -9999px;
   width: 180px;
   height: 25px;
   display: block;
   background: transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAAZCAMAAACvkfQwAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjI5M0UwOTNBNzM0MTExRTU5NEZCRDk4NTE1NzgyODZDIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjI5M0UwOTNCNzM0MTExRTU5NEZCRDk4NTE1NzgyODZDIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MjkzRTA5Mzg3MzQxMTFFNTk0RkJEOTg1MTU3ODI4NkMiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MjkzRTA5Mzk3MzQxMTFFNTk0RkJEOTg1MTU3ODI4NkMiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5VkpboAAAB71BMVEVSPB5w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") 0 0 no-repeat;
   margin-top: 10px;
   margin-left: 10px; }
+  #rcap-navbar-header span {
+    display: none; }
 
 #rcap-toplevelbuttons {
   position: absolute;
-  top: 12px;
-  right: 12px; }
+  top: 1px;
+  right: 4px; }
   #rcap-toplevelbuttons button {
     background-color: #c37e00;
     border-radius: 5px;
@@ -1540,8 +1544,7 @@ textarea.parsley-error {
   left: 50%;
   margin-left: -200px;
   position: absolute;
-  top: 15px;
-  box-shadow: 0px 0px 0px 10px rgba(0, 0, 0, 0.3);
+  top: 12px;
   z-index: 1030;
   width: 400px; }
 
@@ -1567,15 +1570,243 @@ textarea.parsley-error {
   /* form controls */ }
   #rcap-designer .row {
     background-color: #F2F2F2; }
+  #rcap-designer #top-status-bar {
+    background-color: #222;
+    height: 50px; }
+    #rcap-designer #top-status-bar #current-page-status {
+      display: inline-block;
+      line-height: 50px;
+      padding-left: 10px;
+      padding-right: 10px;
+      cursor: hand;
+      transition: background-color .25s ease-in-out;
+      -moz-transition: background-color .25s ease-in-out;
+      -webkit-transition: background-color .25s ease-in-out; }
+    #rcap-designer #top-status-bar #current-page-status:hover {
+      background-color: #2f2f2f; }
+    #rcap-designer #top-status-bar #current-page {
+      margin-left: 4px;
+      color: white; }
+  #rcap-designer .menu-flyout {
+    width: 400px;
+    position: absolute;
+    top: 50px;
+    padding: 5px 20px 20px 20px;
+    left: 50px;
+    height: calc(100% - 50px);
+    background-color: #222;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; }
+    #rcap-designer .menu-flyout ul.controls li {
+      float: left;
+      text-align: center;
+      margin: 0 5px 5px 0; }
+    #rcap-designer .menu-flyout ul.controls a span {
+      display: none; }
+    #rcap-designer .menu-flyout ul.controls a {
+      border: 1px solid #d5d5d5;
+      cursor: move;
+      height: 90px;
+      width: 170px;
+      padding: 19px; }
+      #rcap-designer .menu-flyout ul.controls a:hover {
+        background-color: #2f2f2f;
+        transition: background-color .25s ease-in-out;
+        -moz-transition: background-color .25s ease-in-out;
+        -webkit-transition: background-color .25s ease-in-out; }
+      #rcap-designer .menu-flyout ul.controls a i {
+        font-size: 21px;
+        text-align: center;
+        margin-bottom: 10px; }
+    #rcap-designer .menu-flyout .panel-close {
+      position: absolute;
+      top: 0;
+      right: 10px; }
+    #rcap-designer .menu-flyout h4 {
+      text-transform: uppercase;
+      font-size: 14px;
+      letter-spacing: 2px;
+      clear: left;
+      margin-top: 0; }
+    #rcap-designer .menu-flyout ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0; }
+    #rcap-designer .menu-flyout li {
+      padding: 0;
+      margin: 0; }
+    #rcap-designer .menu-flyout a:link,
+    #rcap-designer .menu-flyout a:visited,
+    #rcap-designer .menu-flyout a:hover,
+    #rcap-designer .menu-flyout a:active {
+      display: block;
+      color: #d5d5d5;
+      font-family: "Open Sans", sans-serif;
+      text-decoration: none;
+      padding: 10px 0 5px 15px; }
+    #rcap-designer .menu-flyout a span::after {
+      display: block; }
+    #rcap-designer .menu-flyout h4#page-header a {
+      padding: 0;
+      opacity: 0.5;
+      margin-left: 6px;
+      display: inline-block; }
+    #rcap-designer .menu-flyout h4#page-header a:hover {
+      opacity: 1.0; }
+    #rcap-designer .menu-flyout h4#page-header a.add-page::before {
+      font: normal normal normal 16px/1 FontAwesome;
+      content: "\f067"; }
+    #rcap-designer .menu-flyout ol#pages {
+      max-height: calc(100% - 75px);
+      overflow: auto; }
+      #rcap-designer .menu-flyout ol#pages::-webkit-scrollbar-track {
+        background-color: #222; }
+      #rcap-designer .menu-flyout ol#pages::-webkit-scrollbar {
+        width: 10px;
+        background-color: #222; }
+      #rcap-designer .menu-flyout ol#pages::-webkit-scrollbar-thumb {
+        background-color: #888888; }
+    #rcap-designer .menu-flyout ol#pages, #rcap-designer .menu-flyout ol#pages ol {
+      list-style-type: none;
+      padding-left: 0; }
+    #rcap-designer .menu-flyout ol#pages a::before, #rcap-designer .menu-flyout ul.controls a::before, #rcap-designer .menu-flyout ul.settings a::before {
+      text-align: left;
+      color: #d5d5d5;
+      padding: 2px 8px 0 0;
+      margin: 0;
+      font: normal normal normal 10px/1 FontAwesome;
+      font-size: 12pt;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale; }
+    #rcap-designer .menu-flyout ol#pages a::before {
+      content: "\f0f6";
+      font-size: 16pt; }
+    #rcap-designer .menu-flyout ol#pages a.add-page::before {
+      content: "\f055"; }
+    #rcap-designer .menu-flyout ol#pages em {
+      font-style: normal; }
+    #rcap-designer .menu-flyout .dragged {
+      z-index: 2000;
+      position: absolute;
+      opacity: 0.8; }
+    #rcap-designer .menu-flyout ol#pages li.not-enabled > a {
+      color: #aaa; }
+    #rcap-designer .menu-flyout ol#pages li.placeholder {
+      position: relative;
+      margin: 0;
+      padding: 0;
+      border: none; }
+    #rcap-designer .menu-flyout ol#pages li.placeholder:before {
+      position: absolute;
+      content: "";
+      width: 0;
+      height: 0;
+      margin-top: -5px;
+      left: -5px;
+      top: -4px;
+      border: 5px solid transparent;
+      border-left-color: black;
+      border-right: none; }
+    #rcap-designer .menu-flyout ol li ol {
+      margin-left: 19px !important; }
+    #rcap-designer .menu-flyout ol li ol li > a {
+      background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAsCAYAAACpOaImAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuNvyMY98AAAApSURBVDhPY7Czs/vPgAuMSgLBqCQQUCaJCw+Yg6BMTDAqCQQjQpKBAQCQtlYjLZtnNQAAAABJRU5ErkJggg==");
+      background-position: 0 0;
+      background-repeat: no-repeat !important; }
+    #rcap-designer .menu-flyout ol li ol li:last-child > a {
+      background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAsCAYAAACpOaImAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuNvyMY98AAAAkSURBVDhPY7Czs/vPgAuMSgLBqCQQUCaJC0OVjIJRQHfAwAAAplYwPfTIX0YAAAAASUVORK5CYII="); }
+    #rcap-designer .menu-flyout ul.controls a i {
+      font-size: 17pt;
+      width: 26px;
+      display: inline-block; }
+    #rcap-designer .menu-flyout ul.controls a.control-submitbutton i {
+      border-radius: 3px;
+      background-color: #222;
+      width: 20px;
+      margin-right: 6px; }
+      #rcap-designer .menu-flyout ul.controls a.control-submitbutton i::before {
+        height: 14px; }
+    #rcap-designer .menu-flyout a span {
+      display: block;
+      float: right;
+      text-indent: -9999px;
+      opacity: 0.5;
+      width: 20px;
+      transition: opacity .25s ease-in-out;
+      -moz-transition: opacity .25s ease-in-out;
+      -webkit-transition: opacity .25s ease-in-out;
+      margin-top: 5px; }
+    #rcap-designer .menu-flyout a span::after {
+      text-align: right;
+      color: #d5d5d5;
+      padding: 2px 3px 0 0;
+      margin: 0;
+      font: normal normal normal 10px/1 FontAwesome;
+      font-size: 12pt;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      float: right;
+      display: none; }
+    #rcap-designer .menu-flyout a span::after:hover {
+      display: block; }
+    #rcap-designer .menu-flyout a span:hover {
+      opacity: 1.0; }
+    #rcap-designer .menu-flyout a span.page-settings::after {
+      content: "\f013"; }
+    #rcap-designer .menu-flyout a span.page-duplicate::after {
+      content: "\f08b"; }
+    #rcap-designer .menu-flyout a span.page-addchild::after {
+      content: "\f055"; }
+    #rcap-designer .menu-flyout a span.page-add::after {
+      content: "\f055"; }
+    #rcap-designer .menu-flyout ul.form-controls a {
+      cursor: move; }
+    #rcap-designer .menu-flyout a span::after {
+      display: block;
+      text-align: right;
+      color: #d5d5d5;
+      padding: 2px 3px 0 0;
+      margin: 0;
+      font: normal normal normal 10px/1 FontAwesome;
+      font-size: 12pt;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      float: right;
+      content: "\f013";
+      display: none; }
+    #rcap-designer .menu-flyout a:hover span::after {
+      display: block; }
   #rcap-designer #main-menu {
     overflow: auto;
     background-color: #222;
     color: #d5d5d5;
-    padding-top: 15px;
-    position: relative; }
+    position: relative;
+    float: left;
+    width: 50px; }
+    #rcap-designer #main-menu ul a {
+      display: block;
+      padding: 5px;
+      width: 40px;
+      height: 40px;
+      margin-left: 3px;
+      margin-bottom: 10px; }
+    #rcap-designer #main-menu li i {
+      font-size: 30px;
+      width: 30px;
+      display: block;
+      margin: 3px auto 0 3px; }
+    #rcap-designer #main-menu li span {
+      display: none; }
     #rcap-designer #main-menu #rcap-userplaceholder {
-      bottom: 0;
-      right: 0;
+      bottom: 5px;
+      left: 3px;
       position: absolute; }
       #rcap-designer #main-menu #rcap-userplaceholder a {
         display: inline-block;
@@ -1588,18 +1819,8 @@ textarea.parsley-error {
         background-color: transparent;
         opacity: 1.0; }
       #rcap-designer #main-menu #rcap-userplaceholder img {
-        width: 80px;
-        border-radius: 40px; }
-    #rcap-designer #main-menu ul.controls li {
-      float: left;
-      margin-left: 5px; }
-    #rcap-designer #main-menu ul.controls a span {
-      display: none; }
-    #rcap-designer #main-menu ul.controls a {
-      cursor: move; }
-      #rcap-designer #main-menu ul.controls a i {
-        font-size: 14pt;
-        text-align: center; }
+        width: 40px;
+        border-radius: 20px; }
   #rcap-designer .menu {
     padding: 0;
     margin: 0;
@@ -1609,15 +1830,7 @@ textarea.parsley-error {
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none;
-        /*
-    this settings ul is not currently shown, was intended to be a 'designer' settings
-    menu item
-    
-        & ul.settings a::before {
-            content: "\f013";
-        }
-*/ }
+    user-select: none; }
     #rcap-designer .menu h4 {
       text-transform: uppercase;
       font-size: 14px;
@@ -1641,7 +1854,6 @@ textarea.parsley-error {
     #rcap-designer .menu a:hover,
     #rcap-designer .menu a:active {
       display: block;
-      padding: 13px;
       color: #d5d5d5;
       font-family: "Open Sans", sans-serif;
       text-decoration: none; }
@@ -1651,29 +1863,6 @@ textarea.parsley-error {
       background-color: #090909; }
     #rcap-designer .menu a span::after {
       display: block; }
-    #rcap-designer .menu h4#page-header a {
-      padding: 0;
-      float: right;
-      margin-right: 12px;
-      opacity: 0.5; }
-    #rcap-designer .menu h4#page-header a:hover {
-      opacity: 1.0; }
-    #rcap-designer .menu h4#page-header a::before {
-      font: normal normal normal 16px/1 FontAwesome;
-      content: "\f067"; }
-    #rcap-designer .menu ol#pages {
-      max-height: calc(100% - 400px);
-      overflow: auto; }
-      #rcap-designer .menu ol#pages::-webkit-scrollbar-track {
-        background-color: #222; }
-      #rcap-designer .menu ol#pages::-webkit-scrollbar {
-        width: 10px;
-        background-color: #222; }
-      #rcap-designer .menu ol#pages::-webkit-scrollbar-thumb {
-        background-color: #888888; }
-    #rcap-designer .menu ol#pages, #rcap-designer .menu ol#pages ol {
-      list-style-type: none;
-      padding-left: 0; }
     #rcap-designer .menu ol#pages a::before, #rcap-designer .menu ul.controls a::before, #rcap-designer .menu ul.settings a::before {
       text-align: left;
       color: #d5d5d5;
@@ -1684,114 +1873,26 @@ textarea.parsley-error {
       text-rendering: auto;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale; }
-    #rcap-designer .menu ol#pages a::before {
-      content: "\f0f6";
-      font-size: 16pt; }
-    #rcap-designer .menu ol#pages a.add-page::before {
-      content: "\f055"; }
-    #rcap-designer .menu ol#pages em {
-      font-style: normal; }
     #rcap-designer .menu .dragged {
       z-index: 2000;
       position: absolute;
       opacity: 0.8; }
-    #rcap-designer .menu ol#pages li.not-enabled > a {
-      color: #aaa; }
-    #rcap-designer .menu ol#pages li.placeholder {
-      position: relative;
-      margin: 0;
-      padding: 0;
-      border: none; }
-    #rcap-designer .menu ol#pages li.placeholder:before {
-      position: absolute;
-      content: "";
-      width: 0;
-      height: 0;
-      margin-top: -5px;
-      left: -5px;
-      top: -4px;
-      border: 5px solid transparent;
-      border-left-color: black;
-      border-right: none; }
-    #rcap-designer .menu ol li ol {
-      margin-left: 19px !important; }
-    #rcap-designer .menu ol li ol li > a {
-      background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAsCAYAAACpOaImAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuNvyMY98AAAApSURBVDhPY7Czs/vPgAuMSgLBqCQQUCaJCw+Yg6BMTDAqCQQjQpKBAQCQtlYjLZtnNQAAAABJRU5ErkJggg==");
-      background-position: 0 0;
-      background-repeat: no-repeat !important; }
-    #rcap-designer .menu ol li ol li:last-child > a {
-      background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAsCAYAAACpOaImAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuNvyMY98AAAAkSURBVDhPY7Czs/vPgAuMSgLBqCQQUCaJC0OVjIJRQHfAwAAAplYwPfTIX0YAAAAASUVORK5CYII="); }
-    #rcap-designer .menu ul.controls a i {
-      font-size: 12pt;
-      width: 26px;
-      display: inline-block; }
-    #rcap-designer .menu ul.controls a.control-submitbutton i {
-      border-radius: 3px;
-      background-color: #222;
-      width: 20px;
-      margin-right: 6px; }
-      #rcap-designer .menu ul.controls a.control-submitbutton i::before {
-        height: 14px; }
-    #rcap-designer .menu a span {
-      display: block;
-      float: right;
-      text-indent: -9999px;
-      opacity: 0.5;
-      width: 20px;
-      transition: opacity .25s ease-in-out;
-      -moz-transition: opacity .25s ease-in-out;
-      -webkit-transition: opacity .25s ease-in-out; }
-    #rcap-designer .menu a span::after {
-      text-align: right;
-      color: #d5d5d5;
-      padding: 2px 3px 0 0;
-      margin: 0;
-      font: normal normal normal 10px/1 FontAwesome;
-      font-size: 12pt;
-      text-rendering: auto;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      float: right;
-      display: none; }
-    #rcap-designer .menu a span::after:hover {
-      display: block; }
-    #rcap-designer .menu a span:hover {
-      opacity: 1.0; }
-    #rcap-designer .menu a span.page-settings::after {
-      content: "\f013"; }
-    #rcap-designer .menu a span.page-duplicate::after {
-      content: "\f08b"; }
-    #rcap-designer .menu a span.page-addchild::after {
-      content: "\f055"; }
-    #rcap-designer .menu a span.page-add::after {
-      content: "\f055"; }
-    #rcap-designer .menu ul.form-controls a {
-      cursor: move; }
-    #rcap-designer .menu a span::after {
-      display: block;
-      text-align: right;
-      color: #d5d5d5;
-      padding: 2px 3px 0 0;
-      margin: 0;
-      font: normal normal normal 10px/1 FontAwesome;
-      font-size: 12pt;
-      text-rendering: auto;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      float: right;
-      content: "\f013";
-      display: none; }
-    #rcap-designer .menu a:hover span::after {
-      display: block; }
-  #rcap-designer .tab-pane.menu li a, #rcap-designer .tab-pane.menu li a i {
-    color: #222; }
+  #rcap-designer .tab-pane.menu li a {
+    color: #222;
+    padding: 5px 0 5px 5px;
+    font-size: 15px; }
+    #rcap-designer .tab-pane.menu li a i {
+      color: #222;
+      margin-right: 7px; }
   #rcap-designer .tab-pane.menu a:hover, #rcap-designer .tab-pane.menu li.selected a {
     background-color: #eeeeee; }
   #rcap-designer .stage {
     height: 100%;
     overflow-y: auto;
     padding-right: 0;
-    padding-left: 0; }
+    padding-left: 0;
+    float: left;
+    width: calc(100% - 50px); }
     #rcap-designer .stage #rcap-topbar {
       background-color: rgba(0, 255, 0, 0.3);
       position: fixed;
@@ -1832,9 +1933,6 @@ textarea.parsley-error {
       #rcap-designer .style-details .ui-slider-handle:hover {
         background: #999;
         border-color: inherit; }
-    #rcap-designer .style-details .ui-slider-value {
-      margin-top: 1px;
-      padding: 4px; }
     #rcap-designer .style-details .form-group {
       width: 40%;
       padding-right: 4%;
@@ -1953,9 +2051,6 @@ a.wysiwyg-toolbar-icon:hover {
 .hamburger {
   top: 0; }
 
-.hamburger div {
-  display: none; }
-
 .hamburger button {
   position: absolute;
   top: 50%;
@@ -1978,7 +2073,8 @@ a.wysiwyg-toolbar-icon:hover {
 .hamburger > div {
   z-index: 999;
   position: absolute;
-  width: 100%; }
+  width: 100%;
+  display: none; }
 
 .hamburger-valign-middle > div {
   top: 50%;

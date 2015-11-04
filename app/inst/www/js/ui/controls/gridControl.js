@@ -23,7 +23,7 @@ define(['rcap/js/ui/controls/baseControl',
                     uid: 'padding',
                     label: 'Padding',
                     helpText: '',
-                    defaultValue: '',
+                    defaultValue: 0,
                 }),
                 new ColorControlProperty({
                     uid: 'backgroundColor',
@@ -41,7 +41,7 @@ define(['rcap/js/ui/controls/baseControl',
                     uid: 'borderWidth',
                     label: 'Border Width',
                     helpText: '',
-                    defaultValue: ''
+                    defaultValue: '0'
                 })
             ];
 
