@@ -6,12 +6,12 @@
   
   # Start a webplot device
   #wp1 <- WebPlot(width=width,height=height)
-  
+
   contextId <- rcloud.support::rcloud.output.context("#<%=control.id%>")
   Rserve::Rserve.context(contextId)
   
   rcloud.support::RCloudDevice(floor(width), floor(height))
-  rcloud.support::rcloud.html.out(paste("width", width, "height", height))
+  rcloud.support::rcloud.html.out(paste("(", width, ",", height, ")"))
   
   # Catch errors
   error <- try({

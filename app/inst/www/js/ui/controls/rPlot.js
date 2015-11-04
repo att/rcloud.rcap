@@ -38,6 +38,31 @@ define(['rcap/js/ui/controls/gridControl',
         },
         initialiseViewerItems: function() {
 
+            $('.grid-stack-item-content.rcap-controltype-rplot').click(function() {
+                //$('#rcap-stretcher .js-rcap-dynamic').append($('<img />').attr('src', $(this).find('img').attr('src')));
+
+                // var copy = $(this).find('.live-plot').clone(true);
+                // $(copy).find('.ui-resizable-handle').remove();
+                // $(copy).resizable();
+
+                $(this).find('.live-plot').clone(true).appendTo('#rcap-stretcher .js-rcap-dynamic');
+
+                //$('#rcap-stretcher .js-rcap-dynamic').append($('<img />').attr('src', $(this).find('img').attr('src')));
+
+                $('body').addClass('rcap-stretched');
+                $('#rcap-stretcher').show();
+
+                $('#rcap-stretcher img').resizable({ aspectRatio: true, maxHeight: $('#rcap-stretcher img').height() });
+            });
+
+            $('#rcap-stretcher .stretcher-close').click(function() {
+                $('#rcap-stretcher .js-rcap-dynamic').children().remove();
+                $('body').removeClass('rcap-stretched');
+                $('#rcap-stretcher').hide();
+            });
+
+
+/*
             var notebookResult = window.notebook_result; // jshint ignore:line
 
             // some controls are dependent on having a valid notebook result:
@@ -62,6 +87,7 @@ define(['rcap/js/ui/controls/gridControl',
                     }
                 });
             }
+*/
 
         }
     });
