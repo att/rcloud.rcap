@@ -53,11 +53,23 @@ controllerInitialize <- function(self, private, rcapConfig) {
   invisible(self)
 }
 
-
-## Extract the updated controls, and their dependencies
-
 controllerUpdate <- function(self, private, controls) {
-  ## TODO
+  controls <- parseUpdateJson(controls)
+
+  ## what to update
+  needsUpdate <- bfs(private$succList, names(controls))
+
+  ## in what order
+  needsUpdate <- needsUpdate[order(match(needsUpdate, private$topoSort))]
+
+  ## with these new values
+  values <- structure(
+    replicate(length(needsUpdate), NULL),
+    names = needsUpdate
+  )
+  values[names(controls)] <- controls
+
+  self$updateInOrder(needsUpdate, values)
 }
 
 
@@ -65,4 +77,12 @@ controllerUpdateInOrder <- function(self, private, ids, values) {
   for (id in ids) private$controls[[id]]$update(values[[id]])
 
   invisible(self)
+}
+
+## Extract the updated control ids and new values from the JSON
+## message from the client. Ids will be names, values will be the
+## contents of the result list.
+
+parseUpdateJson <- function(json) {
+  ## TODO
 }
