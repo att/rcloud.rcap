@@ -1,4 +1,4 @@
-define(['rcap/js/ui/controls/properties/colorControlProperty', 'rcap/js/Class'], function(ColorControlProperty) {
+define([/*'rcap/js/ui/controls/properties/colorControlProperty',*/ 'rcap/js/Class'], function(/*ColorControlProperty*/) {
 
     'use strict';
 
@@ -18,6 +18,7 @@ define(['rcap/js/ui/controls/properties/colorControlProperty', 'rcap/js/Class'],
 
             this.controls = options.controls || [];
 
+            /*
             this.styleProperties = [
                 new ColorControlProperty({
                     uid: 'backgroundColor',
@@ -26,7 +27,7 @@ define(['rcap/js/ui/controls/properties/colorControlProperty', 'rcap/js/Class'],
                     defaultValue: '#ffffff',
                     value: '#ffffff'
                 })
-            ];
+            ];*/
         },
         deserialize: function() {
 
@@ -40,10 +41,11 @@ define(['rcap/js/ui/controls/properties/colorControlProperty', 'rcap/js/Class'],
         getDialogMarkup: function() {
 
         },
+        /*
         getStyleProperties: function() {
-            return {
-                'background-color' : this.styleProperties[0].value
-            };
+            // return {
+            //     'background-color' : this.styleProperties[0].value
+            // };
         },
         getStyleDialogMarkup: function() {
             // general style information controls:
@@ -57,7 +59,7 @@ define(['rcap/js/ui/controls/properties/colorControlProperty', 'rcap/js/Class'],
             markup += '<div style="clear:both" /></div>';
 
             return markup;
-        },
+        },*/
         getDialogValue: function() {
 
         },
@@ -73,7 +75,7 @@ define(['rcap/js/ui/controls/properties/colorControlProperty', 'rcap/js/Class'],
                 //'urlSlug' : this.urlSlug,
                 'controls': this.controls,
                 'pages': this.pages,
-                'styleProperties': this.styleProperties
+                //'styleProperties': this.styleProperties
             };
 
         },

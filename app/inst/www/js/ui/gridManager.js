@@ -109,8 +109,8 @@ define([
         gridstackOptions.height = options.minHeight || 12;   // 0 -> no maximum rows
 
         $(rootElement).append(gridStackRoot);
-        $(selector).gridstack(gridstackOptions)
-                   .css(page.getStyleProperties());
+        $(selector).gridstack(gridstackOptions);
+                   //.css(page.getStyleProperties());
 
         // designer events:
         if (options.isDesignTime) {
