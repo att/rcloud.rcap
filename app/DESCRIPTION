@@ -23,7 +23,6 @@ Collate:
     'getControls.R'
     'ocaps.R'
     'rcap.result.R'
-    'rcap.run.R'
     'topo-sort.R'
     'utils.R'
     'zzz.R'
