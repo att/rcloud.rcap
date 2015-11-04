@@ -78,3 +78,31 @@ twistAdjlist <- function(adjlist) {
 
   res
 }
+
+## BFS of a graph. From the given vertices we collect
+## all vertices that the reachable from them. There are all the
+## controls that we need to update
+
+bfs <- function(adjlist, seeds) {
+
+  V <- names(adjlist)
+  N <- length(V)
+  reachable <- seeds
+  marks <- structure(rep(FALSE, N), names = V)
+
+  while (length(seeds)) {
+
+    s <- seeds[1]
+    seeds <- seeds[-1]
+
+    for (n in adjlist[[s]]) {
+      if (!marks[[n]]) {
+        seeds <- c(seeds, n)
+        reachable <- c(reachable, n)
+        marks[[n]] <- TRUE
+      }
+    }
+  }
+
+  reachable
+}
