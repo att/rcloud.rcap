@@ -127,6 +127,7 @@ define(['pubsub', 'site/site', 'site/pubSubTable', 'rcap/js/ui/message', 'contro
 
                                 // page style info:
                                 // loop through each specific styleProperties property:
+                                /*
                                 for (stylePropertyLoop = 0; stylePropertyLoop < jsonPage.styleProperties.length; ++stylePropertyLoop) {
                                     jsonStyleProperty = jsonPage.styleProperties[stylePropertyLoop];
 
@@ -138,7 +139,7 @@ define(['pubsub', 'site/site', 'site/pubSubTable', 'rcap/js/ui/message', 'contro
                                         currStyleProp.value = jsonStyleProperty.value;
                                         currStyleProp.id = jsonStyleProperty.id;
                                     }
-                                }
+                                }*/
 
                                 // now loop through the controls:
                                 for (controlLoop = 0; controlLoop < jsonPage.controls.length; ++controlLoop) {
