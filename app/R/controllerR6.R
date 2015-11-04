@@ -14,7 +14,11 @@ Controller <- R6::R6Class("Controller",
   private = list(
     controls = NULL,                    # controls
     succList = list(),                  # dependency graph
-    topoSort = character()              # update order of controls
+    topoSort = character(),             # update order of controls
+
+    ## Update these controls, in the specified order
+    updateInOrder = function(ids)
+      controllerUpdateInOrder(self, private, ids)
   )
 )
 
@@ -43,9 +47,18 @@ controllerInitialize <- function(self, private, rcapConfig) {
   ## Pre-calculate the order of control updates
   private$topoSort <- topologicalSort(private$succList)
 
+  ## Update everything
+  private$updateInOrder(private$topoSort)
+
   invisible(self)
 }
 
+
 controllerUpdate <- function(self, private, controls) {
+  ## TODO
+}
+
+
+controllerUpdateInOrder <- function(self, private, ids) {
   ## TODO
 }

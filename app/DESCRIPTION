@@ -16,3 +16,14 @@ Suggests:
 License: MIT + file LICENSE
 RCloud-Extension: gui
 RoxygenNote: 4.1.1.9001
+Collate:
+    'controlR6.R'
+    'controlTypes.R'
+    'controllerR6.R'
+    'getControls.R'
+    'ocaps.R'
+    'rcap.result.R'
+    'rcap.run.R'
+    'topo-sort.R'
+    'utils.R'
+    'zzz.R'

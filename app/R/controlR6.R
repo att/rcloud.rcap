@@ -11,8 +11,14 @@ Control <- R6::R6Class("Control",
     getId = function() private$id %||% NA_character_,
     getVariableName = function() private$variableName %||% NA_character_,
 
-    update = function()
+    ## Got a new value from the frontend, update var, all dependencies
+    update = function(new_value)
       controlUpdate(self, private),
+
+    ## Need to push a value from the server to client,
+    ## this happens for example when we initialize
+    ## based on the values in the notebook
+    updateFrontend = function() { },
 
     dependentVariables = function(clientVars, envir = .GlobalEnv)
       controlDependentVariables(self, private, clientVars, envir)
@@ -27,7 +33,12 @@ Control <- R6::R6Class("Control",
     ## Control Properties
     controlFunction = NULL,
     variableName = NULL,
-    ocapFunction = NULL
+    ocapFunction = NULL,
+
+    ## Update the sever side variable associated with the
+    ## control, to the value that we got from the frontend
+    updateVariable = function(new_value)
+      controlUpdateVariable(self, private, new_value)
   )
 )
 
@@ -48,19 +59,26 @@ controlInitialize <- function(self, private, cl) {
 
   ## Copy the input list for future reference
   private$json <- cl
-  if (!is.null(private$type)) attr(private$json, "class") <- private$type
-
-  private$ocapFunction <- processControl(private$json)
+  class(private$json) <- private$type
 
   invisible(self)
 }
 
-controlUpdate <- function(self, private) {
+controlUpdate <- function(self, private, new_value) {
+  ## Set variable
+  private$updateVariable(new_value)
+
   ## Call the ocap
-  ## Fix the environment
-  if (is.function(get(private$ocapFunction))) {
-    do.call(private$ocapFunction, list())
+  if (!is.null(private$ocapFunction)) {
+    f <- get(private$ocapFunction, envir = .GlobalEnv)
+    do.call(f, list(), envir = .GlobalEnv)
+
+    ## We only update the frontend, if something was calculated
+    ## Otherwise we might get into an infinite loop
+    self$updateFrontend()
   }
+
+  invisible(self)
 }
 
 ## Compare the variables that are client side to those used in the function
@@ -75,4 +93,21 @@ controlDependentVariables <- function(self, private, clientVars, envir) {
   } else {
     character()
   }
+}
+
+
+## This very much depends on the control type.
+## Input-like types call rcap.updateControl.
+## Output-like types will push HTML to the frontend
+
+controlUpdateFrontend <- function(self, private) {
+}
+
+
+controlUpdateVariable <- function(self, private, new_value) {
+  if (!is.null(private$variableName)) {
+    assign(private$variableName, new_value, envir = .GlobalEnv)
+  }
+
+  invisible(self)
 }

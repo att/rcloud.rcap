@@ -4,12 +4,10 @@
 \alias{rcap.result}
 \title{Read rcap configuration and create OCAPs}
 \usage{
-rcap.result(rcapConfigFileName = "rcap_designer.json", inline = FALSE)
+rcap.result(rcapConfigFileName = "rcap_designer.json")
 }
 \arguments{
 \item{rcapConfigFileName}{Character vector: The name of the json file in the assets.}
-
-\item{inline}{logical: If TRUE this will attempt to call rcw.result with the rcw.inline wrapper}
 }
 \description{
 Load site configuration from the json file in the notebook assests.
