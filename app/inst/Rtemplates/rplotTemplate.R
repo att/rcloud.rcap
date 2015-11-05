@@ -11,7 +11,7 @@
   Rserve::Rserve.context(contextId)
   
   rcloud.support::RCloudDevice(floor(width), floor(height))
-  rcloud.support::rcloud.html.out(paste("(", width, ",", height, ")"))
+  rcloud.support::rcloud.html.out(paste("(", width, "x", height, ")"))
   
   # Catch errors
   error <- try({

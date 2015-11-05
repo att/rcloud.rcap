@@ -23,3 +23,4 @@ rcloud.rcap.caps <- NULL
 
 rcap.initViewer <- function(content) rcloud.rcap.caps$initViewer(content)
 rcap.consoleMsg <- function(content) rcloud.rcap.caps$consoleMsg(content)
+rcap.updateVariable <- function(variableName, value) rcloud.rcap.caps$updateVariable(variableName, value)

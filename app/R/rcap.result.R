@@ -42,6 +42,11 @@ rcap.result <- function(rcapConfigFileName="rcap_designer.json", inline=FALSE) {
   
   # Fire up the viewer
   rcap.initViewer(rcapJson)
+
+  # viewer is now running
+  #rcap.updateVariable('Shane', c('Kate', 'Sam', 'Zoe'))
+
+  rcap.updateVariable('Shane', c('Kateski', 'sfiofs'))
   
   # Call rcw.result
   if(inline) {
