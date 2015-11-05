@@ -555,35 +555,7 @@
             padding-top: 10px;
         }
     }
-    /* form controls */
-    & .form-control {
-        background: white;
-        width: 100%;
-        height: 34px;
-    }
-    & textarea {
-        display: block;
-        width: 100%;
-    }
-    & form .form-group:not(:first-child) {
-        margin-top: 10px;
-    }
-    & .form-group label {
-        //font-size: 12pt;
-    }
-    & .form-group input[type='checkbox'] + label {
-        font-size: 11pt;
-    }
-    & .form-group .description {
-        color: #222;
-        margin-top: 5px;
-        max-width: 460px;
-    }
-    & .form-group textarea.code {
-        font-family: Monaco, 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, monospace;
-        height: 250px;
-        font-size: 13px;
-    }
+
     .style-details {
         padding-top: 15px;
         & .ui-slider {
@@ -634,6 +606,43 @@
         margin-top: -22px;
         @include stroke(2,
         #fff);
+    }
+}
+
+/* form controls */
+
+#rcap-viewer, #rcap-designer {
+    & .form-control {
+        background: white;
+        width: 100%;
+        height: 34px;
+    }
+    & textarea {
+        display: block;
+        width: 100%;
+    }
+    & form .form-group:not(:first-child) {
+        margin-top: 10px;
+    }
+    & .form-group h3 {
+        font-size: 14px;
+        font-weight: bold;
+    }
+    & .form-group label {
+        //font-size: 12pt;
+    }
+    & .form-group input[type='checkbox'] + label {
+        font-size: 11pt;
+    }
+    & .form-group .description {
+        color: #222;
+        margin-top: 5px;
+        max-width: 460px;
+    }
+    & .form-group textarea.code {
+        font-family: Monaco, 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, monospace;
+        height: 250px;
+        font-size: 13px;
     }
 }
 

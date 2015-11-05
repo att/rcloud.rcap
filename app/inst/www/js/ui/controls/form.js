@@ -157,6 +157,37 @@ define(['rcap/js/ui/controls/gridControl', 'text!rcap/partials/dialogs/_formBuil
                     });
                 }
             });
+        },
+        updateControls : function(variableName, value) {
+            
+            console.log('%cForm update: ' + variableName + ':' + value, 'padding: 2px; font-size: 16pt; border: 1px solid orange; background: #369; color: #fff');
+
+            // find the control(s), determine type, and update:
+            $('[data-variablename="' + variableName + '"]').each(function(i, e) {
+
+                if($(e).data('select2')) {
+                    $(e).select2('val', value);
+                } else if($(e).data('ionRangeSlider')) {
+                    $(e).data('ionRangeSlider').update({ from : value });
+                } else if($(e).hasClass('radiobutton-group')) {
+                    $(e).find('input[value="' + value + '"]').prop('checked', true);
+                } else if($(e).hasClass('checkbox-group')) {
+                    // clear and set:
+                    $(e).find('input').prop('checked', false);
+
+                    if(_.isArray(value)) {
+                        _.each(function(v) { 
+                            $(e).find('input[value="' + v + '"]').prop('checked', true);
+                        });
+                    } else {
+                        $(e).find('input[value="' + value + '"]').prop('checked', true);    
+                    }
+                    
+                } else {
+                    // catch all:
+                    $(e).val(value);
+                }
+            });
         }
     });
 
