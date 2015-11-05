@@ -23,7 +23,8 @@ RPlotControl <- R6Class("RPlotControl",
 
       ## TODO: this should be stored in the constructor
       func <- private$json$controlProperties[[1]]$value
-      if (!is.null(func)) do.call(func, envir = rcloudEnv())
+      #if (!is.null(func)) do.call(func, list(), envir = rcloudEnv())
+      plot(1:10)
 
       rcloud.flush.plot()
 

@@ -58,9 +58,13 @@ controlUpdate <- function(self, private, new_value) {
     assign(private$variableName, new_value, envir = rcloudEnv())
   }
 
-  ## Update frontend
-  value <- get(private$variableName, envir = rcloudEnv())
-  rcap.updateVariable(private$variableName, value)
+  ## Update frontend, if the variable is not set in the notebook,
+  ## we'll leave it at the default value, as specified in the JSON
+  if (!is.null(private$variableName) &&
+       exists(private$variableName, envir = rcloudEnv())) {
+    value <- get(private$variableName, envir = rcloudEnv())
+    rcap.updateVariable(private$variableName, value)
+  }
 
   invisible(self)
 }

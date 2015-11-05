@@ -36,10 +36,15 @@ controllerInitialize <- function(self, private, rcapConfig) {
 
   ## Initialize dependency list
   variables <- vapply(private$controls, function(x) x$getVariableName(), "")
-  variables <- unique(na.omit(variables))
   predList <- lapply(
     private$controls,
-    function(x) x$dependentVariables(variables)
+    function(x) x$dependentVariables(unique(na.omit(variables)))
+  )
+  ## We have the dependency variables, but we need the control names,
+  ## actually
+  predList <- lapply(
+    predList,
+    function(x) { names(private$controls)[match(x, variables)] }
   )
 
   private$succList <- twistAdjlist(predList)
