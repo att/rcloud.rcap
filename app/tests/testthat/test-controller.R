@@ -16,14 +16,17 @@ test_that("controller builds dependency graph and update order", {
 
   cnt <- Controller$new(resp)
   succList <- cnt$.__enclos_env__$private$succList
-  d6 <- names(succList)[6]
 
-  expect_equal(succList$datePicker1, d6)
-  expect_equal(succList$datePicker2, d6)
+  expect_equal(succList$rcap16014ed1, rcap630974bf)
+  expect_equal(succList$rcapc43838c4, rcap630974bf)
 
   topoSort <- cnt$.__enclos_env__$private$topoSort
 
   expect_equal(sort(names(succList)), sort(topoSort))
-  expect_true(match("datePicker1", topoSort) < match(d6, topoSort))
-  expect_true(match("datePicker2", topoSort) < match(d6, topoSort))
+  expect_true(
+    match("rcapc43838c4", topoSort) < match(rcap630974bf, topoSort)
+  )
+  expect_true(
+    match("rcap16014ed1", topoSort) < match(rcap630974bf, topoSort)
+  )
 })
