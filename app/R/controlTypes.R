@@ -11,19 +11,19 @@ RPlotControl <- R6Class("RPlotControl",
 
     update = function(new_value = NULL) {
 
-      contextId <- rcloud.output.context(private$id)
-      Rserve.context(contextId)
-
       ## If there were no updates from the client, then
       ## the size might be unknown
-      width <- private$width %||% 500
-      height <- private$height %||% 500
-      RCloudDevice(round(width), round(height))
-      rcloud.html.out(paste("width", width, "height", height))
+      width <- round(private$width %||% 500)
+      height <- round(private$height %||% 500)
+
+      contextId <- rcloud.output.context(private$id)
+      Rserve.context(contextId)
+      RCloudDevice(width, height)
 
       ## TODO: this should be stored in the constructor
       func <- private$json$controlProperties[[1]]$value
       #if (!is.null(func)) do.call(func, list(), envir = rcloudEnv())
+
       plot(1:10)
 
       rcloud.flush.plot()

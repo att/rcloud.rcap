@@ -63,7 +63,7 @@ controlUpdate <- function(self, private, new_value) {
   if (!is.null(private$variableName) &&
        exists(private$variableName, envir = rcloudEnv())) {
     value <- get(private$variableName, envir = rcloudEnv())
-    rcap.updateVariable(private$variableName, value)
+    ## rcap.updateVariable(private$variableName, value)
   }
 
   invisible(self)
