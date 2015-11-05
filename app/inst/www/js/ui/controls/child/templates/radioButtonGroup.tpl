@@ -13,10 +13,10 @@
 
 
 		<% _.each(control.controlProperties[2].value, function(o, i){ %>
-
+<div class="form-option">
 			<label for="radio-<%=control.id%><%=i%>"><%=o.label%></label>
-			<input type="radio" name="radio-<%=control.id%>" id="radio-<%=control.id%><%=i%>" value="<%=o.label%>" <%= control.value === o.value ? ' checked="checked"' : ''%>><br>
-
+			<input type="radio" name="radio-<%=control.id%>" id="radio-<%=control.id%><%=i%>" value="<%=o.label%>" <%= control.value === o.value ? ' checked="checked"' : ''%>>
+</div>
         <% }); %>    
 
 

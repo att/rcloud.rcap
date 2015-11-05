@@ -83,7 +83,7 @@
             // implement something in here, for now, just log to console:
 
             require(['controls/form'], function(FormControl) {
-                new FormControl().update(variableName, value);
+                new FormControl().updateControls(variableName, value);
                 k();
             });
         },
