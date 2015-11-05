@@ -13,12 +13,15 @@ RPlotControl <- R6Class("RPlotControl",
 
       ## If there were no updates from the client, then
       ## the size might be unknown
-      width <- round(private$width %||% 500)
-      height <- round(private$height %||% 500)
+      width <- round(private$width %||% 800)
+      height <- round(private$height %||% 800)
 
-      contextId <- rcloud.output.context(private$id)
-      Rserve.context(contextId)
-      RCloudDevice(width, height)
+      # contextId <- rcloud.output.context(paste0("#", private$id))
+      # Rserve.context(contextId)
+
+      wp1 <- WebPlot(width = width,height = height)
+
+##      RCloudDevice(width, height)
 
       ## TODO: this should be stored in the constructor
       func <- private$json$controlProperties[[1]]$value
@@ -26,8 +29,8 @@ RPlotControl <- R6Class("RPlotControl",
 
       plot(1:10)
 
-      rcloud.flush.plot()
-
+  ##    rcloud.flush.plot()
+      rcloud.web::rcw.set(paste0("#", private$id), wp1)
       super$update(new_value)
     }
 
