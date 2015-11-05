@@ -79,6 +79,12 @@
             });
         },
 
+        updateVariable: function(variableName, value, k) {
+            // implement something in here, for now, just log to console:
+            console.log('Received update from server side, variableName: ', variableName, ', value: ', value);
+            k();
+        },
+
         consoleMsg: function(content, k) {
             console.log(content);
             k();

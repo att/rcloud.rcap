@@ -67,7 +67,7 @@ define(['rcap/js/ui/controls/gridControl', 'rcap/js/ui/controls/properties/textC
 			});
 
 			$('#rcap-stretcher .stretcher-close').click(function() {
-				$('#rcap-stretcher .js-rcap-dynamic img').remove();
+				$('#rcap-stretcher .js-rcap-dynamic').children().remove();
 				$('body').removeClass('rcap-stretched');
 				$('#rcap-stretcher').hide();
 			});
