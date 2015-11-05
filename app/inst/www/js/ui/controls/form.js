@@ -169,7 +169,7 @@ define(['rcap/js/ui/controls/gridControl', 'text!rcap/partials/dialogs/_formBuil
                     $(e).select2('val', value);
                 } else if($(e).data('ionRangeSlider')) {
                     $(e).data('ionRangeSlider').update({ from : value });
-                } else if($el.hasClass('radiobutton-group')) {
+                } else if($(e).hasClass('radiobutton-group')) {
                     $(e).find('input[value="' + value + '"]').prop('checked', true);
                 } else if($(e).hasClass('checkbox-group')) {
                     // clear and set:
