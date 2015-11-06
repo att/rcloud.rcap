@@ -133,8 +133,7 @@ define(['rcap/js/ui/controls/gridControl', 'text!rcap/partials/dialogs/_formBuil
                 ///////////////////////////////////////////////////////
                 var dataToSubmit = JSON.stringify(data);
                 console.log('Submitting data: ', dataToSubmit);
-                var rfuncp = Promise.promisify(notebook_result.updateControls);
-                rfuncp(dataToSubmit).then(function(res) {  });
+                window.RCAP.updateControls(dataToSubmit);
                 ///////////////////////////////////////////////////////
             };
 

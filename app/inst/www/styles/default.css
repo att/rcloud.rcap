@@ -564,7 +564,7 @@
     height: 100%; }
   #rcap-viewer .grid-stack-item-content .r img {
     width: 100%; }
-  #rcap-viewer .grid-stack-item-content.rcap-controltype-image, #rcap-viewer .grid-stack-item-content.rcap-controltype-rplot {
+  #rcap-viewer .grid-stack-item-content.rcap-controltype-image {
     cursor: zoom-in; }
 #rcap-viewer #rcap-stretcher {
   position: fixed;

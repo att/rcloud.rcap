@@ -152,8 +152,8 @@
         .r img {
             width: 100%;
         }
-        &.rcap-controltype-image,
-        &.rcap-controltype-rplot {
+        &.rcap-controltype-image/*,
+        &.rcap-controltype-rplot*/ {
             cursor: zoom-in;
         }
     }
