@@ -16,18 +16,14 @@ RPlotControl <- R6Class("RPlotControl",
       width <- round(private$width %||% 800)
       height <- round(private$height %||% 800)
 
-      # contextId <- rcloud.output.context(paste0("#", private$id))
-      # Rserve.context(contextId)
-
       wp1 <- WebPlot(width = width,height = height)
 
 ##      RCloudDevice(width, height)
 
       ## TODO: this should be stored in the constructor
       func <- private$json$controlProperties[[1]]$value
-      #if (!is.null(func)) do.call(func, list(), envir = rcloudEnv())
-
-      plot(1:10)
+      rcap.consoleMsg(ls(rcloudEnv()))
+      if (!is.null(func)) do.call(func, list(), envir = rcloudEnv())
 
   ##    rcloud.flush.plot()
       rcloud.web::rcw.set(paste0("#", private$id), wp1)
