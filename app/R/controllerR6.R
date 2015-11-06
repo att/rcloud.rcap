@@ -87,7 +87,14 @@ controllerUpdateInOrder <- function(self, private, ids, values) {
 ## Extract the updated control ids and new values from the JSON
 ## message from the client. Ids will be names, values will be the
 ## contents of the result list.
+#' @importFrom jsonlite fromJSON
 
 parseUpdateJson <- function(json) {
-  ## TODO
+  controls <- fromJSON(json, simplifyVector = FALSE)
+
+  ## TODO: this is a single update for now
+  structure(
+    list(controls$updatedVariables[[1]]$value),
+    names = controls$updatedVariables[[1]]$controlId
+  )
 }
