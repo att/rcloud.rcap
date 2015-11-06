@@ -76,7 +76,7 @@
 
                 window.RCAP = window.RCAP || {};
                 window.RCAP.updateControls = function(dataToSubmit) {
-                    mini.updateControls().then(function() {});
+                    mini.updateControls(dataToSubmit).then(function() {});
                 };
 
             }
