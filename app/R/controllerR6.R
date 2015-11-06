@@ -74,7 +74,7 @@ controllerUpdate <- function(self, private, controls) {
   )
   values[names(controls)] <- controls
 
-  self$updateInOrder(needsUpdate, values)
+  private$updateInOrder(needsUpdate, values)
 }
 
 
