@@ -34,6 +34,8 @@ rcap.result <- function(rcapConfigFileName="rcap_designer.json") {
   # This builds all the control objects and sets up the dependencies,
   # then it updates all of them in the correct order
   createController(rcapConfig)
+
+  rcw.result(run = function(...) { }, body = "")
 }
 
 rcapEnv <- new.env()
