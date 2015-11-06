@@ -66,6 +66,20 @@
                         }
                     }
                 });
+            } else {
+
+                // this code is executed in 'mini' mode, but its condition
+                // isn't particularly robust:
+                mini = RCloud.promisify_paths(ocaps, [
+                        ['updateControls']    // updateControls
+                    ], true);
+
+                window.RCAP = window.RCAP || {};
+                window.RCAP.updateControls = function(dataToSubmit) {
+                    mini.getRTime().then(function() {});
+                    });
+                };
+
             }
 
             k();
