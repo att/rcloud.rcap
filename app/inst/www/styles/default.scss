@@ -625,14 +625,12 @@
         margin-top: 10px;
     }
     & .form-group h3 {
-        font-size: 14px;
         font-weight: bold;
+        font-size: 95%;
     }
     & .form-group label {
-        //font-size: 12pt;
-    }
-    & .form-group input[type='checkbox'] + label {
-        font-size: 11pt;
+        font-size: 95%;
+        display: block;
     }
     & .form-group .description {
         color: #222;
@@ -643,6 +641,27 @@
         font-family: Monaco, 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, monospace;
         height: 250px;
         font-size: 13px;
+    }
+
+    & .checkbox-group, & .radiobutton-group {
+        &:after {
+          content: "";
+          display: table;
+          clear: both;
+        }
+    }
+
+    & .form-option {
+        float: left;
+        min-width: 150px;
+
+        & label {
+            display: inline-block;
+        }
+
+        & input {
+            padding-top: 3px;
+        }
     }
 }
 

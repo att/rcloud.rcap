@@ -1,7 +1,5 @@
 <div class="form-group" id="form-group-<%=property.id%>">
 
-    <!-- TODO : update so it looks good ;) -->
-
 		<% _.each(property.radioButtonOptions, function(o, i){ %>
 
 			<label for="radio-<%=property.id%><%=i%>"><%=o.label%></label>

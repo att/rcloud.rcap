@@ -38,6 +38,7 @@ define(['rcap/js/ui/controls/gridControl',
         },
         initialiseViewerItems: function() {
 
+            /*
             $('.grid-stack-item-content.rcap-controltype-rplot').click(function() {
                 //$('#rcap-stretcher .js-rcap-dynamic').append($('<img />').attr('src', $(this).find('img').attr('src')));
 
@@ -60,6 +61,8 @@ define(['rcap/js/ui/controls/gridControl',
                 $('body').removeClass('rcap-stretched');
                 $('#rcap-stretcher').hide();
             });
+*/
+
 
 
 /*

@@ -44,6 +44,13 @@ define(['text!rcap/partials/viewer.htm',
                 // if there's a hash value (method that is used to bookmark a 'page'):
                 historyManager.setInitialState();
             });
+
+            $('#inner-stage').css({
+                    'width' : _.last(_.filter([800, 1024, 1280, 1366], function(width) { return (screen.width - 100) > width; })) + 'px',
+                    'margin-left' : 'auto',
+                    'margin-right' : 'auto'
+                });
+            
         };
 
         this.initialiseControls = function() {

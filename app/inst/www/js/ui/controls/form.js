@@ -130,7 +130,12 @@ define(['rcap/js/ui/controls/gridControl', 'text!rcap/partials/dialogs/_formBuil
                     plotSizes : plotSizes
                 };
 
-                console.log('Submitting data: ', JSON.stringify(data));
+                ///////////////////////////////////////////////////////
+                var dataToSubmit = JSON.stringify(data);
+                console.log('Submitting data: ', dataToSubmit);
+                var rfuncp = Promise.promisify(notebook_result.updateControls);
+                rfuncp(dataToSubmit).then(function(res) {  });
+                ///////////////////////////////////////////////////////
             };
 
             // if a form has a submit button, its data will be submitted when the form is submitted.

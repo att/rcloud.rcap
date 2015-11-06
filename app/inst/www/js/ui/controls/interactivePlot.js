@@ -38,6 +38,7 @@ define(['rcap/js/ui/controls/gridControl',
         },
         initialiseViewerItems: function() {
 
+/*
             var notebookResult = window.notebook_result; // jshint ignore:line
 
             // some controls are dependent on having a valid notebook result:
@@ -62,7 +63,7 @@ define(['rcap/js/ui/controls/gridControl',
                     }
                 });
             }
-
+*/
         }
     });
 

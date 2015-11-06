@@ -1,7 +1,4 @@
 
-
-    <!-- TODO : update so it looks good ;) -->
-
 <h3><%=control.controlProperties[0].value%></h3>
 
 
@@ -14,8 +11,11 @@
 	<!-- manual -->
 	<% _.each(control.controlProperties[2].value, function(o, i){ %>
 
+
+<div class="form-option">
 		<label for="checkbox-<%=control.id%><%=i%>"><%=o.label%></label>
-		<input type="checkbox" name="checkbox-<%=control.id%>" id="checkbox-<%=control.id%><%=i%>" value="<%=o.label%>" <%= control.value === o.value ? ' checked="checked"' : ''%>><br>
+		<input type="checkbox" name="checkbox-<%=control.id%>" id="checkbox-<%=control.id%><%=i%>" value="<%=o.label%>" <%= control.value === o.value ? ' checked="checked"' : ''%>>
+</div>
 
 	<% }); %>    
 

@@ -60,7 +60,7 @@ define([
         // serializer:
         new Serializer().initialise();
 
-        $.getJSON('https://api.github.com/users/' + window.shell.notebook.model.user(), function(data) { 
+        $.getJSON('https://api.github.com/users/' + window.shell.notebook.model.user(), function(data) {
             var templateStr = '<a href="<%=data.html_url%>" target="_blank"><img src="<%=data.avatar_url%>" /></a>';
             var template = _.template(templateStr);
             $('#rcap-userplaceholder').append(template({
@@ -85,6 +85,14 @@ define([
             // we want to be told when all has been done:
             PubSub.subscribe(pubSubTable.gridInitComplete, function() {
 
+                $('#inner-stage').css({
+                    'width': _.last(_.filter([800, 1024, 1280, 1366], function(width) {
+                        return (screen.width - 100) > width;
+                    })) + 'px',
+                    'margin-left': 'auto',
+                    'margin-right': 'auto'
+                });
+
                 setTimeout(function() {
 
                     $(rcloudSelector).hide();
@@ -98,7 +106,7 @@ define([
                     location.hash = 'rcap-stage';
 
                     $('#rcap-preloader').fadeOut();
-                
+
                 }, 0);
 
             });
