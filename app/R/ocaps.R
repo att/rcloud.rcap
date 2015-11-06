@@ -8,30 +8,15 @@
 #' f <- function(x) {x}
 #' g <- "not a function"
 #' rcloud.rcap.global.functions()
+
 rcloud.rcap.global.functions <- function() {
   
-  # Get all objects
-  globalObjects <- ls(name=".GlobalEnv")
-  
-  # Is the object with a charater name a function?
-  getFunctions <- function(x) {is.function(get(x))}
+  ## Get all objects
+  globalObjects <- ls(envir = rcloudEnv())
 
-  # Logical of which objects are functions
-  whichFunctions <- sapply(globalObjects, getFunctions)
-  
-  # Assume nothing
-  functionList <- vector(mode="character", length=0)
-  
-  if (length(whichFunctions) > 0) {
-    if (sum(whichFunctions)>0) {
-      functionList <- globalObjects[whichFunctions]
-    }
-  }
-  
-  rcap.consoleMsg("inside global functions")
-  
-  return(functionList)
-  
+  ## Keep the functions
+  Filter(
+    function(x) is.function(get(x, envir = rcloudEnv())),
+    globalObjects
+  )
 }
-
-

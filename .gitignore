@@ -4,3 +4,4 @@ bower_components
 .Rproj.user
 attrcap.Rproj
 .vagrant
+/rcloud.rcap-develop

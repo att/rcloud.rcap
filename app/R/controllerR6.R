@@ -1,57 +1,100 @@
-# R6 class for controls
 
-# This controller will maintain an update "stack" which is a list of references
-# to controls that need updating. The update should be in a BREADTH-FIRST manner.
-# This is because all variables that a control might be dependent on need to be
-# updated before that control is itself updated.
-
+#' @importFrom R6 R6Class
 
 Controller <- R6::R6Class("Controller",
-           public = list(
-             # The list of controls
-             controls=NULL,
+  public = list(
 
-             #### METHODS ####
-             initialize = function(rcapConfig) {
+    initialize = function(rcapConfig)
+      controllerInitialize(self, private, rcapConfig),
 
-               # List of the controls (from JSON)               
-               allControls <- getControls(rcapConfig)
+    update = function(controls)
+      controllerUpdate(self, private, controls)
+  ),
 
-               # Create the objects from the JSON
-               controls <- lapply(allControls, Control$new)
-               
-               # Use the ids to name the list items
-               names(controls) <- sapply(controls, function(x) x$id)
-               
-             }
-          ),
-          
-          private = list(
-            # Controls due to be updated
-            controlStack = list(),
-            
-            iStack = 0,
-            
-            #### METHODS ####
-            clearStack = function() {
-              self$controlStack <- list()
-              iStack=0
-            },
-            
-            # Add a control to the stack
-            pushStack = function(control) {
-              self$controlStack <- append(self$controlStack, control)
-            },
-            
-            # Take from the bottom of the stack and increment the position
-            popStack = function(control) {
-              iStack <- iStack + 1
-              if(iStack > length(self$controlStack)) {
-                return(NULL)
-              } else {
-                return(self$controlStack[[iStack]])
-              }
-              
-            }
-          )
+  private = list(
+    controls = NULL,                    # controls
+    succList = list(),                  # dependency graph
+    topoSort = character(),             # update order of controls
+
+    ## Update these controls, in the specified order
+    updateInOrder = function(ids, values)
+      controllerUpdateInOrder(self, private, ids, values)
+  )
 )
+
+controllerInitialize <- function(self, private, rcapConfig) {
+
+  ## List of the controls (from JSON)
+  allControls <- getControls(rcapConfig)
+
+  ## Create the objects from the JSON
+  private$controls <- lapply(allControls, controlFactory)
+
+  ## Use the ids to name the list items
+  names(private$controls) <-
+    vapply(private$controls, function(x) x$getId(), "")
+
+  ## Initialize dependency list
+  variables <- vapply(private$controls, function(x) x$getVariableName(), "")
+  predList <- lapply(
+    private$controls,
+    function(x) x$dependentVariables(unique(na.omit(variables)))
+  )
+  ## We have the dependency variables, but we need the control names,
+  ## actually
+  predList <- lapply(
+    predList,
+    function(x) { names(private$controls)[match(x, variables)] }
+  )
+
+  private$succList <- twistAdjlist(predList)
+
+  ## Pre-calculate the order of control updates
+  private$topoSort <- topologicalSort(private$succList)
+
+  ## Update everything
+  private$updateInOrder(private$topoSort, values = NULL)
+
+  invisible(self)
+}
+
+controllerUpdate <- function(self, private, controls) {
+  controls <- parseUpdateJson(controls)
+
+  ## what to update
+  needsUpdate <- bfs(private$succList, names(controls))
+
+  ## in what order
+  needsUpdate <- needsUpdate[order(match(needsUpdate, private$topoSort))]
+
+  ## with these new values
+  values <- structure(
+    replicate(length(needsUpdate), NULL),
+    names = needsUpdate
+  )
+  values[names(controls)] <- controls
+
+  private$updateInOrder(needsUpdate, values)
+}
+
+
+controllerUpdateInOrder <- function(self, private, ids, values) {
+  for (id in ids) private$controls[[id]]$update(values[[id]])
+
+  invisible(self)
+}
+
+## Extract the updated control ids and new values from the JSON
+## message from the client. Ids will be names, values will be the
+## contents of the result list.
+#' @importFrom jsonlite fromJSON
+
+parseUpdateJson <- function(json) {
+  controls <- fromJSON(json, simplifyVector = FALSE)
+
+  ## TODO: this is a single update for now
+  structure(
+    list(controls$updatedVariables[[1]]$value),
+    names = controls$updatedVariables[[1]]$controlId
+  )
+}
