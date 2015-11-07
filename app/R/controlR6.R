@@ -1,4 +1,42 @@
 
+#' Abstract class for controls
+#'
+#' @section Methods:
+#'
+#' \code{initialize(cl)} Initialization from the parsed JSON
+#'   control descriptions, from \code{\link{getControls}}.
+#'
+#' \code{getId()} get the controls id. All controls should have a
+#'   unique id.
+#'
+#' \code{getVariableName()} get name of associated global variable.
+#'   If there is no such variable, then \code{NULL} is returned.
+#'
+#' \code{update(new_value = NULL)} method to perform an update.
+#'   This method is called when an update is requested from the
+#'   frontend, and also when the dashboard page is built up the
+#'   first time. It is also called when the control depends on
+#'   another control that was changed in the frontend.
+#'
+#' \code{dependentVariables(clientVars, envir = rcloudEnv())}
+#'   find all variables the update function of the control
+#'   depends on, in the rcloud environment by default.
+#'
+#' @section Private variables:
+#'
+#' \code{id} the control id.
+#'
+#' \code{type} the control type, see \code{\link{control_classes}}
+#'   for the list of control types.
+#'
+#' \code{json} the original (parsed) JSON configuration of the control.
+#'
+#' \code{controlFunction} the function to run to update the
+#'   back-end side representation of the control.
+#'
+#' \code{varibaleName} name of the associated R varible, in the
+#'   rcloud environment (i.e. the notebook environment).
+
 Control <- R6::R6Class("Control",
 
   public = list(

@@ -1,32 +1,32 @@
 
-## Topological sorting of a directed graph, represented by
-## adjacency lists. Graph vertices are represented by strings.
-##
-## It uses Taarjan's depth-first search algorithm, see
-## https://en.wikipedia.org/wiki/Topological_sorting#Tarjan.27s_algorithm
-##
-## ```
-## L <- Empty list that will contain the sorted nodes
-## while there are unmarked nodes do
-##     select an unmarked node n
-##     visit(n)
-##
-## function visit(node n)
-##     if n has a temporary mark then stop (not a DAG)
-##     if n is not marked (i.e. has not been visited yet) then
-##         mark n temporarily
-##         for each node m with an edge from n to m do
-##             visit(m)
-##         mark n permanently
-##         unmark n temporarily
-##         add n to head of L
-## ```
-##
-## @param adjlist List of successors of all vertices.
-##   Itmust be named, and the vertex names must be the vertices.
-## @return The vertex ids, in topologically sorted order. I.e.
-##   if v2 comes after v1 in the list, then there must not be an
-##   edge from v2 to v1.
+#' Topological sorting of a directed graph, represented by
+#' adjacency lists. Graph vertices are represented by strings.
+#'
+#' It uses Taarjan's depth-first search algorithm, see
+#' https://en.wikipedia.org/wiki/Topological_sorting#Tarjan.27s_algorithm
+#'
+#' \preformatted{
+#' L <- Empty list that will contain the sorted nodes
+#' while there are unmarked nodes do
+#'     select an unmarked node n
+#'     visit(n)
+#'
+#' function visit(node n)
+#'     if n has a temporary mark then stop (not a DAG)
+#'     if n is not marked (i.e. has not been visited yet) then
+#'         mark n temporarily
+#'         for each node m with an edge from n to m do
+#'             visit(m)
+#'         mark n permanently
+#'         unmark n temporarily
+#'         add n to head of L
+#' }
+#'
+#' @param adjlist List of successors of all vertices.
+#'   Itmust be named, and the vertex names must be the vertices.
+#' @return The vertex ids, in topologically sorted order. I.e.
+#'   if v2 comes after v1 in the list, then there must not be an
+#'   edge from v2 to v1.
 
 topologicalSort <- function(adjlist) {
 
@@ -60,8 +60,14 @@ topologicalSort <- function(adjlist) {
   result
 }
 
-## Convert an in-adjacency list to an out-adjacency list
-## Or the other way.
+#' Convert an in-adjacency list to an out-adjacency list, or the other way
+#'
+#' In other words, it reverses the direction of each edge in a graph.
+#'
+#' @param adjlist The adjacencly list of the graph. See
+#'   \code{topologicalSort} for the expected format.
+#' @return Another adjacency list, corresponding to the graph
+#'   with all edge directions reversed.
 
 twistAdjlist <- function(adjlist) {
 
@@ -79,9 +85,16 @@ twistAdjlist <- function(adjlist) {
   res
 }
 
-## BFS of a graph. From the given vertices we collect
-## all vertices that the reachable from them. There are all the
-## controls that we need to update
+#' BFS of a graph.
+#'
+#' From the given vertices we collect all vertices that the reachable
+#' from them. There are all the controls that we need to update.
+#'
+#' @param adjlist The adjacency list of the graph. See
+#'   \code{topologicalSort} for the expected format.
+#' @param seeds Character vector, vertex ids to start the BFS from.
+#' @return Character vector with all vertex ids that are reachable
+#'   from the \code{seeds}.
 
 bfs <- function(adjlist, seeds) {
 

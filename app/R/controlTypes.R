@@ -1,6 +1,13 @@
 
 #' @include controlR6.R
 #' @importFrom R6 R6Class
+NULL
+
+#' Control class for an R plot
+#'
+#' It runs an R function to update the plot, and then pushes
+#' the new plot to the front-end.
+#'
 #' @importFrom rcloud.support rcloud.output.context RCloudDevice
 #'   rcloud.html.out rcloud.flush.plot
 #' @importFrom Rserve Rserve.context
@@ -107,6 +114,8 @@ BreadCrumbControl <- R6Class("BreadCrumbControl",
 TextControl <- R6Class("TextControl",
   inherit = Control
 )
+
+#' Front-end control types and matching back-end classes
 
 control_classes <- list(
   "rplot"            = RPlotControl,

@@ -1,28 +1,28 @@
 
-# rcapConfig <- jsonlite::fromJSON(system.file(package="rcloud.rcap", file="testData/testConfig.json"), simplifyVector = FALSE)
+## TODO: detect if called from the notebook, and do nothing.
 
-#' Read rcap configuration and create OCAPs
+#' Set up a dashboard
 #'
-#' @description Load site configuration from the json file in the notebook assests.
-#' Parse the controls for any functions that need creating and and setup the OCAPs.
-#' This function is a wrapper around \code{rcloud.web::rcw.result}.
+#' This function must called from the last cell of the notebook.
+#' When running in mini.html, it requests the asset that contains the
+#' configuration of the dashboard, and initializes the viewer from it.
 #'
-#' @param rcapConfigFileName Character vector: The name of the json file in the assets.
+#' Then it creates the server side controller, and the controller
+#' creates all the control objects that corresponds to the elements
+#' of the dashboard.
 #'
+#' This function should not be called from the notebook itself.
+#'
+#' @param rcapConfigFileName Character vector:
+#'   The name of the json file in the assets.
 #' @return NULL
 #' @importFrom rcloud.support rcloud.get.asset
 #' @export
-#' @examples
-#' \dontrun{
-#' rcap.result("rcap_designer.json")
-#' }
-#'
-#' @importFrom rcloud.support rcloud.get.asset
 
 rcap.result <- function(rcapConfigFileName="rcap_designer.json") {
 
-  # Retrieve the designer config from the notebook
-  rcapJson <- rcloud.get.asset(name=rcapConfigFileName)
+  ## Retrieve the designer config from the notebook
+  rcapJson <- rcloud.get.asset(name = rcapConfigFileName)
 
   ## Fire up the viewer
   rcap.initViewer(rcapJson)
@@ -30,14 +30,17 @@ rcap.result <- function(rcapConfigFileName="rcap_designer.json") {
   # Convert the JSON into a list
   rcapConfig <- jsonlite::fromJSON(rcapJson, simplifyVector = FALSE)
 
-  # Create the controller object from the JSON
-  # This builds all the control objects and sets up the dependencies,
-  # then it updates all of them in the correct order
+  ## Create the controller object from the JSON
+  ## This builds all the control objects and sets up the dependencies,
+  ## then it updates all of them in the correct order
   createController(rcapConfig)
 
+  ## This is needed, because the mini expects this kind
+  ## of structure from the last cell.
   rcw.result(run = function(...) { }, body = "")
 }
 
+## Temporary environment to store the controller in.
 rcapEnv <- new.env()
 
 createController <- function(config) {

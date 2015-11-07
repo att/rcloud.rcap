@@ -1,3 +1,17 @@
+
+#' List of OCAPS
+#'
+#' \itemize{
+#'   \item \code{getRFunctions} Query all R functions in the
+#'     rcloud environment. It calls
+#'     \code{\link{rcloud.rcap.global.functions}}.
+#'   \item \code{getRTime} Query the current time of the R interpreter.
+#'     This is used for debugging.
+#'   \item \code{updateControls} Send an update request from the
+#'     front-end to the back-end. It calls the \code{update} method
+#'     of the Controller.
+#' }
+
 rcloud.rcap.caps <- NULL
 
 .onLoad <- function(libname, pkgname)
@@ -11,8 +25,6 @@ rcloud.rcap.caps <- NULL
   rcloud.rcap.caps <<- f("rcloud.rcap", "rcloud.rcap.js")
   if(!is.null(rcloud.rcap.caps)) {
     
-    #ocaps <- list(getRFunctions = rcloud.support:::make.oc(rcloud.rcap.global.functions))
-
     ocaps <- list(
       getRFunctions = make_oc(rcloud.rcap.global.functions),
       getRTime = make_oc(function() { Sys.time() }),

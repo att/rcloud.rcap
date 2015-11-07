@@ -1,4 +1,30 @@
 
+#' Orchestrate the updates of the controls in the back-end
+#'
+#' @section Methods:
+#'
+#' \code{initialize(rcapConfig)} The object is constructed from the
+#'   parsed designer JSON configuration file.
+#'
+#' \code{update(controls)} update some controls. The argument is the
+#'   JSON of the update request from the front-end.
+#'
+#' @section Private methods and variables:
+#'
+#' \code{controls} named list of all controls, \code{Control} objects.
+#'
+#' \code{succList} the adjacency list representation of the control
+#'   dependency graph. This is used at initialization to calculate the
+#'   update order, and at each update to decide which other controls
+#'   must be updated.
+#'
+#' \code{topoSort} ids of all controls, in topological (i.e. update) order.
+#'
+#' \code{updateInOrder(ids, values)} update the controls in
+#'   the specified order, with the specified values. This function is
+#'   called to perform the actual updates, once the order is decided
+#'   based on the topological sorting.
+#'
 #' @importFrom R6 R6Class
 
 Controller <- R6::R6Class("Controller",
