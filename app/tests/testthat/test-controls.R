@@ -3,6 +3,8 @@ context("Controls")
 
 test_that("controls public API is OK", {
 
+  skip("Cannot test currently without rcloud")
+
   resp <- paste(readLines("testConfig.json"), collapse = "\n")
   resp <- fromJSON(resp, simplifyVector = FALSE)
   cnt <- Controller$new(resp)
@@ -16,6 +18,8 @@ test_that("controls public API is OK", {
 })
 
 test_that("dependentVariables works", {
+
+  skip("Cannot test currently without rcloud")
 
   resp <- paste(readLines("testConfig.json"), collapse = "\n")
   resp <- fromJSON(resp, simplifyVector = FALSE)

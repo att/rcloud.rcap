@@ -14,6 +14,8 @@ test_that("controller builds dependency graph and update order", {
     envir = .GlobalEnv
   )
 
+  skip("Cannot test currently without rcloud")
+
   cnt <- Controller$new(resp)
   succList <- cnt$.__enclos_env__$private$succList
 
