@@ -11,6 +11,7 @@ NULL
 #' @importFrom rcloud.support rcloud.output.context RCloudDevice
 #'   rcloud.html.out rcloud.flush.plot
 #' @importFrom Rserve Rserve.context
+#' @importFrom rcloud.web rcw.set
 
 RPlotControl <- R6Class("RPlotControl",
   inherit = Control,
@@ -25,14 +26,20 @@ RPlotControl <- R6Class("RPlotControl",
 
       wp1 <- WebPlot(width = width,height = height)
 
-##      RCloudDevice(width, height)
+      # Clear the div
+      rcw.set(paste0("#", private$id), "")
+      # Set the context
+      contextId <- rcloud.output.context(paste0("#",private$id))
+      Rserve.context(contextId)
+      # Set width and height for the device
+      RCloudDevice(width, height)
 
       ## TODO: this should be stored in the constructor
       func <- private$json$controlProperties[[1]]$value
       if (!is.null(func)) do.call(func, list(), envir = rcloudEnv())
 
-  ##    rcloud.flush.plot()
-      rcloud.web::rcw.set(paste0("#", private$id), wp1)
+      rcloud.flush.plot()
+  #    rcloud.web::rcw.set(paste0("#", private$id), wp1)
       super$update(new_value)
     }
 
