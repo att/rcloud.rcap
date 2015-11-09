@@ -12,7 +12,7 @@ module.exports = function(grunt) {
         //
         //
         **************************************************************************/
-        devDeployDir: 'C:/VAGRANT/vagrantRcloud-master/rcloud.rcap-develop',
+        devDeployDir: '/data/rcloud/rcloud.packages/rcloud.rcap',
         distDeployDir: 'C:/VAGRANT/vagrantRcloud-master/rcloud.rcap-dist',
         cmdDir: 'C:/VAGRANT/vagrantRcloud-master',
         dist: 'dist',
@@ -169,10 +169,8 @@ module.exports = function(grunt) {
         shell: {
             dev: {
                 command: [
-                    'cd <%= appConfig.cmdDir %>',
-                    //'vagrant ssh -- sed -i \'s\/\\r\/\/\' \/vagrant\/rcloud.rcap-develop\/DESCRIPTION', <-- this also removed some instances of the 'r' character :|
-                    'vagrant ssh -- dos2unix \/vagrant\/rcloud.rcap-develop\/DESCRIPTION \/vagrant\/rcloud.rcap-develop\/DESCRIPTION',
-                    'vagrant ssh -- sh rebuild.sh'
+                    'cd /data/rcloud/',
+                    'scripts/build_package.sh rcloud.packages/rcloud.rcap'
                 ].join(' && ')
             },
             dist: {
@@ -213,7 +211,7 @@ module.exports = function(grunt) {
 
     // 3. Where we tell Grunt what to do when we type "grunt" into the terminal.
     // dev, opens chrome with built dev:
-    grunt.registerTask('default', ['newer:jshint', 'clean:dev', 'copy:dev', 'shell:dev', 'open:dev']);
+    grunt.registerTask('default', ['newer:jshint', 'clean:dev', 'copy:dev', 'shell:dev'/*, 'open:dev'*/]);
 
     // dist, build production code:
     grunt.registerTask('dist', ['newer:jshint', 'clean:dist', 'copy:dist', 'shell:dist' /*, 'open'*/ ]);
