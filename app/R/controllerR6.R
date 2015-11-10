@@ -175,6 +175,12 @@ parseUpdateJson <- function(json) {
 ## Extract the updated plot sizes and IDs from the JSON
 ## message from the client. Ids will be names, widths and heights
 ## will be a named vector
+#' Get plot sizes from JSON
+#' 
+#' Parse the JSON string sent from the client, find the plot IDs and sizes, and
+#' return as a neat R object.
+#' 
+#' @param json A JSON string from the client. Must have an element named plotSizes
 #' @return List with control IDs as names and named vector of widths and heights
 #' as list items.
 #' @importFrom jsonlite fromJSON
