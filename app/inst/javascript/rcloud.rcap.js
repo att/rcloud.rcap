@@ -66,6 +66,13 @@
                         }
                     }
                 });
+
+                RCloud.UI.share_button.add({
+                    'rcap.html': {
+                        sort: 1000,
+                        page: 'shared.R/rcloud.rcap/rcap.html'
+                    }
+                });
             } else {
 
                 // this code is executed in 'mini' mode, but its condition
