@@ -43,14 +43,37 @@ define(['text!rcap/partials/viewer.htm',
 
                 // if there's a hash value (method that is used to bookmark a 'page'):
                 historyManager.setInitialState();
-            });
 
-            $('#inner-stage').css({
+                // initialise the stage width:
+                $('#inner-stage').css({
                     'width' : _.last(_.filter([800, 1024, 1280, 1366], function(width) { return (screen.width - 100) > width; })) + 'px',
                     'margin-left' : 'auto',
                     'margin-right' : 'auto'
                 });
-            
+
+                ///////////////////////////////////////////////////////
+                window.setTimeout(function() {
+                    var plotSizes = [];
+
+                    $('.rplot').each(function() {
+                        var container = $(this).closest('.grid-stack-item-content');
+                        plotSizes.push({
+                           id : $(this).attr('id'),
+                           width : container.width() - 25,
+                           height: container.height() - 25
+                        });
+                    });
+
+                    var dataToSubmit = JSON.stringify({
+                        plotSizes : plotSizes
+                    });
+                    console.log('Submitting data: ', dataToSubmit);
+                    window.RCAP.updateAllControls(dataToSubmit);
+
+                }, 500);
+                ///////////////////////////////////////////////////////                
+
+            });
         };
 
         this.initialiseControls = function() {

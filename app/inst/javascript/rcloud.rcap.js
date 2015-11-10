@@ -56,6 +56,11 @@
                                 };
                             });
 
+                            window.RCAP = window.RCAP || {};
+                            window.RCAP.updateAllControls = function(dataToSubmit) {
+                                po.updateAllControls(dataToSubmit).then(function(){});
+                            };
+
                             po.getRTime().then(function(res) {
                                 console.log('%cgetRTime returned ' + res, 'padding: 5px; font-size: 16pt; border: 1px solid black; background: #eee; color: #f00');
                             });
@@ -78,14 +83,17 @@
                 // this code is executed in 'mini' mode, but its condition
                 // isn't particularly robust:
                 mini = RCloud.promisify_paths(ocaps, [
-                        ['updateControls']    // updateControls
+                        ['updateControls'],    // updateControls (called when a form value changes, or a form is submitted)
+                        ['updateAllControls']  // kicks off R plot rendering
                     ], true);
 
                 window.RCAP = window.RCAP || {};
                 window.RCAP.updateControls = function(dataToSubmit) {
                     mini.updateControls(dataToSubmit).then(function() {});
                 };
-
+                window.RCAP.updateAllControls = function(dataToSubmit) {
+                    mini.updateAllControls(dataToSubmit).then(function() {});
+                };
             }
 
             k();

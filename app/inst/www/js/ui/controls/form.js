@@ -164,7 +164,7 @@ define(['rcap/js/ui/controls/gridControl', 'text!rcap/partials/dialogs/_formBuil
         },
         updateControls : function(variableName, value) {
             
-            console.log('%cForm update: ' + variableName + ':' + value, 'padding: 2px; font-size: 16pt; border: 1px solid orange; background: #369; color: #fff');
+            console.log('%cForm update: ' + variableName + ':' + value, 'padding: 2px; font-size: 12pt; border: 1px solid orange; background: #369; color: #fff');
 
             // find the control(s), determine type, and update:
             $('[data-variablename="' + variableName + '"]').each(function(i, e) {
