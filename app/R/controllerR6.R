@@ -44,7 +44,11 @@ Controller <- R6::R6Class("Controller",
 
     ## Update these controls, in the specified order
     updateInOrder = function(ids, values)
-      controllerUpdateInOrder(self, private, ids, values)
+      controllerUpdateInOrder(self, private, ids, values),
+    
+    ## Update the output size of plot controls
+    updatePlotSizes = function(controlSizes)
+      controllerUpdatePlotSizes(self, private, controlSizes)
   )
 )
 
@@ -85,6 +89,12 @@ controllerInitialize <- function(self, private, rcapConfig) {
 }
 
 controllerUpdate <- function(self, private, controls) {
+  
+  # Client reports all plot sizes on each update
+  controlSizes <- parseSizesJson(controls)
+  # Update the controls with these new sizes
+  private$updatePlotSizes(controlSizes)
+  
   controls <- parseUpdateJson(controls)
 
   ## what to update
@@ -110,6 +120,14 @@ controllerUpdateInOrder <- function(self, private, ids, values) {
   invisible(self)
 }
 
+controllerUpdatePlotSizes <- function(self, private, controlSizes) {
+  for (id in names(controlSizes)) {
+    private$controls[[id]]$updateSize(controlSizes[[id]])
+  }
+  
+  invisible(self)
+}
+
 ## Extract the updated control ids and new values from the JSON
 ## message from the client. Ids will be names, values will be the
 ## contents of the result list.
@@ -124,3 +142,26 @@ parseUpdateJson <- function(json) {
     names = controls$updatedVariables[[1]]$controlId
   )
 }
+
+## Extract the updated plot sizes and IDs from the JSON
+## message from the client. Ids will be names, widths and heights
+## will be a named vector
+#' @return List with control IDs as names and named vector of widths and heights
+#' as list items.
+#' @importFrom jsonlite fromJSON
+
+parseSizesJson <- function(json) {
+  controls <- fromJSON(json, simplifyVector = FALSE)
+  
+  ## TODO: should this be one call with parseUpdateJson?
+  ## The structure is a little different
+  if(!is.null(controls$plotSizes)) {
+    return(structure(
+      lapply(controls$plotSizes, function(x) c(width=x$width, height=x$height)),
+      names = sapply(controls$plotSizes, function(x) x$id)
+    ))
+  } else {
+    return(list())
+  }
+}
+
