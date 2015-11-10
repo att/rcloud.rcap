@@ -53,3 +53,8 @@ updateController <- function(controls) {
   cnt <- get("rcapController", envir = rcapEnv)
   cnt$update(controls)
 }
+
+updateAllControls <- function(controls) {
+  cnt <- get("rcapController", envir = rcapEnv)
+  cnt$initUpdate(controls)
+}

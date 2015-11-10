@@ -34,7 +34,10 @@ Controller <- R6::R6Class("Controller",
       controllerInitialize(self, private, rcapConfig),
 
     update = function(controls)
-      controllerUpdate(self, private, controls)
+      controllerUpdate(self, private, controls),
+    
+    initUpdate = function(controls)
+      controllerInitUpdate(self, private, controls)
   ),
 
   private = list(
@@ -47,8 +50,12 @@ Controller <- R6::R6Class("Controller",
       controllerUpdateInOrder(self, private, ids, values),
     
     ## Update the output size of plot controls
-    updatePlotSizes = function(controlSizes)
-      controllerUpdatePlotSizes(self, private, controlSizes)
+    updatePlotSizes = function(controls)
+      controllerUpdatePlotSizes(self, private, controls),
+
+    # Use the topological sort order to update every control
+    updateAll = function(values)
+      controllerUpdateAll(self, private, values)
   )
 )
 
@@ -82,18 +89,16 @@ controllerInitialize <- function(self, private, rcapConfig) {
   ## Pre-calculate the order of control updates
   private$topoSort <- topologicalSort(private$succList)
 
-  ## Update everything
-  private$updateInOrder(private$topoSort, values = NULL)
+  # Wait until the front end reports sizes before updating everything
 
   invisible(self)
 }
 
 controllerUpdate <- function(self, private, controls) {
   
-  # Client reports all plot sizes on each update
-  controlSizes <- parseSizesJson(controls)
-  # Update the controls with these new sizes
-  private$updatePlotSizes(controlSizes)
+  # Client reports all plot sizes
+  # Extract these from the input
+  private$updatePlotSizes(controls)
   
   controls <- parseUpdateJson(controls)
 
@@ -113,6 +118,16 @@ controllerUpdate <- function(self, private, controls) {
   private$updateInOrder(needsUpdate, values)
 }
 
+controllerInitUpdate <- function(self, private, controls) {
+  # The client should report all of the plot sizes
+  private$updatePlotSizes(controls)
+
+  # TODO: Could controls contain some initial values?
+  values <- NULL
+
+  # Now update everything
+  private$updateAll(values)
+}
 
 controllerUpdateInOrder <- function(self, private, ids, values) {
   for (id in ids) private$controls[[id]]$update(values[[id]])
@@ -120,11 +135,22 @@ controllerUpdateInOrder <- function(self, private, ids, values) {
   invisible(self)
 }
 
-controllerUpdatePlotSizes <- function(self, private, controlSizes) {
+controllerUpdatePlotSizes <- function(self, private, controls) {
+
+  # Extract the sizes from the JSON
+  controlSizes <- parseSizesJson(controls)
+
   for (id in names(controlSizes)) {
     private$controls[[id]]$updateSize(controlSizes[[id]])
   }
   
+  invisible(self)
+}
+
+controllerUpdateAll <- function(self, private, values) {
+  ## Update everything
+  private$updateInOrder(private$topoSort, values = values)
+
   invisible(self)
 }
 
