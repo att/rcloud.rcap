@@ -162,11 +162,14 @@ controllerUpdateAll <- function(self, private, values) {
 parseUpdateJson <- function(json) {
   controls <- fromJSON(json, simplifyVector = FALSE)
 
-  ## TODO: this is a single update for now
-  structure(
-    list(controls$updatedVariables[[1]]$value),
-    names = controls$updatedVariables[[1]]$controlId
-  )
+  if(!is.null(controls$updatedVariables)) {
+    return(structure(
+      lapply(controls$updatedVariables, function(x) x$value),
+      names = sapply(controls$updatedVariables, function(x) x$controlId)
+    ))
+  } else {
+    return(list())
+  }
 }
 
 ## Extract the updated plot sizes and IDs from the JSON
