@@ -22,3 +22,4 @@ rcloud.rcap.global.functions <- function() {
     globalObjects
   )
 }
+
