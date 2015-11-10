@@ -34,8 +34,8 @@ RPlotControl <- R6Class("RPlotControl",
       # Set width and height for the device
       RCloudDevice(width, height)
 
-      ## TODO: this should be stored in the constructor
-      func <- private$json$controlProperties[[1]]$value
+      # Retrieve the function name and execute
+      func <- private$controlFunction
       if (!is.null(func)) do.call(func, list(), envir = rcloudEnv())
 
       rcloud.flush.plot()
@@ -59,9 +59,41 @@ RPlotControl <- R6Class("RPlotControl",
   )
 )
 
+#' @importFrom rcloud.web rcw.set
+#' @importFrom rcloud.web rcw.resolve
 
 InteractivePlotControl <- R6Class("InteractivePlotControl",
-  inherit = Control
+  inherit = Control,
+  public = list(
+
+    update = function(new_value = NULL) {
+
+      # Clear the div
+      divId <- paste0("#", private$id)
+      rcw.set(divId, "")
+      # Set the context
+      #contextId <- rcloud.output.context(paste0("#",private$id))
+
+      
+      # Retrieve the function name and execute
+      func <- private$controlFunction
+      #Rserve.eval({
+        ## track which running cell output should go to
+      #  Rserve.context(contextId)
+      #  res <- "doug error"
+      #  if (!is.null(func)) res <- do.call(func, list(), envir = rcloudEnv())
+      #  res
+      #}, parent.frame(), last.value=TRUE, context=contextId)
+
+      res <- "doug error"
+      if (!is.null(func)) res <- do.call(func, list(), envir = rcloudEnv())
+      rcw.set(divId, rcw.resolve(res))
+
+      
+
+      super$update(new_value)
+    }
+  )
 )
 
 FormControl <- R6Class("FormControl",

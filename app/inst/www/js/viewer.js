@@ -55,6 +55,7 @@ define(['text!rcap/partials/viewer.htm',
                 window.setTimeout(function() {
                     var plotSizes = [];
 
+                    // TODO: add .r-interactiveplot
                     $('.rplot').each(function() {
                         var container = $(this).closest('.grid-stack-item-content');
                         plotSizes.push({
