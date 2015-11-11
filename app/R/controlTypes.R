@@ -44,7 +44,6 @@ RPlotControl <- R6Class("RPlotControl",
         rcloud.flush.plot()
     #    rcloud.web::rcw.set(paste0("#", private$id), wp1)
       }
-      super$update(new_value)
     },
   
     updateSize = function(new_size) {
