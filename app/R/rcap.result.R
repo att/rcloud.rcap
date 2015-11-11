@@ -21,6 +21,10 @@
 
 rcap.result <- function(rcapConfigFileName="rcap_designer.json") {
 
+  ## Don't run in edit mode
+  if(isEditMode()) return(invisible(NULL))
+
+
   ## Retrieve the designer config from the notebook
   rcapJson <- rcloud.get.asset(name = rcapConfigFileName)
 
@@ -57,4 +61,14 @@ updateController <- function(controls) {
 updateAllControls <- function(controls) {
   cnt <- get("rcapController", envir = rcapEnv)
   cnt$initUpdate(controls)
+}
+
+#' Is the page that called this function edit or mini (or derviatives)
+#'
+#' Retrieves the url from the .session info and regex's it for edit.html
+#' 
+#' @return Logical: TRUE if it is the edit page
+isEditMode <- function() {
+  pageURL <- rcloud.get.url()
+  grepl("/edit\\.html", pageURL)
 }
