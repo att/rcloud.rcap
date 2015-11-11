@@ -68,7 +68,14 @@ updateAllControls <- function(controls) {
 #' Retrieves the url from the .session info and regex's it for edit.html
 #' 
 #' @return Logical: TRUE if it is the edit page
+#' @importFrom rcloud.support rcloud.get.url
 isEditMode <- function() {
   pageURL <- rcloud.get.url()
-  grepl("/edit\\.html", pageURL)
+  res <- FALSE
+  if(!is.null(pageURL)) {
+    if(pageURL != "") {
+      res <- grepl("/edit\\.html", pageURL)
+    }
+  }
+  res
 }
