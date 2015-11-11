@@ -108,7 +108,7 @@ controlUpdate <- function(self, private, new_value) {
   ## Possible values then, e.g. the list of values in a dropdown
   has_possible_values <- !is.null(private$controlFunction)
   pos_values <- if (has_possible_values) {
-    do.call(private$controlFunction, list(), envir = rcloudenv())
+    do.call(private$controlFunction, list(), envir = rcloudEnv())
   }
 
   ## Do the update
