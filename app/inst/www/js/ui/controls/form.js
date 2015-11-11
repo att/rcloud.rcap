@@ -180,7 +180,7 @@ define(['rcap/js/ui/controls/gridControl', 'text!rcap/partials/dialogs/_formBuil
                     $(e).find('input').prop('checked', false);
 
                     if(_.isArray(value)) {
-                        _.each(function(v) { 
+                       _.each(value, function(v) {
                             $(e).find('input[value="' + v + '"]').prop('checked', true);
                         });
                     } else {
