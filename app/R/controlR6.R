@@ -80,7 +80,7 @@ controlInitialize <- function(self, private, cl) {
        length(cl$controlProperties) > 0) {
     ## Pulling various properties
     for (cp in cl$controlProperties) {
-      if (cp$uid == "code") private$controlFunction <- cp$value
+      if (cp$uid == "code") private$controlFunction <- cp$value %||% NULL
       if (cp$uid == "variablename") private$variableName <- cp$value
     }
   }

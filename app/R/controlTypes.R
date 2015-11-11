@@ -24,22 +24,26 @@ RPlotControl <- R6Class("RPlotControl",
       width <- round(private$width %||% 500)
       height <- round(private$height %||% 500)
 
-      wp1 <- WebPlot(width = width,height = height)
 
-      # Clear the div
-      rcw.set(paste0("#", private$id), "")
-      # Set the context
-      contextId <- rcloud.output.context(paste0("#",private$id))
-      Rserve.context(contextId)
-      # Set width and height for the device
-      RCloudDevice(width, height)
 
       # Retrieve the function name and execute
       func <- private$controlFunction
-      if (!is.null(func)) do.call(func, list(), envir = rcloudEnv())
+      if (!is.null(func)) {
+  #      wp1 <- WebPlot(width = width,height = height)
 
-      rcloud.flush.plot()
-  #    rcloud.web::rcw.set(paste0("#", private$id), wp1)
+        # Clear the div
+        rcw.set(paste0("#", private$id), "")
+        # Set the context
+        contextId <- rcloud.output.context(paste0("#",private$id))
+        Rserve.context(contextId)
+        # Set width and height for the device
+        RCloudDevice(width, height)
+
+        do.call(func, list(), envir = rcloudEnv())
+
+        rcloud.flush.plot()
+    #    rcloud.web::rcw.set(paste0("#", private$id), wp1)
+      }
       super$update(new_value)
     },
   
