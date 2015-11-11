@@ -162,14 +162,10 @@ controllerUpdateAll <- function(self, private, values) {
 parseUpdateJson <- function(json) {
   controls <- fromJSON(json, simplifyVector = FALSE)
 
-  if(!is.null(controls$updatedVariables)) {
-    return(structure(
-      lapply(controls$updatedVariables, function(x) x$value),
-      names = sapply(controls$updatedVariables, function(x) x$controlId)
-    ))
-  } else {
-    return(list())
-  }
+  structure(
+    lapply(controls$updatedVariables, "[[", "value"),
+    names = vapply(controls$updatedVariables, "[[", "", "controlId")
+  )
 }
 
 ## Extract the updated plot sizes and IDs from the JSON
@@ -190,13 +186,12 @@ parseSizesJson <- function(json) {
   
   ## TODO: should this be one call with parseUpdateJson?
   ## The structure is a little different
-  if(!is.null(controls$plotSizes)) {
-    return(structure(
-      lapply(controls$plotSizes, function(x) c(width=x$width, height=x$height)),
-      names = sapply(controls$plotSizes, function(x) x$id)
-    ))
-  } else {
-    return(list())
-  }
+  structure(
+    lapply(
+      controls$plotSizes,
+      function(x) c(width = x$width, height = x$height)
+    ),
+    names = vapply(controls$plotSizes, "[[", "", "id")
+  )
 }
 
