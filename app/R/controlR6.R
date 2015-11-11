@@ -93,17 +93,28 @@ controlInitialize <- function(self, private, cl) {
 }
 
 controlUpdate <- function(self, private, new_value) {
+
   ## Set variable
   if (!is.null(new_value) && !is.null(private$variableName)) {
     assign(private$variableName, new_value, envir = rcloudEnv())
   }
 
-  ## Update frontend, if the variable is not set in the notebook,
-  ## we'll leave it at the default value, as specified in the JSON
-  if (!is.null(private$variableName) &&
-       exists(private$variableName, envir = rcloudEnv())) {
-    value <- get(private$variableName, envir = rcloudEnv())
-    rcap.updateVariable(private$variableName, value)
+  ## Variable first, if there is one. This is simply the current value
+  ## of the control
+  has_value <- !is.null(private$variableName) &&
+    exists(private$variableName, envir = rcloudEnv())
+  value <- if (has_value) get(private$variableName, envir = rcloudEnv())
+
+  ## Possible values then, e.g. the list of values in a dropdown
+  has_possible_values <- !is.null(private$controlFunction)
+  pos_values <- if (has_possible_values) {
+    do.call(private$controlFunction, list(), envir = rcloudenv())
+  }
+
+  ## Do the update
+  if (has_value || has_possible_values) {
+    ## TODO: update once the client is ready to receive it
+    rcap.updateVariable(private$variableName, value) ##, pos_values)
   }
 
   invisible(self)
