@@ -35,8 +35,3 @@ if(typeof control.controlProperties[0].value !== 'undefined' && control.controlP
 <% } %>
 
 </select>
-
-
-
-
-

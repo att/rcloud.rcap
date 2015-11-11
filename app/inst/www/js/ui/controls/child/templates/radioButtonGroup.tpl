@@ -2,7 +2,7 @@
 
     <h3><%=control.controlProperties[0].value%></h3>
 
-<div class="radiobutton-group" data-variablename="<%=control.controlProperties[1].value%>">
+<div class="radiobutton-group" id="<%=control.id%>" data-variablename="<%=control.controlProperties[1].value%>">
 
 
 <%

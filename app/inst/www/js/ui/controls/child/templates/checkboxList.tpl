@@ -2,7 +2,7 @@
 <h3><%=control.controlProperties[0].value%></h3>
 
 
-<div class="checkbox-group" data-variablename="<%=control.controlProperties[1].value%>">
+<div class="checkbox-group" id="<%=control.id%>" data-variablename="<%=control.controlProperties[1].value%>">
 <%
 	if( control.controlProperties[2].optionType == 'manual') {
 %>
