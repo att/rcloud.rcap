@@ -3,8 +3,6 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/mu
     'use strict';
 
     var getValueType = function(value) {
-
-
         if( typeof(value) === 'string') {
             return 'code';
         } else if (Object.prototype.toString.call(value) === '[object Array]') {
@@ -12,7 +10,6 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/mu
         } else {
             throw new TypeError('was expecting a string or an array');
         }
-        
     };
 
     var MultiOptionControlProperty = BaseControlProperty.extend({
@@ -46,6 +43,11 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/mu
                 childIndex: childIndex
             });
 
+        },
+        toJSON: function() {
+            var json = this._super();
+            json.optionsDerivedFrom = getValueType(this.value);
+            return json;
         },
         getDialogValue: function() {
 
