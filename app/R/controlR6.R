@@ -82,6 +82,11 @@ controlInitialize <- function(self, private, cl) {
     for (cp in cl$controlProperties) {
       if (cp$uid == "code") private$controlFunction <- cp$value %||% NULL
       if (cp$uid == "variablename") private$variableName <- cp$value
+      ## This is for populating dropdowns, etc.
+      if (cp$uid == "options" &&
+          identical(cp$optionsDerivedFrom, "code")) {
+        private$controlFunction <- cp$value %||% NULL
+      }
     }
   }
 
@@ -112,9 +117,11 @@ controlUpdate <- function(self, private, new_value) {
   }
 
   ## Do the update
-  if (has_value || has_possible_values) {
+  if (has_value && has_possible_values) {
     ## TODO: update once the client is ready to receive it
-    rcap.updateVariable(private$variableName, value) ##, pos_values)
+    rcap.updateVariable(private$variableName, value, pos_values)
+  } else if (has_value) {
+    rcap.updateVariable(private$variableName, value)
   }
 
   invisible(self)
