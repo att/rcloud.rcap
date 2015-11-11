@@ -12,7 +12,11 @@
 #' \code{getVariableName()} get name of associated global variable.
 #'   If there is no such variable, then \code{NULL} is returned.
 #'
-#' \code{update(new_value = NULL)} method to perform an update.
+#' \code{setVariable(new_value = NULL)} set an R variable
+#'   of a control to the specified value, coming from a
+#'   front-end update.
+#'
+#' \code{update()} method to perform an update.
 #'   This method is called when an update is requested from the
 #'   frontend, and also when the dashboard page is built up the
 #'   first time. It is also called when the control depends on
@@ -49,8 +53,11 @@ Control <- R6::R6Class("Control",
     getId = function() private$id %||% NA_character_,
     getVariableName = function() private$variableName %||% NA_character_,
 
-    update = function(new_value = NULL)
-      controlUpdate(self, private, new_value),
+    setVariable = function(new_value = NULL)
+      controlSetVariable(self, private, new_value),
+
+    update = function()
+      controlUpdate(self, private),
 
     dependentVariables = function(clientVars, envir = rcloudEnv())
       controlDependentVariables(self, private, clientVars, envir)
@@ -97,12 +104,16 @@ controlInitialize <- function(self, private, cl) {
   invisible(self)
 }
 
-controlUpdate <- function(self, private, new_value) {
+controlSetVariable <- function(self, private, new_value) {
 
-  ## Set variable
   if (!is.null(new_value) && !is.null(private$variableName)) {
     assign(private$variableName, new_value, envir = rcloudEnv())
   }
+
+  invisible(self)
+}
+
+controlUpdate <- function(self, private) {
 
   ## Variable first, if there is one. This is simply the current value
   ## of the control

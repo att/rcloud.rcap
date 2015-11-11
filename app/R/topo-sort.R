@@ -100,7 +100,7 @@ bfs <- function(adjlist, seeds) {
 
   V <- names(adjlist)
   N <- length(V)
-  reachable <- seeds
+  reachable <- character()
   marks <- structure(rep(FALSE, N), names = V)
 
   while (length(seeds)) {

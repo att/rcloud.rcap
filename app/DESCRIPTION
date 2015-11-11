@@ -16,7 +16,7 @@ Suggests:
     testthat
 License: MIT + file LICENSE
 RCloud-Extension: gui
-RoxygenNote: 5.0.0
+RoxygenNote: 5.0.1
 Collate:
     'controlR6.R'
     'controlTypes.R'

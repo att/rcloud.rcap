@@ -33,7 +33,7 @@ Orchestrate the updates of the controls in the back-end
 
 \code{topoSort} ids of all controls, in topological (i.e. update) order.
 
-\code{updateInOrder(ids, values)} update the controls in
+\code{updateInOrder(ids)} update the controls in
   the specified order, with the specified values. This function is
   called to perform the actual updates, once the order is decided
   based on the topological sorting.

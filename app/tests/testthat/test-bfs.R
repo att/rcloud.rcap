@@ -12,9 +12,9 @@ test_that("BFS on a dependency graph", {
     "f" = character()
   )
 
-  expect_equal(sort(bfs(G, "a")), c("a", "b"))
-  expect_equal(sort(bfs(G, "c")), c("c", "d"))
-  expect_equal(sort(bfs(G, c("a", "c"))), c("a", "b", "c", "d"))
+  expect_equal(bfs(G, "a"), "b")
+  expect_equal(bfs(G, "c"), "d")
+  expect_equal(sort(bfs(G, c("a", "c"))), c("b", "d"))
 
   G <- list(
     "7"  = c("11", "8"),
@@ -28,10 +28,10 @@ test_that("BFS on a dependency graph", {
   )
 
   expect_equal(sort(bfs(G, character())), character())
-  expect_equal(sort(bfs(G, "10")), "10")
-  expect_equal(sort(bfs(G, "7")), c("10", "11", "2", "7", "8", "9"))
+  expect_equal(sort(bfs(G, "10")), character())
+  expect_equal(sort(bfs(G, "7")), c("10", "11", "2", "8", "9"))
   expect_equal(
     sort(bfs(G, c("7", "5"))),
-    c("10", "11", "2", "5", "7", "8", "9")
+    c("10", "11", "2", "8", "9")
   )
 })

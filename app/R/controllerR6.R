@@ -20,7 +20,7 @@
 #'
 #' \code{topoSort} ids of all controls, in topological (i.e. update) order.
 #'
-#' \code{updateInOrder(ids, values)} update the controls in
+#' \code{updateInOrder(ids)} update the controls in
 #'   the specified order, with the specified values. This function is
 #'   called to perform the actual updates, once the order is decided
 #'   based on the topological sorting.
@@ -46,16 +46,16 @@ Controller <- R6::R6Class("Controller",
     topoSort = character(),             # update order of controls
 
     ## Update these controls, in the specified order
-    updateInOrder = function(ids, values)
-      controllerUpdateInOrder(self, private, ids, values),
+    updateInOrder = function(ids)
+      controllerUpdateInOrder(self, private, ids),
     
     ## Update the output size of plot controls
     updatePlotSizes = function(controls)
       controllerUpdatePlotSizes(self, private, controls),
 
     # Use the topological sort order to update every control
-    updateAll = function(values)
-      controllerUpdateAll(self, private, values)
+    updateAll = function()
+      controllerUpdateAll(self, private)
   )
 )
 
@@ -108,30 +108,25 @@ controllerUpdate <- function(self, private, controls) {
   ## in what order
   needsUpdate <- needsUpdate[order(match(needsUpdate, private$topoSort))]
 
-  ## with these new values
-  values <- structure(
-    replicate(length(needsUpdate), NULL),
-    names = needsUpdate
-  )
-  values[names(controls)] <- controls
+  ## Set variables to the values updated on the front-end
+  for (id in names(controls)) {
+    private$controls[[id]]$setVariable(controls[[id]])
+  }
 
-  private$updateInOrder(needsUpdate, values)
+  ## Push updates to the frontend
+  private$updateInOrder(needsUpdate)
 }
 
 controllerInitUpdate <- function(self, private, controls) {
-  # The client should report all of the plot sizes
+  ## The client should report all of the plot sizes
   private$updatePlotSizes(controls)
 
-  # TODO: Could controls contain some initial values?
-  values <- NULL
-
-  # Now update everything
-  private$updateAll(values)
+  ## Now update everything
+  private$updateAll()
 }
 
-controllerUpdateInOrder <- function(self, private, ids, values) {
-  for (id in ids) private$controls[[id]]$update(values[[id]])
-
+controllerUpdateInOrder <- function(self, private, ids) {
+  for (id in ids) private$controls[[id]]$update()
   invisible(self)
 }
 
@@ -147,9 +142,9 @@ controllerUpdatePlotSizes <- function(self, private, controls) {
   invisible(self)
 }
 
-controllerUpdateAll <- function(self, private, values) {
+controllerUpdateAll <- function(self, private) {
   ## Update everything
-  private$updateInOrder(private$topoSort, values = values)
+  private$updateInOrder(private$topoSort)
 
   invisible(self)
 }
