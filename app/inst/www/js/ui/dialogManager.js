@@ -68,9 +68,9 @@ define([
 
             var page = $('#page-form').data('page');
 
-            $.each(page.styleProperties, function(index, prop) {
-                page.styleProperties[index].value = prop.getDialogValue();
-            });
+            //$.each(page.styleProperties, function(index, prop) {
+            //    page.styleProperties[index].value = prop.getDialogValue();
+            //});
 
             // push the updated event:
             PubSub.publish(pubSubTable.updatePage, {
