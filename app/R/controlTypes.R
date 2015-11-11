@@ -74,27 +74,14 @@ InteractivePlotControl <- R6Class("InteractivePlotControl",
       # Clear the div
       divId <- paste0("#", private$id)
       rcw.set(divId, "")
-      # Set the context
-      #contextId <- rcloud.output.context(paste0("#",private$id))
-
       
       # Retrieve the function name and execute
       func <- private$controlFunction
-      #Rserve.eval({
-        ## track which running cell output should go to
-      #  Rserve.context(contextId)
-      #  res <- "doug error"
-      #  if (!is.null(func)) res <- do.call(func, list(), envir = rcloudEnv())
-      #  res
-      #}, parent.frame(), last.value=TRUE, context=contextId)
 
       res <- "doug error"
       if (!is.null(func)) res <- do.call(func, list(), envir = rcloudEnv())
       rcw.set(divId, rcw.resolve(res))
 
-      
-
-      super$update(new_value)
     }
   )
 )

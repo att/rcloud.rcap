@@ -107,13 +107,28 @@
             });
         },
 
-        updateVariable: function(variableName, value, k) {
-            // implement something in here, for now, just log to console:
+        updateVariable: function() {
 
-            require(['controls/form'], function(FormControl) {
-                new FormControl().updateControls(variableName, value);
-                k();
-            });
+            // variableName, value, allValues, k OR
+            // variableName, value, k
+            var variableName, value, allValues;
+
+            if(arguments.length === 3 || arguments.length === 4) {
+                variableName = arguments[0];
+                value = arguments[1];
+
+                if(arguments.length === 3) {
+                    k = arguments[2];
+                } else {
+                    allValues = arguments[2];
+                    k = arguments[3];
+                }
+
+                require(['controls/form'], function(FormControl) {
+                    new FormControl().updateControls(variableName, value, allValues);
+                    k();
+                });
+            }
         },
 
         consoleMsg: function(content, k) {

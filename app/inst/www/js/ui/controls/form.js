@@ -1,4 +1,7 @@
-define(['rcap/js/ui/controls/gridControl', 'text!rcap/partials/dialogs/_formBuilder.htm', 'rcap/js/ui/controls/properties/colorControlProperty'], function(GridControl, tpl, ColorControlProperty) {
+define(['rcap/js/ui/controls/gridControl', 
+    'text!rcap/partials/dialogs/_formBuilder.htm', 
+    'rcap/js/ui/controls/properties/colorControlProperty'], 
+    function(GridControl, tpl, ColorControlProperty) {
 
     'use strict';
 
@@ -162,34 +165,76 @@ define(['rcap/js/ui/controls/gridControl', 'text!rcap/partials/dialogs/_formBuil
                 }
             });
         },
-        updateControls : function(variableName, value) {
+        updateControls : function(variableName, value, allValues) {
             
             console.log('%cForm update: ' + variableName + ':' + value, 'padding: 2px; font-size: 12pt; border: 1px solid orange; background: #369; color: #fff');
 
             // find the control(s), determine type, and update:
             $('[data-variablename="' + variableName + '"]').each(function(i, e) {
 
-                if($(e).data('select2')) {
-                    $(e).select2('val', value);
-                } else if($(e).data('ionRangeSlider')) {
-                    $(e).data('ionRangeSlider').update({ from : value });
-                } else if($(e).hasClass('radiobutton-group')) {
-                    $(e).find('input[value="' + value + '"]').prop('checked', true);
-                } else if($(e).hasClass('checkbox-group')) {
-                    // clear and set:
-                    $(e).find('input').prop('checked', false);
+                // for now, hard-coded dropdown assumption:
+                if(allValues) {
+                    if($(e).is('select')) {
 
-                    if(_.isArray(value)) {
-                       _.each(value, function(v) {
-                            $(e).find('input[value="' + v + '"]').prop('checked', true);
+                        // remove then add:
+                        $(e).children().remove();
+
+                        _.each(allValues, function(value) {
+                           $(e).append(
+                            $('<option/>', {
+                                'value' : value,
+                                'text' : value
+                            }));
                         });
-                    } else {
-                        $(e).find('input[value="' + value + '"]').prop('checked', true);    
+                    } else if($(e).hasClass('radiobutton-group')) {
+                        //$(e).children().remove();
+
+                        /*
+                        <div class="form-option">
+                            <label for="radio-rcapd978b33a0">Option 1</label>
+                            <input type="radio" name="radio-rcapd978b33a" id="radio-rcapd978b33a0" value="Option 1">
+                        </div>
+                                
+                        <div class="form-option">
+                            <label for="radio-rcapd978b33a1">Option 2</label>
+                            <input type="radio" name="radio-rcapd978b33a" id="radio-rcapd978b33a1" value="Option 2">
+                        </div>
+
+                        */                        
+                    } else if($(e).hasClass('checkbox-group')) {
+                        //$(e).children().remove();
+/*
+                        <div class="form-option">
+                                <label for="checkbox-rcap7018aefb0">Option 1</label>
+                                <input type="checkbox" name="checkbox-rcap7018aefb" id="checkbox-rcap7018aefb0" value="Option 1">
+                        </div>
+*/                        
                     }
-                    
-                } else {
-                    // catch all:
-                    $(e).val(value);
+                }
+
+                if(value || allValues) {
+                    if($(e).data('select2')) {
+                        $(e).select2('val', value);
+                    } else if($(e).data('ionRangeSlider')) {
+                        $(e).data('ionRangeSlider').update({ from : value });
+                    } else if($(e).hasClass('radiobutton-group')) {
+                        $(e).find('input[value="' + value + '"]').prop('checked', true);
+                    } else if($(e).hasClass('checkbox-group')) {
+                        // clear and set:
+                        $(e).find('input').prop('checked', false);
+
+                        if(_.isArray(value)) {
+                           _.each(value, function(v) {
+                                $(e).find('input[value="' + v + '"]').prop('checked', true);
+                            });
+                        } else {
+                            $(e).find('input[value="' + value + '"]').prop('checked', true);    
+                        }
+                        
+                    } else {
+                        // catch all:
+                        $(e).val(value);
+                    }
                 }
             });
         }
