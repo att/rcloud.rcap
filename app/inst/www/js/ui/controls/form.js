@@ -172,7 +172,11 @@ define(['rcap/js/ui/controls/gridControl',
             // find the control(s), determine type, and update:
             $('[data-variablename="' + variableName + '"]').each(function(i, e) {
 
-                // for now, hard-coded dropdown assumption:
+                //
+                //
+                // TODO: this is temporary code:
+                //
+                //
                 if(allValues) {
                     if($(e).is('select')) {
 
@@ -186,29 +190,18 @@ define(['rcap/js/ui/controls/gridControl',
                                 'text' : value
                             }));
                         });
-                    } else if($(e).hasClass('radiobutton-group')) {
-                        //$(e).children().remove();
+                    } else if($(e).hasClass('radiobutton-group') || $(e).hasClass('checkbox-group')) {
 
-                        /*
-                        <div class="form-option">
-                            <label for="radio-rcapd978b33a0">Option 1</label>
-                            <input type="radio" name="radio-rcapd978b33a" id="radio-rcapd978b33a0" value="Option 1">
-                        </div>
-                                
-                        <div class="form-option">
-                            <label for="radio-rcapd978b33a1">Option 2</label>
-                            <input type="radio" name="radio-rcapd978b33a" id="radio-rcapd978b33a1" value="Option 2">
-                        </div>
+                        $(e).children().remove();
 
-                        */                        
-                    } else if($(e).hasClass('checkbox-group')) {
-                        //$(e).children().remove();
-/*
-                        <div class="form-option">
-                                <label for="checkbox-rcap7018aefb0">Option 1</label>
-                                <input type="checkbox" name="checkbox-rcap7018aefb" id="checkbox-rcap7018aefb0" value="Option 1">
-                        </div>
-*/                        
+                        var groupType = $(e).hasClass('radiobutton-group') ?
+                            'radio' : 'checkbox';
+
+                        _.each(allValues, function(value, index) {
+                            // fragment:
+                            var currentId = groupType + '-' + $(e).attr('id') + index;
+                            $(e).append('<div class="form-option"><label for="' + currentId + '">' + value + '</label><input type="' + groupType + '" name="' + currentId + '" id="' + currentId + '" value="' + value + '"></div>');
+                        });
                     }
                 }
 

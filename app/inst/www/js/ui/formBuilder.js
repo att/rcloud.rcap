@@ -36,7 +36,7 @@ define(['controls/factories/controlFactory', 'pubsub', 'site/pubSubTable'], func
 
             // parsley:
             $('#formbuilder-form').parsley({
-                excluded: 'input[type=button], input[type=submit], input[type=reset], :input[type=hidden], :disabled, input:hidden'
+                excluded: 'textarea:hidden, input[type=button], input[type=submit], input[type=reset], :input[type=hidden], :disabled, input:hidden'
             });
 
             $('.drop-zone').on('click', '.ui-remove', function(e) {
