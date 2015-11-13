@@ -200,7 +200,7 @@ define(['rcap/js/ui/controls/gridControl',
                         _.each(allValues, function(value, index) {
                             // fragment:
                             var currentId = groupType + '-' + $(e).attr('id') + index;
-                            $(e).append('<div class="form-option"><label for="' + currentId + '">' + value + '</label><input type="' + groupType + '" name="' + currentId + '" id="' + currentId + '" value="' + value + '"></div>');
+                            $(e).append('<div class="form-option"><label for="' + currentId + '">' + value + '</label><input type="' + groupType + '" name="' + $(e).attr('id') + '" id="' + currentId + '" value="' + value + '"></div>');
                         });
                     }
                 }
