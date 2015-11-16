@@ -73,6 +73,7 @@ InteractivePlotControl <- R6Class("InteractivePlotControl",
 
       # Clear the div
       divId <- paste0("#", private$id)
+      # TODO, do you need this next line?
       rcw.set(divId, "")
       
       # Retrieve the function name and execute
@@ -130,8 +131,30 @@ SubmitButtonControl <- R6Class("SubmitButtonControl",
   inherit = Control
 )
 
+#' @importFrom rcloud.web rcw.set
+#' @importFrom rcloud.web rcw.append
+
 IFrameControl <- R6Class("IFrameControl",
-  inherit = Control
+  inherit = Control,
+  public = list(
+
+    update = function(new_value = NULL) {
+      # Retrieve the function name
+      func <- private$controlFunction
+
+      res <- try(do.call(func, list(), envir = rcloudEnv()), TRUE)
+    
+      if (inherits(errorMsg, res)) {
+        rcw.prepend(divId, res)
+      } else {
+        if(is.character(res) && length(res)==1 && grepl("^http://", res)) {
+          rcap.updateControlAttribute(private$id, "src", res)
+        } else {
+          rcw.prepend(divId, "<pre>Invalid URL returned</pre>")
+        }
+      }
+    }
+  )
 )
 
 ImageControl <- R6Class("ImageControl",

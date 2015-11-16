@@ -23,6 +23,10 @@ Abstract class for controls
 \code{getVariableName()} get name of associated global variable.
   If there is no such variable, then \code{NULL} is returned.
 
+\code{setVariable(new_value = NULL)} set an R variable
+  of a control to the specified value, coming from a
+  front-end update.
+
 \code{update()} method to perform an update.
   This method is called when an update is requested from the
   frontend, and also when the dashboard page is built up the
