@@ -43,3 +43,6 @@ make_oc <- function(...) {
 rcap.initViewer <- function(content) rcloud.rcap.caps$initViewer(content)
 rcap.consoleMsg <- function(content) rcloud.rcap.caps$consoleMsg(content)
 rcap.updateVariable <- function(...) rcloud.rcap.caps$updateVariable(...)
+rcap.updateControlAttribute <- function(controlId, attributeName, attributeValue) {
+  rcloud.rcap.caps$updateControlAttribute(controlId, attributeName, attributeValue)
+}
