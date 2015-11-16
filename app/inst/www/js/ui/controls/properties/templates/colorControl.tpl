@@ -11,6 +11,7 @@
                 $("#<%=property.id%>").spectrum({
                     showPalette: true,
                     showSelectionPalette: true, 
+                    showAlpha: true,
                     palette: [],
                     chooseText: 'Select',
                     cancelText: 'Cancel',
@@ -32,6 +33,7 @@
     		$("#<%=property.id%>").spectrum({
     		    showPalette: true,
     		    showSelectionPalette: true, 
+                showAlpha: true,
     		    palette: [],
                 chooseText: 'Select',
                 cancelText: 'Cancel',
