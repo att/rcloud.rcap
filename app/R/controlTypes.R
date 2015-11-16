@@ -148,8 +148,9 @@ IFrameControl <- R6Class("IFrameControl",
         rcw.prepend(divId, res)
       } else {
         if(is.character(res) && length(res)==1 && grepl("^http://", res)) {
+          rcap.updateControlAttribute(private$id, "src", "")
           rcap.updateControlAttribute(private$id, "src", res)
-          rcap.consoleMsg(paste("DEBUG:", private$id, "src", res))
+          #rcap.consoleMsg(paste("DEBUG:", private$id, "src", res))
         } else {
           rcw.prepend(divId, "<pre>Invalid URL returned</pre>")
         }
