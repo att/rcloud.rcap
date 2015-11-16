@@ -1,11 +1,13 @@
-define(['rcap/js/ui/controls/gridControl', 'rcap/js/ui/controls/properties/textControlProperty',
+define(['rcap/js/ui/controls/gridControl', 
+    //'rcap/js/ui/controls/properties/textControlProperty',
+    'rcap/js/ui/controls/properties/autocompleteControlProperty',
     'rcap/js/ui/controls/properties/dropdownControlProperty',
     'rcap/js/ui/controls/properties/colorControlProperty', 
     'rcap/js/ui/controls/properties/radioButtonGroupControlProperty', 
     'rcap/js/ui/controls/properties/checkboxListControlProperty',
     'text!controlTemplates/iframe.tpl'
 
-], function(GridControl, TextControlProperty, DropdownControlProperty, ColorControlProperty, RadioButtonGroupControlProperty,
+], function(GridControl, AutocompleteControlProperty, DropdownControlProperty, ColorControlProperty, RadioButtonGroupControlProperty,
     CheckboxListControlProperty, tpl) {
 
     'use strict';
@@ -18,13 +20,12 @@ define(['rcap/js/ui/controls/gridControl', 'rcap/js/ui/controls/properties/textC
                 icon: 'cloud',
                 initialSize: [2, 2],
                 controlProperties: [
-                    new TextControlProperty({
+                    new AutocompleteControlProperty({
                         uid: 'source',
                         label: 'Source',
                         defaultValue: '',
-                        helpText: 'The URL that the iFrame will show (prefix with http://)',
-                        isRequired: true,
-                        validationDataType: 'url'
+                        helpText: 'The URL that the iFrame will show (prefix with http://), or the R Function that assigns the value',
+                        isRequired: true
                     }),
                     /*
                     new RadioButtonGroupControlProperty({

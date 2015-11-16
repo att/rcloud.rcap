@@ -131,6 +131,11 @@
             }
         },
 
+        updateControlAttribute: function(controlId, attributeName, attributeValue, k) {
+            $('#' + controlId).attr(attributeName, attributeValue);
+            k();
+        },
+
         consoleMsg: function(content, k) {
             console.log(content);
             k();
