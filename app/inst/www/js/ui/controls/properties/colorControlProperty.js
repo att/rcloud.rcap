@@ -12,13 +12,16 @@ define(['rcap/js/ui/controls/properties/baseControlProperty',
 				helpText : options.helpText || '',
 				defaultValue : options.defaultValue || '',
 				isRequired : options.isRequired || false,
-				value : options.value || '#ffffff',
 				uid : options.uid,
 				className : options.className
 			});
 
 			// additional assignments go here:
-			this.isHorizontal = options.isHorizontal || true;
+			this.isHorizontal = _.isUndefined(options.isHorizontal) ? true : options.isHorizontal;
+			this.showAlpha = _.isUndefined(options.showAlpha) ? false : options.showAlpha;
+
+			// default value dependent on alpha support:
+			this.defaultValue = this.showAlpha ? 'rgba(255, 255, 255, 0)' : 'rgb(255, 255, 255)';
 		},
 		render: function(childIndex) {
 
@@ -31,7 +34,7 @@ define(['rcap/js/ui/controls/properties/baseControlProperty',
 
 		},
 		getDialogValue : function() {
-			return $('#' + this.id).spectrum('get').toHexString();
+			return $('#' + this.id).spectrum('get').toRgbString();
 		}
 	});
 

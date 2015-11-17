@@ -39,6 +39,13 @@ define(['rcap/js/Class'], function() {
 		getDialogValue : function() {
 			return '';
 		},
+		getValueOrDefault : function() {
+			if(_.isUndefined(this.value)) {
+				return this.defaultValue;
+			}
+
+			return this.value;
+		},
 		finalise: function() {
 			
 		}

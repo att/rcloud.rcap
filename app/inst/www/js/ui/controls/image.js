@@ -43,7 +43,7 @@ define(['rcap/js/ui/controls/gridControl', 'rcap/js/ui/controls/properties/textC
                             text: 'Stretch',
                             value: 'background-size: 100% 100%'
                         }],
-                        value: 'background-repeat:no-repeat;'
+                        defaultValue: 'background-repeat:no-repeat;'
                     })
 				]
 			});

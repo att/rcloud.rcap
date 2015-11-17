@@ -5,17 +5,18 @@
             <label for="<%=property.id%>"><%=property.label%></label>
         </div>
         <div class="col-md-8">
-            <input class="form-control" id="<%=property.id%>" value="<%=property.value%>" />
+            <input class="form-control" id="<%=property.id%>" />
             <div class="description"><%=property.helpText%></div>
             <script type="text/javascript">
                 $("#<%=property.id%>").spectrum({
                     showPalette: true,
                     showSelectionPalette: true, 
-                    showAlpha: true,
+                    showAlpha: <%=property.showAlpha%>,
                     palette: [],
                     chooseText: 'Select',
                     cancelText: 'Cancel',
-                    localStorageKey: 'rcap'
+                    localStorageKey: 'rcap',
+                    color: '<%=property.getValueOrDefault()%>'
                 });
             </script>
         </div>
@@ -26,18 +27,19 @@
     <div class="form-group" id="form-group-<%=property.id%>">
         <label for="<%=property.id%>"><%=property.label%></label>
         <div>
-        	<input class="form-control" id="<%=property.id%>" value="<%=property.value%>" />
+        	<input class="form-control" id="<%=property.id%>" />
         </div>
         <div class="description"><%=property.helpText%></div>
         <script type="text/javascript">
     		$("#<%=property.id%>").spectrum({
     		    showPalette: true,
     		    showSelectionPalette: true, 
-                showAlpha: true,
+                showAlpha: <%=property.showAlpha%>,
     		    palette: [],
                 chooseText: 'Select',
                 cancelText: 'Cancel',
-                localStorageKey: 'rcap'
+                localStorageKey: 'rcap',
+                color: '<%=property.getValueOrDefault()%>'
     		});
         </script>
     </div>

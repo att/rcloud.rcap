@@ -29,18 +29,20 @@ define(['rcap/js/ui/controls/baseControl',
                     uid: 'backgroundColor',
                     label: 'Background Color',
                     helpText: '',
-                    defaultValue: ''
+                    defaultValue: 'rgba(0,0,0,0)',
+                    showAlpha: true
                 }),
                 new ColorControlProperty({
                     uid: 'borderColor',
                     label: 'Border Color',
                     helpText: '',
-                    defaultValue: ''
+                    defaultValue: 'rgb(255, 255, 255)',
+                    showAlpha: false
                 }),
                 new RangeControlProperty({
                     uid: 'borderWidth',
                     label: 'Border Width',
-                    helpText: '',
+                    helpText: 'Border will only be shown if it has a width',
                     defaultValue: '0'
                 })
             ];
@@ -54,6 +56,16 @@ define(['rcap/js/ui/controls/baseControl',
         },
         getStylePropertyByName: function(identifier) {
             return _.findWhere(this.styleProperties, { uid : identifier });
+        },
+        getStylePropertyValueOrDefault: function(identifier) {
+
+            var styleProperty = this.getStylePropertyByName(identifier);
+
+            if (styleProperty) {
+                return styleProperty.value || styleProperty.defaultValue;
+            } else {
+                throw new Error('style property ' + identifier + ' not found.');
+            }
         },
         getStyleProperties: function() {
             var styleInfo = {

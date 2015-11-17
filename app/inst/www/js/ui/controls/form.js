@@ -44,13 +44,13 @@ define(['rcap/js/ui/controls/gridControl',
                             text: 'Middle',
                             value: 'center'     // <- this should be 'center'
                         }],
-                        value: 'initial'
+                        defaultValue: 'initial'
                     })
             );
         },
         render: function(options) {
 
-            var html = '<form action="" style="display: flex;align-self:' + this.getStylePropertyByName('verticalalignment').value + '"><div id="' + this.id + '" class="rcap-form" />';
+            var html = '<form action="" style="display: flex;align-self:' + this.getStylePropertyValueOrDefault('verticalalignment') + '"><div id="' + this.id + '" class="rcap-form" />';
 
             $.each(this.childControls, function(key, child) {
                 html += '<div class="form-group">';

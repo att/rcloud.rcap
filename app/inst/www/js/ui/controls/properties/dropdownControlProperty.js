@@ -31,7 +31,7 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/dr
 
 		},
 		getDialogValue : function() {
-			return $('#form-group-' + this.id).find('select option:selected').val();
+			return $('#' + this.id).find('option:selected').val();
 		}
 	});
 
