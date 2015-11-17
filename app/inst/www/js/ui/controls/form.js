@@ -123,8 +123,8 @@ define(['rcap/js/ui/controls/gridControl',
                     var container = $(this).closest('.grid-stack-item-content');
                     plotSizes.push({
                         id : $(this).attr('id'),
-                        width : container.width() - 25,
-                        height: container.height() - 25
+                        width : container.data('width'),
+                        height : container.data('height')
                     });
                 });
  

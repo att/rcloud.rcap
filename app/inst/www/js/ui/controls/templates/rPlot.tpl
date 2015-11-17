@@ -1,1 +1,1 @@
-<div id="<%=control.id%>" class="rplot">Please wait whilst the plot is loaded...</div>
+<div id="<%=control.id%>" class="rplot">Please wait while the plot is loaded...</div>

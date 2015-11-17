@@ -553,8 +553,8 @@
   border: 0;
   overflow-x: auto; }
   #rcap-viewer .grid-stack-item-content img {
-    /* width: 100%; */
-    /* height: 100%; */ }
+    width: 100%;
+    height: 100%; }
   #rcap-viewer .grid-stack-item-content iframe {
     width: 100%;
     height: 100%;
@@ -742,32 +742,32 @@ License: MIT
 
 /* Gradients for hue, saturation and value instead of images.  Not pretty... but it works */
 .sp-sat {
-  background-image: -webkit-gradient(linear, 0 0, 100% 0, from(#FFF), to(rgba(204, 154, 129, 0)));
-  background-image: -webkit-linear-gradient(left, #FFF, rgba(204, 154, 129, 0));
-  background-image: -moz-linear-gradient(left, #fff, rgba(204, 154, 129, 0));
-  background-image: -o-linear-gradient(left, #fff, rgba(204, 154, 129, 0));
-  background-image: -ms-linear-gradient(left, #fff, rgba(204, 154, 129, 0));
-  background-image: linear-gradient(to right, #fff, rgba(204, 154, 129, 0));
+  background-image: -webkit-gradient(linear, 0 0, 100% 0, from(white), to(rgba(204, 154, 129, 0)));
+  background-image: -webkit-linear-gradient(left, white, rgba(204, 154, 129, 0));
+  background-image: -moz-linear-gradient(left, white, rgba(204, 154, 129, 0));
+  background-image: -o-linear-gradient(left, white, rgba(204, 154, 129, 0));
+  background-image: -ms-linear-gradient(left, white, rgba(204, 154, 129, 0));
+  background-image: linear-gradient(to right, white, rgba(204, 154, 129, 0));
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType = 1, startColorstr=#FFFFFFFF, endColorstr=#00CC9A81)";
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType = 1, startColorstr='#FFFFFFFF', endColorstr='#00CC9A81'); }
 
 .sp-val {
-  background-image: -webkit-gradient(linear, 0 100%, 0 0, from(#000000), to(rgba(204, 154, 129, 0)));
-  background-image: -webkit-linear-gradient(bottom, #000000, rgba(204, 154, 129, 0));
-  background-image: -moz-linear-gradient(bottom, #000, rgba(204, 154, 129, 0));
-  background-image: -o-linear-gradient(bottom, #000, rgba(204, 154, 129, 0));
-  background-image: -ms-linear-gradient(bottom, #000, rgba(204, 154, 129, 0));
-  background-image: linear-gradient(to top, #000, rgba(204, 154, 129, 0));
+  background-image: -webkit-gradient(linear, 0 100%, 0 0, from(black), to(rgba(204, 154, 129, 0)));
+  background-image: -webkit-linear-gradient(bottom, black, rgba(204, 154, 129, 0));
+  background-image: -moz-linear-gradient(bottom, black, rgba(204, 154, 129, 0));
+  background-image: -o-linear-gradient(bottom, black, rgba(204, 154, 129, 0));
+  background-image: -ms-linear-gradient(bottom, black, rgba(204, 154, 129, 0));
+  background-image: linear-gradient(to top, black, rgba(204, 154, 129, 0));
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00CC9A81, endColorstr=#FF000000)";
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00CC9A81', endColorstr='#FF000000'); }
 
 .sp-hue {
-  background: -moz-linear-gradient(top, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
-  background: -ms-linear-gradient(top, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
-  background: -o-linear-gradient(top, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
-  background: -webkit-gradient(linear, left top, left bottom, from(#ff0000), color-stop(0.17, #ffff00), color-stop(0.33, #00ff00), color-stop(0.5, #00ffff), color-stop(0.67, #0000ff), color-stop(0.83, #ff00ff), to(#ff0000));
-  background: -webkit-linear-gradient(top, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
-  background: linear-gradient(to bottom, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%); }
+  background: -moz-linear-gradient(top, red 0%, yellow 17%, lime 33%, cyan 50%, blue 67%, magenta 83%, red 100%);
+  background: -ms-linear-gradient(top, red 0%, yellow 17%, lime 33%, cyan 50%, blue 67%, magenta 83%, red 100%);
+  background: -o-linear-gradient(top, red 0%, yellow 17%, lime 33%, cyan 50%, blue 67%, magenta 83%, red 100%);
+  background: -webkit-gradient(linear, left top, left bottom, from(red), color-stop(0.17, yellow), color-stop(0.33, lime), color-stop(0.5, cyan), color-stop(0.67, blue), color-stop(0.83, magenta), to(red));
+  background: -webkit-linear-gradient(top, red 0%, yellow 17%, lime 33%, cyan 50%, blue 67%, magenta 83%, red 100%);
+  background: linear-gradient(to bottom, red 0%, yellow 17%, lime 33%, cyan 50%, blue 67%, magenta 83%, red 100%); }
 
 /* IE filters do not support multiple color stops.
    Generate 6 divs, line them up, and do two color gradients for each.
@@ -1357,8 +1357,8 @@ textarea.parsley-error {
     width: 605px;
     cursor: n-resize;
     position: relative;
-    border: 1px solid #F2F2F2;
-    background: #F2F2F2;
+    border: 1px solid #f2f2f2;
+    background: #f2f2f2;
     color: #3e3e3e; }
   #dialog-form-builder .form-item .ui-remove {
     z-index: 90;
@@ -1417,7 +1417,7 @@ textarea.parsley-error {
       background-color: #e1e1e1; }
     #dialog-form-builder #form-builder-configuration::-webkit-scrollbar {
       width: 10px;
-      background-color: lightne(#222, 75%); }
+      background-color: lightne(#222222, 75%); }
     #dialog-form-builder #form-builder-configuration::-webkit-scrollbar-thumb {
       background-color: #aeaeae; }
   #dialog-form-builder .tab-content::after {
@@ -1427,7 +1427,7 @@ textarea.parsley-error {
   #dialog-form-builder .nav-tabs {
     margin-bottom: 0; }
   #dialog-form-builder .nav-tabs > li.active > a {
-    background-color: #fff !important; }
+    background-color: white !important; }
   #dialog-form-builder .nav-tabs > li {
     font-size: 14px; }
   #dialog-form-builder [data-body-id="styling"] .row {
@@ -1471,7 +1471,27 @@ textarea.parsley-error {
   z-index: 1500;
   background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
-  top: 0; }
+  top: 0;
+  @-webkit-keyframes load8 {
+    0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg); }
+
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg); } }
+
+  @keyframes load8 {
+    0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg); }
+
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg); } }
+ }
+  #rcap-preloader.view {
+    background-color: white; }
   #rcap-preloader .loader {
     font-size: 10px;
     position: absolute;
@@ -1494,20 +1514,7 @@ textarea.parsley-error {
     border-radius: 50%;
     width: 10em;
     height: 10em; }
-@-webkit-keyframes load8 {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg); }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg); } }
-@keyframes load8 {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg); }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg); } }
+
 #rcap-navbar-header {
   width: 180px;
   height: 25px;
@@ -1562,16 +1569,16 @@ textarea.parsley-error {
   color: white; }
 
 #rcap-designer {
-  background: #fff;
-  color: #d5d5d5;
+  background: white;
+  color: #d4d4d4;
   font-family: "Open Sans", sans-serif;
   font-size: 12px;
   height: 100vh;
   margin-top: -51px; }
   #rcap-designer .row {
-    background-color: #F2F2F2; }
+    background-color: #f2f2f2; }
   #rcap-designer #top-status-bar {
-    background-color: #222;
+    background-color: #222222;
     height: 50px; }
     #rcap-designer #top-status-bar #current-page-status {
       display: inline-block;
@@ -1594,7 +1601,7 @@ textarea.parsley-error {
     padding: 5px 20px 20px 20px;
     left: 50px;
     height: calc(100% - 50px);
-    background-color: #222;
+    background-color: #222222;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -1608,7 +1615,7 @@ textarea.parsley-error {
     #rcap-designer .menu-flyout ul.controls a span {
       display: none; }
     #rcap-designer .menu-flyout ul.controls a {
-      border: 1px solid #d5d5d5;
+      border: 1px solid #d4d4d4;
       cursor: move;
       height: 90px;
       width: 170px;
@@ -1644,7 +1651,7 @@ textarea.parsley-error {
     #rcap-designer .menu-flyout a:hover,
     #rcap-designer .menu-flyout a:active {
       display: block;
-      color: #d5d5d5;
+      color: #d4d4d4;
       font-family: "Open Sans", sans-serif;
       text-decoration: none;
       padding: 10px 0 5px 15px; }
@@ -1664,10 +1671,10 @@ textarea.parsley-error {
       max-height: calc(100% - 75px);
       overflow: auto; }
       #rcap-designer .menu-flyout ol#pages::-webkit-scrollbar-track {
-        background-color: #222; }
+        background-color: #222222; }
       #rcap-designer .menu-flyout ol#pages::-webkit-scrollbar {
         width: 10px;
-        background-color: #222; }
+        background-color: #222222; }
       #rcap-designer .menu-flyout ol#pages::-webkit-scrollbar-thumb {
         background-color: #888888; }
     #rcap-designer .menu-flyout ol#pages, #rcap-designer .menu-flyout ol#pages ol {
@@ -1675,7 +1682,7 @@ textarea.parsley-error {
       padding-left: 0; }
     #rcap-designer .menu-flyout ol#pages a::before, #rcap-designer .menu-flyout ul.controls a::before, #rcap-designer .menu-flyout ul.settings a::before {
       text-align: left;
-      color: #d5d5d5;
+      color: #d4d4d4;
       padding: 2px 8px 0 0;
       margin: 0;
       font: normal normal normal 10px/1 FontAwesome;
@@ -1726,7 +1733,7 @@ textarea.parsley-error {
       display: inline-block; }
     #rcap-designer .menu-flyout ul.controls a.control-submitbutton i {
       border-radius: 3px;
-      background-color: #222;
+      background-color: #222222;
       width: 20px;
       margin-right: 6px; }
       #rcap-designer .menu-flyout ul.controls a.control-submitbutton i::before {
@@ -1743,7 +1750,7 @@ textarea.parsley-error {
       margin-top: 5px; }
     #rcap-designer .menu-flyout a span::after {
       text-align: right;
-      color: #d5d5d5;
+      color: #d4d4d4;
       padding: 2px 3px 0 0;
       margin: 0;
       font: normal normal normal 10px/1 FontAwesome;
@@ -1770,7 +1777,7 @@ textarea.parsley-error {
     #rcap-designer .menu-flyout a span::after {
       display: block;
       text-align: right;
-      color: #d5d5d5;
+      color: #d4d4d4;
       padding: 2px 3px 0 0;
       margin: 0;
       font: normal normal normal 10px/1 FontAwesome;
@@ -1785,8 +1792,8 @@ textarea.parsley-error {
       display: block; }
   #rcap-designer #main-menu {
     overflow: auto;
-    background-color: #222;
-    color: #d5d5d5;
+    background-color: #222222;
+    color: #d4d4d4;
     position: relative;
     float: left;
     width: 50px; }
@@ -1854,7 +1861,7 @@ textarea.parsley-error {
     #rcap-designer .menu a:hover,
     #rcap-designer .menu a:active {
       display: block;
-      color: #d5d5d5;
+      color: #d4d4d4;
       font-family: "Open Sans", sans-serif;
       text-decoration: none; }
     #rcap-designer .menu a:hover {
@@ -1865,7 +1872,7 @@ textarea.parsley-error {
       display: block; }
     #rcap-designer .menu ol#pages a::before, #rcap-designer .menu ul.controls a::before, #rcap-designer .menu ul.settings a::before {
       text-align: left;
-      color: #d5d5d5;
+      color: #d4d4d4;
       padding: 2px 8px 0 0;
       margin: 0;
       font: normal normal normal 10px/1 FontAwesome;
@@ -1878,11 +1885,11 @@ textarea.parsley-error {
       position: absolute;
       opacity: 0.8; }
   #rcap-designer .tab-pane.menu li a {
-    color: #222;
+    color: #222222;
     padding: 5px 0 5px 5px;
     font-size: 15px; }
     #rcap-designer .tab-pane.menu li a i {
-      color: #222;
+      color: #222222;
       margin-right: 7px; }
   #rcap-designer .tab-pane.menu a:hover, #rcap-designer .tab-pane.menu li.selected a {
     background-color: #eeeeee; }
@@ -1939,7 +1946,7 @@ textarea.parsley-error {
     text-align: center;
     font-size: 26pt;
     margin-top: -22px;
-    text-shadow: -2px -2px 0 #fff, -2px -1px 0 #fff, -2px 0px 0 #fff, -2px 1px 0 #fff, -2px 2px 0 #fff, -1px -2px 0 #fff, -1px -1px 0 #fff, -1px 0px 0 #fff, -1px 1px 0 #fff, -1px 2px 0 #fff, 0px -2px 0 #fff, 0px -1px 0 #fff, 0px 0px 0 #fff, 0px 1px 0 #fff, 0px 2px 0 #fff, 1px -2px 0 #fff, 1px -1px 0 #fff, 1px 0px 0 #fff, 1px 1px 0 #fff, 1px 2px 0 #fff, 2px -2px 0 #fff, 2px -1px 0 #fff, 2px 0px 0 #fff, 2px 1px 0 #fff, 2px 2px 0 #fff !important; }
+    text-shadow: -2px -2px 0 white, -2px -1px 0 white, -2px 0px 0 white, -2px 1px 0 white, -2px 2px 0 white, -1px -2px 0 white, -1px -1px 0 white, -1px 0px 0 white, -1px 1px 0 white, -1px 2px 0 white, 0px -2px 0 white, 0px -1px 0 white, 0px 0px 0 white, 0px 1px 0 white, 0px 2px 0 white, 1px -2px 0 white, 1px -1px 0 white, 1px 0px 0 white, 1px 1px 0 white, 1px 2px 0 white, 2px -2px 0 white, 2px -1px 0 white, 2px 0px 0 white, 2px 1px 0 white, 2px 2px 0 white !important; }
 
 /* form controls */
 #rcap-viewer .form-control, #rcap-designer .form-control {
@@ -2030,11 +2037,11 @@ li.parsley-required:before {
 
 .wysiwyg-toolbar,
 .wysiwyg-popuphover {
-  background: #F2F2F2;
-  color: #737373; }
+  background: #f2f2f2;
+  color: #727272; }
 
 a.wysiwyg-toolbar-icon {
-  color: #737373; }
+  color: #727272; }
 
 a.wysiwyg-toolbar-icon:hover {
   text-decoration: none; }
@@ -2154,5 +2161,3 @@ a.wysiwyg-toolbar-icon:hover {
     font-weight: inherit;
     margin: 0;
     color: inherit; }
-
-/*# sourceMappingURL=default.css.map */

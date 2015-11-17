@@ -88,7 +88,7 @@ define([
 
         if (!options.isDesignTime) {
             gridStackRoot.addClass('grid-stack-readonly');
-            gridStackRoot.css('display', 'none');
+            //gridStackRoot.css('display', 'none');
         }
 
         if (options.isDesignTime) {
@@ -501,7 +501,9 @@ define([
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
         PubSub.subscribe(pubSubTable.viewerShowFirstPage, function() {
-            $('.grid-stack:eq(0)').show();
+            // all shown at this point, for plot sizes (need to be visible for the size to work)
+            // hide all but the first:
+            $('.grid-stack:not(:eq(0))').hide();
         });
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -19,6 +19,9 @@ define(['text!rcap/partials/viewer.htm',
 
             $('body').append(mainPartial);
 
+            // show the preloader whilst things are initialised:
+            $('#rcap-preloader').show();
+
             // site manager: 
             new SiteManager().initialise();
 
@@ -41,9 +44,6 @@ define(['text!rcap/partials/viewer.htm',
 
                 me.initialiseControls();
 
-                // if there's a hash value (method that is used to bookmark a 'page'):
-                historyManager.setInitialState();
-
                 // initialise the stage width:
                 $('#inner-stage').css({
                     'width' : _.last(_.filter([800, 1024, 1280, 1366], function(width) { return (screen.width - 100) > width; })) + 'px',
@@ -54,14 +54,21 @@ define(['text!rcap/partials/viewer.htm',
                 ///////////////////////////////////////////////////////
                 window.setTimeout(function() {
                     var plotSizes = [];
-
-                    // TODO: add .r-interactiveplot
-                    $('.rplot').each(function() {
+                    
+                    $('.rplot, .r-interactiveplot').each(function() {
                         var container = $(this).closest('.grid-stack-item-content');
-                        plotSizes.push({
+                        var currentPlotSize = {
                            id : $(this).attr('id'),
                            width : container.width() - 25,
                            height: container.height() - 25
+                        };
+
+                        plotSizes.push(currentPlotSize);
+
+                        // initialise the plot's container with information for later retrieval:
+                        container.data({
+                            'width' : currentPlotSize.width,
+                            'height' : currentPlotSize.height
                         });
                     });
 
@@ -70,6 +77,12 @@ define(['text!rcap/partials/viewer.htm',
                     });
                     console.log('Submitting data: ', dataToSubmit);
                     window.RCAP.updateAllControls(dataToSubmit);
+
+                    // show the single page:
+                    // if there's a hash value (method that is used to bookmark a 'page'):
+                    historyManager.setInitialState();
+
+                    $('#rcap-preloader').fadeOut();
 
                 }, 500);
                 ///////////////////////////////////////////////////////                
