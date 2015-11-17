@@ -38,7 +38,9 @@
 }
 
 .grid-stack > .grid-stack-item > .grid-stack-item-content.rcap-controltype-breadcrumb,
-.grid-stack-item-content.rcap-controltype-breadcrumb .configure {
+.grid-stack > .grid-stack-item > .grid-stack-item-content.rcap-controltype-form,
+.grid-stack-item-content.rcap-controltype-breadcrumb .configure,
+.grid-stack-item-content.rcap-controltype-form .configure  {
   display: flex;
 }
 

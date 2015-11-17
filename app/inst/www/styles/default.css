@@ -161,7 +161,9 @@
   overflow-y: auto; }
 
 .grid-stack > .grid-stack-item > .grid-stack-item-content.rcap-controltype-breadcrumb,
-.grid-stack-item-content.rcap-controltype-breadcrumb .configure {
+.grid-stack > .grid-stack-item > .grid-stack-item-content.rcap-controltype-form,
+.grid-stack-item-content.rcap-controltype-breadcrumb .configure,
+.grid-stack-item-content.rcap-controltype-form .configure {
   display: flex; }
 
 .rcap-controltype-rplot pre, .rcap-controltype-interactiveplot pre {
@@ -2161,3 +2163,11 @@ a.wysiwyg-toolbar-icon:hover {
     font-weight: inherit;
     margin: 0;
     color: inherit; }
+
+body.rcap-viewer {
+  background: #d4d4d4; }
+
+#rcap-viewer #inner-stage {
+  border: 1px solid #ccc;
+  margin: 10px auto;
+  background: white; }

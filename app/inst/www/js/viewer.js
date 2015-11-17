@@ -17,7 +17,9 @@ define(['text!rcap/partials/viewer.htm',
 
         this.setup = function() {
 
-            $('body').append(mainPartial);
+            $('body')
+                .addClass('rcap-viewer')
+                .append(mainPartial);
 
             // show the preloader whilst things are initialised:
             $('#rcap-preloader').show();

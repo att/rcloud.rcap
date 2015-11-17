@@ -18,6 +18,7 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/dr
 
 			// additional assignments go here:
 			this.availableOptions = options.availableOptions || [];
+			this.isHorizontal = options.isHorizontal || true;
 		},
 		render: function(childIndex) {
 

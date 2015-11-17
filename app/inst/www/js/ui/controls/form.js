@@ -1,7 +1,8 @@
 define(['rcap/js/ui/controls/gridControl', 
     'text!rcap/partials/dialogs/_formBuilder.htm', 
-    'rcap/js/ui/controls/properties/colorControlProperty'], 
-    function(GridControl, tpl, ColorControlProperty) {
+    'rcap/js/ui/controls/properties/colorControlProperty',
+    'rcap/js/ui/controls/properties/dropdownControlProperty'], 
+    function(GridControl, tpl, ColorControlProperty, DropdownControlProperty) {
 
     'use strict';
 
@@ -30,10 +31,26 @@ define(['rcap/js/ui/controls/gridControl',
                     defaultValue: '#000000',
                     value: '#000000'
                 }));
+
+            this.styleProperties.push(
+                new DropdownControlProperty({
+                        uid: 'verticalalignment',
+                        label: 'Vertical Alignment',
+                        isRequired: true,
+                        availableOptions: [{
+                            text: 'Top',
+                            value: 'initial'    // <- this should be 'initial'
+                        }, {
+                            text: 'Middle',
+                            value: 'center'     // <- this should be 'center'
+                        }],
+                        value: 'initial'
+                    })
+            );
         },
         render: function(options) {
 
-            var html = '<form action=""><div id="' + this.id + '" class="rcap-form">';
+            var html = '<form action="" style="display: flex;align-self:' + this.getStylePropertyByName('verticalalignment').value + '"><div id="' + this.id + '" class="rcap-form" />';
 
             $.each(this.childControls, function(key, child) {
                 html += '<div class="form-group">';

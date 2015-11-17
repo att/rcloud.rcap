@@ -874,3 +874,15 @@ a.wysiwyg-toolbar-icon:hover {
         }
     }
 }
+
+body.rcap-viewer {
+    background: #d4d4d4;
+}
+
+#rcap-viewer {
+    & #inner-stage {
+        border: 1px solid #ccc;
+        margin: 10px auto;
+        background: white;
+    }
+}
