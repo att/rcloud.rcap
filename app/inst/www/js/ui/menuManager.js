@@ -184,6 +184,8 @@ define([
 
                 console.info('menuManager: PUBLISH : pubSubTable.changeSelectedPageId');
 
+                $('.menu-flyout').hide();
+
                 // just the id:
                 PubSub.publish(pubSubTable.changeSelectedPageId, li.data('pageid'));
             });

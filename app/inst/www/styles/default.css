@@ -2166,9 +2166,10 @@ a.wysiwyg-toolbar-icon:hover {
     color: inherit; }
 
 body.rcap-viewer {
-  background: #d4d4d4; }
+  background-color: #f2f2f2; }
 
 #rcap-viewer #inner-stage {
   border: 1px solid #ccc;
   margin: 10px auto;
-  background: white; }
+  background: white;
+  border: 1px solid #8c8c8c; }
