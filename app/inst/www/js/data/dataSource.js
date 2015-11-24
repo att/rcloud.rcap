@@ -13,6 +13,14 @@ define(['rcap/js/Class'], function() {
             this.id = 'rcap' + Math.random().toString(16).slice(2);
             this.variable = '';
             this['function'] = '';
+        },
+        toJSON: function() {
+            return {
+                'id' : this.id,
+                'variable': this.variable,
+                'code': this.function,
+                'type': 'dataSource'
+            };
         }
 
     });
