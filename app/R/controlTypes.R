@@ -83,7 +83,20 @@ InteractivePlotControl <- R6Class("InteractivePlotControl",
       if (!is.null(func)) res <- do.call(func, list(), envir = rcloudEnv())
       rcw.set(divId, rcw.resolve(res))
 
+    },
+
+    updateSize = function(new_size) {
+      # TODO: Some basic checking
+      private$width <- new_size["width"]
+      private$height <- new_size["height"]
     }
+  ),
+
+  private = list(
+    ## TODO: update these when client updates, or we need
+    ## some better defaults based on the designer (?)
+    width = NULL,
+    height = NULL
   )
 )
 
