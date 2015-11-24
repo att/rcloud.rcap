@@ -1,9 +1,10 @@
 define([
     'text!ui/templates/pageMenuItem.tpl',
+    'text!ui/templates/dataSourceMenuItem.tpl',
     'pubsub',
     'site/pubSubTable',
     'controls/factories/controlFactory'
-], function(pageMenuItemTemplate, PubSub, pubSubTable, ControlFactory) {
+], function(pageMenuItemTemplate, dataSourceMenuItemTemplate, PubSub, pubSubTable, ControlFactory) {
 
     'use strict';
 
@@ -82,6 +83,11 @@ define([
 
                 buildTree(site.pages, $('#pages'));
 
+                // build the data sources:
+                _.each(site.dataSources, function(dataSource) {
+                    $('#dataSources').append(_.template(dataSourceMenuItemTemplate)({ ds : dataSource }));
+                });
+
                 // the first is as good as any:
                 $('#pages a:eq(0)').trigger('click');
             });
@@ -125,7 +131,7 @@ define([
             //
             // click handler for add page (both 'root' level and child):
             //
-            $('body').on('click', '#page-header a.add-page, .page-addchild', function() {
+            $('body').on('click', '.menu-flyout[data-flyoutid="pages"] h4 a.add, .page-addchild', function() {
 
                 var parentPageId;
 
@@ -203,6 +209,48 @@ define([
             //     console.log(info);
             // }
 
+
+            // data sources:
+            $('body').on('click', '.menu-flyout[data-flyoutid="datasources"] h4 a.add', function() {
+                console.info('menuManager: pubSubTable.addDataSource');
+
+                PubSub.publish(pubSubTable.addDataSource);
+            });
+
+            PubSub.subscribe(pubSubTable.dataSourceAdded, function(msg, dataSource) {
+                console.info('menuManager: pubSubTable.dataSourceAdded');
+
+                // add the data source to the menu:
+                var template = _.template(dataSourceMenuItemTemplate),
+                    newItemMarkup = template({
+                        ds : dataSource
+                    });
+
+                $('#dataSources').append(newItemMarkup);
+
+            });
+
+            PubSub.subscribe(pubSubTable.updateDataSource, function(msg, dataSource) {
+
+                console.info('menuManager: pubSubTable.updateDataSource');
+                
+                // find the item in the menu and update:
+                var existingItem = $('#dataSources li[data-datasourceid="' + dataSource.id + '"]');
+
+                var template = _.template(dataSourceMenuItemTemplate),
+                    newItemMarkup = template({
+                        ds : dataSource
+                    });
+
+                existingItem.replaceWith(newItemMarkup);
+            });
+
+            PubSub.subscribe(pubSubTable.deleteDataSourceConfirm, function(msg, dataSourceId) {
+
+                console.info('menuManager: pubSubTable.deleteDataSourceConfirm');
+
+                $('#dataSources li[data-datasourceid="' + dataSourceId + '"]').remove();
+            });
 
             // add styling info to the first page:
             $('#pages li:eq(0) a').trigger('click');

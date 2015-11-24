@@ -1,4 +1,4 @@
-define(['pages/page', 'rcap/js/utils/pageWalker'], function(Page, PageWalker) {
+define(['pages/page', 'data/dataSource', 'rcap/js/utils/pageWalker'], function(Page, DataSource, PageWalker) {
 
     'use strict';
 
@@ -43,6 +43,9 @@ define(['pages/page', 'rcap/js/utils/pageWalker'], function(Page, PageWalker) {
                 }),
             ];
 
+            // initialise with an empty list of data sources:
+            this.dataSources = options.dataSources || [];
+
             this.currentPageID = this.pages.length > 0 ? this.pages[0].id : undefined;
         },
 
@@ -54,7 +57,8 @@ define(['pages/page', 'rcap/js/utils/pageWalker'], function(Page, PageWalker) {
 
             return {
                 'saveTicks': this.saveTicks,
-                'pages': this.pages
+                'pages': this.pages,
+                'dataSources': this.dataSources
             };
 
         },
@@ -272,7 +276,44 @@ define(['pages/page', 'rcap/js/utils/pageWalker'], function(Page, PageWalker) {
             }
 
             return suggestedPageTitle;
+        },
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //
+        // data sources
+        //
+        //
+        createDataSource: function(options) {
+
+            options = options || {};
+            var newDataSource = new DataSource(options);
+            return newDataSource;
+        },
+
+        getDataSourceByID : function(id) {
+            return _.findWhere(this.dataSources, {
+                id: id
+            });
+        },
+
+        deleteDataSource : function(id) {
+            var dataSources = _.without(this.dataSources, _.findWhere(this.dataSources, {
+                id: id
+            }));
+
+            this.dataSources = dataSources;
+        },
+
+        updateDataSource : function(dataSource) {
+            var existingDataSource = _.findWhere(this.dataSources, {
+                id: dataSource.id
+            });
+
+            existingDataSource['function'] = dataSource['function'];
+            existingDataSource.variable = dataSource.variable;
+            return this;
         }
+
 
     });
 

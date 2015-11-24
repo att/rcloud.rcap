@@ -5,6 +5,7 @@
             'rcap': '../../shared.R/rcloud.rcap',
             'site': '../../shared.R/rcloud.rcap/js/site',
             'pages': '../../shared.R/rcloud.rcap/js/pages',
+            'data': '../../shared.R/rcloud.rcap/js/data',
             'ui': '../../shared.R/rcloud.rcap/js/ui',
             'controls': '../../shared.R/rcloud.rcap/js/ui/controls',
             'templates': '../../shared.R/rcloud.rcap/js/ui/controls/properties/templates',

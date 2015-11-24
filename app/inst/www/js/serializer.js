@@ -79,6 +79,7 @@ define(['pubsub', 'site/site', 'site/pubSubTable', 'rcap/js/ui/message', 'contro
                         jsonPageProperty,
                         controlLoop,
                         propertyLoop,
+                        currentDataSource,
                         stylePropertyLoop,
                         property,
                         currProp,
@@ -97,7 +98,7 @@ define(['pubsub', 'site/site', 'site/pubSubTable', 'rcap/js/ui/message', 'contro
                     data = rawData && rawData.length > 0 ? JSON.parse(rawData) : [];
 
                     // loop through each page:
-                    if (data.pages !== undefined) {
+                    if (data.pages) {
 
                         // we have at least a single page, so get rid of the pages we started with and 
                         // replace with what's coming in:
@@ -236,10 +237,25 @@ define(['pubsub', 'site/site', 'site/pubSubTable', 'rcap/js/ui/message', 'contro
 
                     }
 
+                    if(data.dataSources) {
+                        // load in the data sources:
+                        _.each(data.dataSources, function(jsonDataSource) {
+
+                            currentDataSource = site.createDataSource();
+
+                            for (property in jsonDataSource) {
+                                if(currentDataSource.hasOwnProperty(property)) {
+                                    currentDataSource[property] = jsonDataSource[property];
+                                }
+                            }
+
+                            site.dataSources.push(currentDataSource);
+                        });
+                    }
+
                     PubSub.publish(pubSubTable.initSite, site);
                 });
             };
-
         };
 
         return Serializer;

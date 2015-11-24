@@ -292,30 +292,48 @@ define([
                 setSite(site.deleteControl(controlID));
             });
 
-            // subscribe:
-            // PubSub.subscribe('pubSubTable.initSite', function(msg, data) {
+            ////////////////////////////////////////////////////////////////////////////////////
+            //
+            // data sources
+            //
+            PubSub.subscribe(pubSubTable.addDataSource, function() {
 
-            // });
+                console.info('siteManager: pubSubTable.addDataSource');
 
-            // PubSub.subscribe('pubSubTable.designerInit', function(msg, data) {
+                var site = getSite();
+                var newDataSource = site.createDataSource();
+                site.dataSources.push(newDataSource);
 
-            // });
+                setSite(site);
 
-            // PubSub.subscribe('pubSubTable.load', function(msg, data) {
+                // let interested parties know that a data source has been added:
+                PubSub.publish(pubSubTable.dataSourceAdded, newDataSource);
+            });
 
-            // });
+            PubSub.subscribe(pubSubTable.deleteDataSourceConfirm, function(msg, dataSourceId) {
 
-            // PubSub.subscribe('pubSubTable.deserialize', function(msg, data) {
+                console.info('siteManager: pubSubTable.deleteDataSourceConfirm');
 
-            // });
+                var site = getSite().deleteDataSource(dataSourceId);
 
-            // PubSub.subscribe('pubSubTable.gridInitComplete', function(msg, data) {
+                setSite(site);
+            });
 
-            // });
+            PubSub.subscribe(pubSubTable.dataSourceSettingsClicked, function(msg, id) {
 
-            // PubSub.subscribe('pubSubTable.addControl', function(msg, data) {
+                console.info('siteManager: pubSubTable.dataSourceSettingsClicked');
 
-            // });
+                var site = getSite();
+
+                PubSub.publish(pubSubTable.showDataSourceSettingsDialog, site.getDataSourceByID(id));
+            });
+
+            PubSub.subscribe(pubSubTable.updateDataSource, function(msg, dataSourceObj) {
+
+                console.info('siteManager: pubSubTable.updateDataSource');
+
+                setSite(getSite().updateDataSource(dataSourceObj));
+            });
         }
     });
 

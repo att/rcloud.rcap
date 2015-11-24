@@ -13,11 +13,8 @@ define(['pubsub', 'rcap/js/Class'], function() {
         closeViewer : 'closeViewer',
         viewerShowFirstPage : 'viewerShowFirstPage',
         deserialize: 'deserialize',
-
         show404 : 'show404',
-
         showMessage: 'showMessage',
-
         showConfirmDialog : 'showConfirmDialog',
         showPageFlyout: 'showPageFlyout',
 
@@ -25,24 +22,25 @@ define(['pubsub', 'rcap/js/Class'], function() {
         addPage : 'addPage',
         pageAdded : 'pageAdded',
         updatePage : 'updatePage',
-
         deletePage : 'deletePage',
         deletePageConfirm : 'deletePageConfirm',
         duplicatePageConfirm : 'duplicatePageConfirm',
-
         pagesChanged : 'pagesChanged',
-
-        // just the ID:
         changeSelectedPageId : 'changeSelectedPageId',
-
-        // change by navigation title:
         changeSelectedPageByTitle : 'changeSelectedPageByTitle',
-
-        // the whole page:
         changeSelectedPage :'changeSelectedPage',
         changePageOrder : 'changePageOrder',
         pageSettingsClicked : 'pageSettingsClicked',
         showPageSettingsDialog : 'showPageSettingsDialog',
+
+        // data source:
+        addDataSource : 'addDataSource',
+        dataSourceAdded : 'dataSourceAdded',
+        updateDataSource : 'updateDataSource',
+        deleteDataSource : 'deleteDataSource',
+        deleteDataSourceConfirm : 'deleteDataSourceConfirm',
+        dataSourceSettingsClicked : 'dataSourceSettingsClicked',
+        showDataSourceSettingsDialog : 'showDataSourceSettingsDialog',
 
         // grid:
         gridInitComplete : 'gridInitComplete',

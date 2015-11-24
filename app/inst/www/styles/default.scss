@@ -240,16 +240,16 @@
         & a span::after {
             display: block;
         }
-        & h4#page-header a {
+        & h4#page-header a, h4#datasource-header a  {
             padding: 0;
             opacity: 0.5;
             margin-left: 6px;
             display: inline-block;
         }
-        & h4#page-header a:hover {
+        & h4#page-header a:hover, h4#datasource-header a:hover {
             opacity: 1.0;
         }
-        & h4#page-header a.add-page::before {
+        & h4 a.add::before {
             font: normal normal normal 16px/1 FontAwesome;
             content: "\f067";
         }
@@ -376,7 +376,7 @@
         & a span:hover {
             opacity: 1.0;
         }
-        & a span.page-settings::after {
+        & a span.page-settings::after, a span.datasource-settings::after {
             content: "\f013";
         }
         & a span.page-duplicate::after {
@@ -409,6 +409,16 @@
         & a:hover span::after {
             display: block;
         }
+        & #dataSources li >  a {
+            border: 1px solid $mainNavColor;
+            position: relative;
+
+            & .datasource-settings {
+                top: 0;
+                right: 2px;
+                position: absolute;
+            }
+        }
     }
     & #main-menu {
         overflow: auto;
@@ -421,8 +431,6 @@
             & a {
                 display: block;
                 padding: 5px;
-                width: 40px;
-                height: 40px;
                 margin-left: 3px;
                 margin-bottom: 10px;
             }
@@ -496,10 +504,10 @@
             text-decoration: none;
         }
         & a:hover {
-            background-color: darken($mainNavBackgroundColor, 10%);
+            background-color: $mainNavCurrentPageHover;
         }
         & li.selected > a {
-            background-color: darken($mainNavBackgroundColor, 10%);
+            background-color: $mainNavCurrentPageHover;
         }
         & a span::after {
             display: block;
@@ -887,3 +895,21 @@ body.rcap-viewer {
         border: 1px solid darken($bgColor, 40%);
     }
 }
+
+.data-table {
+    border: 1px solid #555;
+    width: 100%;
+
+    & th {
+        background-color: #369;
+        color: white;
+    }
+
+    & td, th {
+        border: 1px solid #ccc;
+        padding: 5px;
+    }
+}
+
+
+

@@ -1660,14 +1660,14 @@ textarea.parsley-error {
       padding: 10px 0 5px 15px; }
     #rcap-designer .menu-flyout a span::after {
       display: block; }
-    #rcap-designer .menu-flyout h4#page-header a {
+    #rcap-designer .menu-flyout h4#page-header a, #rcap-designer .menu-flyout h4#datasource-header a {
       padding: 0;
       opacity: 0.5;
       margin-left: 6px;
       display: inline-block; }
-    #rcap-designer .menu-flyout h4#page-header a:hover {
+    #rcap-designer .menu-flyout h4#page-header a:hover, #rcap-designer .menu-flyout h4#datasource-header a:hover {
       opacity: 1.0; }
-    #rcap-designer .menu-flyout h4#page-header a.add-page::before {
+    #rcap-designer .menu-flyout h4 a.add::before {
       font: normal normal normal 16px/1 FontAwesome;
       content: "\f067"; }
     #rcap-designer .menu-flyout ol#pages {
@@ -1767,7 +1767,7 @@ textarea.parsley-error {
       display: block; }
     #rcap-designer .menu-flyout a span:hover {
       opacity: 1.0; }
-    #rcap-designer .menu-flyout a span.page-settings::after {
+    #rcap-designer .menu-flyout a span.page-settings::after, #rcap-designer .menu-flyout a span.datasource-settings::after {
       content: "\f013"; }
     #rcap-designer .menu-flyout a span.page-duplicate::after {
       content: "\f08b"; }
@@ -1793,6 +1793,13 @@ textarea.parsley-error {
       display: none; }
     #rcap-designer .menu-flyout a:hover span::after {
       display: block; }
+    #rcap-designer .menu-flyout #dataSources li > a {
+      border: 1px solid #d4d4d4;
+      position: relative; }
+      #rcap-designer .menu-flyout #dataSources li > a .datasource-settings {
+        top: 0;
+        right: 2px;
+        position: absolute; }
   #rcap-designer #main-menu {
     overflow: auto;
     background-color: #222222;
@@ -1803,8 +1810,6 @@ textarea.parsley-error {
     #rcap-designer #main-menu ul a {
       display: block;
       padding: 5px;
-      width: 40px;
-      height: 40px;
       margin-left: 3px;
       margin-bottom: 10px; }
     #rcap-designer #main-menu li i {
@@ -1868,9 +1873,9 @@ textarea.parsley-error {
       font-family: "Open Sans", sans-serif;
       text-decoration: none; }
     #rcap-designer .menu a:hover {
-      background-color: #090909; }
+      background-color: #2f2f2f; }
     #rcap-designer .menu li.selected > a {
-      background-color: #090909; }
+      background-color: #2f2f2f; }
     #rcap-designer .menu a span::after {
       display: block; }
     #rcap-designer .menu ol#pages a::before, #rcap-designer .menu ul.controls a::before, #rcap-designer .menu ul.settings a::before {
@@ -2173,3 +2178,13 @@ body.rcap-viewer {
   margin: 10px auto;
   background: white;
   border: 1px solid #8c8c8c; }
+
+.data-table {
+  border: 1px solid #555;
+  width: 100%; }
+  .data-table th {
+    background-color: #369;
+    color: white; }
+  .data-table td, .data-table th {
+    border: 1px solid #ccc;
+    padding: 5px; }

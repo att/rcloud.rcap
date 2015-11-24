@@ -7,6 +7,7 @@ define([
     'controls/breadcrumb',
     'controls/interactivePlot',
     'controls/form',
+    'controls/dataTable',
     //////////////////////
     'controls/child/textField',
     'controls/child/datePicker',
@@ -19,7 +20,7 @@ define([
     'controls/child/slider',
     'controls/child/submitButton',
 
-], function(IFrameControl, ImageControl, RPlotControl, TextControl, PageMenuControl, BreadcrumbControl, InteractivePlotControl, FormControl,
+], function(IFrameControl, ImageControl, RPlotControl, TextControl, PageMenuControl, BreadcrumbControl, InteractivePlotControl, FormControl, DataTableControl,
     ///////////////////////
     TextFieldControl,
     DatePickerControl,
@@ -38,6 +39,7 @@ define([
         this.gridControls = [
             new RPlotControl(),
             new InteractivePlotControl(),
+            new DataTableControl(),
             new FormControl(),
             new IFrameControl(),
             new ImageControl(),
@@ -94,6 +96,9 @@ define([
                 break;
             case 'interactiveplot':
                 control = new InteractivePlotControl();
+                break;
+            case 'datatable':
+                control = new DataTableControl();
                 break;
             case 'text':
                 control = new TextControl();

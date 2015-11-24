@@ -33,6 +33,7 @@
             <ul>
                 <li><a href="javascript:void(0)" data-flyoutid="pages"><i class="icon-file"></i><span>Pages</span></a></li>
                 <li><a href="javascript:void(0)" data-flyoutid="controls"><i class="icon-puzzle-piece"></i><span>Controls</span></a></li>
+                <li><a href="javascript:void(0)" data-flyoutid="datasources"><i class="icon-hdd"></i><span>Data Sources</span></a></li>
             </ul>
             <div id="rcap-userplaceholder" />
         </div>
@@ -47,7 +48,7 @@
     </div>
     <!-- main-menu-panel -->
     <div class="menu-flyout" data-flyoutid="pages" style="display:none">
-        <h4 id="page-header">Pages <a href="#" class="add-page" title="Add page"></a></h4>
+        <h4 id="page-header">Pages <a href="#" class="add" title="Add page"></a></h4>
         <a class="panel-close" href="#" title="close"><i class="icon-remove"></i></a>
         <ol id="pages"></ol>
     </div>
@@ -55,6 +56,11 @@
         <h4>Controls</h4>
         <a class="panel-close" href="#" title="close"><i class="icon-remove"></i></a>
         <ul class="controls"></ul>
+    </div>
+    <div class="menu-flyout" data-flyoutid="datasources" style="display:none">
+        <h4 id="datasource-header">Data Sources <a href="#" class="add" title="Add Data Source"></a></h4>
+        <a class="panel-close" href="#" title="close"><i class="icon-remove"></i></a>
+        <ul id="dataSources"></ul>
     </div>
 </div>
 <div id="rcap-preloader" style="display:none">

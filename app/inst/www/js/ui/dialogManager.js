@@ -3,6 +3,7 @@ define([
     'pages/page',
     'text!rcap/partials/dialogs/_addPage.htm',
     'text!rcap/partials/dialogs/_pageSettings.htm',
+    'text!rcap/partials/dialogs/_dataSourceSettings.htm',
     'text!rcap/partials/dialogs/_siteSettings.htm',
     'text!rcap/partials/dialogs/_controlSettings.htm',
     'text!rcap/partials/dialogs/_formBuilder.htm',
@@ -11,7 +12,7 @@ define([
     'site/pubSubTable',
     'parsley',
     'rcap/js/vendor/jqModal.min'
-], function(FormBuilder, Page, addPagePartial, pageSettingsPartial, siteSettingsPartial, controlSettingsPartial, formBuilderPartial, confirmDialogPartial, PubSub, pubSubTable) {
+], function(FormBuilder, Page, addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, siteSettingsPartial, controlSettingsPartial, formBuilderPartial, confirmDialogPartial, PubSub, pubSubTable) {
 
     'use strict';
 
@@ -94,7 +95,7 @@ define([
         this.initialise = function() {
 
             // append the dialogs to the root of the designer:
-            _.each([addPagePartial, pageSettingsPartial, siteSettingsPartial, controlSettingsPartial, formBuilderPartial, confirmDialogPartial], function(partial) {
+            _.each([addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, siteSettingsPartial, controlSettingsPartial, formBuilderPartial, confirmDialogPartial], function(partial) {
                 $('#rcap-designer').append(partial);
             });
 
@@ -253,7 +254,7 @@ define([
 
             ////////////////////////////////////////////////////////////////////////////////
             //
-            // control configure message subscription:
+            // page configure message subscription:
             //
             PubSub.subscribe(pubSubTable.showPageSettingsDialog, function(msg, pageInfo) {
 
@@ -318,10 +319,71 @@ define([
                 $('#dialog-pageSettings').jqmShow();
             });
 
+            ////////////////////////////////////////////////////////////////////////////////
+            //
+            // data source configure message subscription:
+            //
+
+            // page settings:
+            $('body').on('click', '.datasource-settings', function() {
+                PubSub.publish(pubSubTable.dataSourceSettingsClicked, $(this).closest('li').data('datasourceid'));
+            });           
+
             $('#dialog-pageSettings .approve').on('click', function() {
                 $('#page-form').parsley().validate();
                 validatePageSettingsForm();
             });
+
+            $('body').on('click', '#dialog-dataSourceSettings .delete, #dialog-form-builder .delete', function() {
+                PubSub.publish(pubSubTable.showConfirmDialog, {
+                    heading: 'Delete data source',
+                    message: 'Are you sure you want to delete this data source?',
+                    pubSubMessage: pubSubTable.deleteDataSourceConfirm,
+                    dataItem: $('#datasource-form').data('datasourceid')
+                });
+            });
+
+            $('#dialog-dataSourceSettings .approve').on('click', function() {
+                $('#datasource-form').parsley().validate();
+                
+                if (true === $('#datasource-form').parsley().isValid()) {
+
+                    // push the updated event:
+                    PubSub.publish(pubSubTable.updateDataSource, {
+                        id: $('#datasource-form').data('datasourceid'),
+                        function: $('#inputDataSourceFunction').val(),
+                        variable: $('#inputDataSourceVariable').val()
+                    });
+
+                    $('.jqmWindow').jqmHide();
+
+                    return false;
+
+                } else {
+
+                }
+
+            });
+
+
+            PubSub.subscribe(pubSubTable.showDataSourceSettingsDialog, function(msg, dataSource) {
+
+                console.info('dialogManager: pubSubTable.showDataSourceSettingsDialog');
+
+                $('#datasource-form').data('datasourceid', dataSource.id);
+
+                $('#inputDataSourceFunction').val(dataSource['function']);
+                $('#inputDataSourceVariable').val(dataSource.variable);
+
+                $('#inputDataSourceFunction').autocomplete({
+                    source: function(request, response) {
+                        response(window.RCAP.getRFunctions());
+                    }
+                });
+
+                $('#dialog-dataSourceSettings').jqmShow();
+            });
+
 
         };
     };
