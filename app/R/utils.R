@@ -21,3 +21,18 @@
 #' @return An environment.
 
 rcloudEnv <- function() .GlobalEnv
+
+#' Return relevant session info in a named list
+#'
+#' This information is returned to the front end
+#' @return A list with username and nodename (host)
+#'
+#' @export
+
+rcapSessionInfo <- function() {
+
+  list(user=Sys.info()[c("user")],
+       nodename=toupper(Sys.info()["nodename"]))
+
+}
+

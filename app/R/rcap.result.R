@@ -29,7 +29,7 @@ rcap.result <- function(rcapConfigFileName="rcap_designer.json") {
   rcapJson <- rcloud.get.asset(name = rcapConfigFileName)
 
   ## Fire up the viewer
-  rcap.initViewer(rcapJson)
+  rcap.initViewer(rcapJson, rcapSessionInfo())
 
   # Convert the JSON into a list
   rcapConfig <- jsonlite::fromJSON(rcapJson, simplifyVector = FALSE)

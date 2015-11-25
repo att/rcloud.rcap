@@ -101,9 +101,9 @@
 
         },
 
-        initViewer: function(content, k) {
+        initViewer: function(content, sessionInfo, k) {
             require(['rcap/js/viewer'], function(Viewer) {
-                new Viewer().initialise(content);
+                new Viewer().initialise(content, sessionInfo);
                 k();
             });
         },

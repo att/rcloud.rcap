@@ -108,9 +108,11 @@ define(['text!rcap/partials/viewer.htm',
             }, 500);
         };
 
-        this.initialise = function(json) {
+        this.initialise = function(json, sessionInfo) {
 
             this.setup();
+
+            console.log(sessionInfo);
 
             // and pub:
             PubSub.publish(pubSubTable.deserialize, {
