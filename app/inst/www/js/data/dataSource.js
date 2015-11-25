@@ -18,7 +18,7 @@ define(['rcap/js/Class'], function() {
             return {
                 'id' : this.id,
                 'variable': this.variable,
-                'code': this.function,
+                'code': this['function'],
                 'type': 'dataSource'
             };
         }

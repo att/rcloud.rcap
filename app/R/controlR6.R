@@ -82,6 +82,10 @@ controlInitialize <- function(self, private, cl) {
   if (!is.null(cl$id)) private$id <- cl$id
   if (!is.null(cl$type)) private$type <- cl$type
 
+  ## This is only for data sources
+  if (!is.null(cl$code)) private$controlFunction <- cl$code
+  if (!is.null(cl$variable)) private$variableName <- cl$variable
+
   ## Grab the code if it's there
   if (!is.null(cl$controlProperties) &&
        length(cl$controlProperties) > 0) {
@@ -110,6 +114,11 @@ controlInitialize <- function(self, private, cl) {
   ## Copy the input list for future reference
   private$json <- cl
   class(private$json) <- private$type
+
+  if(private$type=="dataSource") {
+    rcap.consoleMsg(paste(private$id, private$type))
+    rcap.consoleMsg(paste(private$controlFunction, private$variableName))
+  }
 
   invisible(self)
 }

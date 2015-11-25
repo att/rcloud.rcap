@@ -100,6 +100,23 @@ InteractivePlotControl <- R6Class("InteractivePlotControl",
   )
 )
 
+DataSourceControl <- R6Class("DataSourceControl",
+  inherit = Control,
+  public = list(
+    update = function(new_value = NULL) {
+
+      # Retrieve the function name and assign
+      func <- private$controlFunction
+      if (!is.null(func)) {
+    
+        assign(private$variableName,
+               do.call(func, list(), envir = rcloudEnv()),
+               pos = rcloudEnv())
+        }
+      }
+    )
+)
+
 FormControl <- R6Class("FormControl",
   inherit = Control
 )
@@ -188,11 +205,13 @@ TextControl <- R6Class("TextControl",
   inherit = Control
 )
 
+
 #' Front-end control types and matching back-end classes
 
 control_classes <- list(
   "rplot"            = RPlotControl,
   "interactiveplot"  = InteractivePlotControl,
+  "dataSource"       = DataSourceControl,
   "form"             = FormControl,
   "textfield"        = TextFieldControl,
   "datepicker"       = DatePickerControl,

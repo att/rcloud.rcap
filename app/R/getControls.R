@@ -69,6 +69,13 @@ getControls <- function(rcapConfig) {
     append(childControls, list(rcapControl))
   }
 
+  ### Start the search here
+  # First data sources
+  if (!is.null(rcapConfig$dataSources)) {
+    lapply(rcapConfig$dataSources, getControlsControl)
+  }
+
+  # Then page controls
   if (!is.null(rcapConfig$pages)) {
     lapply(rcapConfig$pages, getControlsPage)
   }
