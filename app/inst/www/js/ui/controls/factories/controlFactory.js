@@ -1,6 +1,7 @@
 define([
     'controls/iframe',
     'controls/image',
+    'controls/rText',
     'controls/rPlot',
     'controls/text',
     'controls/pageMenu',
@@ -20,7 +21,7 @@ define([
     'controls/child/slider',
     'controls/child/submitButton',
 
-], function(IFrameControl, ImageControl, RPlotControl, TextControl, PageMenuControl, BreadcrumbControl, InteractivePlotControl, FormControl, DataTableControl,
+], function(IFrameControl, ImageControl, RTextControl, RPlotControl, TextControl, PageMenuControl, BreadcrumbControl, InteractivePlotControl, FormControl, DataTableControl,
     ///////////////////////
     TextFieldControl,
     DatePickerControl,
@@ -39,6 +40,7 @@ define([
         this.gridControls = [
             new RPlotControl(),
             new InteractivePlotControl(),
+            new RTextControl(),
             new DataTableControl(),
             new FormControl(),
             new IFrameControl(),
@@ -93,6 +95,9 @@ define([
                 break;
             case 'rplot':
                 control = new RPlotControl();
+                break;
+            case 'rtext':
+                control = new RTextControl();
                 break;
             case 'interactiveplot':
                 control = new InteractivePlotControl();

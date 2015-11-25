@@ -38,32 +38,6 @@ define(['rcap/js/ui/controls/gridControl',
         },
         initialiseViewerItems: function() {
 
-/*
-            var notebookResult = window.notebook_result; // jshint ignore:line
-
-            // some controls are dependent on having a valid notebook result:
-            if (notebookResult) {
-
-                $('.rplot').each(function(i, e) {
-                    if (typeof notebookResult[$(e).attr('id')] === 'function') {
-                        var $enclosingDiv = $(e).closest('.grid-stack-item-content');
-
-                        notebookResult[$(e).attr('id')]({
-                            width: $enclosingDiv.width() * 1.5,
-                            height: $enclosingDiv.height() * 1.5
-                        }, function() {});
-
-                    } else {
-                        $(e).css({
-                                'color': 'red',
-                                'font-weight': 'bold',
-                                'border': '1px solid red'
-                            })
-                            .text('the function ' + $(e).attr('id') + '() does not exist...');
-                    }
-                });
-            }
-*/
         }
     });
 

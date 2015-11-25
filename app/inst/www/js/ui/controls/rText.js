@@ -1,18 +1,18 @@
 define(['rcap/js/ui/controls/gridControl',
     'rcap/js/ui/controls/properties/textControlProperty',
     'rcap/js/ui/controls/properties/autocompleteControlProperty',
-    'text!controlTemplates/rPlot.tpl',
-    'text!controlTemplates/rPlot-design.tpl'
+    'text!controlTemplates/rText.tpl',
+    'text!controlTemplates/rText-design.tpl'
 ], function(GridControl, TextControlProperty, AutocompleteControlProperty, tpl, dtpl) {
 
     'use strict';
 
-    var RPlotControl = GridControl.extend({
+    var RTextControl = GridControl.extend({
         init: function() {
             this._super({
-                type: 'rplot',
-                label: 'R Plot',
-                icon: 'signal',
+                type: 'rtext',
+                label: 'R Text',
+                icon: 'edit',
                 initialSize: [2, 2],
                 controlProperties: [
                     new AutocompleteControlProperty({
@@ -37,11 +37,11 @@ define(['rcap/js/ui/controls/gridControl',
 
         },
         initialiseViewerItems: function() {
- 
+
         }
     });
 
-    return RPlotControl;
+    return RTextControl;
 
 
 });

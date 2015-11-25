@@ -127,12 +127,6 @@ define(['rcap/js/ui/controls/gridControl',
             };
 
             var submitVariableChange = function(variableData) {
-                // var notebookResult = window.notebook_result; // jshint ignore:line
-                // if (notebookResult) {
-                //     notebookResult.updateVariable(data);
-                // } else {
-                //     console.log('window.notebook_result is not available, varchange data is: ', JSON.stringify(data));
-                // }
 
                 var plotSizes = [];
 

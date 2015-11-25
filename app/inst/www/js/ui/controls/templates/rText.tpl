@@ -1,0 +1,1 @@
+<div id="<%=control.id%>" class="rtext">Please wait while the content is loaded...</div>
