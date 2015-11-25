@@ -74,11 +74,12 @@ define([
 
     var Designer = function() {
 
-        this.initialise = function() {
+        this.initialise = function(sessionInfo) {   // jshint ignore:line
 
             bootstrap();
 
             $('body').addClass('rcap-designer');
+            $('body').data('nodename', sessionInfo.nodeName); 
 
             $('#rcap-preloader').show();
 

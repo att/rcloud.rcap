@@ -28,13 +28,20 @@
         }
     });
 
+    var extractSessionInfo = function(sessionInfo) {
+        return {
+            nodeName: sessionInfo.nodename[0], // jshint ignore:line
+            user: sessionInfo.user[0]
+        };
+    };
+
     return {
         init: function(ocaps, sessionInfo, k) {
 
             if (RCloud.UI.advanced_menu.add) {
 
-                console.log("init sessionInfo:");
-                console.log(sessionInfo);
+                //console.log("init sessionInfo:");
+                //console.log(sessionInfo);
 
                 po = RCloud.promisify_paths(ocaps, [
                     ['getRFunctions'],
@@ -70,7 +77,7 @@
                             });
 
                             require(['rcap/js/designer'], function(Designer) {
-                                new Designer().initialise();
+                                new Designer().initialise(extractSessionInfo(sessionInfo));
                             });
                         }
                     }
@@ -106,7 +113,7 @@
 
         initViewer: function(content, sessionInfo, k) {
             require(['rcap/js/viewer'], function(Viewer) {
-                new Viewer().initialise(content, sessionInfo);
+                new Viewer().initialise(content, extractSessionInfo(sessionInfo));
                 k();
             });
         },

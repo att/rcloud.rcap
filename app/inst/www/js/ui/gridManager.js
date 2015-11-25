@@ -80,7 +80,7 @@ define([
             options.isDesignTime = true;
         }
 
-        var gridStackRoot = $('<div class="grid-stack" data-pageid="' + page.id + '" data-gs-height="' + (options.minHeight || 12) + '"></div>');
+        var gridStackRoot = $('<div class="grid-stack" data-nodename="' + $('body').data('nodename') + '" data-pageid="' + page.id + '" data-gs-height="' + (options.minHeight || 12) + '"></div>');
 
         if (options.isGlobalPageItem) { // header or footer
             gridStackRoot.addClass('js-gridstack-global');
