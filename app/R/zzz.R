@@ -32,7 +32,7 @@ rcloud.rcap.caps <- NULL
       updateAllControls = make_oc(updateAllControls)
     )
 
-    rcloud.rcap.caps$init(ocaps)
+    rcloud.rcap.caps$init(ocaps, rcapSessionInfo())
   }
 }
 

@@ -29,9 +29,12 @@
     });
 
     return {
-        init: function(ocaps, k) {
+        init: function(ocaps, sessionInfo, k) {
 
             if (RCloud.UI.advanced_menu.add) {
+
+                console.log("init sessionInfo:");
+                console.log(sessionInfo);
 
                 po = RCloud.promisify_paths(ocaps, [
                     ['getRFunctions'],
