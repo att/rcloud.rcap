@@ -184,17 +184,22 @@ define([
             //
             //
             // click handler for page:
-            $('body').on('click', '#pages a', function() {
-                $('#pages li').removeClass('selected');
-                var li = $(this).closest('li');
-                li.addClass('selected');
+            $('body').on('click', '#pages a', function(e) {
 
-                console.info('menuManager: PUBLISH : pubSubTable.changeSelectedPageId');
+                // ignore the span elements, which shouldn't invoke a change page:
+                if(!$(e.target).is('span')) {
+                    $('#pages li').removeClass('selected');
+                    var li = $(this).closest('li');
+                    li.addClass('selected');
 
-                $('.menu-flyout').hide();
+                    console.info('menuManager: PUBLISH : pubSubTable.changeSelectedPageId');
 
-                // just the id:
-                PubSub.publish(pubSubTable.changeSelectedPageId, li.data('pageid'));
+                    $('.menu-flyout').hide();
+
+                    // just the id:
+                    PubSub.publish(pubSubTable.changeSelectedPageId, li.data('pageid'));
+                }
+
             });
 
 
