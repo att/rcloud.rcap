@@ -11,6 +11,7 @@ define(['rcap/js/ui/controls/gridControl',
         init: function() {
             this._super({
                 type: 'interactiveplot',
+                controlCategory: 'Dynamic',
                 label: 'Interactive Plot',
                 icon: 'bar-chart',
                 initialSize: [2, 2],

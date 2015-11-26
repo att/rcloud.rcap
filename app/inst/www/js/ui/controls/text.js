@@ -8,6 +8,7 @@ define(['rcap/js/ui/controls/gridControl',
 		init: function() {
 			this._super({
 				type : 'text',
+				controlCategory: 'HTML',
 				label : 'Text',
 				icon: 'pencil',
 				initialSize: [2, 2],

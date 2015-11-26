@@ -16,6 +16,7 @@ define(['rcap/js/ui/controls/gridControl',
         init: function() {
             this._super({
                 type: 'iframe',
+                controlCategory: 'HTML',
                 label: 'iFrame',
                 icon: 'cloud',
                 initialSize: [2, 2],

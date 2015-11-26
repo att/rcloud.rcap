@@ -11,6 +11,7 @@ define(['rcap/js/ui/controls/gridControl',
         init: function() {
             this._super({
                 type: 'rtext',
+                controlCategory: 'Dynamic',
                 label: 'R Text',
                 icon: 'edit',
                 initialSize: [2, 2],

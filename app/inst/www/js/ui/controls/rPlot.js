@@ -11,6 +11,7 @@ define(['rcap/js/ui/controls/gridControl',
         init: function() {
             this._super({
                 type: 'rplot',
+                controlCategory: 'Dynamic',
                 label: 'R Plot',
                 icon: 'signal',
                 initialSize: [2, 2],

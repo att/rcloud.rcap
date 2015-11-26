@@ -36,6 +36,7 @@ define(['rcap/js/ui/controls/gridControl',
             init: function() {
                 this._super({
                     type: 'breadcrumb',
+                    controlCategory: 'Navigation',
                     label: 'Breadcrumb',
                     icon: 'ellipsis-horizontal',
                     initialSize: [2, 1],

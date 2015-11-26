@@ -1,10 +1,11 @@
 define([
     'text!ui/templates/pageMenuItem.tpl',
+    'text!ui/templates/controlsMenu.tpl',
     'text!ui/templates/dataSourceMenuItem.tpl',
     'pubsub',
     'site/pubSubTable',
     'controls/factories/controlFactory'
-], function(pageMenuItemTemplate, dataSourceMenuItemTemplate, PubSub, pubSubTable, ControlFactory) {
+], function(pageMenuItemTemplate, controlsMenuTemplate, dataSourceMenuItemTemplate, PubSub, pubSubTable, ControlFactory) {
 
     'use strict';
 
@@ -258,11 +259,15 @@ define([
             return this;
         },
         initialiseControlsMenu: function() {
-            var controls = controlFactory.getGridControls();
-            var templateStr = '<% _.each(controls, function(control){ %><li data-type="<%=control.type%>"><a href="#" class="control-<%=control.type %>" title="Add <%=control.label%>"><i class="icon-<%=control.icon%>"></i><p><%= control.label %></p></a></li><% }); %>';
-            var template = _.template(templateStr);
-            $('.menu-flyout .controls').append(template({
-                controls: controls
+
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            var categorisedControls = controlFactory.getGridControlsByCategory();
+            //var controls = controlFactory.getGridControls();
+
+            //var templateStr = '<% _.each(controls, function(control){ %><li data-type="<%=control.type%>"><a href="#" class="control-<%=control.type %>" title="Add <%=control.label%>"><i class="icon-<%=control.icon%>"></i><p><%= control.label %></p></a></li><% }); %>';
+            var template = _.template(controlsMenuTemplate);
+            $('.menu-flyout[data-flyoutid="controls"]').append(template({
+                controlCategories: categorisedControls
             }));
 
             return this;

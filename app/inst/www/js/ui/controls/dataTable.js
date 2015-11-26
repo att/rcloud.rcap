@@ -9,6 +9,7 @@ define(['rcap/js/ui/controls/gridControl',
         init: function() {
             this._super({
                 type: 'datatable',
+                controlCategory: 'Data',
                 label: 'Data Table',
                 icon: 'table',
                 initialSize: [2, 2],

@@ -53,6 +53,7 @@ define(['rcap/js/ui/controls/baseControl',
             this.controlProperties = options.controlProperties;
 
             this.isOnGrid = options.isOnGrid || false;
+            this.controlCategory = options.controlCategory;
         },
         getStylePropertyByName: function(identifier) {
             return _.findWhere(this.styleProperties, { uid : identifier });

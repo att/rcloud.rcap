@@ -66,6 +66,7 @@ define(['rcap/js/ui/controls/gridControl',
         init: function() {
             this._super({
                 type: 'pagemenu',
+                controlCategory: 'Navigation',
                 label: 'Page Menu',
                 icon: 'reorder',
                 initialSize: [2, 1],

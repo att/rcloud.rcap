@@ -175,6 +175,14 @@
         left: 50px;
         height: calc(100% - 50px);
         background-color: $mainNavBackgroundColor;
+        & h5 {
+            clear: left;
+            text-transform: uppercase;
+            padding-top: 8px;
+        }
+        & h5:first-child {
+            padding-top: 0;
+        }
         & ul.controls {
             & li {
                 float: left;
@@ -253,8 +261,8 @@
             font: normal normal normal 16px/1 FontAwesome;
             content: "\f067";
         }
-        & ol#pages {
-            max-height: calc(100% - 75px);
+        & ol#pages, & .controls-menu {
+            max-height: calc(100% - 25px);
             overflow: auto;
             &::-webkit-scrollbar-track {
                 background-color: $mainNavBackgroundColor;

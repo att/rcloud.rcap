@@ -10,6 +10,7 @@ define(['rcap/js/ui/controls/gridControl',
         init: function() {
             this._super({
                 type: 'form',
+                controlCategory: 'HTML',
                 label: 'Form',
                 icon: 'list-alt',
                 initialSize: [2, 1],

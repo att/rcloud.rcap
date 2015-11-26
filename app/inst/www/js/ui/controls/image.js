@@ -8,6 +8,7 @@ define(['rcap/js/ui/controls/gridControl', 'rcap/js/ui/controls/properties/textC
 		init: function() {
 			this._super({
 				type : 'image',
+				controlCategory: 'HTML',
 				label : 'Image',
 				icon: 'picture',
 				initialSize: [2, 2],

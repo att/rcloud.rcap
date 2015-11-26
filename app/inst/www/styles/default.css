@@ -1620,6 +1620,12 @@ textarea.parsley-error {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none; }
+    #rcap-designer .menu-flyout h5 {
+      clear: left;
+      text-transform: uppercase;
+      padding-top: 8px; }
+    #rcap-designer .menu-flyout h5:first-child {
+      padding-top: 0; }
     #rcap-designer .menu-flyout ul.controls li {
       float: left;
       text-align: center;
@@ -1679,15 +1685,15 @@ textarea.parsley-error {
     #rcap-designer .menu-flyout h4 a.add::before {
       font: normal normal normal 16px/1 FontAwesome;
       content: "\f067"; }
-    #rcap-designer .menu-flyout ol#pages {
-      max-height: calc(100% - 75px);
+    #rcap-designer .menu-flyout ol#pages, #rcap-designer .menu-flyout .controls-menu {
+      max-height: calc(100% - 25px);
       overflow: auto; }
-      #rcap-designer .menu-flyout ol#pages::-webkit-scrollbar-track {
+      #rcap-designer .menu-flyout ol#pages::-webkit-scrollbar-track, #rcap-designer .menu-flyout .controls-menu::-webkit-scrollbar-track {
         background-color: #222222; }
-      #rcap-designer .menu-flyout ol#pages::-webkit-scrollbar {
+      #rcap-designer .menu-flyout ol#pages::-webkit-scrollbar, #rcap-designer .menu-flyout .controls-menu::-webkit-scrollbar {
         width: 10px;
         background-color: #222222; }
-      #rcap-designer .menu-flyout ol#pages::-webkit-scrollbar-thumb {
+      #rcap-designer .menu-flyout ol#pages::-webkit-scrollbar-thumb, #rcap-designer .menu-flyout .controls-menu::-webkit-scrollbar-thumb {
         background-color: #888888; }
     #rcap-designer .menu-flyout ol#pages, #rcap-designer .menu-flyout ol#pages ol {
       list-style-type: none;

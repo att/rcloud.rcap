@@ -71,6 +71,23 @@ define([
         return this.gridControls;
     };
 
+    ControlFactory.prototype.getGridControlsByCategory = function() {
+        
+        // with rudimentary category sort:
+        return _
+            .chain(this.gridControls)
+            .groupBy('controlCategory')
+            .map(function(value, key) {
+                return {
+                    type: key,
+                    controls: value
+                };
+            })
+            .sortBy(function(value) { return ['Dynamic', 'Data', 'HTML', 'Navigation'].indexOf(value.type); })
+            .value();
+
+    };
+
     ControlFactory.prototype.getChildControls = function() {
         return this.childControls;
     };
