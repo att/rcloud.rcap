@@ -205,7 +205,7 @@ TextControl <- R6Class("TextControl",
   inherit = Control
 )
 
-TableControl <- R6Class("TableControl",
+DataTableControl <- R6Class("DataTableControl",
   inherit = Control
 )
 
@@ -231,7 +231,7 @@ control_classes <- list(
   "pagemenu"         = PageMenuControl,
   "breadcrumb"       = BreadCrumbControl,
   "text"             = TextControl,
-  "table"            = TableControl
+  "datatable"        = DataTableControl
 )
 
 controlFactory <- function(cl, type = cl$type) {
