@@ -205,6 +205,9 @@ TextControl <- R6Class("TextControl",
   inherit = Control
 )
 
+TableControl <- R6Class("TableControl",
+  inherit = Control
+)
 
 #' Front-end control types and matching back-end classes
 
@@ -227,7 +230,8 @@ control_classes <- list(
   "image"            = ImageControl,
   "pagemenu"         = PageMenuControl,
   "breadcrumb"       = BreadCrumbControl,
-  "text"             = TextControl
+  "text"             = TextControl,
+  "table"            = TableControl
 )
 
 controlFactory <- function(cl, type = cl$type) {
