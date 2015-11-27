@@ -84,7 +84,8 @@ controlInitialize <- function(self, private, cl) {
 
   ## This is only for data sources
   if (!is.null(cl$code)) private$controlFunction <- cl$code
-  if (!is.null(cl$variable)) private$variableName <- cl$variable
+  if (!is.null(cl$variable) &
+      !identical(cl$variable, "")) private$variableName <- cl$variable
 
   ## Grab the code if it's there
   if (!is.null(cl$controlProperties) &&
@@ -92,7 +93,8 @@ controlInitialize <- function(self, private, cl) {
     ## Pulling various properties
     for (cp in cl$controlProperties) {
       if (cp$uid == "code") private$controlFunction <- cp$value %||% NULL
-      if (cp$uid == "variablename") private$variableName <- cp$value
+      if (cp$uid == "variablename" && !identical(cp$value, ""))
+        private$variableName <- cp$value
       ## This is for populating dropdowns, etc.
       if (cp$uid == "options" &&
           identical(cp$optionsDerivedFrom, "code")) {
