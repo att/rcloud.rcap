@@ -1,4 +1,10 @@
-<table class="data-table">
+<table class="dataTable" id="<%=control.id%>" data-variablename="<%=control.controlProperties[0].value%>">
+
+</table>
+
+
+<!--
+<table class="dataTable" id="<%=control.id%>" data-variablename="<%=control.controlProperties[0].value%>">
 	<thead>
 		<tr>
 			<th>Col1</th>
@@ -24,3 +30,6 @@
 		</tr>				
 	</tbody>
 </table>
+-->
+
+

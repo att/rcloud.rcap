@@ -7,6 +7,7 @@
             'pages': '../../shared.R/rcloud.rcap/js/pages',
             'data': '../../shared.R/rcloud.rcap/js/data',
             'ui': '../../shared.R/rcloud.rcap/js/ui',
+            'utils': '../../shared.R/rcloud.rcap/js/utils',
             'controls': '../../shared.R/rcloud.rcap/js/ui/controls',
             'templates': '../../shared.R/rcloud.rcap/js/ui/controls/properties/templates',
             'controlTemplates': '../../shared.R/rcloud.rcap/js/ui/controls/templates',
@@ -16,6 +17,7 @@
             'select2': '../../shared.R/rcloud.rcap/bower_components/select2/dist',
             'wysiwyg': '../../shared.R/rcloud.rcap/bower_components/wysiwyg.js/dist',
             'ionrangeslider': '../../shared.R/rcloud.rcap/bower_components/ionrangeslider',
+            'datatables': '../../shared.R/rcloud.rcap/bower_components/datatables.net/js'
         },
         map: {
             '*': {
@@ -135,11 +137,22 @@
                     k = arguments[3];
                 }
 
-                require(['controls/form'], function(FormControl) {
-                    new FormControl().updateControls(variableName, value, allValues);
-                    k();
+                // loop through:
+                $('[data-variablename="' + variableName + '"]').each(function(i, e) {
+
+                    if($(e).is('table')) {
+                        require(['controls/dataTable'], function(DataTableControl) {
+                            new DataTableControl().update(variableName, value, allValues);
+                        });
+                    } else {
+                        require(['controls/form'], function(FormControl) {
+                            new FormControl().updateControls(variableName, value, allValues);
+                        });                    
+                    }
                 });
             }
+
+            k();
         },
 
         updateControlAttribute: function(controlId, attributeName, attributeValue, k) {

@@ -1,9 +1,11 @@
 define(['rcap/js/ui/controls/gridControl', 
     'rcap/js/ui/controls/properties/textControlProperty',
     'rcap/js/ui/controls/properties/autocompleteControlProperty',
-    'text!controlTemplates/dataTable.tpl'
+    'utils/dataTranslators/dataTableTranslator',
+    'text!controlTemplates/dataTable.tpl',
+    'datatables/jquery.dataTables.min'
 
-], function(GridControl, TextControlProperty, AutocompleteControlProperty, tpl) {
+], function(GridControl, TextControlProperty, AutocompleteControlProperty, DataTableTranslator, tpl) {
 
     'use strict';
 
@@ -11,7 +13,7 @@ define(['rcap/js/ui/controls/gridControl',
         init: function() {
             this._super({
                 type: 'datatable',
-                controlCategory: 'Data',
+                controlCategory: 'Dynamic',
                 label: 'Data Table',
                 icon: 'table',
                 initialSize: [2, 2],
@@ -33,13 +35,26 @@ define(['rcap/js/ui/controls/gridControl',
                 ]
             });
         },
-        render: function() {
+        render: function(options) {
 
+            options = options || {};
+            var isDesignTime = options.isDesignTime || false;
             var template = _.template(tpl);
 
             return template({
-                control: this
+                control: this,
+                isDesignTime: isDesignTime
             });
+
+        },
+        update : function(variableName, value) {
+            // do some stuff!
+            //console.log('table update:', variableName, value, allValues);
+
+            var translator = new DataTableTranslator();
+            var translatedData = translator.translate(value);
+
+            $('[data-variablename="' + variableName + '"]').dataTable(translatedData);
 
         }
     });
