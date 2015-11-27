@@ -150,10 +150,13 @@ controlUpdate <- function(self, private) {
 
   ## Do the update
   if (has_value && has_possible_values) {
-    ## TODO: update once the client is ready to receive it
     rcap.updateVariable(private$variableName, value, pos_values)
+
   } else if (has_value) {
     rcap.updateVariable(private$variableName, value)
+
+  } else {
+    rcap.updateControl(private$id, pos_values)
   }
 
   invisible(self)
