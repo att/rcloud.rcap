@@ -26,8 +26,8 @@ define(['rcap/js/ui/controls/gridControl',
                         isRequired: false
                     }),
                     new AutocompleteControlProperty({
-                        uid: 'source',
-                        label: 'Source',
+                        uid: 'code',
+                        label: 'Code',
                         defaultValue: '',
                         helpText: 'The R Function that assigns the data',
                         isRequired: false
@@ -40,10 +40,27 @@ define(['rcap/js/ui/controls/gridControl',
             options = options || {};
             var isDesignTime = options.isDesignTime || false;
             var template = _.template(tpl);
+            var designTimeDescription = '';
+
+            if(isDesignTime && this.controlProperties[0].value || this.controlProperties[1].value.length ) {
+
+                if(this.controlProperties[0].value) { 
+                    designTimeDescription += 'Variable: ' + this.controlProperties[0].value;
+                } 
+
+                if(this.controlProperties[0].value && this.controlProperties[1].value) {
+                    designTimeDescription += ', ';
+                }
+
+                if(this.controlProperties[1].value) {
+                    designTimeDescription += 'Function: ' + this.controlProperties[1].value;
+                }
+            }
 
             return template({
                 control: this,
-                isDesignTime: isDesignTime
+                isDesignTime: isDesignTime,
+                designTimeDescription : designTimeDescription
             });
 
         },
