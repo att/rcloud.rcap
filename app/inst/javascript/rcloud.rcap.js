@@ -48,7 +48,7 @@
                 po = RCloud.promisify_paths(ocaps, [
                     ['getRFunctions'],
                     ['getDummyFunctions'],
-                    ['getRTime']
+                    ['getRTime']    // not currently used
                 ], true);
 
                 RCloud.UI.advanced_menu.add({ // jshint ignore:line
@@ -73,10 +73,6 @@
                             window.RCAP.updateAllControls = function(dataToSubmit) {
                                 po.updateAllControls(dataToSubmit).then(function(){});
                             };
-
-                            po.getRTime().then(function(res) {
-                                console.log('%cgetRTime returned ' + res, 'padding: 5px; font-size: 16pt; border: 1px solid black; background: #eee; color: #f00');
-                            });
 
                             require(['rcap/js/designer'], function(Designer) {
                                 new Designer().initialise(extractSessionInfo(sessionInfo));
