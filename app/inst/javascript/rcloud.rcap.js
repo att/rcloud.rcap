@@ -42,9 +42,6 @@
 
             if (RCloud.UI.advanced_menu.add) {
 
-                //console.log("init sessionInfo:");
-                //console.log(sessionInfo);
-
                 po = RCloud.promisify_paths(ocaps, [
                     ['getRFunctions'],
                     ['getDummyFunctions'],
@@ -87,10 +84,10 @@
                         page: 'shared.R/rcloud.rcap/rcap.html'
                     }
                 });
+
             } else {
 
-                // this code is executed in 'mini' mode, but its condition
-                // isn't particularly robust:
+                // this code is executed in 'mini' mode:
                 mini = RCloud.promisify_paths(ocaps, [
                         ['updateControls'],    // updateControls (called when a form value changes, or a form is submitted)
                         ['updateAllControls']  // kicks off R plot rendering
@@ -161,5 +158,6 @@
             k();
         }
     };
+
 
 })());

@@ -42,7 +42,7 @@ define(['rcap/js/ui/controls/gridControl',
             var template = _.template(tpl);
             var designTimeDescription = '';
 
-            if(isDesignTime && this.controlProperties[0].value || this.controlProperties[1].value.length ) {
+            if(isDesignTime && this.controlProperties[0].value || this.controlProperties[1].value) {
 
                 if(this.controlProperties[0].value) { 
                     designTimeDescription += 'Variable: ' + this.controlProperties[0].value;

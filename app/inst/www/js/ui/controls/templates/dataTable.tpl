@@ -1,6 +1,6 @@
 <table class="dataTable" id="<%=control.id%>" data-variablename="<%=control.controlProperties[0].value%>"></table>
 
-<%if(designTimeDescription.length ) {%>
+<%if(designTimeDescription.length && isDesignTime) {%>
 	<pre><%=designTimeDescription%></pre>
 <%}%>
 
