@@ -206,7 +206,18 @@ TextControl <- R6Class("TextControl",
 )
 
 DataTableControl <- R6Class("DataTableControl",
-  inherit = Control
+  inherit = Control,
+  public = list(
+
+    update = function(new_value = NULL) {
+      func <- private$controlFunction
+      if (!is.null(func)) {
+        result <- do.call(func, list(), envir = rcloudEnv())
+        result <- as.data.frame(result)
+        rcap.updateControl(private$id, result)
+      }
+    }
+  )
 )
 
 #' Front-end control types and matching back-end classes
