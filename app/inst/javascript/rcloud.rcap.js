@@ -158,7 +158,7 @@
                 require(['controls/dataTable'], function(DataTableControl) {
                     new DataTableControl().updateData(controlId, data);
                 });
-            } else if(controls.attr('data-controltype') == "rtext") {
+            } else if(control.attr('data-controltype') == "rtext") {
                 require(['controls/rText'], function(RTextControl) {
                     new RTextControl().updateData(controlId, data);
                 });
