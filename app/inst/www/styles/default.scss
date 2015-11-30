@@ -173,7 +173,7 @@
         position: absolute;
         top: 50px;
         padding: 5px 20px 20px 20px;
-        left: 50px;
+        left: 70px;
         height: calc(100% - 50px);
         background-color: $mainNavBackgroundColor;
         & h5 {
@@ -420,11 +420,20 @@
         }
         & #dataSources li {
 
+            border: 1px solid $mainNavColor;
+            margin-bottom: 5px;
+
+            & i {
+                position: absolute;
+                left: 10px;
+                top: 5px;
+                font-size: 25px;
+            }
+
             & > a {
-                border: 1px solid $mainNavColor;
                 position: relative;
                 display: block;
-                margin-bottom: 5px;
+                padding-left: 45px;
             }
 
             & .datasource-settings {
@@ -440,24 +449,35 @@
         color: $mainNavColor;
         position: relative;
         float: left;
-        width: 50px;
+        width: 70px;
         & ul {
             & a {
                 display: block;
-                padding: 5px;
-                margin-left: 3px;
-                margin-bottom: 10px;
+                padding: 15px;
             }
         }
-        & li {}
+        & li {
+            position: relative;
+        }
         & li i {
-            font-size: 30px;
-            width: 30px;
+            font-size: 40px;
+            width: 35px;
             display: block;
             margin: 3px auto 0 3px;
         }
-        & li span {
+        & li span:not(.count) {
             display: none;
+        }
+        & li span.count {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: black;
+            display: block;
+            padding: 3px 5px 2px 5px;
+            border-radius: 9px;
+            background: #ffa500;
+            cursor: pointer;
         }
         & #rcap-userplaceholder {
             bottom: 5px;
@@ -477,8 +497,8 @@
                 opacity: 1.0;
             }
             & img {
-                width: 40px;
-                border-radius: 20px;
+                width: 60px;
+                border-radius: 30px;
             }
         }
     }
@@ -565,7 +585,7 @@
         padding-right: 0;
         padding-left: 0;
         float: left;
-        width: calc(100% - 50px);
+        width: calc(100% - 70px);
         & #rcap-topbar {
             background-color: rgba(0, 255, 0, 0.3);
             position: fixed;

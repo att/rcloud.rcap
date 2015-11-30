@@ -1,24 +1,4 @@
 <div id="rcap-designer" style="display:none">
-    <!--
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div>
-            <div id="rcap-navbar-header" class="navbar-header">
-                <span>RCloud Designer</span></div>
-            <div class="nav-collapse">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <button id="rcap-save" title="Save" type="button" class="btn btn-link navbar-btn" style=""><i class="icon-save"></i></button>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <button id="rcap-close" title="Close" type="button" class="btn btn-link navbar-btn" style=""><i class="icon-remove"></i></button>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    -->
     <div id="rcap-message" style="display:none"></div>
     <div class="row" id="top-status-bar">
         <div id="rcap-navbar-header" class="navbar-header"><span>RCloud Designer</span></div>
@@ -31,9 +11,9 @@
     <div class="row" style="height: calc(100% - 50px)">
         <div class="menu" id="main-menu">
             <ul>
-                <li><a href="javascript:void(0)" data-flyoutid="pages"><i class="icon-file"></i><span>Pages</span></a></li>
+                <li><a href="javascript:void(0)" data-flyoutid="pages"><i class="icon-file"></i><span>Pages</span></a><span class="count" style="display:none"></span></li>
+                <li><a href="javascript:void(0)" data-flyoutid="datasources"><i class="icon-hdd"></i><span>Data Sources</span></a><span class="count" style="display:none"></span></li>
                 <li><a href="javascript:void(0)" data-flyoutid="controls"><i class="icon-puzzle-piece"></i><span>Controls</span></a></li>
-                <li><a href="javascript:void(0)" data-flyoutid="datasources"><i class="icon-hdd"></i><span>Data Sources</span></a></li>
             </ul>
             <div id="rcap-userplaceholder" />
         </div>
@@ -55,7 +35,6 @@
     <div class="menu-flyout" data-flyoutid="controls" style="display:none">
         <h4>Controls</h4>
         <a class="panel-close" href="#" title="close"><i class="icon-remove"></i></a>
-        <!--<ul class="controls"></ul>-->
     </div>
     <div class="menu-flyout" data-flyoutid="datasources" style="display:none">
         <h4 id="datasource-header">Data Sources <a href="#" class="add" title="Add Data Source"></a></h4>

@@ -32,6 +32,7 @@ define(['pubsub', 'rcap/js/Class'], function() {
         changePageOrder : 'changePageOrder',
         pageSettingsClicked : 'pageSettingsClicked',
         showPageSettingsDialog : 'showPageSettingsDialog',
+        pageCountChanged : 'pageCountChanged',
 
         // data source:
         addDataSource : 'addDataSource',
@@ -41,6 +42,7 @@ define(['pubsub', 'rcap/js/Class'], function() {
         deleteDataSourceConfirm : 'deleteDataSourceConfirm',
         dataSourceSettingsClicked : 'dataSourceSettingsClicked',
         showDataSourceSettingsDialog : 'showDataSourceSettingsDialog',
+        dataSourceCountChanged : 'dataSourceCountChanged',
 
         // grid:
         gridInitComplete : 'gridInitComplete',

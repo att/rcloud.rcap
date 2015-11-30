@@ -89,6 +89,10 @@ define([
                     $('#dataSources').append(_.template(dataSourceMenuItemTemplate)({ ds : dataSource }));
                 });
 
+                //
+                PubSub.publish(pubSubTable.pageCountChanged, site.pages.length);
+                PubSub.publish(pubSubTable.dataSourceCountChanged, site.dataSources.length);
+
                 // the first is as good as any:
                 $('#pages a:eq(0)').trigger('click');
             });
@@ -109,6 +113,10 @@ define([
                 // hide all:
                 $('.menu-flyout').hide();
                 $('.menu-flyout[data-flyoutid="' + $(this).attr('data-flyoutid') + '"]').show();
+            });
+
+            $('body').on('click', '#main-menu a[data-flyoutid] .count', function() {
+                $(this).parent().trigger('click');
             });
 
             $('body').on('click', '.menu-flyout a.panel-close', function() {
@@ -177,6 +185,18 @@ define([
 
                 // select the newly added page:
                 $('#pages li[data-pageid="' + msgData.pageData[0].id + '"] a').trigger('click');
+            });
+
+            PubSub.subscribe(pubSubTable.pageCountChanged, function(msg, pageCount) {
+
+                var countEl = $('#main-menu a[data-flyoutid="pages"]').next('.count');
+                countEl.text(pageCount);
+
+                if(pageCount === 0) {
+                    countEl.fadeOut();
+                } else {
+                    countEl.fadeIn();
+                }
             });
 
             //////////////////////////////////////////////////////////////////////////////////////////
@@ -256,6 +276,18 @@ define([
                 console.info('menuManager: pubSubTable.deleteDataSourceConfirm');
 
                 $('#dataSources li[data-datasourceid="' + dataSourceId + '"]').remove();
+            });
+
+            PubSub.subscribe(pubSubTable.dataSourceCountChanged, function(msg, dataSourceCount) {
+
+                var countEl = $('#main-menu a[data-flyoutid="datasources"]').next('.count');
+                countEl.text(dataSourceCount);
+
+                if(dataSourceCount === 0) {
+                    countEl.fadeOut();
+                } else {
+                    countEl.fadeIn();
+                }
             });
 
             // add styling info to the first page:

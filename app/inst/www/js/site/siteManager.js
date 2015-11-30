@@ -111,6 +111,8 @@ define([
                     pages: site.pages,
                     currentPageID: site.currentPageID
                 });
+
+                PubSub.publish(pubSubTable.pageCountChanged, site.pages.length);
             });
 
             ////////////////////////////////////////////////////////////////////////////////////
@@ -142,6 +144,8 @@ define([
                 });
 
                 PubSub.publish(pubSubTable.changeSelectedPageId, site.currentPageID);
+
+                PubSub.publish(pubSubTable.pageCountChanged, site.pages.length);
             });
 
             ////////////////////////////////////////////////////////////////////////////////////
@@ -171,6 +175,9 @@ define([
                     pages: site.pages,
                     currentPageID: newPages[0].id
                 });
+
+                PubSub.publish(pubSubTable.pageCountChanged, site.pages.length);
+
             });
 
             ////////////////////////////////////////////////////////////////////////////////////
@@ -308,6 +315,9 @@ define([
 
                 // let interested parties know that a data source has been added:
                 PubSub.publish(pubSubTable.dataSourceAdded, newDataSource);
+
+                // publish an update count:
+                PubSub.publish(pubSubTable.dataSourceCountChanged, site.dataSources.length);
             });
 
             PubSub.subscribe(pubSubTable.deleteDataSourceConfirm, function(msg, dataSourceId) {
@@ -317,6 +327,9 @@ define([
                 var site = getSite().deleteDataSource(dataSourceId);
 
                 setSite(site);
+
+                // publish an update count:
+                PubSub.publish(pubSubTable.dataSourceCountChanged, site.dataSources.length);
             });
 
             PubSub.subscribe(pubSubTable.dataSourceSettingsClicked, function(msg, id) {
