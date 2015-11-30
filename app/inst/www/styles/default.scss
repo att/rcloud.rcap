@@ -418,9 +418,14 @@
         & a:hover span::after {
             display: block;
         }
-        & #dataSources li >  a {
-            border: 1px solid $mainNavColor;
-            position: relative;
+        & #dataSources li {
+
+            & > a {
+                border: 1px solid $mainNavColor;
+                position: relative;
+                display: block;
+                margin-bottom: 5px;
+            }
 
             & .datasource-settings {
                 top: 0;
