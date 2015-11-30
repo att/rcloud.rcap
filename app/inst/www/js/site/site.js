@@ -309,7 +309,7 @@ define(['pages/page', 'data/dataSource', 'rcap/js/utils/pageWalker'], function(P
                 id: dataSource.id
             });
 
-            existingDataSource['function'] = dataSource['function'];
+            existingDataSource.code = dataSource.code;
             existingDataSource.variable = dataSource.variable;
             return this;
         }

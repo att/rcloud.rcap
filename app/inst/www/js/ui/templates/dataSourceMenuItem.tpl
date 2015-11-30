@@ -1,7 +1,7 @@
 <li class="js-rcap-dynamic" data-datasourceid="<%=ds.id%>"> 
     <a href="javascript:void(0)">
     	<%if(ds.variable || ds.function) {%>
-            Function: <%=ds.function%>			
+            Function: <%=ds.code%>			
             <br />
             Variable: <%=ds.variable%>
     	<%} else {%>

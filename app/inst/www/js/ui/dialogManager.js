@@ -351,7 +351,7 @@ define([
                     // push the updated event:
                     PubSub.publish(pubSubTable.updateDataSource, {
                         id: $('#datasource-form').data('datasourceid'),
-                        function: $('#inputDataSourceFunction').val(),
+                        code: $('#inputDataSourceFunction').val(),
                         variable: $('#inputDataSourceVariable').val()
                     });
 
@@ -372,7 +372,7 @@ define([
 
                 $('#datasource-form').data('datasourceid', dataSource.id);
 
-                $('#inputDataSourceFunction').val(dataSource['function']);
+                $('#inputDataSourceFunction').val(dataSource.code);
                 $('#inputDataSourceVariable').val(dataSource.variable);
 
                 $('#inputDataSourceFunction').autocomplete({
