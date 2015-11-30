@@ -98,7 +98,7 @@ define([
             //
             //
             PubSub.subscribe(pubSubTable.close, function() {
-                $('#pages li').remove();
+                $('#pages li, #dataSources li').remove();
             });
 
             //////////////////////////////////////////////////////////////////////////////////////////
