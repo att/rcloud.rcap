@@ -29,15 +29,25 @@ define(['rcap/js/ui/controls/gridControl',
 
             options = options || {};
             var isDesignTime = options.isDesignTime || false;
+            var designTimeDescription = '';
+
+            if(isDesignTime && this.controlProperties[0].value) {
+                designTimeDescription += 'Function: ' + this.controlProperties[0].value;
+            }
 
             var template = isDesignTime ? _.template(dtpl) : _.template(tpl);
 
             return template({
-                control: this
+                control: this,
+                designTimeDescription : designTimeDescription
             });
 
         },
         initialiseViewerItems: function() {
+
+        },
+        updateData : function(controlId, data) {
+            $('#' + controlId).html(data);
 
         }
     });

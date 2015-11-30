@@ -6,12 +6,12 @@
   position: relative;
 
   &::after {
-    content: attr(data-nodeName);
+    content: attr(data-nodenameusername);
     position: absolute; 
     font-family: arial;
     font-size: 12pt;
     top: 30px;
-    left: 150px;
+    left: 145px;
     text-transform: uppercase;
     color: white;
   }
@@ -56,7 +56,8 @@
   display: flex;
 }
 
-.rcap-controltype-rplot pre, .rcap-controltype-interactiveplot pre, .rcap-controltype-rtext pre, .rcap-controltype-datatable pre {
+.rcap-controltype-rplot pre, .rcap-controltype-interactiveplot pre, .rcap-controltype-rtext pre, .rcap-controltype-datatable pre,
+.rcap-controltype-rtext pre {
   display: block;
   text-align: center;
   position: absolute;

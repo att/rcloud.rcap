@@ -111,7 +111,7 @@ define(['text!rcap/partials/viewer.htm',
         this.initialise = function(json, sessionInfo) {
 
             this.setup();
-            $('body').data('nodename', sessionInfo.nodeName);
+            $('body').data('nodenameusername', sessionInfo.nodeNameUserName);
 
             // and pub:
             PubSub.publish(pubSubTable.deserialize, {

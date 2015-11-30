@@ -18,13 +18,6 @@ define(['rcap/js/ui/controls/gridControl',
                 icon: 'table',
                 initialSize: [2, 2],
                 controlProperties: [
-                    new TextControlProperty({
-                        uid: 'variablename',
-                        label: 'Variable name',
-                        defaultValue: 'variable',
-                        helpText: 'The variable associated with this control',
-                        isRequired: false
-                    }),
                     new AutocompleteControlProperty({
                         uid: 'code',
                         label: 'Code',
@@ -42,19 +35,8 @@ define(['rcap/js/ui/controls/gridControl',
             var template = _.template(tpl);
             var designTimeDescription = '';
 
-            if(isDesignTime && this.controlProperties[0].value || this.controlProperties[1].value) {
-
-                if(this.controlProperties[0].value) { 
-                    designTimeDescription += 'Variable: ' + this.controlProperties[0].value;
-                } 
-
-                if(this.controlProperties[0].value && this.controlProperties[1].value) {
-                    designTimeDescription += ', ';
-                }
-
-                if(this.controlProperties[1].value) {
-                    designTimeDescription += 'Function: ' + this.controlProperties[1].value;
-                }
+            if(isDesignTime && this.controlProperties[0].value) {
+                designTimeDescription += 'Function: ' + this.controlProperties[0].value;
             }
 
             return template({
@@ -64,14 +46,12 @@ define(['rcap/js/ui/controls/gridControl',
             });
 
         },
-        update : function(variableName, value) {
+        updateData : function(controlId, data) {
             // do some stuff!
-            //console.log('table update:', variableName, value, allValues);
-
             var translator = new DataTableTranslator();
-            var translatedData = translator.translate(value);
+            var translatedData = translator.translate(data);
 
-            $('[data-variablename="' + variableName + '"]').dataTable(translatedData);
+            $('#' + controlId).dataTable(translatedData);
 
         }
     });

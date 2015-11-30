@@ -33,7 +33,8 @@
     var extractSessionInfo = function(sessionInfo) {
         return {
             nodeName: sessionInfo.nodename[0], // jshint ignore:line
-            user: sessionInfo.user[0]
+            user: sessionInfo.user[0],
+            nodeNameUserName: sessionInfo.user[0] + '@' + sessionInfo.nodename[0]
         };
     };
 
@@ -131,17 +132,12 @@
                 }
 
                 // loop through:
-                $('[data-variablename="' + variableName + '"]').each(function(i, e) {
+                $('[data-variablename="' + variableName + '"]').each(function(i/*, e*/) {
+                    
+                    require(['controls/form'], function(FormControl) {
+                        new FormControl().updateControls(variableName, value, allValues);
+                    });                    
 
-                    if($(e).is('table')) {
-                        require(['controls/dataTable'], function(DataTableControl) {
-                            new DataTableControl().update(variableName, value, allValues);
-                        });
-                    } else {
-                        require(['controls/form'], function(FormControl) {
-                            new FormControl().updateControls(variableName, value, allValues);
-                        });                    
-                    }
                 });
             }
 
@@ -149,7 +145,25 @@
         },
 
         updateControlAttribute: function(controlId, attributeName, attributeValue, k) {
-            $('#' + controlId).attr(attributeName, attributeValue);
+            $('#' + controlId).attr(attributeName, attrilbuteValue);
+            k();
+        },
+
+        updateControl: function(controlId, data, k) {
+
+            // get the control:
+            var control = $('#' + controlId);
+
+            if(control.attr('data-controltype') == "datatable") {
+                require(['controls/dataTable'], function(DataTableControl) {
+                    new DataTableControl().updateData(controlId, data);
+                });
+            } else if(controls.attr('data-controltype') == "rtext") {
+                require(['controls/rText'], function(RTextControl) {
+                    new RTextControl().updateData(controlId, data);
+                });
+            } 
+
             k();
         },
 

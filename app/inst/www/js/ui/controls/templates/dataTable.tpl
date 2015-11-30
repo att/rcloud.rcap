@@ -1,8 +1,8 @@
-<table class="dataTable" id="<%=control.id%>" data-variablename="<%=control.controlProperties[0].value%>"></table>
+<table class="dataTable" id="<%=control.id%>" data-variablename="<%=control.controlProperties[0].value%>" data-controltype="datatable"></table>
 
 <%if(designTimeDescription.length && isDesignTime) {%>
 	<pre><%=designTimeDescription%></pre>
-<%}%>
+<%}%>	
 
 <% if(isDesignTime) { %>
 <script type="text/javascript">
