@@ -581,7 +581,7 @@
   margin-top: 10px; }
 
 #rcap-viewer #inner-stage {
-  padding-top: 10px; }
+  background: white url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAABQCAYAAADYxx/bAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wwCDwQdTHPPMAAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAAWSURBVBjTY1BSUvrPxMDAwDBKDAYCAKYmAgSmlmSYAAAAAElFTkSuQmCC") top left repeat-x; }
 #rcap-viewer .grid-stack-item-content {
   border: 0;
   overflow-x: auto; }
@@ -2431,7 +2431,8 @@ table.dataTable td {
       border: 1px solid #8c8c8c;
       position: relative;
       margin: 15px;
-      padding-top: 10px; }
+      padding-top: 0px;
+      background: white url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAABQCAYAAADYxx/bAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wwCDwQdTHPPMAAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAAWSURBVBjTY1BSUvrPxMDAwDBKDAYCAKYmAgSmlmSYAAAAAElFTkSuQmCC") top left repeat-x; }
   #rcap-designer .style-details {
     padding-top: 15px;
     margin-top: 30px;
@@ -2701,7 +2702,9 @@ body.rcap-viewer {
   border: 1px solid #ccc;
   margin: 10px auto;
   background: white;
-  border: 1px solid #8c8c8c; }
+  border: 1px solid #8c8c8c;
+  padding-top: 0;
+  background: white url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAABQCAYAAADYxx/bAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wwCDwQdTHPPMAAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAAWSURBVBjTY1BSUvrPxMDAwDBKDAYCAKYmAgSmlmSYAAAAAElFTkSuQmCC") top left repeat-x; }
 
 .data-table {
   border: 1px solid #555;
