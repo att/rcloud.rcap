@@ -75,6 +75,8 @@
         font-weight: bold; }
         .jqmwindow .header .top-level-tabs a.active, .jqmwindow .header .top-level-tabs a:hover {
           color: #000; }
+  .jqmwindow .row {
+    margin-bottom: 10px; }
   .jqmwindow .jqm-footer {
     border-top: 1px solid #cdcdcd;
     display: flex; }
@@ -180,13 +182,23 @@
   display: block;
   text-align: center;
   position: absolute;
-  top: 46%;
+  top: 0;
   text-align: center;
-  width: 100%;
-  background-color: rgba(195, 126, 0, 0.9);
+  background-color: rgba(195, 126, 0, 0.98);
   color: white;
   padding: 10px;
-  letter-spacing: 1px; }
+  letter-spacing: 1px;
+  border: 5px solid white;
+  border: 2px solid white;
+  padding: 15px;
+  left: 5px;
+  top: 5px;
+  outline: 4px solid rgba(202, 153, 66, 0.3); }
+  .rcap-controltype-rplot pre::before, .rcap-controltype-interactiveplot pre::before, .rcap-controltype-rtext pre::before, .rcap-controltype-datatable pre::before,
+  .rcap-controltype-rtext pre::before {
+    font: normal normal normal 18px/1 FontAwesome;
+    content: "\f120";
+    padding-right: 8px; }
 
 .rcap-controltype-datatable .dataTable {
   margin-left: 0;
@@ -526,7 +538,7 @@
     pointer-events: none; }
   .grid-stack .valid-overlay {
     z-index: 10000;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: transparent;
     height: 100%;
     width: 100%;
     position: absolute; }
@@ -537,10 +549,14 @@
     display: block;
     margin: 0 auto;
     border: 3px solid;
-    border-radius: 40px;
+    border-radius: 30px;
+    width: 60px;
+    height: 60px;
     font-weight: 200;
     letter-spacing: 1px;
     text-transform: uppercase; }
+    .grid-stack .btn-configure i {
+      font-size: 36px; }
   .grid-stack .grid-stack-item-content p:last-child {
     position: absolute;
     pointer-events: all;
@@ -548,7 +564,7 @@
     z-index: 10002;
     width: 100%;
     padding: 4px 0;
-    margin-top: -18px; }
+    margin-top: -30px; }
   .grid-stack .grid-stack-item-content.valid .btn-configure {
     display: none; }
   .grid-stack .grid-stack-item-content.valid:hover .btn-configure {
@@ -1881,6 +1897,13 @@ table.dataTable td {
       background-color: lightne(#222222, 75%); }
     #dialog-form-builder #form-builder-configuration::-webkit-scrollbar-thumb {
       background-color: #aeaeae; }
+    #dialog-form-builder #form-builder-configuration h4 {
+      font-weight: 95%;
+      font-weight: bold; }
+    #dialog-form-builder #form-builder-configuration .form-group-multioption label {
+      display: inline; }
+    #dialog-form-builder #form-builder-configuration .form-group-multioption input[type="radio"] {
+      margin-right: 10px; }
   #dialog-form-builder .tab-content::after {
     content: "";
     display: table;
@@ -2031,12 +2054,12 @@ table.dataTable td {
 
 #rcap-designer {
   background: white;
-  color: #d4d4d4;
+  color: #efefef;
   font-family: "Open Sans", sans-serif;
   font-size: 12px;
   height: 100vh;
   margin-top: -51px; }
-  #rcap-designer .row {
+  #rcap-designer > .row {
     background-color: #f2f2f2; }
   #rcap-designer #top-status-bar {
     background-color: #222222;
@@ -2051,7 +2074,7 @@ table.dataTable td {
       -moz-transition: background-color .25s ease-in-out;
       -webkit-transition: background-color .25s ease-in-out; }
     #rcap-designer #top-status-bar #current-page-status:hover {
-      background-color: #2f2f2f; }
+      background-color: #070707; }
     #rcap-designer #top-status-bar #current-page {
       margin-left: 4px;
       color: white; }
@@ -2060,9 +2083,10 @@ table.dataTable td {
     position: absolute;
     top: 50px;
     padding: 5px 20px 20px 20px;
-    left: 70px;
+    left: 60px;
     height: calc(100% - 50px);
-    background-color: #222222;
+    background-color: rgba(0, 0, 0, 0.97);
+    color: #efefef;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -2072,21 +2096,24 @@ table.dataTable td {
     #rcap-designer .menu-flyout h5 {
       clear: left;
       text-transform: uppercase;
-      padding-top: 8px; }
+      padding-top: 8px;
+      color: #efefef; }
     #rcap-designer .menu-flyout h5:first-child {
       padding-top: 0; }
     #rcap-designer .menu-flyout ul.controls li {
       float: left;
       text-align: center;
-      margin: 0 5px 5px 0; }
+      margin: 0 5px 5px 0;
+      color: #efefef; }
     #rcap-designer .menu-flyout ul.controls a span {
       display: none; }
     #rcap-designer .menu-flyout ul.controls a {
-      border: 1px solid #d4d4d4;
+      border: 1px solid #efefef;
       cursor: move;
       height: 90px;
       width: 170px;
-      padding: 19px; }
+      padding: 19px;
+      color: #efefef; }
       #rcap-designer .menu-flyout ul.controls a:hover {
         background-color: #2f2f2f;
         transition: background-color .25s ease-in-out;
@@ -2105,7 +2132,8 @@ table.dataTable td {
       font-size: 14px;
       letter-spacing: 2px;
       clear: left;
-      margin-top: 0; }
+      margin-top: 0;
+      color: #efefef; }
     #rcap-designer .menu-flyout ul {
       list-style-type: none;
       margin: 0;
@@ -2118,7 +2146,7 @@ table.dataTable td {
     #rcap-designer .menu-flyout a:hover,
     #rcap-designer .menu-flyout a:active {
       display: block;
-      color: #d4d4d4;
+      color: #efefef;
       font-family: "Open Sans", sans-serif;
       text-decoration: none;
       padding: 10px 0 5px 15px; }
@@ -2128,7 +2156,8 @@ table.dataTable td {
       padding: 0;
       opacity: 0.5;
       margin-left: 6px;
-      display: inline-block; }
+      display: inline-block;
+      color: #efefef; }
     #rcap-designer .menu-flyout h4#page-header a:hover, #rcap-designer .menu-flyout h4#datasource-header a:hover {
       opacity: 1.0; }
     #rcap-designer .menu-flyout h4 a.add::before {
@@ -2149,7 +2178,7 @@ table.dataTable td {
       padding-left: 0; }
     #rcap-designer .menu-flyout ol#pages a::before, #rcap-designer .menu-flyout ul.controls a::before, #rcap-designer .menu-flyout ul.settings a::before {
       text-align: left;
-      color: #d4d4d4;
+      color: #efefef;
       padding: 2px 8px 0 0;
       margin: 0;
       font: normal normal normal 10px/1 FontAwesome;
@@ -2217,7 +2246,7 @@ table.dataTable td {
       margin-top: 5px; }
     #rcap-designer .menu-flyout a span::after {
       text-align: right;
-      color: #d4d4d4;
+      color: #efefef;
       padding: 2px 3px 0 0;
       margin: 0;
       font: normal normal normal 10px/1 FontAwesome;
@@ -2244,7 +2273,7 @@ table.dataTable td {
     #rcap-designer .menu-flyout a span::after {
       display: block;
       text-align: right;
-      color: #d4d4d4;
+      color: #efefef;
       padding: 2px 3px 0 0;
       margin: 0;
       font: normal normal normal 10px/1 FontAwesome;
@@ -2258,7 +2287,7 @@ table.dataTable td {
     #rcap-designer .menu-flyout a:hover span::after {
       display: block; }
     #rcap-designer .menu-flyout #dataSources li {
-      border: 1px solid #d4d4d4;
+      border: 1px solid #efefef;
       margin-bottom: 5px; }
       #rcap-designer .menu-flyout #dataSources li i {
         position: absolute;
@@ -2276,32 +2305,34 @@ table.dataTable td {
   #rcap-designer #main-menu {
     overflow: auto;
     background-color: #222222;
-    color: #d4d4d4;
+    color: #efefef;
     position: relative;
     float: left;
-    width: 70px; }
+    width: 60px; }
     #rcap-designer #main-menu ul a {
       display: block;
       padding: 15px; }
     #rcap-designer #main-menu li {
       position: relative; }
     #rcap-designer #main-menu li i {
-      font-size: 40px;
+      font-size: 30px;
       width: 35px;
       display: block;
-      margin: 3px auto 0 3px; }
+      margin: 3px auto 0 3px;
+      color: #efefef; }
     #rcap-designer #main-menu li span:not(.count) {
       display: none; }
     #rcap-designer #main-menu li span.count {
       position: absolute;
-      top: 5px;
-      right: 5px;
+      top: 7px;
+      right: 12px;
       color: black;
       display: block;
       padding: 3px 5px 2px 5px;
       border-radius: 9px;
-      background: #ffa500;
-      cursor: pointer; }
+      background: rgba(255, 165, 0, 0.9);
+      cursor: pointer;
+      font-size: 95%; }
     #rcap-designer #main-menu #rcap-userplaceholder {
       bottom: 5px;
       left: 3px;
@@ -2317,8 +2348,8 @@ table.dataTable td {
         background-color: transparent;
         opacity: 1.0; }
       #rcap-designer #main-menu #rcap-userplaceholder img {
-        width: 60px;
-        border-radius: 30px; }
+        width: 50px;
+        border-radius: 25px; }
   #rcap-designer .menu {
     padding: 0;
     margin: 0;
@@ -2352,18 +2383,18 @@ table.dataTable td {
     #rcap-designer .menu a:hover,
     #rcap-designer .menu a:active {
       display: block;
-      color: #d4d4d4;
+      color: #efefef;
       font-family: "Open Sans", sans-serif;
       text-decoration: none; }
     #rcap-designer .menu a:hover {
-      background-color: #2f2f2f; }
+      background-color: #070707; }
     #rcap-designer .menu li.selected > a {
-      background-color: #2f2f2f; }
+      background-color: #070707; }
     #rcap-designer .menu a span::after {
       display: block; }
     #rcap-designer .menu ol#pages a::before, #rcap-designer .menu ul.controls a::before, #rcap-designer .menu ul.settings a::before {
       text-align: left;
-      color: #d4d4d4;
+      color: #efefef;
       padding: 2px 8px 0 0;
       margin: 0;
       font: normal normal normal 10px/1 FontAwesome;
@@ -2390,7 +2421,7 @@ table.dataTable td {
     padding-right: 0;
     padding-left: 0;
     float: left;
-    width: calc(100% - 70px); }
+    width: calc(100% - 60px); }
     #rcap-designer .stage #rcap-topbar {
       background-color: rgba(0, 255, 0, 0.3);
       position: fixed;
@@ -2402,7 +2433,17 @@ table.dataTable td {
       margin: 15px;
       padding-top: 10px; }
   #rcap-designer .style-details {
-    padding-top: 15px; }
+    padding-top: 15px;
+    margin-top: 30px;
+    border-top: 1px solid #ccc; }
+    #rcap-designer .style-details h3 {
+      font-size: 14px;
+      text-transform: uppercase;
+      width: 180px;
+      background: #ccc;
+      padding: 7px;
+      margin-top: -16px;
+      margin-bottom: 20px; }
     #rcap-designer .style-details .ui-slider {
       margin-top: 7px; }
     #rcap-designer .style-details .ui-slider-handle {

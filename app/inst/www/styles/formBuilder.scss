@@ -89,6 +89,20 @@
             background-color: lighten($mainNavBackgroundColor, 55%);
         }
 
+        & h4 {
+            font-weight: 95%;
+            font-weight: bold;
+        }
+
+        & .form-group-multioption {
+            & label {
+                display: inline;
+            }
+            & input[type="radio"] {
+                margin-right: 10px;
+            }
+        }
+
     }
     & .tab-content::after {
         content: "";

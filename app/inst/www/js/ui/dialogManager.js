@@ -29,28 +29,13 @@ define([
                 // get the value:
                 var dialogValue = prop.getDialogValue();
 
-                // validate:
-
                 // assign:
-
                 originatingControl.controlProperties[index].value = dialogValue;
             });
 
             $.each(originatingControl.styleProperties, function(index, prop) {
                 originatingControl.styleProperties[index].value = prop.getDialogValue();
             });
-
-            /*
-                        // get style properties:
-                        originatingControl.styleProperties.padding = $('#' + originatingControl.id + '-padding').slider('option', 'value');
-                        originatingControl.styleProperties.borderWidth = $('#' + originatingControl.id + '-borderWidth').slider('option', 'value');
-
-                        var bgColor = $('#' + originatingControl.id + '-backgroundColor').spectrum('get');
-                        var borderColor = $('#' + originatingControl.id + '-borderColor').spectrum('get');
-
-                        originatingControl.styleProperties.backgroundColor = bgColor ? bgColor.toHexString() : undefined;
-                        originatingControl.styleProperties.borderColor = borderColor ? borderColor.toHexString() : undefined;
-            */
 
             // push the updated event:
             PubSub.publish(pubSubTable.updateControl, originatingControl);

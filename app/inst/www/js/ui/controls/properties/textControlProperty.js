@@ -17,6 +17,8 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/te
 
             // additional assignments go here:
             this.validationDataType = options.validationDataType;
+
+            this.isHorizontal = _.isUndefined(options.isHorizontal) ? true : options.isHorizontal;
         },
         render: function(childIndex) {
 

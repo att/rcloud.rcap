@@ -112,11 +112,13 @@ define([
             $('body').on('click', '#main-menu a[data-flyoutid]', function() {
                 // hide all:
                 $('.menu-flyout').hide();
+                $('#main-menu li').removeClass('selected');
+                $(this).closest('li').addClass('selected');
                 $('.menu-flyout[data-flyoutid="' + $(this).attr('data-flyoutid') + '"]').show();
             });
 
-            $('body').on('click', '#main-menu a[data-flyoutid] .count', function() {
-                $(this).parent().trigger('click');
+            $('body').on('click', '.count', function() {
+                $(this).prev().trigger('click');
             });
 
             $('body').on('click', '.menu-flyout a.panel-close', function() {

@@ -58,16 +58,28 @@
 
 .rcap-controltype-rplot pre, .rcap-controltype-interactiveplot pre, .rcap-controltype-rtext pre, .rcap-controltype-datatable pre,
 .rcap-controltype-rtext pre {
-  display: block;
-  text-align: center;
-  position: absolute;
-  top: 46%;
-  text-align: center;
-  width: 100%;
-  background-color: rgba(195, 126, 0, 0.9);
-  color: white;
-  padding: 10px;
-  letter-spacing: 1px;
+
+    display: block;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    text-align: center;
+    background-color: rgba(195, 126, 0, 0.98);
+    color: white;
+    padding: 10px;
+    letter-spacing: 1px;
+    border: 5px solid white;
+    border: 2px solid white;
+    padding: 15px;
+    left: 5px;
+    top: 5px;
+    outline: 4px solid rgba(202, 153, 66, 0.3);
+
+    &::before {
+      font: normal normal normal 18px/1 FontAwesome;
+      content: "\f120";
+      padding-right: 8px;
+    }
 }
 
 .rcap-controltype-datatable .dataTable {

@@ -7,10 +7,9 @@ $defaultFont: 'Open Sans',sans-serif;
 
 $mainNavBackgroundColor: #222;
 $mainNavBackgroundColorHover: lighten($mainNavBackgroundColor, 5%);
-$mainNavCurrentPageHover: lighten($mainNavBackgroundColor, 5%);
-$mainNavColor: lighten($mainNavBackgroundColor, 70%);
+$mainNavCurrentPageHover: #070707;
+$mainNavColor: #efefef;
 $noItemsColor: lighten($mainNavBackgroundColor, 30%);
-
 
 
 $toolbarButtonColorHover: #fff;
@@ -21,3 +20,4 @@ $messageWarningColor: #ddc033;
 $messageErrorColor: #a94442;
 
 $topLevelButtonColor: #c37e00;
+

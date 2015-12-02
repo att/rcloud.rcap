@@ -18,14 +18,16 @@ define(['rcap/js/ui/controls/baseControl',
                         uid: 'description',
                         label: 'Description',
                         defaultValue: 'Description',
-                        helpText: 'Instructions / help text for this control'
+                        helpText: 'Instructions / help text for this control',
+                        isHorizontal: false
                     }),
                     new TextControlProperty({
                         uid: 'variablename',
                         label: 'Variable name',
                         defaultValue: 'variable',
                         helpText: 'The variable associated with this control',
-                        isRequired: true
+                        isRequired: true,
+                        isHorizontal: false
                     }),
                     // options:
                     new MultiOptionControlProperty({
@@ -39,7 +41,8 @@ define(['rcap/js/ui/controls/baseControl',
                             label: 'Option 2',
                             value: '2'
                         }],
-                        isRequired: true
+                        isRequired: true,
+                        isHorizontal: false
                     })
                 ]
             });

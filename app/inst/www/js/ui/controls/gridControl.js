@@ -113,7 +113,7 @@ define(['rcap/js/ui/controls/baseControl',
         getStyleDialogMarkup: function() {
             // general style information controls:
 
-            var markup = '<div class="style-details">';
+            var markup = '<div class="style-details"><h3>Styling</h3>';
 
             _.each(this.styleProperties, function(prop, index) {
                 markup += prop.render(index);

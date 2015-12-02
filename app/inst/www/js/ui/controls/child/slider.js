@@ -19,42 +19,48 @@ define([
                         uid: 'label',
                         label: 'Label',
                         defaultValue: 'Label',
-                        helpText: 'The label for this control'
+                        helpText: 'The label for this control',
+                        isHorizontal: false
                     }),
                     new TextControlProperty({
                         uid: 'variablename',
                         label: 'Variable name',
                         defaultValue: 'variable',
                         helpText: 'The variable associated with this control',
-                        isRequired: true
+                        isRequired: true,
+                        isHorizontal: false
                     }),
                     new TextControlProperty({
                         uid: 'value',
                         label: 'The value for the control',
                         defaultValue: '5',
                         helpText: 'The value',
-                        isRequired: true
+                        isRequired: true,
+                        isHorizontal: false
                     }),
                     new TextControlProperty({
                         uid: 'min',
                         label: 'Minimum',
                         defaultValue: '1',
                         helpText: 'The minimum value',
-                        isRequired: true
+                        isRequired: true,
+                        isHorizontal: false
                     }),
                     new TextControlProperty({
                         uid: 'max',
                         label: 'Maximum',
                         defaultValue: '10',
                         helpText: 'The maximum value',
-                        isRequired: true
+                        isRequired: true,
+                        isHorizontal: false
                     }),
                     new TextControlProperty({
                         uid: 'step',
                         label: 'Increment',
                         defaultValue: '1',
                         helpText: 'The increment size',
-                        isRequired: true
+                        isRequired: true,
+                        isHorizontal: false
                     }),
                 ]
             });

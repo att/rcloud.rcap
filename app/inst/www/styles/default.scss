@@ -141,7 +141,7 @@
     font-size: $defaultFontSize;
     height: 100vh;
     margin-top: -51px; // this is the height of the fixed navbar
-    & .row {
+    & > .row {
         background-color: $bgColor;
     }
     & #top-status-bar {
@@ -173,13 +173,15 @@
         position: absolute;
         top: 50px;
         padding: 5px 20px 20px 20px;
-        left: 70px;
+        left: 60px;
         height: calc(100% - 50px);
-        background-color: $mainNavBackgroundColor;
+        background-color: rgba(0, 0, 0, 0.97);
+        color: $mainNavColor;
         & h5 {
             clear: left;
             text-transform: uppercase;
             padding-top: 8px;
+            color: $mainNavColor;
         }
         & h5:first-child {
             padding-top: 0;
@@ -189,6 +191,7 @@
                 float: left;
                 text-align: center;
                 margin: 0 5px 5px 0;
+                color: $mainNavColor;
             }
             & a span {
                 display: none;
@@ -199,6 +202,7 @@
                 height: 90px;
                 width: 170px;
                 padding: 19px;
+                color: $mainNavColor;
                 &:hover {
                     background-color: $mainNavBackgroundColorHover;
                     transition: background-color .25s ease-in-out;
@@ -224,6 +228,7 @@
             letter-spacing: 2px;
             clear: left;
             margin-top: 0;
+            color: $mainNavColor;
         }
         & ul {
             list-style-type: none;
@@ -254,6 +259,7 @@
             opacity: 0.5;
             margin-left: 6px;
             display: inline-block;
+            color: $mainNavColor;
         }
         & h4#page-header a:hover, h4#datasource-header a:hover {
             opacity: 1.0;
@@ -285,7 +291,7 @@
         & ul.controls a::before,
         & ul.settings a::before {
             text-align: left;
-            color: $mainNavColor;
+            color: $mainNavColor;;
             padding: 2px 8px 0 0;
             margin: 0;
             font: normal normal normal 10px/1 FontAwesome;
@@ -449,7 +455,7 @@
         color: $mainNavColor;
         position: relative;
         float: left;
-        width: 70px;
+        width: 60px;
         & ul {
             & a {
                 display: block;
@@ -460,24 +466,27 @@
             position: relative;
         }
         & li i {
-            font-size: 40px;
+            font-size: 30px;
             width: 35px;
             display: block;
             margin: 3px auto 0 3px;
+            color: #efefef;
         }
         & li span:not(.count) {
             display: none;
         }
         & li span.count {
             position: absolute;
-            top: 5px;
-            right: 5px;
+            top: 7px;
+            right: 12px;
             color: black;
             display: block;
             padding: 3px 5px 2px 5px;
             border-radius: 9px;
-            background: #ffa500;
+            //background: #ffa500;
+            background: rgba(255, 165, 0, 0.9);
             cursor: pointer;
+            font-size: 95%;
         }
         & #rcap-userplaceholder {
             bottom: 5px;
@@ -497,8 +506,8 @@
                 opacity: 1.0;
             }
             & img {
-                width: 60px;
-                border-radius: 30px;
+                width: 50px;
+                border-radius: 25px;
             }
         }
     }
@@ -585,7 +594,7 @@
         padding-right: 0;
         padding-left: 0;
         float: left;
-        width: calc(100% - 70px);
+        width: calc(100% - 60px);
         & #rcap-topbar {
             background-color: rgba(0, 255, 0, 0.3);
             position: fixed;
@@ -603,6 +612,20 @@
 
     .style-details {
         padding-top: 15px;
+        margin-top: 30px;
+        border-top: 1px solid #ccc;
+
+        & h3 { 
+            font-size: 14px;
+            text-transform: uppercase;
+            width: 180px;
+            background: #ccc;
+            padding: 7px;
+            margin-top: -16px;
+            margin-bottom: 20px;
+
+        }
+
         & .ui-slider {
             margin-top: 7px;
         }

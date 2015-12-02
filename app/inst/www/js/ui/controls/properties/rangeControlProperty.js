@@ -24,7 +24,7 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/ra
             this.minValue = options.minValue || 0;
             this.maxValue = options.maxValue || 20;
 
-            this.isHorizontal = options.isHorizontal || true;
+            this.isHorizontal = _.isUndefined(options.isHorizontal) ? true : options.isHorizontal;
         },
         render: function(childIndex) {
 

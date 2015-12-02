@@ -1,8 +1,5 @@
-<div class="form-group" id="form-group-<%=property.id%>">
-    <label for="<%=property.id%>"><%=property.label%></label>
-
-
-    <br />
+<div class="form-group form-group-multioption" id="form-group-<%=property.id%>">
+    <h4><%=property.label%></h4>
 
     <!-- radio button for manual (default)/code: -->
 

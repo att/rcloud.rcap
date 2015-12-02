@@ -44,6 +44,10 @@ $borderColor: #cdcdcd;
 		}
 	}
 
+	& .row {
+		margin-bottom: 10px;	
+	}
+
 	& .jqm-footer {
 		border-top: 1px solid $borderColor;
 		display: flex;

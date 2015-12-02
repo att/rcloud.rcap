@@ -14,14 +14,16 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
 						uid: 'label',
 						label : 'Label',
 						defaultValue : 'Label',
-						helpText : 'The label for this control'
+						helpText : 'The label for this control',
+						isHorizontal: false
 					}),
 					new TextControlProperty({
 						uid: 'variablename',
 						label : 'Variable name',
 						defaultValue : 'variable',
 						helpText : 'The variable associated with this control',
-						isRequired: true
+						isRequired: true,
+						isHorizontal: false
 					})
 				]
 			});

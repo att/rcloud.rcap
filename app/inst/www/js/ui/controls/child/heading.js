@@ -14,7 +14,8 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
                     new TextControlProperty({
                         uid: 'text',
                         label: 'Text',
-                        defaultValue: 'Heading'
+                        defaultValue: 'Heading',
+                        isHorizontal: false
                     }),
                     new DropdownControlProperty({
                         uid: 'testdropdown',
@@ -34,7 +35,8 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
                             text: 'Smallest',
                             value: 'h4'
                         }],
-                        value: 'h1' // default to the largest 'h1'
+                        value: 'h1', // default to the largest 'h1'
+                        isHorizontal: false
                     })
                 ]
             });

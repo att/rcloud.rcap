@@ -13,7 +13,8 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
                     new TextControlProperty({
                         uid: 'text',
                         label: 'Text',
-                        defaultValue: 'Submit'
+                        defaultValue: 'Submit',
+                        isHorizontal: false
                     })
                 ]
             });
