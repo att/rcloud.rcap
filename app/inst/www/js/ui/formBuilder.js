@@ -131,7 +131,7 @@ define(['controls/factories/controlFactory', 'pubsub', 'site/pubSubTable'], func
                 },
                 helper: function(e) {
                     //<a class="caret" href="javascript:void(0)"></a>
-                    return $('<div><div class="ui-remove" href="javascript:void(0)"></div><div class="js-dynamic">' + $(e.target).text() + '</div></div>')
+                    return $('<div><div class="ui-remove" href="javascript:void(0)"></div><div class="js-dynamic">' + $(e.target).text() + '</div><div class="form-item-hint"><span><i class="icon-' + $(e.target).data('icon') +'"></i>' + $(e.target).data('label') + '</span></div></div>')
                         .addClass('form-item');
                 },
                 connectToSortable: '.drop-zone'
@@ -185,7 +185,7 @@ define(['controls/factories/controlFactory', 'pubsub', 'site/pubSubTable'], func
 
         intialiseFormBuilderMenu: function() {
             var childControls = new ControlFactory().getChildControls();
-            var templateStr = '<% _.each(controls, function(control){ %><li data-type="<%=control.type%>"><a href="#" class="control-<%=control.type %>" title="Add <%=control.label%>"><i class="icon-<%=control.icon%>"></i><%= control.label %></a></li><% }); %>';
+            var templateStr = '<% _.each(controls, function(control){ %><li data-type="<%=control.type%>"><a href="#" data-icon="<%=control.icon%>" data-label="<%=control.label%>" class="control-<%=control.type %>" title="Add <%=control.label%>"><i class="icon-<%=control.icon%>"></i><%=control.label%></a></li><% }); %>';
             var template = _.template(templateStr);
             $('#dialog-form-builder .controls').append(template({
                 controls: childControls
@@ -215,7 +215,7 @@ define(['controls/factories/controlFactory', 'pubsub', 'site/pubSubTable'], func
                     child.render({
                         'isDesignTime': true,
                         'isInFormBuilder' : true,
-                    }) + '</div></div>').data('control', child);
+                    }) + '</div><div class="form-item-hint"><span><i class="icon-' + child.icon +'"></i>' + child.label + '</span></div></div>').data('control', child);
 
                 $('#dialog-form-builder .drop-zone').append(item);
 
