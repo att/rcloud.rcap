@@ -87,7 +87,7 @@ define([
             PubSub.subscribe(pubSubTable.gridInitComplete, function() {
 
                 $('#inner-stage').css({
-                    'width': _.last(_.filter([800, 1024, 1280, 1366], function(width) {
+                    'width': _.last(_.filter([800, 1024, 1280, 1366, 1600, 1920], function(width) {
                         return (screen.width - 100) > width;
                     })) + 'px',
                     'margin-left': 'auto',
