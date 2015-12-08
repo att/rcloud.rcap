@@ -5,15 +5,24 @@
 .grid-stack {
   position: relative;
 
-  &::after {
-    content: attr(data-nodenameusername);
+  &::before, &::after {
     position: absolute; 
     font-family: arial;
     font-size: 12pt;
-    top: 30px;
-    left: 145px;
     text-transform: uppercase;
     color: white;
+  }
+
+  &::before {
+    content: attr(data-nodename);
+    top: 30px;
+    left: 145px;
+  }
+
+  &::after {
+    content: attr(data-user);
+    top: 30px;
+    right: 25px;
   }
   
 }

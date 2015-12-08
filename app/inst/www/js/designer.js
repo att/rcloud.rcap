@@ -79,7 +79,11 @@ define([
             bootstrap();
 
             $('body').addClass('rcap-designer');
-            $('body').data('nodenameusername', sessionInfo.nodeNameUserName); 
+            $('body').data({
+                'nodenameusername' : sessionInfo.nodeNameUserName,
+                'nodename' : sessionInfo.nodeName,
+                'user' : sessionInfo.user
+            }); 
 
             $('#rcap-preloader').show();
 

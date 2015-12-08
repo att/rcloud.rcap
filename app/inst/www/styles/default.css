@@ -132,15 +132,20 @@
 
 .grid-stack {
   position: relative; }
-  .grid-stack::after {
-    content: attr(data-nodenameusername);
+  .grid-stack::before, .grid-stack::after {
     position: absolute;
     font-family: arial;
     font-size: 12pt;
-    top: 30px;
-    left: 145px;
     text-transform: uppercase;
     color: white; }
+  .grid-stack::before {
+    content: attr(data-nodename);
+    top: 30px;
+    left: 145px; }
+  .grid-stack::after {
+    content: attr(data-user);
+    top: 30px;
+    right: 25px; }
 
 .grid-stack .grid-stack-placeholder > .placeholder-content {
   border: 1px dashed #444;
@@ -2719,7 +2724,7 @@ body.rcap-viewer {
 
 #rcap-viewer #inner-stage {
   border: 1px solid #ccc;
-  margin: 10px auto;
+  margin: 0 auto;
   background: white;
   border: 1px solid #8c8c8c;
   padding-top: 0;
