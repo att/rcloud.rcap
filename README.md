@@ -9,7 +9,7 @@ After checking out the code, from the repository root you run
 npm install
 ```
 
-To get the node modules. This will install them locally, if you want to use grunt and bower globally you can optionally run
+To get the node modules. This will install everything them locally. If you want to use grunt and bower globally you can optionally install those two packages globally.
 
 ```
 npm install -g grunt-cli
