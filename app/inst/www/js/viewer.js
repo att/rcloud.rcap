@@ -48,7 +48,7 @@ define(['text!rcap/partials/viewer.htm',
 
                 // initialise the stage width:
                 $('#inner-stage').css({
-                    'width' : (screen.width - 100).toString() + 'px',
+                    'width' : (screen.width - 20).toString() + 'px',
                     'margin-left' : 'auto',
                     'margin-right' : 'auto'
                 });
