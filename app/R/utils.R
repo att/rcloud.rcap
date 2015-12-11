@@ -36,3 +36,15 @@ rcapSessionInfo <- function() {
 
 }
 
+
+havePackage <- function(package) {
+  requireNamespace(package, quietly = TRUE)
+}
+
+
+dataFrame <- function(..., stringsAsFactors = FALSE) {
+  data.frame(
+    stringsAsFactors = stringsAsFactors,
+    ...
+  )
+}

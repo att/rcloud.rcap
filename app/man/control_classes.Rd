@@ -4,7 +4,7 @@
 \name{control_classes}
 \alias{control_classes}
 \title{Front-end control types and matching back-end classes}
-\format{An object of class \code{list} of length 18.}
+\format{An object of class \code{list} of length 21.}
 \usage{
 control_classes
 }

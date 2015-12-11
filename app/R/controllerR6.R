@@ -37,7 +37,10 @@ Controller <- R6::R6Class("Controller",
       controllerUpdate(self, private, controls),
     
     initUpdate = function(controls)
-      controllerInitUpdate(self, private, controls)
+      controllerInitUpdate(self, private, controls),
+
+    getUpdateGraph = function()
+      controllerGetUpdateGraph(self, private)
   ),
 
   private = list(
@@ -147,6 +150,25 @@ controllerUpdateAll <- function(self, private) {
   private$updateInOrder(private$topoSort)
 
   invisible(self)
+}
+
+controllerGetUpdateGraph <- function(self, private) {
+  vertices <- dataFrame(
+    name = names(private$controls),
+    type = vapply(private$controls, function(x) x$getType(), ""),
+    variable =
+      vapply(private$controls, function(x) x$getVariableName(), ""),
+    func =
+      vapply(private$controls, function(x) x$getControlFunctionName(), "")
+  )
+
+  edges <- dataFrame(
+    row.names = NULL,
+    from = rep(vertices$name, vapply(private$succList, length, 1L)),
+    to   = unlist(private$succList)
+  )
+
+  list(vertices = vertices, edges = edges)
 }
 
 ## Extract the updated control ids and new values from the JSON

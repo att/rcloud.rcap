@@ -50,8 +50,12 @@ Control <- R6::R6Class("Control",
     initialize = function(cl)
       controlInitialize(self, private, cl),
 
+    getType = function() private$type %||% NA_character_,
     getId = function() private$id %||% NA_character_,
     getVariableName = function() private$variableName %||% NA_character_,
+    getControlFunctionName = function() {
+      private$controlFunction %||% NA_character_
+    },
 
     setVariable = function(new_value = NULL)
       controlSetVariable(self, private, new_value),
