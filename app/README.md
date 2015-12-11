@@ -27,7 +27,7 @@ only runs in the dashboard.
 When called from `mini.html`, `rcap.result()` does the following:
 * Retrieves the JSON asset that defines the dashboard
   (`rcap_designer.json`).
-  * Passes this asset to the front-end, the front-end starts
+* Passes this asset to the front-end, the front-end starts
   building up the dashboard.
 * `rcap.result()` parses the asset file, and creates the
   back-end controller.
