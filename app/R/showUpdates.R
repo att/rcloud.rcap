@@ -39,7 +39,7 @@ showUpdates <- function(rcapConfigFileName = "rcap_designer.json",
 
 setGraphLabel <- function(type, variable, func) {
   ifelse(
-    !is.na(variable) & !is.na(func) & type == "dataSource",
+    !is.na(variable) & !is.na(func),
     paste0(type, "\n", func, "() -> ", variable, " ->"),
   ifelse(
     is.na(variable) & is.na(func),
