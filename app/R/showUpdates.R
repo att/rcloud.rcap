@@ -31,8 +31,6 @@ showUpdates <- function(rcapConfigFileName = "rcap_designer.json",
     setGraphLabel(type, variable, func)
   )
 
-  print(graph$vertices)
-
   ## Create and do the sankey plot
   sp <- sankey::make_sankey(graph$vertices, graph$edges)
   sankey::sankey(sp, mar = mar, ...)
