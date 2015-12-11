@@ -40,13 +40,13 @@ showUpdates <- function(rcapConfigFileName = "rcap_designer.json",
 setGraphLabel <- function(type, variable, func) {
   ifelse(
     !is.na(variable) & !is.na(func),
-    paste0(type, "\n", func, "() -> ", variable, " ->"),
+    paste0(type, "\n", func, "() → ", variable, " →"),
   ifelse(
     is.na(variable) & is.na(func),
     type,
   ifelse(
     is.na(variable),
-    paste0(type, "\n-> ", func, "()"),
-    paste0(type, "\n", variable, " ->")
+    paste0(type, "\n→ ", func, "()"),
+    paste0(type, "\n", variable, " →")
   )))
 }
