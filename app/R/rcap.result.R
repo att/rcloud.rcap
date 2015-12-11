@@ -51,6 +51,10 @@ createController <- function(config) {
   invisible(cnt)
 }
 
+haveController <- function() {
+  exists("rcapController", envir = rcapEnv)
+}
+
 updateController <- function(controls) {
   cnt <- get("rcapController", envir = rcapEnv)
   cnt$update(controls)

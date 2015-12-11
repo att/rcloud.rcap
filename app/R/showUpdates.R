@@ -4,8 +4,9 @@
 showUpdates <- function(rcapConfigFileName = "rcap_designer.json",
                         mar = c(0, 7, 0, 5) + 0.2, ...) {
 
-  ## Only run in edit mode
-  if (!isEditMode()) return(invisible())
+  ## Only run in edit mode, if the proper controller is running,
+  ## then we are on the dashboard
+  if (haveController()) return(invisible())
 
   ## We also need the sankey package
   if (!havePackage("sankey")) {
