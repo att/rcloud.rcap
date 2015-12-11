@@ -72,11 +72,11 @@ updateAllControls <- function(controls) {
 #' @return Logical: TRUE if it is the edit page
 #' @importFrom rcloud.support rcloud.get.url
 isEditMode <- function() {
-  pageURL <- rcloud.get.url()
+  sessionMode <- rcloud.support:::.session$mode
   res <- FALSE
-  if(!is.null(pageURL)) {
-    if(pageURL != "") {
-      res <- grepl("/edit\\.html", pageURL)
+  if(!is.null(sessionMode)) {
+    if(sessionMode == "IDE") {
+      res <- TRUE
     }
   }
   res
