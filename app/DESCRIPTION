@@ -13,6 +13,7 @@ Imports:
     R6,
     codetools
 Suggests:
+    sankey,
     testthat
 License: MIT + file LICENSE
 RCloud-Extension: gui
@@ -24,6 +25,7 @@ Collate:
     'getControls.R'
     'ocaps.R'
     'rcap.result.R'
+    'showUpdates.R'
     'topo-sort.R'
     'utils.R'
     'zzz.R'
