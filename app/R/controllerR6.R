@@ -35,7 +35,7 @@ Controller <- R6::R6Class("Controller",
 
     update = function(controls)
       controllerUpdate(self, private, controls),
-    
+
     initUpdate = function(controls)
       controllerInitUpdate(self, private, controls),
 
@@ -51,7 +51,7 @@ Controller <- R6::R6Class("Controller",
     ## Update these controls, in the specified order
     updateInOrder = function(ids)
       controllerUpdateInOrder(self, private, ids),
-    
+
     ## Update the output size of plot controls
     updatePlotSizes = function(controls)
       controllerUpdatePlotSizes(self, private, controls),
@@ -98,11 +98,11 @@ controllerInitialize <- function(self, private, rcapConfig) {
 }
 
 controllerUpdate <- function(self, private, controls) {
-  
+
   # Client reports all plot sizes
   # Extract these from the input
   private$updatePlotSizes(controls)
-  
+
   controls <- parseUpdateJson(controls)
 
   ## what to update
@@ -141,7 +141,7 @@ controllerUpdatePlotSizes <- function(self, private, controls) {
   for (id in names(controlSizes)) {
     private$controls[[id]]$updateSize(controlSizes[[id]])
   }
-  
+
   invisible(self)
 }
 
@@ -168,6 +168,11 @@ controllerGetUpdateGraph <- function(self, private) {
     to   = unlist(private$succList)
   )
 
+  ## Drop forms, they are just placeholders
+  forms <- vertices$name[ vertices$type == "form" ]
+  forms <- forms[ ! forms %in% edges$from & ! forms %in% edges$to ]
+  vertices <- vertices[ ! vertices$name %in% forms, ]
+
   list(vertices = vertices, edges = edges)
 }
 
@@ -189,10 +194,10 @@ parseUpdateJson <- function(json) {
 ## message from the client. Ids will be names, widths and heights
 ## will be a named vector
 #' Get plot sizes from JSON
-#' 
+#'
 #' Parse the JSON string sent from the client, find the plot IDs and sizes, and
 #' return as a neat R object.
-#' 
+#'
 #' @param json A JSON string from the client. Must have an element named plotSizes
 #' @return List with control IDs as names and named vector of widths and heights
 #' as list items.
@@ -200,7 +205,7 @@ parseUpdateJson <- function(json) {
 
 parseSizesJson <- function(json) {
   controls <- fromJSON(json, simplifyVector = FALSE)
-  
+
   ## TODO: should this be one call with parseUpdateJson?
   ## The structure is a little different
   structure(
@@ -211,4 +216,3 @@ parseSizesJson <- function(json) {
     names = vapply(controls$plotSizes, "[[", "", "id")
   )
 }
-

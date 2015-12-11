@@ -33,14 +33,14 @@ showUpdates <- function(rcapConfigFileName = "rcap_designer.json",
   )
 
   ## Create and do the sankey plot
-  sp <- sankey::make_sankey(graph$vertices, graph$edges)
+  sp <- sankey::make_sankey(graph$vertices, graph$edges, break_edges = TRUE)
   sankey::sankey(sp, mar = mar, ...)
 }
 
 setGraphLabel <- function(type, variable, func) {
   ifelse(
-    !is.na(variable) & !is.na(func),
-    paste0(type, "\n", variable, " -> ", func, "()"),
+    !is.na(variable) & !is.na(func) & type == "dataSource",
+    paste0(type, "\n", func, "() -> ", variable, " ->"),
   ifelse(
     is.na(variable) & is.na(func),
     type,
