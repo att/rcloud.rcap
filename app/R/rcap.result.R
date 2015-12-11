@@ -1,6 +1,4 @@
 
-## TODO: detect if called from the notebook, and do nothing.
-
 #' Set up a dashboard
 #'
 #' This function must called from the last cell of the notebook.
