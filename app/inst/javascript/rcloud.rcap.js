@@ -145,7 +145,7 @@
         },
 
         updateControlAttribute: function(controlId, attributeName, attributeValue, k) {
-            $('#' + controlId).attr(attributeName, attrilbuteValue);
+            $('#' + controlId).attr(attributeName, attributeValue);
             k();
         },
 
