@@ -162,7 +162,7 @@ SubmitButtonControl <- R6Class("SubmitButtonControl",
 )
 
 #' @importFrom rcloud.web rcw.set
-#' @importFrom rcloud.web rcw.append
+#' @importFrom rcloud.web rcw.prepend
 
 IFrameControl <- R6Class("IFrameControl",
   inherit = Control,
