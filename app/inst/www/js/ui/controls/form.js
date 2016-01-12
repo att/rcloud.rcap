@@ -15,7 +15,7 @@ define(['rcap/js/ui/controls/gridControl',
                 icon: 'list-alt',
                 initialSize: [2, 1],
                 controlProperties: [
-                    // TODO : general form properties!
+
                 ]
             });
 

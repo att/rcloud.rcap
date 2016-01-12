@@ -113,15 +113,7 @@ define(['rcap/js/ui/controls/gridControl',
                 PubSub.subscribe(pubSubTable.pageAdded, function(/*msg, msgData*/) {
 
                     if (me.isOnGrid) {
-
-                        // if the page doesn't already exist:
-                       // if (!_.find(me.pages, function(p) {
-                          //      return p.id === msgData.page.id;
-                           // })) {
-                           
-                            renderControl(me, true);
-                        //}
-
+                        renderControl(me, true);
                     }
                 });
 

@@ -48,9 +48,6 @@ define([
             new PageMenuControl(),
             new BreadcrumbControl(),
             new TextControl()
-
-            //new DatePickerControl(),
-            //new DropdownControl(),
         ];
 
         this.childControls = [
@@ -92,18 +89,11 @@ define([
         return this.childControls;
     };
 
-    // ControlFactory.prototype.getAll = function() {
-    // 	return this.controls;
-    // };
-
     ControlFactory.prototype.getByKey = function(key) {
-        // TODO: improve this (each 'control' knows its own string identity...)
 
         var control;
 
         switch (key) {
-            //case 'datepicker': control = new DatePickerControl(); break;
-            //case 'dropdown': control = new DropdownControl(); break;
             case 'iframe':
                 control = new IFrameControl();
                 break;
@@ -143,7 +133,6 @@ define([
     };
 
     ControlFactory.prototype.getChildByKey = function(key) {
-        // TODO: improve this (each 'control' knows its own string identity...)
 
         var control;
 

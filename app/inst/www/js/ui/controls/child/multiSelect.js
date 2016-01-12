@@ -47,12 +47,7 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
                         }],
                         isRequired: true,
                         isHorizontal: false
-                    }),
-
-                    //
-                    //	MAX SELECTION LIMIT
-                    //
-
+                    })
 				]
 			});
 		},

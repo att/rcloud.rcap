@@ -21,7 +21,6 @@ define([
 	};
 
 	ControlPropertyFactory.prototype.getByKey = function(key) {
-		// TODO: improve this (each 'controlProperty' knows its own string identity...)
 
 		var controlProperty;
 

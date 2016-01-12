@@ -52,21 +52,13 @@ define(['rcap/js/ui/controls/gridControl',
             var translatedData = translator.translate(data);
 
             if($.fn.DataTable.isDataTable('#' + controlId)) {
-                //$('#' + controlId).dataTable().fnDestroy();
-
-                //$('#' + controlId).remove();
-
                 var dt = $('#' + controlId).dataTable().api();
                 dt.destroy();
 
                 $('#' + controlId).empty();
-
-                //dt.clear();
-                //dt.rows.add(translatedData.data);
-                //dt.draw();
-            } //else {
-                $('#' + controlId).dataTable(translatedData);    
-            //}
+            } 
+                
+            $('#' + controlId).dataTable(translatedData);    
 
         }
     });

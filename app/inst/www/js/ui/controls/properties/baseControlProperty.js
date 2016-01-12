@@ -30,12 +30,9 @@ define(['rcap/js/Class'], function() {
 				'id':  this.id
 			};
 		},
-		render : function(/*childIndex*/) {
+		render : function() {
 			return '';
 		},
-		// id : function() {
-		// 	return id;
-		// },
 		getDialogValue : function() {
 			return '';
 		},
