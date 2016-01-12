@@ -163,12 +163,7 @@ define([
                 setSite(site);
 
                 PubSub.publish(pubSubTable.pageAdded, {
-                    pageData: newPages//,
-                    // options: { 
-                    //     // this is already present in the new page,
-                    //     // but is passed separately for DRY on message receiver:
-                    //     parentPageId : newPage.parentId 
-                    // }
+                    pageData: newPages
                 });
 
                 PubSub.publish(pubSubTable.pagesChanged, {

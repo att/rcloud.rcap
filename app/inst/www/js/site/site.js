@@ -85,28 +85,6 @@ define(['pages/page', 'data/dataSource', 'rcap/js/utils/pageWalker'], function(P
 
             return newPage;
         },
-        /*
-        addPage: function(page, options) {
-
-            options = options || {};
-
-            if (options.parentPageId) {
-
-                //var parentPage = findPage(this.pages, options.parentPageId);
-                var parentPage = new PageWalker().findPage(this.pages, function(p) { 
-                    return p.id === options.parentPageId;
-                });
-
-                parentPage.addChildPage(page);
-
-            } else {
-                // no parent page, so just push to the root level pages:
-                this.pages.push(page);
-            }
-
-            return this;
-        },
-        */
         updatePage: function(pageObj) {
             var page = this.getPageByID(pageObj.id);
             page.navigationTitle = pageObj.navigationTitle;

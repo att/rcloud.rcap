@@ -1,4 +1,4 @@
-define([/*'rcap/js/ui/controls/properties/colorControlProperty',*/ 'rcap/js/Class'], function(/*ColorControlProperty*/) {
+define(['rcap/js/Class'], function() {
 
     'use strict';
 
@@ -17,17 +17,6 @@ define([/*'rcap/js/ui/controls/properties/colorControlProperty',*/ 'rcap/js/Clas
             this.id = options.id || generateId();
 
             this.controls = options.controls || [];
-
-            /*
-            this.styleProperties = [
-                new ColorControlProperty({
-                    uid: 'backgroundColor',
-                    label: 'Background Color',
-                    helpText: '',
-                    defaultValue: '#ffffff',
-                    value: '#ffffff'
-                })
-            ];*/
         },
         deserialize: function() {
 
@@ -41,25 +30,6 @@ define([/*'rcap/js/ui/controls/properties/colorControlProperty',*/ 'rcap/js/Clas
         getDialogMarkup: function() {
 
         },
-        /*
-        getStyleProperties: function() {
-            // return {
-            //     'background-color' : this.styleProperties[0].value
-            // };
-        },
-        getStyleDialogMarkup: function() {
-            // general style information controls:
-
-            var markup = '<div class="style-details">';
-
-            _.each(this.styleProperties, function(prop, index) {
-                markup += prop.render(index);
-            });
-
-            markup += '<div style="clear:both" /></div>';
-
-            return markup;
-        },*/
         getDialogValue: function() {
 
         },
@@ -71,11 +41,8 @@ define([/*'rcap/js/ui/controls/properties/colorControlProperty',*/ 'rcap/js/Clas
                 'parentId' : this.parentId,
                 'navigationTitle': this.navigationTitle,
                 'isEnabled': this.isEnabled,
-                //'pageTitle' : this.pageTitle,
-                //'urlSlug' : this.urlSlug,
                 'controls': this.controls,
-                'pages': this.pages,
-                //'styleProperties': this.styleProperties
+                'pages': this.pages
             };
 
         },
