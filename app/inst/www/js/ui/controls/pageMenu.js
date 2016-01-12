@@ -48,10 +48,6 @@ define(['rcap/js/ui/controls/gridControl',
                             }
                            
                         }
-
-                        // if (page.pages) {
-                        //     buildTree(page.pages);
-                        // }
                     });
                 };
 
@@ -79,30 +75,9 @@ define(['rcap/js/ui/controls/gridControl',
                         availableOptions: [{
                             text: 'Mobile Style \'Hamburger icon\'',
                             value: 'hamburger'
-                        }/*, {
-                            text: 'Horizontal',
-                            value: 'horizontal'
-                        }, {
-                            text: 'Vertical',
-                            value: 'vertical'
-                        }*/],
+                        }],
                         value: 'hamburger'
                     }),
-                    // new DropdownControlProperty({
-                    //     uid: 'horizontalalignment',
-                    //     label: 'Horizontal Alignment',
-                    //     isRequired: true,
-                    //     availableOptions: [{
-                    //         text: 'Left',
-                    //         value: 'left'
-                    //     }, {
-                    //         text: 'Center',
-                    //         value: 'center'
-                    //     }, {
-                    //         text: 'Right',
-                    //         value: 'right'
-                    //     }]
-                    // }),
                     new DropdownControlProperty({
                         uid: 'verticalalignment',
                         label: 'Vertical Alignment',
@@ -119,27 +94,6 @@ define(['rcap/js/ui/controls/gridControl',
                         }],
                         value: 'middle'
                     }),
-                    /*
-                                        new ColorControlProperty({
-                                            uid: 'linkColor',
-                                            label: 'Link color',
-                                            helpText: 'The color of the menu links'
-                                        }),
-                                        new ColorControlProperty({
-                                            uid: 'backgroundColor',
-                                            label: 'Link background color',
-                                            helpText: 'The background color of the menu links'
-                                        }),
-                                        new ColorControlProperty({
-                                            uid: 'hoverBackgroundColor',
-                                            label: 'Link hover background color',
-                                            helpText: 'The hover background color of the menu links'
-                                        }),
-                                        new ColorControlProperty({
-                                            uid: 'selectedBackgroundColor',
-                                            label: 'Link selected background color',
-                                            helpText: 'The selected background color of the menu links'
-                                        })*/
                 ]
             });
 

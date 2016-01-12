@@ -17,7 +17,7 @@ define(['rcap/js/ui/controls/gridControl', 'rcap/js/ui/controls/properties/textC
 						uid: 'imagesource',
 						label : 'Image source',
 						defaultValue : '',
-						helpText : 'The source of this image',
+						helpText : 'The source of the image',
 						isRequired: true
 					}),
 					new DropdownControlProperty({

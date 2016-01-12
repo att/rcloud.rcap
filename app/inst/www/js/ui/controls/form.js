@@ -96,13 +96,6 @@ define(['rcap/js/ui/controls/gridControl',
                 // value dependent on control type:
                 var value;
 
-/*
-                if( el.data('select2')) {
-                    value = _.pluck(el.select2('data'), 'text');
-                } else if( el.is('select')) {
-                    value = el.find('option:selected').val();
-                } else */
-
                 if( el.hasClass('checkbox-group')) {
                     // get all selected checkboxes:
                     value = [];
@@ -184,11 +177,6 @@ define(['rcap/js/ui/controls/gridControl',
             // find the control(s), determine type, and update:
             $('[data-variablename="' + variableName + '"]').each(function(i, e) {
 
-                //
-                //
-                // TODO: this is temporary code:
-                //
-                //
                 if(allValues) {
                     if($(e).is('select')) {
 
