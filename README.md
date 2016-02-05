@@ -1,7 +1,7 @@
 # rcloud.rcap.dev
 Development repository for [rcloud.rcap](https://github.research.att.com/dashton/rcloud.rcap) project. 
 
-This repository contains the full development code for the `rcloud.rcap` pacakge. The top level contains JavaScript (node/grunt/bower) configuration files and the R package is in the `app` directory.  However, before the package can be use it must be deployed by the Grunt script. To build the R package you need several JavaScript components. Starting with node (npm), Grunt and Bower. If you don't have them already you will need the following node modules:
+This repository contains the full development code for the `rcloud.rcap` package. The top level contains JavaScript (node/grunt/bower) configuration files and the R package is in the `app` directory.  However, before the package can be use it must be deployed by the Grunt script. To build the R package you need several JavaScript components. Starting with node (npm), Grunt and Bower. If you don't have them already you will need the following node modules:
 
 After checking out the code, from the repository root you run
 
