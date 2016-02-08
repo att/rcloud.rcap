@@ -2704,8 +2704,7 @@ body.rcap-viewer {
   margin: 0 auto;
   background: white;
   border: 1px solid #8c8c8c;
-  padding-top: 0;
-  background: white url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAABQCAYAAADYxx/bAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wwCDwQdTHPPMAAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAAWSURBVBjTY1BSUvrPxMDAwDBKDAYCAKYmAgSmlmSYAAAAAElFTkSuQmCC") top left repeat-x; }
+  padding-top: 0; }
 
 .data-table {
   border: 1px solid #555;
