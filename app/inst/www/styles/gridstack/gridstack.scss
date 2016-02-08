@@ -4,27 +4,6 @@
 
 .grid-stack {
   position: relative;
-
-  &::before, &::after {
-    position: absolute; 
-    font-family: arial;
-    font-size: 12pt;
-    text-transform: uppercase;
-    color: white;
-  }
-
-  &::before {
-    content: attr(data-nodename);
-    top: 30px;
-    left: 145px;
-  }
-
-  &::after {
-    content: attr(data-user);
-    top: 30px;
-    right: 25px;
-  }
-  
 }
 .grid-stack .grid-stack-placeholder > .placeholder-content {
   border: 1px dashed #444;
