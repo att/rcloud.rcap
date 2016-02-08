@@ -477,7 +477,7 @@
         }
         & li span.count {
             position: absolute;
-            top: 7px;
+            bottom: 7px;
             right: 12px;
             color: black;
             display: block;
@@ -605,7 +605,7 @@
             border: 1px solid darken($bgColor, 40%);
             position: relative;
             margin: 15px;
-            padding-top: 0px;
+            padding-top: 10px;
         }
     }
 

@@ -17,23 +17,24 @@ define([
     var rcloudSelector = '.container, #rcloud-navbar-main, #rcloud-navbar-main, .navbar-fixed-top';
     var rcapSelector = '#rcap-designer';
 
+    var closeDesigner = function() {
+        $('body').removeClass('rcap-designer');
+
+        $(rcloudSelector).show();
+
+        // hide rcap:
+        $(rcapSelector).hide();
+
+        console.info('designer: PUBLISH : pubSubTable.close');
+        PubSub.publish(pubSubTable.close);
+    };
+
     var bootstrap = function() {
 
         $('body').append(mainPartial);
 
         // close (link)
-        $('#rcap-close').click(function() {
-
-            $('body').removeClass('rcap-designer');
-
-            $(rcloudSelector).show();
-
-            // hide rcap:
-            $(rcapSelector).hide();
-
-            console.info('designer: PUBLISH : pubSubTable.close');
-            PubSub.publish(pubSubTable.close);
-        });
+        $('#rcap-close').click(closeDesigner);
 
         $('#rcap-save').click(function() {
             PubSub.publish(pubSubTable.save);

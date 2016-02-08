@@ -535,14 +535,10 @@
   display: block;
   margin: 0 auto;
   border: 3px solid;
-  border-radius: 30px;
-  width: 60px;
-  height: 60px;
-  font-weight: 200;
-  letter-spacing: 1px;
-  text-transform: uppercase; }
+  border-radius: 20px;
+  height: 40px; }
   .grid-stack .btn-configure i {
-    font-size: 36px; }
+    font-size: 22px; }
 .grid-stack .grid-stack-item-content p:last-child {
   position: absolute;
   pointer-events: all;
@@ -2329,7 +2325,7 @@ table.dataTable td {
       display: none; }
     #rcap-designer #main-menu li span.count {
       position: absolute;
-      top: 7px;
+      bottom: 7px;
       right: 12px;
       color: black;
       display: block;
@@ -2436,7 +2432,7 @@ table.dataTable td {
       border: 1px solid #8c8c8c;
       position: relative;
       margin: 15px;
-      padding-top: 0px; }
+      padding-top: 10px; }
   #rcap-designer .style-details {
     padding-top: 15px;
     margin-top: 30px;
