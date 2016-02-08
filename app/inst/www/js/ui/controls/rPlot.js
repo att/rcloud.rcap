@@ -21,6 +21,14 @@ define(['rcap/js/ui/controls/gridControl',
                         label: 'R Function',
                         helpText: 'R Function for this control.',
                         isRequired: true
+                    }),
+                    new TextControlProperty({
+                        uid: 'linkUrl',
+                        label : 'Link url',
+                        defaultValue : '',
+                        helpText : 'Link url',
+                        isRequired: false,
+                        isHorizontal: false
                     })
                 ]
             });
