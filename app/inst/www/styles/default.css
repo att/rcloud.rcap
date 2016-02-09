@@ -2138,7 +2138,7 @@ table.dataTable td {
       font-size: 14px;
       letter-spacing: 2px;
       clear: left;
-      margin-top: 0;
+      margin-top: 10px;
       color: #efefef; }
     #rcap-designer .menu-flyout ul {
       list-style-type: none;
@@ -2324,7 +2324,7 @@ table.dataTable td {
       font-size: 30px;
       width: 35px;
       display: block;
-      margin: 3px auto 0 3px;
+      /*margin: 3px auto 0 3px;*/
       color: #efefef; }
     #rcap-designer #main-menu li span:not(.count) {
       display: none; }
