@@ -178,13 +178,9 @@
   background-color: rgba(195, 126, 0, 0.98);
   color: white;
   padding: 10px;
-  letter-spacing: 1px;
-  border: 5px solid white;
   border: 2px solid white;
-  padding: 15px;
   left: 5px;
-  top: 5px;
-  outline: 4px solid rgba(202, 153, 66, 0.3); }
+  top: 5px; }
   .rcap-controltype-rplot pre::before, .rcap-controltype-interactiveplot pre::before, .rcap-controltype-rtext pre::before, .rcap-controltype-datatable pre::before,
   .rcap-controltype-rtext pre::before {
     font: normal normal normal 18px/1 FontAwesome;
@@ -483,8 +479,10 @@
 .grid-stack-item-content {
   font-family: sans-serif;
   color: #2c3e50;
-  border: 1px solid #ccc;
+  border: 1px dashed #888;
   cursor: move; }
+  .grid-stack-item-content:hover {
+    border-style: solid; }
 
 .grid-stack-readonly .grid-stack-item-content {
   cursor: default; }
@@ -536,9 +534,16 @@
   margin: 0 auto;
   border: 3px solid;
   border-radius: 20px;
-  height: 40px; }
+  height: 40px;
+  width: 40px;
+  padding: 0;
+  -webkit-transition: -webkit-transform .5s ease-in-out;
+  transition: transform .5s ease-in-out; }
   .grid-stack .btn-configure i {
     font-size: 22px; }
+  .grid-stack .btn-configure:hover {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg); }
 .grid-stack .grid-stack-item-content p:last-child {
   position: absolute;
   pointer-events: all;
@@ -2432,7 +2437,8 @@ table.dataTable td {
       border: 1px solid #8c8c8c;
       position: relative;
       margin: 15px;
-      padding-top: 10px; }
+      padding-top: 10px;
+      padding-bottom: 10px; }
   #rcap-designer .style-details {
     padding-top: 15px;
     margin-top: 30px;

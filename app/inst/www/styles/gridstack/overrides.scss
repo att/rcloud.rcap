@@ -2,9 +2,15 @@
     font-family: sans-serif;
     //background: white;
     color: #2c3e50;
-    border: 1px solid #ccc;
+    border: 1px dashed #888;
     cursor: move;
+
+    &:hover {
+        border-style: solid;
+    }
 }
+
+
 
 .grid-stack-item-content .configure .form-group {
     //position: relative;
@@ -86,9 +92,18 @@
         border: 3px solid;
         border-radius: 20px;
         height: 40px;
+        width: 40px;
+        padding: 0;
+        -webkit-transition: -webkit-transform .5s ease-in-out;
+        transition: transform .5s ease-in-out;
 
         & i {
             font-size: 22px;
+        }
+
+        &:hover {
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
         }
     }
     .grid-stack-item-content p:last-child {
