@@ -84,11 +84,39 @@ define([
                 $('#rcap-designer').append(partial);
             });
 
+            var sizeModalBodyHeight = function(modal) {
+                //var height = $(document).height() - 170;
+                //height = height < 200 ? 200 : height;
+                //modal.find('.body').height(height + 'px');
+
+                modal.find('.body').height(($(document).height() - 170) + 'px');
+            };
+
             // initialise each of the dialogs:
             $('.jqmWindow').each(function() {
                 $(this).jqm({
-                    modal: true
+                    modal: true,
+                    onShow: function(hash) {
+                        sizeModalBodyHeight(hash.w);
+                        
+                        // display the overlay (prepend to body) if not disabled
+                        if(hash.c.overlay > 0) {
+                            hash.o.prependTo('body');
+                        }
+
+                        // make modal visible
+                        hash.w.show();
+
+                        // call focusFunc (attempts to focus on first input in modal)
+                        $.jqm.focusFunc(hash.w, null);
+
+                        return true;
+                    }
                 });
+            });
+
+            $(window).resize(function() {
+                sizeModalBodyHeight($('.jqmWindow:visible'));
             });
 
             // initialise the form builder dialog:

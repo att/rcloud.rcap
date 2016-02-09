@@ -79,7 +79,8 @@
     margin-bottom: 10px; }
   .jqmwindow .jqm-footer {
     border-top: 1px solid #cdcdcd;
-    display: flex; }
+    display: flex;
+    height: 45px !important; }
   .jqmwindow .jqm-footer a:link, .jqmwindow .jqm-footer a:visited, .jqmwindow .jqm-footer a:hover, .jqmwindow .jqm-footer a:active {
     flex: 1;
     text-transform: uppercase;
@@ -112,7 +113,7 @@
     text-transform: uppercase;
     padding-top: 9px; }
   .jqmwindow .body {
-    max-height: 600px;
+    /*		max-height: 600px;*/
     overflow: auto; }
 
 #dialog-confirm {
@@ -538,7 +539,8 @@
   width: 40px;
   padding: 0;
   -webkit-transition: -webkit-transform .5s ease-in-out;
-  transition: transform .5s ease-in-out; }
+  transition: transform .5s ease-in-out;
+  outline: none; }
   .grid-stack .btn-configure i {
     font-size: 22px; }
   .grid-stack .btn-configure:hover {
