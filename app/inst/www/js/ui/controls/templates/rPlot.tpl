@@ -1,5 +1,5 @@
 <%if(control.controlProperties[1].value.length) {%>
-    <a href="<%=control.controlProperties[1].value%>">
+    <a href="<%=control.controlProperties[1].value%>" target="<%=control.controlProperties[2].value%>">
         <div id="<%=control.id%>" class="rplot">Please wait while the plot is loaded...</div>
     </a>
 <%} else {%>
