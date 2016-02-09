@@ -123,6 +123,7 @@ define([
 
             $('body').on('click', '.menu-flyout a.panel-close', function() {
                 $('.menu-flyout').hide();
+                $('#main-menu li').removeClass('selected');
             });
 
             PubSub.subscribe(pubSubTable.startControlDrag, function() {
