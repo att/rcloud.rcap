@@ -941,16 +941,12 @@ a.wysiwyg-toolbar-icon:hover {
 }
 
 body.rcap-viewer {
-    background-color: $bgColor;
     margin: 0;
 }
 
 #rcap-viewer {
     & #inner-stage {
-        border: 1px solid #ccc;
         margin: 0 auto;
-        background: white;
-        border: 1px solid darken($bgColor, 40%);
         padding-top: 0;
     }
 }

@@ -215,7 +215,7 @@ define([
 
                 } else {
 
-                    // and find the page by it's navigation title:
+                    // and find the page by its navigation title:
                     currentPage = site.getPageByNavigationTitle(pageTitle);
                 }
 

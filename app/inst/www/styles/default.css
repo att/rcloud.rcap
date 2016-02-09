@@ -567,8 +567,6 @@
   background-color: rgba(255, 255, 0, 0.3);
   margin-top: 10px; }
 
-#rcap-viewer #inner-stage {
-  background: white url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAABQCAYAAADYxx/bAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wwCDwQdTHPPMAAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAAWSURBVBjTY1BSUvrPxMDAwDBKDAYCAKYmAgSmlmSYAAAAAElFTkSuQmCC") top left repeat-x; }
 #rcap-viewer .grid-stack-item-content {
   border: 0;
   overflow-x: auto; }
@@ -2702,14 +2700,10 @@ a.wysiwyg-toolbar-icon:hover {
     color: inherit; }
 
 body.rcap-viewer {
-  background-color: #f2f2f2;
   margin: 0; }
 
 #rcap-viewer #inner-stage {
-  border: 1px solid #ccc;
   margin: 0 auto;
-  background: white;
-  border: 1px solid #8c8c8c;
   padding-top: 0; }
 
 .data-table {
