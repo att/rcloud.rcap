@@ -89,7 +89,33 @@ define([
                 //height = height < 200 ? 200 : height;
                 //modal.find('.body').height(height + 'px');
 
-                modal.find('.body').height(($(document).height() - 170) + 'px');
+                //modal.find('.body').height(($(document).height() - 170) + 'px');
+
+                var availableHeight = $(document).height() - 170;
+                var maxHeight = modal.find('.body').data('maxheight');
+                var $modalBody = modal.find('.body');
+
+                if(!maxHeight) {
+                    var initialHeight = modal.find('.body').height();
+
+                    if(initialHeight > availableHeight) {
+                        $modalBody.height(availableHeight + 'px');
+                    } else {
+                        $modalBody.height(initialHeight + 'px');
+                    }
+
+                    modal.find('.body').data('maxheight', initialHeight);
+
+                } else {
+
+                    if(availableHeight > maxHeight) {
+                        $modalBody.height(maxHeight + 'px');
+                    } else {
+                        $modalBody.height(availableHeight + 'px');
+                    }
+                }
+
+//                console.log('body height should be: ', modal.find('.body').height());
             };
 
             // initialise each of the dialogs:
@@ -97,8 +123,7 @@ define([
                 $(this).jqm({
                     modal: true,
                     onShow: function(hash) {
-                        sizeModalBodyHeight(hash.w);
-                        
+                       
                         // display the overlay (prepend to body) if not disabled
                         if(hash.c.overlay > 0) {
                             hash.o.prependTo('body');
@@ -109,6 +134,8 @@ define([
 
                         // call focusFunc (attempts to focus on first input in modal)
                         $.jqm.focusFunc(hash.w, null);
+
+                        sizeModalBodyHeight(hash.w);
 
                         return true;
                     }
