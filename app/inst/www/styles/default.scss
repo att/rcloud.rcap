@@ -6,6 +6,7 @@
 @import "gridstack/overrides.scss";
 @import "spectrum/spectrum.scss";
 @import "wysiwyg.js/wysiwyg-editor.scss";
+@import "ion.rangeSlider/overrides.scss";
 @import "parsleyjs/parsley.scss";
 @import "datatables.net/jquery.dataTables.scss";
 @import "formBuilder.scss";
@@ -680,6 +681,7 @@
         background: white;
         width: 100%;
         height: 34px;
+        border: 1px solid #ddd;
     }
     & textarea {
         display: block;

@@ -1343,6 +1343,19 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 .wysiwyg-embedcode {
   margin-bottom: 10px; }
 
+.irs-line-mid,
+.irs-line-left,
+.irs-line-right,
+.irs-bar,
+.irs-bar-edge,
+.irs-slider {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQQAAAC0CAYAAABytVLLAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AIKCjoHebfMKgAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAI8SURBVHja7d0hb1pRHMbh95xWV1aRJU0T5jZTUoWbw/FNKjEVM5X7JMPV4VDNFLhds5RhmBt+PTNkalkyQ2ju81gEySt++V9xc8vzdtcCkKSaABAEQBAAQQAEARAEQBAAQQAEARAEQBAAAAAAAAAAAAAAAAAAAAAAAAAAkpIk28fl8OX98KG1fEjJhVmgJ1r2pWRRV91sMBl3Zfu4HP56N/wiBNDvMJytu1HZbHefWzK1CPT+cWFenr/vfroOgLTsqxgAhxPhwncZgD8EARAE4G9BaNmbAUjLvpaShSWAUrKoddXNXAngOqirblYHk3F3tu5GJZkLA/QvBCWZn6270WAy7gwCAAAAAAAAAAAAAAAAAAAAAACcvlJvp80MQOK7DIAgAIIACAIgCIAgAIIACAIgCIAgAIIAAAAAAAAAAAAAAAAAAAAAAAAAkCQpSbJ9XA7ffPz0kGR6rD9+eZoX88NpOT/E4KspgHq4DABSj/mYAJx+EAAEARAEQBAAQQD+KwhzMwBJUjf3dzMzAElSB5Nxt7m/e+tSAAAAAAAAAAAAAAAAAAAAAAAAAF65ejtt9XbaLAH9cP6vH9uPbxaCPh0BJgAEARAEQBAAQQAEARAEQBAAQQAEARAEQBAAQQAEARAE4BUEoVxepVxeWQkAAAAAAAAAAAAAAAA4rnJ908r1ja8/Q094/RkQBEAQAEEABAEQBEAQAEEABAEQBEAQAEEABAEQBEAQAEEABAEAAAAAAAAAAAAAAAAgyW9iol2rU6L8FQAAAABJRU5ErkJggg==") !important; }
+
+.irs-from, .irs-to, .irs-single {
+  background: #023752 !important; }
+  .irs-from:after, .irs-to:after, .irs-single:after {
+    border-top-color: #023752 !important; }
+
 input.parsley-success,
 select.parsley-success,
 textarea.parsley-success {
@@ -2496,7 +2509,8 @@ table.dataTable td {
 #rcap-viewer .form-control, #rcap-designer .form-control {
   background: white;
   width: 100%;
-  height: 34px; }
+  height: 34px;
+  border: 1px solid #ddd; }
 #rcap-viewer textarea, #rcap-designer textarea {
   display: block;
   width: 100%; }
