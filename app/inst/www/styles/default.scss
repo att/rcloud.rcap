@@ -483,8 +483,7 @@
             display: block;
             padding: 3px 5px 2px 5px;
             border-radius: 9px;
-            //background: #ffa500;
-            background: rgba(255, 165, 0, 0.9);
+            @include background-opacity($attNewOrange, 0.9);
             cursor: pointer;
             font-size: 95%;
         }

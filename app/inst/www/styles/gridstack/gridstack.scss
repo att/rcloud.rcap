@@ -52,12 +52,11 @@
     position: absolute;
     top: 0;
     text-align: center;
-    background-color: rgba(195, 126, 0, 0.98);
+    background-color: $attBlue;
     color: white;
     padding: 10px;
-    border: 2px solid white;
-    left: 5px;
-    top: 5px;
+    left: 12px;
+    top: 12px;
 
     &::before {
       font: normal normal normal 18px/1 FontAwesome;

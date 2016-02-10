@@ -179,12 +179,11 @@
   position: absolute;
   top: 0;
   text-align: center;
-  background-color: rgba(195, 126, 0, 0.98);
+  background-color: #067ab4;
   color: white;
   padding: 10px;
-  border: 2px solid white;
-  left: 5px;
-  top: 5px; }
+  left: 12px;
+  top: 12px; }
   .rcap-controltype-rplot pre::before, .rcap-controltype-interactiveplot pre::before, .rcap-controltype-rtext pre::before, .rcap-controltype-datatable pre::before,
   .rcap-controltype-rtext pre::before {
     font: normal normal normal 18px/1 FontAwesome;
@@ -2342,7 +2341,9 @@ table.dataTable td {
       display: block;
       padding: 3px 5px 2px 5px;
       border-radius: 9px;
-      background: rgba(255, 165, 0, 0.9);
+      background: #ff7200;
+      /* The Fallback */
+      background: rgba(255, 114, 0, 0.9);
       cursor: pointer;
       font-size: 95%; }
     #rcap-designer #main-menu #rcap-userplaceholder {

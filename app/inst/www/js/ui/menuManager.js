@@ -192,7 +192,7 @@ define([
 
             PubSub.subscribe(pubSubTable.pageCountChanged, function(msg, pageCount) {
 
-                var countEl = $('#main-menu a[data-flyoutid="pages"]').next('.count');
+                var countEl = $('#main-menu a[data-flyoutid="pages"]').find('.count');
                 countEl.text(pageCount);
 
                 if(pageCount === 0) {
@@ -283,7 +283,7 @@ define([
 
             PubSub.subscribe(pubSubTable.dataSourceCountChanged, function(msg, dataSourceCount) {
 
-                var countEl = $('#main-menu a[data-flyoutid="datasources"]').next('.count');
+                var countEl = $('#main-menu a[data-flyoutid="datasources"]').find('.count');
                 countEl.text(dataSourceCount);
 
                 if(dataSourceCount === 0) {
