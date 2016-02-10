@@ -19,6 +19,8 @@ $borderColor: #cdcdcd;
 	& .header {
 		border-bottom: 1px solid $borderColor;
 		position: relative;
+		background: $attBlueHightlight;
+		color: white;
 
 		& .top-level-tabs {
 			position: absolute;
@@ -28,17 +30,20 @@ $borderColor: #cdcdcd;
 			& a {
 				font-size: 13px;
 				text-transform: uppercase;
-				padding-top: 9px;
 				margin-left: 10px;
 				font-weight: 300;
 				text-decoration: none;
 				top: 23px;
 				right: 15px;
-				color: #888;
-				font-weight: bold;
+				color: #ddd;
 
 				&.active, &:hover {
-					color: #000;
+					color: #fff;
+				}
+
+				&:not(:first-child) {
+					border-left: 1px solid white;
+					padding-left: 10px;
 				}
 			}
 		}
@@ -102,7 +107,6 @@ $borderColor: #cdcdcd;
 	}
 
 	& .body {
-/*		max-height: 600px;*/
 		overflow: auto;
 	}
 }

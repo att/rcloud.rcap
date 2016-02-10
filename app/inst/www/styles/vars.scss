@@ -1,23 +1,37 @@
-$bg: #fff;
-$fg: rgb(62, 62, 62);
-$defaultFontSize: 12px;
-$bgColor: #F2F2F2;
-$defaultFont: 'Open Sans',sans-serif;
+$bg:                            #fff;
+$fg:                            rgb(62, 62, 62);
+$defaultFontSize:               12px;
+$bgColor:                       #F2F2F2;
+$defaultFont:                   'Open Sans',sans-serif;
 
+$mainNavBackgroundColor:        #222;
+$mainNavBackgroundColorHover:   lighten($mainNavBackgroundColor, 5%);
+$mainNavCurrentPageHover:       #070707;
+$mainNavColor:                  #efefef;
+$noItemsColor:                  lighten($mainNavBackgroundColor, 30%);
 
-$mainNavBackgroundColor: #222;
-$mainNavBackgroundColorHover: lighten($mainNavBackgroundColor, 5%);
-$mainNavCurrentPageHover: #070707;
-$mainNavColor: #efefef;
-$noItemsColor: lighten($mainNavBackgroundColor, 30%);
+$toolbarButtonColorHover:       #fff;
+$toolbarButtonColor:            darken($toolbarButtonColorHover, 15%);
 
+$messageInformationColor:       #3c763d;
+$messageWarningColor:           #ddc033;
+$messageErrorColor:             #a94442;
 
-$toolbarButtonColorHover: #fff;
-$toolbarButtonColor: darken($toolbarButtonColorHover, 15%);
+$topLevelButtonColor:           #c37e00;
 
-$messageInformationColor: #3c763d;
-$messageWarningColor: #ddc033;
-$messageErrorColor: #a94442;
+/* https://vt.vtp-media.com/ecp/documents/product_Product/521/Logos/4546/att_gdl_glance.pdf */
+$attNewOrange:                  #ff7200;
+$attOrangeHighlight:            #fcb314;
+$attBlue:                       #067ab4;
+$attBlueHightlight:             #3aa5dc;
 
-$topLevelButtonColor: #c37e00;
-
+$attLime:                       #b6bf00;
+$attLimeHighlight:              #dbd810;
+$attGreen:                      #6ebb1f;
+$attGreenHighlight:             #c4d82d;
+$attBurgundy:                   #b30a3c;
+$attBurgundyHighlight:          #da3872;
+$attPurple:                     #81017e;
+$attPurpleHighlight:            #b8509e;
+$attDarkBlue:                   #0c2577;
+$attDarkBlueHighlight:          #020bb3;

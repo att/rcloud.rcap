@@ -1,3 +1,4 @@
+/* https://vt.vtp-media.com/ecp/documents/product_Product/521/Logos/4546/att_gdl_glance.pdf */
 /* jqModal base Styling courtesy of;
 	Brice Burgess <bhb@iceburg.net> */
 /* The Window's CSS z-index value is respected (takes priority). If none is supplied,
@@ -57,7 +58,9 @@
     padding: 15px; }
   .jqmwindow .header {
     border-bottom: 1px solid #cdcdcd;
-    position: relative; }
+    position: relative;
+    background: #3aa5dc;
+    color: white; }
     .jqmwindow .header .top-level-tabs {
       position: absolute;
       right: 30px;
@@ -65,16 +68,17 @@
       .jqmwindow .header .top-level-tabs a {
         font-size: 13px;
         text-transform: uppercase;
-        padding-top: 9px;
         margin-left: 10px;
         font-weight: 300;
         text-decoration: none;
         top: 23px;
         right: 15px;
-        color: #888;
-        font-weight: bold; }
+        color: #ddd; }
         .jqmwindow .header .top-level-tabs a.active, .jqmwindow .header .top-level-tabs a:hover {
-          color: #000; }
+          color: #fff; }
+        .jqmwindow .header .top-level-tabs a:not(:first-child) {
+          border-left: 1px solid white;
+          padding-left: 10px; }
   .jqmwindow .row {
     margin-bottom: 10px; }
   .jqmwindow .jqm-footer {
@@ -113,7 +117,6 @@
     text-transform: uppercase;
     padding-top: 9px; }
   .jqmwindow .body {
-    /*		max-height: 600px;*/
     overflow: auto; }
 
 #dialog-confirm {
@@ -540,7 +543,8 @@
   padding: 0;
   -webkit-transition: -webkit-transform .5s ease-in-out;
   transition: transform .5s ease-in-out;
-  outline: none; }
+  outline: none;
+  background: #3aa5dc; }
   .grid-stack .btn-configure i {
     font-size: 22px; }
   .grid-stack .btn-configure:hover {
@@ -2441,16 +2445,14 @@ table.dataTable td {
       padding-bottom: 10px; }
   #rcap-designer .style-details {
     padding-top: 15px;
-    margin-top: 30px;
-    border-top: 1px solid #ccc; }
+    margin-top: 30px; }
     #rcap-designer .style-details h3 {
       font-size: 14px;
       text-transform: uppercase;
-      width: 180px;
-      background: #ccc;
-      padding: 7px;
+      padding: 7px 0;
       margin-top: -16px;
-      margin-bottom: 20px; }
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ccc; }
     #rcap-designer .style-details .ui-slider {
       margin-top: 7px; }
     #rcap-designer .style-details .ui-slider-handle {
