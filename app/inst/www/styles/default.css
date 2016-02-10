@@ -2520,10 +2520,11 @@ table.dataTable td {
   font-weight: bold;
   font-size: 95%; }
 #rcap-viewer .form-group label, #rcap-designer .form-group label {
-  font-size: 95%;
   display: block; }
 #rcap-viewer .form-group .description, #rcap-designer .form-group .description {
-  color: #222;
+  color: #555;
+  font-style: italic;
+  padding-left: 3px;
   margin-top: 5px;
   max-width: 460px; }
 #rcap-viewer .form-group textarea.code, #rcap-designer .form-group textarea.code {
