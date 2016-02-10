@@ -109,7 +109,7 @@
     background-color: #f0523d;
     color: white; }
   .jqmwindow .jqm-footer a.approve:hover {
-    background-color: C2CE89; }
+    background-color: #c2ce89; }
   .jqmwindow .header h3 {
     font-size: 14px;
     margin-top: 5px;
@@ -1896,6 +1896,8 @@ table.dataTable td {
     border-right: 1px solid #ddd;
     min-height: 358px;
     background: white; }
+    #dialog-form-builder .tab-content > .menu {
+      height: auto; }
   #dialog-form-builder #form-builder-configuration {
     padding: 10px;
     max-height: 500px;

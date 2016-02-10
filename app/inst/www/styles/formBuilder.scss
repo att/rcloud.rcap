@@ -99,6 +99,10 @@
         border-right: 1px solid #ddd;
         min-height: 358px;
         background: white;
+
+        & > .menu {
+            height: auto;
+        }
     }
     & #form-builder-configuration {
         padding: 10px;
