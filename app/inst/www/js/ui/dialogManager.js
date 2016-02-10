@@ -95,10 +95,10 @@ define([
                 var maxHeight = modal.find('.body').data('maxheight');
                 var $modalBody = modal.find('.body');
 
-                if(!maxHeight) {
+                if (!maxHeight) {
                     var initialHeight = modal.find('.body').height();
 
-                    if(initialHeight > availableHeight) {
+                    if (initialHeight > availableHeight) {
                         $modalBody.height(availableHeight + 'px');
                     } else {
                         $modalBody.height(initialHeight + 'px');
@@ -108,14 +108,14 @@ define([
 
                 } else {
 
-                    if(availableHeight > maxHeight) {
+                    if (availableHeight > maxHeight) {
                         $modalBody.height(maxHeight + 'px');
                     } else {
                         $modalBody.height(availableHeight + 'px');
                     }
                 }
 
-//                console.log('body height should be: ', modal.find('.body').height());
+                //                console.log('body height should be: ', modal.find('.body').height());
             };
 
             // initialise each of the dialogs:
@@ -123,9 +123,9 @@ define([
                 $(this).jqm({
                     modal: true,
                     onShow: function(hash) {
-                       
+
                         // display the overlay (prepend to body) if not disabled
-                        if(hash.c.overlay > 0) {
+                        if (hash.c.overlay > 0) {
                             hash.o.prependTo('body');
                         }
 
@@ -136,6 +136,16 @@ define([
                         $.jqm.focusFunc(hash.w, null);
 
                         sizeModalBodyHeight(hash.w);
+
+                        return true;
+                    },
+                    onHide: function(hash) {
+
+                        // hide modal and if overlay, remove overlay.
+                        hash.w.hide();
+                        hash.o.remove();
+
+                        hash.w.find('body').removeData('maxheight');
 
                         return true;
                     }
@@ -367,7 +377,7 @@ define([
             // page settings:
             $('body').on('click', '.datasource-settings', function() {
                 PubSub.publish(pubSubTable.dataSourceSettingsClicked, $(this).closest('li').data('datasourceid'));
-            });           
+            });
 
             $('#dialog-pageSettings .approve').on('click', function() {
                 $('#page-form').parsley().validate();
@@ -385,7 +395,7 @@ define([
 
             $('#dialog-dataSourceSettings .approve').on('click', function() {
                 $('#datasource-form').parsley().validate();
-                
+
                 if (true === $('#datasource-form').parsley().isValid()) {
 
                     // push the updated event:
