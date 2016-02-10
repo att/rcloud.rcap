@@ -24,6 +24,7 @@
 	       <% } %>
 	    />
 	    <div class="description"><%=property.helpText%></div>
+
 	</div>
 
 <% } %>

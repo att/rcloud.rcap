@@ -5,20 +5,24 @@ define([
     'rcap/js/ui/dialogManager',
     'rcap/js/ui/messageManager',
     'rcap/js/ui/gridManager',
+    'rcap/js/ui/themeManager',
     'site/siteManager',
     'pubsub',
     'site/pubSubTable',
     'text!rcap/partials/designer.htm',
     'css!rcap/styles/default.css'
-], function(Serializer, MenuManager, InfoBarManager, DialogManager, MessageManager, GridManager, SiteManager, PubSub, pubSubTable, mainPartial) {
+], function(Serializer, MenuManager, InfoBarManager, DialogManager, MessageManager, GridManager, ThemeManager, SiteManager, PubSub, pubSubTable, mainPartial) {
 
     'use strict';
 
     var rcloudSelector = '.container, #rcloud-navbar-main, #rcloud-navbar-main, .navbar-fixed-top';
     var rcapSelector = '#rcap-designer';
+    var themeManager = new ThemeManager();
 
     var closeDesigner = function() {
         $('body').removeClass('rcap-designer');
+
+        themeManager.cleanUp();
 
         $(rcloudSelector).show();
 
@@ -75,16 +79,19 @@ define([
 
     var Designer = function() {
 
-        this.initialise = function(sessionInfo) {   // jshint ignore:line
+        this.initialise = function(sessionInfo) { // jshint ignore:line
 
             bootstrap();
 
             $('body').addClass('rcap-designer');
             $('body').data({
-                'nodenameusername' : sessionInfo.nodeNameUserName,
-                'nodename' : sessionInfo.nodeName,
-                'user' : sessionInfo.user
-            }); 
+                'nodenameusername': sessionInfo.nodeNameUserName,
+                'nodename': sessionInfo.nodeName,
+                'user': sessionInfo.user
+            });
+
+            // theme manager:
+            themeManager.initialise();
 
             $('#rcap-preloader').show();
 

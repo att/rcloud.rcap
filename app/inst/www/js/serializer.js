@@ -1,44 +1,7 @@
-define(['pubsub', 'site/site', 'site/pubSubTable', 'rcap/js/ui/message', 'controls/factories/controlFactory'],
-    function(PubSub, Site, pubSubTable, Message, ControlFactory) {
+define(['pubsub', 'site/site', 'rcap/js/assetManager', 'site/pubSubTable', 'rcap/js/ui/message', 'controls/factories/controlFactory'],
+    function(PubSub, Site, AssetManager, pubSubTable, Message, ControlFactory) {
 
         'use strict';
-
-        var RawDataManager = function() {
-
-            var assetIdentifier = 'rcap_designer.json';
-            var shell = window.shell;
-
-            var getNotebookAsset = function() {
-                return _.find(shell.notebook.model.assets, function(ass) {
-                    return ass.filename() === assetIdentifier;
-                });
-            };
-
-            this.save = function(data) {
-
-                var existingAsset = getNotebookAsset();
-
-                if (existingAsset) {
-                    existingAsset.content(JSON.stringify(data)); // jshint ignore:line
-                    shell.notebook.controller.update_asset(existingAsset); // jshint ignore:line
-                } else {
-                    shell.notebook.controller.append_asset(JSON.stringify(data), assetIdentifier); // jshint ignore:line
-                }
-
-                // temporary: local storage:
-                localStorage.setItem(assetIdentifier, JSON.stringify(data));
-            };
-
-            this.load = function(loadFromLocalStorage) {
-                if (loadFromLocalStorage) {
-                    return localStorage.getItem(assetIdentifier);
-                } else {
-                    var existingAsset = getNotebookAsset();
-
-                    return existingAsset ? existingAsset.content() : '';
-                }
-            };
-        };
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -54,7 +17,7 @@ define(['pubsub', 'site/site', 'site/pubSubTable', 'rcap/js/ui/message', 'contro
 
                     console.info('serializer: pubSubTable.serialize');
 
-                    new RawDataManager().save(data);
+                    new AssetManager().save(data);
 
                     PubSub.publish(pubSubTable.showMessage, new Message({
                         messageType: 'Information',
@@ -87,7 +50,7 @@ define(['pubsub', 'site/site', 'site/pubSubTable', 'rcap/js/ui/message', 'contro
                         data,
                         controlFactory = new ControlFactory(),
                         currentChild,
-                        rawData = msgData.hasOwnProperty('jsonData') ? msgData.jsonData : new RawDataManager().load(msgData.loadFromLocalStorage),
+                        rawData = msgData.hasOwnProperty('jsonData') ? msgData.jsonData : new AssetManager().load(),
                         isDesignTime = msgData.hasOwnProperty('isDesignTime') ? msgData.isDesignTime : true;
 
                     // create a site:
