@@ -105,30 +105,33 @@
 }
 
 #rcap-message {
-    padding: 5px;
     text-align: left;
-    color: black;
     font-weight: 400;
     left: 50%;
     margin-left: -200px;
     position: absolute;
-    top: 12px;
+    top: 20px;
     z-index: 1030;
     width: 400px;
+    border: 1px solid #ccc;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 20px;
+    font-weight: bold;
 }
 
 #rcap-message.information {
-    background-color: #3c763d;
+    @include background-opacity($attGreen, 0.9);
     color: white;
 }
 
 #rcap-message.warning {
-    background-color: #ddc033;
+    @include background-opacity($attOrangeHighlight, 0.9);   
     color: black;
 }
 
 #rcap-message.error {
-    background-color: #a94442;
+    @include background-opacity($attBurgundy, 0.9);   
     color: white;
 }
 

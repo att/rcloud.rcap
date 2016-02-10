@@ -26,6 +26,7 @@ $borderColor: #cdcdcd;
 			position: absolute;
 			right: 30px;
 			top: 24px;
+			letter-spacing: 0.1em;
 
 			& a {
 				font-size: 13px;
@@ -104,6 +105,8 @@ $borderColor: #cdcdcd;
 		margin-bottom: 5px;
 		text-transform: uppercase;
 		padding-top: 9px;
+		font-weight: bold;
+		letter-spacing: 0.1em;
 	}
 
 	& .body {

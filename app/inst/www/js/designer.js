@@ -94,6 +94,7 @@ define([
                 $('#inner-stage').css({
                     'width': (screen.width - 140).toString() + 'px',
                     'margin-top': '40px',
+                    'margin-bottom': '40px',
                     'margin-left': 'auto',
                     'margin-right': 'auto'
                 });
