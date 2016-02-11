@@ -194,6 +194,8 @@ define([
                     pages: site.pages,
                     currentPageID: site.currentPageID
                 });
+
+                $('#rcap-stage')[0].scrollTop = 0;
             });
 
             ////////////////////////////////////////////////////////////////////////////////////
