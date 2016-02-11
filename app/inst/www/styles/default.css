@@ -2741,8 +2741,8 @@ nav.vertical {
     padding-left: 15px;
     border-bottom: 1px solid #888;
     transition: .3s background-color; }
-  nav.vertical a:hover {
-    background-color: #005f5f; }
+    nav.vertical a:hover, nav.vertical a.current {
+      background-color: #005f5f; }
   nav.vertical a.active {
     background-color: #aaa;
     color: #444;
@@ -2787,7 +2787,7 @@ nav.horizontal {
       display: block;
       padding-left: 15px;
       transition: .3s background-color; }
-      nav.horizontal ul a:hover {
+      nav.horizontal ul a:hover, nav.horizontal ul a.current {
         background-color: #005f5f; }
     nav.horizontal ul > ul > li {
       text-align: center; }

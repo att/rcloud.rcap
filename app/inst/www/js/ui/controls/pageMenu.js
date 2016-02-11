@@ -45,8 +45,8 @@ define(['rcap/js/ui/controls/gridControl',
                     },
                     'item': {
                         'hamburger' : '<div data-pageid="<%=p.id%>"><a style="padding-left:<%=((p.depth - 1) * 20) + 15%>px" href="javascript:void(0)" data-ishamburger="true" data-pageid="<%=p.id%>" data-href="<%=p.navigationTitle%>"><%=p.navigationTitle%></a></div>',
-                        'horizontal' : '<li><a href="javascript:void(0)" data-pageid="<%=p.id%>" data-href="<%=p.navigationTitle%>"><%=p.navigationTitle%></a></li>',
-                        'vertical' : '<li><a href="javascript:void(0)" data-pageid="<%=p.id%>" data-href="<%=p.navigationTitle%>"><%=p.navigationTitle%></a></li>'
+                        'horizontal' : '<li><a href="javascript:void(0)" <%if(currentPageID === p.id) {%>class="current"<%}%> data-pageid="<%=p.id%>" data-href="<%=p.navigationTitle%>"><%=p.navigationTitle%></a></li>',
+                        'vertical' : '<li><a href="javascript:void(0)" <%if(currentPageID === p.id) {%>class="current"<%}%> data-pageid="<%=p.id%>" data-href="<%=p.navigationTitle%>"><%=p.navigationTitle%></a></li>'
                     },
                     'addItem': {
                         'hamburger' : function(rootTemplate, page, markup) { 
@@ -70,7 +70,8 @@ define(['rcap/js/ui/controls/gridControl',
 
                     var itemTemplate = _.template(templates.item[menuType]);
                     var markup = itemTemplate({
-                        p: page
+                        p: page,
+                        currentPageID: control.currentPageID
                     });
 
                     if (page.isEnabled) {
@@ -279,6 +280,11 @@ define(['rcap/js/ui/controls/gridControl',
         initialiseViewerItems: function() {
 
             $('.hamburger, .rcap-pagemenu, nav.horizontal, nav.vertical').closest('.grid-stack-item').css('z-index', '1');
+
+            $('nav.horizontal').closest('.grid-stack-item-content').css({
+                    'overflow-x': 'visible',
+                    'overflow-y': 'visible'
+                });
 
             $('#rcap-viewer').on('click', '.rcap-pagemenu a, .hamburger a, nav.horizontal a, nav.vertical a', function() {
                 // get the nav title:

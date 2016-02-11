@@ -935,11 +935,12 @@ nav.vertical {
           padding-left: 15px;
           border-bottom: 1px solid #888;
           transition: .3s background-color;
+
+          &:hover, &.current {
+            background-color: #005f5f;
+          }
         }
 
-        & a:hover {
-          background-color: #005f5f;
-        }
 
         & a.active {
           background-color: #aaa;
@@ -1030,7 +1031,7 @@ nav.horizontal {
             padding-left: 15px;
             transition: .3s background-color;
 
-            &:hover {
+            &:hover, &.current {
                background-color: #005f5f;
             }
         }
