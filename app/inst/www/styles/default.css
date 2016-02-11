@@ -2708,6 +2708,73 @@ a.wysiwyg-toolbar-icon:hover {
 .hamburger a:focus {
   background: #e7e7e7; }
 
+nav.vertical ul {
+  list-style: none;
+  background-color: #444;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  /* Sub Menus */ }
+  nav.vertical ul li {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.2em;
+    line-height: 40px;
+    text-align: left; }
+  nav.vertical ul a {
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    padding-left: 15px;
+    border-bottom: 1px solid #888;
+    transition: .3s background-color; }
+  nav.vertical ul a:hover {
+    background-color: #005f5f; }
+  nav.vertical ul a.active {
+    background-color: #aaa;
+    color: #444;
+    cursor: default; }
+  nav.vertical ul li li {
+    font-size: .8em;
+    padding-left: 10px; }
+
+nav.horizontal {
+  /* Sub Menus */ }
+  nav.horizontal ul {
+    list-style: none;
+    background-color: #444;
+    text-align: center;
+    padding: 0;
+    margin: 0; }
+  nav.horizontal li {
+    width: 130px;
+    border-bottom: none;
+    height: 50px;
+    line-height: 50px;
+    font-size: 1.4em;
+    display: inline-block;
+    margin-right: -4px;
+    text-align: left; }
+  nav.horizontal a {
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    padding-left: 15px;
+    transition: .3s background-color; }
+    nav.horizontal a:hover {
+      background-color: #005f5f; }
+  nav.horizontal > ul > li {
+    text-align: center; }
+  nav.horizontal > ul > li > a {
+    padding-left: 0; }
+  nav.horizontal li ul {
+    position: absolute;
+    display: none;
+    width: inherit; }
+  nav.horizontal li:hover ul {
+    display: block; }
+  nav.horizontal li ul li {
+    display: block; }
+
 .rcap-breadcrumb {
   font-size: 16px;
   align-self: center; }
