@@ -40,8 +40,8 @@ define(['rcap/js/ui/controls/gridControl',
                 var templates = {
                     'root' : {
                         'hamburger' : '<nav class="hamburger hamburger-valign-' + control.controlProperties[1].value + '"><button>Toggle</button><div></div></nav>',
-                        'horizontal' : '<nav class="horizontal"><ul></ul></nav>',
-                        'vertical': '<nav class="vertical"><ul></ul></nav>',
+                        'horizontal' : '<nav class="horizontal horizontal-' + control.controlProperties[2].value + '"><ul></ul></nav>',
+                        'vertical': '<nav class="vertical vertical-' + control.controlProperties[2].value + '"><ul></ul></nav>',
                     },
                     'item': {
                         'hamburger' : '<div data-pageid="<%=p.id%>"><a style="padding-left:<%=((p.depth - 1) * 20) + 15%>px" href="javascript:void(0)" data-ishamburger="true" data-pageid="<%=p.id%>" data-href="<%=p.navigationTitle%>"><%=p.navigationTitle%></a></div>',
@@ -127,6 +127,22 @@ define(['rcap/js/ui/controls/gridControl',
                             value: 'bottom'
                         }],
                         value: 'middle'
+                    }),
+                    new DropdownControlProperty({
+                        uid: 'horizontalalignment',
+                        label: 'Horizontal Alignment',
+                        isRequired: true,
+                        availableOptions: [{
+                            text: 'Left',
+                            value: 'left'
+                        }, {
+                            text: 'Center',
+                            value: 'center'
+                        }, {
+                            text: 'Right',
+                            value: 'right'
+                        }],
+                        value: 'center'
                     })
                 ]
             });

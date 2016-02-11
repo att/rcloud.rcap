@@ -2708,73 +2708,104 @@ a.wysiwyg-toolbar-icon:hover {
 .hamburger a:focus {
   background: #e7e7e7; }
 
-nav.vertical ul {
-  list-style: none;
-  background-color: #444;
-  text-align: center;
-  padding: 0;
-  margin: 0;
-  /* Sub Menus */ }
-  nav.vertical ul li {
+nav.vertical {
+  /* Sub Menus */
+    /*
+    &.vertical-left {
+
+        & a {
+            padding-left: 0;
+        }
+
+        & ul {
+            text-align: center;
+        }
+    }
+*/
+  /* overrides for center, right alignment */ }
+  nav.vertical ul {
+    list-style: none;
+    background-color: #444;
+    text-align: center;
+    padding: 0;
+    margin: 0; }
+  nav.vertical li {
     font-family: 'Oswald', sans-serif;
     font-size: 1.2em;
     line-height: 40px;
     text-align: left; }
-  nav.vertical ul a {
+  nav.vertical a {
     text-decoration: none;
     color: #fff;
     display: block;
     padding-left: 15px;
     border-bottom: 1px solid #888;
     transition: .3s background-color; }
-  nav.vertical ul a:hover {
+  nav.vertical a:hover {
     background-color: #005f5f; }
-  nav.vertical ul a.active {
+  nav.vertical a.active {
     background-color: #aaa;
     color: #444;
     cursor: default; }
-  nav.vertical ul li li {
-    font-size: .8em;
-    padding-left: 10px; }
+  nav.vertical li li {
+    font-size: .9em; }
+    nav.vertical li li a {
+      padding-left: 25px; }
+  nav.vertical.vertical-center ul li {
+    text-align: center; }
+  nav.vertical.vertical-center a {
+    padding-left: 0; }
+  nav.vertical.vertical-right ul li {
+    text-align: right; }
+  nav.vertical.vertical-right a {
+    padding-right: 15px;
+    padding-left: 0; }
+  nav.vertical.vertical-right li li a {
+    padding-right: 25px; }
 
 nav.horizontal {
-  /* Sub Menus */ }
+  /* overrides for left, right alignment */ }
   nav.horizontal ul {
     list-style: none;
     background-color: #444;
     text-align: center;
     padding: 0;
-    margin: 0; }
-  nav.horizontal li {
-    width: 130px;
-    border-bottom: none;
-    height: 50px;
-    line-height: 50px;
-    font-size: 1.4em;
-    display: inline-block;
-    margin-right: -4px;
+    margin: 0;
+    /* Sub Menus */ }
+    nav.horizontal ul li {
+      width: 130px;
+      border-bottom: none;
+      height: 50px;
+      line-height: 50px;
+      font-size: 1.4em;
+      display: inline-block;
+      margin-right: -4px;
+      text-align: left; }
+    nav.horizontal ul a {
+      text-decoration: none;
+      color: #fff;
+      display: block;
+      padding-left: 15px;
+      transition: .3s background-color; }
+      nav.horizontal ul a:hover {
+        background-color: #005f5f; }
+    nav.horizontal ul > ul > li {
+      text-align: center; }
+    nav.horizontal ul > ul > li > a {
+      padding-left: 0; }
+    nav.horizontal ul li ul {
+      position: absolute;
+      display: none;
+      width: inherit; }
+    nav.horizontal ul li:hover ul {
+      display: block; }
+    nav.horizontal ul li ul li {
+      display: block;
+      font-size: 0.9em; }
+  nav.horizontal.horizontal-left ul {
     text-align: left; }
-  nav.horizontal a {
-    text-decoration: none;
-    color: #fff;
-    display: block;
-    padding-left: 15px;
-    transition: .3s background-color; }
-    nav.horizontal a:hover {
-      background-color: #005f5f; }
-  nav.horizontal > ul > li {
-    text-align: center; }
-  nav.horizontal > ul > li > a {
-    padding-left: 0; }
-  nav.horizontal li ul {
-    position: absolute;
-    display: none;
-    width: inherit; }
-  nav.horizontal li:hover ul {
-    display: block; }
-  nav.horizontal li ul li {
-    display: block;
-    font-size: 1em; }
+  nav.horizontal.horizontal-right ul {
+    text-align: right; }
 
 .rcap-breadcrumb {
   font-size: 16px;
