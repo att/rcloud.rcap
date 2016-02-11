@@ -2773,7 +2773,8 @@ nav.horizontal {
   nav.horizontal li:hover ul {
     display: block; }
   nav.horizontal li ul li {
-    display: block; }
+    display: block;
+    font-size: 1em; }
 
 .rcap-breadcrumb {
   font-size: 16px;
@@ -2801,7 +2802,8 @@ nav.horizontal {
     color: inherit; }
 
 body.rcap-viewer {
-  margin: 0; }
+  margin: 0;
+  font-size: 12px; }
 
 #rcap-viewer #inner-stage {
   margin: 0 auto;
