@@ -227,6 +227,27 @@ RTextControl <- R6Class("RTextControl",
   inherit = Control
 )
 
+LeafletControl <- R6Class("LeafletControl",
+  inherit = Control,
+  public = list(
+
+    update = function(new_value = NULL) {
+
+      # Retrieve the function name and execute
+      func <- private$controlFunction
+      if (!is.null(func)) {
+
+        # Clear the div
+        div <- paste0("#", private$id)
+        rcw.set(div, "")
+
+        # Put there the map
+        do.call(func, list(where = div), envir = rcloudEnv())
+      }
+    }
+  )
+)
+
 #' Front-end control types and matching back-end classes
 
 control_classes <- list(
@@ -250,7 +271,8 @@ control_classes <- list(
   "breadcrumb"       = BreadCrumbControl,
   "text"             = TextControl,
   "datatable"        = DataTableControl,
-  "rtext"            = RTextControl
+  "rtext"            = RTextControl,
+  "leaflet"          = LeafletControl
 )
 
 controlFactory <- function(cl, type = cl$type) {
