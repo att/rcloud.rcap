@@ -93,6 +93,7 @@ define([
 
                 var availableHeight = $(document).height() - 170;
                 var maxHeight = modal.find('.body').data('maxheight');
+
                 var $modalBody = modal.find('.body');
 
                 if (!maxHeight) {
@@ -108,14 +109,17 @@ define([
 
                 } else {
 
-                    if (availableHeight > maxHeight) {
-                        $modalBody.height(maxHeight + 'px');
-                    } else {
+                    if(maxHeight === 'useavailable') {
                         $modalBody.height(availableHeight + 'px');
+                    } else {
+                        if (availableHeight > maxHeight) {
+                            $modalBody.height(maxHeight + 'px');
+                        } else {
+                            $modalBody.height(availableHeight + 'px');
+                        }                        
                     }
-                }
 
-                //                console.log('body height should be: ', modal.find('.body').height());
+                }
             };
 
             // initialise each of the dialogs:

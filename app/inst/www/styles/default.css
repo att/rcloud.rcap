@@ -1905,7 +1905,8 @@ table.dataTable td {
   #dialog-form-builder .drop-zone {
     min-height: 400px;
     background: #fff;
-    padding: 5px; }
+    padding: 5px;
+    height: 100%; }
   #dialog-form-builder .tab-content {
     border-left: 1px solid #ddd;
     border-right: 1px solid #ddd;
@@ -1941,8 +1942,8 @@ table.dataTable td {
     background-color: white !important; }
   #dialog-form-builder .nav-tabs > li {
     font-size: 14px; }
-  #dialog-form-builder [data-body-id="styling"] .row {
-    background-color: white; }
+  #dialog-form-builder > .row {
+    height: 100%; }
 
 .select2-selection__choice {
   color: black; }

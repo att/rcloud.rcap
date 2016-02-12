@@ -1,7 +1,6 @@
 #dialog-form-builder {
     width: 1000px;
     background: #dedede;
-    //font-size: 14px;
     & .form-item {
         padding: 9px;
         margin-bottom: 5px;
@@ -93,6 +92,7 @@
         min-height: 400px;
         background: #fff;
         padding: 5px;
+        height: 100%;
     }
     & .tab-content {
         border-left: 1px solid #ddd;
@@ -151,6 +151,10 @@
     }
 
     & [data-body-id="styling"] .row {
-        background-color: white;
+  //      background-color: white;
+    }
+
+    > .row { 
+        height: 100%;
     }
 }
