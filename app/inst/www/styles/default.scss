@@ -1152,6 +1152,13 @@ body.rcap-viewer {
     }
 }
 
-
+.rplot, .r-interactiveplot, .leaflet {
+    // r related controls' error messages are rendered
+    // out as code elements:
+    & code {
+        white-space: normal;
+        display: block;
+    }
+}
 
 
