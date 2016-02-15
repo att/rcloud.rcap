@@ -176,6 +176,8 @@
   top: 15px;
   bottom: 15px;
 }
+
+/*
 .grid-stack > .grid-stack-item[data-gs-width='1'] {
   width: 8.33333333%;
 }
@@ -319,7 +321,15 @@
 }
 .grid-stack > .grid-stack-item[data-gs-max-width='12'] {
   max-width: 100%;
-}
+}*/
+
+
+//@for $j from 1 through $gridstack-columns {
+    @include grid-stack-items(24)
+//}
+
+
+
 .grid-stack.grid-stack-animate, .grid-stack.grid-stack-animate .grid-stack-item {
   -webkit-transition: left 0.3s, top 0.3s, height 0.3s, width 0.3s;
   -moz-transition: left 0.3s, top 0.3s, height 0.3s, width 0.3s;

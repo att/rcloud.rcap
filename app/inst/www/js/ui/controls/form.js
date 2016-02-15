@@ -29,8 +29,7 @@ define(['rcap/js/ui/controls/gridControl',
                     uid: 'labelColor',
                     label: 'Label Color',
                     helpText: '',
-                    defaultValue: '#000000',
-                    value: '#000000'
+                    defaultValue: '#000'
                 }));
 
             this.styleProperties.push(

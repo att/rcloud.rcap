@@ -80,7 +80,7 @@ define([
             options.isDesignTime = true;
         }
 
-        var gridStackRoot = $('<div class="grid-stack" data-user="' + $('body').data('user') + '" data-nodename="' + $('body').data('nodename') + '" data-nodenameusername="' + $('body').data('nodenameusername') + '" data-pageid="' + page.id + '" data-gs-height="' + (options.minHeight || 12) + '"></div>');
+        var gridStackRoot = $('<div class="grid-stack grid-stack-24" data-user="' + $('body').data('user') + '" data-nodename="' + $('body').data('nodename') + '" data-nodenameusername="' + $('body').data('nodenameusername') + '" data-pageid="' + page.id + '" data-gs-height="' + (options.minHeight || 12) + '" data-gs-width="24"></div>');
 
         if (options.isGlobalPageItem) { // header or footer
             gridStackRoot.addClass('js-gridstack-global');
@@ -102,11 +102,11 @@ define([
         }
 
         gridstackOptions.float = options.float || true;
-        gridstackOptions.min_height_cellcount = options.minHeight || 12; // jshint ignore:line
-        gridstackOptions.cell_height = options.cellHeight || 80; // jshint ignore:line
+        gridstackOptions.min_height_cellcount = options.minHeight || 24; // jshint ignore:line
+        gridstackOptions.cell_height = options.cellHeight || 40; // jshint ignore:line
         gridstackOptions.vertical_margin = options.verticalMargin || 20; // jshint ignore:line
         gridstackOptions.static_grid = options.staticGrid || true; // jshint ignore:line
-        gridstackOptions.height = options.minHeight || 12;   // 0 -> no maximum rows
+        gridstackOptions.height = options.minHeight || 24;   // 0 -> no maximum rows
 
         $(rootElement).append(gridStackRoot);
         $(selector).gridstack(gridstackOptions);

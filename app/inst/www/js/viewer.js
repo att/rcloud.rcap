@@ -1,5 +1,6 @@
 define(['text!rcap/partials/viewer.htm',
     'rcap/js/ui/gridManager',
+    'rcap/js/ui/themeManager',
     'rcap/js/utils/historyManager',
     'pubsub',
     'site/pubSubTable',
@@ -7,7 +8,7 @@ define(['text!rcap/partials/viewer.htm',
     'rcap/js/serializer',
     'site/siteManager',
     'css!rcap/styles/default.css'
-], function(mainPartial, GridManager, HistoryManager, PubSub, pubSubTable, ControlFactory, Serializer, SiteManager) {
+], function(mainPartial, GridManager, ThemeManager, HistoryManager, PubSub, pubSubTable, ControlFactory, Serializer, SiteManager) {
 
     'use strict';
 
@@ -39,6 +40,9 @@ define(['text!rcap/partials/viewer.htm',
             var historyManager = new HistoryManager();
             historyManager.initialise();
 
+            //var themeManager = new ThemeManager();
+            //themeManager.initialise();
+
             // subscribe to grid done event:
             PubSub.subscribe(pubSubTable.gridInitComplete, function() {
 
@@ -61,8 +65,8 @@ define(['text!rcap/partials/viewer.htm',
                         var container = $(this).closest('.grid-stack-item-content');
                         var currentPlotSize = {
                            id : $(this).attr('id'),
-                           width : container.width() - 25,
-                           height: container.height() - 25
+                           width : container.width() - 38,
+                           height: container.height() - 38
                         };
 
                         plotSizes.push(currentPlotSize);

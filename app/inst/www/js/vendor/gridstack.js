@@ -631,6 +631,11 @@
             return;
         }
 
+
+this.opts.cell_height = 20;
+this.opts.vertical_margin = 20;
+
+
         var prefix = '.' + this.opts._class + ' .' + this.opts.item_class;
 
         if (typeof max_height == 'undefined') {
