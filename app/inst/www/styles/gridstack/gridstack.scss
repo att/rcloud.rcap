@@ -325,7 +325,7 @@
 
 
 //@for $j from 1 through $gridstack-columns {
-    @include grid-stack-items(24)
+    @include grid-stack-items(24);
 //}
 
 
