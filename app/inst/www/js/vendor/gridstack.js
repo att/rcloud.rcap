@@ -406,12 +406,11 @@
     };
 
     GridStackEngine.prototype.get_grid_height = function() {
-        return _.reduce(this.nodes, function(memo, n) {
+        var gridHeight = _.reduce(this.nodes, function(memo, n) {
             return Math.max(memo, n.y + n.height);
         }, this.height);
 
-        //var minHeight = 12;
-        //return height < minHeight ? minHeight : height;
+        return gridHeight;
     };
 
     GridStackEngine.prototype.begin_update = function(node) {
@@ -578,10 +577,6 @@
     };
 
     GridStack.prototype.position_placeholder = function(x, y) {
-
-// ****************
-        //console.log('positioning placeholder at: ', x, y, ' for placeholder of size ', this.placeholder.attr('data-gs-width'), this.placeholder.attr('data-gs-height'));
-// ****************
 
         this.placeholder.attr({
             'data-gs-x': x,

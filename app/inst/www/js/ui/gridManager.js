@@ -11,21 +11,6 @@ define([
 
     };
 
-    // var getControlStyleProperties = function(control) {
-    //     var styleInfo = {
-    //         'background-color' : control.styleProperties.backgroundColor,
-    //         'padding' : control.styleProperties.padding,
-    //     };
-
-    //     // if a border has been specified, use that, otherwise use the default:
-    //     if(control.styleProperties.borderWidth > 0 && control.styleProperties.borderColor) {
-    //         styleInfo['border-color'] = control.styleProperties.borderColor;
-    //         styleInfo['border-width'] = control.styleProperties.borderWidth;           
-    //     }
-
-    //     return styleInfo;
-    // };
-
     var getDesignTimeControlOuterMarkup = function(control) {
         return $('<div data-controlid="' + control.id + '"></div>').append(getDesignTimeControlInnerMarkup(control));
     };
@@ -80,17 +65,6 @@ define([
             options.isDesignTime = true;
         }
 
-        var gridStackRoot = $('<div class="grid-stack grid-stack-24" data-user="' + $('body').data('user') + '" data-nodename="' + $('body').data('nodename') + '" data-nodenameusername="' + $('body').data('nodenameusername') + '" data-pageid="' + page.id + '" data-gs-height="' + (options.minHeight || 12) + '" data-gs-width="24"></div>');
-
-        if (options.isGlobalPageItem) { // header or footer
-            gridStackRoot.addClass('js-gridstack-global');
-        }
-
-        if (!options.isDesignTime) {
-            gridStackRoot.addClass('grid-stack-readonly');
-            //gridStackRoot.css('display', 'none');
-        }
-
         if (options.isDesignTime) {
             gridstackOptions.animate = true;
             gridstackOptions.resizable = {
@@ -102,15 +76,31 @@ define([
         }
 
         gridstackOptions.float = options.float || true;
-        gridstackOptions.min_height_cellcount = options.minHeight || 24; // jshint ignore:line
+        gridstackOptions.min_height_cellcount = options.minHeightCellcount || 48; // jshint ignore:line
         gridstackOptions.cell_height = options.cellHeight || 40; // jshint ignore:line
         gridstackOptions.vertical_margin = options.verticalMargin || 20; // jshint ignore:line
         gridstackOptions.static_grid = options.staticGrid || true; // jshint ignore:line
-        gridstackOptions.height = options.minHeight || 24;   // 0 -> no maximum rows
+        gridstackOptions.height = options.height || 48;   // 0 -> no maximum rows
+
+        var gridStackRoot = $('<div class="grid-stack" ' + 
+            'data-user="' + $('body').data('user') +
+            '" data-nodename="' + $('body').data('nodename') + 
+            '" data-nodenameusername="' + $('body').data('nodenameusername') + 
+            '" data-pageid="' + page.id + 
+            '" data-gs-height="' + (options.minHeight || 12) + 
+            '" data-gs-width="24"></div>');
+
+        if (options.isGlobalPageItem) { // header or footer
+            gridStackRoot.addClass('js-gridstack-global');
+        }
+
+        if (!options.isDesignTime) {
+            gridStackRoot.addClass('grid-stack-readonly');
+        }
 
         $(rootElement).append(gridStackRoot);
+
         $(selector).gridstack(gridstackOptions);
-                   //.css(page.getStyleProperties());
 
         // designer events:
         if (options.isDesignTime) {
@@ -211,12 +201,6 @@ define([
                 control.height,
                 false); // jshint ignore:line
 
-            // site.isDesignTime ? getDesignTimeControlOuterMarkup(control) : $(control.render()).attr({
-            //     'data-gs-no-resize': true,
-            //     'data-gs-no-move': true,
-            //     'data-gs-readonly': true
-            // }), control.x, control.y, control.width, control.height, false); // jshint ignore:line
-
             newWidget.data('control', control);
 
             grid.locked(newWidget, true);
@@ -233,28 +217,6 @@ define([
     var getVisibleGrid = function() {
         return $('.grid-stack:visible').data('gridstack');
     };
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // var updatePageDependentControls = function(pages, currentPageID) {
-
-    //     console.info('gridManager: updatePageDependenyControls');
-
-    //     // update the control's data: 
-    //     //var gridItem = $('.grid-stack-item[data-controlid="' + data.controlId + '"] .grid-stack-item-content');
-
-    //     $('.grid-stack-item').each(function() {
-
-    //         var control = $(this).data('control');
-    //         if(control.type === 'pagemenu') {
-    //             // and get the new markup:
-    //             $(this).replaceWith(control.render({
-    //                 pages: pages, 
-    //                 currentPageID: currentPageID
-    //             }));
-    //         }
-    //     });
-
-    // };
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
     GridManager.prototype.initialise = function(options) {
@@ -440,60 +402,13 @@ define([
 
             console.info('gridManager: pubSubTable.initSite');
 
-            //addGrid('header', { minHeight: 2, isGlobalPageItem : true, isDesignTime : site.isDesignTime });
-
             // each page has its own grid:
             _.each(site.pages, function(page) {
                 addGrid(page, {
-                    isDesignTime: site.isDesignTime
+                    isDesignTime: site.isDesignTime,
+                    height: 48
                 });
             });
-
-            //addGrid('footer', { minHeight: 2, isGlobalPageItem : true, isDesignTime : site.isDesignTime });
-
-            // add controls:
-            // _.each(site.pages, function(page) {
-            //     // get the current grid, based on the page id:
-            //     var selector = $('.grid-stack[data-pageid="' + page.id + '"]');
-            //     var grid = selector.data('gridstack');
-
-            //     // add items to the grid:
-            //     _.each(page.controls, function(control) {
-
-            //         var newWidget = grid.add_widget( // jshint ignore:line
-
-            //             site.isDesignTime ? getDesignTimeControlOuterMarkup(control) : getViewerControlMarkup(control),
-            //             control.x,
-            //             control.y,
-            //             control.width,
-            //             control.height,
-            //             false); // jshint ignore:line
-
-            //         // site.isDesignTime ? getDesignTimeControlOuterMarkup(control) : $(control.render()).attr({
-            //         //     'data-gs-no-resize': true,
-            //         //     'data-gs-no-move': true,
-            //         //     'data-gs-readonly': true
-            //         // }), control.x, control.y, control.width, control.height, false); // jshint ignore:line
-
-            //         newWidget.data('control', control);
-
-            //         grid.locked(newWidget, true);
-
-            //     });
-
-            //     // has now been initialised, so any further changes to the grid's 
-            //     // items will result in a publish of a 'changed' event:
-            //     selector.addClass('initialised');
-
-            // });
-
-            //updatePageDependentControls(site.pages, site.currentPageID);
-
-            if (!site.isDesignTime) {
-                // all grid stacks will have been hidden at the point of DOM addition,
-                // so show the first one to get things started:
-                //$('.grid-stack:eq(0)').show();
-            }
 
             // publish an event signalling that the grid's have finished processing their data:
             PubSub.publish(pubSubTable.gridInitComplete);
