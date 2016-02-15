@@ -60,21 +60,44 @@ define(['text!rcap/partials/viewer.htm',
                 ///////////////////////////////////////////////////////
                 window.setTimeout(function() {
                     var plotSizes = [];
+
+                    var getPlotSizeData = function(plot) {
+                        var container = plot.closest('.grid-stack-item-content');
+                        return {
+                           id : plot.attr('id'),
+                           width : container.width() - 38,
+                           height: container.height() - 38
+                        };
+                    };
+
+                    $('.leaflet').each(function() {
+                        var plotSizeData = getPlotSizeData($(this));
+
+                        $(this).css({
+                                'width' : plotSizeData.width,
+                                'height' : plotSizeData.height
+                            });
+                    });
                     
                     $('.rplot, .r-interactiveplot').each(function() {
+                        
                         var container = $(this).closest('.grid-stack-item-content');
+                        /*
                         var currentPlotSize = {
                            id : $(this).attr('id'),
                            width : container.width() - 38,
                            height: container.height() - 38
                         };
+                        */
 
-                        plotSizes.push(currentPlotSize);
+                        var plotSizeData = getPlotSizeData($(this));
+
+                        plotSizes.push(plotSizeData);
 
                         // initialise the plot's container with information for later retrieval:
                         container.data({
-                            'width' : currentPlotSize.width,
-                            'height' : currentPlotSize.height
+                            'width' : plotSizeData.width,
+                            'height' : plotSizeData.height
                         });
                     });
 

@@ -1,1 +1,1 @@
-<div id="<%=control.id%>" class="leaflet">Please wait while the map is loaded...</div>
+<div id="<%=control.id%>" class="leaflet" style="width:602px;height:320px">Please wait while the map is loaded...</div>
