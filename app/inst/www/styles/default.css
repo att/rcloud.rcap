@@ -192,8 +192,12 @@ $attDarkBlueHighlight:          #020bb3;
 .grid-stack-item-content.rcap-controltype-form .configure {
   display: flex; }
 
-.rcap-controltype-rplot pre, .rcap-controltype-interactiveplot pre, .rcap-controltype-rtext pre, .rcap-controltype-datatable pre,
-.rcap-controltype-rtext pre {
+.rcap-controltype-rplot pre,
+.rcap-controltype-interactiveplot pre,
+.rcap-controltype-rtext pre,
+.rcap-controltype-datatable pre,
+.rcap-controltype-rtext pre,
+.rcap-controltype-leaflet pre {
   display: block;
   text-align: center;
   position: absolute;
@@ -204,8 +208,12 @@ $attDarkBlueHighlight:          #020bb3;
   padding: 10px;
   left: 12px;
   top: 12px; }
-  .rcap-controltype-rplot pre::before, .rcap-controltype-interactiveplot pre::before, .rcap-controltype-rtext pre::before, .rcap-controltype-datatable pre::before,
-  .rcap-controltype-rtext pre::before {
+  .rcap-controltype-rplot pre::before,
+  .rcap-controltype-interactiveplot pre::before,
+  .rcap-controltype-rtext pre::before,
+  .rcap-controltype-datatable pre::before,
+  .rcap-controltype-rtext pre::before,
+  .rcap-controltype-leaflet pre::before {
     font: normal normal normal 18px/1 FontAwesome;
     content: "\f120";
     padding-right: 8px; }

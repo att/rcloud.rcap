@@ -44,8 +44,12 @@
   display: flex;
 }
 
-.rcap-controltype-rplot pre, .rcap-controltype-interactiveplot pre, .rcap-controltype-rtext pre, .rcap-controltype-datatable pre,
-.rcap-controltype-rtext pre {
+.rcap-controltype-rplot pre, 
+.rcap-controltype-interactiveplot pre, 
+.rcap-controltype-rtext pre, 
+.rcap-controltype-datatable pre,
+.rcap-controltype-rtext pre,
+.rcap-controltype-leaflet pre {
 
     display: block;
     text-align: center;
