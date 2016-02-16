@@ -1,0 +1,36 @@
+/* att */
+@import "../../styles/vars.scss";
+
+#rcap-designer, #rcap-viewer {
+
+    & #inner-stage {
+        width: 1080px!important;
+        font-family: arial!important;
+
+        background: transparent url(attheader.png) top left no-repeat;
+    }
+
+    & h2 {
+        color: white;
+        background: $attBlue;
+        padding: 10px;
+        margin: 0;
+    }
+
+    .grid-stack {
+      
+    }
+
+}
+
+
+
+
+
+
+
+
+
+#rcap-viewer {
+
+}

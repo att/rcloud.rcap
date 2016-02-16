@@ -44,7 +44,7 @@ define(['pubsub',
                     'class': 'rcap',
                     'type': 'text/css', 
                     'rel': 'stylesheet', 
-                    'href': '/shared.R/rcloud.rcap/themes/' + themeKey + '.css'
+                    'href': '/shared.R/rcloud.rcap/themes/' + themeKey + '/' + themeKey + '.css'
                 }));
         };
 

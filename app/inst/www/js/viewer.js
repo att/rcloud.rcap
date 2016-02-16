@@ -15,12 +15,16 @@ define(['text!rcap/partials/viewer.htm',
     var Viewer = function() {
 
         var me = this;
+        var themeManager = new ThemeManager();
 
         this.setup = function() {
 
             $('body')
                 .addClass('rcap-viewer')
                 .append(mainPartial);
+
+            // theme manager:
+            themeManager.initialise();
 
             // show the preloader whilst things are initialised:
             $('#rcap-preloader').show();
@@ -39,9 +43,6 @@ define(['text!rcap/partials/viewer.htm',
             // history manager:
             var historyManager = new HistoryManager();
             historyManager.initialise();
-
-            //var themeManager = new ThemeManager();
-            //themeManager.initialise();
 
             // subscribe to grid done event:
             PubSub.subscribe(pubSubTable.gridInitComplete, function() {
