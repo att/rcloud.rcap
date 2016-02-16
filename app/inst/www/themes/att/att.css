@@ -20,9 +20,30 @@ $attDarkBlueHighlight:          #020bb3;
 #rcap-designer #inner-stage, #rcap-viewer #inner-stage {
   width: 1080px !important;
   font-family: arial !important;
-  background: transparent url(attheader.png) top left no-repeat; }
+  padding-top: 10px;
+  background: transparent url(attheader.png) top left no-repeat !important; }
 #rcap-designer h2, #rcap-viewer h2 {
   color: white;
   background: #009fdb;
   padding: 10px;
-  margin: 0; }
+  margin: 0;
+  background: linear-gradient(to right, #0096d6 0%, #44c8f5 100%);
+  border-radius: 14px; }
+#rcap-designer form, #rcap-viewer form {
+  font-size: 175%; }
+  #rcap-designer form select, #rcap-viewer form select {
+    padding: 10px 15px;
+    background: white; }
+    #rcap-designer form select option, #rcap-viewer form select option {
+      padding: 10px; }
+  #rcap-designer form .form-group, #rcap-viewer form .form-group {
+    margin-bottom: 0; }
+#rcap-designer .rcap-controltype-pagemenu, #rcap-viewer .rcap-controltype-pagemenu {
+  font-size: 125%; }
+  #rcap-designer .rcap-controltype-pagemenu a, #rcap-viewer .rcap-controltype-pagemenu a {
+    background: #ea7400;
+    color: white; }
+    #rcap-designer .rcap-controltype-pagemenu a:hover, #rcap-viewer .rcap-controltype-pagemenu a:hover {
+      background: #b75b00; }
+  #rcap-designer .rcap-controltype-pagemenu nav > div, #rcap-viewer .rcap-controltype-pagemenu nav > div {
+    border: 5px solid rgba(0, 0, 0, 0.5); }
