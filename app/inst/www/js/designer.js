@@ -44,11 +44,16 @@ define([
             PubSub.publish(pubSubTable.save);
         });
 
+        // theme manager:
+        themeManager.initialise();
+
         // site manager: 
         new SiteManager().initialise();
 
         // menu manager:
-        new MenuManager().initialise().initialiseControlsMenu();
+        new MenuManager().initialise()
+            .initialiseControlsMenu()
+            .initialiseSettingsMenu();
 
         // info bar manager:
         new InfoBarManager().initialise();

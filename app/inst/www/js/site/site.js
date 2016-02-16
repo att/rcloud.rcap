@@ -1,4 +1,4 @@
-define(['pages/page', 'data/dataSource', 'rcap/js/utils/pageWalker'], function(Page, DataSource, PageWalker) {
+define(['pages/page', 'data/dataSource', 'rcap/js/utils/pageWalker', 'rcap/js/ui/themeManager'], function(Page, DataSource, PageWalker, ThemeManager) {
 
     'use strict';
 
@@ -46,6 +46,9 @@ define(['pages/page', 'data/dataSource', 'rcap/js/utils/pageWalker'], function(P
             // initialise with an empty list of data sources:
             this.dataSources = options.dataSources || [];
 
+            // default theme:
+            this.theme = new ThemeManager().getDefaultThemeKey();
+
             this.currentPageID = this.pages.length > 0 ? this.pages[0].id : undefined;
         },
 
@@ -57,6 +60,7 @@ define(['pages/page', 'data/dataSource', 'rcap/js/utils/pageWalker'], function(P
 
             return {
                 'saveTicks': this.saveTicks,
+                'theme': this.theme,
                 'pages': this.pages,
                 'dataSources': this.dataSources
             };
@@ -290,8 +294,16 @@ define(['pages/page', 'data/dataSource', 'rcap/js/utils/pageWalker'], function(P
             existingDataSource.code = dataSource.code;
             existingDataSource.variable = dataSource.variable;
             return this;
-        }
+        },
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //
+        // themes
+        //
+        //  
+        setCurrentTheme: function(theme) {
+            this.theme = theme;
+        }
 
     });
 

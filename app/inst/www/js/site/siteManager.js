@@ -52,6 +52,8 @@ define([
                     pages: site.pages,
                     currentPageID: site.currentPageID
                 });
+
+                PubSub.publish(pubSubTable.setCurrentTheme, site.theme);
             });
 
             ////////////////////////////////////////////////////////////////////////////////////
@@ -343,6 +345,18 @@ define([
                 console.info('siteManager: pubSubTable.updateDataSource');
 
                 setSite(getSite().updateDataSource(dataSourceObj));
+            });
+
+            ////////////////////////////////////////////////////////////////////////////////////
+            //
+            // themes
+            //
+            PubSub.subscribe(pubSubTable.setCurrentTheme, function(msg, theme) {
+
+                console.info('siteManager: pubSubTable.setCurrentTheme');
+
+                setSite(getSite().setCurrentTheme(theme));
+
             });
         }
     });

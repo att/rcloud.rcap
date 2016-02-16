@@ -60,7 +60,10 @@ define(['pubsub', 'rcap/js/Class'], function() {
         configureControl : 'configureControl',
         configureForm : 'configureForm',
         showControlDialog : 'showControlDialog',
-        showFormBuilderDialog : 'showFormBuilderDialog'
+        showFormBuilderDialog : 'showFormBuilderDialog',
+
+        // theme:
+        setCurrentTheme: 'setCurrentTheme'
 
     };
 

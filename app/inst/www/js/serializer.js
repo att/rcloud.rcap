@@ -200,20 +200,24 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'site/pubSubTable', 'rcap
 
                     }
 
-                    if(data.dataSources) {
+                    if (data.dataSources) {
                         // load in the data sources:
                         _.each(data.dataSources, function(jsonDataSource) {
 
                             currentDataSource = site.createDataSource();
 
                             for (property in jsonDataSource) {
-                                if(currentDataSource.hasOwnProperty(property)) {
+                                if (currentDataSource.hasOwnProperty(property)) {
                                     currentDataSource[property] = jsonDataSource[property];
                                 }
                             }
 
                             site.dataSources.push(currentDataSource);
                         });
+                    }
+
+                    if(data.theme) {
+                        site.theme = data.theme;
                     }
 
                     PubSub.publish(pubSubTable.initSite, site);
