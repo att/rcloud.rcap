@@ -5,5 +5,5 @@
     <option value="<%=theme.key%>"><%=theme.description%></option>
 <% }); %>
 </select>
-<button>Apply</button>
+<button class="btn btn-primary">Apply</button>
 </div>

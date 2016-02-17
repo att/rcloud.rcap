@@ -459,6 +459,19 @@
                 position: absolute;
             }
         }
+
+        &[data-flyoutid="settings"] {
+            & h5 {
+                border-bottom: 1px solid white;
+                padding-bottom: 3px;
+                border-bottom: 1px soid #444;
+            }
+
+            & select {
+                width: 150px;
+                padding: 5px;
+            }
+        }
     }
     & #main-menu {
         overflow: auto;

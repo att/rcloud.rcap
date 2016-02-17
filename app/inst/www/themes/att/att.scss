@@ -9,56 +9,56 @@
         padding-top: 10px;
 
         background: transparent url(attheader.png) top left no-repeat!important;
-    }
 
-    & h2 {
-        color: white;
-        background: $attBlue;
-        padding: 10px;
-        margin: 0;
+        & h2 {
+            color: white;
+            background: $attBlue;
+            padding: 10px;
+            margin: 0;
 
-        background: linear-gradient(to right, #0096d6 0%,#44c8f5 100%); 
-        border-radius: 14px;
-    }
+            background: linear-gradient(to right, #0096d6 0%,#44c8f5 100%); 
+            border-radius: 14px;
+        }
 
-    .grid-stack {
-      
-    }
+        .grid-stack {
+          
+        }
 
-    form {
-        font-size: 175%;
+        form {
+            font-size: 175%;
 
-        & select {
-            padding: 10px 15px;
-            background: white;
+            & select {
+                padding: 10px 15px;
+                background: white;
 
-            & option {
-                padding: 10px;
+                & option {
+                    padding: 10px;
+                }
+            }
+
+            & .form-group {
+                margin-bottom: 0;
             }
         }
 
-        & .form-group {
-            margin-bottom: 0;
-        }
-    }
+        .rcap-controltype-pagemenu {
+            font-size: 125%;
 
-    .rcap-controltype-pagemenu {
-        font-size: 125%;
+            & a {
+                background: $attOrange;
+                color: $attWhite;
 
-        & a {
-            background: $attOrange;
-            color: $attWhite;
+                &:hover {
+                    background: darken($attOrange, 10%);
+                }
+            }
 
-            &:hover {
-                background: darken($attOrange, 10%);
+            & nav > div {
+                border: 5px solid rgba(0, 0, 0, 0.5);
             }
         }
-
-        & nav > div {
-            border: 5px solid rgba(0, 0, 0, 0.5);
-        }
+        
     }
-
 }
 
 

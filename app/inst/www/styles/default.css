@@ -2565,6 +2565,13 @@ table.dataTable td {
         top: 0;
         right: 2px;
         position: absolute; }
+    #rcap-designer .menu-flyout[data-flyoutid="settings"] h5 {
+      border-bottom: 1px solid white;
+      padding-bottom: 3px;
+      border-bottom: 1px soid #444; }
+    #rcap-designer .menu-flyout[data-flyoutid="settings"] select {
+      width: 150px;
+      padding: 5px; }
   #rcap-designer #main-menu {
     overflow: auto;
     background-color: #222222;
