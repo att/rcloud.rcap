@@ -2699,7 +2699,6 @@ table.dataTable td {
       position: fixed;
       width: 100%; }
     #rcap-designer .stage #inner-stage {
-      background: white;
       border: 1px solid #8c8c8c;
       position: relative;
       margin: 15px;
@@ -3089,13 +3088,3 @@ body.rcap-viewer {
 .rplot code, .r-interactiveplot code, .leaflet code {
   white-space: normal;
   display: block; }
-
-@font-face {
-  font-family: "Debby";
-  src: url("../fonts/clvatt-book-webfont.eot");
-  src: url("../fonts/clvatt-book-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/clvatt-book-webfont.woff") format("woff"), url("../fonts/clvatt-book-webfont.ttf") format("truetype"), url("../fonts/clvatt-book-webfont.svg#Debby") format("svg");
-  font-style: normal;
-  font-weight: normal; }
-
-nav {
-  font-family: Debby !important; }

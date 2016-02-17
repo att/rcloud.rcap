@@ -21,14 +21,19 @@ $attDarkBlueHighlight:          #020bb3;
   width: 1080px !important;
   font-family: arial !important;
   padding-top: 10px;
-  background: white url(attheader.png) top left no-repeat !important; }
+  background-color: transparent;
+  background-image: url(attlogo.png), url(visitorinsights.png), url(attheader.png), url(attfooter.png);
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-position: 13px 20px, 105px 45px, 0 -193px, 0 calc(100% + 387px); }
   #rcap-designer #inner-stage h2, #rcap-viewer #inner-stage h2 {
     color: white;
     background: #009fdb;
     padding: 10px;
     margin: 0;
-    background: linear-gradient(to right, #0096d6 0%, #44c8f5 100%);
-    border-radius: 14px; }
+    font-size: 30px;
+    background: linear-gradient(to right, #009fdb 0%, #71c5e8 100%);
+    border-top-right-radius: 14px;
+    border-bottom-right-radius: 14px; }
   #rcap-designer #inner-stage form, #rcap-viewer #inner-stage form {
     font-size: 175%; }
     #rcap-designer #inner-stage form select, #rcap-viewer #inner-stage form select {
@@ -41,9 +46,10 @@ $attDarkBlueHighlight:          #020bb3;
   #rcap-designer #inner-stage .rcap-controltype-pagemenu, #rcap-viewer #inner-stage .rcap-controltype-pagemenu {
     font-size: 125%; }
     #rcap-designer #inner-stage .rcap-controltype-pagemenu a, #rcap-viewer #inner-stage .rcap-controltype-pagemenu a {
-      background: #ea7400;
-      color: white; }
-      #rcap-designer #inner-stage .rcap-controltype-pagemenu a:hover, #rcap-viewer #inner-stage .rcap-controltype-pagemenu a:hover {
-        background: #b75b00; }
+      color: #ea7400;
+      background: white; }
+      #rcap-designer #inner-stage .rcap-controltype-pagemenu a:hover, #rcap-designer #inner-stage .rcap-controltype-pagemenu a.current, #rcap-viewer #inner-stage .rcap-controltype-pagemenu a:hover, #rcap-viewer #inner-stage .rcap-controltype-pagemenu a.current {
+        background: linear-gradient(to right, #009fdb 0%, #71c5e8 100%);
+        color: white; }
     #rcap-designer #inner-stage .rcap-controltype-pagemenu nav > div, #rcap-viewer #inner-stage .rcap-controltype-pagemenu nav > div {
-      border: 5px solid rgba(0, 0, 0, 0.5); }
+      border: 2px solid #009fdb; }

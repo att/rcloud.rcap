@@ -624,7 +624,7 @@
             width: 100%;
         }
         & #inner-stage {
-            background: lighten($bgColor, 20%);
+           // background: lighten($bgColor, 20%);
             border: 1px solid darken($bgColor, 40%);
             position: relative;
             margin: 15px;
@@ -1177,10 +1177,4 @@ body.rcap-viewer {
         white-space: normal;
         display: block;
     }
-}
-
-@include fontFace('Debby', '../fonts/clvatt-book-webfont');
-
-nav {
-    font-family: Debby!important;
 }

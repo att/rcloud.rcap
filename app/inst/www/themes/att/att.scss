@@ -4,20 +4,31 @@
 #rcap-designer, #rcap-viewer {
 
     & #inner-stage {
+
         width: 1080px!important;
         font-family: arial!important;
         padding-top: 10px;
 
-        background: white url(attheader.png) top left no-repeat!important;
+        background-color: transparent;
+        background-image: 
+                    url(attlogo.png),
+                    url(visitorinsights.png),
+                    url(attheader.png),
+                    url(attfooter.png);
+                    
+        background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+        background-position: 13px 20px, 105px 45px, 0 -193px, 0 calc(100% + 387px);
 
         & h2 {
             color: white;
             background: $attBlue;
             padding: 10px;
             margin: 0;
+            font-size: 30px;
 
-            background: linear-gradient(to right, #0096d6 0%,#44c8f5 100%); 
-            border-radius: 14px;
+            background: linear-gradient(to right, $attBlue 0%, $attLightBlue 100%); 
+            border-top-right-radius: 14px;
+            border-bottom-right-radius: 14px;
         }
 
         .grid-stack {
@@ -45,27 +56,22 @@
             font-size: 125%;
 
             & a {
-                background: $attOrange;
-                color: $attWhite;
+                color: $attOrange;
+                background: $attWhite;
 
-                &:hover {
-                    background: darken($attOrange, 10%);
+                &:hover, &.current {
+                    //background: $attBlue;
+                    background: linear-gradient(to right, $attBlue 0%, $attLightBlue 100%); 
+                    color: $attWhite;
                 }
             }
 
             & nav > div {
-                border: 5px solid rgba(0, 0, 0, 0.5);
+                border: 2px solid $attBlue;
             }
         }
-
     }
 }
-
-
-
-
-
-
 
 #rcap-viewer {
 
