@@ -4,7 +4,6 @@ define([
     'text!rcap/partials/dialogs/_addPage.htm',
     'text!rcap/partials/dialogs/_pageSettings.htm',
     'text!rcap/partials/dialogs/_dataSourceSettings.htm',
-    'text!rcap/partials/dialogs/_siteSettings.htm',
     'text!rcap/partials/dialogs/_controlSettings.htm',
     'text!rcap/partials/dialogs/_formBuilder.htm',
     'text!rcap/partials/dialogs/_confirmDialog.htm',
@@ -12,7 +11,7 @@ define([
     'site/pubSubTable',
     'parsley',
     'rcap/js/vendor/jqModal.min'
-], function(FormBuilder, Page, addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, siteSettingsPartial, controlSettingsPartial, formBuilderPartial, confirmDialogPartial, PubSub, pubSubTable) {
+], function(FormBuilder, Page, addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, controlSettingsPartial, formBuilderPartial, confirmDialogPartial, PubSub, pubSubTable) {
 
     'use strict';
 
@@ -80,7 +79,7 @@ define([
         this.initialise = function() {
 
             // append the dialogs to the root of the designer:
-            _.each([addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, siteSettingsPartial, controlSettingsPartial, formBuilderPartial, confirmDialogPartial], function(partial) {
+            _.each([addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, controlSettingsPartial, formBuilderPartial, confirmDialogPartial], function(partial) {
                 $('#rcap-designer').append(partial);
             });
 

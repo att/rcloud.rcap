@@ -315,6 +315,11 @@
         }
         & ol#pages em {
             font-style: normal;
+            /*
+            position: absolute;
+            padding-top: 3px;
+            max-width: 270px;
+            */
         }
         .dragged {
             z-index: 2000;

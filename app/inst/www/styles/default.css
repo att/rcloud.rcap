@@ -2450,7 +2450,12 @@ table.dataTable td {
     #rcap-designer .menu-flyout ol#pages a.add-page::before {
       content: "\f055"; }
     #rcap-designer .menu-flyout ol#pages em {
-      font-style: normal; }
+      font-style: normal;
+      /*
+      position: absolute;
+      padding-top: 3px;
+      max-width: 270px;
+      */ }
     #rcap-designer .menu-flyout .dragged {
       z-index: 2000;
       position: absolute;
