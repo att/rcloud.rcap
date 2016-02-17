@@ -21,7 +21,7 @@ $attDarkBlueHighlight:          #020bb3;
   width: 1080px !important;
   font-family: arial !important;
   padding-top: 10px;
-  background: transparent url(attheader.png) top left no-repeat !important; }
+  background: white url(attheader.png) top left no-repeat !important; }
   #rcap-designer #inner-stage h2, #rcap-viewer #inner-stage h2 {
     color: white;
     background: #009fdb;
