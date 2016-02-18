@@ -17,7 +17,7 @@
                     url(attfooter.png);
                     
         background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
-        background-position: 13px 20px, 105px 45px, 0 -193px, 0 calc(100% + 387px);
+        background-position: 13px 20px, 105px 45px, 0 -193px, 376px calc(100% + 287px);
 
         & h2 {
             color: white;
@@ -69,6 +69,51 @@
             & nav > div {
                 border: 2px solid $attBlue;
             }
+        }
+
+        .rcap-controltype-breadcrumb {
+            text-transform: uppercase;
+
+            &.rcap-breadcrumb {
+                border: 2px solid $attLightBlue;
+            }
+
+            & a {
+                display: inline-block;
+                background: linear-gradient(to right, $attBlue 0%, $attLightBlue 100%); 
+                padding: 10px 20px;
+                color: white;
+                font-weight: bold;
+                font-size: 15px;
+                position: relative;
+                margin-right: 0;
+                z-index: 100;
+
+                &:after {
+
+                }
+
+                &:hover {
+                    text-decoration: none;
+                }
+
+                &:not(:first-child) {
+
+                }
+            }
+
+            & .separator {
+                display: none;
+            }
+
+            & span:not(.separator) {
+                display: inline-block;
+                background: white;
+                font-weight: bold;
+                font-size: 15px;
+                padding: 10px 20px;
+            }
+
         }
     }
 }

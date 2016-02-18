@@ -24,7 +24,7 @@ $attDarkBlueHighlight:          #020bb3;
   background-color: transparent;
   background-image: url(attlogo.png), url(visitorinsights.png), url(attheader.png), url(attfooter.png);
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
-  background-position: 13px 20px, 105px 45px, 0 -193px, 0 calc(100% + 387px); }
+  background-position: 13px 20px, 105px 45px, 0 -193px, 376px calc(100% + 287px); }
   #rcap-designer #inner-stage h2, #rcap-viewer #inner-stage h2 {
     color: white;
     background: #009fdb;
@@ -53,3 +53,27 @@ $attDarkBlueHighlight:          #020bb3;
         color: white; }
     #rcap-designer #inner-stage .rcap-controltype-pagemenu nav > div, #rcap-viewer #inner-stage .rcap-controltype-pagemenu nav > div {
       border: 2px solid #009fdb; }
+  #rcap-designer #inner-stage .rcap-controltype-breadcrumb, #rcap-viewer #inner-stage .rcap-controltype-breadcrumb {
+    text-transform: uppercase; }
+    #rcap-designer #inner-stage .rcap-controltype-breadcrumb.rcap-breadcrumb, #rcap-viewer #inner-stage .rcap-controltype-breadcrumb.rcap-breadcrumb {
+      border: 2px solid #71c5e8; }
+    #rcap-designer #inner-stage .rcap-controltype-breadcrumb a, #rcap-viewer #inner-stage .rcap-controltype-breadcrumb a {
+      display: inline-block;
+      background: linear-gradient(to right, #009fdb 0%, #71c5e8 100%);
+      padding: 10px 20px;
+      color: white;
+      font-weight: bold;
+      font-size: 15px;
+      position: relative;
+      margin-right: 0;
+      z-index: 100; }
+      #rcap-designer #inner-stage .rcap-controltype-breadcrumb a:hover, #rcap-viewer #inner-stage .rcap-controltype-breadcrumb a:hover {
+        text-decoration: none; }
+    #rcap-designer #inner-stage .rcap-controltype-breadcrumb .separator, #rcap-viewer #inner-stage .rcap-controltype-breadcrumb .separator {
+      display: none; }
+    #rcap-designer #inner-stage .rcap-controltype-breadcrumb span:not(.separator), #rcap-viewer #inner-stage .rcap-controltype-breadcrumb span:not(.separator) {
+      display: inline-block;
+      background: white;
+      font-weight: bold;
+      font-size: 15px;
+      padding: 10px 20px; }
