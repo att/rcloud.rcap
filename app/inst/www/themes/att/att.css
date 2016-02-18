@@ -22,15 +22,15 @@ $attDarkBlueHighlight:          #020bb3;
   font-family: arial !important;
   padding-top: 10px;
   background-color: transparent;
-  background-image: url(attlogo.png), url(visitorinsights.png), url(attheader.png), url(attfooter.png);
-  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
-  background-position: 13px 20px, 105px 45px, 0 -193px, 376px calc(100% + 287px); }
+  background-image: url(attlogo.png);
+  background-repeat: no-repeat;
+  background-position: 13px 20px; }
   #rcap-designer #inner-stage h2, #rcap-viewer #inner-stage h2 {
     color: white;
     background: #009fdb;
     padding: 10px;
     margin: 0;
-    font-size: 30px;
+    font-size: 26px;
     background: linear-gradient(to right, #009fdb 0%, #71c5e8 100%);
     border-top-right-radius: 14px;
     border-bottom-right-radius: 14px; }
