@@ -237,12 +237,18 @@ LeafletControl <- R6Class("LeafletControl",
       func <- private$controlFunction
       if (!is.null(func)) {
 
-        # Clear the div
+        # We put the leaflet map into a wrapper div, within
+        # the control's div. When a new map is generated, we
+        # remove the wrapper div entirely.
         div <- paste0("#", private$id)
-        rcw.set(div, "")
+
+	leaflet_div <- randomId()
+        rcw.set(div, paste0('<div id="', leaflet_div,
+                            '" class="leaflet" style="height:100%;"></div>'))
 
         # Put there the map
-        do.call(func, list(where = div), envir = rcloudEnv())
+        do.call(func, list(where = paste0("#", leaflet_div)),
+                envir = rcloudEnv())
       }
     }
   )
