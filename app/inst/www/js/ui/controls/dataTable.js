@@ -5,7 +5,6 @@ define(['rcap/js/ui/controls/gridControl',
     'utils/dataTranslators/dataTableTranslator',
     'text!controlTemplates/dataTable.tpl',
     'datatables/jquery.dataTables.min'
-
 ], function(GridControl, TextControlProperty, AutocompleteControlProperty, DropdownControlProperty, DataTableTranslator, tpl) {
 
     'use strict';

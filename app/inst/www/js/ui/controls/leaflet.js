@@ -1,8 +1,10 @@
 define(['rcap/js/ui/controls/gridControl',
     'rcap/js/ui/controls/properties/autocompleteControlProperty',
+    'pubsub',
+    'site/pubSubTable',
     'text!controlTemplates/leaflet.tpl',
     'text!controlTemplates/leaflet-design.tpl'
-], function(GridControl, AutocompleteControlProperty, tpl, dtpl) {
+], function(GridControl, AutocompleteControlProperty, PubSub, pubSubTable, tpl, dtpl) {
 
     'use strict';
 
@@ -23,6 +25,23 @@ define(['rcap/js/ui/controls/gridControl',
                     })
                 ]
             });
+
+            var me = this;
+
+            PubSub.subscribe(pubSubTable.gridPageChangeComplete, function() {
+                if($('#' + me.id).is(':visible')) {
+
+                    var $leaflet = $('#' + me.id).find('.leaflet');
+
+                    if($leaflet.length > 0) {
+                        window.rcleaflet['#' + $leaflet.attr('id')].map.invalidateSize();
+                    }
+
+
+                  //window.rcleaflet['#' + $('#' + me.id).find('.leaflet').attr('id')].map.invalidateSize();
+                }
+            });
+
         },
         render: function(options) {
 

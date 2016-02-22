@@ -30,6 +30,7 @@ define(['pubsub', 'rcap/js/Class'], function() {
         changeSelectedPageByTitle : 'changeSelectedPageByTitle',
         changeSelectedPage :'changeSelectedPage',
         changePageOrder : 'changePageOrder',
+        gridPageChangeComplete: 'gridPageChangeComplete',
         pageSettingsClicked : 'pageSettingsClicked',
         showPageSettingsDialog : 'showPageSettingsDialog',
         pageCountChanged : 'pageCountChanged',
