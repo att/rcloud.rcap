@@ -77,3 +77,5 @@ $attDarkBlueHighlight:          #020bb3;
       font-weight: bold;
       font-size: 15px;
       padding: 10px 20px; }
+  #rcap-designer #inner-stage .rcap-controltype-datatable th, #rcap-viewer #inner-stage .rcap-controltype-datatable th {
+    padding: 8px 10px; }
