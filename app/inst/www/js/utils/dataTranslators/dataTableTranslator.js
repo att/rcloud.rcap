@@ -15,25 +15,24 @@ define([
             var columnCount = columnNames.length;
             var rowCount = dataObject[Object.keys(dataObject)[0]].length;
 
-            var translatedData = [], currentItem = {}, rowLoop = 0, columnLoop = 0;
+            var translatedData = [], currentItem = [], rowLoop = 0, columnLoop = 0;
 
             for(rowLoop = 0; rowLoop < rowCount; rowLoop++) {
 
                 // create a new object:
-                currentItem = {};
+                currentItem = [];
                 for(columnLoop = 0; columnLoop < columnCount; columnLoop++) {
-                    currentItem[columnNames[columnLoop].replace('.', '')] = dataObject[columnNames[columnLoop]][rowLoop].toString();
+                    //currentItem[columnNames[columnLoop].replace('.', '')] = dataObject[columnNames[columnLoop]][rowLoop].toString();
+                    currentItem.push(dataObject[columnNames[columnLoop]][rowLoop].toString());
                 }
 
                 translatedData.push(currentItem);
             }
 
             return {
-                'data' : translatedData,                
-                'columns' : _.map(columnNames, function(col) { return { 'data' : col.replace('.', ''), 'title' : col }})
+                data : translatedData,                
+                columns : _.map(columnNames, function(col) { return { 'title' : col }})
             };
-
-            return;
         };
     };
 
