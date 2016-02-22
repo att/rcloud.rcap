@@ -1,10 +1,12 @@
 define(['rcap/js/ui/controls/gridControl',
     'rcap/js/ui/controls/properties/autocompleteControlProperty',
+    'rcap/js/ui/controls/properties/textControlProperty',
+    'rcap/js/ui/controls/properties/dropdownControlProperty',
     'pubsub',
     'site/pubSubTable',
     'text!controlTemplates/leaflet.tpl',
     'text!controlTemplates/leaflet-design.tpl'
-], function(GridControl, AutocompleteControlProperty, PubSub, pubSubTable, tpl, dtpl) {
+], function(GridControl, AutocompleteControlProperty, TextControlProperty, DropdownControlProperty, PubSub, pubSubTable, tpl, dtpl) {
 
     'use strict';
 
@@ -22,6 +24,29 @@ define(['rcap/js/ui/controls/gridControl',
                         label: 'R Function',
                         helpText: 'R Function for this control.',
                         isRequired: true
+                    }),
+                    new TextControlProperty({
+                        uid: 'linkUrl',
+                        label : 'Link url',
+                        defaultValue : '',
+                        helpText : 'Link url',
+                        isRequired: false,
+                        isHorizontal: false
+                    }),
+                    new DropdownControlProperty({
+                        uid: 'linkTarget',
+                        label: 'Link target',
+                        isRequired: false,
+                        availableOptions: [{
+                            text: 'Same window',
+                            value: '_self'
+                        }, {
+                            text: 'New window',
+                            value: '_blank'
+                        }],
+                        helpText: 'Where should the link open',
+                        value: '_self',
+                        isHorizontal: false
                     })
                 ]
             });
@@ -36,9 +61,6 @@ define(['rcap/js/ui/controls/gridControl',
                     if($leaflet.length > 0) {
                         window.rcleaflet['#' + $leaflet.attr('id')].map.invalidateSize();
                     }
-
-
-                  //window.rcleaflet['#' + $('#' + me.id).find('.leaflet').attr('id')].map.invalidateSize();
                 }
             });
 
