@@ -1,7 +1,8 @@
 define(['rcap/js/ui/controls/baseControl',
     'rcap/js/ui/controls/properties/colorControlProperty',
-    'rcap/js/ui/controls/properties/rangeControlProperty'
-], function(BaseControl, ColorControlProperty, RangeControlProperty) {
+    'rcap/js/ui/controls/properties/rangeControlProperty',
+    'rcap/js/ui/controls/properties/textControlProperty'
+], function(BaseControl, ColorControlProperty, RangeControlProperty, TextControlProperty) {
 
     'use strict';
 
@@ -44,6 +45,13 @@ define(['rcap/js/ui/controls/baseControl',
                     label: 'Border Width',
                     helpText: 'Border will only be shown if it has a width',
                     defaultValue: '0'
+                }),
+                new TextControlProperty({
+                    uid: 'cssclass',
+                    label : 'CSS Class',
+                    defaultValue : '',
+                    helpText : 'Additional CSS class to be applied to this control. Will be prefixed with rcap-custom- to prevent collisions.',
+                    isRequired: true
                 })
             ];
 

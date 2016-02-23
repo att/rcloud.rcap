@@ -115,3 +115,23 @@ $attDarkBlueHighlight:          #020bb3;
       border-bottom: 1px solid #009fdb; }
     #rcap-designer #inner-stage .rcap-controltype-datatable .no-footer, #rcap-viewer #inner-stage .rcap-controltype-datatable .no-footer {
       border-bottom: 1px solid #009fdb; }
+  #rcap-designer #inner-stage .rcap-custom-agents-form .form-option, #rcap-viewer #inner-stage .rcap-custom-agents-form .form-option {
+    position: relative;
+    padding: 5px;
+    background: #009fdb;
+    margin-bottom: 7px;
+    border-radius: 6px;
+    width: 90%; }
+    #rcap-designer #inner-stage .rcap-custom-agents-form .form-option:hover, #rcap-viewer #inner-stage .rcap-custom-agents-form .form-option:hover {
+      background: #71c5e8; }
+    #rcap-designer #inner-stage .rcap-custom-agents-form .form-option input, #rcap-viewer #inner-stage .rcap-custom-agents-form .form-option input {
+      position: absolute;
+      left: 10px;
+      top: 10px; }
+    #rcap-designer #inner-stage .rcap-custom-agents-form .form-option label, #rcap-viewer #inner-stage .rcap-custom-agents-form .form-option label {
+      margin-left: 24px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+      display: inline-block;
+      color: white; }

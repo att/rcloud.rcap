@@ -167,6 +167,38 @@
             }
 
         }
+
+        // CUSTOM OVERRIDES:
+
+        .rcap-custom-agents-form {
+            & .form-option {
+                position: relative;
+                padding: 5px;
+                background: $attBlue;
+                margin-bottom: 7px;
+                border-radius: 6px;
+                width: 90%;
+
+                &:hover {
+                    background: $attLightBlue;
+                }
+
+                & input {
+                    position: absolute;
+                    left: 10px;
+                    top: 10px;
+                }
+
+                & label {
+                    margin-left: 24px;
+                    font-size: 16px;
+                    cursor: pointer;
+                    width: 100%;
+                    display: inline-block;
+                    color: $attWhite;
+                }
+            }
+        }
     }
 }
 
