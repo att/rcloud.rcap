@@ -46,6 +46,11 @@ $attDarkBlueHighlight:          #020bb3;
         padding: 10px; }
     #rcap-designer #inner-stage form .form-group, #rcap-viewer #inner-stage form .form-group {
       margin-bottom: 0; }
+  #rcap-designer #inner-stage .hamburger button, #rcap-viewer #inner-stage .hamburger button {
+    width: 50px;
+    height: 50px;
+    margin-top: -20px !important;
+    border-color: black; }
   #rcap-designer #inner-stage .rcap-controltype-pagemenu, #rcap-viewer #inner-stage .rcap-controltype-pagemenu {
     font-size: 125%; }
     #rcap-designer #inner-stage .rcap-controltype-pagemenu a, #rcap-viewer #inner-stage .rcap-controltype-pagemenu a {

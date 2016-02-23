@@ -55,6 +55,15 @@
             }
         }
 
+        .hamburger {
+            & button {
+                width: 50px;
+                height: 50px;
+                margin-top: -20px!important;
+                border-color: $attBlack;
+            }
+        }
+
         .rcap-controltype-pagemenu {
             font-size: 125%;
 
