@@ -27,6 +27,11 @@
             background: linear-gradient(to right, $attBlue 0%, $attLightBlue 100%); 
             border-top-right-radius: 14px;
             border-bottom-right-radius: 14px;
+
+            & a:link, a:visited, a:active, a:hover {
+                color: white;
+                text-decoration: none;
+            }
         }
 
         .grid-stack {

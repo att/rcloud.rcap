@@ -34,6 +34,9 @@ $attDarkBlueHighlight:          #020bb3;
     background: linear-gradient(to right, #009fdb 0%, #71c5e8 100%);
     border-top-right-radius: 14px;
     border-bottom-right-radius: 14px; }
+    #rcap-designer #inner-stage h2 a:link, #rcap-designer #inner-stage h2 a:visited, #rcap-designer #inner-stage h2 a:active, #rcap-designer #inner-stage h2 a:hover, #rcap-viewer #inner-stage h2 a:link, #rcap-viewer #inner-stage h2 a:visited, #rcap-viewer #inner-stage h2 a:active, #rcap-viewer #inner-stage h2 a:hover {
+      color: white;
+      text-decoration: none; }
   #rcap-designer #inner-stage form, #rcap-viewer #inner-stage form {
     font-size: 175%; }
     #rcap-designer #inner-stage form select, #rcap-viewer #inner-stage form select {
