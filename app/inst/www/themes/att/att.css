@@ -49,7 +49,7 @@ $attDarkBlueHighlight:          #020bb3;
   #rcap-designer #inner-stage .rcap-controltype-pagemenu, #rcap-viewer #inner-stage .rcap-controltype-pagemenu {
     font-size: 125%; }
     #rcap-designer #inner-stage .rcap-controltype-pagemenu a, #rcap-viewer #inner-stage .rcap-controltype-pagemenu a {
-      color: #ea7400;
+      color: #009fdb;
       background: white; }
       #rcap-designer #inner-stage .rcap-controltype-pagemenu a:hover, #rcap-designer #inner-stage .rcap-controltype-pagemenu a.current, #rcap-viewer #inner-stage .rcap-controltype-pagemenu a:hover, #rcap-viewer #inner-stage .rcap-controltype-pagemenu a.current {
         background: linear-gradient(to right, #009fdb 0%, #71c5e8 100%);
@@ -80,5 +80,10 @@ $attDarkBlueHighlight:          #020bb3;
       font-weight: bold;
       font-size: 15px;
       padding: 10px 20px; }
-  #rcap-designer #inner-stage .rcap-controltype-datatable th, #rcap-viewer #inner-stage .rcap-controltype-datatable th {
-    padding: 8px 10px; }
+  #rcap-designer #inner-stage .rcap-controltype-datatable, #rcap-viewer #inner-stage .rcap-controltype-datatable {
+    font-size: 150%; }
+    #rcap-designer #inner-stage .rcap-controltype-datatable th, #rcap-viewer #inner-stage .rcap-controltype-datatable th {
+      padding: 8px 10px;
+      border-bottom: 1px solid #009fdb; }
+    #rcap-designer #inner-stage .rcap-controltype-datatable .no-footer, #rcap-viewer #inner-stage .rcap-controltype-datatable .no-footer {
+      border-bottom: 1px solid #009fdb; }

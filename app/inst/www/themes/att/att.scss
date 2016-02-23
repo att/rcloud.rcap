@@ -59,7 +59,7 @@
             font-size: 125%;
 
             & a {
-                color: $attOrange;
+                color: $attBlue;
                 background: $attWhite;
 
                 &:hover, &.current {
@@ -121,8 +121,15 @@
 
         .rcap-controltype-datatable {
 
+            font-size: 150%;
+
             & th {
                 padding: 8px 10px;
+                border-bottom: 1px solid $attBlue;
+            }
+
+            & .no-footer {
+                border-bottom: 1px solid $attBlue;
             }
 
         }
