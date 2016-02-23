@@ -11,11 +11,11 @@
 
         background-color: transparent;
         background-image: 
-                    url(attlogo.png)/*,
-                    url(visitorinsights.png)*/;
+                    url(attlogo.png),
+                    url(visitorinsights.png);
                     
-        background-repeat: no-repeat/*, no-repeat*/;
-        background-position: 13px 20px/*, 105px 45px*/;
+        background-repeat: no-repeat, no-repeat;
+        background-position: 13px 20px, 298px 40px;
 
         & h2 {
             color: white;
@@ -25,8 +25,8 @@
             font-size: 26px;
 
             background: linear-gradient(to right, $attBlue 0%, $attLightBlue 100%); 
-            border-top-right-radius: 14px;
-            border-bottom-right-radius: 14px;
+            border-bottom-right-radius: 25px;
+            border-top: 5px solid $attBlue;
 
             & a:link, a:visited, a:active, a:hover {
                 color: white;
@@ -114,19 +114,20 @@
             }
 
             & .separator {
-                background: #009fdb;
-                color: white;
+                background: $attWhite;
+                color: $attBlue;
                 margin-right: 0;
-                font-size: 18px;
+                font-size: 15px;
                 font-weight: bold;
-                line-height: 32px;
-                border-radius: 16px;
-                width: 32px;
+                line-height: 20px;
+                border-radius: 11px;
+                width: 22px;
                 text-align: center;
                 z-index: 104;
                 position: absolute;
-                top: 14px;
-                margin-left: -15px;
+                top: 19px;
+                margin-left: -11px;
+                border: 1px solid $attBlue;
             }
 
             & span:not(.separator) {
