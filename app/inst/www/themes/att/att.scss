@@ -91,6 +91,8 @@
                 position: relative;
                 margin-right: 0;
                 z-index: 100;
+                border-top: 1px solid $attBlue;
+                border-bottom: 1px solid $attBlue;
 
                 &:after {
 
@@ -98,15 +100,33 @@
 
                 &:hover {
                     text-decoration: none;
+                    background: white;
+                    color: $attBlue;
                 }
 
                 &:not(:first-child) {
 
                 }
+
+                &:first-child {
+                    border-left: 1px solid $attBlue;
+                }
             }
 
             & .separator {
-                display: none;
+                background: #009fdb;
+                color: white;
+                margin-right: 0;
+                font-size: 18px;
+                font-weight: bold;
+                line-height: 32px;
+                border-radius: 16px;
+                width: 32px;
+                text-align: center;
+                z-index: 104;
+                position: absolute;
+                top: 14px;
+                margin-left: -15px;
             }
 
             & span:not(.separator) {
@@ -115,6 +135,10 @@
                 font-weight: bold;
                 font-size: 15px;
                 padding: 10px 20px;
+                border-top: 1px solid $attBlue;
+                border-bottom: 1px solid $attBlue;
+                color: $attBlue;
+                border-right: 1px solid $attBlue;
             }
 
         }
