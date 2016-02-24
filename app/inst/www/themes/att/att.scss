@@ -16,7 +16,7 @@
                     url(RCloud_Color_Vector.png);
                     
         background-repeat: no-repeat, no-repeat, no-repeat;
-        background-position: 13px 20px, 298px 40px, calc(100% - 20px) calc(100% - 20px);
+        background-position: 13px 20px, 298px 40px, calc(100% - 20px) calc(100% - 9px);
 
         & h2 {
             color: white;
@@ -93,16 +93,16 @@
 
             & a {
                 display: inline-block;
-                background: linear-gradient(to right, $attBlue 0%, $attLightBlue 100%); 
+                //background: linear-gradient(to right, $attBlue 0%, $attLightBlue 100%); 
                 padding: 10px 20px;
-                color: white;
+                color: $attBlue;
                 font-weight: bold;
-                font-size: 13px;
+                font-size: 14px;
                 position: relative;
                 margin-right: 0;
                 z-index: 100;
-                border-top: 1px solid $attBlue;
-                border-bottom: 1px solid $attBlue;
+                //border-top: 1px solid $attBlue;
+                //border-bottom: 1px solid $attBlue;
 
                 &:after {
 
@@ -111,7 +111,7 @@
                 &:hover {
                     text-decoration: none;
                     background: white;
-                    color: $attBlue;
+                    //color: $attBlue;
                 }
 
                 &:not(:first-child) {
@@ -119,7 +119,8 @@
                 }
 
                 &:first-child {
-                    border-left: 1px solid $attBlue;
+                    //border-left: 1px solid $attBlue;
+                    padding-left: 0;
                 }
             }
 
@@ -137,19 +138,19 @@
                 position: absolute;
                 top: 19px;
                 margin-left: -11px;
-                border: 1px solid $attBlue;
+                //border: 1px solid $attBlue;
             }
 
             & span:not(.separator) {
                 display: inline-block;
                 background: white;
                 font-weight: bold;
-                font-size: 13px;
+                font-size: 14px;
                 padding: 10px 20px;
-                border-top: 1px solid $attBlue;
-                border-bottom: 1px solid $attBlue;
+                //border-top: 1px solid $attBlue;
+                //border-bottom: 1px solid $attBlue;
                 color: $attBlue;
-                border-right: 1px solid $attBlue;
+                //border-right: 1px solid $attBlue;
             }
 
         }
@@ -179,7 +180,7 @@
                 margin-bottom: 8px;
                 margin-right: 8px;
                 border-radius: 6px;
-                width: 45%;
+                width: 120px;
                 min-width: auto;
 
                 &:hover {
