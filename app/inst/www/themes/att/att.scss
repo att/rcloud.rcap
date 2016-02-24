@@ -202,14 +202,23 @@
         }
 
         .rcap-custom-compare-menu-buttons {
-            & a:link, a:visited, a:active, a:hover {
+
+            text-align: right;
+
+            & a:link, a:visited, a:active {
                 background-color: $attOrange;
                 display: inline-block;
                 margin-right: 10px;
-                borer-radius: 10px;
+                border-radius: 10px;
                 color: $attWhite;
                 font-weight: bold;
                 text-decoration: none;
+                padding: 20px;
+                font-size: 16px;
+            }
+
+            & a:hover {
+                background: darken($attOrange, 15%);
             }
         }
     }

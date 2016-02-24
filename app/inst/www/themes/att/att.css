@@ -135,11 +135,17 @@ $attDarkBlueHighlight:          #020bb3;
       width: 100%;
       display: inline-block;
       color: white; }
-  #rcap-designer #inner-stage .rcap-custom-compare-menu-buttons a:link, #rcap-designer #inner-stage .rcap-custom-compare-menu-buttons a:visited, #rcap-designer #inner-stage .rcap-custom-compare-menu-buttons a:active, #rcap-designer #inner-stage .rcap-custom-compare-menu-buttons a:hover, #rcap-viewer #inner-stage .rcap-custom-compare-menu-buttons a:link, #rcap-viewer #inner-stage .rcap-custom-compare-menu-buttons a:visited, #rcap-viewer #inner-stage .rcap-custom-compare-menu-buttons a:active, #rcap-viewer #inner-stage .rcap-custom-compare-menu-buttons a:hover {
-    background-color: #ea7400;
-    display: inline-block;
-    margin-right: 10px;
-    borer-radius: 10px;
-    color: white;
-    font-weight: bold;
-    text-decoration: none; }
+  #rcap-designer #inner-stage .rcap-custom-compare-menu-buttons, #rcap-viewer #inner-stage .rcap-custom-compare-menu-buttons {
+    text-align: right; }
+    #rcap-designer #inner-stage .rcap-custom-compare-menu-buttons a:link, #rcap-designer #inner-stage .rcap-custom-compare-menu-buttons a:visited, #rcap-designer #inner-stage .rcap-custom-compare-menu-buttons a:active, #rcap-viewer #inner-stage .rcap-custom-compare-menu-buttons a:link, #rcap-viewer #inner-stage .rcap-custom-compare-menu-buttons a:visited, #rcap-viewer #inner-stage .rcap-custom-compare-menu-buttons a:active {
+      background-color: #ea7400;
+      display: inline-block;
+      margin-right: 10px;
+      border-radius: 10px;
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      padding: 20px;
+      font-size: 16px; }
+    #rcap-designer #inner-stage .rcap-custom-compare-menu-buttons a:hover, #rcap-viewer #inner-stage .rcap-custom-compare-menu-buttons a:hover {
+      background: #9e4e00; }

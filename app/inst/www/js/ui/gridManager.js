@@ -23,6 +23,9 @@ define([
             outer.addClass('invalid');
         } else {
             outer.addClass('valid');
+
+            outer.addClass(control.getCssClass());
+
             //outer.append('<div class="valid-overlay"></div>');
             configure.append(control.render({
                 isDesignTime: true
@@ -47,11 +50,8 @@ define([
 
         item.find('.grid-stack-item-content')
             .css(control.getStyleProperties())
+            .addClass(control.getCssClass())
             .append(control.render());
-
-        if(control.getCssClass()) {
-            item.addClass(control.getCssClass());
-        }
 
         return item;
 
@@ -355,11 +355,13 @@ define([
             if (itemGrid.hasClass('grid-stack-readonly')) {
                 //item.find('.grid-stack-item-content').html(data.markup);
 
-                item.find('.grid-stack-item-content').html(control.render());
+                item.find('.grid-stack-item-content')
+                    .html(control.render())
+                    .addClass(control.getCssClass());
 
-                if(control.getCssClass()) {
-                    item.addClass(control.getCssClass());
-                }
+                //if(control.getCssClass()) {
+                //    item.addClass(control.getCssClass());
+                //}
 
             } else {
 
