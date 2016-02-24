@@ -90,7 +90,9 @@ controllerInitialize <- function(self, private, rcapConfig) {
   private$succList <- twistAdjlist(predList)
 
   ## Pre-calculate the order of control updates
-  private$topoSort <- topologicalSort(private$succList)
+  ## We reverse the order, so that plots/maps on the first
+  ## page(s) show up first
+  private$topoSort <- rev(topologicalSort(private$succList))
 
   # Wait until the front end reports sizes before updating everything
 
