@@ -76,6 +76,11 @@ define(['rcap/js/ui/controls/baseControl',
                 throw new Error('style property ' + identifier + ' not found.');
             }
         },
+        getCssClass: function() {
+            var cssClass = this.getStylePropertyValueOrDefault('cssclass');
+
+            return cssClass.length > 0 ? 'rcap-custom-' + cssClass : undefined;
+        },
         getStyleProperties: function() {
             var styleInfo = {
                 'background-color': this.getStylePropertyByName('backgroundColor').value,

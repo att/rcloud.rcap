@@ -200,6 +200,18 @@
                 }
             }
         }
+
+        .rcap-custom-compare-menu-buttons {
+            & a:link, a:visited, a:active, a:hover {
+                background-color: $attOrange;
+                display: inline-block;
+                margin-right: 10px;
+                borer-radius: 10px;
+                color: $attWhite;
+                font-weight: bold;
+                text-decoration: none;
+            }
+        }
     }
 }
 

@@ -52,9 +52,9 @@ define(['rcap/js/ui/controls/gridControl',
 
             var html = '<form action="" style="display: flex;align-self:' + this.getStylePropertyValueOrDefault('verticalalignment') + '"><div id="' + this.id + '" class="rcap-form';
 
-            if(this.getStylePropertyValueOrDefault('cssclass').length > 0) {
-                html += ' rcap-custom-' + this.getStylePropertyValueOrDefault('cssclass');
-            }
+            //if(this.getStylePropertyValueOrDefault('cssclass').length > 0) {
+            //   html += ' rcap-custom-' + this.getStylePropertyValueOrDefault('cssclass');
+            //}
 
             html += '">';
 

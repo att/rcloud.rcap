@@ -135,3 +135,11 @@ $attDarkBlueHighlight:          #020bb3;
       width: 100%;
       display: inline-block;
       color: white; }
+  #rcap-designer #inner-stage .rcap-custom-compare-menu-buttons a:link, #rcap-designer #inner-stage .rcap-custom-compare-menu-buttons a:visited, #rcap-designer #inner-stage .rcap-custom-compare-menu-buttons a:active, #rcap-designer #inner-stage .rcap-custom-compare-menu-buttons a:hover, #rcap-viewer #inner-stage .rcap-custom-compare-menu-buttons a:link, #rcap-viewer #inner-stage .rcap-custom-compare-menu-buttons a:visited, #rcap-viewer #inner-stage .rcap-custom-compare-menu-buttons a:active, #rcap-viewer #inner-stage .rcap-custom-compare-menu-buttons a:hover {
+    background-color: #ea7400;
+    display: inline-block;
+    margin-right: 10px;
+    borer-radius: 10px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none; }

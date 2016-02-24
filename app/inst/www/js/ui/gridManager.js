@@ -49,6 +49,10 @@ define([
             .css(control.getStyleProperties())
             .append(control.render());
 
+        if(control.getCssClass()) {
+            item.addClass(control.getCssClass());
+        }
+
         return item;
 
     };
@@ -352,6 +356,10 @@ define([
                 //item.find('.grid-stack-item-content').html(data.markup);
 
                 item.find('.grid-stack-item-content').html(control.render());
+
+                if(control.getCssClass()) {
+                    item.addClass(control.getCssClass());
+                }
 
             } else {
 
