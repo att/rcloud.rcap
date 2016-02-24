@@ -12,10 +12,11 @@
         background-color: transparent;
         background-image: 
                     url(attlogo.png),
-                    url(visitorinsights.png);
+                    url(visitorinsights.png),
+                    url(RCloud_Color_Vector.png);
                     
-        background-repeat: no-repeat, no-repeat;
-        background-position: 13px 20px, 298px 40px;
+        background-repeat: no-repeat, no-repeat, no-repeat;
+        background-position: 13px 20px, 298px 40px, calc(100% - 20px) calc(100% - 20px);
 
         & h2 {
             color: white;
