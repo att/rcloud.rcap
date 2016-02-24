@@ -208,7 +208,7 @@
 
             text-align: right;
 
-            & a:link, a:visited, a:active {
+            & a:link, a:visited, a:active, a:hover {
                 background-color: $attOrange;
                 display: inline-block;
                 margin-right: 10px;
@@ -218,6 +218,7 @@
                 text-decoration: none;
                 padding: 20px;
                 font-size: 16px;
+                outline: none;
             }
 
             & a:hover {
