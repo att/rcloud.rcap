@@ -51,7 +51,7 @@ define(['rcap/js/ui/controls/baseControl',
                     label : 'CSS Class',
                     defaultValue : '',
                     helpText : 'Additional CSS class to be applied to this control. Will be prefixed with rcap-custom- to prevent collisions.',
-                    isRequired: true
+                    isRequired: false
                 })
             ];
 
