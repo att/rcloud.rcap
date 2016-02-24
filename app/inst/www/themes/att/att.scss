@@ -176,9 +176,11 @@
                 position: relative;
                 padding: 5px;
                 background: $attBlue;
-                margin-bottom: 7px;
+                margin-bottom: 8px;
+                margin-right: 8px;
                 border-radius: 6px;
-                width: 90%;
+                width: 45%;
+                min-width: auto;
 
                 &:hover {
                     background: $attLightBlue;

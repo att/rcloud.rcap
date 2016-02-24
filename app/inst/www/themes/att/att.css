@@ -119,9 +119,11 @@ $attDarkBlueHighlight:          #020bb3;
     position: relative;
     padding: 5px;
     background: #009fdb;
-    margin-bottom: 7px;
+    margin-bottom: 8px;
+    margin-right: 8px;
     border-radius: 6px;
-    width: 90%; }
+    width: 45%;
+    min-width: auto; }
     #rcap-designer #inner-stage .rcap-custom-agents-form .form-option:hover, #rcap-viewer #inner-stage .rcap-custom-agents-form .form-option:hover {
       background: #71c5e8; }
     #rcap-designer #inner-stage .rcap-custom-agents-form .form-option input, #rcap-viewer #inner-stage .rcap-custom-agents-form .form-option input {
