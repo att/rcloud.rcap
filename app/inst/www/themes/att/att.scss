@@ -11,12 +11,13 @@
 
         background-color: transparent;
         background-image: 
-                    url(attlogo.png),
-                    url(visitorinsights.png),
+                    url(attfullheader.png),
+                    /*url(attlogo.png),
+                    url(visitorinsights.png),*/
                     url(RCloud_Color_Vector.png);
                     
-        background-repeat: no-repeat, no-repeat, no-repeat;
-        background-position: 13px 20px, 298px 40px, calc(100% - 20px) calc(100% - 9px);
+        background-repeat: no-repeat, /*no-repeat,*/ no-repeat;
+        background-position: 13px 20px, /*298px 40px,*/ calc(100% - 20px) calc(100% - 9px);
 
         #viewer-404 {
             margin-top: 150px;
@@ -49,7 +50,7 @@
             font-size: 175%;
 
             & select {
-                padding: 10px 15px;
+                padding: 4px 15px;
                 background: white;
 
                 & option {

@@ -22,9 +22,9 @@ $attDarkBlueHighlight:          #020bb3;
   font-family: arial !important;
   padding-top: 10px;
   background-color: transparent;
-  background-image: url(attlogo.png), url(visitorinsights.png), url(RCloud_Color_Vector.png);
-  background-repeat: no-repeat, no-repeat, no-repeat;
-  background-position: 13px 20px, 298px 40px, calc(100% - 20px) calc(100% - 9px); }
+  background-image: url(attfullheader.png), url(RCloud_Color_Vector.png);
+  background-repeat: no-repeat, no-repeat;
+  background-position: 13px 20px, calc(100% - 20px) calc(100% - 9px); }
   #rcap-designer #inner-stage #viewer-404, #rcap-viewer #inner-stage #viewer-404 {
     margin-top: 150px;
     padding-bottom: 250px;
@@ -44,7 +44,7 @@ $attDarkBlueHighlight:          #020bb3;
   #rcap-designer #inner-stage form, #rcap-viewer #inner-stage form {
     font-size: 175%; }
     #rcap-designer #inner-stage form select, #rcap-viewer #inner-stage form select {
-      padding: 10px 15px;
+      padding: 4px 15px;
       background: white; }
       #rcap-designer #inner-stage form select option, #rcap-viewer #inner-stage form select option {
         padding: 10px; }
