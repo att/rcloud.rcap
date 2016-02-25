@@ -25,6 +25,10 @@ $attDarkBlueHighlight:          #020bb3;
   background-image: url(attlogo.png), url(visitorinsights.png), url(RCloud_Color_Vector.png);
   background-repeat: no-repeat, no-repeat, no-repeat;
   background-position: 13px 20px, 298px 40px, calc(100% - 20px) calc(100% - 9px); }
+  #rcap-designer #inner-stage #viewer-404, #rcap-viewer #inner-stage #viewer-404 {
+    margin-top: 150px;
+    padding-bottom: 250px;
+    border: none; }
   #rcap-designer #inner-stage h2, #rcap-viewer #inner-stage h2 {
     color: white;
     background: #009fdb;

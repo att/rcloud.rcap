@@ -18,6 +18,12 @@
         background-repeat: no-repeat, no-repeat, no-repeat;
         background-position: 13px 20px, 298px 40px, calc(100% - 20px) calc(100% - 9px);
 
+        #viewer-404 {
+            margin-top: 150px;
+            padding-bottom: 250px;
+            border: none;
+        }
+
         & h2 {
             color: white;
             background: $attBlue;
