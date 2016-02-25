@@ -10,8 +10,6 @@
 %>
 
 
-
-
 		<% _.each(control.controlProperties[2].value, function(o, i){ %>
 <div class="form-option">
 			<label for="radio-<%=control.id%><%=i%>"><%=o.label%></label>
@@ -23,7 +21,6 @@
 
 <% } else { %>
 
-	<!-- if it's design time -->
 	<% if(isDesignTime) { %>
 
 		<label for="des-<%=control.id%>">{{ Runtime generated }}</label>
@@ -31,10 +28,6 @@
 
 
 	<% } else { %>
-
-
-		<!-- do some funky stuff -->
-
 
 	<% } %>
 

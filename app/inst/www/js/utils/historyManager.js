@@ -33,7 +33,6 @@ define([
                     pages : data.site.pages,
                     requestedPage : data.requestedPage
                 })).show();
-
             });
 
         };
