@@ -83,14 +83,6 @@ define(['text!rcap/partials/viewer.htm',
                     $('.rplot, .r-interactiveplot').each(function() {
                         
                         var container = $(this).closest('.grid-stack-item-content');
-                        /*
-                        var currentPlotSize = {
-                           id : $(this).attr('id'),
-                           width : container.width() - 38,
-                           height: container.height() - 38
-                        };
-                        */
-
                         var plotSizeData = getPlotSizeData($(this));
 
                         plotSizes.push(plotSizeData);
