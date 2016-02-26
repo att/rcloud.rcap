@@ -43,3 +43,41 @@
     top: 0;
     bottom: 0;
 }
+
+@mixin background-opacity($color, $opacity: 0.3) {
+    background: $color; /* The Fallback */
+    background: rgba($color, $opacity);
+}
+
+$gridstack-columns: 24 !default;
+
+@mixin grid-stack-items($gridstack-columns) {
+    //.grid-stack.grid-stack-#{$gridstack-columns} {
+    .grid-stack.grid-stack {
+
+        > .grid-stack-item {
+            min-width: 100% / $gridstack-columns;
+
+            @for $i from 1 through $gridstack-columns {
+                &[data-gs-width='#{$i}'] { width: (100% / $gridstack-columns) * $i; }
+                &[data-gs-x='#{$i}'] { left: (100% / $gridstack-columns) * $i; }
+                &[data-gs-min-width='#{$i}'] { min-width: (100% / $gridstack-columns) * $i; }
+                &[data-gs-max-width='#{$i}'] { max-width: (100% / $gridstack-columns) * $i; }
+            }
+        }
+    }
+}
+
+@mixin fontFace($family,$src,$style: normal,$weight: normal) {
+    @font-face {
+        font-family: $family;
+        src: url('#{$src}.eot'); // IE9 compat
+        src: url('#{$src}.eot?#iefix') format('embedded-opentype'), // IE8 and below
+            url('#{$src}.woff') format('woff'), // standards
+            url('#{$src}.ttf') format('truetype'), // Safari, Android, iOS
+            url('#{$src}.svg##{$family}') format('svg'); // legacy iOS
+
+        font-style: $style;
+        font-weight: $weight;
+    }
+}

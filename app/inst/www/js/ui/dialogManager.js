@@ -4,7 +4,6 @@ define([
     'text!rcap/partials/dialogs/_addPage.htm',
     'text!rcap/partials/dialogs/_pageSettings.htm',
     'text!rcap/partials/dialogs/_dataSourceSettings.htm',
-    'text!rcap/partials/dialogs/_siteSettings.htm',
     'text!rcap/partials/dialogs/_controlSettings.htm',
     'text!rcap/partials/dialogs/_formBuilder.htm',
     'text!rcap/partials/dialogs/_confirmDialog.htm',
@@ -12,7 +11,7 @@ define([
     'site/pubSubTable',
     'parsley',
     'rcap/js/vendor/jqModal.min'
-], function(FormBuilder, Page, addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, siteSettingsPartial, controlSettingsPartial, formBuilderPartial, confirmDialogPartial, PubSub, pubSubTable) {
+], function(FormBuilder, Page, addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, controlSettingsPartial, formBuilderPartial, confirmDialogPartial, PubSub, pubSubTable) {
 
     'use strict';
 
@@ -80,15 +79,84 @@ define([
         this.initialise = function() {
 
             // append the dialogs to the root of the designer:
-            _.each([addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, siteSettingsPartial, controlSettingsPartial, formBuilderPartial, confirmDialogPartial], function(partial) {
+            _.each([addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, controlSettingsPartial, formBuilderPartial, confirmDialogPartial], function(partial) {
                 $('#rcap-designer').append(partial);
             });
+
+            var sizeModalBodyHeight = function(modal) {
+                //var height = $(document).height() - 170;
+                //height = height < 200 ? 200 : height;
+                //modal.find('.body').height(height + 'px');
+
+                //modal.find('.body').height(($(document).height() - 170) + 'px');
+
+                var availableHeight = $(document).height() - 170;
+                var maxHeight = modal.find('.body').data('maxheight');
+
+                var $modalBody = modal.find('.body');
+
+                if (!maxHeight) {
+                    var initialHeight = modal.find('.body').height();
+
+                    if (initialHeight > availableHeight) {
+                        $modalBody.height(availableHeight + 'px');
+                    } else {
+                        $modalBody.height(initialHeight + 'px');
+                    }
+
+                    modal.find('.body').data('maxheight', initialHeight);
+
+                } else {
+
+                    if(maxHeight === 'useavailable') {
+                        $modalBody.height(availableHeight + 'px');
+                    } else {
+                        if (availableHeight > maxHeight) {
+                            $modalBody.height(maxHeight + 'px');
+                        } else {
+                            $modalBody.height(availableHeight + 'px');
+                        }                        
+                    }
+
+                }
+            };
 
             // initialise each of the dialogs:
             $('.jqmWindow').each(function() {
                 $(this).jqm({
-                    modal: true
+                    modal: true,
+                    onShow: function(hash) {
+
+                        // display the overlay (prepend to body) if not disabled
+                        if (hash.c.overlay > 0) {
+                            hash.o.prependTo('body');
+                        }
+
+                        // make modal visible
+                        hash.w.show();
+
+                        // call focusFunc (attempts to focus on first input in modal)
+                        $.jqm.focusFunc(hash.w, null);
+
+                        sizeModalBodyHeight(hash.w);
+
+                        return true;
+                    },
+                    onHide: function(hash) {
+
+                        // hide modal and if overlay, remove overlay.
+                        hash.w.hide();
+                        hash.o.remove();
+
+                        hash.w.find('body').removeData('maxheight');
+
+                        return true;
+                    }
                 });
+            });
+
+            $(window).resize(function() {
+                sizeModalBodyHeight($('.jqmWindow:visible'));
             });
 
             // initialise the form builder dialog:
@@ -312,7 +380,7 @@ define([
             // page settings:
             $('body').on('click', '.datasource-settings', function() {
                 PubSub.publish(pubSubTable.dataSourceSettingsClicked, $(this).closest('li').data('datasourceid'));
-            });           
+            });
 
             $('#dialog-pageSettings .approve').on('click', function() {
                 $('#page-form').parsley().validate();
@@ -330,7 +398,7 @@ define([
 
             $('#dialog-dataSourceSettings .approve').on('click', function() {
                 $('#datasource-form').parsley().validate();
-                
+
                 if (true === $('#datasource-form').parsley().isValid()) {
 
                     // push the updated event:

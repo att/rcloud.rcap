@@ -21,12 +21,12 @@ define(['pubsub', 'site/pubSubTable'], function(PubSub, pubSubTable) {
                 	.removeClass(message.getValidMessageTypes().join(' ').toLowerCase())
                 	.addClass(message.messageType.toLowerCase())
                 	.text(message.content)
-                	.fadeIn(500, function() {
+                	.fadeIn(200, function() {
                         setTimeout(function() {
 
                             var preMoveTop = $(selector).css('top');
 
-                            $(selector).animate({ 'top' : '-=50', 'opacity' : '0' }, 250, function() { 
+                            $(selector).animate({ 'top' : '-=100', 'opacity' : '0' }, 350, function() { 
                                 $(this).hide(); 
                                 $(this).css({ 
                                     'top' : preMoveTop,

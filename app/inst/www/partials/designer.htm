@@ -11,16 +11,17 @@
     <div class="row" style="height: calc(100% - 50px)">
         <div class="menu" id="main-menu">
             <ul>
-                <li><a href="javascript:void(0)" data-flyoutid="pages"><i class="icon-file"></i><span>Pages</span></a><span class="count" style="display:none"></span></li>
-                <li><a href="javascript:void(0)" data-flyoutid="datasources"><i class="icon-hdd"></i><span>Data Sources</span></a><span class="count" style="display:none"></span></li>
+                <li><a href="javascript:void(0)" data-flyoutid="pages"><i class="icon-file"></i><span>Pages</span><span class="count" style="display:none"></span></a></li>
+                <li><a href="javascript:void(0)" data-flyoutid="datasources"><i class="icon-hdd"></i><span>Data Sources</span><span class="count" style="display:none"></span></a></li>
                 <li><a href="javascript:void(0)" data-flyoutid="controls"><i class="icon-puzzle-piece"></i><span>Controls</span></a></li>
+                <li><a href="javascript:void(0)" data-flyoutid="settings"><i class="icon-cog"></i><span>Settings</span></a></li>
             </ul>
             <div id="rcap-userplaceholder" />
         </div>
         <div class="stage" id="rcap-stage">
             <div id="inner-stage">
                 <div id="no-items" style="display:none">
-                    <h2>This page is empty.</h2>
+                    <h2>This page is empty</h2>
                     <p>Drag an item from the controls menu onto the page to get started</p>
                 </div>
             </div>
@@ -40,6 +41,10 @@
         <h4 id="datasource-header">Data Sources <a href="#" class="add" title="Add Data Source"></a></h4>
         <a class="panel-close" href="#" title="close"><i class="icon-remove"></i></a>
         <ul id="dataSources"></ul>
+    </div>
+    <div class="menu-flyout" data-flyoutid="settings" style="display:none">
+        <h4>Settings</h4>
+        <a class="panel-close" href="#" title="close"><i class="icon-remove"></i></a>
     </div>
 </div>
 <div id="rcap-preloader" style="display:none">

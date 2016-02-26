@@ -1,25 +1,32 @@
 define(['text!rcap/partials/viewer.htm',
     'rcap/js/ui/gridManager',
+    'rcap/js/ui/themeManager',
     'rcap/js/utils/historyManager',
     'pubsub',
     'site/pubSubTable',
     'controls/factories/controlFactory',
     'rcap/js/serializer',
     'site/siteManager',
+    'rcap/js/utils/rcapLogger',
     'css!rcap/styles/default.css'
-], function(mainPartial, GridManager, HistoryManager, PubSub, pubSubTable, ControlFactory, Serializer, SiteManager) {
+], function(mainPartial, GridManager, ThemeManager, HistoryManager, PubSub, pubSubTable, ControlFactory, Serializer, SiteManager, RcapLogger) {
 
     'use strict';
 
     var Viewer = function() {
 
         var me = this;
+        var themeManager = new ThemeManager();
+        var rcapLogger = new RcapLogger();
 
         this.setup = function() {
 
             $('body')
                 .addClass('rcap-viewer')
                 .append(mainPartial);
+
+            // theme manager:
+            themeManager.initialise();
 
             // show the preloader whilst things are initialised:
             $('#rcap-preloader').show();
@@ -42,7 +49,7 @@ define(['text!rcap/partials/viewer.htm',
             // subscribe to grid done event:
             PubSub.subscribe(pubSubTable.gridInitComplete, function() {
 
-                console.info('viewer: pubSubTable.gridInitComplete');
+                rcapLogger.info('viewer: pubSubTable.gridInitComplete');
 
                 me.initialiseControls();
 
@@ -56,28 +63,43 @@ define(['text!rcap/partials/viewer.htm',
                 ///////////////////////////////////////////////////////
                 window.setTimeout(function() {
                     var plotSizes = [];
+
+                    var getPlotSizeData = function(plot) {
+                        var container = plot.closest('.grid-stack-item-content');
+                        return {
+                           id : plot.attr('id'),
+                           width : container.width() - 38,
+                           height: container.height() - 38
+                        };
+                    };
+
+                    $('.leaflet').each(function() {
+                        var plotSizeData = getPlotSizeData($(this));
+
+                        $(this).css({
+                                'width' : plotSizeData.width,
+                                'height' : plotSizeData.height
+                            });
+                    });
                     
                     $('.rplot, .r-interactiveplot').each(function() {
+                        
                         var container = $(this).closest('.grid-stack-item-content');
-                        var currentPlotSize = {
-                           id : $(this).attr('id'),
-                           width : container.width() - 25,
-                           height: container.height() - 25
-                        };
+                        var plotSizeData = getPlotSizeData($(this));
 
-                        plotSizes.push(currentPlotSize);
+                        plotSizes.push(plotSizeData);
 
                         // initialise the plot's container with information for later retrieval:
                         container.data({
-                            'width' : currentPlotSize.width,
-                            'height' : currentPlotSize.height
+                            'width' : plotSizeData.width,
+                            'height' : plotSizeData.height
                         });
                     });
 
                     var dataToSubmit = JSON.stringify({
                         plotSizes : plotSizes
                     });
-                    console.log('Submitting data: ', dataToSubmit);
+                    rcapLogger.log('Submitting data: ', dataToSubmit);
                     window.RCAP.updateAllControls(dataToSubmit);
 
                     // show the single page:

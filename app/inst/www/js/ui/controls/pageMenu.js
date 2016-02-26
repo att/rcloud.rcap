@@ -3,9 +3,8 @@ define(['rcap/js/ui/controls/gridControl',
     'rcap/js/ui/controls/properties/colorControlProperty',
     'pubsub',
     'site/pubSubTable',
-    'rcap/js/utils/pageWalker',
-    'text!controlTemplates/pageMenu.tpl'
-], function(GridControl, DropdownControlProperty, ColorControlProperty, PubSub, pubSubTable, PageWalker, tpl) {
+    'rcap/js/utils/pageWalker'
+], function(GridControl, DropdownControlProperty, ColorControlProperty, PubSub, pubSubTable, PageWalker) {
 
     'use strict';
 
@@ -18,43 +17,73 @@ define(['rcap/js/ui/controls/gridControl',
             PubSub.publish(pubSubTable.updateControl, control);
         } else {
 
-            if (['horizontal', 'vertical'].indexOf(control.controlProperties[0].value) !== -1) {
-                var template = _.template(tpl),
-                    markup = template({
-                        control: control
-                    });
+            var buildTree = function(menuType, pages) {
+            
+                var addMenuItem = function(rootTemplate, page, markup) {
+                    if(page.parentId) {
+                        // this is a child page
+                        var parentPage = rootTemplate.find('a[data-pageid="' + page.parentId + '"]').parent(); // li
 
-                return markup;
-            } else {
-
-                var hamburgerTemplate =
-                    $('<nav class="hamburger hamburger-valign-' + control.controlProperties[1].value + '"><button>Toggle</button><div></div></nav>');
-
-                var buildTree = function(pages) {
-                    _.each(pages, function(page) {
-
-                        var template = _.template('<div data-pageid="<%=p.id%>"><a style="padding-left:<%=((p.depth - 1) * 20) + 15%>px" href="javascript:void(0)" data-ishamburger="true" data-pageid="<%=p.id%>" data-href="<%=p.navigationTitle%>"><%=p.navigationTitle%></a></div>');
-                        var markup = template({
-                            p: page
-                        });
-
-                        if (page.isEnabled) {
-
-                            if(page.parentId) {
-                                // this is a child page
-                                hamburgerTemplate.find('div[data-pageid="' + page.parentId + '"]').append(markup);
-                            } else {
-                                hamburgerTemplate.find('> div').append(markup);
-                            }
-                           
+                        if(parentPage.find('ul').length === 0) {
+                            parentPage.append('<ul>');
                         }
-                    });
+
+                        parentPage.find('ul').append(markup);
+
+                    } else {
+                        rootTemplate.find('> ul').append(markup);
+                    }
+
+                    return rootTemplate;
                 };
 
-                buildTree(control.pages);
+                var templates = {
+                    'root' : {
+                        'hamburger' : '<nav class="hamburger hamburger-valign-' + control.controlProperties[1].value + '"><button>Toggle</button><div></div></nav>',
+                        'horizontal' : '<nav class="horizontal horizontal-' + control.controlProperties[2].value + '"><ul></ul></nav>',
+                        'vertical': '<nav class="vertical vertical-' + control.controlProperties[2].value + '"><ul></ul></nav>',
+                    },
+                    'item': {
+                        'hamburger' : '<div data-pageid="<%=p.id%>"><a style="padding-left:<%=((p.depth - 1) * 20) + 15%>px" href="javascript:void(0)" data-ishamburger="true" <%if(currentPageID === p.id) {%>class="current"<%}%> data-pageid="<%=p.id%>" data-href="<%=p.navigationTitle%>"><%=p.navigationTitle%></a></div>',
+                        'horizontal' : '<li><a href="javascript:void(0)" <%if(currentPageID === p.id) {%>class="current"<%}%> data-pageid="<%=p.id%>" data-href="<%=p.navigationTitle%>"><%=p.navigationTitle%></a></li>',
+                        'vertical' : '<li><a href="javascript:void(0)" <%if(currentPageID === p.id) {%>class="current"<%}%> data-pageid="<%=p.id%>" data-href="<%=p.navigationTitle%>"><%=p.navigationTitle%></a></li>'
+                    },
+                    'addItem': {
+                        'hamburger' : function(rootTemplate, page, markup) { 
+                            if(page.parentId) {
+                                // this is a child page
+                                rootTemplate.find('div[data-pageid="' + page.parentId + '"]').append(markup);
+                            } else {
+                                rootTemplate.find('> div').append(markup);
+                            }
 
-                return hamburgerTemplate[0].outerHTML;
-            }
+                            return rootTemplate;
+                        },
+                        'horizontal' : function(rootTemplate, page, markup) { return addMenuItem(rootTemplate, page, markup); },
+                        'vertical' : function(rootTemplate, page, markup) { return addMenuItem(rootTemplate, page, markup); }
+                    }
+                };
+
+                var template = $(templates.root[menuType]);
+
+                _.each(pages, function(page) {
+
+                    var itemTemplate = _.template(templates.item[menuType]);
+                    var markup = itemTemplate({
+                        p: page,
+                        currentPageID: control.currentPageID
+                    });
+
+                    if (page.isEnabled) {
+                        template = templates.addItem[menuType](template, page, markup);
+                    }
+                });
+
+                return template[0].outerHTML;
+            };
+
+            return buildTree(control.controlProperties[0].value, control.pages);
+
         }
     };
 
@@ -75,6 +104,12 @@ define(['rcap/js/ui/controls/gridControl',
                         availableOptions: [{
                             text: 'Mobile Style \'Hamburger icon\'',
                             value: 'hamburger'
+                        }, {
+                            text: 'Horizontal',
+                            value: 'horizontal'
+                        }, {
+                            text: 'Vertical',
+                            value: 'vertical'
                         }],
                         value: 'hamburger'
                     }),
@@ -94,6 +129,22 @@ define(['rcap/js/ui/controls/gridControl',
                         }],
                         value: 'middle'
                     }),
+                    new DropdownControlProperty({
+                        uid: 'horizontalalignment',
+                        label: 'Horizontal Alignment',
+                        isRequired: true,
+                        availableOptions: [{
+                            text: 'Left',
+                            value: 'left'
+                        }, {
+                            text: 'Center',
+                            value: 'center'
+                        }, {
+                            text: 'Right',
+                            value: 'right'
+                        }],
+                        value: 'center'
+                    })
                 ]
             });
 
@@ -228,9 +279,14 @@ define(['rcap/js/ui/controls/gridControl',
         },
         initialiseViewerItems: function() {
 
-            $('.hamburger, .rcap-pagemenu').closest('.grid-stack-item').css('z-index', '1');
+            $('.hamburger, .rcap-pagemenu, nav.horizontal, nav.vertical').closest('.grid-stack-item').css('z-index', '1');
 
-            $('#rcap-viewer').on('click', '.rcap-pagemenu a, .hamburger a', function() {
+            $('nav.horizontal').closest('.grid-stack-item-content').css({
+                    'overflow-x': 'visible',
+                    'overflow-y': 'visible'
+                });
+
+            $('#rcap-viewer').on('click', '.rcap-pagemenu a, .hamburger a, nav.horizontal a, nav.vertical a', function() {
                 // get the nav title:
                 location.hash = $(this).data('href');
                 PubSub.publish(pubSubTable.changeSelectedPageByTitle, $(this).data('href'));

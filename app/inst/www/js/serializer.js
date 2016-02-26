@@ -1,44 +1,9 @@
-define(['pubsub', 'site/site', 'site/pubSubTable', 'rcap/js/ui/message', 'controls/factories/controlFactory'],
-    function(PubSub, Site, pubSubTable, Message, ControlFactory) {
+define(['pubsub', 'site/site', 'rcap/js/assetManager', 'site/pubSubTable', 'rcap/js/ui/message', 'controls/factories/controlFactory', 'rcap/js/utils/rcapLogger'],
+    function(PubSub, Site, AssetManager, pubSubTable, Message, ControlFactory, RcapLogger) {
 
         'use strict';
 
-        var RawDataManager = function() {
-
-            var assetIdentifier = 'rcap_designer.json';
-            var shell = window.shell;
-
-            var getNotebookAsset = function() {
-                return _.find(shell.notebook.model.assets, function(ass) {
-                    return ass.filename() === assetIdentifier;
-                });
-            };
-
-            this.save = function(data) {
-
-                var existingAsset = getNotebookAsset();
-
-                if (existingAsset) {
-                    existingAsset.content(JSON.stringify(data)); // jshint ignore:line
-                    shell.notebook.controller.update_asset(existingAsset); // jshint ignore:line
-                } else {
-                    shell.notebook.controller.append_asset(JSON.stringify(data), assetIdentifier); // jshint ignore:line
-                }
-
-                // temporary: local storage:
-                localStorage.setItem(assetIdentifier, JSON.stringify(data));
-            };
-
-            this.load = function(loadFromLocalStorage) {
-                if (loadFromLocalStorage) {
-                    return localStorage.getItem(assetIdentifier);
-                } else {
-                    var existingAsset = getNotebookAsset();
-
-                    return existingAsset ? existingAsset.content() : '';
-                }
-            };
-        };
+        var rcapLogger = new RcapLogger();
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -52,9 +17,9 @@ define(['pubsub', 'site/site', 'site/pubSubTable', 'rcap/js/ui/message', 'contro
                 //
                 PubSub.subscribe(pubSubTable.serialize, function(msg, data) {
 
-                    console.info('serializer: pubSubTable.serialize');
+                    rcapLogger.info('serializer: pubSubTable.serialize');
 
-                    new RawDataManager().save(data);
+                    new AssetManager().save(data);
 
                     PubSub.publish(pubSubTable.showMessage, new Message({
                         messageType: 'Information',
@@ -68,7 +33,7 @@ define(['pubsub', 'site/site', 'site/pubSubTable', 'rcap/js/ui/message', 'contro
                 //
                 PubSub.subscribe(pubSubTable.deserialize, function(msg, msgData) {
 
-                    console.info('serializer: pubSubTable.deserialize');
+                    rcapLogger.info('serializer: pubSubTable.deserialize');
 
                     var controls,
                         control,
@@ -87,7 +52,7 @@ define(['pubsub', 'site/site', 'site/pubSubTable', 'rcap/js/ui/message', 'contro
                         data,
                         controlFactory = new ControlFactory(),
                         currentChild,
-                        rawData = msgData.hasOwnProperty('jsonData') ? msgData.jsonData : new RawDataManager().load(msgData.loadFromLocalStorage),
+                        rawData = msgData.hasOwnProperty('jsonData') ? msgData.jsonData : new AssetManager().load(),
                         isDesignTime = msgData.hasOwnProperty('isDesignTime') ? msgData.isDesignTime : true;
 
                     // create a site:
@@ -237,20 +202,24 @@ define(['pubsub', 'site/site', 'site/pubSubTable', 'rcap/js/ui/message', 'contro
 
                     }
 
-                    if(data.dataSources) {
+                    if (data.dataSources) {
                         // load in the data sources:
                         _.each(data.dataSources, function(jsonDataSource) {
 
                             currentDataSource = site.createDataSource();
 
                             for (property in jsonDataSource) {
-                                if(currentDataSource.hasOwnProperty(property)) {
+                                if (currentDataSource.hasOwnProperty(property)) {
                                     currentDataSource[property] = jsonDataSource[property];
                                 }
                             }
 
                             site.dataSources.push(currentDataSource);
                         });
+                    }
+
+                    if(data.theme) {
+                        site.theme = data.theme;
                     }
 
                     PubSub.publish(pubSubTable.initSite, site);

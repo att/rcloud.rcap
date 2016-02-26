@@ -1,10 +1,13 @@
 define(['rcap/js/ui/controls/gridControl', 
     'text!rcap/partials/dialogs/_formBuilder.htm', 
     'rcap/js/ui/controls/properties/colorControlProperty',
-    'rcap/js/ui/controls/properties/dropdownControlProperty'], 
-    function(GridControl, tpl, ColorControlProperty, DropdownControlProperty) {
+    'rcap/js/ui/controls/properties/dropdownControlProperty',
+    'rcap/js/utils/rcapLogger'], 
+    function(GridControl, tpl, ColorControlProperty, DropdownControlProperty, RcapLogger) {
 
     'use strict';
+
+    var rcapLogger = new RcapLogger();
 
     var FormControl = GridControl.extend({
         init: function() {
@@ -29,8 +32,7 @@ define(['rcap/js/ui/controls/gridControl',
                     uid: 'labelColor',
                     label: 'Label Color',
                     helpText: '',
-                    defaultValue: '#000000',
-                    value: '#000000'
+                    defaultValue: '#000'
                 }));
 
             this.styleProperties.push(
@@ -51,7 +53,13 @@ define(['rcap/js/ui/controls/gridControl',
         },
         render: function(options) {
 
-            var html = '<form action="" style="display: flex;align-self:' + this.getStylePropertyValueOrDefault('verticalalignment') + '"><div id="' + this.id + '" class="rcap-form">';
+            var html = '<form action="" style="display: flex;align-self:' + this.getStylePropertyValueOrDefault('verticalalignment') + '"><div id="' + this.id + '" class="rcap-form';
+
+            //if(this.getStylePropertyValueOrDefault('cssclass').length > 0) {
+            //   html += ' rcap-custom-' + this.getStylePropertyValueOrDefault('cssclass');
+            //}
+
+            html += '">';
 
             $.each(this.childControls, function(key, child) {
                 html += '<div class="form-group">';
@@ -172,7 +180,7 @@ define(['rcap/js/ui/controls/gridControl',
         },
         updateControls : function(variableName, value, allValues) {
             
-            console.log('%cForm update: ' + variableName + ':' + value, 'padding: 2px; font-size: 12pt; border: 1px solid orange; background: #369; color: #fff');
+            rcapLogger.log('%cForm update: ' + variableName + ':' + value, 'padding: 2px; font-size: 12pt; border: 1px solid orange; background: #369; color: #fff');
 
             // find the control(s), determine type, and update:
             $('[data-variablename="' + variableName + '"]').each(function(i, e) {

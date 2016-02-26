@@ -1,0 +1,241 @@
+/* att */
+@import "../../styles/vars.scss";
+
+#rcap-designer, #rcap-viewer {
+
+    & #inner-stage {
+
+        width: 1080px!important;
+        font-family: arial!important;
+        padding-top: 10px;
+
+        background-color: transparent;
+        background-image: 
+                    url(attfullheader.png),
+                    /*url(attlogo.png),
+                    url(visitorinsights.png),*/
+                    url(RCloud_Color_Vector.png);
+                    
+        background-repeat: no-repeat, /*no-repeat,*/ no-repeat;
+        background-position: 13px 20px, /*298px 40px,*/ calc(100% - 20px) calc(100% - 9px);
+
+        #viewer-404 {
+            margin-top: 150px;
+            padding-bottom: 250px;
+            border: none;
+        }
+
+        & h2 {
+            color: white;
+            background: $attBlue;
+            padding: 10px;
+            margin: 0;
+            font-size: 26px;
+
+            background: linear-gradient(to right, $attBlue 0%, $attLightBlue 100%); 
+            border-bottom-right-radius: 25px;
+            border-top: 5px solid $attBlue;
+
+            & a:link, a:visited, a:active, a:hover {
+                color: white;
+                text-decoration: none;
+            }
+        }
+
+        .grid-stack {
+          
+        }
+
+        form {
+            font-size: 175%;
+
+            & select {
+                padding: 4px 15px;
+                background: white;
+
+                & option {
+                    padding: 10px;
+                }
+            }
+
+            & .form-group {
+                margin-bottom: 0;
+            }
+        }
+
+        .hamburger {
+            & button {
+                width: 50px;
+                height: 50px;
+                margin-top: -20px!important;
+                border-color: $attBlue;
+                background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAABmJLR0QA6gB0AADI36SNAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AIaCSETmAQ6CwAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAHYSURBVHja7dxBalNRFMfhfy2ICxA6KoLwRoqbKLWz7OEhqAsQwU1YqThTsgnBVlfhQBGCk44cuADRFhwkFDpqaq40t+f7xkkG5x7eS/LglwAAAAAAAAAAAAAAAL3auPQ7prN7SR4leZhkK8ltY7xSP5P8SPIpyduMw9f/swDT2c0kL5M8TbJp7mvpNMmbJM8yDn/aLcD88N8n2TXjLhwlmWQcfl/0whtLfuCBw+/KXpL9NleA6ex+ks+XWBbW53bw4KLvBMsc6hOH36XNJI9b3AJ2zLJbOy0WYNscu3WnxQJsmOP1tcwCHBtTt45bLMChOXbrQ4sFeLf4SUFfThZnt+ICjMOXJK/NszuvMg7fWlwBkuR55n8v0ofDJC9afQnM4sHCJPMHDW4H6+s087/tJxmHk2XesMrj4L0kd5PcMvcr9SvJ9yQf8w+PgwEAAAAAAACA60cfoH/6AJzRByCJPkB5+gDoA1SnD4A+QHX6AKy+APoA/dIHKE4foDB9gOL0AQrTByhKH6AgfQAAAAAAAAAA4Bx9gP7pA3BGH4Ak+gDl6QOgD1CdPgD6ANXpA7D6AugD9EsfoDh9gML0AYrTByhMH6AofYCC9AEAAAAAAAAAAAAAAKCov8Uwnj6i8j81AAAAAElFTkSuQmCC');
+            }
+        }
+
+        .rcap-controltype-pagemenu {
+            font-size: 125%;
+
+            & a {
+                color: $attBlue;
+                background: $attWhite;
+
+                &:hover, &.current {
+                    //background: $attBlue;
+                    background: linear-gradient(to right, $attBlue 0%, $attLightBlue 100%); 
+                    color: $attWhite;
+                }
+            }
+
+            & nav > div {
+                border: 2px solid $attBlue;
+            }
+        }
+
+        .rcap-controltype-breadcrumb {
+            text-transform: uppercase;
+
+            &.rcap-breadcrumb {
+                border: 2px solid $attLightBlue;
+            }
+
+            & a {
+                display: inline-block;
+                //background: linear-gradient(to right, $attBlue 0%, $attLightBlue 100%); 
+                padding: 10px 20px;
+                color: $attBlue;
+                font-weight: bold;
+                font-size: 14px;
+                position: relative;
+                margin-right: 0;
+                z-index: 100;
+                //border-top: 1px solid $attBlue;
+                //border-bottom: 1px solid $attBlue;
+
+                &:after {
+
+                }
+
+                &:hover {
+                    text-decoration: none;
+                    background: white;
+                    //color: $attBlue;
+                }
+
+                &:not(:first-child) {
+
+                }
+
+                &:first-child {
+                    //border-left: 1px solid $attBlue;
+                    padding-left: 0;
+                }
+            }
+
+            & .separator {
+                background: $attWhite;
+                color: $attBlue;
+                margin-right: 0;
+                font-size: 15px;
+                font-weight: bold;
+                line-height: 20px;
+                border-radius: 11px;
+                width: 22px;
+                text-align: center;
+                z-index: 104;
+                position: absolute;
+                top: 19px;
+                margin-left: -11px;
+                //border: 1px solid $attBlue;
+            }
+
+            & span:not(.separator) {
+                display: inline-block;
+                background: white;
+                font-weight: bold;
+                font-size: 14px;
+                padding: 10px 20px;
+                //border-top: 1px solid $attBlue;
+                //border-bottom: 1px solid $attBlue;
+                color: $attBlue;
+                //border-right: 1px solid $attBlue;
+            }
+
+        }
+
+        .rcap-controltype-datatable {
+
+            font-size: 150%;
+
+            & th {
+                padding: 8px 10px;
+                border-bottom: 1px solid $attBlue;
+            }
+
+            & .no-footer {
+                border-bottom: 1px solid $attBlue;
+            }
+
+        }
+
+        // CUSTOM OVERRIDES:
+
+        .rcap-custom-agents-form {
+            & .form-option {
+                position: relative;
+                padding: 5px;
+                background: $attBlue;
+                margin-bottom: 8px;
+                margin-right: 8px;
+                border-radius: 6px;
+                width: 120px;
+                min-width: auto;
+
+                &:hover {
+                    background: $attLightBlue;
+                }
+
+                & input {
+                    position: absolute;
+                    left: 10px;
+                    top: 10px;
+                }
+
+                & label {
+                    margin-left: 24px;
+                    font-size: 16px;
+                    cursor: pointer;
+                    width: 100%;
+                    display: inline-block;
+                    color: $attWhite;
+                }
+            }
+        }
+
+        .rcap-custom-compare-menu-buttons {
+
+            text-align: right;
+
+            & a:link, a:visited, a:active, a:hover {
+                background-color: $attOrange;
+                display: inline-block;
+                margin-right: 10px;
+                border-radius: 10px;
+                color: $attWhite;
+                font-weight: bold;
+                text-decoration: none;
+                padding: 20px;
+                font-size: 16px;
+                outline: none;
+            }
+
+            & a:hover {
+                background: darken($attOrange, 15%);
+            }
+        }
+    }
+}
+
+#rcap-viewer {
+
+}

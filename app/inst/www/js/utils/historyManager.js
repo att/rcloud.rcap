@@ -24,7 +24,7 @@ define([
                 // assume that this will be found:
                 $(pageNotFoundSelector).hide();
 
-                PubSub.publish(pubSubTable.changeSelectedPageByTitle, location.hash.substring(1));
+                PubSub.publish(pubSubTable.changeSelectedPageByTitle, window.unescape(location.hash.substring(1)));
             };
 
             PubSub.subscribe(pubSubTable.show404, function(msg, data) {
@@ -33,7 +33,6 @@ define([
                     pages : data.site.pages,
                     requestedPage : data.requestedPage
                 })).show();
-
             });
 
         };
@@ -41,7 +40,7 @@ define([
         this.setInitialState = function() {
             if (location.hash.length) {
                 // show the specific 'page':
-                PubSub.publish(pubSubTable.changeSelectedPageByTitle, location.hash.substring(1));
+                PubSub.publish(pubSubTable.changeSelectedPageByTitle, window.unescape(location.hash.substring(1)));
             } else {
                 // the first is as good as any:
                 PubSub.publish(pubSubTable.viewerShowFirstPage);

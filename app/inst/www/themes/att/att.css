@@ -1,0 +1,151 @@
+/* att */
+/* https://vt.vtp-media.com/ecp/documents/product_Product/521/Logos/4546/att_gdl_glance.pdf */
+/*
+$attNewOrange:                  #ff7200;
+$attOrangeHighlight:            #fcb314;
+$attBlue:                       #067ab4;
+$attBlueHightlight:             #3aa5dc;
+
+$attLime:                       #b6bf00;
+$attLimeHighlight:              #dbd810;
+$attGreen:                      #6ebb1f;
+$attGreenHighlight:             #c4d82d;
+$attBurgundy:                   #b30a3c;
+$attBurgundyHighlight:          #da3872;
+$attPurple:                     #81017e;
+$attPurpleHighlight:            #b8509e;
+$attDarkBlue:                   #0c2577;
+$attDarkBlueHighlight:          #020bb3;
+*/
+#rcap-designer #inner-stage, #rcap-viewer #inner-stage {
+  width: 1080px !important;
+  font-family: arial !important;
+  padding-top: 10px;
+  background-color: transparent;
+  background-image: url(attfullheader.png), url(RCloud_Color_Vector.png);
+  background-repeat: no-repeat, no-repeat;
+  background-position: 13px 20px, calc(100% - 20px) calc(100% - 9px); }
+  #rcap-designer #inner-stage #viewer-404, #rcap-viewer #inner-stage #viewer-404 {
+    margin-top: 150px;
+    padding-bottom: 250px;
+    border: none; }
+  #rcap-designer #inner-stage h2, #rcap-viewer #inner-stage h2 {
+    color: white;
+    background: #009fdb;
+    padding: 10px;
+    margin: 0;
+    font-size: 26px;
+    background: linear-gradient(to right, #009fdb 0%, #71c5e8 100%);
+    border-bottom-right-radius: 25px;
+    border-top: 5px solid #009fdb; }
+    #rcap-designer #inner-stage h2 a:link, #rcap-designer #inner-stage h2 a:visited, #rcap-designer #inner-stage h2 a:active, #rcap-designer #inner-stage h2 a:hover, #rcap-viewer #inner-stage h2 a:link, #rcap-viewer #inner-stage h2 a:visited, #rcap-viewer #inner-stage h2 a:active, #rcap-viewer #inner-stage h2 a:hover {
+      color: white;
+      text-decoration: none; }
+  #rcap-designer #inner-stage form, #rcap-viewer #inner-stage form {
+    font-size: 175%; }
+    #rcap-designer #inner-stage form select, #rcap-viewer #inner-stage form select {
+      padding: 4px 15px;
+      background: white; }
+      #rcap-designer #inner-stage form select option, #rcap-viewer #inner-stage form select option {
+        padding: 10px; }
+    #rcap-designer #inner-stage form .form-group, #rcap-viewer #inner-stage form .form-group {
+      margin-bottom: 0; }
+  #rcap-designer #inner-stage .hamburger button, #rcap-viewer #inner-stage .hamburger button {
+    width: 50px;
+    height: 50px;
+    margin-top: -20px !important;
+    border-color: #009fdb;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAABmJLR0QA6gB0AADI36SNAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AIaCSETmAQ6CwAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAHYSURBVHja7dxBalNRFMfhfy2ICxA6KoLwRoqbKLWz7OEhqAsQwU1YqThTsgnBVlfhQBGCk44cuADRFhwkFDpqaq40t+f7xkkG5x7eS/LglwAAAAAAAAAAAAAAAL3auPQ7prN7SR4leZhkK8ltY7xSP5P8SPIpyduMw9f/swDT2c0kL5M8TbJp7mvpNMmbJM8yDn/aLcD88N8n2TXjLhwlmWQcfl/0whtLfuCBw+/KXpL9NleA6ex+ks+XWBbW53bw4KLvBMsc6hOH36XNJI9b3AJ2zLJbOy0WYNscu3WnxQJsmOP1tcwCHBtTt45bLMChOXbrQ4sFeLf4SUFfThZnt+ICjMOXJK/NszuvMg7fWlwBkuR55n8v0ofDJC9afQnM4sHCJPMHDW4H6+s087/tJxmHk2XesMrj4L0kd5PcMvcr9SvJ9yQf8w+PgwEAAAAAAACA60cfoH/6AJzRByCJPkB5+gDoA1SnD4A+QHX6AKy+APoA/dIHKE4foDB9gOL0AQrTByhKH6AgfQAAAAAAAAAA4Bx9gP7pA3BGH4Ak+gDl6QOgD1CdPgD6ANXpA7D6AugD9EsfoDh9gML0AYrTByhMH6AofYCC9AEAAAAAAAAAAAAAAKCov8Uwnj6i8j81AAAAAElFTkSuQmCC"); }
+  #rcap-designer #inner-stage .rcap-controltype-pagemenu, #rcap-viewer #inner-stage .rcap-controltype-pagemenu {
+    font-size: 125%; }
+    #rcap-designer #inner-stage .rcap-controltype-pagemenu a, #rcap-viewer #inner-stage .rcap-controltype-pagemenu a {
+      color: #009fdb;
+      background: white; }
+      #rcap-designer #inner-stage .rcap-controltype-pagemenu a:hover, #rcap-designer #inner-stage .rcap-controltype-pagemenu a.current, #rcap-viewer #inner-stage .rcap-controltype-pagemenu a:hover, #rcap-viewer #inner-stage .rcap-controltype-pagemenu a.current {
+        background: linear-gradient(to right, #009fdb 0%, #71c5e8 100%);
+        color: white; }
+    #rcap-designer #inner-stage .rcap-controltype-pagemenu nav > div, #rcap-viewer #inner-stage .rcap-controltype-pagemenu nav > div {
+      border: 2px solid #009fdb; }
+  #rcap-designer #inner-stage .rcap-controltype-breadcrumb, #rcap-viewer #inner-stage .rcap-controltype-breadcrumb {
+    text-transform: uppercase; }
+    #rcap-designer #inner-stage .rcap-controltype-breadcrumb.rcap-breadcrumb, #rcap-viewer #inner-stage .rcap-controltype-breadcrumb.rcap-breadcrumb {
+      border: 2px solid #71c5e8; }
+    #rcap-designer #inner-stage .rcap-controltype-breadcrumb a, #rcap-viewer #inner-stage .rcap-controltype-breadcrumb a {
+      display: inline-block;
+      padding: 10px 20px;
+      color: #009fdb;
+      font-weight: bold;
+      font-size: 14px;
+      position: relative;
+      margin-right: 0;
+      z-index: 100; }
+      #rcap-designer #inner-stage .rcap-controltype-breadcrumb a:hover, #rcap-viewer #inner-stage .rcap-controltype-breadcrumb a:hover {
+        text-decoration: none;
+        background: white; }
+      #rcap-designer #inner-stage .rcap-controltype-breadcrumb a:first-child, #rcap-viewer #inner-stage .rcap-controltype-breadcrumb a:first-child {
+        padding-left: 0; }
+    #rcap-designer #inner-stage .rcap-controltype-breadcrumb .separator, #rcap-viewer #inner-stage .rcap-controltype-breadcrumb .separator {
+      background: white;
+      color: #009fdb;
+      margin-right: 0;
+      font-size: 15px;
+      font-weight: bold;
+      line-height: 20px;
+      border-radius: 11px;
+      width: 22px;
+      text-align: center;
+      z-index: 104;
+      position: absolute;
+      top: 19px;
+      margin-left: -11px; }
+    #rcap-designer #inner-stage .rcap-controltype-breadcrumb span:not(.separator), #rcap-viewer #inner-stage .rcap-controltype-breadcrumb span:not(.separator) {
+      display: inline-block;
+      background: white;
+      font-weight: bold;
+      font-size: 14px;
+      padding: 10px 20px;
+      color: #009fdb; }
+  #rcap-designer #inner-stage .rcap-controltype-datatable, #rcap-viewer #inner-stage .rcap-controltype-datatable {
+    font-size: 150%; }
+    #rcap-designer #inner-stage .rcap-controltype-datatable th, #rcap-viewer #inner-stage .rcap-controltype-datatable th {
+      padding: 8px 10px;
+      border-bottom: 1px solid #009fdb; }
+    #rcap-designer #inner-stage .rcap-controltype-datatable .no-footer, #rcap-viewer #inner-stage .rcap-controltype-datatable .no-footer {
+      border-bottom: 1px solid #009fdb; }
+  #rcap-designer #inner-stage .rcap-custom-agents-form .form-option, #rcap-viewer #inner-stage .rcap-custom-agents-form .form-option {
+    position: relative;
+    padding: 5px;
+    background: #009fdb;
+    margin-bottom: 8px;
+    margin-right: 8px;
+    border-radius: 6px;
+    width: 120px;
+    min-width: auto; }
+    #rcap-designer #inner-stage .rcap-custom-agents-form .form-option:hover, #rcap-viewer #inner-stage .rcap-custom-agents-form .form-option:hover {
+      background: #71c5e8; }
+    #rcap-designer #inner-stage .rcap-custom-agents-form .form-option input, #rcap-viewer #inner-stage .rcap-custom-agents-form .form-option input {
+      position: absolute;
+      left: 10px;
+      top: 10px; }
+    #rcap-designer #inner-stage .rcap-custom-agents-form .form-option label, #rcap-viewer #inner-stage .rcap-custom-agents-form .form-option label {
+      margin-left: 24px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+      display: inline-block;
+      color: white; }
+  #rcap-designer #inner-stage .rcap-custom-compare-menu-buttons, #rcap-viewer #inner-stage .rcap-custom-compare-menu-buttons {
+    text-align: right; }
+    #rcap-designer #inner-stage .rcap-custom-compare-menu-buttons a:link, #rcap-designer #inner-stage .rcap-custom-compare-menu-buttons a:visited, #rcap-designer #inner-stage .rcap-custom-compare-menu-buttons a:active, #rcap-designer #inner-stage .rcap-custom-compare-menu-buttons a:hover, #rcap-viewer #inner-stage .rcap-custom-compare-menu-buttons a:link, #rcap-viewer #inner-stage .rcap-custom-compare-menu-buttons a:visited, #rcap-viewer #inner-stage .rcap-custom-compare-menu-buttons a:active, #rcap-viewer #inner-stage .rcap-custom-compare-menu-buttons a:hover {
+      background-color: #ea7400;
+      display: inline-block;
+      margin-right: 10px;
+      border-radius: 10px;
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      padding: 20px;
+      font-size: 16px;
+      outline: none; }
+    #rcap-designer #inner-stage .rcap-custom-compare-menu-buttons a:hover, #rcap-viewer #inner-stage .rcap-custom-compare-menu-buttons a:hover {
+      background: #9e4e00; }

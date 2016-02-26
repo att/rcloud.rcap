@@ -22,15 +22,12 @@
 
 <% } else { %>
 
-	<!-- if it's design time -->
+
 	<% if(isDesignTime) { %>
 
 		<input type="checkbox" style="cursor:help" title="<%=control.controlProperties[2].value%>">{{ Runtime generated }}</input>
 
 	<% } else { %>
-
-
-		<!-- do some funky stuff -->
 
 
 	<% } %>

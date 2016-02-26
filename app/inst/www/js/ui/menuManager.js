@@ -2,14 +2,17 @@ define([
     'text!ui/templates/pageMenuItem.tpl',
     'text!ui/templates/controlsMenu.tpl',
     'text!ui/templates/dataSourceMenuItem.tpl',
+    'text!ui/templates/siteSettingsMenu.tpl',
     'pubsub',
     'site/pubSubTable',
-    'controls/factories/controlFactory'
-], function(pageMenuItemTemplate, controlsMenuTemplate, dataSourceMenuItemTemplate, PubSub, pubSubTable, ControlFactory) {
+    'controls/factories/controlFactory',
+    'rcap/js/ui/themeManager'
+], function(pageMenuItemTemplate, controlsMenuTemplate, dataSourceMenuItemTemplate, siteSettingsMenuTemplate, PubSub, pubSubTable, ControlFactory, ThemeManager) {
 
     'use strict';
 
     var controlFactory = new ControlFactory();
+    var themeManager = new ThemeManager();
 
     // :::: TODO: refactor code below - both methods are very similar ::::
 
@@ -123,6 +126,7 @@ define([
 
             $('body').on('click', '.menu-flyout a.panel-close', function() {
                 $('.menu-flyout').hide();
+                $('#main-menu li').removeClass('selected');
             });
 
             PubSub.subscribe(pubSubTable.startControlDrag, function() {
@@ -191,7 +195,7 @@ define([
 
             PubSub.subscribe(pubSubTable.pageCountChanged, function(msg, pageCount) {
 
-                var countEl = $('#main-menu a[data-flyoutid="pages"]').next('.count');
+                var countEl = $('#main-menu a[data-flyoutid="pages"]').find('.count');
                 countEl.text(pageCount);
 
                 if(pageCount === 0) {
@@ -223,20 +227,6 @@ define([
                 }
 
             });
-
-
-
-
-            //     // determine the parent and the sibling of the moved item:
-            //     var info = {
-            //         movedItem: $item.data('pageid'),
-            //         parent: $item.parent().closest('li').data('pageid'),
-            //         previousSibling: $item.prev().data('pageid')
-            //     };
-
-            //     console.log(info);
-            // }
-
 
             // data sources:
             $('body').on('click', '.menu-flyout[data-flyoutid="datasources"] h4 a.add', function() {
@@ -282,7 +272,7 @@ define([
 
             PubSub.subscribe(pubSubTable.dataSourceCountChanged, function(msg, dataSourceCount) {
 
-                var countEl = $('#main-menu a[data-flyoutid="datasources"]').next('.count');
+                var countEl = $('#main-menu a[data-flyoutid="datasources"]').find('.count');
                 countEl.text(dataSourceCount);
 
                 if(dataSourceCount === 0) {
@@ -290,6 +280,31 @@ define([
                 } else {
                     countEl.fadeIn();
                 }
+            });
+
+            //////////////////////////////////////////////////////////////////////////////////////////
+            //
+            //
+            //
+            // theme:
+            // apply:
+            $('body').on('click', '.settings-menu button', function() {
+                console.info('menuManager: pubSubTable.setCurrentTheme');
+
+                PubSub.publish(pubSubTable.setCurrentTheme, $('.settings-menu select').val());
+            });
+
+            // this event is fired:
+            PubSub.subscribe(pubSubTable.setCurrentTheme, function(msg, themeKey) {
+                // select the item:
+                $('.settings-menu select').val(themeKey);
+                $('.settings-menu select').data('selected', themeKey);             
+            });
+
+            // when the item is opened, ensure that the correct theme is selected (it may have been 
+            // changed, but not applied):
+            $('body').on('click', '#main-menu a[data-flyoutid="settings"]', function() {
+                $('.settings-menu select').val($('.settings-menu select').data('selected'));
             });
 
             // add styling info to the first page:
@@ -307,6 +322,17 @@ define([
             var template = _.template(controlsMenuTemplate);
             $('.menu-flyout[data-flyoutid="controls"]').append(template({
                 controlCategories: categorisedControls
+            }));
+
+            return this;
+        },
+        initialiseSettingsMenu: function() {
+
+            var availableThemes = themeManager.getThemes();
+            var template = _.template(siteSettingsMenuTemplate);
+
+            $('.menu-flyout[data-flyoutid="settings"]').append(template({
+                themes: availableThemes
             }));
 
             return this;

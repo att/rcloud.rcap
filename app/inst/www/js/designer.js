@@ -5,45 +5,55 @@ define([
     'rcap/js/ui/dialogManager',
     'rcap/js/ui/messageManager',
     'rcap/js/ui/gridManager',
+    'rcap/js/ui/themeManager',
     'site/siteManager',
     'pubsub',
     'site/pubSubTable',
     'text!rcap/partials/designer.htm',
     'css!rcap/styles/default.css'
-], function(Serializer, MenuManager, InfoBarManager, DialogManager, MessageManager, GridManager, SiteManager, PubSub, pubSubTable, mainPartial) {
+], function(Serializer, MenuManager, InfoBarManager, DialogManager, MessageManager, GridManager, ThemeManager, SiteManager, PubSub, pubSubTable, mainPartial) {
 
     'use strict';
 
     var rcloudSelector = '.container, #rcloud-navbar-main, #rcloud-navbar-main, .navbar-fixed-top';
     var rcapSelector = '#rcap-designer';
+    var themeManager = new ThemeManager();
+
+    var closeDesigner = function() {
+        $('body').removeClass('rcap-designer');
+
+        themeManager.cleanUp();
+
+        $(rcloudSelector).show();
+
+        // hide rcap:
+        $(rcapSelector).hide();
+
+        console.info('designer: PUBLISH : pubSubTable.close');
+        PubSub.publish(pubSubTable.close);
+    };
 
     var bootstrap = function() {
 
         $('body').append(mainPartial);
 
         // close (link)
-        $('#rcap-close').click(function() {
-
-            $('body').removeClass('rcap-designer');
-
-            $(rcloudSelector).show();
-
-            // hide rcap:
-            $(rcapSelector).hide();
-
-            console.info('designer: PUBLISH : pubSubTable.close');
-            PubSub.publish(pubSubTable.close);
-        });
+        $('#rcap-close').click(closeDesigner);
 
         $('#rcap-save').click(function() {
             PubSub.publish(pubSubTable.save);
         });
 
+        // theme manager:
+        themeManager.initialise();
+
         // site manager: 
         new SiteManager().initialise();
 
         // menu manager:
-        new MenuManager().initialise().initialiseControlsMenu();
+        new MenuManager().initialise()
+            .initialiseControlsMenu()
+            .initialiseSettingsMenu();
 
         // info bar manager:
         new InfoBarManager().initialise();
@@ -74,16 +84,19 @@ define([
 
     var Designer = function() {
 
-        this.initialise = function(sessionInfo) {   // jshint ignore:line
+        this.initialise = function(sessionInfo) { // jshint ignore:line
 
             bootstrap();
 
             $('body').addClass('rcap-designer');
             $('body').data({
-                'nodenameusername' : sessionInfo.nodeNameUserName,
-                'nodename' : sessionInfo.nodeName,
-                'user' : sessionInfo.user
-            }); 
+                'nodenameusername': sessionInfo.nodeNameUserName,
+                'nodename': sessionInfo.nodeName,
+                'user': sessionInfo.user
+            });
+
+            // theme manager:
+            themeManager.initialise();
 
             $('#rcap-preloader').show();
 
@@ -91,7 +104,9 @@ define([
             PubSub.subscribe(pubSubTable.gridInitComplete, function() {
 
                 $('#inner-stage').css({
-                    'width' : (screen.width - 100).toString() + 'px',
+                    'width': (screen.width - 140).toString() + 'px',
+                    'margin-top': '40px',
+                    'margin-bottom': '40px',
                     'margin-left': 'auto',
                     'margin-right': 'auto'
                 });

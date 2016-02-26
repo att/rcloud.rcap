@@ -48,3 +48,8 @@ dataFrame <- function(..., stringsAsFactors = FALSE) {
     ...
   )
 }
+
+randomId <- function() {
+  rand <- sample(c(letters, 0:9), 8, replace = TRUE)
+  paste(c("x", rand), collapse = "")
+}

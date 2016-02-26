@@ -29,20 +29,12 @@ RPlotControl <- R6Class("RPlotControl",
       # Retrieve the function name and execute
       func <- private$controlFunction
       if (!is.null(func)) {
-  #      wp1 <- WebPlot(width = width,height = height)
+        wp1 <- WebPlot(width = width,height = height)
 
-        # Clear the div
-        rcw.set(paste0("#", private$id), "")
-        # Set the context
-        contextId <- rcloud.output.context(paste0("#",private$id))
-        Rserve.context(contextId)
-        # Set width and height for the device
-        RCloudDevice(width, height)
 
         do.call(func, list(), envir = rcloudEnv())
-
-        rcloud.flush.plot()
-    #    rcloud.web::rcw.set(paste0("#", private$id), wp1)
+        
+        rcloud.web::rcw.set(paste0("#", private$id), wp1)
       }
     },
   
@@ -227,6 +219,33 @@ RTextControl <- R6Class("RTextControl",
   inherit = Control
 )
 
+LeafletControl <- R6Class("LeafletControl",
+  inherit = Control,
+  public = list(
+
+    update = function(new_value = NULL) {
+
+      # Retrieve the function name and execute
+      func <- private$controlFunction
+      if (!is.null(func)) {
+
+        # We put the leaflet map into a wrapper div, within
+        # the control's div. When a new map is generated, we
+        # remove the wrapper div entirely.
+        div <- paste0("#", private$id)
+
+	leaflet_div <- randomId()
+        rcw.set(div, paste0('<div id="', leaflet_div,
+                            '" class="leaflet" style="height:100%;"></div>'))
+
+        # Put there the map
+        do.call(func, list(where = paste0("#", leaflet_div)),
+                envir = rcloudEnv())
+      }
+    }
+  )
+)
+
 #' Front-end control types and matching back-end classes
 
 control_classes <- list(
@@ -250,7 +269,8 @@ control_classes <- list(
   "breadcrumb"       = BreadCrumbControl,
   "text"             = TextControl,
   "datatable"        = DataTableControl,
-  "rtext"            = RTextControl
+  "rtext"            = RTextControl,
+  "leaflet"          = LeafletControl
 )
 
 controlFactory <- function(cl, type = cl$type) {

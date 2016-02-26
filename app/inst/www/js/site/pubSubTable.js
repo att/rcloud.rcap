@@ -30,6 +30,7 @@ define(['pubsub', 'rcap/js/Class'], function() {
         changeSelectedPageByTitle : 'changeSelectedPageByTitle',
         changeSelectedPage :'changeSelectedPage',
         changePageOrder : 'changePageOrder',
+        gridPageChangeComplete: 'gridPageChangeComplete',
         pageSettingsClicked : 'pageSettingsClicked',
         showPageSettingsDialog : 'showPageSettingsDialog',
         pageCountChanged : 'pageCountChanged',
@@ -60,7 +61,10 @@ define(['pubsub', 'rcap/js/Class'], function() {
         configureControl : 'configureControl',
         configureForm : 'configureForm',
         showControlDialog : 'showControlDialog',
-        showFormBuilderDialog : 'showFormBuilderDialog'
+        showFormBuilderDialog : 'showFormBuilderDialog',
+
+        // theme:
+        setCurrentTheme: 'setCurrentTheme'
 
     };
 

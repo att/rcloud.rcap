@@ -19,26 +19,32 @@ $borderColor: #cdcdcd;
 	& .header {
 		border-bottom: 1px solid $borderColor;
 		position: relative;
+		background: $attLightBlue;
+		color: white;
 
 		& .top-level-tabs {
 			position: absolute;
 			right: 30px;
 			top: 24px;
+			letter-spacing: 0.1em;
 
 			& a {
 				font-size: 13px;
 				text-transform: uppercase;
-				padding-top: 9px;
 				margin-left: 10px;
 				font-weight: 300;
 				text-decoration: none;
 				top: 23px;
 				right: 15px;
-				color: #888;
-				font-weight: bold;
+				color: #ddd;
 
 				&.active, &:hover {
-					color: #000;
+					color: #fff;
+				}
+
+				&:not(:first-child) {
+					border-left: 1px solid white;
+					padding-left: 10px;
 				}
 			}
 		}
@@ -51,6 +57,7 @@ $borderColor: #cdcdcd;
 	& .jqm-footer {
 		border-top: 1px solid $borderColor;
 		display: flex;
+		height: 45px!important;
 	}
 
 	& .jqm-footer a:link,
@@ -89,7 +96,7 @@ $borderColor: #cdcdcd;
 	}
 
 	& .jqm-footer a.approve:hover {
-		background-color: C2CE89;
+		background-color: #c2ce89;
 	}
 
 	& .header h3 {
@@ -98,10 +105,11 @@ $borderColor: #cdcdcd;
 		margin-bottom: 5px;
 		text-transform: uppercase;
 		padding-top: 9px;
+		font-weight: bold;
+		letter-spacing: 0.1em;
 	}
 
 	& .body {
-		max-height: 600px;
 		overflow: auto;
 	}
 }

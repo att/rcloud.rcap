@@ -23,7 +23,7 @@ define(['rcap/js/ui/controls/gridControl',
 			});
 		},
 		render: function() {
-			return this.controlProperties[0].value;
+ 			return this.controlProperties[0].value;
 		}
 	});
 

@@ -406,12 +406,11 @@
     };
 
     GridStackEngine.prototype.get_grid_height = function() {
-        return _.reduce(this.nodes, function(memo, n) {
+        var gridHeight = _.reduce(this.nodes, function(memo, n) {
             return Math.max(memo, n.y + n.height);
         }, this.height);
 
-        //var minHeight = 12;
-        //return height < minHeight ? minHeight : height;
+        return gridHeight;
     };
 
     GridStackEngine.prototype.begin_update = function(node) {
@@ -523,6 +522,16 @@
             this.grid.get_grid_height() * (this.opts.cell_height + this.opts.vertical_margin) -
             this.opts.vertical_margin);
 
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+        // TEMP:
+
+        // for given height, find the (gridstack) height:
+        //var desiredHeight = 1920;
+        //var actualRows = desiredHeight / (this.opts.cell_height + this.opts.vertical_margin);
+        //console.log('ACTUAL ROWS: ', actualRows);
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+
         var on_resize_handler = function() {
             if (self._is_one_column_mode()) {
                 if (one_column_mode)
@@ -579,10 +588,6 @@
 
     GridStack.prototype.position_placeholder = function(x, y) {
 
-// ****************
-        //console.log('positioning placeholder at: ', x, y, ' for placeholder of size ', this.placeholder.attr('data-gs-width'), this.placeholder.attr('data-gs-height'));
-// ****************
-
         this.placeholder.attr({
             'data-gs-x': x,
             'data-gs-y': y
@@ -630,6 +635,11 @@
         if (this._styles == null) {
             return;
         }
+
+
+this.opts.cell_height = 20;
+this.opts.vertical_margin = 20;
+
 
         var prefix = '.' + this.opts._class + ' .' + this.opts.item_class;
 

@@ -41,7 +41,7 @@ define(['rcap/js/ui/controls/gridControl', 'rcap/js/ui/controls/properties/textC
                             text: 'Cover',
                             value: 'background-size: cover;'
                         }, {
-                            text: 'Fit to window',
+                            text: 'Stretch',
                             value: 'background-size: 100% 100%'
                         }],
                         defaultValue: 'background-repeat:no-repeat;'

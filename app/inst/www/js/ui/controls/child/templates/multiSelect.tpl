@@ -21,14 +21,11 @@ if(typeof control.controlProperties[0].value !== 'undefined' && control.controlP
 
 <% } else { %>
 
-	<!-- if it's design time -->
 	<% if(isDesignTime) { %>
 
 		<option value="">{{ Runtime generated }}</option>
 
 	<% } else { %>
-
-		<!-- do some funky stuff -->
 
 	<% } %>
 

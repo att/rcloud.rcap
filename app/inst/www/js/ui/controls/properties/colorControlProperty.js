@@ -21,7 +21,9 @@ define(['rcap/js/ui/controls/properties/baseControlProperty',
 			this.showAlpha = _.isUndefined(options.showAlpha) ? false : options.showAlpha;
 
 			// default value dependent on alpha support:
-			this.defaultValue = this.showAlpha ? 'rgba(255, 255, 255, 0)' : 'rgb(255, 255, 255)';
+			if(this.defaultValue === '') {
+				this.defaultValue = this.showAlpha ? 'rgba(255, 255, 255, 0)' : 'rgb(255, 255, 255)';
+			}
 		},
 		render: function(childIndex) {
 
