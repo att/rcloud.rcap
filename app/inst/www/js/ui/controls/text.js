@@ -11,7 +11,7 @@ define(['rcap/js/ui/controls/gridControl',
 				controlCategory: 'HTML',
 				label : 'Text',
 				icon: 'pencil',
-				initialSize: [2, 2],
+				initialSize: [4, 4],
 				controlProperties: [
 					new WysiwygControlProperty({
 						uid: 'content',

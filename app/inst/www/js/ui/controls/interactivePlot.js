@@ -14,7 +14,7 @@ define(['rcap/js/ui/controls/gridControl',
                 controlCategory: 'Dynamic',
                 label: 'Interactive Plot',
                 icon: 'bar-chart',
-                initialSize: [2, 2],
+                initialSize: [4, 4],
                 controlProperties: [
                     new AutocompleteControlProperty({
                         uid: 'code',
