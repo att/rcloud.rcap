@@ -7,8 +7,9 @@ define(['text!rcap/partials/viewer.htm',
     'controls/factories/controlFactory',
     'rcap/js/serializer',
     'site/siteManager',
+    'rcap/js/utils/rcapLogger',
     'css!rcap/styles/default.css'
-], function(mainPartial, GridManager, ThemeManager, HistoryManager, PubSub, pubSubTable, ControlFactory, Serializer, SiteManager) {
+], function(mainPartial, GridManager, ThemeManager, HistoryManager, PubSub, pubSubTable, ControlFactory, Serializer, SiteManager, RcapLogger) {
 
     'use strict';
 
@@ -16,6 +17,7 @@ define(['text!rcap/partials/viewer.htm',
 
         var me = this;
         var themeManager = new ThemeManager();
+        var rcapLogger = new RcapLogger();
 
         this.setup = function() {
 
@@ -47,7 +49,7 @@ define(['text!rcap/partials/viewer.htm',
             // subscribe to grid done event:
             PubSub.subscribe(pubSubTable.gridInitComplete, function() {
 
-                console.info('viewer: pubSubTable.gridInitComplete');
+                rcapLogger.info('viewer: pubSubTable.gridInitComplete');
 
                 me.initialiseControls();
 
@@ -97,7 +99,7 @@ define(['text!rcap/partials/viewer.htm',
                     var dataToSubmit = JSON.stringify({
                         plotSizes : plotSizes
                     });
-                    console.log('Submitting data: ', dataToSubmit);
+                    rcapLogger.log('Submitting data: ', dataToSubmit);
                     window.RCAP.updateAllControls(dataToSubmit);
 
                     // show the single page:

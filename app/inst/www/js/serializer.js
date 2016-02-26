@@ -1,7 +1,9 @@
-define(['pubsub', 'site/site', 'rcap/js/assetManager', 'site/pubSubTable', 'rcap/js/ui/message', 'controls/factories/controlFactory'],
-    function(PubSub, Site, AssetManager, pubSubTable, Message, ControlFactory) {
+define(['pubsub', 'site/site', 'rcap/js/assetManager', 'site/pubSubTable', 'rcap/js/ui/message', 'controls/factories/controlFactory', 'rcap/js/utils/rcapLogger'],
+    function(PubSub, Site, AssetManager, pubSubTable, Message, ControlFactory, RcapLogger) {
 
         'use strict';
+
+        var rcapLogger = new RcapLogger();
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -15,7 +17,7 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'site/pubSubTable', 'rcap
                 //
                 PubSub.subscribe(pubSubTable.serialize, function(msg, data) {
 
-                    console.info('serializer: pubSubTable.serialize');
+                    rcapLogger.info('serializer: pubSubTable.serialize');
 
                     new AssetManager().save(data);
 
@@ -31,7 +33,7 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'site/pubSubTable', 'rcap
                 //
                 PubSub.subscribe(pubSubTable.deserialize, function(msg, msgData) {
 
-                    console.info('serializer: pubSubTable.deserialize');
+                    rcapLogger.info('serializer: pubSubTable.deserialize');
 
                     var controls,
                         control,

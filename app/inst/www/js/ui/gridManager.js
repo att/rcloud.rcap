@@ -2,10 +2,13 @@ define([
     'controls/factories/controlFactory',
     'pubsub',
     'site/pubSubTable',
+    'rcap/js/utils/rcapLogger',
     'rcap/js/vendor/gridstack'
-], function(ControlFactory, PubSub, pubSubTable) {
+], function(ControlFactory, PubSub, pubSubTable, RcapLogger) {
 
     'use strict';
+
+    var rcapLogger = new RcapLogger();
 
     var GridManager = function() {
 
@@ -288,7 +291,7 @@ define([
             //$('body').off('click').on('click', '.btn-configure', function() {
             $('body').on('click', '.btn-configure', function() {
 
-                console.info('gridManager: PUBLISH : pubSubTable.configureControl');
+                rcapLogger.info('gridManager: PUBLISH : pubSubTable.configureControl');
 
                 PubSub.publish(pubSubTable.configureControl, $(this).closest('.grid-stack-item').data('control'));
             });
@@ -304,7 +307,7 @@ define([
             /////////////////////////////////////////////////////////////////////////////////////////////////////////
             PubSub.subscribe(pubSubTable.pageAdded, function(msg, pageData) {
 
-                console.info('gridManager: pubSubTable.pageAdded');
+                rcapLogger.info('gridManager: pubSubTable.pageAdded');
 
                 _.each(pageData.pageData, function(page) {
                     addGrid(page);
@@ -320,7 +323,7 @@ define([
             /////////////////////////////////////////////////////////////////////////////////////////////////////////
             PubSub.subscribe(pubSubTable.deletePageConfirm, function(msg, pageId) {
 
-                console.info('gridManager: pubSubTable.deletePageConfirm');
+                rcapLogger.info('gridManager: pubSubTable.deletePageConfirm');
 
                 $('.grid-stack[data-pageid="' + pageId + '"]').remove();
 
@@ -346,7 +349,7 @@ define([
         //
         PubSub.subscribe(pubSubTable.updateControl, function(msg, control) {
 
-            console.info('gridManager: pubSubTable.updateControl');
+            rcapLogger.info('gridManager: pubSubTable.updateControl');
 
             // update the control's data, depending on whether the grid is in design mode:
             var item = $('.grid-stack-item[data-controlid="' + control.id + '"]');
@@ -383,7 +386,7 @@ define([
         //
         PubSub.subscribe(pubSubTable.pagesChanged, function( /*msg, data*/ ) {
 
-            console.info('gridManager: pubSubTable.pagesChanged');
+            rcapLogger.info('gridManager: pubSubTable.pagesChanged');
 
         });
 
@@ -393,7 +396,7 @@ define([
         //
         PubSub.subscribe(pubSubTable.updateControlMarkup, function(msg, data) {
 
-            console.info('gridManager: pubSubTable.updateControlMarkup');
+            rcapLogger.info('gridManager: pubSubTable.updateControlMarkup');
 
             // update the control's data, depending on whether the grid is in design mode:
             var item = $('.grid-stack-item[data-controlid="' + data.controlId + '"]');
@@ -410,7 +413,7 @@ define([
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
         PubSub.subscribe(pubSubTable.initSite, function(msg, site) {
 
-            console.info('gridManager: pubSubTable.initSite');
+            rcapLogger.log('gridManager: pubSubTable.initSite');
 
             // each page has its own grid:
             _.each(site.pages, function(page) {
@@ -439,7 +442,7 @@ define([
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
         PubSub.subscribe(pubSubTable.changeSelectedPage, function(msg, page) {
 
-            console.info('gridManager: pubSubTable.changeSelectedPage');
+            rcapLogger.info('gridManager: pubSubTable.changeSelectedPage');
 
             // hide all (individual page) grid stacks and the 'no items' - which will be shown if there are no items:
             $('.grid-stack:not(.js-gridstack-global), #no-items').hide();
@@ -463,7 +466,7 @@ define([
         // close
         //  
         PubSub.subscribe(pubSubTable.close, function() {
-            console.info('gridManager: pubSubTable.close');
+            rcapLogger.info('gridManager: pubSubTable.close');
             $('#inner-stage .grid-stack').remove();
             $('#no-items').hide();
         });
@@ -473,7 +476,7 @@ define([
         // close viewer
         //  
         PubSub.subscribe(pubSubTable.closeViewer, function() {
-            console.info('gridManager: pubSubTable.closeViewer');
+            rcapLogger.info('gridManager: pubSubTable.closeViewer');
             $('#inner-stage .grid-stack').remove();
         });
     };

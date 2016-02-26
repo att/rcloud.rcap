@@ -1,12 +1,13 @@
 define([
     'pubsub',
     'site/pubSubTable',
-    // 'site/site'
-], function(PubSub, pubSubTable /*, Site*/ ) {
+    'rcap/js/utils/rcapLogger'
+], function(PubSub, pubSubTable, RcapLogger ) {
 
     'use strict';
 
     var el = 'body';
+    var rcapLogger = new RcapLogger();
 
     // get the site:
     var getSite = function() {
@@ -30,7 +31,7 @@ define([
             //
             PubSub.subscribe(pubSubTable.save, function() {
 
-                console.info('siteManager: pubSubTable.save');
+                rcapLogger.info('siteManager: pubSubTable.save');
 
                 var site = getSite();
                 site.save();
@@ -44,7 +45,7 @@ define([
             //
             PubSub.subscribe(pubSubTable.initSite, function(msg, site) {
 
-                console.info('siteManager: pubSubTable.initSite');
+                rcapLogger.info('siteManager: pubSubTable.initSite');
 
                 setSite(site);
 
@@ -62,7 +63,7 @@ define([
             //
             PubSub.subscribe(pubSubTable.gridItemAdded, function(msg, item) {
 
-                console.info('siteManager: pubSubTable.gridItemAdded');
+                rcapLogger.info('siteManager: pubSubTable.gridItemAdded');
 
                 var site = getSite();
                 setSite(site.addControl(item));
@@ -80,7 +81,7 @@ define([
             //
             PubSub.subscribe(pubSubTable.gridItemsChanged, function(msg, items) {
 
-                console.info('siteManager: pubSubTable.gridItemsChanged');
+                rcapLogger.info('siteManager: pubSubTable.gridItemsChanged');
 
                 // set the current page's items:
                 var site = getSite();
@@ -93,7 +94,7 @@ define([
             //
             PubSub.subscribe(pubSubTable.addPage, function(msg, options) {
 
-                console.info('siteManager: pubSubTable.addPage');
+                rcapLogger.info('siteManager: pubSubTable.addPage');
 
                 var site = getSite();
                 var newPage = site.createPage(options);
@@ -123,7 +124,7 @@ define([
             //
             PubSub.subscribe(pubSubTable.updatePage, function(msg, pageObj) {
 
-                console.info('siteManager: pubSubTable.updatePage');
+                rcapLogger.info('siteManager: pubSubTable.updatePage');
 
                 setSite(getSite().updatePage(pageObj));
             });
@@ -134,7 +135,7 @@ define([
             //
             PubSub.subscribe(pubSubTable.deletePageConfirm, function(msg, pageId) {
 
-                console.info('siteManager: pubSubTable.deletePageConfirm');
+                rcapLogger.info('siteManager: pubSubTable.deletePageConfirm');
 
                 var site = getSite().deletePage(pageId);
 
@@ -156,7 +157,7 @@ define([
             //
             PubSub.subscribe(pubSubTable.duplicatePageConfirm, function(msg, pageId) {
 
-                console.info('siteManager: pubSubTable.duplicatePageConfirm');
+                rcapLogger.info('siteManager: pubSubTable.duplicatePageConfirm');
 
                 var site = getSite();
                 var newPages = site.duplicatePage(pageId);
@@ -183,7 +184,7 @@ define([
             //
             PubSub.subscribe(pubSubTable.changeSelectedPageId, function(msg, pageId) {
 
-                console.info('siteManager: pubSubTable.changeSelectedPageId');
+                rcapLogger.info('siteManager: pubSubTable.changeSelectedPageId');
 
                 // update the site's current page:
                 var site = getSite();
@@ -206,7 +207,7 @@ define([
             //
             PubSub.subscribe(pubSubTable.changeSelectedPageByTitle, function(msg, pageTitle) {
 
-                console.info('siteManager: pubSubTable.changeSelectedPageByTitle');
+                rcapLogger.info('siteManager: pubSubTable.changeSelectedPageByTitle');
 
                 // update the site's current page:
                 var site = getSite(),
@@ -244,7 +245,7 @@ define([
             //
             PubSub.subscribe(pubSubTable.pageSettingsClicked, function(msg, pageId) {
 
-                console.info('siteManager: pubSubTable.pageSettingsClicked');
+                rcapLogger.info('siteManager: pubSubTable.pageSettingsClicked');
 
                 var site = getSite();
 
@@ -262,7 +263,7 @@ define([
             //
             PubSub.subscribe(pubSubTable.changePageOrder, function(msg, pageIds) {
 
-                console.info('siteManager: pubSubTable.changePageOrder');
+                rcapLogger.info('siteManager: pubSubTable.changePageOrder');
 
                 var site = getSite();
                 setSite(site.updatePageOrder(pageIds));
@@ -280,7 +281,7 @@ define([
             //
             PubSub.subscribe(pubSubTable.updateControl, function(msg, control) {
 
-                console.info('siteManager: pubSubTable.updateControl');
+                rcapLogger.info('siteManager: pubSubTable.updateControl');
 
                 var site = getSite();
                 setSite(site.updateControl(control));
@@ -292,7 +293,7 @@ define([
             //
             PubSub.subscribe(pubSubTable.deleteControlConfirm, function(msg, controlID) {
 
-                console.log('siteManager: pubSubTable.deleteControlConfirm');
+                rcapLogger.log('siteManager: pubSubTable.deleteControlConfirm');
 
                 var site = getSite();
                 setSite(site.deleteControl(controlID));
@@ -304,7 +305,7 @@ define([
             //
             PubSub.subscribe(pubSubTable.addDataSource, function() {
 
-                console.info('siteManager: pubSubTable.addDataSource');
+                rcapLogger.info('siteManager: pubSubTable.addDataSource');
 
                 var site = getSite();
                 var newDataSource = site.createDataSource();
@@ -321,7 +322,7 @@ define([
 
             PubSub.subscribe(pubSubTable.deleteDataSourceConfirm, function(msg, dataSourceId) {
 
-                console.info('siteManager: pubSubTable.deleteDataSourceConfirm');
+                rcapLogger.info('siteManager: pubSubTable.deleteDataSourceConfirm');
 
                 var site = getSite().deleteDataSource(dataSourceId);
 
@@ -333,7 +334,7 @@ define([
 
             PubSub.subscribe(pubSubTable.dataSourceSettingsClicked, function(msg, id) {
 
-                console.info('siteManager: pubSubTable.dataSourceSettingsClicked');
+                rcapLogger.info('siteManager: pubSubTable.dataSourceSettingsClicked');
 
                 var site = getSite();
 
@@ -342,7 +343,7 @@ define([
 
             PubSub.subscribe(pubSubTable.updateDataSource, function(msg, dataSourceObj) {
 
-                console.info('siteManager: pubSubTable.updateDataSource');
+                rcapLogger.info('siteManager: pubSubTable.updateDataSource');
 
                 setSite(getSite().updateDataSource(dataSourceObj));
             });
@@ -353,7 +354,7 @@ define([
             //
             PubSub.subscribe(pubSubTable.setCurrentTheme, function(msg, theme) {
 
-                console.info('siteManager: pubSubTable.setCurrentTheme');
+                rcapLogger.info('siteManager: pubSubTable.setCurrentTheme');
 
                 setSite(getSite().setCurrentTheme(theme));
 
