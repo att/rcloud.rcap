@@ -12,7 +12,8 @@ module.exports = function(grunt) {
         //
         //
         **************************************************************************/
-        devDeployDir: '/data/rcloud/rcloud.packages/rcloud.rcap',
+        devDeployDir: 'output/rcloud.rcap',
+        devRCommandDir:'output',
         distDeployDir: 'C:/VAGRANT/vagrantRcloud-master/rcloud.rcap-dist',
         cmdDir: 'C:/VAGRANT/vagrantRcloud-master',
         dist: 'dist',
@@ -28,7 +29,6 @@ module.exports = function(grunt) {
         ]
     };
 
-    // 1. All configuration goes here 
     grunt.initConfig({
 
         pkg: grunt.file.readJSON('package.json'),
@@ -175,6 +175,18 @@ module.exports = function(grunt) {
                     'scripts/build_package.sh rcloud.packages/rcloud.rcap'
                 ].join(' && ')
             },
+            buildpackage: {
+                command: [
+                    'cd <%= appConfig.devRCommandDir%>',
+                    'R CMD build rcloud.rcap'
+                ].join(' && ')
+            },
+            installpackage: {
+                command: [
+                    'cd <%= appConfig.devRCommandDir%>',
+                    'R CMD INSTALL `sed -n \'s/Package: *//p\' rcloud.rcap/DESCRIPTION`_`sed -n \'s/Version: *//p\' rcloud.rcap/DESCRIPTION`.tar.gz'
+                ].join(' && ')  
+            },
             dist: {
                 commandcd: [
                     'node r.js -o build.js',
@@ -188,18 +200,10 @@ module.exports = function(grunt) {
                     }
                 }
             }
-        },
-
-        open: {
-            dev: {
-                path: 'http://192.168.33.10:8080/login.R',
-                app: 'chrome'
-            }
-        },
+        }
 
     });
 
-    // 2. Where we tell Grunt we plan to use this plug-in.
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-open');
@@ -211,11 +215,11 @@ module.exports = function(grunt) {
 
     require('time-grunt')(grunt);
 
-    // 3. Where we tell Grunt what to do when we type "grunt" into the terminal.
-    // dev, opens chrome with built dev:
-    grunt.registerTask('default', ['newer:jshint', 'clean:dev', 'copy:dev', 'shell:dev'/*, 'open:dev'*/]);
+    // dev
+    grunt.registerTask('default', ['newer:jshint', 'clean:dev', 'copy:dev', 'shell:buildpackage', 'shell:installpackage']);
+    grunt.registerTask('buildpackage', ['newer:jshint', 'clean:dev', 'copy:dev', 'shell:buildpackage']);
 
-    // dist, build production code:
-    grunt.registerTask('dist', ['newer:jshint', 'clean:dist', 'copy:dist', 'shell:dist' /*, 'open'*/ ]);
+    // dist
+    grunt.registerTask('dist', ['newer:jshint', 'clean:dist', 'copy:dist', 'shell:dist']);
 
 };
