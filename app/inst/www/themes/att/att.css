@@ -29,7 +29,7 @@ $attDarkBlueHighlight:          #020bb3;
     margin-top: 150px;
     padding-bottom: 250px;
     border: none; }
-  #rcap-designer #inner-stage h2, #rcap-viewer #inner-stage h2 {
+  #rcap-designer #inner-stage h2:not(#empty-page-header), #rcap-viewer #inner-stage h2:not(#empty-page-header) {
     color: white;
     background: #009fdb;
     padding: 10px;
@@ -38,7 +38,7 @@ $attDarkBlueHighlight:          #020bb3;
     background: linear-gradient(to right, #009fdb 0%, #71c5e8 100%);
     border-bottom-right-radius: 25px;
     border-top: 5px solid #009fdb; }
-    #rcap-designer #inner-stage h2 a:link, #rcap-designer #inner-stage h2 a:visited, #rcap-designer #inner-stage h2 a:active, #rcap-designer #inner-stage h2 a:hover, #rcap-viewer #inner-stage h2 a:link, #rcap-viewer #inner-stage h2 a:visited, #rcap-viewer #inner-stage h2 a:active, #rcap-viewer #inner-stage h2 a:hover {
+    #rcap-designer #inner-stage h2:not(#empty-page-header) a:link, #rcap-designer #inner-stage h2:not(#empty-page-header) a:visited, #rcap-designer #inner-stage h2:not(#empty-page-header) a:active, #rcap-designer #inner-stage h2:not(#empty-page-header) a:hover, #rcap-viewer #inner-stage h2:not(#empty-page-header) a:link, #rcap-viewer #inner-stage h2:not(#empty-page-header) a:visited, #rcap-viewer #inner-stage h2:not(#empty-page-header) a:active, #rcap-viewer #inner-stage h2:not(#empty-page-header) a:hover {
       color: white;
       text-decoration: none; }
   #rcap-designer #inner-stage form, #rcap-viewer #inner-stage form {

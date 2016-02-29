@@ -16,7 +16,7 @@ define(['rcap/js/ui/controls/gridControl',
                 controlCategory: 'HTML',
                 label: 'Form',
                 icon: 'list-alt',
-                initialSize: [2, 1],
+                initialSize: [4, 2],
                 controlProperties: [
 
                 ]

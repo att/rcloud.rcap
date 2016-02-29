@@ -2703,7 +2703,8 @@ table.dataTable td {
       position: relative;
       margin: 15px;
       padding-top: 10px;
-      padding-bottom: 10px; }
+      padding-bottom: 10px;
+      background-color: white; }
   #rcap-designer .style-details {
     padding-top: 15px;
     margin-top: 30px; }
