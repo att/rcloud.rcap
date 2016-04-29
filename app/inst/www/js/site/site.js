@@ -35,6 +35,7 @@ define(['pages/page', 'data/dataSource', 'rcap/js/utils/pageWalker', 'rcap/js/ui
 
             this.saveTicks = options.saveTicks;
             this.isDesignTime = options.isDesignTime;
+            this.rcapVersion = 1.0;
 
             // initialise with a single page:
             this.pages = options.pages || [
@@ -59,6 +60,7 @@ define(['pages/page', 'data/dataSource', 'rcap/js/utils/pageWalker', 'rcap/js/ui
         toJSON: function() {
 
             return {
+                'rcapVersion': this.rcapVersion,
                 'saveTicks': this.saveTicks,
                 'theme': this.theme,
                 'pages': this.pages,
