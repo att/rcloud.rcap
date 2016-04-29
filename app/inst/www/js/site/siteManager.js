@@ -54,7 +54,7 @@ define([
                     currentPageID: site.currentPageID
                 });
 
-                PubSub.publish(pubSubTable.setCurrentTheme, site.theme);
+                PubSub.publish(pubSubTable.updateTheme, site.theme);
             });
 
             ////////////////////////////////////////////////////////////////////////////////////
@@ -347,26 +347,6 @@ define([
 
                 setSite(getSite().updateDataSource(dataSourceObj));
             });
-
-            ////////////////////////////////////////////////////////////////////////////////////
-            //
-            // themes
-            //
-            PubSub.subscribe(pubSubTable.editTheme, function() {
-
-                // get the asset, show the dialog:
-                PubSub.publish(pubSubTable.showThemeEditorDialog, '');
-
-            });
-
-            // PubSub.subscribe(pubSubTable.setCurrentTheme, function(msg, theme) {
-
-            //     rcapLogger.info('siteManager: pubSubTable.setCurrentTheme');
-
-            //     setSite(getSite().setCurrentTheme(theme));
-
-            // });
-
 
         }
     });

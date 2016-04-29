@@ -64,7 +64,8 @@ define(['pubsub', 'rcap/js/Class'], function() {
         showFormBuilderDialog : 'showFormBuilderDialog',
 
         // theme:
-        setCurrentTheme: 'setCurrentTheme',
+        updateTheme: 'updateTheme',
+        updateDomTheme: 'updateDomTheme',
         editTheme: 'editTheme',
         showThemeEditorDialog: 'showThemeEditorDialog'
 

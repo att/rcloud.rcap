@@ -5,14 +5,12 @@ define([
     'text!ui/templates/siteSettingsMenu.tpl',
     'pubsub',
     'site/pubSubTable',
-    'controls/factories/controlFactory',
-    'rcap/js/ui/themeManager'
-], function(pageMenuItemTemplate, controlsMenuTemplate, dataSourceMenuItemTemplate, siteSettingsMenuTemplate, PubSub, pubSubTable, ControlFactory, ThemeManager) {
+    'controls/factories/controlFactory'
+], function(pageMenuItemTemplate, controlsMenuTemplate, dataSourceMenuItemTemplate, siteSettingsMenuTemplate, PubSub, pubSubTable, ControlFactory) {
 
     'use strict';
 
     var controlFactory = new ControlFactory();
-    var themeManager = new ThemeManager();
 
     // :::: TODO: refactor code below - both methods are very similar ::::
 
@@ -290,27 +288,9 @@ define([
             // apply:
             $('body').on('click', '.settings-menu button', function() {
                 console.info('menuManager: pubSubTable.editTheme');
-
                 PubSub.publish(pubSubTable.editTheme);
             });
 
-// REDUNDANT
-            // this event is fired:
-            PubSub.subscribe(pubSubTable.setCurrentTheme, function(msg, themeKey) {
-                // select the item:
-                $('.settings-menu select').val(themeKey);
-                $('.settings-menu select').data('selected', themeKey);             
-            });
-
-            // when the item is opened, ensure that the correct theme is selected (it may have been 
-            // changed, but not applied):
-            $('body').on('click', '#main-menu a[data-flyoutid="settings"]', function() {
-                $('.settings-menu select').val($('.settings-menu select').data('selected'));
-            });
-
-            // add styling info to the first page:
-            $('#pages li:eq(0) a').trigger('click');
-// /REDUNDANT
             return this;
         },
         initialiseControlsMenu: function() {
@@ -329,11 +309,10 @@ define([
         },
         initialiseSettingsMenu: function() {
 
-            var availableThemes = themeManager.getThemes();
             var template = _.template(siteSettingsMenuTemplate);
 
             $('.menu-flyout[data-flyoutid="settings"]').append(template({
-                themes: availableThemes
+
             }));
 
             return this;

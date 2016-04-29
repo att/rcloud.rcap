@@ -1,11 +1,13 @@
-define([], function() {
+define(['pubsub',
+    'site/pubSubTable'], function(PubSub, pubSubTable) {
 
     'use strict';
 
     var AssetManager = function() {
 
-        var assetIdentifier = 'rcap_designer.json';
-        var shell = window.shell;
+        var assetIdentifier = 'rcap_designer.json',
+            themeAssetIdentifier = 'rcap_designer.css',
+            shell = window.shell;
 
         var getNotebookAsset = function(filename) {
 
@@ -13,6 +15,23 @@ define([], function() {
 
             return _.find(shell.notebook.model.assets, function(ass) {
                 return ass.filename() === filenameToLoad;
+            });
+        };
+
+        this.initialise = function() {
+
+            var me = this;
+            
+            // subscribe to theme change:
+            PubSub.subscribe(pubSubTable.updateTheme, function() {
+                PubSub.publish(pubSubTable.updateDomTheme, me.getThemeUrl());
+            });
+
+            PubSub.subscribe(pubSubTable.editTheme, function() {
+
+                // get the asset, show the dialog:
+                PubSub.publish(pubSubTable.showThemeEditorDialog, getNotebookAsset(themeAssetIdentifier));
+
             });
         };
 
@@ -34,10 +53,9 @@ define([], function() {
         };
 
         this.getThemeUrl = function() {
-            var themeAssetName = 'rcap_designer.css';
-            var theme = getNotebookAsset(themeAssetName);
+            var theme = getNotebookAsset(themeAssetIdentifier);
             if(theme) {
-                return '/notebook.R/' + shell.gistname() + '/' + themeAssetName;
+                return '/notebook.R/' + shell.gistname() + '/' + themeAssetIdentifier + '?cachebuster=' + Math.random().toString(16).slice(2);
             } else {
                 return undefined;
             }

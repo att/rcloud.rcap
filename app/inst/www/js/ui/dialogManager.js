@@ -450,6 +450,14 @@ define([
                 $('#dialog-styleSettings').jqmShow();
             });
 
+
+             $('#dialog-styleSettings .approve').on('click', function() {
+                // push the updated event:
+                PubSub.publish(pubSubTable.updateTheme, rcap_style_editor.getValue());  // jshint ignore:line
+                $('.jqmWindow').jqmHide();
+                return false;
+            });
+
         };
     };
 
