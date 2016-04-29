@@ -29,11 +29,8 @@ define([], function() {
         };
 
         this.load = function() {
-
             var existingAsset = getNotebookAsset();
-
             return existingAsset ? existingAsset.content() : '';
-
         };
 
         this.getThemeUrl = function() {
