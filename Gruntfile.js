@@ -14,8 +14,8 @@ module.exports = function(grunt) {
         **************************************************************************/
         devDeployDir: 'output/rcloud.rcap',
         devRCommandDir:'output',
-        distDeployDir: 'C:/VAGRANT/vagrantRcloud-master/rcloud.rcap-dist',
-        cmdDir: 'C:/VAGRANT/vagrantRcloud-master',
+        //distDeployDir: '',
+        //cmdDir: '',
         dist: 'dist',
         distFiles: [
             'DESCRIPTION',
@@ -165,7 +165,8 @@ module.exports = function(grunt) {
                         '<%= appConfig.distDeployDir %>/{,*/}*'
                     ]
                 }]
-            }
+            },
+            outputtemp: ['<%= appConfig.devDeployDir %>/rcloud.rcap/']
         },
 
         shell: {
@@ -187,6 +188,7 @@ module.exports = function(grunt) {
                     'R CMD INSTALL `sed -n \'s/Package: *//p\' rcloud.rcap/DESCRIPTION`_`sed -n \'s/Version: *//p\' rcloud.rcap/DESCRIPTION`.tar.gz'
                 ].join(' && ')  
             },
+            /*
             dist: {
                 commandcd: [
                     'node r.js -o build.js',
@@ -199,7 +201,7 @@ module.exports = function(grunt) {
                         cwd: 'build'
                     }
                 }
-            }
+            }*/
         }
 
     });
@@ -216,7 +218,7 @@ module.exports = function(grunt) {
     require('time-grunt')(grunt);
 
     // dev
-    grunt.registerTask('default', ['newer:jshint', 'clean:dev', 'copy:dev', 'shell:buildpackage', 'shell:installpackage']);
+    grunt.registerTask('default', ['newer:jshint', 'clean:dev', 'copy:dev', 'shell:buildpackage', 'clean:outputtemp', 'shell:installpackage']);
     grunt.registerTask('buildpackage', ['newer:jshint', 'clean:dev', 'copy:dev', 'shell:buildpackage']);
 
     // dist
