@@ -8,8 +8,7 @@ module.exports = function(grunt) {
 
         /**************************************************************************
         //
-        //  this should change:
-        //
+        //  ::: TODO: modify dist settings :::
         //
         **************************************************************************/
         devDeployDir: 'output/rcloud.rcap',
