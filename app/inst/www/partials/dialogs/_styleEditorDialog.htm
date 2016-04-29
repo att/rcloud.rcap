@@ -10,9 +10,9 @@
         <a href="javascript:void(0)" class="approve">Save</a>
     </div>
     <script>
-        var editor = ace.edit("rcap-style-editor");
-        editor.getSession().setMode("ace/mode/css");
-        editor.setOptions({
+        var rcap_style_editor = ace.edit("rcap-style-editor");
+        rcap_style_editor.getSession().setMode("ace/mode/css");
+        rcap_style_editor.setOptions({
             minLines: 1,
             maxLines: 5000
             //autoScrollEditorIntoView: true
