@@ -66,6 +66,7 @@ define(['pubsub', 'rcap/js/Class'], function() {
         // theme:
         updateTheme: 'updateTheme',
         updateDomTheme: 'updateDomTheme',
+        intialiseDom: 'initialiseDom',
         editTheme: 'editTheme',
         showThemeEditorDialog: 'showThemeEditorDialog'
 

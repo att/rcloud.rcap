@@ -280,6 +280,10 @@ define([
                 }
             });
 
+            PubSub.subscribe(pubSubTable.showThemeEditorDialog, function() {
+                $('.menu-flyout').hide();
+            });
+
             //////////////////////////////////////////////////////////////////////////////////////////
             //
             //

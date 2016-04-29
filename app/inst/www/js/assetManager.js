@@ -23,27 +23,28 @@ define(['pubsub',
             var me = this;
             
             // subscribe to theme change:
-            PubSub.subscribe(pubSubTable.updateTheme, function() {
+            PubSub.subscribe(pubSubTable.updateTheme, function(msg, content) {
+                me.save(content, themeAssetIdentifier, 'css');
                 PubSub.publish(pubSubTable.updateDomTheme, me.getThemeUrl());
             });
 
             PubSub.subscribe(pubSubTable.editTheme, function() {
-
                 // get the asset, show the dialog:
-                PubSub.publish(pubSubTable.showThemeEditorDialog, getNotebookAsset(themeAssetIdentifier));
-
+                PubSub.publish(pubSubTable.showThemeEditorDialog, getNotebookAsset(themeAssetIdentifier).content());
             });
         };
 
-        this.save = function(data) {
+        this.save = function(data, filename, format) {
 
-            var existingAsset = getNotebookAsset();
+            var filenameToSave = filename ? filename : assetIdentifier,
+                existingAsset = getNotebookAsset(filename),
+                dataToSave = !format ? JSON.stringify(data) : data;
 
             if (existingAsset) {
-                existingAsset.content(JSON.stringify(data)); // jshint ignore:line
+                existingAsset.content(dataToSave); // jshint ignore:line
                 shell.notebook.controller.update_asset(existingAsset); // jshint ignore:line
             } else {
-                shell.notebook.controller.append_asset(JSON.stringify(data), assetIdentifier); // jshint ignore:line
+                shell.notebook.controller.append_asset(dataToSave, filenameToSave); // jshint ignore:line
             }
         };
 

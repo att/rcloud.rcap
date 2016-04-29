@@ -448,6 +448,7 @@ define([
                 console.log(themeContent);
 
                 $('#dialog-styleSettings').jqmShow();
+                rcap_style_editor.setValue(themeContent);   // jshint ignore:line
             });
 
 
