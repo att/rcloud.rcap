@@ -352,13 +352,22 @@ define([
             //
             // themes
             //
-            PubSub.subscribe(pubSubTable.setCurrentTheme, function(msg, theme) {
+            PubSub.subscribe(pubSubTable.editTheme, function() {
 
-                rcapLogger.info('siteManager: pubSubTable.setCurrentTheme');
-
-                setSite(getSite().setCurrentTheme(theme));
+                // get the asset, show the dialog:
+                PubSub.publish(pubSubTable.showThemeEditorDialog, '');
 
             });
+
+            // PubSub.subscribe(pubSubTable.setCurrentTheme, function(msg, theme) {
+
+            //     rcapLogger.info('siteManager: pubSubTable.setCurrentTheme');
+
+            //     setSite(getSite().setCurrentTheme(theme));
+
+            // });
+
+
         }
     });
 

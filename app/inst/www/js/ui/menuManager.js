@@ -289,11 +289,12 @@ define([
             // theme:
             // apply:
             $('body').on('click', '.settings-menu button', function() {
-                console.info('menuManager: pubSubTable.setCurrentTheme');
+                console.info('menuManager: pubSubTable.editTheme');
 
-                PubSub.publish(pubSubTable.setCurrentTheme, $('.settings-menu select').val());
+                PubSub.publish(pubSubTable.editTheme);
             });
 
+// REDUNDANT
             // this event is fired:
             PubSub.subscribe(pubSubTable.setCurrentTheme, function(msg, themeKey) {
                 // select the item:
@@ -309,7 +310,7 @@ define([
 
             // add styling info to the first page:
             $('#pages li:eq(0) a').trigger('click');
-
+// /REDUNDANT
             return this;
         },
         initialiseControlsMenu: function() {
