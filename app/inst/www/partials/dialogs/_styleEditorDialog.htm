@@ -1,4 +1,4 @@
-<div class="jqmWindow" id="dialog-styleSettings" style="height:100%">
+<div class="jqmWindow" id="dialog-styleSettings" style="height:100%;width:720px">
     <div class="header">
         <h3><i class="icon-cog"></i> Style Editor</h3>
     </div>
@@ -13,9 +13,9 @@
         var editor = ace.edit("rcap-style-editor");
         editor.getSession().setMode("ace/mode/css");
         editor.setOptions({
-            minLines: 100,
-            maxLines: Infinity,
-            autoScrollEditorIntoView: true
+            minLines: 1,
+            maxLines: 5000
+            //autoScrollEditorIntoView: true
         });
     </script>
 </div>
