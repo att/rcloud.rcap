@@ -166,7 +166,7 @@ module.exports = function(grunt) {
                     ]
                 }]
             },
-            outputtemp: ['<%= appConfig.devDeployDir %>/rcloud.rcap/']
+            outputtemp: ['<%= appConfig.devDeployDir %>/']
         },
 
         shell: {
@@ -218,7 +218,7 @@ module.exports = function(grunt) {
     require('time-grunt')(grunt);
 
     // dev
-    grunt.registerTask('default', ['newer:jshint', 'clean:dev', 'copy:dev', 'shell:buildpackage', 'clean:outputtemp', 'shell:installpackage']);
+    grunt.registerTask('default', ['newer:jshint', 'clean:dev', 'copy:dev', 'shell:buildpackage', 'shell:installpackage', 'clean:outputtemp']);
     grunt.registerTask('buildpackage', ['newer:jshint', 'clean:dev', 'copy:dev', 'shell:buildpackage']);
 
     // dist
