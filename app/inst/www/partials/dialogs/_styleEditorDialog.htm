@@ -3,10 +3,21 @@
         <h3><i class="icon-cog"></i> Style Editor</h3>
     </div>
     <div class="body">
-        
+        <div id="rcap-style-editor"></div>
     </div>
     <div class="jqm-footer">
         <a href="javascript:void(0)" class="jqmClose">Cancel</a>
         <a href="javascript:void(0)" class="approve">Save</a>
     </div>
+
+    <!-- <script src="/lib/ace_bundle.js" type="text/javascript" charset="utf-8"></script> -->
+    <script>
+        var editor = ace.edit("rcap-style-editor");
+        editor.getSession().setMode("ace/mode/css");
+        editor.setOptions({
+            maxLines: Infinity
+        });
+    </script>
+
+
 </div>
