@@ -40,9 +40,7 @@ module.exports = function(grunt) {
 
                 },
                 files: {
-                    'app/inst/www/styles/default.css': 'app/inst/www/styles/default.scss',
-                    'app/inst/www/themes/bragi/bragi.css': 'app/inst/www/themes/bragi/bragi.scss',
-                    'app/inst/www/themes/att/att.css': 'app/inst/www/themes/att/att.scss',
+                    'app/inst/www/styles/default.css': 'app/inst/www/styles/default.scss'
                 },
                 trace: true
             }
