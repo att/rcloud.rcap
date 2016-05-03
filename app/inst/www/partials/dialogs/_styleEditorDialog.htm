@@ -1,21 +1,12 @@
-<div class="jqmWindow" id="dialog-styleSettings" style="height:100%;width:720px">
+<div class="jqmWindow" id="dialog-styleSettings" style="width:720px">
     <div class="header">
         <h3><i class="icon-cog"></i> Style Editor</h3>
     </div>
-    <div class="body" style="height:calc(100% - 111px)">
+    <div class="body" data-maxheight="useavailable">
         <div id="rcap-style-editor"></div>
     </div>
     <div class="jqm-footer">
         <a href="javascript:void(0)" class="jqmClose">Cancel</a>
         <a href="javascript:void(0)" class="approve">Save</a>
     </div>
-    <script>
-        var rcap_style_editor = ace.edit("rcap-style-editor");
-        rcap_style_editor.getSession().setMode("ace/mode/css");
-        rcap_style_editor.setOptions({
-            minLines: 1,
-            maxLines: 5000
-            //autoScrollEditorIntoView: true
-        });
-    </script>
 </div>

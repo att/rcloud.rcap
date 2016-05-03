@@ -442,19 +442,32 @@ define([
             //
             // theme editor:
             //
+            var getStyleEditor = function() {
+                return window.ace.edit('rcap-style-editor'); 
+            };
+
             PubSub.subscribe(pubSubTable.showThemeEditorDialog, function(msg, themeContent) {
 
                 console.info('dialogManager: pubSubTable.showThemeEditorDialog');
                 console.log(themeContent);
 
+                var editor = getStyleEditor();
+
+                editor.getSession().setMode('ace/mode/css');
+                editor.setOptions({
+                    minLines: 1,
+                    maxLines: 5000
+                });
+
+                editor.setValue(themeContent);   // jshint ignore:line
+
                 $('#dialog-styleSettings').jqmShow();
-                rcap_style_editor.setValue(themeContent);   // jshint ignore:line
             });
 
 
              $('#dialog-styleSettings .approve').on('click', function() {
                 // push the updated event:
-                PubSub.publish(pubSubTable.updateTheme, rcap_style_editor.getValue());  // jshint ignore:line
+                PubSub.publish(pubSubTable.updateTheme, getStyleEditor().getValue());  // jshint ignore:line
                 $('.jqmWindow').jqmHide();
                 return false;
             });
