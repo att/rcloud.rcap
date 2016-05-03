@@ -6,12 +6,13 @@ define([
     'text!rcap/partials/dialogs/_dataSourceSettings.htm',
     'text!rcap/partials/dialogs/_controlSettings.htm',
     'text!rcap/partials/dialogs/_formBuilder.htm',
+    'text!rcap/partials/dialogs/_styleEditorDialog.htm',
     'text!rcap/partials/dialogs/_confirmDialog.htm',
     'pubsub',
     'site/pubSubTable',
     'parsley',
     'rcap/js/vendor/jqModal.min'
-], function(FormBuilder, Page, addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, controlSettingsPartial, formBuilderPartial, confirmDialogPartial, PubSub, pubSubTable) {
+], function(FormBuilder, Page, addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, confirmDialogPartial, PubSub, pubSubTable) {
 
     'use strict';
 
@@ -79,7 +80,7 @@ define([
         this.initialise = function() {
 
             // append the dialogs to the root of the designer:
-            _.each([addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, controlSettingsPartial, formBuilderPartial, confirmDialogPartial], function(partial) {
+            _.each([addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, confirmDialogPartial], function(partial) {
                 $('#rcap-designer').append(partial);
             });
 
@@ -437,6 +438,39 @@ define([
                 $('#dialog-dataSourceSettings').jqmShow();
             });
 
+            ////////////////////////////////////////////////////////////////////////////////
+            //
+            // theme editor:
+            //
+            var getStyleEditor = function() {
+                return window.ace.edit('rcap-style-editor'); 
+            };
+
+            PubSub.subscribe(pubSubTable.showThemeEditorDialog, function(msg, themeContent) {
+
+                console.info('dialogManager: pubSubTable.showThemeEditorDialog');
+                console.log(themeContent);
+
+                var editor = getStyleEditor();
+
+                editor.getSession().setMode('ace/mode/css');
+                editor.setOptions({
+                    minLines: 1,
+                    maxLines: 5000
+                });
+
+                editor.setValue(themeContent);   // jshint ignore:line
+
+                $('#dialog-styleSettings').jqmShow();
+            });
+
+
+             $('#dialog-styleSettings .approve').on('click', function() {
+                // push the updated event:
+                PubSub.publish(pubSubTable.updateTheme, getStyleEditor().getValue());  // jshint ignore:line
+                $('.jqmWindow').jqmHide();
+                return false;
+            });
 
         };
     };

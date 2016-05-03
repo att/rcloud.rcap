@@ -1,13 +1,15 @@
 define([
+    'rcap/js/assetManager',
     'pubsub',
     'site/pubSubTable',
     'rcap/js/utils/rcapLogger'
-], function(PubSub, pubSubTable, RcapLogger ) {
+], function(AssetManager, PubSub, pubSubTable, RcapLogger ) {
 
     'use strict';
 
     var el = 'body';
     var rcapLogger = new RcapLogger();
+    var assetManager = new AssetManager();
 
     // get the site:
     var getSite = function() {
@@ -54,7 +56,12 @@ define([
                     currentPageID: site.currentPageID
                 });
 
-                PubSub.publish(pubSubTable.setCurrentTheme, site.theme);
+                var themeUrl = assetManager.getThemeUrl();
+
+                if(themeUrl) {
+                    PubSub.publish(pubSubTable.updateDomTheme, themeUrl);
+                }
+
             });
 
             ////////////////////////////////////////////////////////////////////////////////////
@@ -348,17 +355,6 @@ define([
                 setSite(getSite().updateDataSource(dataSourceObj));
             });
 
-            ////////////////////////////////////////////////////////////////////////////////////
-            //
-            // themes
-            //
-            PubSub.subscribe(pubSubTable.setCurrentTheme, function(msg, theme) {
-
-                rcapLogger.info('siteManager: pubSubTable.setCurrentTheme');
-
-                setSite(getSite().setCurrentTheme(theme));
-
-            });
         }
     });
 

@@ -6,12 +6,13 @@ define([
     'rcap/js/ui/messageManager',
     'rcap/js/ui/gridManager',
     'rcap/js/ui/themeManager',
+    'rcap/js/assetManager',
     'site/siteManager',
     'pubsub',
     'site/pubSubTable',
     'text!rcap/partials/designer.htm',
     'css!rcap/styles/default.css'
-], function(Serializer, MenuManager, InfoBarManager, DialogManager, MessageManager, GridManager, ThemeManager, SiteManager, PubSub, pubSubTable, mainPartial) {
+], function(Serializer, MenuManager, InfoBarManager, DialogManager, MessageManager, GridManager, ThemeManager, AssetManager, SiteManager, PubSub, pubSubTable, mainPartial) {
 
     'use strict';
 
@@ -69,6 +70,9 @@ define([
 
         // serializer:
         new Serializer().initialise();
+
+        // asset manager:
+        new AssetManager().initialise();
 
         $.getJSON('https://api.github.com/users/' + window.shell.notebook.model.user(), function(data) {
             var templateStr = '<a href="<%=data.html_url%>" target="_blank"><img src="<%=data.avatar_url%>" /></a>';

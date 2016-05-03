@@ -1,5 +1,5 @@
-define(['pubsub', 'site/site', 'rcap/js/assetManager', 'site/pubSubTable', 'rcap/js/ui/message', 'controls/factories/controlFactory', 'rcap/js/utils/rcapLogger'],
-    function(PubSub, Site, AssetManager, pubSubTable, Message, ControlFactory, RcapLogger) {
+define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverters/versionConverter', 'site/pubSubTable', 'rcap/js/ui/message', 'controls/factories/controlFactory', 'rcap/js/utils/rcapLogger'],
+    function(PubSub, Site, AssetManager, VersionConverter, pubSubTable, Message, ControlFactory, RcapLogger) {
 
         'use strict';
 
@@ -50,6 +50,7 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'site/pubSubTable', 'rcap
                         currProp,
                         currStyleProp,
                         data,
+                        versionConverter = new VersionConverter(),
                         controlFactory = new ControlFactory(),
                         currentChild,
                         rawData = msgData.hasOwnProperty('jsonData') ? msgData.jsonData : new AssetManager().load(),
@@ -62,6 +63,9 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'site/pubSubTable', 'rcap
 
                     data = rawData && rawData.length > 0 ? JSON.parse(rawData) : [];
 
+                    // update versions:
+                    data = versionConverter.processJson(data);
+
                     // loop through each page:
                     if (data.pages) {
 
@@ -73,8 +77,6 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'site/pubSubTable', 'rcap
                         site.currentPageID = data.pages[0].id;
 
                         _.each(data.pages, function(jsonPage) {
-
-                            //var newContainer = [];
 
                             // this page isn't enabled, so carry on:
                             if (jsonPage.hasOwnProperty('isEnabled') && jsonPage.isEnabled) {
@@ -90,22 +92,6 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'site/pubSubTable', 'rcap
                                         currentPage[jsonPageProperty] = jsonPage[jsonPageProperty];
                                     }
                                 }
-
-                                // page style info:
-                                // loop through each specific styleProperties property:
-                                /*
-                                for (stylePropertyLoop = 0; stylePropertyLoop < jsonPage.styleProperties.length; ++stylePropertyLoop) {
-                                    jsonStyleProperty = jsonPage.styleProperties[stylePropertyLoop];
-
-                                    currStyleProp = _.findWhere(currentPage.styleProperties, {
-                                        uid: jsonStyleProperty.uid
-                                    });
-
-                                    if (currStyleProp !== undefined) {
-                                        currStyleProp.value = jsonStyleProperty.value;
-                                        currStyleProp.id = jsonStyleProperty.id;
-                                    }
-                                }*/
 
                                 // now loop through the controls:
                                 for (controlLoop = 0; controlLoop < jsonPage.controls.length; ++controlLoop) {
@@ -216,10 +202,6 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'site/pubSubTable', 'rcap
 
                             site.dataSources.push(currentDataSource);
                         });
-                    }
-
-                    if(data.theme) {
-                        site.theme = data.theme;
                     }
 
                     PubSub.publish(pubSubTable.initSite, site);

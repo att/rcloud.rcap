@@ -8,14 +8,13 @@ module.exports = function(grunt) {
 
         /**************************************************************************
         //
-        //  this should change:
-        //
+        //  ::: TODO: modify dist settings :::
         //
         **************************************************************************/
         devDeployDir: 'output/rcloud.rcap',
         devRCommandDir:'output',
-        distDeployDir: 'C:/VAGRANT/vagrantRcloud-master/rcloud.rcap-dist',
-        cmdDir: 'C:/VAGRANT/vagrantRcloud-master',
+        //distDeployDir: '',
+        //cmdDir: '',
         dist: 'dist',
         distFiles: [
             'DESCRIPTION',
@@ -41,9 +40,7 @@ module.exports = function(grunt) {
 
                 },
                 files: {
-                    'app/inst/www/styles/default.css': 'app/inst/www/styles/default.scss',
-                    'app/inst/www/themes/bragi/bragi.css': 'app/inst/www/themes/bragi/bragi.scss',
-                    'app/inst/www/themes/att/att.css': 'app/inst/www/themes/att/att.scss',
+                    'app/inst/www/styles/default.css': 'app/inst/www/styles/default.scss'
                 },
                 trace: true
             }
@@ -165,7 +162,8 @@ module.exports = function(grunt) {
                         '<%= appConfig.distDeployDir %>/{,*/}*'
                     ]
                 }]
-            }
+            },
+            outputtemp: ['<%= appConfig.devDeployDir %>/']
         },
 
         shell: {
@@ -187,6 +185,7 @@ module.exports = function(grunt) {
                     'R CMD INSTALL `sed -n \'s/Package: *//p\' rcloud.rcap/DESCRIPTION`_`sed -n \'s/Version: *//p\' rcloud.rcap/DESCRIPTION`.tar.gz'
                 ].join(' && ')  
             },
+            /*
             dist: {
                 commandcd: [
                     'node r.js -o build.js',
@@ -199,7 +198,7 @@ module.exports = function(grunt) {
                         cwd: 'build'
                     }
                 }
-            }
+            }*/
         }
 
     });
@@ -216,7 +215,7 @@ module.exports = function(grunt) {
     require('time-grunt')(grunt);
 
     // dev
-    grunt.registerTask('default', ['newer:jshint', 'clean:dev', 'copy:dev', 'shell:buildpackage', 'shell:installpackage']);
+    grunt.registerTask('default', ['newer:jshint', 'clean:dev', 'copy:dev', 'shell:buildpackage', 'shell:installpackage', 'clean:outputtemp']);
     grunt.registerTask('buildpackage', ['newer:jshint', 'clean:dev', 'copy:dev', 'shell:buildpackage']);
 
     // dist
