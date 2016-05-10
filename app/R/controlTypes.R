@@ -167,14 +167,14 @@ IFrameControl <- R6Class("IFrameControl",
       res <- try(do.call(func, list(), envir = rcloudEnv()), TRUE)
     
       if (inherits(res, "try-error")) {
-        rcw.prepend(divId, res)
+        rcw.prepend(private$id, res)
       } else {
         if(is.character(res) && length(res)==1 && grepl("^http://", res)) {
           rcap.updateControlAttribute(private$id, "src", "")
           rcap.updateControlAttribute(private$id, "src", res)
           #rcap.consoleMsg(paste("DEBUG:", private$id, "src", res))
         } else {
-          rcw.prepend(divId, "<pre>Invalid URL returned</pre>")
+          rcw.prepend(private$id, "<pre>Invalid URL returned</pre>")
         }
       }
     }
