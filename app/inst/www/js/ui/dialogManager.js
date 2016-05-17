@@ -388,7 +388,7 @@ define([
                 validatePageSettingsForm();
             });
 
-            $('body').on('click', '#dialog-dataSourceSettings .delete, #dialog-form-builder .delete', function() {
+            $('body').on('click', '#dialog-dataSourceSettings .delete', function() {
                 PubSub.publish(pubSubTable.showConfirmDialog, {
                     heading: 'Delete data source',
                     message: 'Are you sure you want to delete this data source?',
