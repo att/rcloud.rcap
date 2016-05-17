@@ -280,6 +280,8 @@ define(['pages/page', 'data/dataSource', 'rcap/js/utils/pageWalker'/*, 'rcap/js/
             }));
 
             this.dataSources = dataSources;
+
+            return this;
         },
 
         updateDataSource : function(dataSource) {
