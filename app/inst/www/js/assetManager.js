@@ -30,7 +30,9 @@ define(['pubsub',
 
             PubSub.subscribe(pubSubTable.editTheme, function() {
                 // get the asset, show the dialog:
-                PubSub.publish(pubSubTable.showThemeEditorDialog, getNotebookAsset(themeAssetIdentifier).content());
+                var asset = getNotebookAsset(themeAssetIdentifier);
+
+                PubSub.publish(pubSubTable.showThemeEditorDialog, asset ? asset.content() : '');
             });
         };
 
