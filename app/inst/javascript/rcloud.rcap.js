@@ -43,7 +43,7 @@
 
             if (RCloud.UI.advanced_menu.add) {
 
-                po = RCloud.promisify_paths(ocaps, [
+                var po = RCloud.promisify_paths(ocaps, [
                     ['getRFunctions'],
                     ['getDummyFunctions'],
                     ['getRTime']    // not currently used
