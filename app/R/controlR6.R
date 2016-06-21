@@ -108,7 +108,7 @@ controlInitialize <- function(self, private, cl) {
       if (cp$uid == "source") {
         if (private$type == "iframe" && !is.null(cp$value)) {
           # If it's not a valid URL then it's code
-          if(!grepl("^http://", cp$value)) {
+          if(!grepl("^https?://", cp$value)) {
             private$controlFunction <- cp$value
           }
         }
