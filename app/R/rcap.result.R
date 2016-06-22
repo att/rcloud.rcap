@@ -17,17 +17,19 @@
 #' @importFrom rcloud.support rcloud.get.asset
 #' @export
 
-rcap.result <- function(rcapConfigFileName="rcap_designer.json") {
+rcap.result <- function(rcapConfigFileName="rcap_designer.json", rcapThemeFileName="rcap_designer.css") {
 
   ## Don't run in edit mode
   if(isEditMode()) return(invisible(NULL))
 
-
   ## Retrieve the designer config from the notebook
   rcapJson <- rcloud.get.asset(name = rcapConfigFileName)
 
+  ## Retrieve the designer CSS from the notebook
+  rcapCss <- rcloud.get.asset(name = rcapThemeFileName, quiet=TRUE)
+
   ## Fire up the viewer
-  rcap.initViewer(rcapJson, rcapSessionInfo())
+  rcap.initViewer(rcapJson, if(is.null(rcapCss)) FALSE else TRUE, rcapSessionInfo())
 
   # Convert the JSON into a list
   rcapConfig <- jsonlite::fromJSON(rcapJson, simplifyVector = FALSE)
