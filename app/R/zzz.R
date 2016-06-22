@@ -40,7 +40,7 @@ make_oc <- function(...) {
   do.call(base::`:::`, list("rcloud.support", "make.oc"))(...)
 }
 
-rcap.initViewer <- function(content, sessionInfo) rcloud.rcap.caps$initViewer(content, sessionInfo)
+rcap.initViewer <- function(content, themeExists, sessionInfo) rcloud.rcap.caps$initViewer(content, themeExists, sessionInfo)
 rcap.consoleMsg <- function(content) rcloud.rcap.caps$consoleMsg(content)
 rcap.updateVariable <- function(...) rcloud.rcap.caps$updateVariable(...)
 rcap.updateControl <- function(...) rcloud.rcap.caps$updateControl(...)

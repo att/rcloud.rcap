@@ -55,7 +55,7 @@ define(['pubsub',
             return existingAsset ? existingAsset.content() : '';
         };
 
-        this.getThemeUrl = function(designTime) {
+        this.getThemeUrl = function(designTime, themeExists) {
             if(designTime) {
                 var theme = getNotebookAsset(themeAssetIdentifier);
                 if(theme) {
@@ -63,12 +63,14 @@ define(['pubsub',
                 } else {
                     return undefined;
                 }    
-            } else {
+            } else if(themeExists) {
                 var getNotebookId = function(name) {
                     return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null; // jshint ignore: line
                 };
 
                 return '/notebook.R/' + getNotebookId('notebook') + '/' + themeAssetIdentifier + '?cachebuster=' + Math.random().toString(16).slice(2);
+            } else {
+                return undefined;
             }
             
         };

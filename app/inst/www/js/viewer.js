@@ -130,7 +130,7 @@ define(['text!rcap/partials/viewer.htm',
             }, 500);
         };
 
-        this.initialise = function(json, sessionInfo) {
+        this.initialise = function(json, themeExists, sessionInfo) {
 
             this.setup();
 
@@ -143,7 +143,8 @@ define(['text!rcap/partials/viewer.htm',
             // and pub:
             PubSub.publish(pubSubTable.deserialize, {
                 isDesignTime: false,
-                jsonData: json
+                jsonData: json,
+                themeExists: themeExists
             });
 
         };

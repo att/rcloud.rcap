@@ -204,6 +204,8 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
                         });
                     }
 
+                    site.themeExists = msgData.themeExists;
+
                     PubSub.publish(pubSubTable.initSite, site);
                 });
             };

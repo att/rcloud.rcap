@@ -56,7 +56,7 @@ define([
                     currentPageID: site.currentPageID
                 });
 
-                var themeUrl = assetManager.getThemeUrl(site.isDesignTime);
+                var themeUrl = assetManager.getThemeUrl(site.isDesignTime, site.themeExists);
 
                 if(themeUrl) {
                     PubSub.publish(pubSubTable.updateDomTheme, themeUrl);
