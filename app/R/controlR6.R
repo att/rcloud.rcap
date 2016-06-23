@@ -121,11 +121,6 @@ controlInitialize <- function(self, private, cl) {
   private$json <- cl
   class(private$json) <- private$type
 
-  if(private$type=="dataSource") {
-    rcap.consoleMsg(paste(private$id, private$type))
-    rcap.consoleMsg(paste(private$controlFunction, private$variableName))
-  }
-
   invisible(self)
 }
 
