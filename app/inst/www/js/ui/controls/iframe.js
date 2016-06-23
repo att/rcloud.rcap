@@ -25,7 +25,7 @@ define(['rcap/js/ui/controls/gridControl',
                         uid: 'source',
                         label: 'Source',
                         defaultValue: '',
-                        helpText: 'The URL that the iFrame will show (prefix with http://), or the R Function that assigns the value',
+                        helpText: 'The URL that the iFrame will show (prefix with http:// or https://), or the R Function that assigns the value',
                         isRequired: true
                     })
                 ]

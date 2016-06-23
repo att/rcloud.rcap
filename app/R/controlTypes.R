@@ -169,7 +169,7 @@ IFrameControl <- R6Class("IFrameControl",
       if (inherits(res, "try-error")) {
         rcw.prepend(private$id, res)
       } else {
-        if(is.character(res) && length(res)==1 && grepl("^http://", res)) {
+        if(is.character(res) && length(res)==1 && grepl("^https?://", res)) {
           rcap.updateControlAttribute(private$id, "src", "")
           rcap.updateControlAttribute(private$id, "src", res)
           #rcap.consoleMsg(paste("DEBUG:", private$id, "src", res))
