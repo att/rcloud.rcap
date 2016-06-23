@@ -154,7 +154,7 @@ controlUpdate <- function(self, private) {
 
   ## Do the update
   if (has_value && has_possible_values) {
-    rcap.updateVariable(private$variableName, value, pos_values)
+    rcap.updateVariable(private$variableName, value, as.list(pos_values))
 
   } else if (has_value) {
     rcap.updateVariable(private$variableName, value)
