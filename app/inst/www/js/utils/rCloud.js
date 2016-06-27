@@ -1,11 +1,11 @@
-define(['rcap/js/Class'], function() {
+define([], function() {
 
     'use strict';
 
-    var RCloud = Class.extend({
-        
-    });
-
-    return RCloud;
+    return {
+        getLoggedInUser: function() {
+            return window.rcloud.username();
+        }
+    };
 
 });

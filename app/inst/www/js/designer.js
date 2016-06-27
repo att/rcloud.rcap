@@ -1,4 +1,5 @@
 define([
+    'rcap/js/utils/rCloud',
     'rcap/js/serializer',
     'rcap/js/ui/menuManager',
     'rcap/js/ui/infoBarManager',
@@ -12,7 +13,7 @@ define([
     'site/pubSubTable',
     'text!rcap/partials/designer.htm',
     'css!rcap/styles/default.css'
-], function(Serializer, MenuManager, InfoBarManager, DialogManager, MessageManager, GridManager, ThemeManager, AssetManager, SiteManager, PubSub, pubSubTable, mainPartial) {
+], function(rcloud, Serializer, MenuManager, InfoBarManager, DialogManager, MessageManager, GridManager, ThemeManager, AssetManager, SiteManager, PubSub, pubSubTable, mainPartial) {
 
     'use strict';
 
@@ -74,7 +75,7 @@ define([
         // asset manager:
         new AssetManager().initialise();
 
-        $.getJSON('https://api.github.com/users/' + window.shell.notebook.model.user(), function(data) {
+        $.getJSON('https://api.github.com/users/' + rcloud.getLoggedInUser(), function(data) {
             var templateStr = '<a href="<%=data.html_url%>" target="_blank"><img src="<%=data.avatar_url%>" /></a>';
             var template = _.template(templateStr);
             $('#rcap-userplaceholder').append(template({
