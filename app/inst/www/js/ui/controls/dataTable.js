@@ -22,7 +22,7 @@ define(['rcap/js/ui/controls/gridControl',
                         uid: 'code',
                         label: 'Code',
                         defaultValue: '',
-                        helpText: 'The R Function that assigns the data',
+                        helpText: 'The R Function that assigns the data for this control',
                         isRequired: false
                     }),
                     new TextControlProperty({
@@ -94,6 +94,22 @@ define(['rcap/js/ui/controls/gridControl',
                             value: 'false'
                         }],
                         helpText: 'Whether information footer should be shown',
+                        value: 'false',
+                        isHorizontal: false
+                    }),
+                    new DropdownControlProperty({
+                        uid: 'downloadAsCsv',
+                        label: 'Download as CSV', 
+                        isRequired: true,
+                        defaultValue: 'false',
+                        availableOptions: [{
+                            text: 'Yes',
+                            value: 'true'
+                        }, {
+                            text: 'No',
+                            value: 'false'
+                        }],
+                        helpText: 'Allow user to download data as CSV',
                         value: 'false',
                         isHorizontal: false
                     }),
