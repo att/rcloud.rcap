@@ -86,13 +86,14 @@ controllerInitialize <- function(self, private, rcapConfig) {
     predList,
     function(x) { names(private$controls)[match(x, variables)] }
   )
-
-  private$succList <- twistAdjlist(predList)
-
   ## Pre-calculate the order of control updates
   ## We reverse the order, so that plots/maps on the first
   ## page(s) show up first
-  private$topoSort <- rev(topologicalSort(private$succList))
+  predList <- rev(predList)
+
+  private$succList <- twistAdjlist(predList)
+
+  private$topoSort <- topologicalSort(private$succList)
 
   # Wait until the front end reports sizes before updating everything
 
