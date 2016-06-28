@@ -4,7 +4,8 @@ define(['rcap/js/ui/controls/gridControl',
     'rcap/js/ui/controls/properties/dropdownControlProperty',
     'utils/dataTranslators/dataTableTranslator',
     'text!controlTemplates/dataTable.tpl',
-    'datatables/jquery.dataTables.min'
+    'datatables/jquery.dataTables.min',
+    'datatablesbuttons/buttons.html5.min'
 ], function(GridControl, TextControlProperty, AutocompleteControlProperty, DropdownControlProperty, DataTableTranslator, tpl) {
 
     'use strict';
@@ -136,31 +137,33 @@ define(['rcap/js/ui/controls/gridControl',
                 info: this.getControlPropertyValueOrDefault('showInfo') === 'true',
                 searching: this.getControlPropertyValueOrDefault('showSearch') === 'true',
                 sortColumnIndex: this.getControlPropertyValueOrDefault('sortColumnIndex') - 1,
-                sortColumnOrder: this.getControlPropertyValueOrDefault('sortColumnOrder')
+                sortColumnOrder: this.getControlPropertyValueOrDefault('sortColumnOrder'),
+                downloadAsCsv: this.getControlPropertyValueOrDefault('downloadAsCsv')
             });
 
         },
         updateData : function(controlId, data) {
 
-            // do some stuff!
             var translator = new DataTableTranslator();
             var translatedData = translator.translate(data);
 
             if($.fn.DataTable.isDataTable('#' + controlId)) {
                 var dt = $('#' + controlId).dataTable().api();
                 dt.destroy();
-
                 $('#' + controlId).empty();
             } 
                 
             $('#' + controlId).DataTable( {
+                dom: 'Bfrtip',
                 data: translatedData.data,
                 columns: translatedData.columns,
                 paging: this.getControlPropertyValueOrDefault('showPaging') === 'true',
                 info: this.getControlPropertyValueOrDefault('showInfo') === 'true',
                 searching: this.getControlPropertyValueOrDefault('showSearch') === 'true',
                 // input order will be R-centric (1-offset), where JavaScript is 0-offset:
-                order: [$('#' + controlId).data('sortcolumnindex'), $('#' + controlId).data('sortcolumnorder')]
+                order: [$('#' + controlId).data('sortcolumnindex'), $('#' + controlId).data('sortcolumnorder')],
+                //buttons: this.getControlPropertyValueOrDefault('downloadAsCsv') === 'true' ? ['csv'] : []
+                buttons: ['csvHtml5']
             });
         }
     });

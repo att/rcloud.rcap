@@ -2052,6 +2052,19 @@ table.dataTable td {
 
   .dataTables_wrapper .dataTables_filter {
     margin-top: 0.5em; } }
+.dt-buttons {
+  padding: 15px 0; }
+  .dt-buttons a {
+    background-color: blue;
+    text-align: center;
+    background-color: #009fdb;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold; }
+    .dt-buttons a:hover {
+      text-decoration: none; }
+
 #dialog-form-builder {
   width: 1000px;
   background: #dedede; }
