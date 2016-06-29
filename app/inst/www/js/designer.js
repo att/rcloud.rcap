@@ -41,7 +41,13 @@ define([
         $('body').append(mainPartial);
 
         // close (link)
-        $('#rcap-close').click(closeDesigner);
+        $('#rcap-close').click(function() {
+            PubSub.publish(pubSubTable.closeDesigner);
+        });
+
+        PubSub.subscribe(pubSubTable.closeDesignerConfirm, function() {
+            closeDesigner();
+        });
 
         $('#rcap-save').click(function() {
             PubSub.publish(pubSubTable.save);

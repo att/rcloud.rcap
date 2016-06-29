@@ -12,7 +12,8 @@ define(['pubsub', 'site/pubSubTable'], function(PubSub, pubSubTable) {
                 // only update the dirty flag if this wasn't a theme save:
                 if(!assetDetails.wasTheme) {
                     isDirty = false;
-                    el.hide();     
+                    el.hide();  
+                    PubSub.publish(pubSubTable.clearModified);   
                 }
             });
 
@@ -35,7 +36,8 @@ define(['pubsub', 'site/pubSubTable'], function(PubSub, pubSubTable) {
                 PubSub.subscribe(e, function() {
                     isDirty = true;
                     console.log('I showed myself because I got saw an event of type: ', e);
-                    el.show();   
+                    el.show();  
+                    PubSub.publish(pubSubTable.setModified); 
                 });
             });
 

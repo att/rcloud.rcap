@@ -45,6 +45,41 @@ define([
             //
             //
             //
+            PubSub.subscribe(pubSubTable.closeDesigner, function() {
+
+                rcapLogger.info('siteManager: pubSubTable.save');
+
+                var site = getSite();
+
+                if(site.isModified()) {
+                    PubSub.publish(pubSubTable.showConfirmDialog, {
+                        heading: 'Quit without saving?',
+                        message: 'You have made changes since your last save. Are you sure you wish to quit and lose your changes?',
+                        pubSubMessage: pubSubTable.closeDesignerConfirm
+                    });
+                } else {
+                    // just go straight ahead:
+                    PubSub.publish(pubSubTable.closeDesignerConfirm);
+                }
+            });
+
+            PubSub.subscribe(pubSubTable.setModified, function() {
+                rcapLogger.info('siteManager: pubSubTable.setModified');
+                var site = getSite();
+                site.setModified();
+            });
+
+            PubSub.subscribe(pubSubTable.clearModified, function() {
+                rcapLogger.info('siteManager: pubSubTable.clearModified');
+                var site = getSite();
+                site.clearModified();
+            });
+
+
+            ////////////////////////////////////////////////////////////////////////////////////
+            //
+            //
+            //
             PubSub.subscribe(pubSubTable.initSite, function(msg, site) {
 
                 rcapLogger.info('siteManager: pubSubTable.initSite');
