@@ -5,6 +5,7 @@ define([
     'rcap/js/ui/infoBarManager',
     'rcap/js/ui/dialogManager',
     'rcap/js/ui/messageManager',
+    'rcap/js/ui/dirtyStateManager',
     'rcap/js/ui/gridManager',
     'rcap/js/ui/themeManager',
     'rcap/js/assetManager',
@@ -13,7 +14,7 @@ define([
     'site/pubSubTable',
     'text!rcap/partials/designer.htm',
     'css!rcap/styles/default.css'
-], function(rcloud, Serializer, MenuManager, InfoBarManager, DialogManager, MessageManager, GridManager, ThemeManager, AssetManager, SiteManager, PubSub, pubSubTable, mainPartial) {
+], function(rcloud, Serializer, MenuManager, InfoBarManager, DialogManager, MessageManager, DirtyStateManager, GridManager, ThemeManager, AssetManager, SiteManager, PubSub, pubSubTable, mainPartial) {
 
     'use strict';
 
@@ -65,6 +66,9 @@ define([
 
         // initialise the message manager:
         new MessageManager().initialise();
+
+        // initialise the dirty state indicator:
+        new DirtyStateManager().initialise();
 
         // grid manager:
         new GridManager().initialise();
