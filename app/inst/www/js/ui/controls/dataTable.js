@@ -124,7 +124,7 @@ define(['rcap/js/ui/controls/gridControl',
                 designTimeDescription += 'Function: ' + this.controlProperties[0].value;
             }
 
-            return template({
+            var output = template({
                 control: this,
                 isDesignTime: isDesignTime,
                 designTimeDescription : designTimeDescription,
@@ -133,9 +133,10 @@ define(['rcap/js/ui/controls/gridControl',
                 searching: this.getControlPropertyValueOrDefault('showSearch') === 'true',
                 sortColumnIndex: this.getControlPropertyValueOrDefault('sortColumnIndex') - 1,
                 sortColumnOrder: this.getControlPropertyValueOrDefault('sortColumnOrder'),
-                downloadAsCsv: this.getControlPropertyValueOrDefault('downloadAsCsv')
+                downloadAsCsv: this.getControlPropertyValueOrDefault('downloadAsCsv') === 'true'
             });
 
+            return output;
         },
         updateData : function(controlId, data) {
 
@@ -151,7 +152,7 @@ define(['rcap/js/ui/controls/gridControl',
             var controlData = $('#' + controlId).data();
               
             $('#' + controlId).DataTable( {
-               // dom: 'sBfrtip',
+                dom: 'lfrtiBp',
                 data: translatedData.data,
                 columns: translatedData.columns,
                 paging: controlData.paging,
@@ -159,7 +160,7 @@ define(['rcap/js/ui/controls/gridControl',
                 searching: controlData.searching,
                 // input order will be R-centric (1-offset), where JavaScript is 0-offset:
                 order: [controlData.sortcolumnindex, controlData.sortcolumnorder],
-                buttons: controlData.downloadAsCsv === 'true' ? ['csv'] : []
+                buttons: controlData.downloadAsCsv ? ['csv'] : []
             });
         }
     });

@@ -2053,7 +2053,8 @@ table.dataTable td {
   .dataTables_wrapper .dataTables_filter {
     margin-top: 0.5em; } }
 .dt-buttons {
-  padding: 15px 0; }
+  padding: 8px;
+  float: left; }
   .dt-buttons a {
     background-color: blue;
     text-align: center;
