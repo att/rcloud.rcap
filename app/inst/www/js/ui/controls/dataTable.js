@@ -24,7 +24,8 @@ define(['rcap/js/ui/controls/gridControl',
                         label: 'Code',
                         value: '',
                         helpText: 'The R Function that assigns the data for this control',
-                        isRequired: false
+                        isRequired: false,
+                        isHorizontal: true
                     }),
                     new TextControlProperty({
                         uid: 'sortColumnIndex',
@@ -32,7 +33,7 @@ define(['rcap/js/ui/controls/gridControl',
                         value : '1',
                         helpText : 'Which column should the data be sorted on.',
                         isRequired: true,
-                        isHorizontal: false
+                        isHorizontal: true
                     }),
                     new DropdownControlProperty({
                         uid: 'sortColumnOrder',
@@ -47,7 +48,7 @@ define(['rcap/js/ui/controls/gridControl',
                         }],
                         helpText: 'What order should the data be sorted',
                         value: 'asc',
-                        isHorizontal: false
+                        isHorizontal: true
                     }),
                     new DropdownControlProperty({
                         uid: 'showPaging',
@@ -62,7 +63,7 @@ define(['rcap/js/ui/controls/gridControl',
                         }],
                         helpText: 'Whether paging options should be shown',
                         value: 'false',
-                        isHorizontal: false
+                        isHorizontal: true
                     }),
                     new DropdownControlProperty({
                         uid: 'showSearch',
@@ -77,7 +78,7 @@ define(['rcap/js/ui/controls/gridControl',
                         }],
                         helpText: 'Whether search box should be shown',
                         value: 'false',
-                        isHorizontal: false
+                        isHorizontal: true
                     }),
                     new DropdownControlProperty({
                         uid: 'showInfo',
@@ -92,7 +93,7 @@ define(['rcap/js/ui/controls/gridControl',
                         }],
                         helpText: 'Whether information footer should be shown',
                         value: 'false',
-                        isHorizontal: false
+                        isHorizontal: true
                     }),
                     new DropdownControlProperty({
                         uid: 'downloadAsCsv',
@@ -107,7 +108,7 @@ define(['rcap/js/ui/controls/gridControl',
                         }],
                         value: 'true',
                         helpText: 'Allow user to download data as CSV',
-                        isHorizontal: false
+                        isHorizontal: true
                     }),
 
                 ]
