@@ -22,14 +22,14 @@ define(['rcap/js/ui/controls/gridControl',
                     new AutocompleteControlProperty({
                         uid: 'code',
                         label: 'Code',
-                        defaultValue: '',
+                        value: '',
                         helpText: 'The R Function that assigns the data for this control',
                         isRequired: false
                     }),
                     new TextControlProperty({
                         uid: 'sortColumnIndex',
                         label : 'Initial Sort Column',
-                        defaultValue : '1',
+                        value : '1',
                         helpText : 'Which column should the data be sorted on.',
                         isRequired: true,
                         isHorizontal: false
@@ -38,7 +38,6 @@ define(['rcap/js/ui/controls/gridControl',
                         uid: 'sortColumnOrder',
                         label: 'Initial Sort Order',
                         isRequired: true,
-                        defaultValue: 'asc',
                         availableOptions: [{
                             text: 'Ascending',
                             value: 'asc'
@@ -54,7 +53,6 @@ define(['rcap/js/ui/controls/gridControl',
                         uid: 'showPaging',
                         label: 'Show paging', 
                         isRequired: true,
-                        defaultValue: 'false',
                         availableOptions: [{
                             text: 'Yes',
                             value: 'true'
@@ -70,7 +68,6 @@ define(['rcap/js/ui/controls/gridControl',
                         uid: 'showSearch',
                         label: 'Show search', 
                         isRequired: true,
-                        defaultValue: 'false',
                         availableOptions: [{
                             text: 'Yes',
                             value: 'true'
@@ -86,7 +83,6 @@ define(['rcap/js/ui/controls/gridControl',
                         uid: 'showInfo',
                         label: 'Show info', 
                         isRequired: true,
-                        defaultValue: 'false',
                         availableOptions: [{
                             text: 'Yes',
                             value: 'true'
@@ -102,7 +98,6 @@ define(['rcap/js/ui/controls/gridControl',
                         uid: 'downloadAsCsv',
                         label: 'Download as CSV', 
                         isRequired: true,
-                        defaultValue: 'false',
                         availableOptions: [{
                             text: 'Yes',
                             value: 'true'
@@ -110,8 +105,8 @@ define(['rcap/js/ui/controls/gridControl',
                             text: 'No',
                             value: 'false'
                         }],
+                        value: 'true',
                         helpText: 'Allow user to download data as CSV',
-                        value: 'false',
                         isHorizontal: false
                     }),
 
@@ -152,18 +147,20 @@ define(['rcap/js/ui/controls/gridControl',
                 dt.destroy();
                 $('#' + controlId).empty();
             } 
-                
+
+            var controlData = $('#' + controlId).data();
+              
             $('#' + controlId).DataTable( {
-                dom: 'Bfrtip',
+               // dom: 'sBfrtip',
                 data: translatedData.data,
                 columns: translatedData.columns,
-                paging: this.getControlPropertyValueOrDefault('showPaging') === 'true',
-                info: this.getControlPropertyValueOrDefault('showInfo') === 'true',
-                searching: this.getControlPropertyValueOrDefault('showSearch') === 'true',
+                paging: controlData.paging === 'true',
+                info: controlData.info === 'true',
+                //searching: controlData.searching === 'true',
+                searching: false,
                 // input order will be R-centric (1-offset), where JavaScript is 0-offset:
-                order: [$('#' + controlId).data('sortcolumnindex'), $('#' + controlId).data('sortcolumnorder')],
-                //buttons: this.getControlPropertyValueOrDefault('downloadAsCsv') === 'true' ? ['csv'] : []
-                buttons: ['csvHtml5']
+                order: [controlData.sortcolumnindex, controlData.sortcolumnorder],
+                buttons: controlData.downloadAsCsv === 'true' ? ['csv'] : []
             });
         }
     });

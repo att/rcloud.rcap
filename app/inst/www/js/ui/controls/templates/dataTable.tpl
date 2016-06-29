@@ -20,14 +20,16 @@
         info: <%=info%>,
         searching: <%=searching%>
     });
-
-
 </script>
 <% } %>
 
 <script type="text/javascript">
     $('#<%=control.id%>').data({
         'sortcolumnindex': '<%=sortColumnIndex%>',
-        'sortcolumnorder': '<%=sortColumnOrder%>'
+        'sortcolumnorder': '<%=sortColumnOrder%>',
+        'paging': <%=paging%>,
+        'info': <%=info%>,
+        'searching': <%=searching%>,
+        'downloadAsCsv': <%=downloadAsCsv%>
     });
 </script>
