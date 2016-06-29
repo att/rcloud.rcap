@@ -2271,13 +2271,13 @@ table.dataTable td {
 #state-modified {
   color: white;
   display: inline-block;
-  position: relative;
-  display: none; }
+  position: relative; }
   #state-modified i {
     font-size: 110%;
     position: absolute;
     top: -17px;
-    left: -10px; }
+    left: -10px;
+    display: none; }
 
 #rcap-toplevelbuttons {
   position: absolute;

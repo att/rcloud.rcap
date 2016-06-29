@@ -86,13 +86,13 @@
     color: white;
     display: inline-block;
     position: relative;
-    display: none;
 
     i {
         font-size: 110%;
         position: absolute;
         top: -17px;
         left: -10px;
+        display: none;
     }
 }
 
