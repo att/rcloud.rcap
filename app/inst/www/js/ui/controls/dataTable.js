@@ -154,10 +154,9 @@ define(['rcap/js/ui/controls/gridControl',
                // dom: 'sBfrtip',
                 data: translatedData.data,
                 columns: translatedData.columns,
-                paging: controlData.paging === 'true',
-                info: controlData.info === 'true',
-                //searching: controlData.searching === 'true',
-                searching: false,
+                paging: controlData.paging,
+                info: controlData.info,
+                searching: controlData.searching,
                 // input order will be R-centric (1-offset), where JavaScript is 0-offset:
                 order: [controlData.sortcolumnindex, controlData.sortcolumnorder],
                 buttons: controlData.downloadAsCsv === 'true' ? ['csv'] : []
