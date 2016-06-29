@@ -48,6 +48,8 @@ define(['pubsub',
             } else {
                 shell.notebook.controller.append_asset(dataToSave, filenameToSave); // jshint ignore:line
             }
+
+            PubSub.publish(pubSubTable.saved);
         };
 
         this.load = function() {

@@ -8,6 +8,7 @@ define(['pubsub', 'rcap/js/Class'], function() {
         designerInit : 'designerInit',
         serialize : 'serialize',
         save : 'save',
+        saved: 'saved',
         load : 'load',
         close : 'close',
         closeViewer : 'closeViewer',
@@ -71,8 +72,7 @@ define(['pubsub', 'rcap/js/Class'], function() {
         showThemeEditorDialog: 'showThemeEditorDialog',
 
         // state management:
-        setDirty: 'setDirty',
-        clearDirty: 'clearDirty'
+        stateModified: 'stateModified'
 
     };
 

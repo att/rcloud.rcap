@@ -8,11 +8,11 @@ define(['pubsub', 'site/pubSubTable'], function(PubSub, pubSubTable) {
 
         this.initialise = function() {
 
-            PubSub.subscribe(pubSubTable.setDirty, function() {
+            PubSub.subscribe(pubSubTable.stateModified, function() {
                 el.show();
             });
 
-            PubSub.subscribe(pubSubTable.clearDirty, function() {
+            PubSub.subscribe(pubSubTable.saved, function() {
                 el.hide();
             });
         };
