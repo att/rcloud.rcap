@@ -17,7 +17,11 @@
             'select2': '../../shared.R/rcloud.rcap/bower_components/select2/dist',
             'wysiwyg': '../../shared.R/rcloud.rcap/bower_components/wysiwyg.js/dist',
             'ionrangeslider': '../../shared.R/rcloud.rcap/bower_components/ionrangeslider',
-            'datatables': '../../shared.R/rcloud.rcap/bower_components/datatables.net/js'
+            'datatables': '../../shared.R/rcloud.rcap/bower_components/datatables.net/js',
+            'datatablesbuttons': '../../shared.R/rcloud.rcap/bower_components/datatables.net-buttons/js',
+            'datatables.net': '../../shared.R/rcloud.rcap/bower_components/datatables.net/js/jquery.dataTables',
+            'datatables.net-buttons': '../../shared.R/rcloud.rcap/bower_components/datatables.net-buttons/js/dataTables.buttons'
+            //'datatables-buttons-dt': '../../shared.R/rcloud.rcap/bower_components/datatables.net-buttons-dt/css',
         },
         map: {
             '*': {
@@ -40,6 +44,15 @@
 
     return {
         init: function(ocaps, sessionInfo, k) {
+
+            console.log(' ÛÛÛÛÛÛÛÛÛÛÛ     ÛÛÛÛÛÛÛÛÛ    ÛÛÛÛÛÛÛÛÛ   ÛÛÛÛÛÛÛÛÛÛÛ ');
+            console.log('°°ÛÛÛ°°°°°ÛÛÛ   ÛÛÛ°°°°°ÛÛÛ  ÛÛÛ°°°°°ÛÛÛ °°ÛÛÛ°°°°°ÛÛÛ');
+            console.log(' °ÛÛÛ    °ÛÛÛ  ÛÛÛ     °°°  °ÛÛÛ    °ÛÛÛ  °ÛÛÛ    °ÛÛÛ');
+            console.log(' °ÛÛÛÛÛÛÛÛÛÛ  °ÛÛÛ          °ÛÛÛÛÛÛÛÛÛÛÛ  °ÛÛÛÛÛÛÛÛÛÛ ');
+            console.log(' °ÛÛÛ°°°°°ÛÛÛ °ÛÛÛ          °ÛÛÛ°°°°°ÛÛÛ  °ÛÛÛ°°°°°°  ');
+            console.log(' °ÛÛÛ    °ÛÛÛ °°ÛÛÛ     ÛÛÛ °ÛÛÛ    °ÛÛÛ  °ÛÛÛ        ');
+            console.log(' ÛÛÛÛÛ   ÛÛÛÛÛ °°ÛÛÛÛÛÛÛÛÛ  ÛÛÛÛÛ   ÛÛÛÛÛ ÛÛÛÛÛ       ');
+            console.log('°°°°°   °°°°°   °°°°°°°°°  °°°°°   °°°°° °°°°°        ');
 
             if (RCloud.UI.advanced_menu.add) {
 
