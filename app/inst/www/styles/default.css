@@ -2268,6 +2268,17 @@ table.dataTable td {
   #rcap-navbar-header span {
     display: none; }
 
+#state-modified {
+  color: white;
+  display: inline-block;
+  position: relative; }
+  #state-modified i {
+    font-size: 110%;
+    position: absolute;
+    top: -17px;
+    left: -10px;
+    display: none; }
+
 #rcap-toplevelbuttons {
   position: absolute;
   top: 1px;

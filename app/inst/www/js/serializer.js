@@ -20,11 +20,6 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
                     rcapLogger.info('serializer: pubSubTable.serialize');
 
                     new AssetManager().save(data);
-
-                    PubSub.publish(pubSubTable.showMessage, new Message({
-                        messageType: 'Information',
-                        content: 'Saved'
-                    }));
                 });
 
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

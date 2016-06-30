@@ -48,6 +48,10 @@ define(['pubsub',
             } else {
                 shell.notebook.controller.append_asset(dataToSave, filenameToSave); // jshint ignore:line
             }
+
+            PubSub.publish(pubSubTable.saved, {
+                wasTheme: filename === themeAssetIdentifier
+            });
         };
 
         this.load = function() {

@@ -8,6 +8,7 @@ define(['pubsub', 'rcap/js/Class'], function() {
         designerInit : 'designerInit',
         serialize : 'serialize',
         save : 'save',
+        saved: 'saved',
         load : 'load',
         close : 'close',
         closeViewer : 'closeViewer',
@@ -17,6 +18,10 @@ define(['pubsub', 'rcap/js/Class'], function() {
         showMessage: 'showMessage',
         showConfirmDialog : 'showConfirmDialog',
         showPageFlyout: 'showPageFlyout',
+        setModified: 'setModified',
+        clearModified: 'clearModified',
+        closeDesigner: 'closeDesigner',
+        closeDesignerConfirm: 'closeDesignerConfirm',
 
         // page:
         addPage : 'addPage',
@@ -68,7 +73,10 @@ define(['pubsub', 'rcap/js/Class'], function() {
         updateDomTheme: 'updateDomTheme',
         intialiseDom: 'initialiseDom',
         editTheme: 'editTheme',
-        showThemeEditorDialog: 'showThemeEditorDialog'
+        showThemeEditorDialog: 'showThemeEditorDialog',
+
+        // state management:
+        stateModified: 'stateModified'
 
     };
 

@@ -301,7 +301,24 @@ define(['pages/page', 'data/dataSource', 'rcap/js/utils/pageWalker'/*, 'rcap/js/
         //  
         updateTheme: function(theme) {
             this.theme = theme;
-        }
+        },
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //
+        // dirty
+        //
+        //    
+        setModified: function() {
+            this.modified = true;
+        },   
+
+        clearModified: function() {
+            this.modified = false;
+        },
+
+        isModified: function() {
+            return this.modified === true;
+        } 
 
     });
 
