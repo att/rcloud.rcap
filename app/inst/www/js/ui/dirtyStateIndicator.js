@@ -35,7 +35,6 @@ define(['pubsub', 'site/pubSubTable'], function(PubSub, pubSubTable) {
             modifyingEvents.forEach(function(e) {
                 PubSub.subscribe(e, function() {
                     isDirty = true;
-                    console.log('I showed myself because I got saw an event of type: ', e);
                     el.show();  
                     PubSub.publish(pubSubTable.setModified); 
                 });
