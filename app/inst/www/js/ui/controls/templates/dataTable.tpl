@@ -30,7 +30,7 @@
 
 <script type="text/javascript">
     $('#<%=control.id%>').data({
-        'sortcolumnindex': '<%=sortColumnIndex%>',
+        'sortcolumnindex': <%=sortColumnIndex%>,
         'sortcolumnorder': '<%=sortColumnOrder%>',
         'paging': <%=paging%>,
         'info': <%=info%>,
