@@ -98,7 +98,6 @@
 .grid-stack > .grid-stack-item > .ui-resizable-sw,
 .grid-stack > .grid-stack-item > .ui-remove {
   text-align: right;
-  color: gray;
   padding: 2px 3px 0 0;
   margin: 0;
   font: normal normal normal 10px/1 FontAwesome;
@@ -106,6 +105,8 @@
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #555;
+  background: rgba(255, 255, 255, 0.5);
   display: none;
 }
 .grid-stack > .grid-stack-item:hover > .ui-remove {
