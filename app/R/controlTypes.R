@@ -260,6 +260,30 @@ RPrintControl <- R6Class("RPrintControl",
   )
 )
 
+HtmlWidgetControl <- R6Class("HtmlWidgetControl",
+  inherit = Control,
+  public = list(
+
+    update = function(new_value = NULL) {
+
+      func <- private$controlFunction
+      if (!is.null(func)) {
+        widget <- do.call(func, list(), envir = rcloudEnv())
+
+        if (!inherits(widget, "htmlwidget")) {
+          stop("Function ", func, " did not produce an htmlwidget object")
+        }
+
+        div <- paste0("#", private$id)
+        rcw.set(div, as.character(widget))
+
+      } else {
+        stop("Don't know how to create htmlwidget")
+      }
+    }
+  )
+)
+
 #' Front-end control types and matching back-end classes
 
 control_classes <- list(
@@ -285,7 +309,8 @@ control_classes <- list(
   "text"             = TextControl,
   "datatable"        = DataTableControl,
   "rtext"            = RTextControl,
-  "leaflet"          = LeafletControl
+  "leaflet"          = LeafletControl,
+  "htmlwidget"       = HtmlWidgetControl
 )
 
 controlFactory <- function(cl, type = cl$type) {
