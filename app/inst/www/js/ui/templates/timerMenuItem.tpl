@@ -10,6 +10,6 @@
         <%} else {%>
             This timer is not configured
         <%}%>
-        <span class="timer-settings" title="Configure timer">Settings</span> 
+        <span class="timer-settings settings" title="Configure timer">Settings</span> 
     </a>
 </li>

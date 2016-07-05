@@ -449,7 +449,7 @@
         & a:hover span::after {
             display: block;
         }
-        & #dataSources li {
+        & #dataSources li, & #timers li {
 
             border: 1px solid $mainNavColor;
             margin-bottom: 5px;
@@ -467,12 +467,13 @@
                 padding-left: 45px;
             }
 
-            & .datasource-settings {
+            & .settings {
                 top: 0;
                 right: 2px;
                 position: absolute;
             }
         }
+
 
         &[data-flyoutid="settings"] {
             & h5 {
@@ -498,6 +499,14 @@
             & a {
                 display: block;
                 padding: 15px;
+
+                &[data-flyoutid='pages'] {
+                    padding-left: 18px;
+                }
+
+                &[data-flyoutid='controls'] {
+                    padding-left: 16px;
+                }
             }
         }
         & li {
