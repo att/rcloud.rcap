@@ -71,7 +71,7 @@ InteractivePlotControl <- R6Class("InteractivePlotControl",
       # Retrieve the function name and execute
       func <- private$controlFunction
 
-      res <- "doug error"
+      res <- ""
       if (!is.null(func)) res <- do.call(func, list(), envir = rcloudEnv())
       rcw.set(divId, rcw.resolve(res))
 
@@ -246,9 +246,24 @@ LeafletControl <- R6Class("LeafletControl",
   )
 )
 
+RPrintControl <- R6Class("RPrintControl",
+  inherit = Control,
+  public = list(
+    update = function(new_value = NULL) {
+      func <- private$controlFunction
+      if(!is.null(func)) {
+        res <- do.call(func, list(), envir = rcloudEnv())
+        resString <- paste(capture.output(res), collapse = '\n')
+        rcloud.web::rcw.set(paste0("#", private$id), resString)
+      }
+    }
+  )
+)
+
 #' Front-end control types and matching back-end classes
 
 control_classes <- list(
+  "rprint"           = RPrintControl,
   "rplot"            = RPlotControl,
   "interactiveplot"  = InteractivePlotControl,
   "dataSource"       = DataSourceControl,

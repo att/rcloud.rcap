@@ -3,6 +3,7 @@ define([
     'controls/image',
     'controls/rText',
     'controls/rPlot',
+    'controls/rPrint',
     'controls/text',
     'controls/pageMenu',
     'controls/breadcrumb',
@@ -26,6 +27,7 @@ define([
     ImageControl, 
     RTextControl, 
     RPlotControl, 
+    RPrintControl,
     TextControl, 
     PageMenuControl, 
     BreadcrumbControl, 
@@ -50,6 +52,7 @@ define([
     function ControlFactory() {
         this.gridControls = [
             new RPlotControl(),
+            new RPrintControl(),
             new InteractivePlotControl(),
             new LeafletControl(),
             new RTextControl(),
@@ -114,6 +117,9 @@ define([
                 break;
             case 'rplot':
                 control = new RPlotControl();
+                break;
+            case 'rprint':
+                control = new RPrintControl();
                 break;
             case 'rtext':
                 control = new RTextControl();
