@@ -53,13 +53,7 @@ define(['rcap/js/ui/controls/gridControl',
         },
         render: function(options) {
 
-            var html = '<form action="" style="display: flex;align-self:' + this.getStylePropertyValueOrDefault('verticalalignment') + '"><div id="' + this.id + '" class="rcap-form';
-
-            //if(this.getStylePropertyValueOrDefault('cssclass').length > 0) {
-            //   html += ' rcap-custom-' + this.getStylePropertyValueOrDefault('cssclass');
-            //}
-
-            html += '">';
+            var html = '<form action="" style="display: flex;align-self:' + this.getStylePropertyValueOrDefault('verticalalignment') + '"><div id="' + this.id + '" class="rcap-form' + '">';
 
             $.each(this.childControls, function(key, child) {
                 html += '<div class="form-group">';
@@ -70,7 +64,6 @@ define(['rcap/js/ui/controls/gridControl',
             html += '</div></form>';
 
             return html;
-
         },
         getDialogMarkup: function() {
             return tpl;

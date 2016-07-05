@@ -21,7 +21,6 @@
             'datatablesbuttons': '../../shared.R/rcloud.rcap/bower_components/datatables.net-buttons/js',
             'datatables.net': '../../shared.R/rcloud.rcap/bower_components/datatables.net/js/jquery.dataTables',
             'datatables.net-buttons': '../../shared.R/rcloud.rcap/bower_components/datatables.net-buttons/js/dataTables.buttons'
-            //'datatables-buttons-dt': '../../shared.R/rcloud.rcap/bower_components/datatables.net-buttons-dt/css',
         },
         map: {
             '*': {
