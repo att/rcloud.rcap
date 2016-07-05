@@ -1,10 +1,13 @@
 define([
+    'rcap/js/utils/rcapLogger',
     'pubsub',
     'site/pubSubTable',
     'text!rcap/partials/_404.htm'
-], function(PubSub, pubSubTable, pageNotFoundPartial) {
+], function(RcapLogger, PubSub, pubSubTable, pageNotFoundPartial) {
 
     'use strict';
+
+    var rcapLogger = new RcapLogger();
 
     var HistoryManager = function() {
 
@@ -16,7 +19,7 @@ define([
             $('#inner-stage').append('<div id="viewer-404" style="display:none"></div>');
 
             window.addEventListener('popstate', function( /*e*/ ) {
-                console.log('history manager: popstate');
+                rcapLogger.log('history manager: popstate');
             });
 
             window.onhashchange = function() {
