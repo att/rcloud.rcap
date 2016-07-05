@@ -2436,7 +2436,7 @@ table.dataTable td {
     #rcap-designer .menu-flyout h4#page-header a, #rcap-designer .menu-flyout h4#datasource-header a, #rcap-designer .menu-flyout h4#timer-header a {
       padding: 0;
       opacity: 0.5;
-      margin-left: 6px;
+      margin-left: 3px;
       display: inline-block;
       color: #efefef; }
     #rcap-designer .menu-flyout h4#page-header a:hover, #rcap-designer .menu-flyout h4#datasource-header a:hover, #rcap-designer .menu-flyout h4#timer-header a:hover {
