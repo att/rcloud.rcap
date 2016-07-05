@@ -274,14 +274,14 @@
         & a span::after {
             display: block;
         }
-        & h4#page-header a, h4#datasource-header a  {
+        & h4#page-header a, h4#datasource-header a, h4#timer-header a {
             padding: 0;
             opacity: 0.5;
             margin-left: 6px;
             display: inline-block;
             color: $mainNavColor;
         }
-        & h4#page-header a:hover, h4#datasource-header a:hover {
+        & h4#page-header a:hover, h4#datasource-header a:hover, h4#timer-header a:hover {
             opacity: 1.0;
         }
         & h4 a.add::before {
@@ -416,7 +416,7 @@
         & a span:hover {
             opacity: 1.0;
         }
-        & a span.page-settings::after, a span.datasource-settings::after {
+        & a span.page-settings::after, a span.datasource-settings::after, a span.timer-settings::after {
             content: "\f013";
         }
         & a span.page-duplicate::after {

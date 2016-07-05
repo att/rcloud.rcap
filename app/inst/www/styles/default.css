@@ -2433,13 +2433,13 @@ table.dataTable td {
       padding: 10px 0 5px 15px; }
     #rcap-designer .menu-flyout a span::after {
       display: block; }
-    #rcap-designer .menu-flyout h4#page-header a, #rcap-designer .menu-flyout h4#datasource-header a {
+    #rcap-designer .menu-flyout h4#page-header a, #rcap-designer .menu-flyout h4#datasource-header a, #rcap-designer .menu-flyout h4#timer-header a {
       padding: 0;
       opacity: 0.5;
       margin-left: 6px;
       display: inline-block;
       color: #efefef; }
-    #rcap-designer .menu-flyout h4#page-header a:hover, #rcap-designer .menu-flyout h4#datasource-header a:hover {
+    #rcap-designer .menu-flyout h4#page-header a:hover, #rcap-designer .menu-flyout h4#datasource-header a:hover, #rcap-designer .menu-flyout h4#timer-header a:hover {
       opacity: 1.0; }
     #rcap-designer .menu-flyout h4 a.add::before {
       font: normal normal normal 16px/1 FontAwesome;
@@ -2546,7 +2546,7 @@ table.dataTable td {
       display: block; }
     #rcap-designer .menu-flyout a span:hover {
       opacity: 1.0; }
-    #rcap-designer .menu-flyout a span.page-settings::after, #rcap-designer .menu-flyout a span.datasource-settings::after {
+    #rcap-designer .menu-flyout a span.page-settings::after, #rcap-designer .menu-flyout a span.datasource-settings::after, #rcap-designer .menu-flyout a span.timer-settings::after {
       content: "\f013"; }
     #rcap-designer .menu-flyout a span.page-duplicate::after {
       content: "\f08b"; }

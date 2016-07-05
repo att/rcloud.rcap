@@ -1,4 +1,4 @@
-define(['pages/page', 'data/dataSource', 'rcap/js/utils/pageWalker'/*, 'rcap/js/ui/themeManager'*/], function(Page, DataSource, PageWalker/*, ThemeManager*/) {
+define(['pages/page', 'data/dataSource', 'data/timer', 'rcap/js/utils/pageWalker'], function(Page, DataSource, Timer, PageWalker) {
 
     'use strict';
 
@@ -47,6 +47,9 @@ define(['pages/page', 'data/dataSource', 'rcap/js/utils/pageWalker'/*, 'rcap/js/
             // initialise with an empty list of data sources:
             this.dataSources = options.dataSources || [];
 
+            // timers:
+            this.timers = options.timers || [];
+
             this.currentPageID = this.pages.length > 0 ? this.pages[0].id : undefined;
         },
 
@@ -61,7 +64,8 @@ define(['pages/page', 'data/dataSource', 'rcap/js/utils/pageWalker'/*, 'rcap/js/
                 'saveTicks': this.saveTicks,
                 'theme': this.theme,
                 'pages': this.pages,
-                'dataSources': this.dataSources
+                'dataSources': this.dataSources,
+                'timers': this.timers
             };
 
         },
@@ -291,6 +295,45 @@ define(['pages/page', 'data/dataSource', 'rcap/js/utils/pageWalker'/*, 'rcap/js/
 
             existingDataSource.code = dataSource.code;
             existingDataSource.variable = dataSource.variable;
+            return this;
+        },
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //
+        // timers
+        //
+        //
+        createTimer: function(options) {
+
+            options = options || {};
+            var newTimer = new Timer(options);
+            return newTimer;
+        },
+
+        getTimerByID : function(id) {
+            return _.findWhere(this.timers, {
+                id: id
+            });
+        },
+
+        deleteTimer : function(id) {
+            var timers = _.without(this.timers, _.findWhere(this.timers, {
+                id: id
+            }));
+
+            this.timers = timers;
+
+            return this;
+        },
+
+        updateTimer : function(timer) {
+            var existingTimer = _.findWhere(this.timers, {
+                id: timer.id
+            });
+
+            existingTimer.code = timer.code;
+            existingTimer.variable = timer.variable;
+            existingTimer.interval = timer.interval;
             return this;
         },
 

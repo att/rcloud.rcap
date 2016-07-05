@@ -25,6 +25,9 @@ define(['pubsub', 'site/pubSubTable'], function(PubSub, pubSubTable) {
                 pubSubTable.dataSourceAdded,
                 pubSubTable.deleteDataSourceConfirm,
                 pubSubTable.updateDataSource,
+                pubSubTable.timerAdded,
+                pubSubTable.deleteTimerConfirm,
+                pubSubTable.updateTimer,
                 pubSubTable.updateControl,
                 pubSubTable.gridItemsChanged
                 // updating themes does not invoke the dirty flag because

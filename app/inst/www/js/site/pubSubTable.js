@@ -50,6 +50,15 @@ define(['pubsub', 'rcap/js/Class'], function() {
         showDataSourceSettingsDialog : 'showDataSourceSettingsDialog',
         dataSourceCountChanged : 'dataSourceCountChanged',
 
+        // timer:
+        addTimer: 'addTimer',
+        timerAdded: 'timerAdded',
+        deleteTimer: 'deleteTimer',
+        deleteTimerConfirm: 'deleteTimerConfirm',
+        timerSettingsClicked: 'timerSettingsClicked',
+        showTimerSettingsDialog: 'showTimerSettingsDialog',
+        timerCountChanged: 'timerCountChanged',
+
         // grid:
         gridInitComplete : 'gridInitComplete',
         gridItemAdded : 'gridItemAdded',
