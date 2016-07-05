@@ -60,9 +60,9 @@ Control <- R6::R6Class("Control",
     setVariable = function(new_value = NULL)
       controlSetVariable(self, private, new_value),
 
-    update = function()
-      controlUpdate(self, private),
-
+    update = function() {
+      controlUpdate(self, private)
+    },
     dependentVariables = function(clientVars, envir = rcloudEnv())
       controlDependentVariables(self, private, clientVars, envir)
   ),
