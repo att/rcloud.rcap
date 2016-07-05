@@ -2,9 +2,13 @@
     <a href="javascript:void(0)">
         <i class="icon-time"></i>
         <%if((t.variable || t.code) && t.interval) {%>
-            Function: <%=t.code%>          
-            <br />
-            Variable: <%=t.variable%>
+            <%if(t.code) {%>
+                Function: <%=t.code%>          
+            <%}%>
+            <%if(t.variable) {%>
+                <br />
+                Variable: <%=t.variable%>
+            <%}%>
             <br />
             Every: <%=t.interval%> seconds
         <%} else {%>
