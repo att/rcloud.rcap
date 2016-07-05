@@ -248,7 +248,6 @@ $attDarkBlueHighlight:          #020bb3;
 .grid-stack > .grid-stack-item > .ui-resizable-sw,
 .grid-stack > .grid-stack-item > .ui-remove {
   text-align: right;
-  color: gray;
   padding: 2px 3px 0 0;
   margin: 0;
   font: normal normal normal 10px/1 FontAwesome;
@@ -256,6 +255,8 @@ $attDarkBlueHighlight:          #020bb3;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #555;
+  background: rgba(255, 255, 255, 0.5);
   display: none; }
 
 .grid-stack > .grid-stack-item:hover > .ui-remove {
@@ -731,8 +732,9 @@ $attDarkBlueHighlight:          #020bb3;
 .grid-stack > .grid-stack-item > .ui-resizable-se,
 .grid-stack > .grid-stack-item > .ui-resizable-sw,
 .grid-stack > .grid-stack-item > .ui-remove {
-  background: none !important;
-  font-size: 16px; }
+  font-size: 16px;
+  color: #555;
+  background: rgba(255, 255, 255, 0.5); }
 
 .grid-stack .invalid .configure {
   bottom: 0;
@@ -2054,6 +2056,20 @@ table.dataTable td {
 
   .dataTables_wrapper .dataTables_filter {
     margin-top: 0.5em; } }
+.dt-buttons {
+  padding: 8px;
+  float: left; }
+  .dt-buttons a {
+    background-color: blue;
+    text-align: center;
+    background-color: #009fdb;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold; }
+    .dt-buttons a:hover {
+      text-decoration: none; }
+
 #dialog-form-builder {
   width: 1000px;
   background: #dedede; }
@@ -2254,6 +2270,17 @@ table.dataTable td {
   margin-top: 10px;
   margin-left: 10px; }
   #rcap-navbar-header span {
+    display: none; }
+
+#state-modified {
+  color: white;
+  display: inline-block;
+  position: relative; }
+  #state-modified i {
+    font-size: 110%;
+    position: absolute;
+    top: -17px;
+    left: -10px;
     display: none; }
 
 #rcap-toplevelbuttons {
@@ -2750,42 +2777,46 @@ table.dataTable td {
     text-shadow: -2px -2px 0 #fff, -2px -1px 0 #fff, -2px 0px 0 #fff, -2px 1px 0 #fff, -2px 2px 0 #fff, -1px -2px 0 #fff, -1px -1px 0 #fff, -1px 0px 0 #fff, -1px 1px 0 #fff, -1px 2px 0 #fff, 0px -2px 0 #fff, 0px -1px 0 #fff, 0px 0px 0 #fff, 0px 1px 0 #fff, 0px 2px 0 #fff, 1px -2px 0 #fff, 1px -1px 0 #fff, 1px 0px 0 #fff, 1px 1px 0 #fff, 1px 2px 0 #fff, 2px -2px 0 #fff, 2px -1px 0 #fff, 2px 0px 0 #fff, 2px 1px 0 #fff, 2px 2px 0 #fff !important; }
 
 /* form controls */
-#rcap-viewer .form-control, #rcap-designer .form-control {
-  background: white;
-  width: 100%;
-  height: 34px;
-  border: 1px solid #ddd; }
-#rcap-viewer textarea, #rcap-designer textarea {
-  display: block;
-  width: 100%; }
-#rcap-viewer form .form-group:not(:first-child), #rcap-designer form .form-group:not(:first-child) {
-  margin-top: 10px; }
-#rcap-viewer .form-group h3, #rcap-designer .form-group h3 {
-  font-weight: bold;
-  font-size: 95%; }
-#rcap-viewer .form-group label, #rcap-designer .form-group label {
-  display: block; }
-#rcap-viewer .form-group .description, #rcap-designer .form-group .description {
-  color: #555;
-  font-style: italic;
-  padding-left: 3px;
-  margin-top: 5px;
-  max-width: 460px; }
-#rcap-viewer .form-group textarea.code, #rcap-designer .form-group textarea.code {
-  font-family: Monaco, 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, monospace;
-  height: 250px;
-  font-size: 13px; }
-#rcap-viewer .checkbox-group:after, #rcap-viewer .radiobutton-group:after, #rcap-designer .checkbox-group:after, #rcap-designer .radiobutton-group:after {
-  content: "";
-  display: table;
-  clear: both; }
-#rcap-viewer .form-option, #rcap-designer .form-option {
-  float: left;
-  min-width: 150px; }
-  #rcap-viewer .form-option label, #rcap-designer .form-option label {
-    display: inline-block; }
-  #rcap-viewer .form-option input, #rcap-designer .form-option input {
-    padding-top: 3px; }
+#rcap-viewer, #rcap-designer {
+  /*
+  & .form-group h3 {
+      font-weight: bold;
+      font-size: 95%;
+  }
+  */ }
+  #rcap-viewer .form-control, #rcap-designer .form-control {
+    background: white;
+    width: 100%;
+    height: 34px;
+    border: 1px solid #ddd; }
+  #rcap-viewer textarea, #rcap-designer textarea {
+    display: block;
+    width: 100%; }
+  #rcap-viewer form .form-group:not(:first-child), #rcap-designer form .form-group:not(:first-child) {
+    margin-top: 10px; }
+  #rcap-viewer .form-group label, #rcap-designer .form-group label {
+    display: block; }
+  #rcap-viewer .form-group .description, #rcap-designer .form-group .description {
+    color: #555;
+    font-style: italic;
+    padding-left: 3px;
+    margin-top: 5px;
+    max-width: 460px; }
+  #rcap-viewer .form-group textarea.code, #rcap-designer .form-group textarea.code {
+    font-family: Monaco, 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, monospace;
+    height: 250px;
+    font-size: 13px; }
+  #rcap-viewer .checkbox-group:after, #rcap-viewer .radiobutton-group:after, #rcap-designer .checkbox-group:after, #rcap-designer .radiobutton-group:after {
+    content: "";
+    display: table;
+    clear: both; }
+  #rcap-viewer .form-option, #rcap-designer .form-option {
+    float: left;
+    min-width: 150px; }
+    #rcap-viewer .form-option label, #rcap-designer .form-option label {
+      display: inline-block; }
+    #rcap-viewer .form-option input, #rcap-designer .form-option input {
+      padding-top: 3px; }
 
 .parsley-errors-list {
   display: none; }

@@ -448,3 +448,23 @@ table.dataTable td {
     margin-top: 0.5em;
   }
 }
+
+
+.dt-buttons {
+  padding: 8px;
+  float: left;
+
+  & a {
+    background-color: blue;
+    text-align: center;
+    background-color: #009fdb;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

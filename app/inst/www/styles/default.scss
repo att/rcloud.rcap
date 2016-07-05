@@ -83,6 +83,20 @@
     }
 }
 
+#state-modified {
+    color: white;
+    display: inline-block;
+    position: relative;
+
+    i {
+        font-size: 110%;
+        position: absolute;
+        top: -17px;
+        left: -10px;
+        display: none;
+    }
+}
+
 #rcap-toplevelbuttons {
     position: absolute;
     top: 1px;
@@ -715,10 +729,12 @@
     & form .form-group:not(:first-child) {
         margin-top: 10px;
     }
+    /*
     & .form-group h3 {
         font-weight: bold;
         font-size: 95%;
     }
+    */
     & .form-group label {
         display: block;
     }

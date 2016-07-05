@@ -8,18 +8,13 @@ define(['rcap/js/Class'], function() {
 			options = options || {};
 
 			this.uid = options.uid;
-
 			this.type = options.type;
 			this.label = options.label;
 			this.helpText = options.helpText;
 			this.defaultValue = options.defaultValue;
-
 			this.value = options.value;
-
 			this.isRequired = options.isRequired || false;
-
 			this.className = options.className || '';
-
 			this.id = 'ctrl' + this.type + Math.random().toString(16).slice(2);
 
 		},

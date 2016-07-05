@@ -5,6 +5,7 @@ define([
     'rcap/js/ui/infoBarManager',
     'rcap/js/ui/dialogManager',
     'rcap/js/ui/messageManager',
+    'rcap/js/ui/dirtyStateIndicator',
     'rcap/js/ui/gridManager',
     'rcap/js/ui/themeManager',
     'rcap/js/assetManager',
@@ -13,7 +14,7 @@ define([
     'site/pubSubTable',
     'text!rcap/partials/designer.htm',
     'css!rcap/styles/default.css'
-], function(rcloud, Serializer, MenuManager, InfoBarManager, DialogManager, MessageManager, GridManager, ThemeManager, AssetManager, SiteManager, PubSub, pubSubTable, mainPartial) {
+], function(rcloud, Serializer, MenuManager, InfoBarManager, DialogManager, MessageManager, DirtyStateIndicator, GridManager, ThemeManager, AssetManager, SiteManager, PubSub, pubSubTable, mainPartial) {
 
     'use strict';
 
@@ -40,7 +41,13 @@ define([
         $('body').append(mainPartial);
 
         // close (link)
-        $('#rcap-close').click(closeDesigner);
+        $('#rcap-close').click(function() {
+            PubSub.publish(pubSubTable.closeDesigner);
+        });
+
+        PubSub.subscribe(pubSubTable.closeDesignerConfirm, function() {
+            closeDesigner();
+        });
 
         $('#rcap-save').click(function() {
             PubSub.publish(pubSubTable.save);
@@ -65,6 +72,9 @@ define([
 
         // initialise the message manager:
         new MessageManager().initialise();
+
+        // initialise the dirty state indicator:
+        new DirtyStateIndicator().initialise();
 
         // grid manager:
         new GridManager().initialise();

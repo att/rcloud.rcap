@@ -215,8 +215,13 @@ module.exports = function(grunt) {
     require('time-grunt')(grunt);
 
     // dev
+<<<<<<< HEAD
+    grunt.registerTask('default', ['newer:jshint', 'clean:dev', 'copy:dev', 'sass', 'shell:buildpackage', 'shell:installpackage', 'clean:outputtemp']);
+    grunt.registerTask('buildpackage', ['newer:jshint', 'clean:dev', 'copy:dev', 'sass', 'shell:buildpackage']);
+=======
     grunt.registerTask('default', ['newer:jshint', 'clean:dev', 'sass', 'copy:dev', 'shell:buildpackage', 'shell:installpackage', 'clean:outputtemp']);
     grunt.registerTask('buildpackage', ['newer:jshint', 'clean:dev', 'sass', 'copy:dev', 'shell:buildpackage']);
+>>>>>>> 6a53ea73dbd4d6e90b695f74ac4f15083c1d5f20
 
     // dist
     grunt.registerTask('dist', ['newer:jshint', 'clean:dist', 'copy:dist', 'shell:dist']);

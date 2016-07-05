@@ -29,11 +29,14 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
                             text: 'Large',
                             value: 'h2'
                         }, {
-                            text: 'Small',
+                            text: 'Medium',
                             value: 'h3'
                         }, {
-                            text: 'Smallest',
+                            text: 'Small',
                             value: 'h4'
+                        }, {
+                            text: 'Smallest',
+                            value: 'h5'
                         }],
                         value: 'h1', // default to the largest 'h1'
                         isHorizontal: false

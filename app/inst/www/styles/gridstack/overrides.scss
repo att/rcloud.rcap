@@ -49,8 +49,9 @@
 .grid-stack > .grid-stack-item > .ui-resizable-se,
 .grid-stack > .grid-stack-item > .ui-resizable-sw,
 .grid-stack > .grid-stack-item > .ui-remove {
-    background: none!important;
     font-size: 16px;
+    color: #555;
+    background: rgba(255, 255, 255, 0.5);
 }
 
 .grid-stack {

@@ -4,7 +4,8 @@ define(['rcap/js/ui/controls/gridControl',
     'rcap/js/ui/controls/properties/dropdownControlProperty',
     'utils/dataTranslators/dataTableTranslator',
     'text!controlTemplates/dataTable.tpl',
-    'datatables/jquery.dataTables.min'
+    'datatables/jquery.dataTables.min',
+    'datatablesbuttons/buttons.html5.min'
 ], function(GridControl, TextControlProperty, AutocompleteControlProperty, DropdownControlProperty, DataTableTranslator, tpl) {
 
     'use strict';
@@ -21,23 +22,23 @@ define(['rcap/js/ui/controls/gridControl',
                     new AutocompleteControlProperty({
                         uid: 'code',
                         label: 'Code',
-                        defaultValue: '',
-                        helpText: 'The R Function that assigns the data',
-                        isRequired: false
+                        value: '',
+                        helpText: 'The R Function that assigns the data for this control',
+                        isRequired: false,
+                        isHorizontal: true
                     }),
                     new TextControlProperty({
                         uid: 'sortColumnIndex',
                         label : 'Initial Sort Column',
-                        defaultValue : '1',
+                        value : '1',
                         helpText : 'Which column should the data be sorted on.',
                         isRequired: true,
-                        isHorizontal: false
+                        isHorizontal: true
                     }),
                     new DropdownControlProperty({
                         uid: 'sortColumnOrder',
                         label: 'Initial Sort Order',
                         isRequired: true,
-                        defaultValue: 'asc',
                         availableOptions: [{
                             text: 'Ascending',
                             value: 'asc'
@@ -47,13 +48,12 @@ define(['rcap/js/ui/controls/gridControl',
                         }],
                         helpText: 'What order should the data be sorted',
                         value: 'asc',
-                        isHorizontal: false
+                        isHorizontal: true
                     }),
                     new DropdownControlProperty({
                         uid: 'showPaging',
                         label: 'Show paging', 
                         isRequired: true,
-                        defaultValue: 'false',
                         availableOptions: [{
                             text: 'Yes',
                             value: 'true'
@@ -63,13 +63,12 @@ define(['rcap/js/ui/controls/gridControl',
                         }],
                         helpText: 'Whether paging options should be shown',
                         value: 'false',
-                        isHorizontal: false
+                        isHorizontal: true
                     }),
                     new DropdownControlProperty({
                         uid: 'showSearch',
                         label: 'Show search', 
                         isRequired: true,
-                        defaultValue: 'false',
                         availableOptions: [{
                             text: 'Yes',
                             value: 'true'
@@ -79,13 +78,12 @@ define(['rcap/js/ui/controls/gridControl',
                         }],
                         helpText: 'Whether search box should be shown',
                         value: 'false',
-                        isHorizontal: false
+                        isHorizontal: true
                     }),
                     new DropdownControlProperty({
                         uid: 'showInfo',
                         label: 'Show info', 
                         isRequired: true,
-                        defaultValue: 'false',
                         availableOptions: [{
                             text: 'Yes',
                             value: 'true'
@@ -95,7 +93,22 @@ define(['rcap/js/ui/controls/gridControl',
                         }],
                         helpText: 'Whether information footer should be shown',
                         value: 'false',
-                        isHorizontal: false
+                        isHorizontal: true
+                    }),
+                    new DropdownControlProperty({
+                        uid: 'downloadAsCsv',
+                        label: 'Download as CSV', 
+                        isRequired: true,
+                        availableOptions: [{
+                            text: 'Yes',
+                            value: 'true'
+                        }, {
+                            text: 'No',
+                            value: 'false'
+                        }],
+                        value: 'true',
+                        helpText: 'Allow user to download data as CSV',
+                        isHorizontal: true
                     }),
 
                 ]
@@ -112,7 +125,7 @@ define(['rcap/js/ui/controls/gridControl',
                 designTimeDescription += 'Function: ' + this.controlProperties[0].value;
             }
 
-            return template({
+            var output = template({
                 control: this,
                 isDesignTime: isDesignTime,
                 designTimeDescription : designTimeDescription,
@@ -120,31 +133,35 @@ define(['rcap/js/ui/controls/gridControl',
                 info: this.getControlPropertyValueOrDefault('showInfo') === 'true',
                 searching: this.getControlPropertyValueOrDefault('showSearch') === 'true',
                 sortColumnIndex: this.getControlPropertyValueOrDefault('sortColumnIndex') - 1,
-                sortColumnOrder: this.getControlPropertyValueOrDefault('sortColumnOrder')
+                sortColumnOrder: this.getControlPropertyValueOrDefault('sortColumnOrder'),
+                downloadAsCsv: this.getControlPropertyValueOrDefault('downloadAsCsv') === 'true'
             });
 
+            return output;
         },
         updateData : function(controlId, data) {
 
-            // do some stuff!
             var translator = new DataTableTranslator();
             var translatedData = translator.translate(data);
 
             if($.fn.DataTable.isDataTable('#' + controlId)) {
                 var dt = $('#' + controlId).dataTable().api();
                 dt.destroy();
-
                 $('#' + controlId).empty();
             } 
-                
+
+            var controlData = $('#' + controlId).data();
+              
             $('#' + controlId).DataTable( {
+                dom: 'lfrtiBp',
                 data: translatedData.data,
                 columns: translatedData.columns,
-                paging: this.getControlPropertyValueOrDefault('showPaging') === 'true',
-                info: this.getControlPropertyValueOrDefault('showInfo') === 'true',
-                searching: this.getControlPropertyValueOrDefault('showSearch') === 'true',
+                paging: controlData.paging,
+                info: controlData.info,
+                searching: controlData.searching,
                 // input order will be R-centric (1-offset), where JavaScript is 0-offset:
-                order: [$('#' + controlId).data('sortcolumnindex'), $('#' + controlId).data('sortcolumnorder')]
+                order: [controlData.sortcolumnindex, controlData.sortcolumnorder],
+                buttons: controlData.downloadAsCsv ? ['csv'] : []
             });
         }
     });

@@ -25,7 +25,9 @@
     "spectrum": "~1.7.1",
     "jslider": "*",
     "ionrangeslider": "~2.1.2",
-    "datatables.net": "~1.10.10"
+    "datatables.net": "~1.10.10",
+    "datatables.net-buttons": "~1.2.1",
+    "datatables.net-buttons-dt": "~1.2.1"
   },
   "devDependencies": {
     "jquery.hotkeys": "*",
