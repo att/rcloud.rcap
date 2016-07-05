@@ -2775,42 +2775,46 @@ table.dataTable td {
     text-shadow: -2px -2px 0 #fff, -2px -1px 0 #fff, -2px 0px 0 #fff, -2px 1px 0 #fff, -2px 2px 0 #fff, -1px -2px 0 #fff, -1px -1px 0 #fff, -1px 0px 0 #fff, -1px 1px 0 #fff, -1px 2px 0 #fff, 0px -2px 0 #fff, 0px -1px 0 #fff, 0px 0px 0 #fff, 0px 1px 0 #fff, 0px 2px 0 #fff, 1px -2px 0 #fff, 1px -1px 0 #fff, 1px 0px 0 #fff, 1px 1px 0 #fff, 1px 2px 0 #fff, 2px -2px 0 #fff, 2px -1px 0 #fff, 2px 0px 0 #fff, 2px 1px 0 #fff, 2px 2px 0 #fff !important; }
 
 /* form controls */
-#rcap-viewer .form-control, #rcap-designer .form-control {
-  background: white;
-  width: 100%;
-  height: 34px;
-  border: 1px solid #ddd; }
-#rcap-viewer textarea, #rcap-designer textarea {
-  display: block;
-  width: 100%; }
-#rcap-viewer form .form-group:not(:first-child), #rcap-designer form .form-group:not(:first-child) {
-  margin-top: 10px; }
-#rcap-viewer .form-group h3, #rcap-designer .form-group h3 {
-  font-weight: bold;
-  font-size: 95%; }
-#rcap-viewer .form-group label, #rcap-designer .form-group label {
-  display: block; }
-#rcap-viewer .form-group .description, #rcap-designer .form-group .description {
-  color: #555;
-  font-style: italic;
-  padding-left: 3px;
-  margin-top: 5px;
-  max-width: 460px; }
-#rcap-viewer .form-group textarea.code, #rcap-designer .form-group textarea.code {
-  font-family: Monaco, 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, monospace;
-  height: 250px;
-  font-size: 13px; }
-#rcap-viewer .checkbox-group:after, #rcap-viewer .radiobutton-group:after, #rcap-designer .checkbox-group:after, #rcap-designer .radiobutton-group:after {
-  content: "";
-  display: table;
-  clear: both; }
-#rcap-viewer .form-option, #rcap-designer .form-option {
-  float: left;
-  min-width: 150px; }
-  #rcap-viewer .form-option label, #rcap-designer .form-option label {
-    display: inline-block; }
-  #rcap-viewer .form-option input, #rcap-designer .form-option input {
-    padding-top: 3px; }
+#rcap-viewer, #rcap-designer {
+  /*
+  & .form-group h3 {
+      font-weight: bold;
+      font-size: 95%;
+  }
+  */ }
+  #rcap-viewer .form-control, #rcap-designer .form-control {
+    background: white;
+    width: 100%;
+    height: 34px;
+    border: 1px solid #ddd; }
+  #rcap-viewer textarea, #rcap-designer textarea {
+    display: block;
+    width: 100%; }
+  #rcap-viewer form .form-group:not(:first-child), #rcap-designer form .form-group:not(:first-child) {
+    margin-top: 10px; }
+  #rcap-viewer .form-group label, #rcap-designer .form-group label {
+    display: block; }
+  #rcap-viewer .form-group .description, #rcap-designer .form-group .description {
+    color: #555;
+    font-style: italic;
+    padding-left: 3px;
+    margin-top: 5px;
+    max-width: 460px; }
+  #rcap-viewer .form-group textarea.code, #rcap-designer .form-group textarea.code {
+    font-family: Monaco, 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, monospace;
+    height: 250px;
+    font-size: 13px; }
+  #rcap-viewer .checkbox-group:after, #rcap-viewer .radiobutton-group:after, #rcap-designer .checkbox-group:after, #rcap-designer .radiobutton-group:after {
+    content: "";
+    display: table;
+    clear: both; }
+  #rcap-viewer .form-option, #rcap-designer .form-option {
+    float: left;
+    min-width: 150px; }
+    #rcap-viewer .form-option label, #rcap-designer .form-option label {
+      display: inline-block; }
+    #rcap-viewer .form-option input, #rcap-designer .form-option input {
+      padding-top: 3px; }
 
 .parsley-errors-list {
   display: none; }
