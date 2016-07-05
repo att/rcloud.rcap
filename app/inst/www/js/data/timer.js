@@ -11,14 +11,12 @@ define(['rcap/js/Class'], function() {
             options = options || {};
 
             this.id = 'rcap' + Math.random().toString(16).slice(2);
-            this.variable = '';
             this.code = '';
             this.interval = 60;
         },
         toJSON: function() {
             return {
                 'id' : this.id,
-                'variable': this.variable,
                 'code': this.code,
                 'interval': this.interval,
                 'type': 'timer'

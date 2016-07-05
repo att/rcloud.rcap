@@ -486,7 +486,6 @@ define([
                 $('#timer-form').data('timerid', timer.id);
 
                 $('#inputTimerFunction').val(timer.code);
-                $('#inputTimerVariable').val(timer.variable);
                 $('#inputTimerInterval').val(timer.interval);
 
                 $('#inputTimerFunction').autocomplete({
