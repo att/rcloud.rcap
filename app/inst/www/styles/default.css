@@ -145,6 +145,8 @@ $attDarkBlueHighlight:          #020bb3;
   text-align: center;
   right: calc(50% - 184px) !important;
   top: calc(50% - 180px) !important; }
+  #dialog-confirm body {
+    height: 131px; }
   #dialog-confirm h1 {
     font-size: 15px;
     margin-top: 12px;

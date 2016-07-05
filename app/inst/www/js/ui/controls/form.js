@@ -148,7 +148,7 @@ define(['rcap/js/ui/controls/gridControl',
 
                 ///////////////////////////////////////////////////////
                 var dataToSubmit = JSON.stringify(data);
-                console.log('Submitting data: ', dataToSubmit);
+                rcapLogger.log('Submitting data: ', dataToSubmit);
                 window.RCAP.updateControls(dataToSubmit);
                 ///////////////////////////////////////////////////////
             };
