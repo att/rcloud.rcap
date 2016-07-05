@@ -304,7 +304,6 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'rcap/js/utils/pageWalker
         //
         //
         createTimer: function(options) {
-
             options = options || {};
             var newTimer = new Timer(options);
             return newTimer;

@@ -40,6 +40,7 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
                         controlLoop,
                         propertyLoop,
                         currentDataSource,
+                        currentTimer,
                         stylePropertyLoop,
                         property,
                         currProp,
@@ -196,6 +197,21 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
                             }
 
                             site.dataSources.push(currentDataSource);
+                        });
+                    }
+
+                    if (data.timers) {
+                        // load the timers:
+                        _.each(data.timers, function(jsonTimer) {
+                            currentTimer = site.createTimer();
+
+                            for (property in jsonTimer) {
+                                if (currentTimer.hasOwnProperty(property)) {
+                                    currentTimer[property] = jsonTimer[property];
+                                }
+                            }
+
+                            site.timers.push(currentTimer);
                         });
                     }
 
