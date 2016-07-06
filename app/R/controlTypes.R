@@ -275,12 +275,25 @@ HtmlWidgetControl <- R6Class("HtmlWidgetControl",
         }
 
         div <- paste0("#", private$id)
-        rcw.set(div, as.character(widget))
+        rcw.set(div, as.character(widget, ocaps = FALSE))
+        rcap.resizeHtmlwidget(private$id, private$width, private$height);
 
       } else {
         stop("Don't know how to create htmlwidget")
       }
+    },
+
+    updateSize = function(new_size) {
+      # TODO: Some basic checking
+      private$width <- new_size["width"]
+      private$height <- new_size["height"]
     }
+
+  ),
+
+  private = list(
+    width = NULL,
+    height = NULL
   )
 )
 

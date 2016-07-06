@@ -183,7 +183,16 @@
         consoleMsg: function(content, k) {
             console.log(content);
             k();
-        }
+        },
+
+	resizeHtmlwidget: function(controlId, width, height, k) {
+	    var control = $('#' + controlId);
+	    control.find('iframe').width(width);
+            control.find('iframe').attr('width', width);
+            control.find('iframe').height(height);
+            control.find('iframe').attr('height', height);
+	    k();
+	}
     };
 
 
