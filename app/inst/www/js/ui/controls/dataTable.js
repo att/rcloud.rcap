@@ -2,10 +2,11 @@ define(['rcap/js/ui/controls/gridControl',
     'rcap/js/ui/controls/properties/textControlProperty',
     'rcap/js/ui/controls/properties/autocompleteControlProperty',
     'rcap/js/ui/controls/properties/dropdownControlProperty',
+    'utils/dataTranslators/dataTableTranslator',
     'text!controlTemplates/dataTable.tpl',
     'datatables/jquery.dataTables.min',
     'datatablesbuttons/buttons.html5.min'
-], function(GridControl, TextControlProperty, AutocompleteControlProperty, DropdownControlProperty, tpl) {
+], function(GridControl, TextControlProperty, AutocompleteControlProperty, DropdownControlProperty, DataTableTranslator, tpl) {
 
     'use strict';
 
@@ -139,7 +140,11 @@ define(['rcap/js/ui/controls/gridControl',
             return output;
         },
         updateData : function(controlId, result) {
-            var columnNames = Object.keys(result[0]);
+            result = JSON.parse(result);
+            
+            var translator = new DataTableTranslator();
+            var translatedData = translator.translate(result.data);
+
 
             if($.fn.DataTable.isDataTable('#' + controlId)) {
                 var dt = $('#' + controlId).dataTable().api();
@@ -151,8 +156,8 @@ define(['rcap/js/ui/controls/gridControl',
             
             var dtProperties = {
                 dom: 'lfrtiBp', 
-                data: result.data,
-                columns: columnNames
+                data:  translatedData.data,
+                columns: translatedData.columns
             };
 
             // pass in dynamic options from R

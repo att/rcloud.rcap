@@ -8,7 +8,7 @@ define([
 
         this.translate = function(sourceData) {
 
-            var dataObject = JSON.parse(sourceData);
+            var dataObject = sourceData;
 
             // loop through the object's keys (they're the columns):
             var columnNames = Object.keys(dataObject);
