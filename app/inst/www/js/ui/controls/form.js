@@ -132,7 +132,7 @@ define(['rcap/js/ui/controls/gridControl',
 
                 var plotSizes = [];
 
-                $('.rplot').each(function() {
+                $('.rplot, .r-interactiveplot, .rhtmlwidget').each(function() {
                     var container = $(this).closest('.grid-stack-item-content');
                     plotSizes.push({
                         id : $(this).attr('id'),

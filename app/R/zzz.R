@@ -47,3 +47,4 @@ rcap.updateControl <- function(...) rcloud.rcap.caps$updateControl(...)
 rcap.updateControlAttribute <- function(controlId, attributeName, attributeValue) {
   rcloud.rcap.caps$updateControlAttribute(controlId, attributeName, attributeValue)
 }
+rcap.resizeHtmlwidget <- function(...) rcloud.rcap.caps$resizeHtmlwidget(...)

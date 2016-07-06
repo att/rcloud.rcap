@@ -11,6 +11,7 @@ define([
     'controls/form',
     'controls/dataTable',
     'controls/leaflet',
+    'controls/htmlWidget',
     //////////////////////
     'controls/child/textField',
     'controls/child/datePicker',
@@ -35,6 +36,7 @@ define([
     FormControl, 
     DataTableControl,
     LeafletControl,
+    HtmlWidgetControl,
     ///////////////////////
     TextFieldControl,
     DatePickerControl,
@@ -55,6 +57,7 @@ define([
             new RPrintControl(),
             new InteractivePlotControl(),
             new LeafletControl(),
+            new HtmlWidgetControl(),
             new RTextControl(),
             new DataTableControl(),
             new FormControl(),
@@ -132,6 +135,9 @@ define([
                 break;
             case 'leaflet':
                 control = new LeafletControl();
+                break;
+            case 'htmlwidget': 
+                control = new HtmlWidgetControl();
                 break;
             case 'text':
                 control = new TextControl();
