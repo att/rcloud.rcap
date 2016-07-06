@@ -204,8 +204,17 @@ DataTableControl <- R6Class("DataTableControl",
     update = function(new_value = NULL) {
       func <- private$controlFunction
       if (!is.null(func)) {
-        result <- do.call(func, list(), envir = rcloudEnv())
-        result <- as.data.frame(result)
+        funcRes <- do.call(func, list(), envir = rcloudEnv())
+
+        if (is.data.frame(funcRes)){
+          # for compatibility with old notebooks
+          result <- list(data = funcRes)
+        } else {
+          # otherwise it must be a list
+          result <- as.list(funcRes)
+          stopifnot(all(c("data", "options") %in% names(result)))
+        }
+
         # Convert the data.frame to JSON before returning
         # This gives us better control over what the client receives
         result <- jsonlite::toJSON(result)
