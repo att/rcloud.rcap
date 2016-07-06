@@ -208,7 +208,7 @@ DataTableControl <- R6Class("DataTableControl",
         result <- as.data.frame(result)
         # Convert the data.frame to JSON before returning
         # This gives us better control over what the client receives
-        result <- jsonlite::toJSON(result, dataframe="column")
+        result <- jsonlite::toJSON(result)
         rcap.updateControl(private$id, result)
       }
     }
