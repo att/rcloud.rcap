@@ -11,6 +11,8 @@ define(['rcap/js/ui/controls/gridControl',
 
         var renderControl = function(control, publishEvent) {
 
+            console.log('rendering control: ', control, ', and publishing: ', publishEvent);
+
             if (control.currentPageID) {
                 var items = new PageWalker(control.pages).getAncestorsAndSelf(control.currentPageID);
 
@@ -22,6 +24,9 @@ define(['rcap/js/ui/controls/gridControl',
                     // doesn't mean that dirty state should be set to true:
                     control.isDirty = false;
                     PubSub.publish(pubSubTable.updateControl, control);
+
+                    console.log('some style property or another: ', control.controlProperties[2].value);
+
                 } else {
                     var templateStr = '<div <% if(controlProperties[2].value) { %>style="color:<%=controlProperties[2].value%>"<%}%> class="rcap-breadcrumb"><% if(controlProperties[0].value) { %><span class="prefix"><%=controlProperties[0].value%></span><% } %><% _.each(items, function(i){ %><% if(i.id === items[items.length - 1].id) { %><span <% if(controlProperties[3].value) { %>style="color:<%=controlProperties[3].value%>"<%}%>><%= i.navigationTitle %></span><% } else { %><a <% if(controlProperties[1].value) { %>style="color:<%=controlProperties[1].value%>"<%}%> href="javascript:void(0)" data-pageid="<%=i.id%>" data-href="<%=i.navigationTitle%>"><%=i.navigationTitle%></a><span <% if(controlProperties[2].value) { %>style="color:<%=controlProperties[2].value%>"<%}%> class="separator">></span><% } %><% }); %></div>';
                     var template = _.template(templateStr);
@@ -187,7 +192,8 @@ define(['rcap/js/ui/controls/gridControl',
                     if (me.isOnGrid && me.id === initInfo.controlID) {
                         // this should only be published if it is on a grid, but be cautious nonetheless:
                         me.pages = initInfo.site.pages;
-                        me.currentPageID = me.pages.length > 0 ? me.pages[0].id : '';
+                        //me.currentPageID = me.pages.length > 0 ? me.pages[0].id : '';
+                        me.currentPageID = initInfo.site.currentPageID;
 
                         // and render:
                         renderControl(me, true);
