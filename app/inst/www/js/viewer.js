@@ -82,7 +82,7 @@ define(['text!rcap/partials/viewer.htm',
                             });
                     });
                     
-                    $('.rplot, .r-interactiveplot').each(function() {
+                    $('.rplot, .r-interactiveplot, .rhtmlwidget').each(function() {
                         
                         var container = $(this).closest('.grid-stack-item-content');
                         var plotSizeData = getPlotSizeData($(this));
