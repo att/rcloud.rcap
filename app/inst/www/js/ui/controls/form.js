@@ -132,7 +132,7 @@ define(['rcap/js/ui/controls/gridControl',
 
                 var plotSizes = [];
 
-                $('.rplot').each(function() {
+                $('.rplot, .r-interactiveplot, .rhtmlwidget').each(function() {
                     var container = $(this).closest('.grid-stack-item-content');
                     plotSizes.push({
                         id : $(this).attr('id'),
@@ -148,7 +148,7 @@ define(['rcap/js/ui/controls/gridControl',
 
                 ///////////////////////////////////////////////////////
                 var dataToSubmit = JSON.stringify(data);
-                console.log('Submitting data: ', dataToSubmit);
+                rcapLogger.log('Submitting data: ', dataToSubmit);
                 window.RCAP.updateControls(dataToSubmit);
                 ///////////////////////////////////////////////////////
             };

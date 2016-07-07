@@ -145,6 +145,8 @@ $attDarkBlueHighlight:          #020bb3;
   text-align: center;
   right: calc(50% - 184px) !important;
   top: calc(50% - 180px) !important; }
+  #dialog-confirm body {
+    height: 131px; }
   #dialog-confirm h1 {
     font-size: 15px;
     margin-top: 12px;
@@ -193,7 +195,9 @@ $attDarkBlueHighlight:          #020bb3;
   display: flex; }
 
 .rcap-controltype-rplot pre,
+.rcap-controltype-rprint pre,
 .rcap-controltype-interactiveplot pre,
+.rcap-controltype-htmlwidget pre,
 .rcap-controltype-rtext pre,
 .rcap-controltype-datatable pre,
 .rcap-controltype-rtext pre,
@@ -209,7 +213,9 @@ $attDarkBlueHighlight:          #020bb3;
   left: 12px;
   top: 12px; }
   .rcap-controltype-rplot pre::before,
+  .rcap-controltype-rprint pre::before,
   .rcap-controltype-interactiveplot pre::before,
+  .rcap-controltype-htmlwidget pre::before,
   .rcap-controltype-rtext pre::before,
   .rcap-controltype-datatable pre::before,
   .rcap-controltype-rtext pre::before,

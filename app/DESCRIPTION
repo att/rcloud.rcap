@@ -1,6 +1,6 @@
 Package: rcloud.rcap
 Title: RCAP
-Version: 0.0.1
+Version: 0.3.2
 Authors@R: c(person("Douglas", "Ashton", email = "dashton@mango-solutions.com", role = c("aut", "cre")),
              person("Shane", "Porter", email = "sporter@mango-solutions.com", role = c("aut")),
              person("Gábor", "Csárdi", email = "gcsardi@mango-solutions.com", role = c("aut")))
