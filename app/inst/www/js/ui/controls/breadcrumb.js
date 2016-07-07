@@ -28,7 +28,7 @@ define(['rcap/js/ui/controls/gridControl',
                     });
                 }
             } else {
-                return '<div class="rcap-breadcrumb"><a href="#">Page 1</a> > Page 2</div>';
+                return '<div class="rcap-breadcrumb"><!-- content replaced dynamically --></div>';
             }
         };
 
