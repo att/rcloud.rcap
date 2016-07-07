@@ -41,7 +41,7 @@ define([
             });
 
             // push the updated event:
-            PubSub.publish(pubSubTable.updateControlFromDialog, originatingControl);
+            PubSub.publish(pubSubTable.updateControl, originatingControl);
 
             $('#dialog-controlSettings').jqmHide();
 
