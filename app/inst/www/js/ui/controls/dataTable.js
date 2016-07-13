@@ -141,10 +141,6 @@ define(['rcap/js/ui/controls/gridControl',
         },
         updateData : function(controlId, result) {
             result = JSON.parse(result);
-            
-            var translator = new DataTableTranslator();
-            var translatedData = translator.translate(result.data);
-
 
             if($.fn.DataTable.isDataTable('#' + controlId)) {
                 var dt = $('#' + controlId).dataTable().api();
@@ -156,8 +152,8 @@ define(['rcap/js/ui/controls/gridControl',
             
             var dtProperties = {
                 dom: 'lfrtiBp', 
-                data:  translatedData.data,
-                columns: translatedData.columns
+                data:  result.data,
+                columns: result.columns.map(function(x){ return {data: x, title: x }; })
             };
 
             // pass in dynamic options from R
@@ -167,7 +163,6 @@ define(['rcap/js/ui/controls/gridControl',
             // pass in options from form
             $.extend(true, dtProperties, 
                 {
-                    paging: controlData.paging,
                     info: controlData.info,
                     searching: controlData.searching,
                     // input order will be R-centric (1-offset), where JavaScript is 0-offset:
