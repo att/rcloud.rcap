@@ -54,7 +54,7 @@ DataTableControl <- R6Class("DataTableControl",
 
       # columnDefs
       # this will be passed through as an array of one element arrays
-      # these need to be concatenated on the other side
+      # this needs to be flattened on the other side
       resOptions$datatable$columnDefs <- 
         list( 
           data.frame(width = options$columnWidths, 
@@ -67,7 +67,7 @@ DataTableControl <- R6Class("DataTableControl",
 
       # set font sizes
       resOptions$css$thSize <- options$thSize
-      resOptions$css$tbSize <- options$tbSize
+      resOptions$css$tdSize <- options$tdSize
 
 
 
