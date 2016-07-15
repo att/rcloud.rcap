@@ -12,13 +12,14 @@ DataTableControl <- R6Class("DataTableControl",
         } else {
           # otherwise it must be a list
           result <- as.list(funcRes)
-          stopifnot(all(c("data", "options") %in% names(result)))
-          result <- self$convertOptions(result)
+          stopifnot("data" %in% names(result))
         }
         
         result$columns <- names(result$data) # add in column names as meta data
         rownames(result$data) <- NULL
 
+        result$options <- self$convertOptions(result$options)
+        
         # Convert the data.frame to JSON before returning
         # This gives us better control over what the client receives
         result <- jsonlite::toJSON(result, 
@@ -58,9 +59,9 @@ DataTableControl <- R6Class("DataTableControl",
       resOptions$datatable$columnDefs <- 
         list( 
           data.frame(width = options$columnWidths, 
-            targets = seq_along(options$columnWidths)-1), # set column widths
+            targets = list(seq_along(options$columnWidths)-1)), # set column widths
           data.frame(className = "dt-body-right", 
-            targets = match(options$rightAlign, colNames)-1) # set alignment
+            targets = list(match(options$rightAlign, colNames)-1)) # set alignment
         )
       
       resOptions$datatable$columns
@@ -68,8 +69,6 @@ DataTableControl <- R6Class("DataTableControl",
       # set font sizes
       resOptions$css$thSize <- options$thSize
       resOptions$css$tdSize <- options$tdSize
-
-
 
       resOptions
     }
