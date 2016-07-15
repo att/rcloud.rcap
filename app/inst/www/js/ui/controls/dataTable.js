@@ -109,8 +109,7 @@ define(['rcap/js/ui/controls/gridControl',
                         value: 'true',
                         helpText: 'Allow user to download data as CSV',
                         isHorizontal: true
-                    }),
-
+                    })
                 ]
             });
         },

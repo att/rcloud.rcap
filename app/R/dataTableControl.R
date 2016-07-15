@@ -18,7 +18,7 @@ DataTableControl <- R6Class("DataTableControl",
         result$columns <- names(result$data) # add in column names as meta data
         rownames(result$data) <- NULL
 
-        result$options <- self$convertOptions(result$options)
+        result$options <- self$convertOptions(result$columns, result$options)
         
         # Convert the data.frame to JSON before returning
         # This gives us better control over what the client receives
