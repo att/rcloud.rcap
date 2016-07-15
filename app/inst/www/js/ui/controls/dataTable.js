@@ -157,8 +157,14 @@ define(['rcap/js/ui/controls/gridControl',
             };
 
             // pass in dynamic options from R
+            // but first, need to tidy up
+            result.options.datatables.columnDefs = _.flatten(result.options.datatables.columnDefs);
             $.extend(true, dtProperties, 
-                result.options);            
+                result.options.datatables);
+
+            // sparklines stuff
+            $.extend(true, dtProperties,
+                result.options.sparklines);         
             
             // pass in options from form
             $.extend(true, dtProperties, 
