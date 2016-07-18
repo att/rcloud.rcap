@@ -18,8 +18,9 @@ DataTableControl <- R6Class("DataTableControl",
         result$columns <- names(result$data) # add in column names as meta data
         rownames(result$data) <- NULL
 
-        result$options <- private$convertOptions(result)
-        
+        result$options <- private$convertOptions(result)$options
+        result$data  <- private$convertOptions(result)$data
+
         # Convert the data.frame to JSON before returning
         # This gives us better control over what the client receives
         result <- jsonlite::toJSON(result, 
@@ -55,6 +56,13 @@ DataTableControl <- R6Class("DataTableControl",
       usedColumns <- union(resOptions$columnDefs$box, resOptions$columnDefs$line)
       resOptions$sparklines$histogram <- setdiff(possSparkColumns, usedColumns)
 
+      result$data[resOptions$sparklines$histogram + 1] <-
+        lapply(X = result$data[resOptions$sparklines$histogram + 1],
+          FUN = function(listvec) {
+            lapply(X = listvec, 
+              FUN = function(vec) hist(vec, plot = FALSE)$counts)
+          })
+
       # columnDefs
       resOptions$datatables$columnDefs <- 
         list( 
@@ -68,7 +76,7 @@ DataTableControl <- R6Class("DataTableControl",
       resOptions$css$thSize <- options$thSize
       resOptions$css$tdSize <- options$tdSize
 
-      resOptions
+      list(data = result$data, options = resOptions)
     }
   )
 )
