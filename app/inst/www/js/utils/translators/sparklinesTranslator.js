@@ -3,7 +3,7 @@ define([
 ], function() {
 
     'use strict';
-    // This class only contains one method, and now state
+    // This class only contains one method, and no state
     // It translates between the options returned by R
     // and works with the jquery sparkline api
     var SparklinesTranslator = function() {
@@ -68,6 +68,6 @@ define([
         };
     };
 
-  return DataTableTranslator;
+  return SparklinesTableTranslator;
 
 });
