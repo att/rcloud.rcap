@@ -2,11 +2,12 @@ define(['rcap/js/ui/controls/gridControl',
     'rcap/js/ui/controls/properties/textControlProperty',
     'rcap/js/ui/controls/properties/autocompleteControlProperty',
     'rcap/js/ui/controls/properties/dropdownControlProperty',
-    'utils/dataTranslators/dataTableTranslator',
+    'utils/translators/sparklinesTranslator',
     'text!controlTemplates/dataTable.tpl',
     'datatables/jquery.dataTables.min',
-    'datatablesbuttons/buttons.html5.min'
-], function(GridControl, TextControlProperty, AutocompleteControlProperty, DropdownControlProperty, DataTableTranslator, tpl) {
+    'datatablesbuttons/buttons.html5.min',
+    'jquery.sparkline/jquery.sparkline.min'
+], function(GridControl, TextControlProperty, AutocompleteControlProperty, DropdownControlProperty, SparklinesTranslator, tpl) {
 
     'use strict';
 
@@ -139,6 +140,7 @@ define(['rcap/js/ui/controls/gridControl',
             return output;
         },
         updateData : function(controlId, result) {
+
             result = JSON.parse(result);
 
             if($.fn.DataTable.isDataTable('#' + controlId)) {
@@ -162,8 +164,9 @@ define(['rcap/js/ui/controls/gridControl',
                 result.options.datatables);
 
             // sparklines stuff
+            var translator = new SparklinesTranslator();
             $.extend(true, dtProperties,
-                result.options.sparklines);         
+                translator.translate(result.options.sparklines));         
             
             // pass in options from form
             $.extend(true, dtProperties, 

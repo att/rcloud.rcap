@@ -9,27 +9,27 @@ define([
     var SparklinesTranslator = function() {
         // sparklineOptions is an object with elements named
         // bar, line and box. 
-        // The default is 
+        // The default is box.
         this.translate = function(sparklineOptions) {
-            var barFunc = function (oSettings, json) { 
-                $('.spark:not(:has(canvas))').sparkline('html', { 
+            var barFunc = function () { 
+                $('.sparkbar:not(:has(canvas))').sparkline('html', { 
                     type: 'bar', 
                     barColor: 'orange', 
                     negBarColor: 'purple', 
                     highlightColor: 'black'
                 }); 
-            }
-            var lineFunc = function (oSettings, json) { 
-              $('.spark:not(:has(canvas))').sparkline('html', { 
+            };
+            var lineFunc = function () { 
+              $('.sparkline:not(:has(canvas))').sparkline('html', { 
                 type: 'line', 
                 lineColor: 'black', 
                 fillColor: '#ccc', 
                 highlightLineColor: 'orange', 
                 highlightSpotColor: 'orange'
               }); 
-            }
-            var boxFunc = function (oSettings, json) {
-                $('.spark:not(:has(canvas))').sparkline('html', { 
+            };
+            var boxFunc = function () {
+                $('.sparkbox:not(:has(canvas))').sparkline('html', { 
                     type: 'box', 
                     lineColor: 'black', 
                     whiskerColor: 'black', 
@@ -39,35 +39,38 @@ define([
                     boxFillColor: 'orange', 
                     boxLineColor: 'black'
                 }); 
-            }
-
+            };
 
             return {             
                 columnDefs : [{
-                    render: function(data, type, full){ 
-                        return '<span class=sparkbox>' + data + '</span>' 
+                    render: function(data, type, row, meta){ 
+                        console.log('box');
+                        return '<span class=sparkbox>' + data + '</span>';
                     },
-                    target: sparklineOptions.box
+                    targets: sparklineOptions.box
                 }, {
-                    render: function(data, type, full){ 
-                        return '<span class=sparkline>' + data + '</span>' 
+                    render: function(data, type, row, meta){ 
+                        console.log('line');
+                        return '<span class=sparkline>' + data + '</span>';
                     },
-                    target: sparklineOptions.line                
+                    targets: sparklineOptions.line                
                 },{
-                    render: function(data, type, full){ 
-                        return '<span class=sparkbar>' + data + '</span>' 
+                    render: function(data, type, row, meta){ 
+                        console.log('bar');
+                        return '<span class=sparkbar>' + data + '</span>';
                     },
-                    target: sparklineOptions.bar
+                    targets: sparklineOptions.histogram
                 }],
-                fnDrawCallback: function (oSettings, json) {
-                    barFunc(oSettings, json);
-                    lineFunc(oSettings, json);
-                    boxFunc(oSettings, json);
+                fnDrawCallback: function () {
+                    console.log('callack');
+                    barFunc();
+                    lineFunc();
+                    boxFunc();
                 }
               };
         };
     };
 
-  return SparklinesTableTranslator;
+  return SparklinesTranslator;
 
 });

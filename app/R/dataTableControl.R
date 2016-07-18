@@ -18,7 +18,7 @@ DataTableControl <- R6Class("DataTableControl",
         result$columns <- names(result$data) # add in column names as meta data
         rownames(result$data) <- NULL
 
-        result$options <- self$convertOptions(result$columns, result$options)
+        result$options <- private$convertOptions(result)
         
         # Convert the data.frame to JSON before returning
         # This gives us better control over what the client receives
@@ -30,21 +30,23 @@ DataTableControl <- R6Class("DataTableControl",
     }
   ),
   private = list(
-    convertOptions = function(colNames,options){
+    convertOptions = function(result){
+      colNames <- result$columns
+      options <- result$options
       # this private method converts from an option list 
       # supplied by user from notebook to the form expected
       # by the front end. These are eventually passed to the
       # DataTables api, further manipulated for sparklines,
       # or used to generate extra lines of css
       resOptions <- list(sparklines = list(), 
-        datatable = list(), 
+        datatables = list(), 
         css = list())
 
       # work out which columns contain multiple data points
       # these columns will be sparklines
       # note: need to convert from R to javascipt counting
       # (start a 0 instead)
-      possSparkColumns <- vapply(mtcars, is.list, FUN.VALUE = TRUE)-1
+      possSparkColumns <- which(vapply(result$data, is.list, FUN.VALUE = TRUE))-1
 
       # set column types (histogram, line graph etc.)
       resOptions$sparklines$box <- match(options$sparkOptions$box, colNames)-1
@@ -54,17 +56,13 @@ DataTableControl <- R6Class("DataTableControl",
       resOptions$sparklines$histogram <- setdiff(possSparkColumns, usedColumns)
 
       # columnDefs
-      # this will be passed through as an array of one element arrays
-      # this needs to be flattened on the other side
-      resOptions$datatable$columnDefs <- 
+      resOptions$datatables$columnDefs <- 
         list( 
           data.frame(width = options$columnWidths, 
-            targets = list(seq_along(options$columnWidths)-1)), # set column widths
-          data.frame(className = "dt-body-right", 
-            targets = list(match(options$rightAlign, colNames)-1)) # set alignment
+            targets = seq_along(options$columnWidths)-1), # set column widths
+          list(className = "dt-body-right", 
+            targets = match(options$rightAlign, colNames)-1) # set alignment
         )
-      
-      resOptions$datatable$columns
 
       # set font sizes
       resOptions$css$thSize <- options$thSize
