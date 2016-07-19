@@ -60,9 +60,9 @@ randomId <- function() {
 #' version installed on the disk.
 getRCAPVersion <- function() {
   tryCatch(
-    asNamespace("rcloud.rcap")$`.__NAMESPACE__.`$spec[["version"]],
+    paste0("v", asNamespace("rcloud.rcap")$`.__NAMESPACE__.`$spec[["version"]]),
     error = function(c) {
-      packageDescription("rcloud.rcap", fields = "Version")
+      paste0("v", packageDescription("rcloud.rcap", fields = "Version"))
     } 
   )
 }
