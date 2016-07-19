@@ -59,13 +59,15 @@
                 var po = RCloud.promisify_paths(ocaps, [
                     ['getRFunctions'],
                     ['getDummyFunctions'],
-                    ['getRTime']    // not currently used
+                    ['getRTime'],    // not currently used
+                    ['getRCAPVersion']
                 ], true);
 
                 RCloud.UI.advanced_menu.add({ // jshint ignore:line
                     rcapDesigner: {
                         sort: 10000,
                         text: 'RCAP Designer',
+                        subheader: 'RCAP Version',
                         modes: ['edit'],
                         action: function() {
 
@@ -83,6 +85,9 @@
                             window.RCAP = window.RCAP || {};
                             window.RCAP.updateAllControls = function(dataToSubmit) {
                                 po.updateAllControls(dataToSubmit).then(function(){});
+                            };
+                            window.RCAP.getRCAPVersion = function() {
+                              po.getRCAPVersion().then(function(){});
                             };
 
                             require(['rcap/js/designer'], function(Designer) {
@@ -104,7 +109,8 @@
                 // this code is executed in 'mini' mode:
                 mini = RCloud.promisify_paths(ocaps, [
                         ['updateControls'],    // updateControls (called when a form value changes, or a form is submitted)
-                        ['updateAllControls']  // kicks off R plot rendering
+                        ['updateAllControls'],  // kicks off R plot rendering
+                        ['getRCAPVersion']
                     ], true);
 
                 window.RCAP = window.RCAP || {};
@@ -113,6 +119,9 @@
                 };
                 window.RCAP.updateAllControls = function(dataToSubmit) {
                     mini.updateAllControls(dataToSubmit).then(function() {});
+                };
+                window.RCAP.getRCAPVersion = function() {
+                    mini.getRCAPVersion().then(function() {});
                 };
             }
 
