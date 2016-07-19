@@ -17,6 +17,8 @@ DataTableControl <- R6Class("DataTableControl",
         
         result$columns <- names(result$data) # add in column names as meta data
         rownames(result$data) <- NULL
+        
+        digits <- result$options$decimalPlaces
 
         result$options <- private$convertOptions(result)$options
         result$data  <- private$convertOptions(result)$data
@@ -25,7 +27,8 @@ DataTableControl <- R6Class("DataTableControl",
         # This gives us better control over what the client receives
         result <- jsonlite::toJSON(result, 
           auto_unbox = TRUE, # lists of size 1 should be "unboxed" automatically
-          digits = 2) # number of decimal digits
+          digits = digits %||% 2) # number of decimal digits, defult to 2
+
         rcap.updateControl(private$id, result)
       }
     }
@@ -71,6 +74,9 @@ DataTableControl <- R6Class("DataTableControl",
           list(className = "dt-body-right", 
             targets = match(options$rightAlign, colNames)-1) # set alignment
         )
+
+      resOptions$datatables$language <-
+        list(thousands = options$thousands)
 
       # set font sizes
       resOptions$css$thSize <- options$thSize
