@@ -197,24 +197,6 @@ TextControl <- R6Class("TextControl",
   inherit = Control
 )
 
-DataTableControl <- R6Class("DataTableControl",
-  inherit = Control,
-  public = list(
-
-    update = function(new_value = NULL) {
-      func <- private$controlFunction
-      if (!is.null(func)) {
-        result <- do.call(func, list(), envir = rcloudEnv())
-        result <- as.data.frame(result)
-        # Convert the data.frame to JSON before returning
-        # This gives us better control over what the client receives
-        result <- jsonlite::toJSON(result, dataframe="column")
-        rcap.updateControl(private$id, result)
-      }
-    }
-  )
-)
-
 RTextControl <- R6Class("RTextControl",
   inherit = Control
 )
