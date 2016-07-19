@@ -181,6 +181,11 @@ define(['rcap/js/ui/controls/gridControl',
             );
 
             $('#' + controlId).DataTable(dtProperties);
+            
+            // font sizes
+            $('th').css('font-size', result.options.css.thSize);
+            $('td').css('font-size', result.options.css.tdSize);
+
         }
     });
 
