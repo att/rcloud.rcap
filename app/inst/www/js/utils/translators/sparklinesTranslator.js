@@ -44,25 +44,21 @@ define([
             return {             
                 columnDefs : [{
                     render: function(data, type, row, meta){ 
-                        console.log('box');
                         return '<span class=sparkbox>' + data + '</span>';
                     },
                     targets: sparklineOptions.box
                 }, {
                     render: function(data, type, row, meta){ 
-                        console.log('line');
                         return '<span class=sparkline>' + data + '</span>';
                     },
                     targets: sparklineOptions.line                
                 },{
                     render: function(data, type, row, meta){ 
-                        console.log('bar');
                         return '<span class=sparkbar>' + data + '</span>';
                     },
                     targets: sparklineOptions.histogram
                 }],
                 fnDrawCallback: function () {
-                    console.log('callack');
                     barFunc();
                     lineFunc();
                     boxFunc();
