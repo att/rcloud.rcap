@@ -43,17 +43,17 @@ define([
 
             return {             
                 columnDefs : [{
-                    render: function(data, type, row, meta){ 
+                    render: function(data){ 
                         return '<span class=sparkbox>' + data + '</span>';
                     },
                     targets: sparklineOptions.box
                 }, {
-                    render: function(data, type, row, meta){ 
+                    render: function(data){ 
                         return '<span class=sparkline>' + data + '</span>';
                     },
                     targets: sparklineOptions.line                
                 },{
-                    render: function(data, type, row, meta){ 
+                    render: function(data){ 
                         return '<span class=sparkbar>' + data + '</span>';
                     },
                     targets: sparklineOptions.histogram

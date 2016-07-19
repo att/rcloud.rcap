@@ -60,7 +60,8 @@
                 var po = RCloud.promisify_paths(ocaps, [
                     ['getRFunctions'],
                     ['getDummyFunctions'],
-                    ['getRTime']    // not currently used
+                    ['getRTime'],    // not currently used
+                    ['getRCAPVersion']
                 ], true);
 
                 RCloud.UI.advanced_menu.add({ // jshint ignore:line
@@ -85,6 +86,12 @@
                             window.RCAP.updateAllControls = function(dataToSubmit) {
                                 po.updateAllControls(dataToSubmit).then(function(){});
                             };
+
+                            po.getRCAPVersion().then(function(version) {
+                                window.RCAP.getRCAPVersion = function() {
+                                    return version;
+                                };
+                            });
 
                             require(['rcap/js/designer'], function(Designer) {
                                 new Designer().initialise(extractSessionInfo(sessionInfo));

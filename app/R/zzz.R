@@ -29,7 +29,8 @@ rcloud.rcap.caps <- NULL
       getRFunctions = make_oc(rcloud.rcap.global.functions),
       getRTime = make_oc(function() { Sys.time() }),
       updateControls = make_oc(updateController),
-      updateAllControls = make_oc(updateAllControls)
+      updateAllControls = make_oc(updateAllControls),
+      getRCAPVersion = make_oc(getRCAPVersion)
     )
 
     rcloud.rcap.caps$init(ocaps, rcapSessionInfo())
@@ -48,3 +49,4 @@ rcap.updateControlAttribute <- function(controlId, attributeName, attributeValue
   rcloud.rcap.caps$updateControlAttribute(controlId, attributeName, attributeValue)
 }
 rcap.resizeHtmlwidget <- function(...) rcloud.rcap.caps$resizeHtmlwidget(...)
+rcap.getRCAPVersion <- function() rcloud.rcap.caps$getRCAPVersion()
