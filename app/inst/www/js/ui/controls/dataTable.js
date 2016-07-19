@@ -165,8 +165,9 @@ define(['rcap/js/ui/controls/gridControl',
 
             // sparklines stuff
             var translator = new SparklinesTranslator();
-            $.extend(true, dtProperties,
-                translator.translate(result.options.sparklines));         
+            var additionalColDefs = translator.translate(result.options.sparklines).columnDefs;
+            dtProperties.columnDefs = dtProperties.columnDefs.concat(additionalColDefs);
+                        
             
             // pass in options from form
             $.extend(true, dtProperties, 
