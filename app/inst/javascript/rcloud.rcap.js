@@ -67,7 +67,6 @@
                     rcapDesigner: {
                         sort: 10000,
                         text: 'RCAP Designer',
-                        subheader: 'RCAP Version',
                         modes: ['edit'],
                         action: function() {
 
@@ -86,9 +85,12 @@
                             window.RCAP.updateAllControls = function(dataToSubmit) {
                                 po.updateAllControls(dataToSubmit).then(function(){});
                             };
-                            window.RCAP.getRCAPVersion = function() {
-                              po.getRCAPVersion().then(function(){});
-                            };
+
+                            po.getRCAPVersion().then(function(version) {
+                                window.RCAP.getRCAPVersion = function() {
+                                    return version;
+                                };
+                            });
 
                             require(['rcap/js/designer'], function(Designer) {
                                 new Designer().initialise(extractSessionInfo(sessionInfo));
@@ -109,8 +111,7 @@
                 // this code is executed in 'mini' mode:
                 mini = RCloud.promisify_paths(ocaps, [
                         ['updateControls'],    // updateControls (called when a form value changes, or a form is submitted)
-                        ['updateAllControls'],  // kicks off R plot rendering
-                        ['getRCAPVersion']
+                        ['updateAllControls']  // kicks off R plot rendering
                     ], true);
 
                 window.RCAP = window.RCAP || {};
@@ -119,9 +120,6 @@
                 };
                 window.RCAP.updateAllControls = function(dataToSubmit) {
                     mini.updateAllControls(dataToSubmit).then(function() {});
-                };
-                window.RCAP.getRCAPVersion = function() {
-                    mini.getRCAPVersion().then(function() {});
                 };
             }
 

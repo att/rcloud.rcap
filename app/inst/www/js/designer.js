@@ -93,6 +93,8 @@ define([
             }));
         });
 
+        $('#rcap-version').html(window.RCAP.getRCAPVersion());
+
         // this should only run once, even if it's called more than once.
         bootstrap = function() {};
     };
