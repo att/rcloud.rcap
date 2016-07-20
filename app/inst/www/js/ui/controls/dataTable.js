@@ -110,6 +110,26 @@ define(['rcap/js/ui/controls/gridControl',
                         value: 'true',
                         helpText: 'Allow user to download data as CSV',
                         isHorizontal: true
+                    }),
+                    new DropdownControlProperty({
+                        uid: 'pageLength',
+                        label: 'Page length',
+                        value: '10',
+                        availableOptions: [{
+                            text: '10',
+                            value: '10'
+                        }, {
+                            text: '25',
+                            value: '25'
+                        }, {
+                            text: '50',
+                            value: '50'
+                        }, {
+                            text: '100',
+                            value: '100'
+                        }],
+                        helpText: 'Number of rows per page',
+                        isHorizontal: true
                     })
                 ]
             });
@@ -134,7 +154,8 @@ define(['rcap/js/ui/controls/gridControl',
                 searching: this.getControlPropertyValueOrDefault('showSearch') === 'true',
                 sortColumnIndex: this.getControlPropertyValueOrDefault('sortColumnIndex') - 1,
                 sortColumnOrder: this.getControlPropertyValueOrDefault('sortColumnOrder'),
-                downloadAsCsv: this.getControlPropertyValueOrDefault('downloadAsCsv') === 'true'
+                downloadAsCsv: this.getControlPropertyValueOrDefault('downloadAsCsv') === 'true',
+                pageLength: this.getControlPropertyValueOrDefault('pageLength')
             });
 
             return output;

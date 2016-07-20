@@ -20,7 +20,8 @@
         paging: <%=paging%>,
         info: <%=info%>,
         searching: <%=searching%>,
-        buttons: <%=downloadAsCsv ? "['csv']" : "[]"%>
+        buttons: <%=downloadAsCsv ? "['csv']" : "[]"%>,
+        pageLength: <%=pageLength%>
     };
 
 	$('#<%=control.id%>').DataTable(opts);
@@ -35,6 +36,7 @@
         'paging': <%=paging%>,
         'info': <%=info%>,
         'searching': <%=searching%>,
-        'downloadAsCsv': <%=downloadAsCsv%>
+        'downloadAsCsv': <%=downloadAsCsv%>,
+        'pageLength': <%=pageLength%>
     });
 </script>
