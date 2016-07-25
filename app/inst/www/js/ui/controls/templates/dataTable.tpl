@@ -16,7 +16,7 @@
             {"title":"Column3"},
             {"title":"Column4"},
             {"title":"Column5"}],
-        dom: 'lfrtiBp',
+        dom: 'Blfrtip',
         paging: <%=paging%>,
         info: <%=info%>,
         searching: <%=searching%>,
