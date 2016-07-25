@@ -173,7 +173,7 @@ define(['rcap/js/ui/controls/gridControl',
             var controlData = $('#' + controlId).data();
             
             var dtProperties = {
-                dom: 'lfrtiBp', 
+                dom: 'Blfrtip', 
                 data:  result.data,
                 columns: result.columns.map(function(x){ return {data: x, title: x }; })
             };
