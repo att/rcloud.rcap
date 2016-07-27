@@ -188,6 +188,9 @@ module.exports = function(grunt) {
                 ].join(' && ')  
             },
             /*
+
+            revisit this:
+
             dist: {
                 commandcd: [
                     'node r.js -o build.js',
