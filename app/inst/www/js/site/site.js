@@ -330,7 +330,7 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'rcap/js/utils/pageWalker
                 id: timer.id
             });
 
-            existingTimer.code = timer.code;
+            existingTimer.variable = timer.variable;
             existingTimer.interval = timer.interval;
             return this;
         },

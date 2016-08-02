@@ -1,9 +1,10 @@
 <li class="js-rcap-dynamic" data-timerid="<%=t.id%>"> 
     <a href="javascript:void(0)">
         <i class="icon-time"></i>
-        <%if(t.code && t.interval) {%>
-            <%if(t.code) {%>
-                Function: <%=t.code%>          
+        <%if(t.variable && t.interval) {%>
+            <%if(t.variable) {%>
+                <br />
+                Variable: <%=t.variable%>          
             <%}%>
             <br />
             Every: <%=t.interval%> seconds
