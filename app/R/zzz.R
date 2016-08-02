@@ -29,7 +29,8 @@ rcloud.rcap.caps <- NULL
       getRFunctions = make_oc(rcloud.rcap.global.functions),
       getRTime = make_oc(function() { Sys.time() }),
       updateControls = make_oc(updateController),
-      updateAllControls = make_oc(updateAllControls)
+      updateAllControls = make_oc(updateAllControls),
+      incrementVariable = make_oc(incrementVariable)
     )
 
     rcloud.rcap.caps$init(ocaps, rcapSessionInfo())
@@ -47,3 +48,4 @@ rcap.updateControl <- function(...) rcloud.rcap.caps$updateControl(...)
 rcap.updateControlAttribute <- function(controlId, attributeName, attributeValue) {
   rcloud.rcap.caps$updateControlAttribute(controlId, attributeName, attributeValue)
 }
+rcap.incrementVariable <- function(...) rcloud.rcap.caps$incrementVariable(...)

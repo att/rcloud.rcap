@@ -53,3 +53,8 @@ randomId <- function() {
   rand <- sample(c(letters, 0:9), 8, replace = TRUE)
   paste(c("x", rand), collapse = "")
 }
+
+incrementVariable <- function(variableName) {
+  variableValue <- get(variableName)
+  assign(variableName, variableValue + 1)
+}
