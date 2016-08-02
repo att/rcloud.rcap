@@ -76,7 +76,7 @@ DataTableControl <- R6Class("DataTableControl",
         )
 
       resOptions$datatables$language <-
-        list(thousands = options$thousands)
+        list(thousands = options$thousands %||% ',')
 
       # set font sizes
       resOptions$css$thSize <- options$thSize
