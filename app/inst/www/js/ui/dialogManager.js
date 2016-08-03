@@ -465,7 +465,6 @@ define([
                     // push the updated event:
                     PubSub.publish(pubSubTable.updateTimer, {
                         id: $('#timer-form').data('timerid'),
-                        code: $('#inputTimerFunction').val(),
                         variable: $('#inputTimerVariable').val(),
                         interval: $('#inputTimerInterval').val()
                     });
@@ -485,10 +484,10 @@ define([
 
                 $('#timer-form').data('timerid', timer.id);
 
-                $('#inputTimerFunction').val(timer.code);
+                $('#inputTimerVariable').val(timer.variable);
                 $('#inputTimerInterval').val(timer.interval);
 
-                $('#inputTimerFunction').autocomplete({
+                $('#inputTimerVariable').autocomplete({
                     source: function(request, response) {
                         response(window.RCAP.getRFunctions());
                     }

@@ -9,7 +9,7 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
 
         var Serializer = function() {
 
-            this.initialise = function() {
+            this.initialise = function(startTimers = false) {
 
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 //
@@ -211,6 +211,10 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
                                 }
                             }
 
+                            if (startTimers){
+                                currentTimer.start();
+                            }
+                            
                             site.timers.push(currentTimer);
                         });
                     }
