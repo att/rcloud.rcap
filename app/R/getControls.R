@@ -80,5 +80,8 @@ getControls <- function(rcapConfig) {
     lapply(rcapConfig$pages, getControlsPage)
   }
 
+  if (!is.null(rcapConfig$timers)) {
+    lapply(rcapConfig$timers, getControlsControl)
+  }
   allJsonControls
 }

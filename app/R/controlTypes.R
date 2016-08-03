@@ -54,6 +54,10 @@ RPlotControl <- R6Class("RPlotControl",
   )
 )
 
+TimerControl <- R6Class("TimerControl", 
+  inherit = Control
+)
+
 #' @importFrom rcloud.web rcw.set
 #' @importFrom rcloud.web rcw.resolve
 
@@ -270,7 +274,8 @@ control_classes <- list(
   "text"             = TextControl,
   "datatable"        = DataTableControl,
   "rtext"            = RTextControl,
-  "leaflet"          = LeafletControl
+  "leaflet"          = LeafletControl,
+  "timer"            = TimerControl
 )
 
 controlFactory <- function(cl, type = cl$type) {
