@@ -32,9 +32,6 @@ define(['rcap/js/Class'], function() {
 
             setInterval(eventFunction(varName, id), this.interval * 1000);
         },
-        stop: function() {
-            //clearInterval(this.intervalEvent);
-        },
         toJSON: function() {
             return {
                 'id' : this.id,
