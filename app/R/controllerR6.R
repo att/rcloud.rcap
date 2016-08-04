@@ -110,7 +110,6 @@ controllerUpdate <- function(self, private, controls) {
 
   ## what to update
   needsUpdate <- bfs(private$succList, names(controls))
-
   ## in what order
   needsUpdate <- needsUpdate[order(match(needsUpdate, private$topoSort))]
 

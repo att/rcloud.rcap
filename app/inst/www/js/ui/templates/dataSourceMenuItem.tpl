@@ -8,6 +8,6 @@
     	<%} else {%>
     		This data source is not configured
     	<%}%>
-        <span class="datasource-settings" title="Configure data source">Settings</span> 
+        <span class="datasource-settings settings" title="Configure data source">Settings</span> 
     </a>
 </li>

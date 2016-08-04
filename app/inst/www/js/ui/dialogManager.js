@@ -5,6 +5,7 @@ define([
     'text!rcap/partials/dialogs/_addPage.htm',
     'text!rcap/partials/dialogs/_pageSettings.htm',
     'text!rcap/partials/dialogs/_dataSourceSettings.htm',
+    'text!rcap/partials/dialogs/_timerSettings.htm',
     'text!rcap/partials/dialogs/_controlSettings.htm',
     'text!rcap/partials/dialogs/_formBuilder.htm',
     'text!rcap/partials/dialogs/_styleEditorDialog.htm',
@@ -13,7 +14,8 @@ define([
     'site/pubSubTable',
     'parsley',
     'rcap/js/vendor/jqModal.min'
-], function(RcapLogger, FormBuilder, Page, addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, confirmDialogPartial, PubSub, pubSubTable) {
+], function(RcapLogger, FormBuilder, Page, addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, 
+    timerSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, confirmDialogPartial, PubSub, pubSubTable) {
 
     'use strict';
 
@@ -83,7 +85,7 @@ define([
         this.initialise = function() {
 
             // append the dialogs to the root of the designer:
-            _.each([addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, confirmDialogPartial], function(partial) {
+            _.each([addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, timerSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, confirmDialogPartial], function(partial) {
                 $('#rcap-designer').append(partial);
             });
 
@@ -440,6 +442,63 @@ define([
 
                 $('#dialog-dataSourceSettings').jqmShow();
             });
+
+            ////////////////////////////////////////////////////////////////////////////////
+            //
+            // timer configure message subscription:
+            //
+            $('body').on('click', '.timer-settings', function() {
+                PubSub.publish(pubSubTable.timerSettingsClicked, $(this).closest('li').data('timerid'));
+            });
+
+            $('body').on('click', '#dialog-timerSettings .delete', function() {
+                PubSub.publish(pubSubTable.showConfirmDialog, {
+                    heading: 'Delete timer',
+                    message: 'Are you sure you want to delete this timer?',
+                    pubSubMessage: pubSubTable.deleteTimerConfirm,
+                    dataItem: $('#timer-form').data('timerid')
+                });
+            });
+
+            $('#dialog-timerSettings .approve').on('click', function() {
+                $('#timer-form').parsley().validate();
+
+                if (true === $('#timer-form').parsley().isValid()) {
+
+                    // push the updated event:
+                    PubSub.publish(pubSubTable.updateTimer, {
+                        id: $('#timer-form').data('timerid'),
+                        variable: $('#inputTimerVariable').val(),
+                        interval: $('#inputTimerInterval').val()
+                    });
+
+                    $('.jqmWindow').jqmHide();
+
+                    return false;
+
+                } else {
+
+                }
+            });
+
+            PubSub.subscribe(pubSubTable.showTimerSettingsDialog, function(msg, timer) {
+
+                console.info('dialogManager: pubSubTable.showTimerSettingsDialog');
+
+                $('#timer-form').data('timerid', timer.id);
+
+                $('#inputTimerVariable').val(timer.variable);
+                $('#inputTimerInterval').val(timer.interval);
+
+                $('#inputTimerVariable').autocomplete({
+                    source: function(request, response) {
+                        response(window.RCAP.getRFunctions());
+                    }
+                });
+
+                $('#dialog-timerSettings').jqmShow();
+            });
+
 
             ////////////////////////////////////////////////////////////////////////////////
             //

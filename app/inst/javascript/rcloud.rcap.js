@@ -21,7 +21,6 @@
             'datatablesbuttons': '../../shared.R/rcloud.rcap/bower_components/datatables.net-buttons/js',
             'datatables.net': '../../shared.R/rcloud.rcap/bower_components/datatables.net/js/jquery.dataTables',
             'datatables.net-buttons': '../../shared.R/rcloud.rcap/bower_components/datatables.net-buttons/js/dataTables.buttons',
-            //'datatables-buttons-dt': '../../shared.R/rcloud.rcap/bower_components/datatables.net-buttons-dt/css',
             'jquery.sparkline': '../../shared.R/rcloud.rcap/bower_components/jquery.sparkline/dist'
         },
         map: {
@@ -86,6 +85,8 @@
                             window.RCAP.updateAllControls = function(dataToSubmit) {
                                 po.updateAllControls(dataToSubmit).then(function(){});
                             };
+<<<<<<< HEAD
+=======
 
                             po.getRCAPVersion().then(function(version) {
                                 window.RCAP.getRCAPVersion = function() {
@@ -93,6 +94,7 @@
                                 };
                             });
 
+>>>>>>> develop
                             require(['rcap/js/designer'], function(Designer) {
                                 new Designer().initialise(extractSessionInfo(sessionInfo));
                             });

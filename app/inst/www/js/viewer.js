@@ -40,7 +40,7 @@ define(['text!rcap/partials/viewer.htm',
             });
 
             // serializer:
-            new Serializer().initialise();
+            new Serializer().initialise(true);
 
             // history manager:
             var historyManager = new HistoryManager();

@@ -390,6 +390,55 @@ define([
                 setSite(getSite().updateDataSource(dataSourceObj));
             });
 
+            ////////////////////////////////////////////////////////////////////////////////////
+            //
+            // timers
+            //
+            PubSub.subscribe(pubSubTable.addTimer, function() {
+
+                rcapLogger.info('siteManager: pubSubTable.addTimer');
+
+                var site = getSite();
+                var newTimer = site.createTimer();
+                site.timers.push(newTimer);
+
+                setSite(site);
+
+                // let interested parties know that a timer has been added:
+                PubSub.publish(pubSubTable.timerAdded, newTimer);
+
+                // publish an update count:
+                PubSub.publish(pubSubTable.timerCountChanged, site.timers.length);
+            });
+
+            PubSub.subscribe(pubSubTable.deleteTimerConfirm, function(msg, timerId) {
+
+                rcapLogger.info('siteManager: pubSubTable.deleteTimerConfirm');
+
+                var site = getSite().deleteTimer(timerId);
+
+                setSite(site);
+
+                // publish an update count:
+                PubSub.publish(pubSubTable.timerCountChanged, site.timers.length);
+            });
+
+            PubSub.subscribe(pubSubTable.timerSettingsClicked, function(msg, id) {
+
+                rcapLogger.info('siteManager: pubSubTable.timerSettingsClicked');
+
+                var site = getSite();
+
+                PubSub.publish(pubSubTable.showTimerSettingsDialog, site.getTimerByID(id));
+            });
+
+            PubSub.subscribe(pubSubTable.updateTimer, function(msg, timerObj) {
+
+                rcapLogger.info('siteManager: pubSubTable.updateTimer');
+
+                setSite(getSite().updateTimer(timerObj));
+            });
+
         }
     });
 

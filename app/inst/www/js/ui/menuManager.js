@@ -3,11 +3,12 @@ define([
     'text!ui/templates/pageMenuItem.tpl',
     'text!ui/templates/controlsMenu.tpl',
     'text!ui/templates/dataSourceMenuItem.tpl',
+    'text!ui/templates/timerMenuItem.tpl',
     'text!ui/templates/siteSettingsMenu.tpl',
     'pubsub',
     'site/pubSubTable',
     'controls/factories/controlFactory'
-], function(RcapLogger, pageMenuItemTemplate, controlsMenuTemplate, dataSourceMenuItemTemplate, siteSettingsMenuTemplate, PubSub, pubSubTable, ControlFactory) {
+], function(RcapLogger, pageMenuItemTemplate, controlsMenuTemplate, dataSourceMenuItemTemplate, timerMenuItemTemplate, siteSettingsMenuTemplate, PubSub, pubSubTable, ControlFactory) {
 
     'use strict';
 
@@ -93,9 +94,15 @@ define([
                     $('#dataSources').append(_.template(dataSourceMenuItemTemplate)({ ds : dataSource }));
                 });
 
+                // build the timers:
+                _.each(site.timers, function(timer) {
+                    $('#timers').append(_.template(timerMenuItemTemplate) ({ t : timer }));
+                });
+
                 //
                 PubSub.publish(pubSubTable.pageCountChanged, site.pages.length);
                 PubSub.publish(pubSubTable.dataSourceCountChanged, site.dataSources.length);
+                PubSub.publish(pubSubTable.timerCountChanged, site.timers.length);
 
                 // the first is as good as any:
                 $('#pages a:eq(0)').trigger('click');
@@ -106,7 +113,7 @@ define([
             //
             //
             PubSub.subscribe(pubSubTable.close, function() {
-                $('#pages li, #dataSources li').remove();
+                $('#pages li, #dataSources li, #timers li').remove();
             });
 
             //////////////////////////////////////////////////////////////////////////////////////////
@@ -283,6 +290,61 @@ define([
                 }
             });
 
+            // timers:
+            $('body').on('click', '.menu-flyout[data-flyoutid="timers"] h4 a.add', function() {
+                console.info('menuManager: pubSubTable.addTimer');
+
+                PubSub.publish(pubSubTable.addTimer);
+            });
+
+            PubSub.subscribe(pubSubTable.timerAdded, function(msg, timer) {
+                console.info('menuManager: pubSubTable.timerAdded');
+
+                // add the data source to the menu:
+                var template = _.template(timerMenuItemTemplate),
+                    newItemMarkup = template({
+                        t : timer
+                    });
+
+                $('#timers').append(newItemMarkup);
+
+            });
+
+            PubSub.subscribe(pubSubTable.updateTimer, function(msg, timer) {
+
+                console.info('menuManager: pubSubTable.updateTimer');
+                
+                // find the item in the menu and update:
+                var existingItem = $('#timers li[data-timerid="' + timer.id + '"]');
+
+                var template = _.template(timerMenuItemTemplate),
+                    newItemMarkup = template({
+                        t : timer
+                    });
+
+                existingItem.replaceWith(newItemMarkup);
+            });
+
+            PubSub.subscribe(pubSubTable.deleteTimerConfirm, function(msg, timerId) {
+
+                console.info('menuManager: pubSubTable.deleteTimerConfirm');
+
+                $('#timers li[data-timerid="' + timerId + '"]').remove();
+            });
+
+            PubSub.subscribe(pubSubTable.timerCountChanged, function(msg, timerCount) {
+
+                var countEl = $('#main-menu a[data-flyoutid="timers"]').find('.count');
+                countEl.text(timerCount);
+
+                if(timerCount === 0) {
+                    countEl.fadeOut();
+                } else {
+                    countEl.fadeIn();
+                }
+            });
+
+            // themes:
             PubSub.subscribe(pubSubTable.showThemeEditorDialog, function() {
                 $('.menu-flyout').hide();
             });

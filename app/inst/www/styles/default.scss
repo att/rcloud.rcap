@@ -279,14 +279,14 @@
         & a span::after {
             display: block;
         }
-        & h4#page-header a, h4#datasource-header a  {
+        & h4#page-header a, h4#datasource-header a, h4#timer-header a {
             padding: 0;
             opacity: 0.5;
-            margin-left: 6px;
+            margin-left: 3px;
             display: inline-block;
             color: $mainNavColor;
         }
-        & h4#page-header a:hover, h4#datasource-header a:hover {
+        & h4#page-header a:hover, h4#datasource-header a:hover, h4#timer-header a:hover {
             opacity: 1.0;
         }
         & h4 a.add::before {
@@ -421,7 +421,7 @@
         & a span:hover {
             opacity: 1.0;
         }
-        & a span.page-settings::after, a span.datasource-settings::after {
+        & a span.page-settings::after, a span.datasource-settings::after, a span.timer-settings::after {
             content: "\f013";
         }
         & a span.page-duplicate::after {
@@ -454,7 +454,7 @@
         & a:hover span::after {
             display: block;
         }
-        & #dataSources li {
+        & #dataSources li, & #timers li {
 
             border: 1px solid $mainNavColor;
             margin-bottom: 5px;
@@ -472,12 +472,13 @@
                 padding-left: 45px;
             }
 
-            & .datasource-settings {
+            & .settings {
                 top: 0;
                 right: 2px;
                 position: absolute;
             }
         }
+
 
         &[data-flyoutid="settings"] {
             & h5 {
@@ -503,6 +504,14 @@
             & a {
                 display: block;
                 padding: 15px;
+
+                &[data-flyoutid='pages'] {
+                    padding-left: 18px;
+                }
+
+                &[data-flyoutid='controls'] {
+                    padding-left: 16px;
+                }
             }
         }
         & li {
