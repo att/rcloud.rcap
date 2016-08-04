@@ -66,6 +66,7 @@ module.exports = function(grunt) {
                     '<%= appConfig.appPath %>/inst/www/js/ui/controls/factories/*.js',
                     '<%= appConfig.appPath %>/inst/www/js/ui/controls/properties/*.js',
                     '<%= appConfig.appPath %>/inst/www/js/utils/*.js',
+                    '<%= appConfig.appPath %>/inst/www/js/utils/translators/*.js'
                 ]
             }
 
@@ -163,6 +164,7 @@ module.exports = function(grunt) {
                     ]
                 }]
             },
+            output: ['<%= appConfig.devRCommandDir %>/'],
             outputtemp: ['<%= appConfig.devDeployDir %>/']
         },
 
@@ -186,6 +188,9 @@ module.exports = function(grunt) {
                 ].join(' && ')  
             },
             /*
+
+            revisit this:
+
             dist: {
                 commandcd: [
                     'node r.js -o build.js',
@@ -215,8 +220,8 @@ module.exports = function(grunt) {
     require('time-grunt')(grunt);
 
     // dev
-    grunt.registerTask('default', ['newer:jshint', 'clean:dev', 'sass', 'copy:dev', 'shell:buildpackage', 'shell:installpackage', 'clean:outputtemp']);
-    grunt.registerTask('buildpackage', ['newer:jshint', 'clean:dev', 'sass', 'copy:dev', 'shell:buildpackage']);
+    grunt.registerTask('default', ['newer:jshint', 'clean:dev', 'sass', 'clean:output', 'copy:dev', 'shell:buildpackage', 'shell:installpackage', 'clean:outputtemp']);
+    grunt.registerTask('buildpackage', ['newer:jshint', 'clean:dev', 'sass', 'clean:output', 'copy:dev', 'shell:buildpackage', 'clean:outputtemp']);
 
     // dist
     grunt.registerTask('dist', ['newer:jshint', 'clean:dist', 'copy:dist', 'shell:dist']);

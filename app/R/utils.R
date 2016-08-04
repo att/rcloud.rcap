@@ -54,7 +54,15 @@ randomId <- function() {
   paste(c("x", rand), collapse = "")
 }
 
-incrementVariable <- function(variableName) {
-  variableValue <- get(variableName)
-  assign(variableName, variableValue + 1)
+#' Return the RCAP version number
+#'
+#' Check the version number of the loaded package, otherwise check the
+#' version installed on the disk.
+getRCAPVersion <- function() {
+  tryCatch(
+    paste0("v", asNamespace("rcloud.rcap")$`.__NAMESPACE__.`$spec[["version"]]),
+    error = function(c) {
+      paste0("v", packageDescription("rcloud.rcap", fields = "Version"))
+    } 
+  )
 }

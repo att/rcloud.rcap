@@ -2,11 +2,12 @@ define(['rcap/js/ui/controls/gridControl',
     'rcap/js/ui/controls/properties/textControlProperty',
     'rcap/js/ui/controls/properties/autocompleteControlProperty',
     'rcap/js/ui/controls/properties/dropdownControlProperty',
-    'utils/dataTranslators/dataTableTranslator',
+    'utils/translators/sparklinesTranslator',
     'text!controlTemplates/dataTable.tpl',
     'datatables/jquery.dataTables.min',
-    'datatablesbuttons/buttons.html5.min'
-], function(GridControl, TextControlProperty, AutocompleteControlProperty, DropdownControlProperty, DataTableTranslator, tpl) {
+    'datatablesbuttons/buttons.html5.min',
+    'jquery.sparkline/jquery.sparkline.min'
+], function(GridControl, TextControlProperty, AutocompleteControlProperty, DropdownControlProperty, SparklinesTranslator, tpl) {
 
     'use strict';
 
@@ -110,7 +111,26 @@ define(['rcap/js/ui/controls/gridControl',
                         helpText: 'Allow user to download data as CSV',
                         isHorizontal: true
                     }),
-
+                    new DropdownControlProperty({
+                        uid: 'pageLength',
+                        label: 'Page length',
+                        value: '10',
+                        availableOptions: [{
+                            text: '10',
+                            value: '10'
+                        }, {
+                            text: '25',
+                            value: '25'
+                        }, {
+                            text: '50',
+                            value: '50'
+                        }, {
+                            text: '100',
+                            value: '100'
+                        }],
+                        helpText: 'Number of rows per page',
+                        isHorizontal: true
+                    })
                 ]
             });
         },
@@ -134,15 +154,15 @@ define(['rcap/js/ui/controls/gridControl',
                 searching: this.getControlPropertyValueOrDefault('showSearch') === 'true',
                 sortColumnIndex: this.getControlPropertyValueOrDefault('sortColumnIndex') - 1,
                 sortColumnOrder: this.getControlPropertyValueOrDefault('sortColumnOrder'),
-                downloadAsCsv: this.getControlPropertyValueOrDefault('downloadAsCsv') === 'true'
+                downloadAsCsv: this.getControlPropertyValueOrDefault('downloadAsCsv') === 'true',
+                pageLength: this.getControlPropertyValueOrDefault('pageLength')
             });
 
             return output;
         },
-        updateData : function(controlId, data) {
+        updateData : function(controlId, result) {
 
-            var translator = new DataTableTranslator();
-            var translatedData = translator.translate(data);
+            result = JSON.parse(result);
 
             if($.fn.DataTable.isDataTable('#' + controlId)) {
                 var dt = $('#' + controlId).dataTable().api();
@@ -151,18 +171,43 @@ define(['rcap/js/ui/controls/gridControl',
             } 
 
             var controlData = $('#' + controlId).data();
-              
-            $('#' + controlId).DataTable( {
-                dom: 'lfrtiBp',
-                data: translatedData.data,
-                columns: translatedData.columns,
-                paging: controlData.paging,
-                info: controlData.info,
-                searching: controlData.searching,
-                // input order will be R-centric (1-offset), where JavaScript is 0-offset:
-                order: [controlData.sortcolumnindex, controlData.sortcolumnorder],
-                buttons: controlData.downloadAsCsv ? ['csv'] : []
-            });
+            
+            var dtProperties = {
+                dom: 'Blfrtip', 
+                data:  result.data,
+                columns: result.columns.map(function(x){ return {data: x, title: x }; })
+            };
+
+            // pass in dynamic options from R
+            // but first, need to tidy up
+            result.options.datatables.columnDefs = _.flatten(result.options.datatables.columnDefs);
+            $.extend(true, dtProperties, 
+                result.options.datatables);
+
+            // sparklines stuff
+            var translator = new SparklinesTranslator();
+            var translatedOptions = translator.translate(result.options.sparklines);
+            var additionalColDefs = translatedOptions.columnDefs;
+            dtProperties.columnDefs = dtProperties.columnDefs.concat(additionalColDefs);
+            dtProperties.fnDrawCallback = translatedOptions.fnDrawCallback;
+            
+            // pass in options from form
+            $.extend(true, dtProperties, 
+                {
+                    info: controlData.info,
+                    searching: controlData.searching,
+                    // input order will be R-centric (1-offset), where JavaScript is 0-offset:
+                    order: [controlData.sortcolumnindex, controlData.sortcolumnorder],
+                    buttons: controlData.downloadAsCsv ? ['csv'] : []
+                }
+            );
+
+            $('#' + controlId).DataTable(dtProperties);
+            
+            // font sizes
+            $('th').css('font-size', result.options.css.thSize);
+            $('td').css('font-size', result.options.css.tdSize);
+
         }
     });
 

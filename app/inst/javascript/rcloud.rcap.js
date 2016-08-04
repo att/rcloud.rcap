@@ -20,7 +20,8 @@
             'datatables': '../../shared.R/rcloud.rcap/bower_components/datatables.net/js',
             'datatablesbuttons': '../../shared.R/rcloud.rcap/bower_components/datatables.net-buttons/js',
             'datatables.net': '../../shared.R/rcloud.rcap/bower_components/datatables.net/js/jquery.dataTables',
-            'datatables.net-buttons': '../../shared.R/rcloud.rcap/bower_components/datatables.net-buttons/js/dataTables.buttons'
+            'datatables.net-buttons': '../../shared.R/rcloud.rcap/bower_components/datatables.net-buttons/js/dataTables.buttons',
+            'jquery.sparkline': '../../shared.R/rcloud.rcap/bower_components/jquery.sparkline/dist'
         },
         map: {
             '*': {
@@ -44,21 +45,22 @@
     return {
         init: function(ocaps, sessionInfo, k) {
 
-            console.log(' ÛÛÛÛÛÛÛÛÛÛÛ     ÛÛÛÛÛÛÛÛÛ    ÛÛÛÛÛÛÛÛÛ   ÛÛÛÛÛÛÛÛÛÛÛ ');
-            console.log('°°ÛÛÛ°°°°°ÛÛÛ   ÛÛÛ°°°°°ÛÛÛ  ÛÛÛ°°°°°ÛÛÛ °°ÛÛÛ°°°°°ÛÛÛ');
-            console.log(' °ÛÛÛ    °ÛÛÛ  ÛÛÛ     °°°  °ÛÛÛ    °ÛÛÛ  °ÛÛÛ    °ÛÛÛ');
-            console.log(' °ÛÛÛÛÛÛÛÛÛÛ  °ÛÛÛ          °ÛÛÛÛÛÛÛÛÛÛÛ  °ÛÛÛÛÛÛÛÛÛÛ ');
-            console.log(' °ÛÛÛ°°°°°ÛÛÛ °ÛÛÛ          °ÛÛÛ°°°°°ÛÛÛ  °ÛÛÛ°°°°°°  ');
-            console.log(' °ÛÛÛ    °ÛÛÛ °°ÛÛÛ     ÛÛÛ °ÛÛÛ    °ÛÛÛ  °ÛÛÛ        ');
-            console.log(' ÛÛÛÛÛ   ÛÛÛÛÛ °°ÛÛÛÛÛÛÛÛÛ  ÛÛÛÛÛ   ÛÛÛÛÛ ÛÛÛÛÛ       ');
-            console.log('°°°°°   °°°°°   °°°°°°°°°  °°°°°   °°°°° °°°°°        ');
+            // console.log(' ÛÛÛÛÛÛÛÛÛÛÛ     ÛÛÛÛÛÛÛÛÛ    ÛÛÛÛÛÛÛÛÛ   ÛÛÛÛÛÛÛÛÛÛÛ ');
+            // console.log('°°ÛÛÛ°°°°°ÛÛÛ   ÛÛÛ°°°°°ÛÛÛ  ÛÛÛ°°°°°ÛÛÛ °°ÛÛÛ°°°°°ÛÛÛ');
+            // console.log(' °ÛÛÛ    °ÛÛÛ  ÛÛÛ     °°°  °ÛÛÛ    °ÛÛÛ  °ÛÛÛ    °ÛÛÛ');
+            // console.log(' °ÛÛÛÛÛÛÛÛÛÛ  °ÛÛÛ          °ÛÛÛÛÛÛÛÛÛÛÛ  °ÛÛÛÛÛÛÛÛÛÛ ');
+            // console.log(' °ÛÛÛ°°°°°ÛÛÛ °ÛÛÛ          °ÛÛÛ°°°°°ÛÛÛ  °ÛÛÛ°°°°°°  ');
+            // console.log(' °ÛÛÛ    °ÛÛÛ °°ÛÛÛ     ÛÛÛ °ÛÛÛ    °ÛÛÛ  °ÛÛÛ        ');
+            // console.log(' ÛÛÛÛÛ   ÛÛÛÛÛ °°ÛÛÛÛÛÛÛÛÛ  ÛÛÛÛÛ   ÛÛÛÛÛ ÛÛÛÛÛ       ');
+            // console.log('°°°°°   °°°°°   °°°°°°°°°  °°°°°   °°°°° °°°°°        ');
 
             if (RCloud.UI.advanced_menu.add) {
 
                 var po = RCloud.promisify_paths(ocaps, [
                     ['getRFunctions'],
                     ['getDummyFunctions'],
-                    ['getRTime']    // not currently used
+                    ['getRTime'],    // not currently used
+                    ['getRCAPVersion']
                 ], true);
 
                 RCloud.UI.advanced_menu.add({ // jshint ignore:line
@@ -83,6 +85,16 @@
                             window.RCAP.updateAllControls = function(dataToSubmit) {
                                 po.updateAllControls(dataToSubmit).then(function(){});
                             };
+<<<<<<< HEAD
+=======
+
+                            po.getRCAPVersion().then(function(version) {
+                                window.RCAP.getRCAPVersion = function() {
+                                    return version;
+                                };
+                            });
+
+>>>>>>> develop
                             require(['rcap/js/designer'], function(Designer) {
                                 new Designer().initialise(extractSessionInfo(sessionInfo));
                             });
@@ -181,7 +193,16 @@
         consoleMsg: function(content, k) {
             console.log(content);
             k();
-        }
+        },
+
+	resizeHtmlwidget: function(controlId, width, height, k) {
+	    var control = $('#' + controlId);
+	    control.find('iframe').width(width);
+            control.find('iframe').attr('width', width);
+            control.find('iframe').height(height);
+            control.find('iframe').attr('height', height);
+	    k();
+	}
     };
 
 

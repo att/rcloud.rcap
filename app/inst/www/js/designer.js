@@ -85,6 +85,7 @@ define([
         // asset manager:
         new AssetManager().initialise();
 
+        /*
         $.getJSON('https://api.github.com/users/' + rcloud.getLoggedInUser(), function(data) {
             var templateStr = '<a href="<%=data.html_url%>" target="_blank"><img src="<%=data.avatar_url%>" /></a>';
             var template = _.template(templateStr);
@@ -92,6 +93,9 @@ define([
                 data: data
             }));
         });
+        */
+
+        $('#rcap-version').html(window.RCAP.getRCAPVersion());
 
         // this should only run once, even if it's called more than once.
         bootstrap = function() {};

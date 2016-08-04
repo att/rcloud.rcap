@@ -1,4 +1,5 @@
 define([
+    'rcap/js/utils/rcapLogger',
     'text!ui/templates/pageMenuItem.tpl',
     'text!ui/templates/controlsMenu.tpl',
     'text!ui/templates/dataSourceMenuItem.tpl',
@@ -7,11 +8,13 @@ define([
     'pubsub',
     'site/pubSubTable',
     'controls/factories/controlFactory'
-], function(pageMenuItemTemplate, controlsMenuTemplate, dataSourceMenuItemTemplate, timerMenuItemTemplate, siteSettingsMenuTemplate, PubSub, pubSubTable, ControlFactory) {
+], function(RcapLogger, pageMenuItemTemplate, controlsMenuTemplate, dataSourceMenuItemTemplate, timerMenuItemTemplate, siteSettingsMenuTemplate, PubSub, pubSubTable, ControlFactory) {
 
     'use strict';
 
-    var controlFactory = new ControlFactory();
+
+    var controlFactory = new ControlFactory(),
+        rcapLogger = new RcapLogger();
 
     // :::: TODO: refactor code below - both methods are very similar ::::
 
@@ -21,7 +24,7 @@ define([
         },
         initialise: function() {
 
-            console.info('MenuManager: initialise');
+            rcapLogger.info('MenuManager: initialise');
 
             //////////////////////////////////////////////////////////////////////////////////////////
             //
@@ -29,7 +32,7 @@ define([
             //
             PubSub.subscribe(pubSubTable.updatePage, function(msg, pageObj) {
 
-                console.info('menuManager: pubSubTable.updatePage');
+                rcapLogger.info('menuManager: pubSubTable.updatePage');
                 $('#pages li[data-pageid="' + pageObj.id + '"] .navigation-title:eq(0)').text(pageObj.navigationTitle);
 
                 var pagesSelector = $('#pages li[data-pageid="' + pageObj.id + '"], #pages li[data-pageid="' + pageObj.id + '"] li');
@@ -48,7 +51,7 @@ define([
             //
             PubSub.subscribe(pubSubTable.deletePageConfirm, function(msg, pageId) {
 
-                console.info('menuManager: pubSubTable.deletePageConfirm');
+                rcapLogger.info('menuManager: pubSubTable.deletePageConfirm');
 
                 $('#pages li[data-pageid="' + pageId + '"]').remove();
 
@@ -63,7 +66,7 @@ define([
             //
             PubSub.subscribe(pubSubTable.initSite, function(msg, site) {
 
-                console.info('menuManager: pubSubTable.initSite');
+                rcapLogger.info('menuManager: pubSubTable.initSite');
 
                 var buildTree = function(pages, container) {
                     _.each(pages, function(item) {
@@ -176,7 +179,7 @@ define([
             //
             PubSub.subscribe(pubSubTable.pageAdded, function(msg, msgData) {
 
-                console.info('menuManager: pubSubTable.addPage');
+                rcapLogger.info('menuManager: pubSubTable.addPage');
 
                 _.each(msgData.pageData, function(page) {
 
@@ -223,7 +226,7 @@ define([
                     var li = $(this).closest('li');
                     li.addClass('selected');
 
-                    console.info('menuManager: PUBLISH : pubSubTable.changeSelectedPageId');
+                    rcapLogger.info('menuManager: PUBLISH : pubSubTable.changeSelectedPageId');
 
                     $('.menu-flyout').hide();
 
@@ -235,13 +238,13 @@ define([
 
             // data sources:
             $('body').on('click', '.menu-flyout[data-flyoutid="datasources"] h4 a.add', function() {
-                console.info('menuManager: pubSubTable.addDataSource');
+                rcapLogger.info('menuManager: pubSubTable.addDataSource');
 
                 PubSub.publish(pubSubTable.addDataSource);
             });
 
             PubSub.subscribe(pubSubTable.dataSourceAdded, function(msg, dataSource) {
-                console.info('menuManager: pubSubTable.dataSourceAdded');
+                rcapLogger.info('menuManager: pubSubTable.dataSourceAdded');
 
                 // add the data source to the menu:
                 var template = _.template(dataSourceMenuItemTemplate),
@@ -255,7 +258,7 @@ define([
 
             PubSub.subscribe(pubSubTable.updateDataSource, function(msg, dataSource) {
 
-                console.info('menuManager: pubSubTable.updateDataSource');
+                rcapLogger.info('menuManager: pubSubTable.updateDataSource');
                 
                 // find the item in the menu and update:
                 var existingItem = $('#dataSources li[data-datasourceid="' + dataSource.id + '"]');
@@ -270,7 +273,7 @@ define([
 
             PubSub.subscribe(pubSubTable.deleteDataSourceConfirm, function(msg, dataSourceId) {
 
-                console.info('menuManager: pubSubTable.deleteDataSourceConfirm');
+                rcapLogger.info('menuManager: pubSubTable.deleteDataSourceConfirm');
 
                 $('#dataSources li[data-datasourceid="' + dataSourceId + '"]').remove();
             });
@@ -353,7 +356,7 @@ define([
             // theme:
             // apply:
             $('body').on('click', '.settings-menu button', function() {
-                console.info('menuManager: pubSubTable.editTheme');
+                rcapLogger.info('menuManager: pubSubTable.editTheme');
                 PubSub.publish(pubSubTable.editTheme);
             });
 

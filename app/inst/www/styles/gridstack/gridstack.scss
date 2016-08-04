@@ -45,7 +45,9 @@
 }
 
 .rcap-controltype-rplot pre, 
+.rcap-controltype-rprint pre,
 .rcap-controltype-interactiveplot pre, 
+.rcap-controltype-htmlwidget pre,
 .rcap-controltype-rtext pre, 
 .rcap-controltype-datatable pre,
 .rcap-controltype-rtext pre,
@@ -54,13 +56,12 @@
     display: block;
     text-align: center;
     position: absolute;
-    top: 0;
     text-align: center;
     background-color: $attBlue;
     color: white;
     padding: 10px;
     left: 12px;
-    top: 12px;
+    bottom: 12px;
 
     &::before {
       font: normal normal normal 18px/1 FontAwesome;

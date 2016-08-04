@@ -5,11 +5,9 @@ define(['pubsub', 'rcap/js/Class'], function() {
     var events = {
 
         initSite : 'initSite',
-        designerInit : 'designerInit',
         serialize : 'serialize',
         save : 'save',
         saved: 'saved',
-        load : 'load',
         close : 'close',
         closeViewer : 'closeViewer',
         viewerShowFirstPage : 'viewerShowFirstPage',

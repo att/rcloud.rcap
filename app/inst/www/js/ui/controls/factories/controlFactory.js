@@ -3,6 +3,7 @@ define([
     'controls/image',
     'controls/rText',
     'controls/rPlot',
+    'controls/rPrint',
     'controls/text',
     'controls/pageMenu',
     'controls/breadcrumb',
@@ -10,6 +11,7 @@ define([
     'controls/form',
     'controls/dataTable',
     'controls/leaflet',
+    'controls/htmlWidget',
     //////////////////////
     'controls/child/textField',
     'controls/child/datePicker',
@@ -26,6 +28,7 @@ define([
     ImageControl, 
     RTextControl, 
     RPlotControl, 
+    RPrintControl,
     TextControl, 
     PageMenuControl, 
     BreadcrumbControl, 
@@ -33,6 +36,7 @@ define([
     FormControl, 
     DataTableControl,
     LeafletControl,
+    HtmlWidgetControl,
     ///////////////////////
     TextFieldControl,
     DatePickerControl,
@@ -50,8 +54,10 @@ define([
     function ControlFactory() {
         this.gridControls = [
             new RPlotControl(),
+            new RPrintControl(),
             new InteractivePlotControl(),
             new LeafletControl(),
+            new HtmlWidgetControl(),
             new RTextControl(),
             new DataTableControl(),
             new FormControl(),
@@ -115,6 +121,9 @@ define([
             case 'rplot':
                 control = new RPlotControl();
                 break;
+            case 'rprint':
+                control = new RPrintControl();
+                break;
             case 'rtext':
                 control = new RTextControl();
                 break;
@@ -126,6 +135,9 @@ define([
                 break;
             case 'leaflet':
                 control = new LeafletControl();
+                break;
+            case 'htmlwidget': 
+                control = new HtmlWidgetControl();
                 break;
             case 'text':
                 control = new TextControl();

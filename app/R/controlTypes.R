@@ -75,7 +75,7 @@ InteractivePlotControl <- R6Class("InteractivePlotControl",
       # Retrieve the function name and execute
       func <- private$controlFunction
 
-      res <- "doug error"
+      res <- ""
       if (!is.null(func)) res <- do.call(func, list(), envir = rcloudEnv())
       rcw.set(divId, rcw.resolve(res))
 
@@ -201,24 +201,6 @@ TextControl <- R6Class("TextControl",
   inherit = Control
 )
 
-DataTableControl <- R6Class("DataTableControl",
-  inherit = Control,
-  public = list(
-
-    update = function(new_value = NULL) {
-      func <- private$controlFunction
-      if (!is.null(func)) {
-        result <- do.call(func, list(), envir = rcloudEnv())
-        result <- as.data.frame(result)
-        # Convert the data.frame to JSON before returning
-        # This gives us better control over what the client receives
-        result <- jsonlite::toJSON(result, dataframe="column")
-        rcap.updateControl(private$id, result)
-      }
-    }
-  )
-)
-
 RTextControl <- R6Class("RTextControl",
   inherit = Control
 )
@@ -250,9 +232,61 @@ LeafletControl <- R6Class("LeafletControl",
   )
 )
 
+RPrintControl <- R6Class("RPrintControl",
+  inherit = Control,
+  public = list(
+    update = function(new_value = NULL) {
+      func <- private$controlFunction
+      if(!is.null(func)) {
+        res <- do.call(func, list(), envir = rcloudEnv())
+        resString <- paste(capture.output(res), collapse = '\n')
+        rcloud.web::rcw.set(paste0("#", private$id), resString)
+      }
+    }
+  )
+)
+
+HtmlWidgetControl <- R6Class("HtmlWidgetControl",
+  inherit = Control,
+  public = list(
+
+    update = function(new_value = NULL) {
+
+      func <- private$controlFunction
+      if (!is.null(func)) {
+        widget <- do.call(func, list(), envir = rcloudEnv())
+
+        if (!inherits(widget, "htmlwidget")) {
+          stop("Function ", func, " did not produce an htmlwidget object")
+        }
+
+        div <- paste0("#", private$id)
+        rcw.set(div, as.character(widget, ocaps = FALSE))
+        rcap.resizeHtmlwidget(private$id, private$width, private$height);
+
+      } else {
+        stop("Don't know how to create htmlwidget")
+      }
+    },
+
+    updateSize = function(new_size) {
+      # TODO: Some basic checking
+      private$width <- new_size["width"]
+      private$height <- new_size["height"]
+    }
+
+  ),
+
+  private = list(
+    width = NULL,
+    height = NULL
+  )
+)
+
 #' Front-end control types and matching back-end classes
 
 control_classes <- list(
+  "rprint"           = RPrintControl,
   "rplot"            = RPlotControl,
   "interactiveplot"  = InteractivePlotControl,
   "dataSource"       = DataSourceControl,
@@ -275,7 +309,8 @@ control_classes <- list(
   "datatable"        = DataTableControl,
   "rtext"            = RTextControl,
   "leaflet"          = LeafletControl,
-  "timer"            = TimerControl
+  "timer"            = TimerControl,
+  "htmlwidget"       = HtmlWidgetControl
 )
 
 controlFactory <- function(cl, type = cl$type) {

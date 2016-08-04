@@ -423,7 +423,7 @@ define([
                 });
             });
 
-            // publish an event signalling that the grid's have finished processing their data:
+            // publish an event signalling that the grids have finished processing their data:
             PubSub.publish(pubSubTable.gridInitComplete);
         });
 

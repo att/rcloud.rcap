@@ -122,6 +122,10 @@ $borderColor: #cdcdcd;
 	right: calc(50% - 184px)!important;
 	top: calc(50% - 180px)!important;
 
+	& body {
+		height: 131px;
+	}
+
 	& h1 {
 		font-size: 15px;
 		margin-top: 12px;

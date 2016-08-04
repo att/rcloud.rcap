@@ -18,7 +18,11 @@ define(['rcap/js/ui/controls/gridControl',
                 // directly, let its caller handle the returned markup, otherwise fire the 
                 // event:
                 if (publishEvent) {
+                    // this 'updateControl' is for visual invalidation only;
+                    // doesn't mean that dirty state should be set to true:
+                    control.isDirty = false;
                     PubSub.publish(pubSubTable.updateControl, control);
+
                 } else {
                     var templateStr = '<div <% if(controlProperties[2].value) { %>style="color:<%=controlProperties[2].value%>"<%}%> class="rcap-breadcrumb"><% if(controlProperties[0].value) { %><span class="prefix"><%=controlProperties[0].value%></span><% } %><% _.each(items, function(i){ %><% if(i.id === items[items.length - 1].id) { %><span <% if(controlProperties[3].value) { %>style="color:<%=controlProperties[3].value%>"<%}%>><%= i.navigationTitle %></span><% } else { %><a <% if(controlProperties[1].value) { %>style="color:<%=controlProperties[1].value%>"<%}%> href="javascript:void(0)" data-pageid="<%=i.id%>" data-href="<%=i.navigationTitle%>"><%=i.navigationTitle%></a><span <% if(controlProperties[2].value) { %>style="color:<%=controlProperties[2].value%>"<%}%> class="separator">></span><% } %><% }); %></div>';
                     var template = _.template(templateStr);
@@ -28,7 +32,7 @@ define(['rcap/js/ui/controls/gridControl',
                     });
                 }
             } else {
-                return '<div class="rcap-breadcrumb"><a href="#">Page 1</a> > Page 2</div>';
+                return '<div class="rcap-breadcrumb"><!-- content replaced dynamically --></div>';
             }
         };
 
@@ -148,7 +152,7 @@ define(['rcap/js/ui/controls/gridControl',
 
                     if (me.isOnGrid) {
 
-                        me.pages = new PageWalker(me.pages).deletePage(pageId);
+                        me.pages = new PageWalker(me.pages).removePage(pageId);
 
                         me.currentPageID = me.pages.length > 0 ? me.pages[0].id : '';
 
@@ -184,7 +188,8 @@ define(['rcap/js/ui/controls/gridControl',
                     if (me.isOnGrid && me.id === initInfo.controlID) {
                         // this should only be published if it is on a grid, but be cautious nonetheless:
                         me.pages = initInfo.site.pages;
-                        me.currentPageID = me.pages.length > 0 ? me.pages[0].id : '';
+                        //me.currentPageID = me.pages.length > 0 ? me.pages[0].id : '';
+                        me.currentPageID = initInfo.site.currentPageID;
 
                         // and render:
                         renderControl(me, true);

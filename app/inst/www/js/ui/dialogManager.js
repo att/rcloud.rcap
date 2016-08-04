@@ -1,4 +1,5 @@
 define([
+    'rcap/js/utils/rcapLogger',
     'rcap/js/ui/formBuilder',
     'pages/page',
     'text!rcap/partials/dialogs/_addPage.htm',
@@ -13,10 +14,12 @@ define([
     'site/pubSubTable',
     'parsley',
     'rcap/js/vendor/jqModal.min'
-], function(FormBuilder, Page, addPagePartial, pageSettingsPartial, dataSourceSettingsPartial,
+], function(RcapLogger, FormBuilder, Page, addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, 
     timerSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, confirmDialogPartial, PubSub, pubSubTable) {
 
     'use strict';
+
+    var rcapLogger = new RcapLogger();
 
     var validateControl = function() {
         if (true === $('#control-form').parsley().isValid()) {
@@ -201,7 +204,7 @@ define([
             //
             PubSub.subscribe(pubSubTable.showConfirmDialog, function(msg, data) {
 
-                console.info('dialogManager: pubSubTable.showConfirmDialog');
+                rcapLogger.info('dialogManager: pubSubTable.showConfirmDialog');
 
                 // set confirmation dialog properties:
                 $('#dialog-confirm h1').text(data.heading);
@@ -226,7 +229,7 @@ define([
             //
             PubSub.subscribe(pubSubTable.configureControl, function(msg, control) {
 
-                console.info('dialogManager: pubSubTable.configureControl');
+                rcapLogger.info('dialogManager: pubSubTable.configureControl');
 
                 PubSub.publish(control.type === 'form' ? pubSubTable.showFormBuilderDialog : pubSubTable.showControlDialog, control);
 
@@ -238,7 +241,7 @@ define([
             //
             PubSub.subscribe(pubSubTable.showFormBuilderDialog, function(msg, control) {
 
-                console.info('dialogManager: pubSubTable.showFormBuilderDialog');
+                rcapLogger.info('dialogManager: pubSubTable.showFormBuilderDialog');
 
                 formBuilder.setFormControl(control);
 
@@ -259,7 +262,7 @@ define([
             //
             PubSub.subscribe(pubSubTable.showControlDialog, function(msg, control) {
 
-                console.info('dialogManager: pubSubTable.showControlDialog');
+                rcapLogger.info('dialogManager: pubSubTable.showControlDialog');
 
                 // set the markup and the data object:
                 $('#dialog-controlSettings').data('control', control);
@@ -314,7 +317,7 @@ define([
             //
             PubSub.subscribe(pubSubTable.showPageSettingsDialog, function(msg, pageInfo) {
 
-                console.info('dialogManager: pubSubTable.showPageSettingsDialog');
+                rcapLogger.info('dialogManager: pubSubTable.showPageSettingsDialog');
 
                 var page = pageInfo.page;
 
@@ -424,7 +427,7 @@ define([
 
             PubSub.subscribe(pubSubTable.showDataSourceSettingsDialog, function(msg, dataSource) {
 
-                console.info('dialogManager: pubSubTable.showDataSourceSettingsDialog');
+                rcapLogger.info('dialogManager: pubSubTable.showDataSourceSettingsDialog');
 
                 $('#datasource-form').data('datasourceid', dataSource.id);
 
@@ -507,8 +510,8 @@ define([
 
             PubSub.subscribe(pubSubTable.showThemeEditorDialog, function(msg, themeContent) {
 
-                console.info('dialogManager: pubSubTable.showThemeEditorDialog');
-                console.log(themeContent);
+                rcapLogger.info('dialogManager: pubSubTable.showThemeEditorDialog');
+                //rcapLogger.log(themeContent);
 
                 var editor = getStyleEditor();
 
