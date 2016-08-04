@@ -85,8 +85,6 @@
                             window.RCAP.updateAllControls = function(dataToSubmit) {
                                 po.updateAllControls(dataToSubmit).then(function(){});
                             };
-<<<<<<< HEAD
-=======
 
                             po.getRCAPVersion().then(function(version) {
                                 window.RCAP.getRCAPVersion = function() {
@@ -94,7 +92,6 @@
                                 };
                             });
 
->>>>>>> develop
                             require(['rcap/js/designer'], function(Designer) {
                                 new Designer().initialise(extractSessionInfo(sessionInfo));
                             });
