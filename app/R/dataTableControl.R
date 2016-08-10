@@ -20,6 +20,7 @@ DataTableControl <- R6Class("DataTableControl",
         
         digits <- result$options$decimalPlaces
 
+        
         result$options <- private$convertOptions(result)$options
         result$data  <- private$convertOptions(result)$data
 
@@ -66,14 +67,27 @@ DataTableControl <- R6Class("DataTableControl",
               FUN = function(vec) hist(vec, plot = FALSE)$counts)
           })
 
+      getClassNames <- createTableIdDf(options = options, colNames = colNames)
+
       # columnDefs
       resOptions$datatables$columnDefs <- 
         list( 
-          data.frame(width = options$columnWidths, 
-            targets = seq_along(options$columnWidths)-1), # set column widths
-          list(className = "dt-body-right", 
-            targets = match(options$rightAlign, colNames)-1) # set alignment
+          data.frame(width   = options$columnWidths, 
+                     targets = seq_along(options$columnWidths)-1), # set column widths
+          data.frame(className = getClassNames$className,
+                     targets   = match(getClassNames$targets, colNames) - 1,
+                     stringsAsFactors = FALSE)
         )
+
+      # Column css
+      resOptions$datatables$css <- list(
+        data.frame(
+          "_selector" = pasteEmpty(".", getClassNames$className),
+          "background-color" = getClassNames$`background-color`,
+          stringsAsFactors = FALSE, 
+          check.names = FALSE
+        )
+      )
 
       resOptions$datatables$language <-
         list(thousands = options$thousands %||% ',')

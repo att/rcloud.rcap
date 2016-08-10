@@ -49,9 +49,9 @@ dataFrame <- function(..., stringsAsFactors = FALSE) {
   )
 }
 
-randomId <- function() {
+randomId <- function(prefix = "x") {
   rand <- sample(c(letters, 0:9), 8, replace = TRUE)
-  paste(c("x", rand), collapse = "")
+  paste(c(prefix, rand), collapse = "")
 }
 
 #' Return the RCAP version number
@@ -67,6 +67,58 @@ getRCAPVersion <- function() {
   )
 }
 
+
+#' Create unique IDs for tables which have differenct colours
+#'
+#' We need to generate unique IDs for the columns of tables which are requested
+#' to have a background colour 
+createTableIdDf <- function (options, colNames) {
+  # Generate a dataframe of rightAlign table class names
+  if (!is.null(options$rightAlign)) {
+    colRightIds <- data.frame("targets" = options$rightAlign, 
+                              "classNameRight" = "dt-body-right",
+                              stringsAsFactors = FALSE)
+  } else {
+    colRightIds <- data.frame("targets" = NA,
+                              "classNameRight" = NA)
+  }
+  
+  # Generate a dataframe of colour table class names
+  if (!is.null(options$columnColor)) {
+    numRandIds <- length(match(names(options$columnColor), colNames) - 1)
+    colColorIds <- data.frame(
+      "targets"   = names(options$columnColor),
+      "classNameColor" = replicate(numRandIds, randomId(prefix = "dt-call-")),
+      "background-color" = options$columnColor,
+      stringsAsFactors = FALSE,
+      check.names = FALSE)
+  } else {
+    colColorIds <- data.frame("targets" = NA,
+                              "classNameColor" = NA)
+  }
+  
+  # Merge together the class names to create unique class names
+  targetsDf <- merge(colRightIds, colColorIds, by = "targets", all = TRUE)
+  targetsDf$classNameRight <- with(targetsDf, 
+                                   replace(classNameRight, 
+                                           is.na(classNameRight), ""))
+  targetsDf$classNameColor <- with(targetsDf, 
+                                   replace(classNameColor, 
+                                           is.na(classNameColor), ""))
+  targetsDf$className <- with(targetsDf, paste(classNameRight, classNameColor))
+  targetsDf$className <- gsub("^ |[ \t]+$", "", targetsDf$className)
+  targetsDf[complete.cases(targetsDf), -c(2, 3)]
+}
+
+pasteEmpty <- function(...) {
+  args <- list(...)
+  argsLens <- vapply(args, length, 1L)
+  if (any(argsLens == 0)) {
+    c()
+  } else {
+    paste0(...)
+  }
+}
 with_options <- function(new, code) {
   old <- set_options(new)
   on.exit(set_options(old))
