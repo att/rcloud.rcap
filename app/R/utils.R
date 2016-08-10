@@ -66,3 +66,13 @@ getRCAPVersion <- function() {
     } 
   )
 }
+
+with_options <- function(new, code) {
+  old <- set_options(new)
+  on.exit(set_options(old))
+  force(code)
+}
+
+set_options <- function(opts) {
+  do.call(options, as.list(opts))
+}

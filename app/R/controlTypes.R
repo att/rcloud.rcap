@@ -254,7 +254,10 @@ HtmlWidgetControl <- R6Class("HtmlWidgetControl",
 
       func <- private$controlFunction
       if (!is.null(func)) {
-        widget <- do.call(func, list(), envir = rcloudEnv())
+        with_options(
+          list(viewer = function(...) invisible()),
+          widget <- do.call(func, list(), envir = rcloudEnv())
+        )
 
         if (!inherits(widget, "htmlwidget")) {
           stop("Function ", func, " did not produce an htmlwidget object")
