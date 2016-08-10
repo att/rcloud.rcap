@@ -88,7 +88,7 @@ createTableIdDf <- function (options, colNames) {
     numRandIds <- length(match(names(options$columnColor), colNames) - 1)
     colColorIds <- data.frame(
       "targets"   = names(options$columnColor),
-      "classNameColor" = replicate(numRandIds, randomId(prefix = "dt-call-")),
+      "classNameColor" = replicate(numRandIds, randomId(prefix = "dt-col-")),
       "background-color" = options$columnColor,
       stringsAsFactors = FALSE,
       check.names = FALSE)

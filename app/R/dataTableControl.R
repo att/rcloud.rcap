@@ -82,7 +82,7 @@ DataTableControl <- R6Class("DataTableControl",
       # Column css
       resOptions$datatables$css <- list(
         data.frame(
-          "_selector" = pasteEmpty(".", getClassNames$className),
+          "_selector" = pasteEmpty(".", gsub(" ", ".", getClassNames$className)),
           "background-color" = getClassNames$`background-color`,
           stringsAsFactors = FALSE, 
           check.names = FALSE

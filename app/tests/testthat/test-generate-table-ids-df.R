@@ -14,7 +14,7 @@ test_that("createTableIdDf returns the expected results", {
   expectedRes <- structure(
   	list(targets = c("cyl", "drat", "mpg"), 
   		 `background-color` = c("blue", "green", "red"), 
-  		 className = c("dt-call-wchgyn1r", "dt-call-z9n17hxe", "dt-body-right dt-call-jnu6h68x")), 
+  		 className = c("dt-col-wchgyn1r", "dt-col-z9n17hxe", "dt-body-right dt-col-jnu6h68x")), 
   	     .Names = c("targets", "background-color", "className"), 
   	     row.names = c(1L, 2L, 3L), 
   	     class = "data.frame")
