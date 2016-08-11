@@ -80,15 +80,16 @@ DataTableControl <- R6Class("DataTableControl",
         )
 
       # Column css
-      resOptions$datatables$css <- list(
-        data.frame(
-          "_selector" = pasteEmpty(".", gsub(" ", ".", getClassNames$className)),
-          "background-color" = getClassNames$`background-color`,
-          "color" = getClassNames$color,
-          stringsAsFactors = FALSE, 
-          check.names = FALSE
-        )
+      cssClasses <- data.frame(
+        "_selector" = pasteEmpty(".", gsub(" ", ".", getClassNames$className)),
+        "background-color" = getClassNames$`background-color`,
+        "color" = getClassNames$color,
+        stringsAsFactors = FALSE, 
+        check.names = FALSE
       )
+      resOptions$datatables$css <- createTableCss(data = cssClasses, id = private$id)
+      # Store the table id to remove the css before adding our custom css
+      resOptions$datatables$tableid <- paste0("#dt-style-", private$id)
 
       resOptions$datatables$language <-
         list(thousands = options$thousands %||% ',')
@@ -152,4 +153,22 @@ createTableIdDf <- function(options, colNames, id) {
   out <- merge(out, txtDf, by = c("targets", "className"), all = TRUE)
   out[rowSums(is.na(out)) != ncol(out), ]
   
+}
+
+#' Create styles for datatables
+#'
+#' Each datatable that is used will require its own style to add css
+createTableCss <- function(data, id = "test") {
+  classCss <- apply(data, 1, function (x) {
+    x <- x[!is.na(x)]
+    css <- if (length(x) == 1) {
+      "{}"
+    } else {
+      paste0('{', paste0(names(x[-1]), ": ", x[-1], collapse = "; "), "}")
+    }
+    paste0(unname(x[1]), css)
+  })
+  paste0('<style type="text/css" id="dt-style-', id, '">', 
+         paste(classCss, collapse = "\n"),
+         '</style>')
 }
