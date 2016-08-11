@@ -67,7 +67,7 @@ DataTableControl <- R6Class("DataTableControl",
               FUN = function(vec) hist(vec, plot = FALSE)$counts)
           })
 
-      getClassNames <- createTableIdDf(options = options, colNames = colNames)
+      getClassNames <- createTableIdDf(options = options, colNames = colNames, id = private$id)
 
       # columnDefs
       resOptions$datatables$columnDefs <- 
@@ -84,6 +84,7 @@ DataTableControl <- R6Class("DataTableControl",
         data.frame(
           "_selector" = pasteEmpty(".", gsub(" ", ".", getClassNames$className)),
           "background-color" = getClassNames$`background-color`,
+          "color" = getClassNames$color,
           stringsAsFactors = FALSE, 
           check.names = FALSE
         )
@@ -100,3 +101,55 @@ DataTableControl <- R6Class("DataTableControl",
     }
   )
 )
+
+#' Create unique IDs for tables which have differenct colours
+#'
+#' We need to generate unique IDs for the columns of tables which are requested
+#' to have a background colour 
+createTableIdDf <- function(options, colNames, id) {
+  if (!is.null(options$rightAlign)) {
+  raDf <- data.frame(
+    targets = options$rightAlign,
+    className = paste0("dt-body-right dt-", id, "-", 
+                       match(options$rightAlign, colNames) - 1),
+    stringsAsFactors = FALSE
+  )
+  } else {
+    raDf <- data.frame("targets"   = NA,
+                       "className" = NA)
+  }
+  
+  if (!is.null(options$columnColor)) {
+    bgDf <- data.frame(
+      targets = names(options$columnColor),
+      "background-color" = options$columnColor,
+      className = paste0("dt-", id, "-", 
+                         match(names(options$columnColor), colNames) - 1),
+    check.names = FALSE,
+    stringsAsFactors = FALSE
+    )
+  } else {
+    bgDf <- data.frame("targets"   = NA,
+                       "className" = NA)
+  }
+  
+  out <- merge(raDf, bgDf, by = c("targets", "className"), all = TRUE)
+  
+  if (!is.null(options$textColor)) {
+    txtDf <- data.frame(
+      targets = names(options$textColor),
+      color   = options$textColor,
+      className = paste0("dt-", id, "-", 
+                         match(names(options$textColor), colNames) - 1),
+    check.names = FALSE,
+    stringsAsFactors = FALSE
+    )
+  } else {
+    txtDf <- data.frame("targets"   = NA,
+                        "className" = NA)
+  }
+  
+  out <- merge(out, txtDf, by = c("targets", "className"), all = TRUE)
+  out[rowSums(is.na(out)) != ncol(out), ]
+  
+}
