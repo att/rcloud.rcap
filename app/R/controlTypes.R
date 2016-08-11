@@ -1,5 +1,6 @@
 
 #' @include controlR6.R
+#' @include dataTableControl.R
 #' @importFrom R6 R6Class
 NULL
 

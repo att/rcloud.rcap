@@ -204,6 +204,12 @@ define(['rcap/js/ui/controls/gridControl',
 
             $('#' + controlId).DataTable(dtProperties);
             
+            // data table colors
+            var tableid = result.options.datatables.tableid;
+            $(tableid).remove();
+            var dtcols = result.options.datatables.css;
+            $('head').append(dtcols);
+
             // font sizes
             $('th').css('font-size', result.options.css.thSize);
             $('td').css('font-size', result.options.css.tdSize);

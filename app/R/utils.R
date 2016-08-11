@@ -49,9 +49,9 @@ dataFrame <- function(..., stringsAsFactors = FALSE) {
   )
 }
 
-randomId <- function() {
+randomId <- function(prefix = "x") {
   rand <- sample(c(letters, 0:9), 8, replace = TRUE)
-  paste(c("x", rand), collapse = "")
+  paste(c(prefix, rand), collapse = "")
 }
 
 #' Return the RCAP version number
@@ -67,6 +67,15 @@ getRCAPVersion <- function() {
   )
 }
 
+pasteEmpty <- function(...) {
+  args <- list(...)
+  argsLens <- vapply(args, length, 1L)
+  if (any(argsLens == 0)) {
+    c()
+  } else {
+    paste0(...)
+  }
+}
 with_options <- function(new, code) {
   old <- set_options(new)
   on.exit(set_options(old))
