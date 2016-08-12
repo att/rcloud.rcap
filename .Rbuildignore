@@ -1,1 +1,7 @@
 ^app.Rproj$
+^inst/bower_components$
+^inst/bower.json$
+^inst/build$
+^inst/Gruntfile.js$
+^inst/node_modules$
+^inst/package.json$

@@ -4,27 +4,19 @@ module.exports = function(grunt) {
 
     // Configurable paths for the application
     var appConfig = {
-        appPath: require('./bower.json').appPath || 'app',
+        appPath: require('./bower.json').appPath || '.',
 
         /**************************************************************************
         //
         //  ::: TODO: modify dist settings :::
         //
         **************************************************************************/
-        devDeployDir: 'output/rcloud.rcap',
-        devRCommandDir:'output',
+        devDeployDir: '.',
         //distDeployDir: '',
         //cmdDir: '',
-        dist: 'dist',
         distFiles: [
-            'DESCRIPTION',
-            'README.md',
-            'NAMESPACE',
-            'inst/javascript/rcloud.rcap.js',
-            'inst/www/js/initialiser.js',
-            'R/**/*',
-            'tests/**/*',
-            'man/**/*'
+            'javascript/rcloud.rcap.js',
+            'www/js/initialiser.js',
         ]
     };
 
@@ -40,7 +32,7 @@ module.exports = function(grunt) {
 
                 },
                 files: {
-                    'app/inst/www/styles/default.css': 'app/inst/www/styles/default.scss'
+                    'www/styles/default.css': 'www/styles/default.scss'
                 },
                 trace: true
             }
@@ -55,18 +47,17 @@ module.exports = function(grunt) {
             all: {
                 src: [
                     'Gruntfile.js',
-                    '<%= appConfig.appPath %>/javascript/{,*/}*.js',
-                    '<%= appConfig.appPath %>/inst/www/js/*.js',
-                    '<%= appConfig.appPath %>/inst/www/js/pages/*.js',
-                    '<%= appConfig.appPath %>/inst/www/js/site/*.js',
-                    '<%= appConfig.appPath %>/inst/www/js/ui/*.js',
-                    '<%= appConfig.appPath %>/inst/www/js/ui/controls/*.js',
-                    '<%= appConfig.appPath %>/inst/www/js/ui/controls/child/*.js',
-                    '<%= appConfig.appPath %>/inst/www/js/ui/controls/dialogs/*.js',
-                    '<%= appConfig.appPath %>/inst/www/js/ui/controls/factories/*.js',
-                    '<%= appConfig.appPath %>/inst/www/js/ui/controls/properties/*.js',
-                    '<%= appConfig.appPath %>/inst/www/js/utils/*.js',
-                    '<%= appConfig.appPath %>/inst/www/js/utils/translators/*.js'
+                    '<%= appConfig.appPath %>/www/js/*.js',
+                    '<%= appConfig.appPath %>/www/js/pages/*.js',
+                    '<%= appConfig.appPath %>/www/js/site/*.js',
+                    '<%= appConfig.appPath %>/www/js/ui/*.js',
+                    '<%= appConfig.appPath %>/www/js/ui/controls/*.js',
+                    '<%= appConfig.appPath %>/www/js/ui/controls/child/*.js',
+                    '<%= appConfig.appPath %>/www/js/ui/controls/dialogs/*.js',
+                    '<%= appConfig.appPath %>/www/js/ui/controls/factories/*.js',
+                    '<%= appConfig.appPath %>/www/js/ui/controls/properties/*.js',
+                    '<%= appConfig.appPath %>/www/js/utils/*.js',
+                    '<%= appConfig.appPath %>/www/js/utils/translators/*.js'
                 ]
             }
 
@@ -90,122 +81,28 @@ module.exports = function(grunt) {
             dev: {
                 files: [{
                     expand: true,
-                    cwd: 'app',
-                    dest: '<%= appConfig.devDeployDir%>/',
-                    src: [
-                        'inst/**/*',
-                        'R/**/*',
-                        'tests/**/*',
-                        'man/**/*',
-                        '!**/*.scss' // we don't want the scss file(s)
-                    ]
-                }, {
-                    expand: true,
                     cwd: 'bower_components/',
-                    dest: '<%= appConfig.devDeployDir%>/inst/www/bower_components',
+                    dest: '<%= appConfig.devDeployDir%>/www/bower_components',
                     src: [
                         '**/*.js'
                     ]
                 }, {
                     expand: true,
                     cwd: 'bower_components/',
-                    dest: '<%= appConfig.devDeployDir%>/inst/www/bower_components',
+                    dest: '<%= appConfig.devDeployDir%>/www/bower_components',
                     src: [
                         '**/*.css'
                     ]
                 }, {
                     expand: true,
                     cwd: 'bower_components/',
-                    dest: '<%= appConfig.devDeployDir%>/inst/www/bower_components',
+                    dest: '<%= appConfig.devDeployDir%>/www/bower_components',
                     src: [
                         '**/*.png'
                     ]
-                }, {
-                    cwd: 'app',
-                    expand: true,
-                    dest: '<%= appConfig.devDeployDir%>',
-                    src: [
-                        'DESCRIPTION',
-                        'NAMESPACE',
-                        'README.md'
-                    ]
-                }]
-            },
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: 'app',
-                    dest: '<%= appConfig.distDeployDir%>/',
-                    src: '<%= appConfig.distFiles%>'
                 }]
             }
-        },
-
-        clean: {
-            dev: {
-                options: {
-                    force: true
-                },
-                files: [{
-                    dot: true,
-                    src: [
-                        '<%= appConfig.devDeployDir %>/{,*/}*'
-                    ]
-                }]
-            },
-            dist: {
-                options: {
-                    force: true
-                },
-                files: [{
-                    dot: true,
-                    src: [
-                        '<%= appConfig.distDeployDir %>/{,*/}*'
-                    ]
-                }]
-            },
-            output: ['<%= appConfig.devRCommandDir %>/'],
-            outputtemp: ['<%= appConfig.devDeployDir %>/']
-        },
-
-        shell: {
-            dev: {
-                command: [
-                    'cd /data/rcloud/',
-                    'scripts/build_package.sh rcloud.packages/rcloud.rcap'
-                ].join(' && ')
-            },
-            buildpackage: {
-                command: [
-                    'cd <%= appConfig.devRCommandDir%>',
-                    'R CMD build rcloud.rcap'
-                ].join(' && ')
-            },
-            installpackage: {
-                command: [
-                    'cd <%= appConfig.devRCommandDir%>',
-                    'R CMD INSTALL `sed -n \'s/Package: *//p\' rcloud.rcap/DESCRIPTION`_`sed -n \'s/Version: *//p\' rcloud.rcap/DESCRIPTION`.tar.gz'
-                ].join(' && ')  
-            },
-            /*
-
-            revisit this:
-
-            dist: {
-                commandcd: [
-                    'node r.js -o build.js',
-                    'move initialiser.js <%= appConfig.distDeployDir %>/inst/www/js/initialiser.js',
-                    //'cd <%= appConfig.cmdDir %>',
-                    //'vagrant ssh -- sh rebuild.sh dist'
-                ].join(' && '),
-                options: {
-                    execOptions: {
-                        cwd: 'build'
-                    }
-                }
-            }*/
         }
-
     });
 
     grunt.loadNpmTasks('grunt-contrib-copy');
@@ -220,10 +117,9 @@ module.exports = function(grunt) {
     require('time-grunt')(grunt);
 
     // dev
-    grunt.registerTask('default', ['newer:jshint', 'clean:dev', 'sass', 'clean:output', 'copy:dev', 'shell:buildpackage', 'shell:installpackage', 'clean:outputtemp']);
-    grunt.registerTask('buildpackage', ['newer:jshint', 'clean:dev', 'sass', 'clean:output', 'copy:dev', 'shell:buildpackage', 'clean:outputtemp']);
-
-    // dist
-    grunt.registerTask('dist', ['newer:jshint', 'clean:dist', 'copy:dist', 'shell:dist']);
+    grunt.registerTask(
+	'default',
+	['newer:jshint', 'sass', 'copy:dev' ]
+    );
 
 };
