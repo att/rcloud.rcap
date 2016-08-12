@@ -1,10 +1,13 @@
 Package: rcloud.rcap
-Title: RCAP
+Title: Interactive Dashboard and Website Builder for RCloud
 Version: 0.3.6
-Authors@R: c(person("Douglas", "Ashton", email = "dashton@mango-solutions.com", role = c("aut", "cre")),
-             person("Shane", "Porter", email = "sporter@mango-solutions.com", role = c("aut")),
-             person("Gábor", "Csárdi", email = "gcsardi@mango-solutions.com", role = c("aut")))
-Maintainer: Douglas Ashton <dashton@mango-solutions.com>
+Authors@R: c(
+    person("Douglas", "Ashton", role = c("aut")),
+    person("Shane", "Porter", role = c("aut")),
+    person("Gábor", "Csárdi", email = "gcsardi@mango-solutions.com",
+           role = c("aut", "cre")),
+    person("Paulin", "Shek", role = "aut"),
+    person("Nathan", "Eastwood", role = "aut"))
 Description: Website designer for RCloud's mini interface.
 Imports:
     Rserve,
