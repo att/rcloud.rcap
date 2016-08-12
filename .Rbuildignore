@@ -5,3 +5,4 @@
 ^inst/Gruntfile.js$
 ^inst/node_modules$
 ^inst/package.json$
+^install.sh$
