@@ -1,34 +1,41 @@
+
 # RCAP
-Development repository for [rcloud.rcap](https://github.research.att.com/dashton/rcloud.rcap) project. 
 
-This repository contains the full development code for the `rcloud.rcap` package. The top level contains JavaScript (node/grunt/bower) configuration files and the R package is in the `app` directory.  However, before the package can be used, it must be deployed by the Grunt script. To build the R package you need several JavaScript components. Starting with node (npm), Grunt and Bower.
+> Interactive dashboard builder for RCloud
 
-After checking out the code, from the repository root you run
+## Introduction
 
+RCAP is an extension to [RCloud](https://github.com/att/rcloud#readme). It
+is an interactive dashboard builder tool. Each dashboard belongs to an
+RCloud notebook. The RCAP designer tool can be used to create and edit
+the dashboard, and the special `rcap.html` mode to view it.
+
+## Installation
+
+You need to install RCAP on the RCloud server. To install the latest
+released build, you can use the `devtools` package:
+```r
+devtools::install_url(
+  "https://github.com/att/rcloud.rcap/releases/download/0.3.5/rcloud.rcap_0.3.5.tar.gz"
+)
 ```
-npm install
-```
+You can also run this from within an RCloud notebook, assuming you have
+access rights to install R packages on the RCloud server.
 
-To get the node modules. This will install everything them locally. If you want to use grunt and bower globally you can optionally install those two packages globally.
-
-```
-npm install -g grunt-cli
-npm install -g bower
-```
-
-Then install the Bower components.
-
-```
-bower install
-```
-
-To build and deploy the app there is a Grunt script, Grunfile.js. To run this simply call
-
-```
-grunt
+To install the development version, use
+```r
+devtools::install_github("att/rcloud.rcap", local = FALSE)
 ```
 
-or if you have it locally
-```
-node_modules/grunt-cli/bin/grunt
-```
+Building the development version requires `node.js` & `npm`, `bower`,
+`grunt` and `GNU make`.
+
+After installing the R package, you can enable RCAP in RCloud in the
+`Settings` menu (on the bottom left). Add `rcloud.rcap` to the
+`Enable Extensions` line, and reload the notebook.
+
+You can start the designer from the `Advanced` menu.
+
+## License
+
+MIT @ AT&T

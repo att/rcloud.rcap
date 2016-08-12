@@ -1,0 +1,7 @@
+#! /usr/bin/env bash
+
+cd inst
+npm install
+bower install
+grunt
+( cd bower_components/jquery.sparkline && make )

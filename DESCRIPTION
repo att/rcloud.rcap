@@ -19,6 +19,7 @@ Suggests:
 License: MIT + file LICENSE
 RCloud-Extension: gui
 RoxygenNote: 5.0.1
+SystemRequirements: node.js and npm, bower, Grunt, GNU make
 Collate:
     'controlR6.R'
     'dataTableControl.R'
