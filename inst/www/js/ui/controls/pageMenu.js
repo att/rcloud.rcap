@@ -94,7 +94,6 @@ define(['rcap/js/ui/controls/gridControl',
                 controlCategory: 'Navigation',
                 label: 'Page Menu',
                 icon: 'reorder',
-                initialSize: [4, 2],
                 controlProperties: [
                     new DropdownControlProperty({
                         uid: 'menustyle',

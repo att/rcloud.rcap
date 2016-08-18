@@ -11,7 +11,6 @@ define(['rcap/js/ui/controls/gridControl', 'rcap/js/ui/controls/properties/textC
 				controlCategory: 'HTML',
 				label : 'Image',
 				icon: 'picture',
-				initialSize: [4, 4],
 				controlProperties: [
 					new TextControlProperty({
 						uid: 'imagesource',
