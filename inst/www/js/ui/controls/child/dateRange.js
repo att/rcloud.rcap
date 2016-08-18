@@ -18,18 +18,10 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
                         isHorizontal: false
                     }),
                     new TextControlProperty({
-                        uid: 'startvariablename',
-                        label : 'Start date variable name',
-                        defaultValue : 'startvariable',
-                        helpText : 'The start date variable',
-                        isRequired: true,
-                        isHorizontal: false
-                    }),
-                    new TextControlProperty({
-                        uid: 'endvariablename',
-                        label : 'End date variable name',
-                        defaultValue : 'endvariable',
-                        helpText : 'The end date variable',
+                        uid: 'variable',
+                        label : 'Start/end date variable name',
+                        defaultValue : 'variable',
+                        helpText : 'The start/end date variable',
                         isRequired: true,
                         isHorizontal: false
                     })
