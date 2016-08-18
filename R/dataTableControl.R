@@ -67,9 +67,34 @@ DataTableControl <- R6Class("DataTableControl",
               FUN = function(vec) hist(vec, plot = FALSE)$counts)
           })
 
+      # Column css
       getClassNames <- createTableIdDf(options = options, colNames = colNames, id = private$id)
-
+      getCellClassNames <- createCellColorId(options = options, colNames = colNames, id = private$id)
       # columnDefs
+      cssColumnClasses <- if (all(is.na(getClassNames))) {
+        data.frame()
+      } else {
+        data.frame(
+          "_selector" = pasteEmpty(".", gsub(" ", ".", getClassNames$className)),
+          "background-color" = getClassNames$`background-color`,
+          "color" = getClassNames$color,
+          stringsAsFactors = FALSE,
+          check.names = FALSE
+        )
+      }
+      # Cell css
+      cssCellClasses <- if (all(is.na(getCellClassNames))) {
+        data.frame()
+      } else {
+        data.frame(
+          "_selector" = pasteEmpty(".", gsub(" ", ".", getCellClassNames$className)),
+          "background-color" = getCellClassNames$`background-color`,
+          "color" = getCellClassNames$color,
+          stringsAsFactors = FALSE,
+          check.names = FALSE
+        )
+      }
+
       resOptions$datatables$columnDefs <- 
         list( 
           data.frame(width   = options$columnWidths, 
@@ -78,16 +103,16 @@ DataTableControl <- R6Class("DataTableControl",
                      targets   = match(getClassNames$targets, colNames) - 1,
                      stringsAsFactors = FALSE)
         )
-
-      # Column css
-      cssClasses <- data.frame(
-        "_selector" = pasteEmpty(".", gsub(" ", ".", getClassNames$className)),
-        "background-color" = getClassNames$`background-color`,
-        "color" = getClassNames$color,
-        stringsAsFactors = FALSE, 
-        check.names = FALSE
+      resOptions$datatables$cellDefs <-
+        list(
+          data.frame(className = getCellClassNames$className,
+                     column = getCellClassNames$targets,
+                     row = as.numeric(vapply(strsplit(getCellClassNames$className, "-"), tail, "", 1)) - 1,
+                     stringsAsFactors = FALSE)
+        )
+      resOptions$datatables$css <- createTableCss(
+        data = rbind(cssColumnClasses, cssCellClasses), id = private$id
       )
-      resOptions$datatables$css <- createTableCss(data = cssClasses, id = private$id)
       # Store the table id to remove the css before adding our custom css
       resOptions$datatables$tableid <- paste0("#dt-style-", private$id)
 
@@ -130,8 +155,9 @@ createTableIdDf <- function(options, colNames, id) {
     stringsAsFactors = FALSE
     )
   } else {
-    bgDf <- data.frame("targets"   = NA,
-                       "className" = NA)
+    bgDf <- data.frame("targets"   = NA_character_,
+                       "className" = NA_character_,
+    stringsAsFactors = FALSE)
   }
   
   out <- merge(raDf, bgDf, by = c("targets", "className"), all = TRUE)
@@ -146,8 +172,9 @@ createTableIdDf <- function(options, colNames, id) {
     stringsAsFactors = FALSE
     )
   } else {
-    txtDf <- data.frame("targets"   = NA,
-                        "className" = NA)
+    txtDf <- data.frame("targets"   = NA_character_,
+                        "className" = NA_character_,
+    stringsAsFactors = FALSE)
   }
   
   out <- merge(out, txtDf, by = c("targets", "className"), all = TRUE)
@@ -171,4 +198,55 @@ createTableCss <- function(data, id = "test") {
   paste0('<style type="text/css" id="dt-style-', id, '">', 
          paste(classCss, collapse = "\n"),
          '</style>')
+}
+
+#' Create class names for colored cells
+createCellColorId <- function (options, colNames, id) {
+
+  bgDf <- if (!is.null(options$cellBgColor)) {
+    tarBg <- names(options$cellBgColor)
+    tarBgM <- match(tarBg, colNames) - 1
+    lenTarBg <- length(options$cellBgColor[[1]])
+    cellIds <- do.call("c", options$cellBgColor)
+    classNameBg <- do.call(
+      "c",
+      lapply(tarBgM,
+             function(x) {
+               paste0("dt-", id, "-", x, "-", seq(1, lenTarBg))
+             }
+      )
+    )
+    data.frame(targets = rep(tarBg, each = lenTarBg),
+               className = classNameBg,
+               `background-color` = unname(cellIds),
+               stringsAsFactors = FALSE,
+               check.names = FALSE)
+  } else {
+    data.frame("targets" = NA_character_, "className" = NA_character_,
+    stringsAsFactors = FALSE)
+  }
+
+  txtDf <- if (!is.null(options$cellColor)) {
+    tarTxt <- names(options$cellColor)
+    tarTxtM <- match(tarTxt, colNames) - 1
+    lenTarTxt <- length(options$cellColor[[1]])
+    cellIds <- do.call("c", options$cellColor)
+    classNameTxt <- do.call(
+      "c",
+      lapply(tarTxtM,
+             function(x) {
+               paste0("dt-", id, "-", x, "-", seq(1, lenTarTxt))
+             }
+      )
+    )
+    data.frame(targets = rep(tarTxt, each = lenTarTxt),
+               className = classNameTxt,
+               color = unname(cellIds),
+               stringsAsFactors = FALSE,
+               check.names = FALSE)
+  } else {
+     data.frame("targets" = NA_character_, "className" = NA_character_,
+    stringsAsFactors = FALSE)
+  }
+  merge(bgDf, txtDf, by = c("targets", "className"), all = TRUE, sort = FALSE)
 }
