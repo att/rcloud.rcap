@@ -6,6 +6,6 @@
 	npm install
 	bower install
 	( cd bower_components/jquery.sparkline && make )
+	grunt
     fi
-    grunt
 )
