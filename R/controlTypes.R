@@ -158,6 +158,10 @@ SubmitButtonControl <- R6Class("SubmitButtonControl",
   inherit = Control
 )
 
+DateRangeContol <- R6Class("DateRangeContol",
+  inherit = Control
+)
+
 #' @importFrom rcloud.web rcw.set
 #' @importFrom rcloud.web rcw.prepend
 
@@ -314,7 +318,8 @@ control_classes <- list(
   "rtext"            = RTextControl,
   "leaflet"          = LeafletControl,
   "timer"            = TimerControl,
-  "htmlwidget"       = HtmlWidgetControl
+  "htmlwidget"       = HtmlWidgetControl,
+  "daterange"        = DateRangeContol
 )
 
 controlFactory <- function(cl, type = cl$type) {
