@@ -181,6 +181,8 @@ define(['rcap/js/ui/controls/gridControl',
             // pass in dynamic options from R
             // but first, need to tidy up
             result.options.datatables.columnDefs = _.flatten(result.options.datatables.columnDefs);
+            var cellDefs = result.options.datatables.cellDefs[0];
+            delete result.options.datatables.cellDefs;
             $.extend(true, dtProperties, 
                 result.options.datatables);
 
@@ -201,7 +203,16 @@ define(['rcap/js/ui/controls/gridControl',
                     buttons: controlData.downloadAsCsv ? ['csv'] : []
                 }
             );
-
+            dtProperties.fnRowCallback = function( nRow, aData ) {
+                var rowPos = this.fnGetPosition( nRow );
+                Object.keys(aData).forEach(function(value, i) {
+                    // have we got an item in cellDefs matching iDisplayIndexFull and i (column):
+                    var cellDef = _.findWhere(cellDefs, { column : value, row : rowPos });
+                    if(cellDef) {
+                        $('td:eq(' + i +')', nRow).addClass(cellDef.className);
+                    }
+                });
+            };
             $('#' + controlId).DataTable(dtProperties);
             
             // data table colors
@@ -210,9 +221,11 @@ define(['rcap/js/ui/controls/gridControl',
             var dtcols = result.options.datatables.css;
             $('head').append(dtcols);
 
+            // cell classes
+
             // font sizes
-            $('th').css('font-size', result.options.css.thSize);
-            $('td').css('font-size', result.options.css.tdSize);
+            $('#' + controlId + 'th').css('font-size', result.options.css.thSize);
+            $('#' + controlId + 'td').css('font-size', result.options.css.tdSize);
 
         }
     });
