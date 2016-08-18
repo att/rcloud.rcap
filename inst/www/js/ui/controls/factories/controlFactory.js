@@ -15,6 +15,7 @@ define([
     //////////////////////
     'controls/child/textField',
     'controls/child/datePicker',
+    'controls/child/dateRange',
     'controls/child/dropdown',
     'controls/child/separator',
     'controls/child/heading',
@@ -40,6 +41,7 @@ define([
     ///////////////////////
     TextFieldControl,
     DatePickerControl,
+    DateRangeControl,
     DropdownControl,
     SeparatorControl,
     HeadingControl,
@@ -71,6 +73,7 @@ define([
         this.childControls = [
             new TextFieldControl(),
             new DatePickerControl(),
+            new DateRangeControl(),
             new DropdownControl(),
             new MultiSelectControl(),
             new CheckboxListControl(),
@@ -169,6 +172,9 @@ define([
                 break;
             case 'datepicker':
                 control = new DatePickerControl();
+                break;
+            case 'daterange':
+                control = new DateRangeControl();
                 break;
             case 'dropdown':
                 control = new DropdownControl();
