@@ -123,7 +123,16 @@ TextFieldControl <- R6Class("TextFieldControl",
 )
 
 DatePickerControl <- R6Class("DatePickerControl",
-  inherit = Control
+  inherit = Control,
+  public = list(
+    setVariable = function(new_value) {
+      if (!is.null(new_value) && !is.null(private$variableName)) {
+        new_value <- as.Date(new_value)
+        assign(private$variableName, new_value, envir = rcloudEnv())
+      }
+      invisible(self)
+    }
+  )
 )
 
 DropdownControl <- R6Class("DropdownControl",
