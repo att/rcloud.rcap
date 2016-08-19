@@ -159,7 +159,17 @@ SubmitButtonControl <- R6Class("SubmitButtonControl",
 )
 
 DateRangeContol <- R6Class("DateRangeContol",
-  inherit = Control
+  inherit = Control,
+  public = list(
+    setVariable = function(new_value) {
+      if (!is.null(new_value) && !is.null(private$variableName)) {
+        new_value <- list(from = as.Date(new_value$from),
+                          to   = as.Date(new_value$to))
+        assign(private$variableName, new_value, envir = rcloudEnv())
+      }
+      invisible(self)
+    }
+  )
 )
 
 #' @importFrom rcloud.web rcw.set
