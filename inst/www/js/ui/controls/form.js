@@ -224,7 +224,7 @@ define(['rcap/js/ui/controls/gridControl',
                         } else {
                             $(e).find('input[value="' + value + '"]').prop('checked', true);    
                         }
-                    } else if($(e).hasClass('daterange')) {
+                    } else if($(e).hasClass('daterange') && _.isArray(value) && value.length === 2) {
                         $(e).find('input:eq(0)').val(value[0]);
                         $(e).find('input:eq(1)').val(value[1]);
                     } else {
