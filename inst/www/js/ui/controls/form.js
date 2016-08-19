@@ -98,18 +98,40 @@ define(['rcap/js/ui/controls/gridControl',
                 var value;
 
                 if( el.hasClass('daterange')) {
-                    // validate:
-                    var range = [el.find('input:eq(0)').val(), el.find('input:eq(1)').val()];
 
-                    if(range.length === 2 && range[0].length && range[1].length) {
-                        value = {
-                            from: range[0],
-                            to: range[1]
-                        };
+                    var controlId = el.attr('id'),
+                        startControl = $('#' + controlId + '-start');
+
+                    var startDate = startControl.val();
+
+                    // is this a range, or a start/interval?
+                    if(el.data('hasinterval')) {
+
+                        var intervalType = el.data('intervaltype');
+                        var toAdd = $('#' + controlId + '-interval').val();
+
+                        if(intervalType && toAdd && startDate) {
+                            value = {
+                                from: startDate,
+                                interval: toAdd,
+                                intervalType: intervalType
+                            };
+                        } else {
+                            return undefined;
+                        }
+
                     } else {
-                        return undefined;
-                    }
+                        
+                        var endDate = $('#' + controlId + '-end').val();
 
+                        // validate:
+                        if(startDate && endDate) {
+                            value = {
+                                from: startDate,
+                                to: endDate
+                            };
+                        }
+                    }
                 } else if( el.hasClass('checkbox-group')) {
                     // get all selected checkboxes:
                     value = [];

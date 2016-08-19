@@ -21,7 +21,8 @@
             'datatablesbuttons': '../../shared.R/rcloud.rcap/bower_components/datatables.net-buttons/js',
             'datatables.net': '../../shared.R/rcloud.rcap/bower_components/datatables.net/js/jquery.dataTables',
             'datatables.net-buttons': '../../shared.R/rcloud.rcap/bower_components/datatables.net-buttons/js/dataTables.buttons',
-            'jquery.sparkline': '../../shared.R/rcloud.rcap/bower_components/jquery.sparkline/dist'
+            'jquery.sparkline': '../../shared.R/rcloud.rcap/bower_components/jquery.sparkline/dist',
+            'moment': '../../shared.R/rcloud.rcap/bower_components/min/moment.min'
         },
         map: {
             '*': {

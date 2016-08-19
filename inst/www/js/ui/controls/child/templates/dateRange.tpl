@@ -9,7 +9,7 @@ if(typeof control.controlProperties[0].value !== 'undefined' && control.controlP
 
 
 <div class="daterange" data-variablename="<%=control.getControlPropertyValueOrDefault('variablename')%>" id="<%=control.id%>"
-    data-hasinterval="<%=control.getControlPropertyValue('intervalType') !== ''%>">
+    data-hasinterval="<%=control.getControlPropertyValue('intervalType') !== ''%>" data-intervaltype="<%=control.getControlPropertyValue('intervalType')%>">
 
     <!-- 
     <% switch(control.getControlPropertyValue('intervalType')) { case 'days': %>
@@ -22,7 +22,7 @@ if(typeof control.controlProperties[0].value !== 'undefined' && control.controlP
         <p>years</p>
     <% break; } %> -->
 
-    <input type="date" id="<%=control.id%>-start"></input>
+    <input type="date" id="<%=control.id%>-start" size="10"></input>
 
     <% if(control.getControlPropertyValue('intervalType') != '') { %>
 
@@ -40,7 +40,7 @@ if(typeof control.controlProperties[0].value !== 'undefined' && control.controlP
             });
         </script>
     <% } else { %>
-         <span>to</span> <input type="date" id="<%=control.id%>-end"></input>
+         <span>to</span> <input type="date" id="<%=control.id%>-end" size="10"></input>
     <% } %>
 
 </div>
