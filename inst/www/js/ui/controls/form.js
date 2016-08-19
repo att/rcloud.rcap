@@ -97,7 +97,17 @@ define(['rcap/js/ui/controls/gridControl',
                 // value dependent on control type:
                 var value;
 
-                if( el.hasClass('checkbox-group')) {
+                if( el.hasClass('daterange')) {
+                    // validate:
+                    var range = [el.find('input:eq(0)').val(), el.find('input:eq(1)').val()];
+
+                    if(range.length === 2 && range[0].length && range[1].length) {
+                        value = range;
+                    } else {
+                        return undefined;
+                    }
+
+                } else if( el.hasClass('checkbox-group')) {
                     // get all selected checkboxes:
                     value = [];
                     el.find('input:checkbox:checked').each(function() 
@@ -123,27 +133,30 @@ define(['rcap/js/ui/controls/gridControl',
 
             var submitVariableChange = function(variableData) {
 
-                var plotSizes = [];
+                if(variableData.length) {
+                    var plotSizes = [];
 
-                $('.rplot, .r-interactiveplot, .rhtmlwidget').each(function() {
-                    var container = $(this).closest('.grid-stack-item-content');
-                    plotSizes.push({
-                        id : $(this).attr('id'),
-                        width : container.data('width'),
-                        height : container.data('height')
+                    $('.rplot, .r-interactiveplot, .rhtmlwidget').each(function() {
+                        var container = $(this).closest('.grid-stack-item-content');
+                        plotSizes.push({
+                            id : $(this).attr('id'),
+                            width : container.data('width'),
+                            height : container.data('height')
+                        });
                     });
-                });
- 
-                data = {
-                    updatedVariables : variableData,
-                    plotSizes : plotSizes
-                };
+     
+                    data = {
+                        updatedVariables : variableData,
+                        plotSizes : plotSizes
+                    };
 
-                ///////////////////////////////////////////////////////
-                var dataToSubmit = JSON.stringify(data);
-                rcapLogger.log('Submitting data: ', dataToSubmit);
-                window.RCAP.updateControls(dataToSubmit);
-                ///////////////////////////////////////////////////////
+                    ///////////////////////////////////////////////////////
+                    var dataToSubmit = JSON.stringify(data);
+                    rcapLogger.log('Submitting data: ', dataToSubmit);
+                    window.RCAP.updateControls(dataToSubmit);
+                    ///////////////////////////////////////////////////////
+                }
+
             };
 
             // if a form has a submit button, its data will be submitted when the form is submitted.
@@ -157,16 +170,23 @@ define(['rcap/js/ui/controls/gridControl',
                         // loop through each item:
                         data = [];
                         $(this).find('[data-variablename]').each(function() {
-                            data.push(getVarData($(this)));
+                            var value = getVarData($(this));
+
+                            if(value) {
+                                data.push(value);
+                            }
                         });
 
                         submitVariableChange(data);
                     });
                 } else {
                     $(this).find('[data-variablename]').change(function() {
-                        submitVariableChange([
-                            getVarData($(this))
-                        ]);
+
+                        var value = getVarData($(this));
+
+                        if(value) {
+                            submitVariableChange([value]);
+                        }
                     });
                 }
             });
