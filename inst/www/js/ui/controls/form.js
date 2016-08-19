@@ -102,7 +102,10 @@ define(['rcap/js/ui/controls/gridControl',
                     var range = [el.find('input:eq(0)').val(), el.find('input:eq(1)').val()];
 
                     if(range.length === 2 && range[0].length && range[1].length) {
-                        value = range;
+                        value = {
+                            from: range[0],
+                            to: range[1]
+                        };
                     } else {
                         return undefined;
                     }
