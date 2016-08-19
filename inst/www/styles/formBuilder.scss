@@ -89,7 +89,7 @@
         width: 605px;
     }
     & .drop-zone {
-        min-height: 400px;
+        //min-height: 400px;
         background: #fff;
         padding: 5px;
         height: 100%;
@@ -97,7 +97,8 @@
     & .tab-content {
         border-left: 1px solid #ddd;
         border-right: 1px solid #ddd;
-        min-height: 358px;
+        //min-height: 358px;
+        height: calc(100% - 29px);
         background: white;
 
         & > .menu {
@@ -106,7 +107,7 @@
     }
     & #form-builder-configuration {
         padding: 10px;
-        max-height: 500px;
+        max-height: calc(100% - 29px);
 
         overflow: auto;
         &::-webkit-scrollbar-track {
