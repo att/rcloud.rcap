@@ -1,5 +1,6 @@
 define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textControlProperty',
-    'rcap/js/ui/controls/properties/colorControlProperty', 'text!rcap/js/ui/controls/child/templates/dateRange.tpl'], function(BaseControl, TextControlProperty, ColorControlProperty, tpl) {
+    'rcap/js/ui/controls/properties/dropdownControlProperty',
+    'text!rcap/js/ui/controls/child/templates/dateRange.tpl'], function(BaseControl, TextControlProperty, DropdownControlProperty, tpl) {
     
     'use strict';
 
@@ -15,6 +16,26 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
                         label : 'Label',
                         defaultValue : 'Label',
                         helpText : 'The label for this range control',
+                        isHorizontal: false
+                    }),
+                    new DropdownControlProperty({
+                        uid: 'intervalType',
+                        label: 'Use interval',
+                        helpText: 'Interval type',
+                        isRequired: false,
+                        availableOptions: [{
+                            text: 'Days',
+                            value: 'days'
+                        }, {
+                            text: 'Weeks',
+                            value: 'weeks'
+                        }, {
+                            text: 'Months',
+                            value: 'months'
+                        }, {
+                            text: 'Years',
+                            value: 'years'
+                        }],
                         isHorizontal: false
                     }),
                     new TextControlProperty({
