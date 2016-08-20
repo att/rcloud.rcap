@@ -28,17 +28,27 @@ if(typeof control.controlProperties[0].value !== 'undefined' && control.controlP
 
         <span>plus</span>
         <input type="text" value="1" maxlength="4" size="4" id="<%=control.id%>-interval" />
-        <span><%=control.getControlPropertyValue('intervalType')%></span>
+        <span id="<%=control.id%>-interval-grammar"><%=control.singularInterval()%></span>
 
         <script type="text/javascript">
             $(function() {
                 $('#<%=control.id%>-interval').bind("keyup paste", function(){
                     setTimeout(jQuery.proxy(function() {
                         this.val(this.val().replace(/[^0-9]/g, ''));
+
+                        var intervalType = '<%=control.getControlPropertyValue('intervalType')%>';
+
+                        if(this.val() === '1') {
+                            $('#' + '<%=control.id%>-interval-grammar').text(intervalType.substring(0, intervalType.length - 1));
+                        } else {
+                            $('#' + '<%=control.id%>-interval-grammar').text(intervalType);
+                        }
+
                     }, $(this)), 0);
                 });
             });
         </script>
+
     <% } else { %>
          <span>to</span> <input type="date" id="<%=control.id%>-end" size="10"></input>
     <% } %>

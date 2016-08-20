@@ -49,6 +49,10 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
                 ]
             });
         },
+        singularInterval: function() {
+            var intervalType = this.getControlPropertyValue('intervalType');
+            return intervalType ? intervalType.substring(0, intervalType.length - 1) : '';
+        },
         render: function() {
             var template = _.template(tpl);
 
