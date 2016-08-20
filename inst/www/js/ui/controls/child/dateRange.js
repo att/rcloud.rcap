@@ -21,7 +21,7 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
                     new DropdownControlProperty({
                         uid: 'intervalType',
                         label: 'Use interval',
-                        helpText: 'Interval type',
+                        helpText: 'If an interval type is specified, a start date plus interval will be shown rather than the start/end date',
                         isRequired: false,
                         availableOptions: [{
                             text: 'Days',
