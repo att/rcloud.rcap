@@ -42,9 +42,6 @@ define(['pubsub', 'site/pubSubTable', 'rcap/js/utils/rcapLogger'], function(PubS
 
                 modifyingEvents.forEach(function(e) {
                     PubSub.subscribe(e, function(msg, msgInfo) {
-                        //if(msg !== pubSubTable.updateControl || 
-                        //  (msg === pubSubTable.updateControl &&  !_.isUndefined(msgInfo.isDirty) && msgInfo.isDirty)) {
-
                         if(_.isUndefined(msgInfo.isDirty) || (!_.isUndefined(msgInfo.isDirty) && !msgInfo.isDirty)) {
                             rcapLogger.info('dirtyStateIndicator, setting modified after receiving: pubSubTable.' + msg);
                             isDirty = true;
