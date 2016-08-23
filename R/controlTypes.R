@@ -172,8 +172,15 @@ DateRangeContol <- R6Class("DateRangeContol",
   public = list(
     setVariable = function(new_value) {
       if (!is.null(new_value) && !is.null(private$variableName)) {
-        new_value <- list(from = as.Date(new_value$from),
-                          to   = as.Date(new_value$to))
+        if ("to" %in% names(new_value)) {
+          new_value <- list(from = as.Date(new_value$from),
+                            to   = as.Date(new_value$to))
+        } else {
+          new_value <- list(from = as.Date(new_value$from),
+                            interval = as.numeric(new_value$interval),
+                            intervalType = new_value$intervalType
+          )
+        }
         assign(private$variableName, new_value, envir = rcloudEnv())
       }
       invisible(self)
