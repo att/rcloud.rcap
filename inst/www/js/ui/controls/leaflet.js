@@ -17,7 +17,6 @@ define(['rcap/js/ui/controls/gridControl',
                 controlCategory: 'Dynamic',
                 label: 'Leaflet',
                 icon: 'map-marker',
-                initialSize: [4, 4],
                 controlProperties: [
                     new AutocompleteControlProperty({
                         uid: 'code',

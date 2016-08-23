@@ -55,7 +55,7 @@ define(['rcap/js/ui/controls/baseControl',
                 })
             ];
 
-            this.initialSize = options.initialSize || [4, 2];
+            this.initialSize = options.initialSize || [2, 2];
             this.width = +this.initialSize[0];
             this.height = +this.initialSize[1];
             this.controlProperties = options.controlProperties;
