@@ -8,8 +8,9 @@ define(['text!rcap/partials/viewer.htm',
     'rcap/js/serializer',
     'site/siteManager',
     'rcap/js/utils/rcapLogger',
+    'rcap/js/utils/request',
     'css!rcap/styles/default.css'
-], function(mainPartial, GridManager, ThemeManager, HistoryManager, PubSub, pubSubTable, ControlFactory, Serializer, SiteManager, RcapLogger) {
+], function(mainPartial, GridManager, ThemeManager, HistoryManager, PubSub, pubSubTable, ControlFactory, Serializer, SiteManager, RcapLogger, Request) {
 
     'use strict';
 
@@ -35,7 +36,8 @@ define(['text!rcap/partials/viewer.htm',
             new SiteManager().initialise();
 
             // grid manager:
-            new GridManager().initialise({
+            var gridManager = new GridManager();
+            gridManager.initialise({
                 isDesignTime: false
             });
 
@@ -53,12 +55,7 @@ define(['text!rcap/partials/viewer.htm',
 
                 me.initialiseControls();
 
-                // initialise the stage width:
-                $('#inner-stage').css({
-                    'width' : (screen.width - 20).toString() + 'px',
-                    'margin-left' : 'auto',
-                    'margin-right' : 'auto'
-                });
+                gridManager.setGridSize(Request.getGridPreferences());
 
                 ///////////////////////////////////////////////////////
                 window.setTimeout(function() {
