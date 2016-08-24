@@ -481,5 +481,34 @@ define([
         });
     };
 
+    GridManager.prototype.setGridSize = function(options) {
+
+        var stageCss = {};
+
+        // width, height, align
+        stageCss.width = (options && options.width ? options.width : (screen.width - 20).toString()) + 'px';
+
+        // no default for height:
+        if(options && options.height) {
+            stageCss.height = options.height + 'px';
+        }
+
+        if(!options || (options && options.align === 'center')) {
+            stageCss['margin-left'] = 'auto';
+            stageCss['margin-right'] = 'auto';
+        } else if(options && options.align) {
+            switch(options.align) {
+                case 'left':
+                    stageCss['margin-left'] = '0';
+                    break;
+                case 'right':
+                    stageCss['margin-right'] = '0';
+                    break;
+            }
+        }
+
+        $('#inner-stage').css(stageCss);
+    };
+
     return GridManager;
 });
