@@ -1,6 +1,6 @@
 Package: rcloud.rcap
 Title: Interactive Dashboard and Website Builder for RCloud
-Version: 0.3.6
+Version: 0.3.7
 Authors@R: c(
     person("Douglas", "Ashton", role = c("aut")),
     person("Shane", "Porter", role = c("aut")),
@@ -8,7 +8,7 @@ Authors@R: c(
            role = c("aut", "cre")),
     person("Paulin", "Shek", role = "aut"),
     person("Nathan", "Eastwood", role = "aut"))
-Description: Website designer for RCloud's mini interface.
+Description: RCloud powered dashboards and websites.
 Imports:
     Rserve,
     rcloud.support,

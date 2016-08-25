@@ -16,7 +16,7 @@ You need to install RCAP on the RCloud server. To install the latest
 released build, you can use the `devtools` package:
 ```r
 devtools::install_url(
-  "https://github.com/att/rcloud.rcap/releases/download/0.3.6/rcloud.rcap_0.3.6.tar.gz"
+  "https://github.com/att/rcloud.rcap/releases/download/0.3.6/rcloud.rcap_0.3.7.tar.gz"
 )
 ```
 You can also run this from within an RCloud notebook, assuming you have
