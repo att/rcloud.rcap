@@ -2,8 +2,9 @@ define(['rcap/js/ui/controls/gridControl',
     'text!rcap/partials/dialogs/_formBuilder.htm', 
     'rcap/js/ui/controls/properties/colorControlProperty',
     'rcap/js/ui/controls/properties/dropdownControlProperty',
+    'utils/variableHandler',
     'rcap/js/utils/rcapLogger'], 
-    function(GridControl, tpl, ColorControlProperty, DropdownControlProperty, RcapLogger) {
+    function(GridControl, tpl, ColorControlProperty, DropdownControlProperty, variableHandler, RcapLogger) {
 
     'use strict';
 
@@ -156,34 +157,6 @@ define(['rcap/js/ui/controls/gridControl',
                 };
             };
 
-            var submitVariableChange = function(variableData) {
-
-                if(variableData.length) {
-                    var plotSizes = [];
-
-                    $('.rplot, .r-interactiveplot, .rhtmlwidget').each(function() {
-                        var container = $(this).closest('.grid-stack-item-content');
-                        plotSizes.push({
-                            id : $(this).attr('id'),
-                            width : container.data('width'),
-                            height : container.data('height')
-                        });
-                    });
-     
-                    data = {
-                        updatedVariables : variableData,
-                        plotSizes : plotSizes
-                    };
-
-                    ///////////////////////////////////////////////////////
-                    var dataToSubmit = JSON.stringify(data);
-                    rcapLogger.log('Submitting data: ', dataToSubmit);
-                    window.RCAP.updateControls(dataToSubmit);
-                    ///////////////////////////////////////////////////////
-                }
-
-            };
-
             // if a form has a submit button, its data will be submitted when the form is submitted.
             // otherwise, the individual control will submit data following a change:
             $('.rcap-controltype-form').each(function() {
@@ -202,7 +175,7 @@ define(['rcap/js/ui/controls/gridControl',
                             }
                         });
 
-                        submitVariableChange(data);
+                        variableHandler.submitChange(data);
                     });
                 } else {
                     $(this).find('[data-variablename]').change(function() {
@@ -210,7 +183,7 @@ define(['rcap/js/ui/controls/gridControl',
                         var value = getVarData($(this));
 
                         if(value) {
-                            submitVariableChange([value]);
+                            variableHandler.submitChange(value);
                         }
                     });
                 }

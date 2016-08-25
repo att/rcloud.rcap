@@ -12,6 +12,7 @@ define([
     'controls/dataTable',
     'controls/leaflet',
     'controls/htmlWidget',
+    'controls/actionButton',
     //////////////////////
     'controls/child/textField',
     'controls/child/datePicker',
@@ -38,6 +39,7 @@ define([
     DataTableControl,
     LeafletControl,
     HtmlWidgetControl,
+    ActionButtonControl,
     ///////////////////////
     TextFieldControl,
     DatePickerControl,
@@ -67,7 +69,8 @@ define([
             new ImageControl(),
             new PageMenuControl(),
             new BreadcrumbControl(),
-            new TextControl()
+            new TextControl(),
+            new ActionButtonControl()
         ];
 
         this.childControls = [
@@ -153,6 +156,9 @@ define([
                 break;
             case 'form':
                 control = new FormControl();
+                break;
+            case 'actionbutton': 
+                control = new ActionButtonControl();
                 break;
             default:
                 control = undefined;
