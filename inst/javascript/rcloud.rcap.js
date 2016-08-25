@@ -46,15 +46,6 @@
     return {
         init: function(ocaps, sessionInfo, k) {
 
-            // console.log(' ÛÛÛÛÛÛÛÛÛÛÛ     ÛÛÛÛÛÛÛÛÛ    ÛÛÛÛÛÛÛÛÛ   ÛÛÛÛÛÛÛÛÛÛÛ ');
-            // console.log('°°ÛÛÛ°°°°°ÛÛÛ   ÛÛÛ°°°°°ÛÛÛ  ÛÛÛ°°°°°ÛÛÛ °°ÛÛÛ°°°°°ÛÛÛ');
-            // console.log(' °ÛÛÛ    °ÛÛÛ  ÛÛÛ     °°°  °ÛÛÛ    °ÛÛÛ  °ÛÛÛ    °ÛÛÛ');
-            // console.log(' °ÛÛÛÛÛÛÛÛÛÛ  °ÛÛÛ          °ÛÛÛÛÛÛÛÛÛÛÛ  °ÛÛÛÛÛÛÛÛÛÛ ');
-            // console.log(' °ÛÛÛ°°°°°ÛÛÛ °ÛÛÛ          °ÛÛÛ°°°°°ÛÛÛ  °ÛÛÛ°°°°°°  ');
-            // console.log(' °ÛÛÛ    °ÛÛÛ °°ÛÛÛ     ÛÛÛ °ÛÛÛ    °ÛÛÛ  °ÛÛÛ        ');
-            // console.log(' ÛÛÛÛÛ   ÛÛÛÛÛ °°ÛÛÛÛÛÛÛÛÛ  ÛÛÛÛÛ   ÛÛÛÛÛ ÛÛÛÛÛ       ');
-            // console.log('°°°°°   °°°°°   °°°°°°°°°  °°°°°   °°°°° °°°°°        ');
-
             if (RCloud.UI.advanced_menu.add) {
 
                 var po = RCloud.promisify_paths(ocaps, [
@@ -193,14 +184,14 @@
             k();
         },
 
-	resizeHtmlwidget: function(controlId, width, height, k) {
-	    var control = $('#' + controlId);
-	    control.find('iframe').width(width);
-            control.find('iframe').attr('width', width);
-            control.find('iframe').height(height);
-            control.find('iframe').attr('height', height);
-	    k();
-	}
+    	resizeHtmlwidget: function(controlId, width, height, k) {
+    	    var control = $('#' + controlId);
+    	    control.find('iframe').width(width);
+                control.find('iframe').attr('width', width);
+                control.find('iframe').height(height);
+                control.find('iframe').attr('height', height);
+    	    k();
+    	}
     };
 
 
