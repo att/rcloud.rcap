@@ -193,6 +193,12 @@ define(['rcap/js/ui/controls/gridControl',
             
             rcapLogger.log('%cForm update: ' + variableName + ':' + value, 'padding: 2px; font-size: 12pt; border: 1px solid orange; background: #369; color: #fff');
 
+            if (allValues.hasOwnProperty('selected') &&
+                allValues.hasOwnProperty('value')) {
+                value = allValues.selected;
+                allValues = allValues.value;
+            }
+
             // find the control(s), determine type, and update:
             $('[data-variablename="' + variableName + '"]').each(function(i, e) {
 
