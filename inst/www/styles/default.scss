@@ -801,6 +801,19 @@
     }
 }
 
+#dialog-controlSettings {
+    & .description {
+        color: #222;
+        font-style: italic;
+        padding-top: 4px;
+        padding-left: 1px;
+    }
+
+    & label {
+        margin-top: 10px;
+    }
+}
+
 .parsley-errors-list {
     display: none;
 }

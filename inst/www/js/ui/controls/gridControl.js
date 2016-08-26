@@ -112,6 +112,7 @@ define(['rcap/js/ui/controls/baseControl',
             return '<p><i class="icon-' + this.icon + '"></i>' + this.label + ': RENDER</p>';
         },
         getDialogMarkup: function() {
+            
             var html = '';
 
             $.each(this.controlProperties, function(key, prop) {
