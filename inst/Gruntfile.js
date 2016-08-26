@@ -2,7 +2,6 @@ module.exports = function(grunt) {
 
     'use strict';
 
-    // Configurable paths for the application
     var appConfig = {
         appPath: require('./bower.json').appPath || '.',
 
@@ -12,8 +11,6 @@ module.exports = function(grunt) {
         //
         **************************************************************************/
         devDeployDir: '.',
-        //distDeployDir: '',
-        //cmdDir: '',
         distFiles: [
             'javascript/rcloud.rcap.js',
             'www/js/initialiser.js',
@@ -117,9 +114,6 @@ module.exports = function(grunt) {
     require('time-grunt')(grunt);
 
     // dev
-    grunt.registerTask(
-	'default',
-	['newer:jshint', 'sass', 'copy:dev' ]
-    );
+    grunt.registerTask('default', ['newer:jshint', 'sass', 'copy:dev']);
 
 };
