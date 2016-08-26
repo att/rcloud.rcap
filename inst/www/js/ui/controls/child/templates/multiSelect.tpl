@@ -7,31 +7,19 @@ if(typeof control.controlProperties[0].value !== 'undefined' && control.controlP
 <% } %>
 
 <select id="<%=controlId%>" data-variablename="<%=control.controlProperties[2].value%>" multiple="multiple">
-
-
 <%
 	if( control.controlProperties[3].optionType == 'manual') {
 %>
-
-		<% _.each(control.controlProperties[3].value, function(o, i){ %>
-
-			<option value="<%=o.label%>"><%=o.label%></option>
-
-       <% }); %>  
-
+	<% _.each(control.controlProperties[3].value, function(o, i){ %>
+		<option value="<%=o.label%>"><%=o.label%></option>
+	<% }); %>  
 <% } else { %>
-
 	<% if(isDesignTime) { %>
-
 		<option value="">{{ Runtime generated }}</option>
-
-	<% } else { %>
-
 	<% } %>
-
 <% } %>
-
 </select>
+
 <script type="text/javascript">
 
 	$('#<%=controlId%>').select2({ 
@@ -39,7 +27,6 @@ if(typeof control.controlProperties[0].value !== 'undefined' && control.controlP
 		placeholder: '<%=control.getControlPropertyValueOrDefault('placeholder')%>'
 	}); 
 
-	$('#<%=controlId%> + .select2').find('.select2-search__field').removeAttr('style')
-	
+	$('#<%=controlId%> + .select2').find('.select2-search__field').removeAttr('style');
 
 </script>
