@@ -4,7 +4,7 @@
     cd inst
     if [ -z $RCAP_BUILD_FAST ]; then
 	npm install
-	bower install
+	bower install --allow-root
 	( cd bower_components/jquery.sparkline && make )
 	grunt
     fi
