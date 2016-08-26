@@ -43,7 +43,6 @@ define(['rcap/js/ui/controls/gridControl',
                     controlCategory: 'Navigation',
                     label: 'Breadcrumb',
                     icon: 'ellipsis-horizontal',
-                    initialSize: [4, 2],
                     controlProperties: [
                         new TextControlProperty({
                             uid: 'textPrefix',
