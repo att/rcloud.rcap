@@ -232,7 +232,8 @@ define(['rcap/js/ui/controls/gridControl',
 
                 if(value || allValues) {
                     if($(e).data('select2')) {
-                        $(e).select2('val', value);
+                        //$(e).select2('val', value).trigger('change');
+                        $(e).val(value).trigger('change');
                     } else if($(e).data('ionRangeSlider')) {
                         $(e).data('ionRangeSlider').update({ from : value });
                     } else if($(e).hasClass('radiobutton-group')) {
