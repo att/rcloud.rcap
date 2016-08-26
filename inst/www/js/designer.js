@@ -53,6 +53,10 @@ define([
             PubSub.publish(pubSubTable.save);
         });
 
+        $('#rcap-view').click(function() {
+            window.open(rcloud.getRcapViewUrl());
+        });
+            
         // theme manager:
         themeManager.initialise();
 

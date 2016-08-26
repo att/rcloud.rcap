@@ -2305,7 +2305,7 @@ table.dataTable td {
 #rcap-save {
   margin-left: 20px; }
 
-#rcap-save {
+#rcap-save, #rcap-view {
   margin-right: 5px; }
 
 #rcap-message {
@@ -2850,7 +2850,8 @@ table.dataTable td {
   #dialog-controlSettings label {
     margin-top: 10px; }
   #dialog-controlSettings select {
-    -webkit-appearance: menulist-button; }
+    -webkit-appearance: menulist-button;
+    padding-left: 0; }
 
 .parsley-errors-list {
   display: none; }
