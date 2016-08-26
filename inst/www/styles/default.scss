@@ -812,6 +812,12 @@
     & label {
         margin-top: 10px;
     }
+
+    /* RCAP would like its selects to look like selects */
+    & select {
+        -webkit-appearance: menulist-button;
+        padding-left: 0;
+    }
 }
 
 .parsley-errors-list {

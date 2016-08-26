@@ -2840,13 +2840,17 @@ table.dataTable td {
     #rcap-viewer .form-option input, #rcap-designer .form-option input {
       padding-top: 3px; }
 
-#dialog-controlSettings .description {
-  color: #222;
-  font-style: italic;
-  padding-top: 4px;
-  padding-left: 1px; }
-#dialog-controlSettings label {
-  margin-top: 10px; }
+#dialog-controlSettings {
+  /* RCAP would like its selects to look like selects */ }
+  #dialog-controlSettings .description {
+    color: #222;
+    font-style: italic;
+    padding-top: 4px;
+    padding-left: 1px; }
+  #dialog-controlSettings label {
+    margin-top: 10px; }
+  #dialog-controlSettings select {
+    -webkit-appearance: menulist-button; }
 
 .parsley-errors-list {
   display: none; }
