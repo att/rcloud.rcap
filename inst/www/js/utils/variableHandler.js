@@ -31,7 +31,8 @@ define(['rcap/js/utils/rcapLogger'], function(RcapLogger) {
                 });
 
                 var rcapLogger = new RcapLogger();
-                rcapLogger.log('Submitting data: ', dataToSubmit);
+                rcapLogger.log('%cJS%c → %cR%c: ' + dataToSubmit, 'color: black; background-color: yellow; font-weight: bold', 'color: black', 'font-weight: bold; color: blue; background-color: #eee', 'color: black');
+
                 window.RCAP.updateControls(dataToSubmit);
             }
 
