@@ -674,6 +674,10 @@
             margin-top: -16px;
             margin-bottom: 20px;
             border-bottom: 1px solid #ccc;
+
+            & i {
+                margin-right: 3px;
+            }
         }
 
         & .ui-slider {
@@ -724,6 +728,16 @@
         margin-top: -22px;
         @include stroke(2,
         #fff);
+    }
+
+    [data-body-id='styling'] {
+        & .row  {
+            background: white;
+        }
+
+        & .style-details {
+            margin-top: 15px;
+        }
     }
 }
 

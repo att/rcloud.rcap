@@ -25,9 +25,8 @@ define(['rcap/js/ui/controls/gridControl',
                         uid: 'buttonText',
                         label : 'Button Text',
                         defaultValue : '',
-                        helpText : 'Button Text',
-                        isRequired: true,
-                        isHorizontal: false
+                        helpText : 'The text that appears on the button',
+                        isRequired: true
                     })
                 ]
             });

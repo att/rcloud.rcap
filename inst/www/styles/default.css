@@ -2756,6 +2756,8 @@ table.dataTable td {
       margin-top: -16px;
       margin-bottom: 20px;
       border-bottom: 1px solid #ccc; }
+      #rcap-designer .style-details h3 i {
+        margin-right: 3px; }
     #rcap-designer .style-details .ui-slider {
       margin-top: 7px; }
     #rcap-designer .style-details .ui-slider-handle {
@@ -2791,6 +2793,10 @@ table.dataTable td {
     font-size: 26pt;
     margin-top: -22px;
     text-shadow: -2px -2px 0 #fff, -2px -1px 0 #fff, -2px 0px 0 #fff, -2px 1px 0 #fff, -2px 2px 0 #fff, -1px -2px 0 #fff, -1px -1px 0 #fff, -1px 0px 0 #fff, -1px 1px 0 #fff, -1px 2px 0 #fff, 0px -2px 0 #fff, 0px -1px 0 #fff, 0px 0px 0 #fff, 0px 1px 0 #fff, 0px 2px 0 #fff, 1px -2px 0 #fff, 1px -1px 0 #fff, 1px 0px 0 #fff, 1px 1px 0 #fff, 1px 2px 0 #fff, 2px -2px 0 #fff, 2px -1px 0 #fff, 2px 0px 0 #fff, 2px 1px 0 #fff, 2px 2px 0 #fff !important; }
+  #rcap-designer [data-body-id='styling'] .row {
+    background: white; }
+  #rcap-designer [data-body-id='styling'] .style-details {
+    margin-top: 15px; }
 
 /* form controls */
 #rcap-viewer, #rcap-designer {
