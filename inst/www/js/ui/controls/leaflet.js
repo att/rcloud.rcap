@@ -29,8 +29,7 @@ define(['rcap/js/ui/controls/gridControl',
                         label : 'Link url',
                         defaultValue : '',
                         helpText : 'Link url',
-                        isRequired: false,
-                        isHorizontal: false
+                        isRequired: false
                     }),
                     new DropdownControlProperty({
                         uid: 'linkTarget',
@@ -44,8 +43,7 @@ define(['rcap/js/ui/controls/gridControl',
                             value: '_blank'
                         }],
                         helpText: 'Where should the link open',
-                        value: '_self',
-                        isHorizontal: false
+                        value: '_self'
                     })
                 ]
             });
