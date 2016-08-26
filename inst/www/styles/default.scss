@@ -1158,6 +1158,9 @@ nav.horizontal {
 .rcap-designer {
     & .ui-autocomplete {
         z-index: 4000;
+        height: 300px;
+        overflow-y: scroll;
+        overflow-x: hidden;
         & li {
             font-family: "Open Sans", sans-serif;
             font-size: 12px;

@@ -3100,7 +3100,10 @@ nav.horizontal {
   margin-right: 10px; }
 
 .rcap-designer .ui-autocomplete {
-  z-index: 4000; }
+  z-index: 4000;
+  height: 300px;
+  overflow-y: scroll;
+  overflow-x: hidden; }
   .rcap-designer .ui-autocomplete li {
     font-family: "Open Sans", sans-serif;
     font-size: 12px; }
