@@ -1,6 +1,6 @@
 Package: rcloud.rcap
 Title: Interactive Dashboard and Website Builder for RCloud
-Version: 0.3.8
+Version: 0.3.9
 Authors@R: c(
     person("Douglas", "Ashton", role = c("aut")),
     person("Shane", "Porter", role = c("aut")),
