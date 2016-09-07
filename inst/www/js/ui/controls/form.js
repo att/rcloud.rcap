@@ -192,6 +192,9 @@ define(['rcap/js/ui/controls/gridControl',
             
             rcapLogger.log('%cR%c → %cJS%c: variable \'' + variableName + '\' with value: ' + JSON.stringify(value) + ', allValues: ' + JSON.stringify(allValues), 'font-weight: bold; color: blue; background-color: #eee', 'color: black', 'color: black; background-color: yellow; font-weight: bold', 'color: black');
 
+            // ensure that value is always a string (convert booleans):
+            value = value.toString();
+
             if (allValues && allValues.hasOwnProperty('selected') &&
                 allValues.hasOwnProperty('value')) {
                 value = allValues.selected;
@@ -229,23 +232,41 @@ define(['rcap/js/ui/controls/gridControl',
                     }
                 }
 
+                var findByCaseInsensitiveValue = function(parent, inputValue) {
+                    return parent.find('input').filter(function() {
+                        return $(this).attr('value').toLowerCase() === inputValue;
+                    });
+                };
+
                 if(value || allValues) {
                     if($(e).data('select2')) {
                         $(e).val(value).trigger('change');
                     } else if($(e).data('ionRangeSlider')) {
                         $(e).data('ionRangeSlider').update({ from : value });
                     } else if($(e).hasClass('radiobutton-group')) {
-                        $(e).find('input[value="' + value + '"]').prop('checked', true);
+                        var item = findByCaseInsensitiveValue($(e), value);
+                        if(item) {
+                            item.prop('checked', true);
+                        }
+
+                        //$(e).find('input[value="' + value + '"]').prop('checked', true);
                     } else if($(e).hasClass('checkbox-group')) {
                         // clear and set:
                         $(e).find('input').prop('checked', false);
 
                         if(_.isArray(value)) {
                            _.each(value, function(v) {
-                                $(e).find('input[value="' + v + '"]').prop('checked', true);
+                                var cbItem = findByCaseInsensitiveValue($(e), v);
+                                if(cbItem) {
+                                    cbItem.prop('checked', true);
+                                }
+
                             });
                         } else {
-                            $(e).find('input[value="' + value + '"]').prop('checked', true);    
+                            var cbItem = findByCaseInsensitiveValue($(e), value);
+                            if(cbItem) {
+                                cbItem.prop('checked', true);
+                            } 
                         }
                     } else if($(e).hasClass('daterange') && _.isArray(value) && value.length === 2) {
                         $(e).find('input:eq(0)').val(value[0]);
