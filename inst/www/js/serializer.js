@@ -9,7 +9,9 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
 
         var Serializer = function() {
 
-            this.initialise = function(startTimers = false) {
+            this.initialise = function(startTimers) {
+
+		if (startTimers === undefined) { startTimers = false; }
 
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 //
