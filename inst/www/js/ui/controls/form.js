@@ -192,7 +192,7 @@ define(['rcap/js/ui/controls/gridControl',
             
             rcapLogger.log('%cR%c → %cJS%c: variable \'' + variableName + '\' with value: ' + JSON.stringify(value) + ', allValues: ' + JSON.stringify(allValues), 'font-weight: bold; color: blue; background-color: #eee', 'color: black', 'color: black; background-color: yellow; font-weight: bold', 'color: black');
 
-            if (allValues.hasOwnProperty('selected') &&
+            if (allValues && allValues.hasOwnProperty('selected') &&
                 allValues.hasOwnProperty('value')) {
                 value = allValues.selected;
                 allValues = allValues.value;
