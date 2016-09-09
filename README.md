@@ -24,7 +24,7 @@ access rights to install R packages on the RCloud server.
 
 To install the development version, use
 ```r
-devtools::install_github("att/rcloud.rcap", local = FALSE)
+devtools::install_github("att/rcloud.rcap@develop", local = FALSE)
 ```
 
 Building the development version requires `node.js` & `npm`, `bower`,
