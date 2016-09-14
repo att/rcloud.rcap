@@ -4,6 +4,9 @@ define([], function() {
 
     return {
         getUrlSearchValue : function(query) {
+	    if(_.isUndefined(window.URLSearchParams)) {
+	       return undefined;
+	    }
             var searchParams = new window.URLSearchParams(window.location.search);
             return searchParams.get(query);
         },

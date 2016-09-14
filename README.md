@@ -16,7 +16,7 @@ You need to install RCAP on the RCloud server. To install the latest
 released build, you can use the `devtools` package:
 ```r
 devtools::install_url(
-  "https://github.com/att/rcloud.rcap/releases/download/0.3.8/rcloud.rcap_0.3.8.tar.gz"
+  "https://github.com/att/rcloud.rcap/releases/download/0.3.9/rcloud.rcap_0.3.9.tar.gz"
 )
 ```
 You can also run this from within an RCloud notebook, assuming you have
@@ -24,7 +24,7 @@ access rights to install R packages on the RCloud server.
 
 To install the development version, use
 ```r
-devtools::install_github("att/rcloud.rcap", local = FALSE)
+devtools::install_github("att/rcloud.rcap@develop", local = FALSE)
 ```
 
 Building the development version requires `node.js` & `npm`, `bower`,
