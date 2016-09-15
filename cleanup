@@ -11,12 +11,6 @@
 	    echo 'ERROR: cannot find npm - try "sudo apt-get install npm" first'
 	    exit 1
 	fi
-	if sass -v | grep ^Sass > /dev/null; then
-	    echo Ruby sass ... OK
-	else
-	    echo 'ERROR: cannot find sass - try "sudo apt-get install ruby-sass" first'
-	    exit 1
-	fi
 
 	npm install || exit 1
 
