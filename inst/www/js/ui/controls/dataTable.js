@@ -174,7 +174,12 @@ define(['rcap/js/ui/controls/gridControl',
             var dtProperties = {
                 dom: 'Blfrtip', 
                 data:  result.data,
-                columns: result.columns.map(function(x){ return {data: x, title: x }; })
+                columns: result.columns.map(function(col) { 
+                    return { 
+                        data: col.replace(/\./g,'\\.'), // escape '.' for datatables 
+                        title: col 
+                    }; 
+                })
             };
 
             // pass in dynamic options from R
