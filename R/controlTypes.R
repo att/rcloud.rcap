@@ -275,7 +275,7 @@ RPrintControl <- R6Class("RPrintControl",
       if(!is.null(func)) {
         res <- do.call(func, list(), envir = rcloudEnv())
         resString <- paste(capture.output(res), collapse = '\n')
-        rcloud.web::rcw.set(paste0("#", private$id), resString)
+        rcloud.web::rcw.set(paste0("#", private$id), paste("<pre>", resString, "</pre>"))
       }
     }
   )
