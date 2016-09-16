@@ -163,8 +163,6 @@ define(['rcap/js/ui/controls/gridControl',
 
             result = JSON.parse(result);
 
-            console.log(result);
-
             if($.fn.DataTable.isDataTable('#' + controlId)) {
                 var dt = $('#' + controlId).dataTable().api();
                 dt.destroy();
