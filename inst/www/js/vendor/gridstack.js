@@ -447,8 +447,8 @@
             item_class: 'grid-stack-item',
             placeholder_class: 'grid-stack-placeholder',
             handle: '.grid-stack-item-content',
-            cell_height: 60,
-            vertical_margin: 20,
+            //cell_height: 160,
+            //vertical_margin: 200,
             auto: true,
             min_width: 768,
             float: false,
@@ -635,11 +635,6 @@
         if (this._styles == null) {
             return;
         }
-
-
-this.opts.cell_height = 20;
-this.opts.vertical_margin = 20;
-
 
         var prefix = '.' + this.opts._class + ' .' + this.opts.item_class;
 
@@ -1000,20 +995,6 @@ this.opts.vertical_margin = 20;
 
     GridStack.prototype.get_cell_from_pixel = function(position) {
         var containerPos = this.container.position();
-
-        //var containerPos = this.container.offset();
-
-
-        // var offset = this.container.offset();
-        // var position = this.container.position();
-
-        // var containerPos = {
-        //     top: offset.top + position.top,
-        //     left: offset.left + position.left
-        // };
-
-
-
         var relativeLeft = position.left - containerPos.left;
         var relativeTop = position.top - containerPos.top;
 
