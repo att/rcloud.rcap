@@ -63,6 +63,11 @@ Control <- R6::R6Class("Control",
     update = function() {
       controlUpdate(self, private)
     },
+
+    valueToClient = function(value) {
+      value
+    },
+
     dependentVariables = function(clientVars, envir = rcloudEnv())
       controlDependentVariables(self, private, clientVars, envir)
   ),
@@ -139,7 +144,11 @@ controlUpdate <- function(self, private) {
   ## of the control
   has_value <- !is.null(private$variableName) &&
     exists(private$variableName, envir = rcloudEnv())
-  value <- if (has_value) get(private$variableName, envir = rcloudEnv())
+  value <- if (has_value) {
+    self$valueToClient(
+      get(private$variableName, envir = rcloudEnv())
+    )
+  }
 
   ## Possible values then, e.g. the list of values in a dropdown
   has_possible_values <- !is.null(private$controlFunction)
