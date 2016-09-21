@@ -127,7 +127,7 @@ DatePickerControl <- R6Class("DatePickerControl",
   public = list(
     setVariable = function(new_value) {
       if (!is.null(new_value) && !is.null(private$variableName)) {
-        new_value <- as.character(as.Date(new_value))
+        new_value <- as.Date(new_value)
         assign(private$variableName, new_value, envir = rcloudEnv())
       }
       invisible(self)
@@ -180,10 +180,10 @@ DateRangeContol <- R6Class("DateRangeContol",
     setVariable = function(new_value) {
       if (!is.null(new_value) && !is.null(private$variableName)) {
         if ("to" %in% names(new_value)) {
-          new_value <- list(from = as.character(as.Date(new_value$from)),
-                            to   = as.character(as.Date(new_value$to)))
+          new_value <- list(from = as.Date(new_value$from),
+                            to   = as.Date(new_value$to))
         } else {
-          new_value <- list(from = as.character(as.Date(new_value$from)),
+          new_value <- list(from = as.Date(new_value$from),
                             interval = as.numeric(new_value$interval),
                             intervalType = new_value$intervalType
           )
