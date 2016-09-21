@@ -6,21 +6,8 @@ if(typeof control.controlProperties[0].value !== 'undefined' && control.controlP
 </label>
 <% } %>
 
-
-
 <div class="daterange" data-variablename="<%=control.getControlPropertyValueOrDefault('variablename')%>" id="<%=control.id%>"
     data-hasinterval="<%=control.getControlPropertyValue('intervalType') !== ''%>" data-intervaltype="<%=control.getControlPropertyValue('intervalType')%>">
-
-    <!-- 
-    <% switch(control.getControlPropertyValue('intervalType')) { case 'days': %>
-        <p>days </p>
-    <% break; case 'weeks': %>
-        <p>weeks</p>
-    <% break; case 'months': %>
-        <p>months</p>
-    <% break; case 'years': %>
-        <p>years</p>
-    <% break; } %> -->
 
     <input type="date" id="<%=control.id%>-start" size="10"></input>
 
