@@ -271,8 +271,17 @@ define(['rcap/js/ui/controls/gridControl',
                             } 
                         }
                     } else if($(e).hasClass('daterange')) {
-                        $(e).find('input:eq(0)').val(value.from);
-                        $(e).find('input:eq(1)').val(value.to);
+
+                        if($(e).data('hasinterval')) {
+                            // from + interval:
+                            $(e).find('input:eq(0)').val(value.from);
+                            $(e).find('input:eq(1)').val(value.interval);
+                        } else {
+                            // from/to:
+                            $(e).find('input:eq(0)').val(value.from);
+                            $(e).find('input:eq(1)').val(value.to);
+                        }
+                        
                     } else {
                         // catch all:
                         $(e).val(value);
