@@ -270,9 +270,9 @@ define(['rcap/js/ui/controls/gridControl',
                                 cbItem.prop('checked', true);
                             } 
                         }
-                    } else if($(e).hasClass('daterange') && _.isArray(value) && value.length === 2) {
-                        $(e).find('input:eq(0)').val(value[0]);
-                        $(e).find('input:eq(1)').val(value[1]);
+                    } else if($(e).hasClass('daterange')) {
+                        $(e).find('input:eq(0)').val(value.from);
+                        $(e).find('input:eq(1)').val(value.to);
                     } else {
                         // catch all:
                         $(e).val(value);
