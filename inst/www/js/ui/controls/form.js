@@ -192,9 +192,11 @@ define(['rcap/js/ui/controls/gridControl',
             
             rcapLogger.log('%cR%c → %cJS%c: variable \'' + variableName + '\' with value: ' + JSON.stringify(value) + ', allValues: ' + JSON.stringify(allValues), 'font-weight: bold; color: blue; background-color: #eee', 'color: black', 'color: black; background-color: yellow; font-weight: bold', 'color: black');
 
-            // ensure that value is always a string (convert booleans):
-            value = value.toString();
-
+            // convert to a string if it's a boolean:
+            if(_.isBoolean(value)) {
+                value = value.toString();
+            }
+            
             if (allValues && allValues.hasOwnProperty('selected') &&
                 allValues.hasOwnProperty('value')) {
                 value = allValues.selected;
