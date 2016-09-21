@@ -113,7 +113,7 @@ define(['rcap/js/ui/controls/gridControl',
                         if(intervalType && toAdd && startDate) {
                             value = {
                                 from: startDate,
-                                interval: toAdd,
+                                interval: +(toAdd),
                                 intervalType: intervalType
                             };
                         } else {
