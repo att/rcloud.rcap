@@ -19,7 +19,7 @@ if(typeof control.controlProperties[0].value !== 'undefined' && control.controlP
 
         <script type="text/javascript">
             $(function() {
-                $('#<%=control.id%>-interval').bind("keyup paste", function(){
+                $('#<%=control.id%>-interval').bind("keyup paste set", function(){
                     setTimeout(jQuery.proxy(function() {
                         this.val(this.val().replace(/[^0-9]/g, ''));
 

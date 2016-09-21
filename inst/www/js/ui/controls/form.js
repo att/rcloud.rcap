@@ -275,7 +275,7 @@ define(['rcap/js/ui/controls/gridControl',
                         if($(e).data('hasinterval')) {
                             // from + interval:
                             $(e).find('input:eq(0)').val(value.from);
-                            $(e).find('input:eq(1)').val(value.interval);
+                            $(e).find('input:eq(1)').val(value.interval).trigger('set');
                         } else {
                             // from/to:
                             $(e).find('input:eq(0)').val(value.from);
