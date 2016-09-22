@@ -85,7 +85,8 @@ define([
         gridstackOptions.float = options.float || true;
         gridstackOptions.min_height_cellcount = options.minHeightCellcount || 48; // jshint ignore:line
         gridstackOptions.cell_height = options.cellHeight || 40; // jshint ignore:line
-        gridstackOptions.vertical_margin = options.verticalMargin || 20; // jshint ignore:line
+        gridstackOptions.vertical_margin = options.verticalMargin || 0; // jshint ignore:line
+        gridstackOptions.margin = _.isUndefined(options.margin) ? 10 : options.margin;
         gridstackOptions.static_grid = options.staticGrid || true; // jshint ignore:line
         gridstackOptions.height = options.height || 48;   // 0 -> no maximum rows
 
@@ -419,7 +420,8 @@ define([
             _.each(site.pages, function(page) {
                 addGrid(page, {
                     isDesignTime: site.isDesignTime,
-                    height: 48
+                    height: 48,
+                    margin: 0
                 });
             });
 

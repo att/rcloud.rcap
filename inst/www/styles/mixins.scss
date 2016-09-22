@@ -52,7 +52,7 @@
 $gridstack-columns: 24 !default;
 
 @mixin grid-stack-items($gridstack-columns) {
-    //.grid-stack.grid-stack-#{$gridstack-columns} {
+
     .grid-stack.grid-stack {
 
         > .grid-stack-item {
