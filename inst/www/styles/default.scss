@@ -653,12 +653,9 @@
             width: 100%;
         }
         & #inner-stage {
-           // background: lighten($bgColor, 20%);
             border: 1px solid darken($bgColor, 40%);
             position: relative;
             margin: 15px;
-            padding-top: 10px;
-            padding-bottom: 10px;
             background-color: white;
         }
     }
