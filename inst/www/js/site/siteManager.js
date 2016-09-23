@@ -439,6 +439,18 @@ define([
                 setSite(getSite().updateTimer(timerObj));
             });
 
+            ////////////////////////////////////////////////////////////////////////////////////
+            //
+            // grid options
+            //
+            PubSub.subscribe(pubSubTable.gridSettingsUpdated, function(msg, gridSettings) {
+
+                rcapLogger.info('siteManager: pubSubTable.gridSettingsUpdated');
+
+                setSite(getSite().updateGridOptions(gridSettings));
+
+            });
+
         }
     });
 

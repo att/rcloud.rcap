@@ -52,7 +52,8 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'rcap/js/utils/pageWalker
 
             // grid options:
             this.gridOptions = options.gridOptions || {
-                controlPadding: 20
+                controlPadding: 20 
+                // TODO: add further settings here:              
             };
 
             this.currentPageID = this.pages.length > 0 ? this.pages[0].id : undefined;
@@ -339,6 +340,15 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'rcap/js/utils/pageWalker
             existingTimer.variable = timer.variable;
             existingTimer.interval = timer.interval;
             return this;
+        },
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //
+        // grid options
+        //
+        //  
+        updateGridOptions: function(gridOptions) {
+            this.gridOptions = gridOptions;
         },
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////

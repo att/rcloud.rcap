@@ -228,25 +228,26 @@ define([
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
     var updateGridSizeMetrics = function(opts) {
-        console.log('grid size metrics updated: ', opts);
+
+        rcapLogger.info('gridManager: grid size metrics updated: ', opts);
 
         var styleId = 'grid-metrics', 
             styleElement = $('#' + styleId),
             styleInfo = '';
 
         opts = opts || {};
-        opts.margin = _.isUndefined(opts.margin) ? 20 : opts.margin;
+        opts.controlPadding = _.isUndefined(opts.controlPadding) ? 20 : opts.controlPadding;
 
         ['top', 'right', 'bottom', 'left'].forEach(function(side) {
-            styleInfo += '.grid-stack .grid-stack-placeholder > .placeholder-content { ' + side + ': ' + (opts.margin / 2) + 'px; }';
-            styleInfo += '.grid-stack > .grid-stack-item > .grid-stack-item-content { ' + side + ': ' + (opts.margin / 2) + 'px; }';
+            styleInfo += '.grid-stack .grid-stack-placeholder > .placeholder-content { ' + side + ': ' + (opts.controlPadding / 2) + 'px; }';
+            styleInfo += '.grid-stack > .grid-stack-item > .grid-stack-item-content { ' + side + ': ' + (opts.controlPadding / 2) + 'px; }';
         });
 
         // resize:
-        styleInfo += '.grid-stack > .grid-stack-item > .ui-resizable-se { bottom: ' + (opts.margin / 2) + 'px;' + 'right: ' + (opts.margin / 2) + 'px; }';
+        styleInfo += '.grid-stack > .grid-stack-item > .ui-resizable-se { bottom: ' + (opts.controlPadding / 2) + 'px;' + 'right: ' + (opts.controlPadding / 2) + 'px; }';
 
         // remove
-        styleInfo += '.grid-stack > .grid-stack-item > .ui-remove { top: ' + (opts.margin / 2) + 'px;' + 'right: ' + (opts.margin / 2) + 'px; }';  
+        styleInfo += '.grid-stack > .grid-stack-item > .ui-remove { top: ' + (opts.controlPadding / 2) + 'px;' + 'right: ' + (opts.controlPadding / 2) + 'px; }';  
 
         if($(styleElement).length) {
             $(styleElement).text(styleInfo);
@@ -344,10 +345,8 @@ define([
             //
             // grid settings updated
             //
-            PubSub.subscribe(pubSubTable.gridSettingsUpdated, function(msg, margin) {
-                updateGridSizeMetrics({
-                    margin: margin
-                });
+            PubSub.subscribe(pubSubTable.gridSettingsUpdated, function(msg, gridSettings) {
+                updateGridSizeMetrics(gridSettings);
             });
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -499,8 +498,7 @@ define([
             _.each(site.pages, function(page) {
                 addGrid(page, {
                     isDesignTime: site.isDesignTime,
-                    height: 48,
-                    margin: 0
+                    height: 48
                 });
             });
 

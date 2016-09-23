@@ -16,6 +16,18 @@ define([
     var controlFactory = new ControlFactory(),
         rcapLogger = new RcapLogger();
 
+    var getGridSettings = function() {
+        var prefix = 'gridoptions-', gridOptions = {};
+        $(':input[id^="' + prefix + '"]').each(function() {
+            gridOptions[$(this).attr('id').substr(prefix.length)] = $(this).val();
+        });
+        return gridOptions;
+    }, setGridSettings = function(gridOptions) {
+        Object.keys(gridOptions).forEach(function(prop) {
+            $('#gridoptions-' + prop).val(gridOptions[prop]);
+        });
+    };
+
     // :::: TODO: refactor code below - both methods are very similar ::::
 
     var MenuManager = Class.extend({
@@ -99,6 +111,9 @@ define([
                     $('#timers').append(_.template(timerMenuItemTemplate) ({ t : timer }));
                 });
 
+                // and set the grid settings:
+                setGridSettings(site.gridOptions);
+
                 //
                 PubSub.publish(pubSubTable.pageCountChanged, site.pages.length);
                 PubSub.publish(pubSubTable.dataSourceCountChanged, site.dataSources.length);
@@ -149,6 +164,17 @@ define([
                 });
             });
 
+            // update grid settings:
+            $('body').on('change', '.settings-menu :input', function() {
+                rcapLogger.info('menuManager: pubSubTable.gridSettingsUpdated');
+                PubSub.publish(pubSubTable.gridSettingsUpdated, getGridSettings());
+            });
+
+            // $('body').on('change', '.settings-menu select', function() {
+            //     rcapLogger.info('menuManager: pubSubTable.gridSettingsUpdated');
+            //     PubSub.publish(pubSubTable.gridSettingsUpdated, +$(this).val());
+            // });
+            
             PubSub.subscribe(pubSubTable.startControlDrag, function() {
                 // hide all:
                 $('.menu-flyout').hide();
@@ -370,11 +396,6 @@ define([
             $('body').on('click', '.settings-menu button', function() {
                 rcapLogger.info('menuManager: pubSubTable.editTheme');
                 PubSub.publish(pubSubTable.editTheme);
-            });
-
-            $('body').on('change', '.settings-menu select', function() {
-                rcapLogger.info('menuManager: pubSubTable.gridSettingsUpdated');
-                PubSub.publish(pubSubTable.gridSettingsUpdated, +$(this).val());
             });
 
             return this;

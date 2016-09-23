@@ -443,7 +443,6 @@
             handle: '.grid-stack-item-content',
             cell_height: 60,
             vertical_margin: 20,
-            margin: opts.margin || 0,
             auto: true,
             min_width: 768,
             float: false,
