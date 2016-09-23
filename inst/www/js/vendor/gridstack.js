@@ -644,38 +644,7 @@
             Utils.insert_css_rule(this._styles, prefix, 'min-height: ' + (this.opts.cell_height) + 'px;', 0);
         }
 
-        console.info('the vertical_margin is: ', this.opts.vertical_margin);
-
         if (max_height > this._styles._max) {
-
-            // ['top', 'right', 'bottom', 'left'].forEach(function(side) {
-            //     // placeholder:
-            //     Utils.insert_css_rule(that._styles,
-            //         '.grid-stack .grid-stack-placeholder > .placeholder-content',
-            //         side + ': ' + (that.opts.margin / 2) + 'px;',
-            //         0
-            //     );
-            //     // item:
-            //     Utils.insert_css_rule(that._styles,
-            //         '.grid-stack > .grid-stack-item > .grid-stack-item-content',
-            //         side + ': ' + (that.opts.margin / 2) + 'px;',
-            //         0
-            //     ); 
-            // });
-
-            // // resize:
-            // Utils.insert_css_rule(that._styles,
-            //     '.grid-stack > .grid-stack-item > .ui-resizable-se',
-            //     'bottom: ' + (that.opts.margin / 2) + 'px;' + 'right: ' + (that.opts.margin / 2) + 'px;',
-            //     0
-            // );   
-
-            // // close:
-            // Utils.insert_css_rule(that._styles,
-            //     '.grid-stack > .grid-stack-item > .ui-remove',
-            //     'top: ' + (that.opts.margin / 2) + 'px;' + 'right: ' + (that.opts.margin / 2) + 'px;',
-            //     0
-            // );  
 
             for (var i = this._styles._max; i < max_height; ++i) {
                 Utils.insert_css_rule(this._styles,

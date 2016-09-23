@@ -360,6 +360,11 @@ define([
                 PubSub.publish(pubSubTable.editTheme);
             });
 
+            $('body').on('change', '.settings-menu select', function() {
+                rcapLogger.info('menuManager: pubSubTable.gridSettingsUpdated');
+                PubSub.publish(pubSubTable.gridSettingsUpdated, +$(this).val());
+            });
+
             return this;
         },
         initialiseControlsMenu: function() {

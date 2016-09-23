@@ -235,7 +235,7 @@ define([
             styleInfo = '';
 
         opts = opts || {};
-        opts.margin = 20;
+        opts.margin = _.isUndefined(opts.margin) ? 20 : opts.margin;
 
         ['top', 'right', 'bottom', 'left'].forEach(function(side) {
             styleInfo += '.grid-stack .grid-stack-placeholder > .placeholder-content { ' + side + ': ' + (opts.margin / 2) + 'px; }';
@@ -301,6 +301,16 @@ define([
                 helper: function() {
                     return $('<div style="background-color: #ddd; width: 75px; height: 75px;"></div>');
                 }
+            });
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //
+            // grid settings updated
+            //
+            PubSub.subscribe(pubSubTable.gridSettingsUpdated, function(msg, margin) {
+                updateGridSizeMetrics({
+                    margin: margin
+                });
             });
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -459,13 +469,6 @@ define([
 
             // publish an event signalling that the grids have finished processing their data:
             PubSub.publish(pubSubTable.gridInitComplete);
-        });
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////
-        PubSub.subscribe(pubSubTable.gridSettingsUpdated, function(msg, data) {
-            rcapLogger.log('gridManager: settings updated');
-
-            updateGridSizeMetrics(data);
         });
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
