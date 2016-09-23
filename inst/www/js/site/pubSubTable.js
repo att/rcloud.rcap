@@ -58,6 +58,7 @@ define(['pubsub', 'rcap/js/Class'], function() {
         timerSettingsClicked: 'timerSettingsClicked',
         showTimerSettingsDialog: 'showTimerSettingsDialog',
         timerCountChanged: 'timerCountChanged',
+        updateTimer: 'updateTimer',
 
         // grid:
         gridInitComplete : 'gridInitComplete',
