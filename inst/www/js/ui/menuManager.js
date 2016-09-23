@@ -125,7 +125,14 @@ define([
                 $('.menu-flyout').hide();
                 $('#main-menu li').removeClass('selected');
                 $(this).closest('li').addClass('selected');
-                $('.menu-flyout[data-flyoutid="' + $(this).attr('data-flyoutid') + '"]').show();
+
+                var menu = $('.menu-flyout[data-flyoutid="' + $(this).attr('data-flyoutid') + '"]');
+                menu.show();
+
+                PubSub.publish(pubSubTable.flyoutActivated, {
+                    width: menu.width() + 40,
+                    id: $(this).data('flyoutid')
+                });
             });
 
             $('body').on('click', '.count', function() {
@@ -135,6 +142,11 @@ define([
             $('body').on('click', '.menu-flyout a.panel-close', function() {
                 $('.menu-flyout').hide();
                 $('#main-menu li').removeClass('selected');
+                var panelId = $(this).closest('.menu-flyout').data('flyoutid');
+
+                PubSub.publish(pubSubTable.flyoutClosed, {
+                    id: panelId
+                });
             });
 
             PubSub.subscribe(pubSubTable.startControlDrag, function() {

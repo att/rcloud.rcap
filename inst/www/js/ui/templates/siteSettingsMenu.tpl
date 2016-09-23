@@ -1,12 +1,5 @@
 <div class="settings-menu">
-    <button class="btn btn-primary">Launch Style Editor</button>
-
-    <hr />
-
-
-
-
-
+    
 
 	<div class="row">
         <div class="col-md-4">
@@ -21,6 +14,12 @@
 		    <div class="description">The amount of padding around each control (in pixels)</div>
         </div>
     </div>
+
+
+
+
+
+	<button class="btn btn-primary" style="margin-top: 40px;">Launch Style Editor</button>
 
 
     

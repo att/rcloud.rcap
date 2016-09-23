@@ -8,7 +8,8 @@ define([
 
     'use strict';
 
-    var rcapLogger = new RcapLogger();
+    var rcapLogger = new RcapLogger(),
+        rootElement = '#inner-stage';
 
     var GridManager = function() {
 
@@ -65,7 +66,6 @@ define([
 
         options = options || {};
         var selector = '.grid-stack[data-pageid="' + page.id + '"]',
-            rootElement = '#inner-stage',
             gridstackOptions = {};
 
         if (options.isDesignTime === undefined) {
@@ -300,6 +300,43 @@ define([
                 },
                 helper: function() {
                     return $('<div style="background-color: #ddd; width: 75px; height: 75px;"></div>');
+                }
+            });
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //
+            // grid should shrink when settings flyout is shown:
+            //
+            PubSub.subscribe(pubSubTable.flyoutActivated, function(msg, flyoutSettings) {
+                if(flyoutSettings.id === 'settings') {
+
+                    $(rootElement).css({ 
+                        'margin-left': '10px',
+                        'margin-right': '0px'
+                    });
+
+                    $(rootElement).animate({
+                        width: '-=' + flyoutSettings.width,
+                        left: '+=' + flyoutSettings.width
+                    }, 500, function() {
+                        $(rootElement).data('widthdiff', flyoutSettings.width);
+                    });
+                }
+            });
+
+            PubSub.subscribe(pubSubTable.flyoutClosed, function(msg, flyoutSettings) {
+                var widthDiff = $(rootElement).data('widthdiff');
+                if(flyoutSettings.id === 'settings') {
+                    $(rootElement).animate({
+                        width: '+=' + widthDiff,
+                        left: '-=' + widthDiff
+                    }, 500, function() {
+                        $(rootElement).removeData('widthDiff');
+                        $(rootElement).css({
+                            'margin-left': 'auto',
+                            'margin-right': 'auto'
+                        });
+                    });
                 }
             });
 
