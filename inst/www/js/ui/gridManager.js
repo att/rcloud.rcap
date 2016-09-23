@@ -227,6 +227,35 @@ define([
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    var updateGridSizeMetrics = function(opts) {
+        console.log('grid size metrics updated: ', opts);
+
+        var styleId = 'grid-metrics', 
+            styleElement = $('#' + styleId),
+            styleInfo = '';
+
+        opts = opts || {};
+        opts.margin = 20;
+
+        ['top', 'right', 'bottom', 'left'].forEach(function(side) {
+            styleInfo += '.grid-stack .grid-stack-placeholder > .placeholder-content { ' + side + ': ' + (opts.margin / 2) + 'px; }';
+            styleInfo += '.grid-stack > .grid-stack-item > .grid-stack-item-content { ' + side + ': ' + (opts.margin / 2) + 'px; }';
+        });
+
+        // resize:
+        styleInfo += '.grid-stack > .grid-stack-item > .ui-resizable-se { bottom: ' + (opts.margin / 2) + 'px;' + 'right: ' + (opts.margin / 2) + 'px; }';
+
+        // remove
+        styleInfo += '.grid-stack > .grid-stack-item > .ui-remove { top: ' + (opts.margin / 2) + 'px;' + 'right: ' + (opts.margin / 2) + 'px; }';  
+
+        if($(styleElement).length) {
+            $(styleElement).text(styleInfo);
+        } else {
+            $('<style />').attr('id', styleId).text(styleInfo).appendTo('head');    
+        }
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
     GridManager.prototype.initialise = function(options) {
 
         options = options || {};
@@ -416,6 +445,9 @@ define([
 
             rcapLogger.log('gridManager: pubSubTable.initSite');
 
+            // initialise the grid size metrics:
+            updateGridSizeMetrics(site.gridOptions);
+
             // each page has its own grid:
             _.each(site.pages, function(page) {
                 addGrid(page, {
@@ -427,6 +459,13 @@ define([
 
             // publish an event signalling that the grids have finished processing their data:
             PubSub.publish(pubSubTable.gridInitComplete);
+        });
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PubSub.subscribe(pubSubTable.gridSettingsUpdated, function(msg, data) {
+            rcapLogger.log('gridManager: settings updated');
+
+            updateGridSizeMetrics(data);
         });
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
