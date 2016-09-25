@@ -448,12 +448,6 @@ define([
             $('.grid-stack:not(.js-gridstack-global), #no-items').hide();
             $('.grid-stack[data-pageid="' + page.id + '"]').show();
 
-
-            console.log('I want to move it to: ', 
-                $('.grid-stack[data-pageid="' + page.id + '"]')
-            );
-
-
             if (page.controls.length === 0) {
 
                 $('#no-items').appendTo('.grid-stack[data-pageid="' + page.id + '"]').show().css({
