@@ -448,9 +448,15 @@ define([
             $('.grid-stack:not(.js-gridstack-global), #no-items').hide();
             $('.grid-stack[data-pageid="' + page.id + '"]').show();
 
+
+            console.log('I want to move it to: ', 
+                $('.grid-stack[data-pageid="' + page.id + '"]')
+            );
+
+
             if (page.controls.length === 0) {
 
-                $('#no-items').remove().appendTo('.grid-stack[data-pageid="' + page.id + '"]').show().css({
+                $('#no-items').appendTo('.grid-stack[data-pageid="' + page.id + '"]').show().css({
                     opacity: 1.0
                 });
             }
@@ -467,8 +473,8 @@ define([
         //  
         PubSub.subscribe(pubSubTable.close, function() {
             rcapLogger.info('gridManager: pubSubTable.close');
+            $('#no-items').appendTo('#inner-stage');
             $('#inner-stage .grid-stack').remove();
-            $('#no-items').hide();
         });
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
