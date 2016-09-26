@@ -145,7 +145,7 @@ define([
                 menu.show();
 
                 PubSub.publish(pubSubTable.flyoutActivated, {
-                    width: menu.width() + 40,
+                    width: menu.width() + $('#main-menu').width(),
                     id: $(this).data('flyoutid')
                 });
             });

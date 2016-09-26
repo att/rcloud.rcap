@@ -311,32 +311,32 @@ define([
             PubSub.subscribe(pubSubTable.flyoutActivated, function(msg, flyoutSettings) {
                 if(flyoutSettings.id === 'settings') {
 
-                    $(rootElement).css({ 
-                        'margin-left': '10px',
-                        'margin-right': '0px'
-                    });
+                    var shift = flyoutSettings.width - 20;
+
+                    // ensure that the #inner-stage is at least 
+                    // flyoutSettings.width from the left:
+                    $('#rcap-stage').css('overflow-x', 'hidden');
 
                     $(rootElement).animate({
-                        width: '-=' + flyoutSettings.width,
-                        left: '+=' + flyoutSettings.width
+                        marginLeft: '+=' + shift
                     }, 500, function() {
-                        $(rootElement).data('widthdiff', flyoutSettings.width);
+                        $(rootElement).data('shiftby', shift);
                     });
                 }
             });
 
             PubSub.subscribe(pubSubTable.flyoutClosed, function(msg, flyoutSettings) {
-                var widthDiff = $(rootElement).data('widthdiff');
+                var shiftBy = $(rootElement).data('shiftby');
                 if(flyoutSettings.id === 'settings') {
                     $(rootElement).animate({
-                        width: '+=' + widthDiff,
-                        left: '-=' + widthDiff
+                        marginLeft: '-=' + shiftBy
                     }, 500, function() {
-                        $(rootElement).removeData('widthDiff');
+                        $(rootElement).removeData('shiftBy');
                         $(rootElement).css({
                             'margin-left': 'auto',
                             'margin-right': 'auto'
                         });
+                        $('#rcap-stage').css('overflow-x', 'auto');
                     });
                 }
             });
