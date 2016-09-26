@@ -312,32 +312,41 @@ define([
                 if(flyoutSettings.id === 'settings') {
 
                     var shift = flyoutSettings.width - 20;
-
-                    // ensure that the #inner-stage is at least 
-                    // flyoutSettings.width from the left:
                     $('#rcap-stage').css('overflow-x', 'hidden');
 
-                    $(rootElement).animate({
-                        marginLeft: '+=' + shift
-                    }, 500, function() {
-                        $(rootElement).data('shiftby', shift);
-                    });
+                    if(shift > $('#inner-stage').position().left) {
+                        $(rootElement).animate({
+                            marginLeft: '+=' + shift
+                        }, 500, function() {
+                            $(rootElement).data('shiftby', shift);
+                        });
+                    }
                 }
             });
 
             PubSub.subscribe(pubSubTable.flyoutClosed, function(msg, flyoutSettings) {
-                var shiftBy = $(rootElement).data('shiftby');
+
                 if(flyoutSettings.id === 'settings') {
-                    $(rootElement).animate({
-                        marginLeft: '-=' + shiftBy
-                    }, 500, function() {
-                        $(rootElement).removeData('shiftBy');
-                        $(rootElement).css({
-                            'margin-left': 'auto',
-                            'margin-right': 'auto'
-                        });
+
+                    var shiftBy = $(rootElement).data('shiftby');
+
+                    if(shiftBy) {
+                        $(rootElement).animate({
+                            marginLeft: '-=' + shiftBy
+                        }, 500, function() {
+
+                            $(rootElement).removeData('shiftBy');
+
+                            $(rootElement).css({
+                                'margin-left': 'auto',
+                                'margin-right': 'auto'
+                            });
+
+                            $('#rcap-stage').css('overflow-x', 'auto');
+                        });    
+                    } else {
                         $('#rcap-stage').css('overflow-x', 'auto');
-                    });
+                    }
                 }
             });
 
