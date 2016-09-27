@@ -19,7 +19,10 @@ define(['pubsub', 'site/pubSubTable', 'rcap/js/utils/rcapLogger'], function(PubS
                 }
             });
 
-            //console.log(rcapLogger);
+            PubSub.subscribe(pubSubTable.closeDesignerConfirm, function() {
+              isDirty = false;
+              el.hide(); 
+            });
 
             PubSub.subscribe(pubSubTable.gridInitComplete, function() {
                 // these events incur a modified state:
