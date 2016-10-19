@@ -30,8 +30,9 @@ rcloud.rcap.caps <- NULL
       getRTime = make_oc(function() { Sys.time() }),
       updateControls = make_oc(updateController),
       updateAllControls = make_oc(updateAllControls),
-      getRCAPVersion = make_oc(getRCAPVersion)
-    )
+      getRCAPVersion = make_oc(getRCAPVersion),
+      getRCAPStyles = make_oc(getRCAPStyles)
+   )
 
     rcloud.rcap.caps$init(ocaps, rcapSessionInfo())
   }

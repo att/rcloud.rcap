@@ -23,7 +23,7 @@ License: MIT + file LICENSE
 RCloud-Extension: gui
 RoxygenNote: 5.0.1
 SystemRequirements: node.js and npm, bower, Grunt, GNU make
-Collate:
+Collate: 
     'controlR6.R'
     'dataTableControl.R'
     'controlTypes.R'
@@ -32,6 +32,7 @@ Collate:
     'ocaps.R'
     'rcap.result.R'
     'showUpdates.R'
+    'styles.R'
     'topo-sort.R'
     'utils.R'
     'zzz.R'
