@@ -121,6 +121,7 @@
         initViewer: function(content, themeExists, sessionInfo, k) {
             require(['rcap/js/viewer'], function(Viewer) {
                 new Viewer().initialise(content, themeExists, extractSessionInfo(sessionInfo));
+                $("#rcloud-rcap-loading").remove();
                 k();
             });
         },
