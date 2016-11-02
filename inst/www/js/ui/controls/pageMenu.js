@@ -14,6 +14,7 @@ define(['rcap/js/ui/controls/gridControl',
         // directly, let its caller handle the returned markup, otherwise fire the 
         // event:
         if (publishEvent) {
+            control.isDirty = false;
             PubSub.publish(pubSubTable.updateControl, control);
         } else {
 
