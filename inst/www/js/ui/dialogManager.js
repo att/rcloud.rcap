@@ -43,6 +43,7 @@ define([
             });
 
             // push the updated event:
+            originatingControl.isDirty = true;
             PubSub.publish(pubSubTable.updateControl, originatingControl);
 
             $('#dialog-controlSettings').jqmHide();
