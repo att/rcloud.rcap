@@ -919,35 +919,60 @@ a.wysiwyg-toolbar-icon:hover {
     border: 1px solid #ccc;
 }
 
-.hamburger {
+.hamburger, .accordion {
     top: 0;
-}
 
-.hamburger button {
-    position: absolute;
-    top: 50%;
-    margin-top: -15px!important;
-    right: 15px;
-    border: 0;
-    text-indent: -9999px;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.8) url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAABmJLR0QA/wD/AP+gvaeTAAAB6ElEQVR4nO3cvWqTYRzG4Z/WFgcRBMHdtersLuiBCHo2gqDg4O4htOhRuIiLi5OgWxeHig51UWrzNh9N4nNdcG9P3jzhH/L1hLsAAAAAAAAAAAAAAIBtdWmO2+xXj6uH1a3q5lJ3xHl9q75U76rX1YdV3dFe9aI6rn7KRua4el7t/mOGc9ur3m7AA5RpOfw9s6V5tQEPSs6Xl6dO8i9TPgPcqd5Xl6dckI3xo7rXjM8EU4b6dOI6NstO9WTWoimDfbD4XliTmbOb8hZwVF1bfC+swVF1/awFU14B5vmtgC0x5QnweeW7YFVmzm7KE+BwCRthPQ5mLZjy8r7fydfAnYW3w0U6ru5WH89aNGWoX6sb1f0lbIqL86x6s6yL7XbyVrDuX7dkWg6qK6dOcgEOgzY/5z4MWuQ4+FF1u7o6xzVYnu/Vp04O61Z6HAwAAAAAAAAAbAf9ANtPP4DM/5ewqfQDbFf0A4h+gNHpBxicfgD0A4xOPwBn0w/wf9MPMDj9AAPTDzA4/QADRz/AoNEPMCD9AAAAAAAAAADAH/QDbD/9ADL/X8Km0g+wXdEPIPoBRqcfYHD6AdAPMDr9AJxNP8D/TT/A4PQDDEw/wOD0Awwc/QCDRj/AgPQDAAAAAAAAAAAAAADAoH4BvT2IpUa1RFMAAAAASUVORK5CYII=') center no-repeat;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-    background-size: 80%;
-    width: 30px;
-    height: 30px;
-    outline: none;
-    -webkit-transition: all 400ms ease;
-    transition: all 400ms ease;
-    z-index: 1000;
-}
+    button {
+        position: absolute;
+        top: 50%;
+        margin-top: -15px!important;
+        right: 15px;
+        border: 0;
+        text-indent: -9999px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.8) url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAABmJLR0QA/wD/AP+gvaeTAAAB6ElEQVR4nO3cvWqTYRzG4Z/WFgcRBMHdtersLuiBCHo2gqDg4O4htOhRuIiLi5OgWxeHig51UWrzNh9N4nNdcG9P3jzhH/L1hLsAAAAAAAAAAAAAAIBtdWmO2+xXj6uH1a3q5lJ3xHl9q75U76rX1YdV3dFe9aI6rn7KRua4el7t/mOGc9ur3m7AA5RpOfw9s6V5tQEPSs6Xl6dO8i9TPgPcqd5Xl6dckI3xo7rXjM8EU4b6dOI6NstO9WTWoimDfbD4XliTmbOb8hZwVF1bfC+swVF1/awFU14B5vmtgC0x5QnweeW7YFVmzm7KE+BwCRthPQ5mLZjy8r7fydfAnYW3w0U6ru5WH89aNGWoX6sb1f0lbIqL86x6s6yL7XbyVrDuX7dkWg6qK6dOcgEOgzY/5z4MWuQ4+FF1u7o6xzVYnu/Vp04O61Z6HAwAAAAAAAAAbAf9ANtPP4DM/5ewqfQDbFf0A4h+gNHpBxicfgD0A4xOPwBn0w/wf9MPMDj9AAPTDzA4/QADRz/AoNEPMCD9AAAAAAAAAADAH/QDbD/9ADL/X8Km0g+wXdEPIPoBRqcfYHD6AdAPMDr9AJxNP8D/TT/A4PQDDEw/wOD0Awwc/QCDRj/AgPQDAAAAAAAAAAAAAADAoH4BvT2IpUa1RFMAAAAASUVORK5CYII=') center no-repeat;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        background-size: 80%;
+        width: 30px;
+        height: 30px;
+        outline: none;
+        -webkit-transition: all 400ms ease;
+        transition: all 400ms ease;
+        z-index: 1000;
+    }
 
-.hamburger > div {
-    z-index: 999;
-    position: absolute;
-    width: 100%;
-    display: none;
+    > div {
+        z-index: 999;
+        position: absolute;
+        width: 100%;
+        display: none;
+    }
+
+    button.expanded {
+        -webkit-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        transform: rotate(90deg);
+        background-color: transparent;
+        border: 0;
+    }
+
+    a {
+        display: block;
+        background: #eee;
+        text-align: left;
+        padding: 20px 0;
+        border-bottom: 1px solid #ddd;
+        text-decoration: none;
+        color: #222;
+        font-weight: bold;
+    }
+
+    a:hover,
+    a:active,
+    a:focus {
+        background: #e7e7e7;
+    }
 }
 
 .hamburger-valign-middle > div {
@@ -967,33 +992,6 @@ a.wysiwyg-toolbar-icon:hover {
     bottom: 5px;
     margin-top: 0!important;
 }
-
-.hamburger button.expanded {
-    -webkit-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    transform: rotate(90deg);
-    background-color: transparent;
-    border: 0;
-}
-
-.hamburger a {
-    display: block;
-    background: #eee;
-    text-align: left;
-    padding: 20px 0;
-    border-bottom: 1px solid #ddd;
-    text-decoration: none;
-    color: #222;
-    font-weight: bold;
-}
-
-.hamburger a:hover,
-.hamburger a:active,
-.hamburger a:focus {
-    background: #e7e7e7;
-}
-
-
 
 nav.vertical {
 
