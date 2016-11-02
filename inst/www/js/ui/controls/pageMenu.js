@@ -41,16 +41,28 @@ define(['rcap/js/ui/controls/gridControl',
                 var templates = {
                     'root' : {
                         'hamburger' : '<nav class="hamburger hamburger-valign-' + control.controlProperties[1].value + '"><button>Toggle</button><div></div></nav>',
+                        'accordion' : '<nav class="accordion accordion-valign-' + control.controlProperties[1].value + '"><button>Toggle</button><div></div></nav>',
                         'horizontal' : '<nav class="horizontal horizontal-' + control.controlProperties[2].value + '"><ul></ul></nav>',
                         'vertical': '<nav class="vertical vertical-' + control.controlProperties[2].value + '"><ul></ul></nav>',
                     },
                     'item': {
                         'hamburger' : '<div data-pageid="<%=p.id%>"><a style="padding-left:<%=((p.depth - 1) * 20) + 15%>px" href="javascript:void(0)" data-ishamburger="true" <%if(currentPageID === p.id) {%>class="current"<%}%> data-pageid="<%=p.id%>" data-href="<%=p.navigationTitle%>"><%=p.navigationTitle%></a></div>',
+                        'accordion' : '<div data-pageid="<%=p.id%>"><a style="padding-left:<%=((p.depth - 1) * 20) + 15%>px" href="javascript:void(0)" data-isaccordion="true" <%if(currentPageID === p.id) {%>class="current"<%}%> data-pageid="<%=p.id%>" data-href="<%=p.navigationTitle%>"><%=p.navigationTitle%></a></div>',
                         'horizontal' : '<li><a href="javascript:void(0)" <%if(currentPageID === p.id) {%>class="current"<%}%> data-pageid="<%=p.id%>" data-href="<%=p.navigationTitle%>"><%=p.navigationTitle%></a></li>',
                         'vertical' : '<li><a href="javascript:void(0)" <%if(currentPageID === p.id) {%>class="current"<%}%> data-pageid="<%=p.id%>" data-href="<%=p.navigationTitle%>"><%=p.navigationTitle%></a></li>'
                     },
                     'addItem': {
                         'hamburger' : function(rootTemplate, page, markup) { 
+                            if(page.parentId) {
+                                // this is a child page
+                                rootTemplate.find('div[data-pageid="' + page.parentId + '"]').append(markup);
+                            } else {
+                                rootTemplate.find('> div').append(markup);
+                            }
+
+                            return rootTemplate;
+                        },
+                        'accordion' : function(rootTemplate, page, markup) { 
                             if(page.parentId) {
                                 // this is a child page
                                 rootTemplate.find('div[data-pageid="' + page.parentId + '"]').append(markup);
