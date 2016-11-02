@@ -44,20 +44,12 @@ module.exports = function(grunt) {
             all: {
                 src: [
                     'Gruntfile.js',
-                    '<%= appConfig.appPath %>/www/js/*.js',
-                    '<%= appConfig.appPath %>/www/js/pages/*.js',
-                    '<%= appConfig.appPath %>/www/js/site/*.js',
-                    '<%= appConfig.appPath %>/www/js/ui/*.js',
-                    '<%= appConfig.appPath %>/www/js/ui/controls/*.js',
-                    '<%= appConfig.appPath %>/www/js/ui/controls/child/*.js',
-                    '<%= appConfig.appPath %>/www/js/ui/controls/dialogs/*.js',
-                    '<%= appConfig.appPath %>/www/js/ui/controls/factories/*.js',
-                    '<%= appConfig.appPath %>/www/js/ui/controls/properties/*.js',
-                    '<%= appConfig.appPath %>/www/js/utils/*.js',
-                    '<%= appConfig.appPath %>/www/js/utils/translators/*.js'
+                    '<%= appConfig.appPath %>/javascript/**/*.js',
+                    '<%= appConfig.appPath %>/www/**/*.js',
+                    '!<%= appConfig.appPath %>/www/js/vendor/**/*.js',
+                    '!<%= appConfig.appPath %>/www/bower_components/**/*.js'
                 ]
             }
-
         },
 
         watch: {
@@ -66,10 +58,15 @@ module.exports = function(grunt) {
                 tasks: ['sass']
             },
             js: {
-                files: ['<%= appConfig.app %>/scripts/{,*/}*.js'],
+                files: [
+                    '<%= appConfig.app %>/javascript/**/*.js', 
+                    '<%= appConfig.app %>/www/**/*.js',
+                    '!<%= appConfig.appPath %>/www/js/vendor/**/*.js',
+                    '!<%= appConfig.appPath %>/www/bower_components/**/*.js'
+                ],
                 tasks: ['newer:jshint:all'],
                 options: {
-
+                    
                 }
             }
         },
