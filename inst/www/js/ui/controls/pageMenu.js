@@ -241,7 +241,7 @@ define(['rcap/js/ui/controls/gridControl',
 
                 if (me.isOnGrid) {
 
-                    me.pages = new PageWalker(me.pages).deletePage(pageId);
+                    me.pages = new PageWalker(me.pages).removePage(pageId);
 
                     me.currentPageID = me.pages.length > 0 ? me.pages[0].id : '';
 
