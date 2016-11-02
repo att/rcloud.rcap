@@ -101,8 +101,11 @@ define(['rcap/js/ui/controls/gridControl',
                         helpText: 'The visual style of the menu',
                         isRequired: true,
                         availableOptions: [{
-                            text: 'Mobile Style \'Hamburger icon\'',
+                            text: 'Mobile Style',
                             value: 'hamburger'
+                        }, {
+                            text: 'Accordion',
+                            value: 'accordion'
                         }, {
                             text: 'Horizontal',
                             value: 'horizontal'
