@@ -298,11 +298,9 @@ define([
 
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////////
-            PubSub.subscribe(pubSubTable.updatePage, function(msg, pageData) {
-
-                $('.grid-stack[data-pageid="' + pageData.id + '"]').css('background-color', _.findWhere(pageData.styleProperties, { uid : 'backgroundColor' }).value);
-
-            });
+            // PubSub.subscribe(pubSubTable.updatePage, function(msg, pageData) {
+            //     $('.grid-stack[data-pageid="' + pageData.id + '"]').css('background-color', _.findWhere(pageData.styleProperties, { uid : 'backgroundColor' }).value);
+            // });
             
             /////////////////////////////////////////////////////////////////////////////////////////////////////////
             PubSub.subscribe(pubSubTable.pageAdded, function(msg, pageData) {
