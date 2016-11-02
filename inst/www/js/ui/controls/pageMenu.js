@@ -294,26 +294,26 @@ define(['rcap/js/ui/controls/gridControl',
         },
         initialiseViewerItems: function() {
 
-            $('.hamburger, .rcap-pagemenu, nav.horizontal, nav.vertical').closest('.grid-stack-item').css('z-index', '1');
+            $('.hamburger, .accordion, .rcap-pagemenu, nav.horizontal, nav.vertical').closest('.grid-stack-item').css('z-index', '1');
 
             $('nav.horizontal').closest('.grid-stack-item-content').css({
-                    'overflow-x': 'visible',
-                    'overflow-y': 'visible'
-                });
+                'overflow-x': 'visible',
+                'overflow-y': 'visible'
+            });
 
-            $('#rcap-viewer').on('click', '.rcap-pagemenu a, .hamburger a, nav.horizontal a, nav.vertical a', function() {
+            $('#rcap-viewer').on('click', '.rcap-pagemenu a, .hamburger a, nav.accordion a, nav.horizontal a, nav.vertical a', function() {
                 // get the nav title:
                 location.hash = $(this).data('href');
                 PubSub.publish(pubSubTable.changeSelectedPageByTitle, $(this).data('href'));
 
-                if ($(this).attr('data-ishamburger') === 'true') {
+                if ($(this).attr('data-ishamburger') === 'true' || $(this).attr('data-isaccordion') === 'true') {
                     $(this).toggleClass('expanded').siblings('div').slideToggle({
                         duration: 200
                     });
                 }
             });
 
-            $('#rcap-viewer').on('click', '.hamburger button', function() {
+            $('#rcap-viewer').on('click', '.hamburger button, .accordion button', function() {
                 $(this).toggleClass('expanded').siblings('div').slideToggle({
                     duration: 200
                 });
