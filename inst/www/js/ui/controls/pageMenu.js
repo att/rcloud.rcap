@@ -8,6 +8,13 @@ define(['rcap/js/ui/controls/gridControl',
 
     'use strict';
 
+    var accordionToggle = function(toggler) {
+        toggler.parent().siblings('div').toggle();
+        // looks strange, but it'll be toggled on the following line:
+        toggler.attr('title', toggler.hasClass('expanded') ? 'Expand' : 'Collapse');
+        toggler.toggleClass('expanded');
+    };
+
     var renderControl = function(control, publishEvent) {
 
         // publish the required event if required; if render method has been called
@@ -90,7 +97,6 @@ define(['rcap/js/ui/controls/gridControl',
                 var template = $(templates.root[menuType]);
 
                 _.each(pages, function(page) {
-
                     var itemTemplate = _.template(templates.item[menuType]);
                     var markup = itemTemplate({
                         p: page,
@@ -101,6 +107,18 @@ define(['rcap/js/ui/controls/gridControl',
                         template = templates.addItem[menuType](template, page, markup);
                     }
                 });
+
+                // expand for accordion:
+                if(menuType === 'accordion') {
+                    if(control.currentPageID) {
+                        var ancestors = new PageWalker(control.pages).getAncestorsAndSelf(control.currentPageID);
+                        ancestors.pop();
+
+                        for(var loop = 0; loop < ancestors.length; loop++) {
+                            accordionToggle(template.find('div[data-pageid="' + ancestors[loop].id + '"] > a > .toggler'));
+                        }
+                    }
+                }
 
                 return template[0].outerHTML;
             };
@@ -334,10 +352,7 @@ define(['rcap/js/ui/controls/gridControl',
 
             // accordion events:
             $('#rcap-viewer').on('click', '.accordion .toggler', function(e) {
-                $(this).parent().siblings('div').toggle();
-                // looks strange, but it'll be toggled on the following line:
-                $(this).attr('title', $(this).hasClass('expanded') ? 'Expand' : 'Collapse');
-                $(this).toggleClass('expanded');
+                accordionToggle($(this));
                 e.stopPropagation();
             });
         },
