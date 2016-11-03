@@ -307,16 +307,14 @@ define(['rcap/js/ui/controls/gridControl',
                 PubSub.publish(pubSubTable.changeSelectedPageByTitle, $(this).data('href'));
 
                 if ($(this).attr('data-ishamburger') === 'true' || $(this).attr('data-isaccordion') === 'true') {
-                    $(this).toggleClass('expanded').siblings('div').slideToggle({
-                        duration: 200
-                    });
+                    $(this).toggleClass('expanded').siblings('div').toggle();
+                    $(this).parent().toggleClass('expanded');
                 }
             });
 
             $('#rcap-viewer').on('click', '.hamburger button, .accordion button', function() {
-                $(this).toggleClass('expanded').siblings('div').slideToggle({
-                    duration: 200
-                });
+                $(this).toggleClass('expanded').siblings('div').toggle();
+                $(this).parent().toggleClass('expanded');
 
                 $(this).closest('.grid-stack-item-content').css({
                     'overflow-x': 'visible',

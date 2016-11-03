@@ -937,8 +937,6 @@ a.wysiwyg-toolbar-icon:hover {
         width: 30px;
         height: 30px;
         outline: none;
-        -webkit-transition: all 400ms ease;
-        transition: all 400ms ease;
         z-index: 1000;
     }
 
@@ -991,6 +989,20 @@ a.wysiwyg-toolbar-icon:hover {
     top: initial;
     bottom: 5px;
     margin-top: 0!important;
+}
+
+/* accordion specifics */
+nav.accordion {
+
+    &.expanded {
+        background-color: #eee;
+    }
+
+     button {
+        margin-top: 5px!important;
+        margin-left: 5px;
+        position: static;
+     }
 }
 
 nav.vertical {
