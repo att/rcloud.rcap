@@ -64,8 +64,18 @@ define(['rcap/js/ui/controls/gridControl',
                         },
                         'accordion' : function(rootTemplate, page, markup) { 
                             if(page.parentId) {
-                                // this is a child page
-                                rootTemplate.find('div[data-pageid="' + page.parentId + '"]').append(markup);
+                                // this is a child page, so hide by default:
+                                var parent = rootTemplate.find('div[data-pageid="' + page.parentId + '"]');
+                                markup = $(markup).hide();
+                                parent.append(markup);
+
+                                var rootAnchor = parent.find('a:eq(0)');
+
+                                if(!rootAnchor.hasClass('has-children')) {
+                                    rootAnchor.addClass('has-children');   
+                                    rootAnchor.append('<span title="Expand" class="toggler collapsed">Expand</span>'); 
+                                }
+                                
                             } else {
                                 rootTemplate.find('> div').append(markup);
                             }
@@ -320,7 +330,15 @@ define(['rcap/js/ui/controls/gridControl',
                     'overflow-x': 'visible',
                     'overflow-y': 'visible'
                 });
+            });
 
+            // accordion events:
+            $('#rcap-viewer').on('click', '.accordion .toggler', function(e) {
+                $(this).parent().siblings('div').toggle();
+                // looks strange, but it'll be toggled on the following line:
+                $(this).attr('title', $(this).hasClass('expanded') ? 'Expand' : 'Collapse');
+                $(this).toggleClass('expanded');
+                e.stopPropagation();
             });
         },
     });
