@@ -59,14 +59,7 @@ DataTableControl <- R6Class("DataTableControl",
       # the rest defaults to histograms
       usedColumns <- union(resOptions$columnDefs$box, resOptions$columnDefs$line)
       resOptions$sparklines$histogram <- setdiff(possSparkColumns, usedColumns)
-
-      result$data[resOptions$sparklines$histogram + 1] <-
-        lapply(X = result$data[resOptions$sparklines$histogram + 1],
-          FUN = function(listvec) {
-            lapply(X = listvec, 
-              FUN = function(vec) hist(vec, plot = FALSE)$counts)
-          })
-
+     
       # Column css
       getClassNames <- createTableIdDf(options = options, colNames = colNames, id = private$id)
       getCellClassNames <- createCellColorId(options = options, colNames = colNames, id = private$id)
