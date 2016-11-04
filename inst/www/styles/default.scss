@@ -996,6 +996,11 @@ nav.accordion {
 
     &.expanded {
         background-color: #eee;
+        width: 500px;
+    }
+
+    > div {
+        width: 500px;
     }
 
     button {

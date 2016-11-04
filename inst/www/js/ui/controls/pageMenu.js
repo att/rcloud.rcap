@@ -13,6 +13,7 @@ define(['rcap/js/ui/controls/gridControl',
         // looks strange, but it'll be toggled on the following line:
         toggler.attr('title', toggler.hasClass('expanded') ? 'Expand' : 'Collapse');
         toggler.toggleClass('expanded');
+        toggler.toggleClass('collapsed');
     };
 
     var renderControl = function(control, publishEvent) {

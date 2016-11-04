@@ -3025,7 +3025,11 @@ a.wysiwyg-toolbar-icon:hover {
 
 /* accordion specifics */
 nav.accordion.expanded {
-  background-color: #eee; }
+  background-color: #eee;
+  width: 500px; }
+
+nav.accordion > div {
+  width: 500px; }
 
 nav.accordion button {
   margin-top: 5px !important;
