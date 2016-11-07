@@ -65,8 +65,7 @@ define([
 
         // menu manager:
         new MenuManager().initialise()
-            .initialiseControlsMenu()
-            .initialiseSettingsMenu();
+            .initialiseControlsMenu();
 
         // info bar manager:
         new InfoBarManager().initialise();
