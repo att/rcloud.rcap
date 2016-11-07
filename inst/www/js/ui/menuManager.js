@@ -128,6 +128,17 @@ define([
                 $('.menu-flyout[data-flyoutid="' + $(this).attr('data-flyoutid') + '"]').show();
             });
 
+            $('body').on('click', '#main-menu a[data-messageid]', function() {
+                // hide all:
+                $('.menu-flyout').hide();
+                $('#main-menu li').removeClass('selected');
+
+                // but this one isn't selected since it invokes something else:
+                var message = $(this).attr('data-messageid');
+                rcapLogger.info('menuManager: pubSubTable dynamic: ' + message);
+                PubSub.publish(pubSubTable[message]);
+            });
+
             $('body').on('click', '.count', function() {
                 $(this).prev().trigger('click');
             });
@@ -355,10 +366,10 @@ define([
             //
             // theme:
             // apply:
-            $('body').on('click', '.settings-menu button', function() {
-                rcapLogger.info('menuManager: pubSubTable.editTheme');
-                PubSub.publish(pubSubTable.editTheme);
-            });
+            // $('body').on('click', '.settings-menu button', function() {
+            //     rcapLogger.info('menuManager: pubSubTable.editTheme');
+            //     PubSub.publish(pubSubTable.editTheme);
+            // });
 
             return this;
         },
