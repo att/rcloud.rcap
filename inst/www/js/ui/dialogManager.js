@@ -9,13 +9,14 @@ define([
     'text!rcap/partials/dialogs/_controlSettings.htm',
     'text!rcap/partials/dialogs/_formBuilder.htm',
     'text!rcap/partials/dialogs/_styleEditorDialog.htm',
+    'text!rcap/partials/dialogs/_siteSettings.htm',
     'text!rcap/partials/dialogs/_confirmDialog.htm',
     'pubsub',
     'site/pubSubTable',
     'parsley',
     'rcap/js/vendor/jqModal.min'
 ], function(RcapLogger, FormBuilder, Page, addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, 
-    timerSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, confirmDialogPartial, PubSub, pubSubTable) {
+    timerSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, siteSettingsPartial, confirmDialogPartial, PubSub, pubSubTable) {
 
     'use strict';
 
@@ -86,7 +87,7 @@ define([
         this.initialise = function() {
 
             // append the dialogs to the root of the designer:
-            _.each([addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, timerSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, confirmDialogPartial], function(partial) {
+            _.each([addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, timerSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, siteSettingsPartial, confirmDialogPartial], function(partial) {
                 $('#rcap-designer').append(partial);
             });
 
@@ -535,6 +536,34 @@ define([
                 return false;
             });
 
+            ////////////////////////////////////////////////////////////////////////////////
+            //
+            // site settings:
+            //
+
+            PubSub.subscribe(pubSubTable.showSiteSettingsDialog, function(/*msg, settings*/) {
+
+                rcapLogger.info('dialogManager: pubSubTable.showSiteSettingsDialog');
+
+                // TODO: dialog items init here:
+
+                $('#dialog-siteSettings').jqmShow();
+
+            });
+
+            $('#dialog-siteSettings .approve').on('click', function() {
+                $('#site-form').parsley().validate();
+                
+                // validate:
+                //
+                // todo
+
+                // publish updated so site can pick it up
+                PubSub.publish(pubSubTable.updateSiteSettings/*, */);
+                $('.jqmWindow').jqmHide();
+                return false;
+            });
+            
         };
     };
 
