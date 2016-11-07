@@ -6,4 +6,4 @@ if(typeof control.controlProperties[0].value !== 'undefined' && control.controlP
 </label>
 <% } %>
 
-<input type="text" value="<%=control.getControlPropertyValueOrDefault('text')%>" id="<%=control.id%>" name="<%=control.getControlPropertyValueOrDefault('variablename')%>" data-variablename="<%=control.getControlPropertyValueOrDefault('variablename')%>"></input>
+<input type="text" value="<%=control.getPropertyValueOrDefault('text')%>" id="<%=control.id%>" name="<%=control.getPropertyValueOrDefault('variablename')%>" data-variablename="<%=control.getPropertyValueOrDefault('variablename')%>"></input>

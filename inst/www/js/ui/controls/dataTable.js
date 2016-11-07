@@ -1,13 +1,13 @@
 define(['rcap/js/ui/controls/gridControl', 
-    'rcap/js/ui/controls/properties/textControlProperty',
-    'rcap/js/ui/controls/properties/autocompleteControlProperty',
-    'rcap/js/ui/controls/properties/dropdownControlProperty',
+    'rcap/js/ui/properties/textProperty',
+    'rcap/js/ui/properties/autocompleteProperty',
+    'rcap/js/ui/properties/dropdownProperty',
     'utils/translators/sparklinesTranslator',
     'text!controlTemplates/dataTable.tpl',
     'datatables/jquery.dataTables.min',
     'datatablesbuttons/buttons.html5.min',
     'jquery.sparkline/jquery.sparkline.min'
-], function(GridControl, TextControlProperty, AutocompleteControlProperty, DropdownControlProperty, SparklinesTranslator, tpl) {
+], function(GridControl, TextProperty, AutocompleteProperty, DropdownProperty, SparklinesTranslator, tpl) {
 
     'use strict';
 
@@ -19,7 +19,7 @@ define(['rcap/js/ui/controls/gridControl',
                 label: 'Data Table',
                 icon: 'table',
                 controlProperties: [
-                    new AutocompleteControlProperty({
+                    new AutocompleteProperty({
                         uid: 'code',
                         label: 'Code',
                         value: '',
@@ -27,7 +27,7 @@ define(['rcap/js/ui/controls/gridControl',
                         isRequired: false,
                         isHorizontal: true
                     }),
-                    new TextControlProperty({
+                    new TextProperty({
                         uid: 'sortColumnIndex',
                         label : 'Initial Sort Column',
                         value : '1',
@@ -35,7 +35,7 @@ define(['rcap/js/ui/controls/gridControl',
                         isRequired: true,
                         isHorizontal: true
                     }),
-                    new DropdownControlProperty({
+                    new DropdownProperty({
                         uid: 'sortColumnOrder',
                         label: 'Initial Sort Order',
                         isRequired: true,
@@ -50,7 +50,7 @@ define(['rcap/js/ui/controls/gridControl',
                         value: 'asc',
                         isHorizontal: true
                     }),
-                    new DropdownControlProperty({
+                    new DropdownProperty({
                         uid: 'showPaging',
                         label: 'Show paging', 
                         isRequired: true,
@@ -65,7 +65,7 @@ define(['rcap/js/ui/controls/gridControl',
                         value: 'false',
                         isHorizontal: true
                     }),
-                    new DropdownControlProperty({
+                    new DropdownProperty({
                         uid: 'showSearch',
                         label: 'Show search', 
                         isRequired: true,
@@ -80,7 +80,7 @@ define(['rcap/js/ui/controls/gridControl',
                         value: 'false',
                         isHorizontal: true
                     }),
-                    new DropdownControlProperty({
+                    new DropdownProperty({
                         uid: 'showInfo',
                         label: 'Show info', 
                         isRequired: true,
@@ -95,7 +95,7 @@ define(['rcap/js/ui/controls/gridControl',
                         value: 'false',
                         isHorizontal: true
                     }),
-                    new DropdownControlProperty({
+                    new DropdownProperty({
                         uid: 'downloadAsCsv',
                         label: 'Download as CSV', 
                         isRequired: true,
@@ -110,7 +110,7 @@ define(['rcap/js/ui/controls/gridControl',
                         helpText: 'Allow user to download data as CSV',
                         isHorizontal: true
                     }),
-                    new DropdownControlProperty({
+                    new DropdownProperty({
                         uid: 'pageLength',
                         label: 'Page length',
                         value: '10',
@@ -148,13 +148,13 @@ define(['rcap/js/ui/controls/gridControl',
                 control: this,
                 isDesignTime: isDesignTime,
                 designTimeDescription : designTimeDescription,
-                paging: this.getControlPropertyValueOrDefault('showPaging') === 'true',
-                info: this.getControlPropertyValueOrDefault('showInfo') === 'true',
-                searching: this.getControlPropertyValueOrDefault('showSearch') === 'true',
-                sortColumnIndex: this.getControlPropertyValueOrDefault('sortColumnIndex') - 1,
-                sortColumnOrder: this.getControlPropertyValueOrDefault('sortColumnOrder'),
-                downloadAsCsv: this.getControlPropertyValueOrDefault('downloadAsCsv') === 'true',
-                pageLength: this.getControlPropertyValueOrDefault('pageLength')
+                paging: this.getPropertyValueOrDefault('showPaging') === 'true',
+                info: this.getPropertyValueOrDefault('showInfo') === 'true',
+                searching: this.getPropertyValueOrDefault('showSearch') === 'true',
+                sortColumnIndex: this.getPropertyValueOrDefault('sortColumnIndex') - 1,
+                sortColumnOrder: this.getPropertyValueOrDefault('sortColumnOrder'),
+                downloadAsCsv: this.getPropertyValueOrDefault('downloadAsCsv') === 'true',
+                pageLength: this.getPropertyValueOrDefault('pageLength')
             });
 
             return output;

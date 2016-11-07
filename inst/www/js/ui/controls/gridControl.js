@@ -1,8 +1,8 @@
 define(['rcap/js/ui/controls/baseControl',
-    'rcap/js/ui/controls/properties/colorControlProperty',
-    'rcap/js/ui/controls/properties/rangeControlProperty',
-    'rcap/js/ui/controls/properties/textControlProperty'
-], function(BaseControl, ColorControlProperty, RangeControlProperty, TextControlProperty) {
+    'rcap/js/ui/properties/colorProperty',
+    'rcap/js/ui/properties/rangeProperty',
+    'rcap/js/ui/properties/textProperty'
+], function(BaseControl, ColorProperty, RangeProperty, TextProperty) {
 
     'use strict';
 
@@ -20,33 +20,33 @@ define(['rcap/js/ui/controls/baseControl',
             this.y = +options.y;
 
             this.styleProperties = [
-                new RangeControlProperty({
+                new RangeProperty({
                     uid: 'padding',
                     label: 'Padding',
                     helpText: '',
                     defaultValue: 0,
                 }),
-                new ColorControlProperty({
+                new ColorProperty({
                     uid: 'backgroundColor',
                     label: 'Background Color',
                     helpText: '',
                     defaultValue: 'rgba(0,0,0,0)',
                     showAlpha: true
                 }),
-                new ColorControlProperty({
+                new ColorProperty({
                     uid: 'borderColor',
                     label: 'Border Color',
                     helpText: '',
                     defaultValue: 'rgb(255, 255, 255)',
                     showAlpha: false
                 }),
-                new RangeControlProperty({
+                new RangeProperty({
                     uid: 'borderWidth',
                     label: 'Border Width',
                     helpText: 'Border will only be shown if it has a width',
                     defaultValue: '0'
                 }),
-                new TextControlProperty({
+                new TextProperty({
                     uid: 'cssclass',
                     label : 'CSS Class',
                     defaultValue : '',

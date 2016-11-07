@@ -1,22 +1,23 @@
-define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/radioButtonGroup.tpl'], function(BaseControlProperty, tpl) {
+define(['rcap/js/ui/properties/baseProperty', 'text!templates/autocomplete.tpl'], function(BaseProperty, tpl) {
 	
 	'use strict';
 
-	var RadioButtonGroupControlProperty = BaseControlProperty.extend({
+	var AutocompleteProperty = BaseProperty.extend({
 		init: function(options) {
 			options = options || {};
 			this._super({
-				type : 'radiobuttongroup',
+				type : 'autocomplete',
 				label : options.label || '',
 				helpText : options.helpText || '',
 				defaultValue : options.defaultValue || '',
 				isRequired : options.isRequired || false,
 				uid : options.uid,
-				className : options.className				
+				className : options.className,
+				value: options.value
 			});
 
-			// additional assignments go here:
-			this.radioButtonOptions = options.radioButtonOptions || [];
+			this.serviceName = options.serviceName || 'getRFunctions';
+			this.isHorizontal = _.isUndefined(options.isHorizontal) ? true : options.isHorizontal;
 		},
 		render: function(childIndex) {
 
@@ -29,10 +30,10 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/ra
 
 		},
 		getDialogValue : function() {
-			return $('#' + this.id + ' input[type="radio"]:checked:first').val();
+			return $('#' + this.id).val();
 		}
 	});
 
-	return RadioButtonGroupControlProperty;
+	return AutocompleteProperty;
 
 });

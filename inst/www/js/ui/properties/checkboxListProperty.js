@@ -1,8 +1,8 @@
-define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/checkboxList.tpl'], function(BaseControlProperty, tpl) {
+define(['rcap/js/ui/properties/baseProperty', 'text!templates/checkboxList.tpl'], function(BaseProperty, tpl) {
 	
 	'use strict';
 
-	var CheckboxListControlProperty = BaseControlProperty.extend({
+	var CheckboxListProperty = BaseProperty.extend({
 		init: function(options) {
 			options = options || {};
 			this._super({
@@ -37,6 +37,6 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/ch
 		}
 	});
 
-	return CheckboxListControlProperty;
+	return CheckboxListProperty;
 
 });

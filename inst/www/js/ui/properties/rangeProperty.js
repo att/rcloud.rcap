@@ -1,19 +1,28 @@
-define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/ace.tpl'], function(BaseControlProperty, tpl) {
+define(['rcap/js/ui/properties/baseProperty', 'text!templates/rangeControl.tpl',
+    'ionrangeslider/js/ion.rangeSlider',
+    'css!ionrangeslider/css/ion.rangeSlider.css',
+    'css!ionrangeslider/css/ion.rangeSlider.skinFlat.css'
+    ], function(BaseProperty, tpl) {
 
     'use strict';
 
-    var AceControlProperty = BaseControlProperty.extend({
+    var RangeProperty = BaseProperty.extend({
         init: function(options) {
             options = options || {};
             this._super({
-                type: 'text',
+                type: 'range',
                 label: options.label || '',
                 helpText: options.helpText || '',
                 defaultValue: options.defaultValue || '',
                 isRequired: options.isRequired || false,
                 uid: options.uid,
-                className: options.className
+                className: options.className,
+                value: options.value || '0'
             });
+
+            // additional assignments go here:
+            this.minValue = options.minValue || 0;
+            this.maxValue = options.maxValue || 20;
 
             this.isHorizontal = _.isUndefined(options.isHorizontal) ? true : options.isHorizontal;
         },
@@ -28,12 +37,10 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/ac
 
         },
         getDialogValue: function() {
-            //return $('#' + this.id).val();
-
-            return 'aceControlProperty.js TODO';
+            return $('#' + this.id).val();
         }
     });
 
-    return AceControlProperty;
+    return RangeProperty;
 
 });

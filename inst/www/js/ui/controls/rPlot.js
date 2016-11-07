@@ -1,10 +1,10 @@
 define(['rcap/js/ui/controls/gridControl',
-    'rcap/js/ui/controls/properties/textControlProperty',
-    'rcap/js/ui/controls/properties/dropdownControlProperty',
-    'rcap/js/ui/controls/properties/autocompleteControlProperty',
+    'rcap/js/ui/properties/textProperty',
+    'rcap/js/ui/properties/dropdownProperty',
+    'rcap/js/ui/properties/autocompleteProperty',
     'text!controlTemplates/rPlot.tpl',
     'text!controlTemplates/rPlot-design.tpl'
-], function(GridControl, TextControlProperty, DropdownControlProperty, AutocompleteControlProperty, tpl, dtpl) {
+], function(GridControl, TextProperty, DropdownProperty, AutocompleteProperty, tpl, dtpl) {
 
     'use strict';
 
@@ -16,20 +16,20 @@ define(['rcap/js/ui/controls/gridControl',
                 label: 'R Plot',
                 icon: 'signal',
                 controlProperties: [
-                    new AutocompleteControlProperty({
+                    new AutocompleteProperty({
                         uid: 'code',
                         label: 'R Function',
                         helpText: 'R Function for this control.',
                         isRequired: true
                     }),
-                    new TextControlProperty({
+                    new TextProperty({
                         uid: 'linkUrl',
                         label : 'Link url',
                         defaultValue : '',
                         helpText : 'Link url',
                         isRequired: false,
                     }),
-                    new DropdownControlProperty({
+                    new DropdownProperty({
                         uid: 'linkTarget',
                         label: 'Link target',
                         isRequired: false,

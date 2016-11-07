@@ -1,8 +1,8 @@
-define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/textControl.tpl'], function(BaseControlProperty, tpl) {
+define(['rcap/js/ui/properties/baseProperty', 'text!templates/textControl.tpl'], function(BaseProperty, tpl) {
 
     'use strict';
 
-    var TextControlProperty = BaseControlProperty.extend({
+    var TextProperty = BaseProperty.extend({
         init: function(options) {
             options = options || {};
             this._super({
@@ -36,6 +36,6 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/te
         }
     });
 
-    return TextControlProperty;
+    return TextProperty;
 
 });

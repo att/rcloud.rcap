@@ -1,8 +1,8 @@
 define(['rcap/js/ui/controls/gridControl',
-    'rcap/js/ui/controls/properties/textControlProperty',
+    'rcap/js/ui/properties/textProperty',
     'utils/variableHandler',
     'text!controlTemplates/actionButton.tpl'
-], function(GridControl, TextControlProperty, variableHandler, tpl) {
+], function(GridControl, TextProperty, variableHandler, tpl) {
 
     'use strict';
 
@@ -15,13 +15,13 @@ define(['rcap/js/ui/controls/gridControl',
                 icon: 'exclamation-sign',
                 initialSize: [2, 2],
                 controlProperties: [
-                    new TextControlProperty({
+                    new TextProperty({
                         uid: 'variablename',
                         label: 'Variable',
                         helpText: 'The variable associated with this control',
                         isRequired: true
                     }),
-                    new TextControlProperty({
+                    new TextProperty({
                         uid: 'buttonText',
                         label : 'Button Text',
                         defaultValue : '',

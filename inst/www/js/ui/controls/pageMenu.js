@@ -1,10 +1,10 @@
 define(['rcap/js/ui/controls/gridControl',
-    'rcap/js/ui/controls/properties/dropdownControlProperty',
-    'rcap/js/ui/controls/properties/colorControlProperty',
+    'rcap/js/ui/properties/dropdownProperty',
+    'rcap/js/ui/properties/colorProperty',
     'pubsub',
     'site/pubSubTable',
     'rcap/js/utils/pageWalker'
-], function(GridControl, DropdownControlProperty, ColorControlProperty, PubSub, pubSubTable, PageWalker) {
+], function(GridControl, DropdownProperty, ColorProperty, PubSub, pubSubTable, PageWalker) {
 
     'use strict';
 
@@ -137,7 +137,7 @@ define(['rcap/js/ui/controls/gridControl',
                 label: 'Page Menu',
                 icon: 'reorder',
                 controlProperties: [
-                    new DropdownControlProperty({
+                    new DropdownProperty({
                         uid: 'menustyle',
                         label: 'Menu Style',
                         helpText: 'The visual style of the menu',
@@ -157,7 +157,7 @@ define(['rcap/js/ui/controls/gridControl',
                         }],
                         value: 'hamburger'
                     }),
-                    new DropdownControlProperty({
+                    new DropdownProperty({
                         uid: 'verticalalignment',
                         label: 'Vertical Alignment',
                         isRequired: true,
@@ -173,7 +173,7 @@ define(['rcap/js/ui/controls/gridControl',
                         }],
                         value: 'middle'
                     }),
-                    new DropdownControlProperty({
+                    new DropdownProperty({
                         uid: 'horizontalalignment',
                         label: 'Horizontal Alignment',
                         isRequired: true,

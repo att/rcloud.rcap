@@ -1,10 +1,10 @@
 define(['rcap/js/ui/controls/gridControl', 
     'text!rcap/partials/dialogs/_formBuilder.htm', 
-    'rcap/js/ui/controls/properties/colorControlProperty',
-    'rcap/js/ui/controls/properties/dropdownControlProperty',
+    'rcap/js/ui/properties/colorProperty',
+    'rcap/js/ui/properties/dropdownProperty',
     'utils/variableHandler',
     'rcap/js/utils/rcapLogger'], 
-    function(GridControl, tpl, ColorControlProperty, DropdownControlProperty, variableHandler, RcapLogger) {
+    function(GridControl, tpl, ColorProperty, DropdownProperty, variableHandler, RcapLogger) {
 
     'use strict';
 
@@ -28,7 +28,7 @@ define(['rcap/js/ui/controls/gridControl',
 
             // additional property specifically for forms:
             this.styleProperties.push(
-                new ColorControlProperty({
+                new ColorProperty({
                     uid: 'labelColor',
                     label: 'Label Color',
                     helpText: '',
@@ -36,7 +36,7 @@ define(['rcap/js/ui/controls/gridControl',
                 }));
 
             this.styleProperties.push(
-                new DropdownControlProperty({
+                new DropdownProperty({
                         uid: 'verticalalignment',
                         label: 'Vertical Alignment',
                         isRequired: true,

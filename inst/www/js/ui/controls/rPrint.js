@@ -1,8 +1,8 @@
 define(['rcap/js/ui/controls/gridControl',
-    'rcap/js/ui/controls/properties/autocompleteControlProperty',
+    'rcap/js/ui/properties/autocompleteProperty',
     'text!controlTemplates/rPrint.tpl',
     'text!controlTemplates/rPrint-design.tpl'
-], function(GridControl, AutocompleteControlProperty, tpl, dtpl) {
+], function(GridControl, AutocompleteProperty, tpl, dtpl) {
 
     'use strict';
 
@@ -14,7 +14,7 @@ define(['rcap/js/ui/controls/gridControl',
                 label: 'R Print',
                 icon: 'print',
                 controlProperties: [
-                    new AutocompleteControlProperty({
+                    new AutocompleteProperty({
                         uid: 'code',
                         label: 'R Function',
                         helpText: 'R Function for this control.',

@@ -35,7 +35,7 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
                     var controls,
                         control,
                         jsonControl,
-                        jsonControlProperty,
+                        jsonProperty,
                         jsonStyleProperty,
                         currentPage,
                         jsonPageProperty,
@@ -111,18 +111,18 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
 
                                     // loop through each specific controlProperties property:
                                     for (propertyLoop = 0; propertyLoop < jsonControl.controlProperties.length; ++propertyLoop) {
-                                        jsonControlProperty = jsonControl.controlProperties[propertyLoop];
+                                        jsonProperty = jsonControl.controlProperties[propertyLoop];
 
                                         // uid, value, id:
 
                                         // get the property:
                                         currProp = _.findWhere(control.controlProperties, {
-                                            uid: jsonControlProperty.uid
+                                            uid: jsonProperty.uid
                                         });
 
                                         if (currProp !== undefined) {
-                                            currProp.value = jsonControlProperty.value;
-                                            currProp.id = jsonControlProperty.id;
+                                            currProp.value = jsonProperty.value;
+                                            currProp.id = jsonProperty.id;
                                         }
                                     }
 
@@ -145,7 +145,7 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
                                     if (jsonControl.hasOwnProperty('childControls')) {
 
                                         for (propertyLoop = 0; propertyLoop < jsonControl.childControls.length; ++propertyLoop) {
-                                            jsonControlProperty = jsonControl.childControls[propertyLoop];
+                                            jsonProperty = jsonControl.childControls[propertyLoop];
 
                                             // what type is it?
                                             currentChild = controlFactory.getChildByKey(jsonControl.childControls[propertyLoop].type);
