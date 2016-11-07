@@ -50,6 +50,9 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'rcap/js/utils/pageWalker
             // timers:
             this.timers = options.timers || [];
 
+            // settings:
+            this.settings = options.settings || {};
+
             this.currentPageID = this.pages.length > 0 ? this.pages[0].id : undefined;
         },
 
@@ -62,6 +65,7 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'rcap/js/utils/pageWalker
             return {
                 'rcapVersion': this.rcapVersion,
                 'saveTicks': this.saveTicks,
+                'settings': this.settings,
                 'theme': this.theme,
                 'pages': this.pages,
                 'dataSources': this.dataSources,
@@ -342,6 +346,19 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'rcap/js/utils/pageWalker
         //  
         updateTheme: function(theme) {
             this.theme = theme;
+        },
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //
+        // settings
+        //
+        //
+        getSettings: function() {
+            return this.settings;
+        },
+
+        updateSettings: function(settings) {
+            this.settings = settings;
         },
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////

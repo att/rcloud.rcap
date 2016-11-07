@@ -75,6 +75,11 @@ define(['pubsub', 'rcap/js/Class'], function() {
         showControlDialog : 'showControlDialog',
         showFormBuilderDialog : 'showFormBuilderDialog',
 
+        // site settings:
+        editSiteSettings: 'editSiteSettings',
+        showSiteSettingsDialog: 'showSiteSettingsDialog',
+        updateSiteSettings: 'updateSiteSettings',
+
         // theme:
         updateTheme: 'updateTheme',
         updateDomTheme: 'updateDomTheme',
