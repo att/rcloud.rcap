@@ -1,4 +1,4 @@
-define(['rcap/js/ui/properties/textProperty'], function(TextProperty) {
+define(['rcap/js/ui/properties/textProperty', 'rcap/js/ui/properties/dropdownProperty'], function(TextProperty, DropdownProperty) {
 
     'use strict';
 
@@ -11,6 +11,18 @@ define(['rcap/js/ui/properties/textProperty'], function(TextProperty) {
                     defaultValue : '',
                     helpText : 'Apply a CSS class to each page',
                     isRequired: false,
+                }),
+                new DropdownProperty({
+                    uid: 'siteThemePackage',
+                    label: 'Site Theme Package',
+                    isRequired: true,
+                    availableOptions: window.RCAP.getRCAPStyles().map(function(style) { 
+                        return {
+                            text: style.package,
+                            value: style.package
+                        };
+                    }),
+                    helpText: 'Custom theme'
                 })
             ];
         },
