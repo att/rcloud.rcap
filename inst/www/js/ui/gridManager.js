@@ -88,6 +88,7 @@ define([
         gridstackOptions.vertical_margin = options.verticalMargin || 20; // jshint ignore:line
         gridstackOptions.static_grid = options.staticGrid || true; // jshint ignore:line
         gridstackOptions.height = options.height || 48;   // 0 -> no maximum rows
+        gridstackOptions.pageClass = options.pageClass;
 
         var gridStackRoot = $('<div class="grid-stack" ' + 
             'data-user="' + $('body').data('user') +
@@ -103,6 +104,11 @@ define([
 
         if (!options.isDesignTime) {
             gridStackRoot.addClass('grid-stack-readonly');
+        }
+
+        // 
+        if(gridstackOptions.pageClass) {
+            gridStackRoot.addClass(gridstackOptions.pageClass);
         }
 
         $(rootElement).append(gridStackRoot);
@@ -413,11 +419,15 @@ define([
 
             rcapLogger.log('gridManager: pubSubTable.initSite');
 
+            // extract the settings:
+            var settings = site.settings.extract();
+
             // each page has its own grid:
             _.each(site.pages, function(page) {
                 addGrid(page, {
                     isDesignTime: site.isDesignTime,
-                    height: 48
+                    height: 48,
+                    pageClass: settings.pageClass
                 });
             });
 
@@ -457,6 +467,22 @@ define([
 
             PubSub.publish(pubSubTable.gridPageChangeComplete);
 
+        });
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //
+        // settings
+        //  
+        PubSub.subscribe(pubSubTable.updatePageClassSetting, function(msg, settings) {
+            // remove old, if any
+            // add new, if any
+            if(settings.previous) {
+                $('.grid-stack').removeClass(settings.previous);
+            }
+
+            if(settings.new) {
+                $('.grid-stack').addClass(settings.new);
+            }
         });
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////

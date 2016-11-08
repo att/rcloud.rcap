@@ -13,6 +13,20 @@ define(['rcap/js/ui/properties/textProperty'], function(TextProperty) {
                     isRequired: false,
                 })
             ];
+        },
+        getSettingValue: function(uid) {
+            return _.findWhere(this.properties, {
+                uid: uid
+            }).value;
+        },
+        extract: function() {
+            var obj = {};
+
+            this.properties.forEach(function(prop) {
+                obj[prop.uid] = prop.value;
+            });
+
+            return obj;
         }
     });
 

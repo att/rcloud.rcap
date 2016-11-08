@@ -577,6 +577,8 @@ define([
                 // get the control that was initially assigned:
                 var settings = $('#dialog-controlSettings').data('settings');
 
+                var originalSettings = settings.extract();
+
                 // todo: validate
                 $.each(settings.properties, function(index, prop) {
 
@@ -587,8 +589,16 @@ define([
                     settings.properties[index].value = dialogValue;
                 });
 
+                var newSettings = settings.extract();
+
                 // publish updated so site can pick it up
                 PubSub.publish(pubSubTable.updateSiteSettings, settings);
+
+                PubSub.publish(pubSubTable.updatePageClassSetting, {
+                    previous: originalSettings.pageClass,
+                    new: newSettings.pageClass
+                });
+
                 $('.jqmWindow').jqmHide();
                 return false;
             });
