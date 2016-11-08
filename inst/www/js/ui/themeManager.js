@@ -52,7 +52,11 @@ define(['pubsub',
         };
 
         this.applyPackageTheme = function(siteThemePackage) {
-            this.addLink('/shared.R/' + siteThemePackage + '/rcap-style.css', 'rcappackage');
+            if(siteThemePackage) {
+                this.addLink('/shared.R/' + siteThemePackage + '/rcap-style.css', 'rcappackage');
+            } else {
+                this.addLink(undefined, 'rcappackage');
+            }
         };
 
     };
