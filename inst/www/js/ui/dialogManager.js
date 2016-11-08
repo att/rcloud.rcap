@@ -541,14 +541,30 @@ define([
             // site settings:
             //
 
-            PubSub.subscribe(pubSubTable.showSiteSettingsDialog, function(/*msg, settings*/) {
+            PubSub.subscribe(pubSubTable.showSiteSettingsDialog, function(msg, settings) {
 
                 rcapLogger.info('dialogManager: pubSubTable.showSiteSettingsDialog');
 
-                // TODO: dialog items init here:
+                // set the markup and the data object:
+                $('#dialog-controlSettings').data('settings', settings);
+                
+                // $('#dialog-siteSettings form')
+                //     .find('input')
+                //     .keydown(function(e) {
+                //         if (e.which === 13) { /*console.log(e);*/
+                //             return false;
+                //         }
+                //     });
+
+                var html = '';
+
+                $.each(settings.properties, function(key, prop) {
+                    html += prop.render(key);
+                });
+
+                $('#dialog-siteSettings form').html(html);
 
                 $('#dialog-siteSettings').jqmShow();
-
             });
 
             $('#dialog-siteSettings .approve').on('click', function() {
@@ -558,8 +574,31 @@ define([
                 //
                 // todo
 
+                // get the control that was initially assigned:
+                var settings = $('#dialog-controlSettings').data('settings');
+
+                var originalSettings = settings.extract();
+
+                // todo: validate
+                $.each(settings.properties, function(index, prop) {
+
+                    // get the value:
+                    var dialogValue = prop.getDialogValue();
+
+                    // assign:
+                    settings.properties[index].value = dialogValue;
+                });
+
+                var newSettings = settings.extract();
+
                 // publish updated so site can pick it up
-                PubSub.publish(pubSubTable.updateSiteSettings/*, */);
+                PubSub.publish(pubSubTable.updateSiteSettings, settings);
+
+                PubSub.publish(pubSubTable.updatePageClassSetting, {
+                    previous: originalSettings.pageClass,
+                    new: newSettings.pageClass
+                });
+
                 $('.jqmWindow').jqmHide();
                 return false;
             });

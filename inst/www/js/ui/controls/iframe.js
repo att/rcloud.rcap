@@ -1,14 +1,14 @@
 define(['rcap/js/ui/controls/gridControl', 
-    //'rcap/js/ui/controls/properties/textControlProperty',
-    'rcap/js/ui/controls/properties/autocompleteControlProperty',
-    'rcap/js/ui/controls/properties/dropdownControlProperty',
-    'rcap/js/ui/controls/properties/colorControlProperty', 
-    'rcap/js/ui/controls/properties/radioButtonGroupControlProperty', 
-    'rcap/js/ui/controls/properties/checkboxListControlProperty',
+    //'rcap/js/ui/properties/textProperty',
+    'rcap/js/ui/properties/autocompleteProperty',
+    'rcap/js/ui/properties/dropdownProperty',
+    'rcap/js/ui/properties/colorProperty', 
+    'rcap/js/ui/properties/radioButtonGroupProperty', 
+    'rcap/js/ui/properties/checkboxListProperty',
     'text!controlTemplates/iframe.tpl'
 
-], function(GridControl, AutocompleteControlProperty, DropdownControlProperty, ColorControlProperty, RadioButtonGroupControlProperty,
-    CheckboxListControlProperty, tpl) {
+], function(GridControl, AutocompleteProperty, DropdownProperty, ColorProperty, RadioButtonGroupProperty,
+    CheckboxListProperty, tpl) {
 
     'use strict';
 
@@ -20,7 +20,7 @@ define(['rcap/js/ui/controls/gridControl',
                 label: 'iFrame',
                 icon: 'cloud',
                 controlProperties: [
-                    new AutocompleteControlProperty({
+                    new AutocompleteProperty({
                         uid: 'source',
                         label: 'Source',
                         defaultValue: '',

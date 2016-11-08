@@ -1,4 +1,4 @@
-define(['pages/page', 'data/dataSource', 'data/timer', 'rcap/js/utils/pageWalker'], function(Page, DataSource, Timer, PageWalker) {
+define(['pages/page', 'data/dataSource', 'data/timer', 'site/siteSettings', 'rcap/js/utils/pageWalker'], function(Page, DataSource, Timer, SiteSettings, PageWalker) {
 
     'use strict';
 
@@ -51,7 +51,7 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'rcap/js/utils/pageWalker
             this.timers = options.timers || [];
 
             // settings:
-            this.settings = options.settings || {};
+            this.settings = options.settings || new SiteSettings();
 
             this.currentPageID = this.pages.length > 0 ? this.pages[0].id : undefined;
         },

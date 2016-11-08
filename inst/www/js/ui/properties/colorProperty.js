@@ -1,9 +1,9 @@
-define(['rcap/js/ui/controls/properties/baseControlProperty', 
+define(['rcap/js/ui/properties/baseProperty', 
 	'text!templates/colorControl.tpl', 
-	'spectrum/spectrum'], function(BaseControlProperty, tpl) {
+	'spectrum/spectrum'], function(BaseProperty, tpl) {
 	'use strict';
 
-	var ColorControlProperty = BaseControlProperty.extend({
+	var ColorProperty = BaseProperty.extend({
 		init: function(options) {
 			options = options || {};
 			this._super({
@@ -40,6 +40,6 @@ define(['rcap/js/ui/controls/properties/baseControlProperty',
 		}
 	});
 
-	return ColorControlProperty;
+	return ColorProperty;
 
 });

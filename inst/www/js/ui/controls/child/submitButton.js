@@ -1,5 +1,5 @@
-define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textControlProperty', 
-	'text!rcap/js/ui/controls/child/templates/submitButton.tpl'], function(BaseControl, TextControlProperty, tpl) {
+define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/properties/textProperty', 
+	'text!rcap/js/ui/controls/child/templates/submitButton.tpl'], function(BaseControl, TextProperty, tpl) {
 
     'use strict';
 
@@ -10,7 +10,7 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
                 label: 'Submit Button',
                 icon: 'youtube-play',
                 controlProperties: [
-                    new TextControlProperty({
+                    new TextProperty({
                         uid: 'text',
                         label: 'Text',
                         defaultValue: 'Submit',
@@ -23,7 +23,7 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
 			var template = _.template(tpl);
 
             return template({
-                text: this.getControlPropertyValueOrDefault('text')
+                text: this.getPropertyValueOrDefault('text')
             });
 		}
     });

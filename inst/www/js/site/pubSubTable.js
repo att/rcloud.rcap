@@ -79,6 +79,7 @@ define(['pubsub', 'rcap/js/Class'], function() {
         editSiteSettings: 'editSiteSettings',
         showSiteSettingsDialog: 'showSiteSettingsDialog',
         updateSiteSettings: 'updateSiteSettings',
+        updatePageClassSetting: 'updatePageClassSetting',
 
         // theme:
         updateTheme: 'updateTheme',

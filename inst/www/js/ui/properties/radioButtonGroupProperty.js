@@ -1,24 +1,22 @@
-define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/multlineTextControl.tpl'], function(BaseControlProperty, tpl) {
+define(['rcap/js/ui/properties/baseProperty', 'text!templates/radioButtonGroup.tpl'], function(BaseProperty, tpl) {
 	
 	'use strict';
 
-	var MultiLineTextControlProperty = BaseControlProperty.extend({
+	var RadioButtonGroupProperty = BaseProperty.extend({
 		init: function(options) {
 			options = options || {};
 			this._super({
-				type : 'multilinetext',
+				type : 'radiobuttongroup',
 				label : options.label || '',
 				helpText : options.helpText || '',
 				defaultValue : options.defaultValue || '',
 				isRequired : options.isRequired || false,
 				uid : options.uid,
-				className : options.className,
-				value: options.value
+				className : options.className				
 			});
 
 			// additional assignments go here:
-			this.rows = options.rows || 10;
-			this.cols = options.cols || 80;
+			this.radioButtonOptions = options.radioButtonOptions || [];
 		},
 		render: function(childIndex) {
 
@@ -31,10 +29,10 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/mu
 
 		},
 		getDialogValue : function() {
-			return $('#' + this.id).val();
+			return $('#' + this.id + ' input[type="radio"]:checked:first').val();
 		}
 	});
 
-	return MultiLineTextControlProperty;
+	return RadioButtonGroupProperty;
 
 });

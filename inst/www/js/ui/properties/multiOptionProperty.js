@@ -1,4 +1,4 @@
-define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/multiOptionControl.tpl'], function(BaseControlProperty, tpl) {
+define(['rcap/js/ui/properties/baseProperty', 'text!templates/multiOptionControl.tpl'], function(BaseProperty, tpl) {
 
     'use strict';
 
@@ -12,7 +12,7 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/mu
         }
     };
 
-    var MultiOptionControlProperty = BaseControlProperty.extend({
+    var MultiOptionProperty = BaseProperty.extend({
         init: function(options) {
             options = options || {};
             this._super({
@@ -83,6 +83,6 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/mu
         }
     });
 
-    return MultiOptionControlProperty;
+    return MultiOptionProperty;
 
 });

@@ -1,40 +1,40 @@
 define([
-	'rcap/js/ui/controls/properties/colorControlProperty',
-	'rcap/js/ui/controls/properties/dropdownControlProperty',
-	'rcap/js/ui/controls/properties/textControlProperty',
-	'rcap/js/ui/controls/properties/wysiwygControlProperty'
-	], function(ColorControlProperty, DropdownControlProperty, TextControlProperty, WysiwygControlProperty) {
+	'rcap/js/ui/properties/colorProperty',
+	'rcap/js/ui/properties/dropdownProperty',
+	'rcap/js/ui/properties/textProperty',
+	'rcap/js/ui/properties/wysiwygProperty'
+	], function(ColorProperty, DropdownProperty, TextProperty, WysiwygProperty) {
 	
 	'use strict';
 
-	function ControlPropertyFactory()  {
+	function PropertyFactory()  {
 		this.controlProperties = [
-			new ColorControlProperty(),
-			new DropdownControlProperty(),
-			new TextControlProperty(),
-			new WysiwygControlProperty()
+			new ColorProperty(),
+			new DropdownProperty(),
+			new TextProperty(),
+			new WysiwygProperty()
 		];
 	}
 
-	ControlPropertyFactory.prototype.getAll = function() {
+	PropertyFactory.prototype.getAll = function() {
 		return this.controlProperties;
 	};
 
-	ControlPropertyFactory.prototype.getByKey = function(key) {
+	PropertyFactory.prototype.getByKey = function(key) {
 
-		var controlProperty;
+		var Property;
 
 		switch(key){
-			case 'color': controlProperty = new ColorControlProperty(); break;
-			case 'dropdown': controlProperty = new DropdownControlProperty(); break;
-			case 'text': controlProperty = new TextControlProperty(); break;
-			case 'wysiwyg': controlProperty = new WysiwygControlProperty(); break;
-			default: controlProperty = undefined; break;
+			case 'color': Property = new ColorProperty(); break;
+			case 'dropdown': Property = new DropdownProperty(); break;
+			case 'text': Property = new TextProperty(); break;
+			case 'wysiwyg': Property = new WysiwygProperty(); break;
+			default: Property = undefined; break;
 		}
 
-		return controlProperty;
+		return Property;
 	};
 
-	return ControlPropertyFactory;
+	return PropertyFactory;
 
 });
