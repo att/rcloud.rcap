@@ -15,7 +15,7 @@ define(['rcap/js/ui/properties/textProperty', 'rcap/js/ui/properties/dropdownPro
                 new DropdownProperty({
                     uid: 'siteThemePackage',
                     label: 'Site Theme Package',
-                    isRequired: true,
+                    isRequired: false,
                     availableOptions: window.RCAP.getRCAPStyles().map(function(style) { 
                         return {
                             text: style.package,
