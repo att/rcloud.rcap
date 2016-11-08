@@ -53,7 +53,8 @@
                     ['getRFunctions'],
                     ['getDummyFunctions'],
                     ['getRTime'],    // not currently used
-                    ['getRCAPVersion']
+                    ['getRCAPVersion'],
+                    ['getRCAPStyles']
                 ], true);
 
                 RCloud.UI.advanced_menu.add({ // jshint ignore:line
@@ -82,6 +83,18 @@
                             po.getRCAPVersion().then(function(version) {
                                 window.RCAP.getRCAPVersion = function() {
                                     return version;
+                                };
+                            });
+
+                            po.getRCAPStyles().then(function(styles) {
+                                window.RCAP.getRCAPStyles = function() {
+                                    return _.map(styles, function(style) {
+                                        return {
+                                            package: style[0],
+                                            title: style[1],
+                                            description: style[2]
+                                        };
+                                    });
                                 };
                             });
 
