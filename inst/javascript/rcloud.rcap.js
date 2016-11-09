@@ -117,7 +117,8 @@
                 // this code is executed in 'mini' mode:
                 var mini = RCloud.promisify_paths(ocaps, [  // jshint ignore:line
                         ['updateControls'],    // updateControls (called when a form value changes, or a form is submitted)
-                        ['updateAllControls']  // kicks off R plot rendering
+                        ['updateAllControls'],  // kicks off R plot rendering
+                        ['getRCAPStyles']
                     ], true);
 
                 window.RCAP = window.RCAP || {};
@@ -127,6 +128,18 @@
                 window.RCAP.updateAllControls = function(dataToSubmit) {
                     mini.updateAllControls(dataToSubmit).then(function() {});
                 };
+
+                // mini.getRCAPStyles().then(function(styles) {
+                //     window.RCAP.getRCAPStyles = function() {
+                //         return _.map(styles, function(style) {
+                //             return {
+                //                 package: style[0],
+                //                 title: style[1],
+                //                 description: style[2]
+                //             };
+                //         });
+                //     };
+                // });
             }
 
             k();

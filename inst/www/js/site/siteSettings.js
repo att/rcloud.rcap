@@ -16,12 +16,12 @@ define(['rcap/js/ui/properties/textProperty', 'rcap/js/ui/properties/dropdownPro
                     uid: 'siteThemePackage',
                     label: 'Site Theme Package',
                     isRequired: false,
-                    availableOptions: window.RCAP.getRCAPStyles().map(function(style) { 
+                    availableOptions: window.RCAP.getRCAPStyles ? window.RCAP.getRCAPStyles().map(function(style) { 
                         return {
                             text: style.package,
                             value: style.package
                         };
-                    }),
+                    }) : [],
                     helpText: 'Custom theme'
                 })
             ];
