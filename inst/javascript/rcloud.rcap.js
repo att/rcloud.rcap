@@ -128,18 +128,6 @@
                 window.RCAP.updateAllControls = function(dataToSubmit) {
                     mini.updateAllControls(dataToSubmit).then(function() {});
                 };
-
-                // mini.getRCAPStyles().then(function(styles) {
-                //     window.RCAP.getRCAPStyles = function() {
-                //         return _.map(styles, function(style) {
-                //             return {
-                //                 package: style[0],
-                //                 title: style[1],
-                //                 description: style[2]
-                //             };
-                //         });
-                //     };
-                // });
             }
 
             k();
