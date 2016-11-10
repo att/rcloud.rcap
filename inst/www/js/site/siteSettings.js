@@ -26,6 +26,26 @@ define(['rcap/js/ui/properties/textProperty', 'rcap/js/ui/properties/dropdownPro
                 })
             ];
         },
+        // getAvailableThemes: function() {
+        //     // ascertain the theme options, based on set theme (if any) unioned with available themes:
+        //     var selectedTheme = this.getSettingValue('siteThemePackage');
+
+        //     var availableThemes = window.RCAP.getRCAPStyles ? window.RCAP.getRCAPStyles().map(function(style) { 
+        //                 return {
+        //                     text: style.package,
+        //                     value: style.package
+        //                 };
+        //             }) : [];
+
+        //     if(selectedTheme && !_.findWhere(availableThemes, { value : selectedTheme })) {
+        //         availableThemes.push({
+        //             text: selectedTheme,
+        //             value: selectedTheme
+        //         });
+        //     }
+
+        //     return availableThemes;
+        // },
         getSettingValue: function(uid) {
             return _.findWhere(this.properties, {
                 uid: uid
