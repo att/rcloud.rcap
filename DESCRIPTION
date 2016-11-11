@@ -9,6 +9,8 @@ Authors@R: c(
     person("Paulin", "Shek", role = "aut"),
     person("Nathan", "Eastwood", role = "aut"))
 Description: RCloud powered dashboards and websites.
+Depends:
+    rcloud.htmlwidgets
 Imports:
     Rserve,
     rcloud.support,
