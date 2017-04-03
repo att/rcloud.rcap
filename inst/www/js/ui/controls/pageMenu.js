@@ -1,12 +1,20 @@
 define(['rcap/js/ui/controls/gridControl',
-    'rcap/js/ui/controls/properties/dropdownControlProperty',
-    'rcap/js/ui/controls/properties/colorControlProperty',
+    'rcap/js/ui/properties/dropdownProperty',
+    'rcap/js/ui/properties/colorProperty',
     'pubsub',
     'site/pubSubTable',
     'rcap/js/utils/pageWalker'
-], function(GridControl, DropdownControlProperty, ColorControlProperty, PubSub, pubSubTable, PageWalker) {
+], function(GridControl, DropdownProperty, ColorProperty, PubSub, pubSubTable, PageWalker) {
 
     'use strict';
+
+    var accordionToggle = function(toggler) {
+        toggler.parent().siblings('div').toggle();
+        // looks strange, but it'll be toggled on the following line:
+        toggler.attr('title', toggler.hasClass('expanded') ? 'Expand' : 'Collapse');
+        toggler.toggleClass('expanded');
+        toggler.toggleClass('collapsed');
+    };
 
     var renderControl = function(control, publishEvent) {
 
@@ -14,6 +22,7 @@ define(['rcap/js/ui/controls/gridControl',
         // directly, let its caller handle the returned markup, otherwise fire the 
         // event:
         if (publishEvent) {
+            control.isDirty = false;
             PubSub.publish(pubSubTable.updateControl, control);
         } else {
 
@@ -40,11 +49,13 @@ define(['rcap/js/ui/controls/gridControl',
                 var templates = {
                     'root' : {
                         'hamburger' : '<nav class="hamburger hamburger-valign-' + control.controlProperties[1].value + '"><button>Toggle</button><div></div></nav>',
+                        'accordion' : '<nav class="accordion accordion-valign-' + control.controlProperties[1].value + '"><button>Toggle</button><div></div></nav>',
                         'horizontal' : '<nav class="horizontal horizontal-' + control.controlProperties[2].value + '"><ul></ul></nav>',
                         'vertical': '<nav class="vertical vertical-' + control.controlProperties[2].value + '"><ul></ul></nav>',
                     },
                     'item': {
                         'hamburger' : '<div data-pageid="<%=p.id%>"><a style="padding-left:<%=((p.depth - 1) * 20) + 15%>px" href="javascript:void(0)" data-ishamburger="true" <%if(currentPageID === p.id) {%>class="current"<%}%> data-pageid="<%=p.id%>" data-href="<%=p.navigationTitle%>"><%=p.navigationTitle%></a></div>',
+                        'accordion' : '<div data-pageid="<%=p.id%>"><a style="padding-left:<%=((p.depth - 1) * 20) + 15%>px" href="javascript:void(0)" data-isaccordion="true" <%if(currentPageID === p.id) {%>class="current"<%}%> data-pageid="<%=p.id%>" data-href="<%=p.navigationTitle%>"><%=p.navigationTitle%></a></div>',
                         'horizontal' : '<li><a href="javascript:void(0)" <%if(currentPageID === p.id) {%>class="current"<%}%> data-pageid="<%=p.id%>" data-href="<%=p.navigationTitle%>"><%=p.navigationTitle%></a></li>',
                         'vertical' : '<li><a href="javascript:void(0)" <%if(currentPageID === p.id) {%>class="current"<%}%> data-pageid="<%=p.id%>" data-href="<%=p.navigationTitle%>"><%=p.navigationTitle%></a></li>'
                     },
@@ -59,6 +70,26 @@ define(['rcap/js/ui/controls/gridControl',
 
                             return rootTemplate;
                         },
+                        'accordion' : function(rootTemplate, page, markup) { 
+                            if(page.parentId) {
+                                // this is a child page, so hide by default:
+                                var parent = rootTemplate.find('div[data-pageid="' + page.parentId + '"]');
+                                markup = $(markup).hide();
+                                parent.append(markup);
+
+                                var rootAnchor = parent.find('a:eq(0)');
+
+                                if(!rootAnchor.hasClass('has-children')) {
+                                    rootAnchor.addClass('has-children');   
+                                    rootAnchor.append('<span title="Expand" class="toggler collapsed">Expand</span>'); 
+                                }
+                                
+                            } else {
+                                rootTemplate.find('> div').append(markup);
+                            }
+
+                            return rootTemplate;
+                        },
                         'horizontal' : function(rootTemplate, page, markup) { return addMenuItem(rootTemplate, page, markup); },
                         'vertical' : function(rootTemplate, page, markup) { return addMenuItem(rootTemplate, page, markup); }
                     }
@@ -67,7 +98,6 @@ define(['rcap/js/ui/controls/gridControl',
                 var template = $(templates.root[menuType]);
 
                 _.each(pages, function(page) {
-
                     var itemTemplate = _.template(templates.item[menuType]);
                     var markup = itemTemplate({
                         p: page,
@@ -78,6 +108,18 @@ define(['rcap/js/ui/controls/gridControl',
                         template = templates.addItem[menuType](template, page, markup);
                     }
                 });
+
+                // expand for accordion:
+                if(menuType === 'accordion') {
+                    if(control.currentPageID) {
+                        var ancestors = new PageWalker(control.pages).getAncestorsAndSelf(control.currentPageID);
+                        ancestors.pop();
+
+                        for(var loop = 0; loop < ancestors.length; loop++) {
+                            accordionToggle(template.find('div[data-pageid="' + ancestors[loop].id + '"] > a > .toggler'));
+                        }
+                    }
+                }
 
                 return template[0].outerHTML;
             };
@@ -95,14 +137,17 @@ define(['rcap/js/ui/controls/gridControl',
                 label: 'Page Menu',
                 icon: 'reorder',
                 controlProperties: [
-                    new DropdownControlProperty({
+                    new DropdownProperty({
                         uid: 'menustyle',
                         label: 'Menu Style',
                         helpText: 'The visual style of the menu',
                         isRequired: true,
                         availableOptions: [{
-                            text: 'Mobile Style \'Hamburger icon\'',
+                            text: 'Mobile Style',
                             value: 'hamburger'
+                        }, {
+                            text: 'Accordion',
+                            value: 'accordion'
                         }, {
                             text: 'Horizontal',
                             value: 'horizontal'
@@ -112,7 +157,7 @@ define(['rcap/js/ui/controls/gridControl',
                         }],
                         value: 'hamburger'
                     }),
-                    new DropdownControlProperty({
+                    new DropdownProperty({
                         uid: 'verticalalignment',
                         label: 'Vertical Alignment',
                         isRequired: true,
@@ -128,7 +173,7 @@ define(['rcap/js/ui/controls/gridControl',
                         }],
                         value: 'middle'
                     }),
-                    new DropdownControlProperty({
+                    new DropdownProperty({
                         uid: 'horizontalalignment',
                         label: 'Horizontal Alignment',
                         isRequired: true,
@@ -225,7 +270,7 @@ define(['rcap/js/ui/controls/gridControl',
 
                 if (me.isOnGrid) {
 
-                    me.pages = new PageWalker(me.pages).deletePage(pageId);
+                    me.pages = new PageWalker(me.pages).removePage(pageId);
 
                     me.currentPageID = me.pages.length > 0 ? me.pages[0].id : '';
 
@@ -278,35 +323,38 @@ define(['rcap/js/ui/controls/gridControl',
         },
         initialiseViewerItems: function() {
 
-            $('.hamburger, .rcap-pagemenu, nav.horizontal, nav.vertical').closest('.grid-stack-item').css('z-index', '1');
+            $('.hamburger, .accordion, .rcap-pagemenu, nav.horizontal, nav.vertical').closest('.grid-stack-item').css('z-index', '1');
 
             $('nav.horizontal').closest('.grid-stack-item-content').css({
-                    'overflow-x': 'visible',
-                    'overflow-y': 'visible'
-                });
+                'overflow-x': 'visible',
+                'overflow-y': 'visible'
+            });
 
-            $('#rcap-viewer').on('click', '.rcap-pagemenu a, .hamburger a, nav.horizontal a, nav.vertical a', function() {
+            $('#rcap-viewer').on('click', '.rcap-pagemenu a, .hamburger a, nav.accordion a, nav.horizontal a, nav.vertical a', function() {
                 // get the nav title:
                 location.hash = $(this).data('href');
                 PubSub.publish(pubSubTable.changeSelectedPageByTitle, $(this).data('href'));
 
-                if ($(this).attr('data-ishamburger') === 'true') {
-                    $(this).toggleClass('expanded').siblings('div').slideToggle({
-                        duration: 200
-                    });
+                if ($(this).attr('data-ishamburger') === 'true' || $(this).attr('data-isaccordion') === 'true') {
+                    $(this).toggleClass('expanded').siblings('div').toggle();
+                    $(this).parent().toggleClass('expanded');
                 }
             });
 
-            $('#rcap-viewer').on('click', '.hamburger button', function() {
-                $(this).toggleClass('expanded').siblings('div').slideToggle({
-                    duration: 200
-                });
+            $('#rcap-viewer').on('click', '.hamburger button, .accordion button', function() {
+                $(this).toggleClass('expanded').siblings('div').toggle();
+                $(this).parent().toggleClass('expanded');
 
                 $(this).closest('.grid-stack-item-content').css({
                     'overflow-x': 'visible',
                     'overflow-y': 'visible'
                 });
+            });
 
+            // accordion events:
+            $('#rcap-viewer').on('click', '.accordion .toggler', function(e) {
+                accordionToggle($(this));
+                e.stopPropagation();
             });
         },
     });

@@ -11,20 +11,21 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
 
         this.initialise = function(startTimers) {
 
-        if (startTimers === undefined) { 
-            startTimers = false; 
+    	  if (_.isUndefined(startTimers)) {
+            startTimers = false;
         }
 
-            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            //
-            // serialize
-            //
-            PubSub.subscribe(pubSubTable.serialize, function(msg, data) {
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //
+        // serialize
+        //
+        PubSub.subscribe(pubSubTable.serialize, function(msg, data) {
 
-                rcapLogger.info('serializer: pubSubTable.serialize');
+            rcapLogger.info('serializer: pubSubTable.serialize');
 
-                new AssetManager().save(data);
-            });
+            new AssetManager().save(data);
+        });
+
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             //
@@ -38,6 +39,7 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
                     control,
                     jsonControl,
                     jsonControlProperty,
+                    jsonProperty,
                     jsonStyleProperty,
                     currentPage,
                     jsonPageProperty,
@@ -66,10 +68,22 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
                 // update versions:
                 data = versionConverter.processJson(data);
 
+                // process site settings:
+                if(data.settings) {
+                    site.settings.properties.forEach(function(setting) {
+                        // find the value, if any from the json:
+                        var jsonSetting = _.findWhere(data.settings.properties, { uid : setting.uid });
+
+                        if(jsonSetting) {
+                            setting.value = jsonSetting.value;
+                        }
+                    });
+                }
+
                 // loop through each page:
                 if (data.pages) {
 
-                    // we have at least a single page, so get rid of the pages we started with and 
+                    // we have at least a single page, so get rid of the pages we started with and
                     // replace with what's coming in:
                     site.pages = [];
 
@@ -85,9 +99,9 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
 
                             controls = [];
 
-                            // assign all properties, but ignore 
+                            // assign all properties, but ignore
                             // controls and pages:
-                            for (jsonPageProperty in jsonPage) {
+                            for (var jsonPageProperty in jsonPage) {
                                 if (jsonPage.hasOwnProperty(jsonPageProperty) && ['controls', 'styleProperties'].indexOf(jsonPageProperty) === -1) {
                                     currentPage[jsonPageProperty] = jsonPage[jsonPageProperty];
                                 }
@@ -113,10 +127,11 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
 
                                 // loop through each specific controlProperties property:
                                 for (propertyLoop = 0; propertyLoop < jsonControl.controlProperties.length; ++propertyLoop) {
+
                                     jsonControlProperty = jsonControl.controlProperties[propertyLoop];
+                                    jsonProperty = jsonControl.controlProperties[propertyLoop];
 
                                     // uid, value, id:
-
                                     // get the property:
                                     currProp = _.findWhere(control.controlProperties, {
                                         uid: jsonControlProperty.uid
@@ -147,7 +162,11 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
                                 if (jsonControl.hasOwnProperty('childControls')) {
 
                                     for (propertyLoop = 0; propertyLoop < jsonControl.childControls.length; ++propertyLoop) {
+<<<<<<< HEAD
                                         jsonControlProperty = jsonControl.childControls[propertyLoop];
+=======
+                                        jsonProperty = jsonControl.childControls[propertyLoop];
+>>>>>>> b692533ace4b70e77cd66ab3d5ce239bba850ba7
 
                                         // what type is it?
                                         currentChild = controlFactory.getChildByKey(jsonControl.childControls[propertyLoop].type);
@@ -185,7 +204,6 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
                         site.pages.push(currentPage);
 
                     });
-
                 }
 
                 if (data.dataSources) {
@@ -218,7 +236,7 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
                         if (startTimers){
                             currentTimer.start();
                         }
-                        
+
                         site.timers.push(currentTimer);
                     });
                 }
@@ -226,11 +244,9 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
                 if (data.gridOptions) {
                     // load grid options:
                     site.gridOptions = data.gridOptions;
-                } 
+                }
 
                 site.themeExists = msgData.themeExists;
-
-                //
 
                 PubSub.publish(pubSubTable.initSite, site);
             });

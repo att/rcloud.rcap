@@ -79,12 +79,19 @@ define(['pubsub', 'rcap/js/Class'], function() {
         showControlDialog : 'showControlDialog',
         showFormBuilderDialog : 'showFormBuilderDialog',
 
+        // site settings:
+        editSiteSettings: 'editSiteSettings',
+        showSiteSettingsDialog: 'showSiteSettingsDialog',
+        updateSiteSettings: 'updateSiteSettings',
+        updatePageClassSetting: 'updatePageClassSetting',
+
         // theme:
         updateTheme: 'updateTheme',
         updateDomTheme: 'updateDomTheme',
         intialiseDom: 'initialiseDom',
         editTheme: 'editTheme',
         showThemeEditorDialog: 'showThemeEditorDialog',
+        updateSiteThemePackage: 'updateSiteThemePackage',
 
         // state management:
         stateModified: 'stateModified'

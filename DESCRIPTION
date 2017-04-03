@@ -1,6 +1,6 @@
 Package: rcloud.rcap
 Title: Interactive Dashboard and Website Builder for RCloud
-Version: 0.3.9
+Version: 0.3.12
 Authors@R: c(
     person("Douglas", "Ashton", role = c("aut")),
     person("Shane", "Porter", role = c("aut")),
@@ -9,6 +9,8 @@ Authors@R: c(
     person("Paulin", "Shek", role = "aut"),
     person("Nathan", "Eastwood", role = "aut"))
 Description: RCloud powered dashboards and websites.
+Depends:
+    rcloud.htmlwidgets
 Imports:
     Rserve,
     rcloud.support,
@@ -23,7 +25,7 @@ License: MIT + file LICENSE
 RCloud-Extension: gui
 RoxygenNote: 5.0.1
 SystemRequirements: node.js and npm, bower, Grunt, GNU make
-Collate:
+Collate: 
     'controlR6.R'
     'dataTableControl.R'
     'controlTypes.R'
@@ -32,6 +34,7 @@ Collate:
     'ocaps.R'
     'rcap.result.R'
     'showUpdates.R'
+    'styles.R'
     'topo-sort.R'
     'utils.R'
     'zzz.R'

@@ -24,7 +24,7 @@ if(typeof control.controlProperties[0].value !== 'undefined' && control.controlP
 
 	$('#<%=controlId%>').select2({ 
 		width : '250px',
-		placeholder: '<%=control.getControlPropertyValueOrDefault('placeholder')%>'
+		placeholder: '<%=control.getPropertyValueOrDefault('placeholder')%>'
 	}); 
 
 	$('#<%=controlId%> + .select2').find('.select2-search__field').removeAttr('style');

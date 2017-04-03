@@ -22,6 +22,16 @@ define(['text!rcap/partials/viewer.htm',
 
         this.setup = function() {
 
+
+            // TEMP
+            // var ss = document.createElement('link');
+            // ss.type = 'text/css';
+            // ss.rel = 'stylesheet';
+            // ss.href = 'http://127.0.0.1:8080/shared.R/rcloud.rcap.style.att.ecomp/rcap-style.css';
+            // document.getElementsByTagName('head')[0].appendChild(ss);
+            // TEMP
+
+
             $('body')
                 .addClass('rcap-viewer')
                 .append(mainPartial);

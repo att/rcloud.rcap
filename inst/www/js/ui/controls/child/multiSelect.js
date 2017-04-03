@@ -1,6 +1,6 @@
-define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textControlProperty',
-	'rcap/js/ui/controls/properties/multiOptionControlProperty', 'text!rcap/js/ui/controls/child/templates/multiSelect.tpl', 'select2/js/select2', 'css!select2/css/select2.min.css'],
-	function(BaseControl, TextControlProperty, MultiOptionControlProperty, tpl) {
+define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/properties/textProperty',
+	'rcap/js/ui/properties/multiOptionProperty', 'text!rcap/js/ui/controls/child/templates/multiSelect.tpl', 'select2/js/select2', 'css!select2/css/select2.min.css'],
+	function(BaseControl, TextProperty, MultiOptionProperty, tpl) {
 	
 	'use strict';
 
@@ -11,21 +11,21 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
 				label : 'Multi-select',
 				icon: 'indent-right',
 				controlProperties: [
-					new TextControlProperty({
+					new TextProperty({
 						uid: 'label',
 						label : 'Label',
 						defaultValue : 'Label',
 						helpText : 'The label for this control',
 						isHorizontal: false
 					}),
-					new TextControlProperty({
+					new TextProperty({
 						uid: 'placeholder',
 						label : 'Placeholder',
 						defaultValue : 'Please select an option',
 						helpText : 'The placeholder for this control',
 						isHorizontal: false
 					}),
-					new TextControlProperty({
+					new TextProperty({
 						uid: 'variablename',
 						label : 'Variable name',
 						defaultValue : 'variable',
@@ -34,7 +34,7 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
 						isHorizontal: false
 					}),
 					// options:
-                    new MultiOptionControlProperty({
+                    new MultiOptionProperty({
                         uid: 'options',
                         label: 'Options',
                         helpText: 'Enter options, one per line',

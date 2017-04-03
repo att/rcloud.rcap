@@ -1,6 +1,6 @@
-define(['rcap/js/ui/controls/gridControl', 'rcap/js/ui/controls/properties/textControlProperty', 'rcap/js/ui/controls/properties/dropdownControlProperty',
+define(['rcap/js/ui/controls/gridControl', 'rcap/js/ui/properties/textProperty', 'rcap/js/ui/properties/dropdownProperty',
 	'text!controlTemplates/image.tpl'], 
-	function(GridControl, TextControlProperty, DropdownControlProperty, tpl) {
+	function(GridControl, TextProperty, DropdownProperty, tpl) {
 	
 	'use strict';
 
@@ -12,14 +12,14 @@ define(['rcap/js/ui/controls/gridControl', 'rcap/js/ui/controls/properties/textC
 				label : 'Image',
 				icon: 'picture',
 				controlProperties: [
-					new TextControlProperty({
+					new TextProperty({
 						uid: 'imagesource',
 						label : 'Image source',
 						defaultValue : '',
 						helpText : 'The source of the image',
 						isRequired: true
 					}),
-					new DropdownControlProperty({
+					new DropdownProperty({
                         uid: 'imageLayout',
                         label: 'Image style',
                         helpText: 'Whether the image should be tiled, stretched or placed as is.',

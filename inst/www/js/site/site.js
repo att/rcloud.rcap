@@ -1,4 +1,4 @@
-define(['pages/page', 'data/dataSource', 'data/timer', 'rcap/js/utils/pageWalker'], function(Page, DataSource, Timer, PageWalker) {
+define(['pages/page', 'data/dataSource', 'data/timer', 'site/siteSettings', 'rcap/js/utils/pageWalker'], function(Page, DataSource, Timer, SiteSettings, PageWalker) {
 
     'use strict';
 
@@ -13,7 +13,7 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'rcap/js/utils/pageWalker
             };
 
         for (;; index++) {
-            // naming convention is for 
+            // naming convention is for
             // 'Home Page' -> 'Home Page(n)', where n is positive integer and unique to existing page collection:
 
             // case insensitive:
@@ -52,9 +52,12 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'rcap/js/utils/pageWalker
 
             // grid options:
             this.gridOptions = options.gridOptions || {
-                controlPadding: 20 
-                // TODO: add further settings here:              
+                controlPadding: 20
+                // TODO: add further settings here:
             };
+
+            // settings:
+            this.settings = options.settings || new SiteSettings();
 
             this.currentPageID = this.pages.length > 0 ? this.pages[0].id : undefined;
         },
@@ -68,6 +71,7 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'rcap/js/utils/pageWalker
             return {
                 'rcapVersion': this.rcapVersion,
                 'saveTicks': this.saveTicks,
+                'settings': this.settings,
                 'theme': this.theme,
                 'pages': this.pages,
                 'dataSources': this.dataSources,
@@ -113,7 +117,7 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'rcap/js/utils/pageWalker
 
             _.each(pages, function(p) {
                 p.isEnabled = pageObj.isEnabled;
-            });           
+            });
 
             return this;
         },
@@ -159,7 +163,7 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'rcap/js/utils/pageWalker
                 newPages = [];
 
             // generate, rename and push:
-            _.each(pagesToCopy, function(pageToCopy) { 
+            _.each(pagesToCopy, function(pageToCopy) {
                 // if this is the root page, retain its parent ID,
                 // otherwise reassign:
                 newPage = pageToCopy.duplicate();
@@ -172,14 +176,14 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'rcap/js/utils/pageWalker
 
                 // update the page name:
                 newPage.navigationTitle = generateCopiedPageName(me.pages, newPage.navigationTitle);
-                
+
                 // does this new page's parent ID need to be updated? (based on the mappings that have
                 // been collated):
                 if(pageToCopy.id !== rootPageId) { // root page should stay the same since it will have the same parent!
                     var foundMapping = _.findWhere(mappings, { oldId : newPage.parentId });
 
                     if(foundMapping) {
-                        newPage.parentId = foundMapping.newId;  
+                        newPage.parentId = foundMapping.newId;
                     }
                 }
 
@@ -346,7 +350,7 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'rcap/js/utils/pageWalker
         //
         // grid options
         //
-        //  
+        //
         updateGridOptions: function(gridOptions) {
             this.gridOptions = gridOptions;
         },
@@ -355,19 +359,32 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'rcap/js/utils/pageWalker
         //
         // themes
         //
-        //  
+        //
         updateTheme: function(theme) {
             this.theme = theme;
         },
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
         //
+        // settings
+        //
+        //
+        getSettings: function() {
+            return this.settings;
+        },
+
+        updateSettings: function(settings) {
+            this.settings = settings;
+        },
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //
         // dirty
         //
-        //    
+        //
         setModified: function() {
             this.modified = true;
-        },   
+        },
 
         clearModified: function() {
             this.modified = false;
@@ -375,7 +392,7 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'rcap/js/utils/pageWalker
 
         isModified: function() {
             return this.modified === true;
-        } 
+        }
 
     });
 

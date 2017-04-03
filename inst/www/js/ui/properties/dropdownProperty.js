@@ -1,8 +1,8 @@
-define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/dropdownControl.tpl'], function(BaseControlProperty, tpl) {
+define(['rcap/js/ui/properties/baseProperty', 'text!templates/dropdownControl.tpl'], function(BaseProperty, tpl) {
 	
 	'use strict';
 
-	var DropdownControlProperty = BaseControlProperty.extend({
+	var DropdownProperty = BaseProperty.extend({
 		init: function(options) {
 			options = options || {};
 			this._super({
@@ -35,6 +35,6 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/dr
 		}
 	});
 
-	return DropdownControlProperty;
+	return DropdownProperty;
 
 });

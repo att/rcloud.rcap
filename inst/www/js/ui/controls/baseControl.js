@@ -53,7 +53,7 @@ define(['rcap/js/Class'], function() {
                 'controlProperties': this.controlProperties
             };
         },
-        getControlPropertyValue: function(uid) {
+        getPropertyValue: function(uid) {
 
             var prop = _.findWhere(this.controlProperties, {
                 'uid': uid
@@ -66,9 +66,9 @@ define(['rcap/js/Class'], function() {
             }
 
         },
-        getControlPropertyValueOrDefault: function(uid) {
+        getPropertyValueOrDefault: function(uid) {
 
-            var propValue = this.getControlPropertyValue(uid);
+            var propValue = this.getPropertyValue(uid);
 
             if (propValue !== undefined && propValue.length > 0) {
                 return propValue;

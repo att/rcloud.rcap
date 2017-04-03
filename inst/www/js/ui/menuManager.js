@@ -4,11 +4,10 @@ define([
     'text!ui/templates/controlsMenu.tpl',
     'text!ui/templates/dataSourceMenuItem.tpl',
     'text!ui/templates/timerMenuItem.tpl',
-    'text!ui/templates/siteSettingsMenu.tpl',
     'pubsub',
     'site/pubSubTable',
     'controls/factories/controlFactory'
-], function(RcapLogger, pageMenuItemTemplate, controlsMenuTemplate, dataSourceMenuItemTemplate, timerMenuItemTemplate, siteSettingsMenuTemplate, PubSub, pubSubTable, ControlFactory) {
+], function(RcapLogger, pageMenuItemTemplate, controlsMenuTemplate, dataSourceMenuItemTemplate, timerMenuItemTemplate, PubSub, pubSubTable, ControlFactory) {
 
     'use strict';
 
@@ -148,6 +147,17 @@ define([
                     width: menu.width() + 40,
                     id: $(this).data('flyoutid')
                 });
+            });
+
+            $('body').on('click', '#main-menu a[data-messageid]', function() {
+                // hide all:
+                $('.menu-flyout').hide();
+                $('#main-menu li').removeClass('selected');
+
+                // but this one isn't selected since it invokes something else:
+                var message = $(this).attr('data-messageid');
+                rcapLogger.info('menuManager: pubSubTable dynamic: ' + message);
+                PubSub.publish(pubSubTable[message]);
             });
 
             $('body').on('click', '.count', function() {
@@ -387,17 +397,6 @@ define([
                 $('.menu-flyout').hide();
             });
 
-            //////////////////////////////////////////////////////////////////////////////////////////
-            //
-            //
-            //
-            // theme:
-            // apply:
-            $('body').on('click', '.settings-menu button', function() {
-                rcapLogger.info('menuManager: pubSubTable.editTheme');
-                PubSub.publish(pubSubTable.editTheme);
-            });
-
             return this;
         },
         initialiseControlsMenu: function() {
@@ -410,16 +409,6 @@ define([
             var template = _.template(controlsMenuTemplate);
             $('.menu-flyout[data-flyoutid="controls"]').append(template({
                 controlCategories: categorisedControls
-            }));
-
-            return this;
-        },
-        initialiseSettingsMenu: function() {
-
-            var template = _.template(siteSettingsMenuTemplate);
-
-            $('.menu-flyout[data-flyoutid="settings"]').append(template({
-
             }));
 
             return this;

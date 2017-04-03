@@ -2,7 +2,7 @@ define(['rcap/js/Class'], function() {
 	
 	'use strict';
 
-	var BaseControlProperty = Class.extend({
+	var BaseProperty = Class.extend({
 		init : function(options) {
 			
 			options = options || {};
@@ -43,6 +43,6 @@ define(['rcap/js/Class'], function() {
 		}
 	});
 
-	return BaseControlProperty;
+	return BaseProperty;
 
 });

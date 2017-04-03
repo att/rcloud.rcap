@@ -1,5 +1,7 @@
 ((function() {
 
+    'use strict';
+
     requirejs.config({
         paths: {
             'rcap': '../../shared.R/rcloud.rcap',
@@ -9,7 +11,7 @@
             'ui': '../../shared.R/rcloud.rcap/js/ui',
             'utils': '../../shared.R/rcloud.rcap/js/utils',
             'controls': '../../shared.R/rcloud.rcap/js/ui/controls',
-            'templates': '../../shared.R/rcloud.rcap/js/ui/controls/properties/templates',
+            'templates': '../../shared.R/rcloud.rcap/js/ui/properties/templates',
             'controlTemplates': '../../shared.R/rcloud.rcap/js/ui/controls/templates',
             'pubsub': '../../shared.R/rcloud.rcap/bower_components/pubsub-js/src/pubsub',
             'parsley': '../../shared.R/rcloud.rcap/bower_components/parsleyjs/dist/parsley.min',
@@ -45,13 +47,14 @@
     return {
         init: function(ocaps, sessionInfo, k) {
 
-            if (RCloud.UI.advanced_menu.add) {
+            if (RCloud.UI.advanced_menu.add) {  // jshint ignore:line
 
-                var po = RCloud.promisify_paths(ocaps, [
+                var po = RCloud.promisify_paths(ocaps, [  // jshint ignore:line
                     ['getRFunctions'],
                     ['getDummyFunctions'],
                     ['getRTime'],    // not currently used
-                    ['getRCAPVersion']
+                    ['getRCAPVersion'],
+                    ['getRCAPStyles']
                 ], true);
 
                 RCloud.UI.advanced_menu.add({ // jshint ignore:line
@@ -83,6 +86,18 @@
                                 };
                             });
 
+                            po.getRCAPStyles().then(function(styles) {
+                                window.RCAP.getRCAPStyles = function() {
+                                    return _.map(styles, function(style) {
+                                        return {
+                                            package: style[0],
+                                            title: style[1],
+                                            description: style[2]
+                                        };
+                                    });
+                                };
+                            });
+
                             require(['rcap/js/designer'], function(Designer) {
                                 new Designer().initialise(extractSessionInfo(sessionInfo));
                             });
@@ -90,7 +105,7 @@
                     }
                 });
 
-                RCloud.UI.share_button.add({
+                RCloud.UI.share_button.add({ // jshint ignore:line
                     'rcap.html': {
                         sort: 1000,
                         page: 'shared.R/rcloud.rcap/rcap.html'
@@ -100,9 +115,10 @@
             } else {
 
                 // this code is executed in 'mini' mode:
-                mini = RCloud.promisify_paths(ocaps, [
+                var mini = RCloud.promisify_paths(ocaps, [  // jshint ignore:line
                         ['updateControls'],    // updateControls (called when a form value changes, or a form is submitted)
-                        ['updateAllControls']  // kicks off R plot rendering
+                        ['updateAllControls'],  // kicks off R plot rendering
+                        ['getRCAPStyles']
                     ], true);
 
                 window.RCAP = window.RCAP || {};
@@ -121,6 +137,7 @@
         initViewer: function(content, themeExists, sessionInfo, k) {
             require(['rcap/js/viewer'], function(Viewer) {
                 new Viewer().initialise(content, themeExists, extractSessionInfo(sessionInfo));
+                $('#rcloud-rcap-loading').remove();
                 k();
             });
         },
@@ -129,7 +146,7 @@
 
             // variableName, value, allValues, k OR
             // variableName, value, k
-            var variableName, value, allValues;
+            var variableName, value, allValues, k;
 
             if(arguments.length === 3 || arguments.length === 4) {
                 variableName = arguments[0];
@@ -143,12 +160,10 @@
                 }
 
                 // loop through:
-                $('[data-variablename="' + variableName + '"]').each(function(i/*, e*/) {
-                    
+                $('[data-variablename="' + variableName + '"]').each(function() {
                     require(['controls/form'], function(FormControl) {
                         new FormControl().updateControls(variableName, value, allValues);
                     });                    
-
                 });
             }
 
@@ -165,11 +180,11 @@
             // get the control:
             var control = $('#' + controlId);
 
-            if(control.attr('data-controltype') == "datatable") {
+            if(control.attr('data-controltype') === 'datatable') {
                 require(['controls/dataTable'], function(DataTableControl) {
                     new DataTableControl().updateData(controlId, data);
                 });
-            } else if(control.attr('data-controltype') == "rtext") {
+            } else if(control.attr('data-controltype') === 'rtext') {
                 require(['controls/rText'], function(RTextControl) {
                     new RTextControl().updateData(controlId, data);
                 });

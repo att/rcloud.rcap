@@ -1,27 +1,32 @@
-define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/autocomplete.tpl'], function(BaseControlProperty, tpl) {
-	
+define(['rcap/js/ui/properties/baseProperty', 
+	'text!templates/wysiwyg.tpl', 
+	'wysiwyg/standalone'
+	], function(BaseProperty, tpl) {
 	'use strict';
 
-	var AutocompleteControlProperty = BaseControlProperty.extend({
+	var WysiwygProperty = BaseProperty.extend({
 		init: function(options) {
 			options = options || {};
 			this._super({
-				type : 'autocomplete',
+				type : 'wysiwyg',
 				label : options.label || '',
 				helpText : options.helpText || '',
 				defaultValue : options.defaultValue || '',
 				isRequired : options.isRequired || false,
+				value : options.value || '',
 				uid : options.uid,
-				className : options.className,
-				value: options.value
+				className : options.className
 			});
 
-			this.serviceName = options.serviceName || 'getRFunctions';
-			this.isHorizontal = _.isUndefined(options.isHorizontal) ? true : options.isHorizontal;
+			// additional assignments go here:
 		},
 		render: function(childIndex) {
 
 			var template = _.template(tpl);
+
+			// replace stuff:
+			this.value = this.value.replace(/'/g, '\\\'');
+			this.value = this.value.replace(/"/g, '\"');
             
             return template({
             	property : this,
@@ -30,10 +35,10 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/au
 
 		},
 		getDialogValue : function() {
-			return $('#' + this.id).val();
+			return $('#' + this.id).wysiwyg('shell').getHTML();
 		}
 	});
 
-	return AutocompleteControlProperty;
+	return WysiwygProperty;
 
 });

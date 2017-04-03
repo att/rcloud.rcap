@@ -142,7 +142,7 @@ define([
                 var newPage = site.createPage(options);
 
                 site.pages.push(newPage);
-                
+
                 site.currentPageID = newPage.id;
                 setSite(site);
 
@@ -449,6 +449,23 @@ define([
 
                 setSite(getSite().updateGridOptions(gridSettings));
 
+
+            // site settings
+            //
+            PubSub.subscribe(pubSubTable.editSiteSettings, function() {
+                rcapLogger.info('siteManager: pubSubTable.editSiteSettings');
+
+                // get the site settings:
+                var siteSettings = getSite().getSettings();
+
+                PubSub.publish(pubSubTable.showSiteSettingsDialog, siteSettings);
+            });
+
+            PubSub.subscribe(pubSubTable.updateSiteSettings, function(msg, settings) {
+                rcapLogger.info('siteManager: pubSubTable.updateSiteSettings');
+
+                // update the site settings:
+                setSite(getSite().updateSettings(settings));
             });
 
         }

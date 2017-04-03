@@ -9,13 +9,14 @@ define([
     'text!rcap/partials/dialogs/_controlSettings.htm',
     'text!rcap/partials/dialogs/_formBuilder.htm',
     'text!rcap/partials/dialogs/_styleEditorDialog.htm',
+    'text!rcap/partials/dialogs/_siteSettings.htm',
     'text!rcap/partials/dialogs/_confirmDialog.htm',
     'pubsub',
     'site/pubSubTable',
     'parsley',
     'rcap/js/vendor/jqModal.min'
 ], function(RcapLogger, FormBuilder, Page, addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, 
-    timerSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, confirmDialogPartial, PubSub, pubSubTable) {
+    timerSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, siteSettingsPartial, confirmDialogPartial, PubSub, pubSubTable) {
 
     'use strict';
 
@@ -43,6 +44,7 @@ define([
             });
 
             // push the updated event:
+            originatingControl.isDirty = true;
             PubSub.publish(pubSubTable.updateControl, originatingControl);
 
             $('#dialog-controlSettings').jqmHide();
@@ -85,7 +87,7 @@ define([
         this.initialise = function() {
 
             // append the dialogs to the root of the designer:
-            _.each([addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, timerSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, confirmDialogPartial], function(partial) {
+            _.each([addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, timerSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, siteSettingsPartial, confirmDialogPartial], function(partial) {
                 $('#rcap-designer').append(partial);
             });
 
@@ -534,6 +536,73 @@ define([
                 return false;
             });
 
+            ////////////////////////////////////////////////////////////////////////////////
+            //
+            // site settings:
+            //
+
+            PubSub.subscribe(pubSubTable.showSiteSettingsDialog, function(msg, settings) {
+
+                rcapLogger.info('dialogManager: pubSubTable.showSiteSettingsDialog');
+
+                // set the markup and the data object:
+                $('#dialog-controlSettings').data('settings', settings);
+                
+                // $('#dialog-siteSettings form')
+                //     .find('input')
+                //     .keydown(function(e) {
+                //         if (e.which === 13) { /*console.log(e);*/
+                //             return false;
+                //         }
+                //     });
+
+                var html = '';
+
+                $.each(settings.properties, function(key, prop) {
+                    html += prop.render(key);
+                });
+
+                $('#dialog-siteSettings form').html(html);
+
+                $('#dialog-siteSettings').jqmShow();
+            });
+
+            $('#dialog-siteSettings .approve').on('click', function() {
+
+                if (true === $('#site-form').parsley().isValid()) {
+                    // get the control that was initially assigned:
+                    var settings = $('#dialog-controlSettings').data('settings');
+
+                    var originalSettings = settings.extract();
+
+                    // todo: validate
+                    $.each(settings.properties, function(index, prop) {
+
+                        // get the value:
+                        var dialogValue = prop.getDialogValue();
+
+                        // assign:
+                        settings.properties[index].value = dialogValue;
+                    });
+
+                    var newSettings = settings.extract();
+
+                    // publish updated so site can pick it up
+                    PubSub.publish(pubSubTable.updateSiteSettings, settings);
+
+                    PubSub.publish(pubSubTable.updatePageClassSetting, {
+                        previous: originalSettings.pageClass,
+                        new: newSettings.pageClass
+                    });
+
+                    PubSub.publish(pubSubTable.updateSiteThemePackage, newSettings.siteThemePackage);
+
+                    $('.jqmWindow').jqmHide();
+                    return false;
+                }
+                
+            });
+            
         };
     };
 

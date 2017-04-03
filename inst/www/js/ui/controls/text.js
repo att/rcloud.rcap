@@ -1,6 +1,6 @@
 define(['rcap/js/ui/controls/gridControl', 
-	'rcap/js/ui/controls/properties/textControlProperty',
-	'rcap/js/ui/controls/properties/wysiwygControlProperty'], function(GridControl, TextControlProperty, WysiwygControlProperty) {
+	'rcap/js/ui/properties/textProperty',
+	'rcap/js/ui/properties/wysiwygProperty'], function(GridControl, TextProperty, WysiwygProperty) {
 	
 	'use strict';
 
@@ -12,7 +12,7 @@ define(['rcap/js/ui/controls/gridControl',
 				label : 'Text',
 				icon: 'pencil',
 				controlProperties: [
-					new WysiwygControlProperty({
+					new WysiwygProperty({
 						uid: 'content',
 						label : 'Content',
 						defaultValue : '',

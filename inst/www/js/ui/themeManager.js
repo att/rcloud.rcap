@@ -13,25 +13,50 @@ define(['pubsub',
             PubSub.subscribe(pubSubTable.updateDomTheme, function(msg, themeUri) {
                 me.applyTheme(themeUri);
             });
+
+            PubSub.subscribe(pubSubTable.updateSiteThemePackage, function(msg, siteThemePackage) {
+                me.applyPackageTheme(siteThemePackage);
+            });
+
+            PubSub.subscribe(pubSubTable.initSite, function(msg, site) {
+                // extract settings:
+                var settings = site.settings.extract();
+
+                me.applyPackageTheme(settings.siteThemePackage);
+            });
+
         };
 
         this.cleanUp = function() {
             $('head > link.rcap').remove(); 
         };
 
-        this.applyTheme = function(themeUri) {
+        this.addLink = function(themeUri, stylesheetClass) {
 
-            // only one at any time:
-            this.cleanUp();
-           
-            $('head')
-                .append($('<link />')
-                .attr({ 
-                    'class': 'rcap',
-                    'type': 'text/css', 
-                    'rel': 'stylesheet', 
-                    'href': themeUri
-                }));
+            $('head > link.' + stylesheetClass).remove(); 
+
+            if(themeUri) {
+                $('head')
+                    .append($('<link />')
+                    .attr({ 
+                        'class': 'rcap ' + stylesheetClass,
+                        'type': 'text/css', 
+                        'rel': 'stylesheet', 
+                        'href': themeUri
+                    }));
+            }
+        };
+
+        this.applyTheme = function(themeUri) {
+            this.addLink(themeUri, 'rcap');
+        };
+
+        this.applyPackageTheme = function(siteThemePackage) {
+            if(siteThemePackage) {
+                this.addLink('/shared.R/' + siteThemePackage + '/rcap-style.css', 'rcappackage');
+            } else {
+                this.addLink(undefined, 'rcappackage');
+            }
         };
 
     };

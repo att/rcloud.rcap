@@ -89,13 +89,14 @@ define([
         gridstackOptions.margin = _.isUndefined(options.margin) ? 10 : options.margin;
         gridstackOptions.static_grid = options.staticGrid || true; // jshint ignore:line
         gridstackOptions.height = options.height || 48;   // 0 -> no maximum rows
+        gridstackOptions.pageClass = options.pageClass;
 
-        var gridStackRoot = $('<div class="grid-stack" ' + 
+        var gridStackRoot = $('<div class="grid-stack" ' +
             'data-user="' + $('body').data('user') +
-            '" data-nodename="' + $('body').data('nodename') + 
-            '" data-nodenameusername="' + $('body').data('nodenameusername') + 
-            '" data-pageid="' + page.id + 
-            '" data-gs-height="' + (options.minHeight || 12) + 
+            '" data-nodename="' + $('body').data('nodename') +
+            '" data-nodenameusername="' + $('body').data('nodenameusername') +
+            '" data-pageid="' + page.id +
+            '" data-gs-height="' + (options.minHeight || 12) +
             '" data-gs-width="24"></div>');
 
         if (options.isGlobalPageItem) { // header or footer
@@ -104,6 +105,11 @@ define([
 
         if (!options.isDesignTime) {
             gridStackRoot.addClass('grid-stack-readonly');
+        }
+
+        //
+        if(gridstackOptions.pageClass) {
+            gridStackRoot.addClass(gridstackOptions.pageClass);
         }
 
         $(rootElement).append(gridStackRoot);
@@ -215,7 +221,7 @@ define([
 
         });
 
-        // has now been initialised, so any further changes to the grid's 
+        // has now been initialised, so any further changes to the grid's
         // items will result in a publish of a 'changed' event:
         $selector.addClass('initialised');
 
@@ -231,7 +237,7 @@ define([
 
         rcapLogger.info('gridManager: grid size metrics updated: ', opts);
 
-        var styleId = 'grid-metrics', 
+        var styleId = 'grid-metrics',
             styleElement = $('#' + styleId),
             styleInfo = '';
 
@@ -247,12 +253,12 @@ define([
         styleInfo += '.grid-stack > .grid-stack-item > .ui-resizable-se { bottom: ' + (opts.controlPadding / 2) + 'px;' + 'right: ' + (opts.controlPadding / 2) + 'px; }';
 
         // remove
-        styleInfo += '.grid-stack > .grid-stack-item > .ui-remove { top: ' + (opts.controlPadding / 2) + 'px;' + 'right: ' + (opts.controlPadding / 2) + 'px; }';  
+        styleInfo += '.grid-stack > .grid-stack-item > .ui-remove { top: ' + (opts.controlPadding / 2) + 'px;' + 'right: ' + (opts.controlPadding / 2) + 'px; }';
 
         if($(styleElement).length) {
             $(styleElement).text(styleInfo);
         } else {
-            $('<style />').attr('id', styleId).text(styleInfo).appendTo('head');    
+            $('<style />').attr('id', styleId).text(styleInfo).appendTo('head');
         }
     };
 
@@ -283,7 +289,7 @@ define([
 
                     // fire off an event:
                     PubSub.publish(pubSubTable.startControlDrag);
-                    
+
                     var control = controlFactory.getByKey($(this).data('type'));
 
                     getVisibleGrid().init_placeholder(control.initialWidth(), control.initialHeight()); // jshint ignore:line
@@ -311,7 +317,7 @@ define([
             PubSub.subscribe(pubSubTable.flyoutActivated, function(msg, flyoutSettings) {
                 if(flyoutSettings.id === 'settings') {
 
-                    $(rootElement).css({ 
+                    $(rootElement).css({
                         'margin-left': '10px',
                         'margin-right': '0px'
                     });
@@ -374,12 +380,10 @@ define([
 
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////////
-            PubSub.subscribe(pubSubTable.updatePage, function(msg, pageData) {
+            // PubSub.subscribe(pubSubTable.updatePage, function(msg, pageData) {
+            //     $('.grid-stack[data-pageid="' + pageData.id + '"]').css('background-color', _.findWhere(pageData.styleProperties, { uid : 'backgroundColor' }).value);
+            // });
 
-                $('.grid-stack[data-pageid="' + pageData.id + '"]').css('background-color', _.findWhere(pageData.styleProperties, { uid : 'backgroundColor' }).value);
-
-            });
-            
             /////////////////////////////////////////////////////////////////////////////////////////////////////////
             PubSub.subscribe(pubSubTable.pageAdded, function(msg, pageData) {
 
@@ -444,7 +448,7 @@ define([
 
             } else {
 
-                // update the control's data: 
+                // update the control's data:
                 var gridItem = $('.grid-stack-item[data-controlid="' + control.id + '"] .grid-stack-item-content');
 
                 // and get the new markup:
@@ -494,11 +498,15 @@ define([
             // initialise the grid size metrics:
             updateGridSizeMetrics(site.gridOptions);
 
+            // extract the settings:
+            var settings = site.settings.extract();
+
             // each page has its own grid:
             _.each(site.pages, function(page) {
                 addGrid(page, {
                     isDesignTime: site.isDesignTime,
-                    height: 48
+                    height: 48,
+                    pageClass: settings.pageClass
                 });
             });
 
@@ -529,7 +537,7 @@ define([
 
             if (page.controls.length === 0) {
 
-                $('#no-items').remove().appendTo('.grid-stack[data-pageid="' + page.id + '"]').show().css({
+                $('#no-items').appendTo('.grid-stack[data-pageid="' + page.id + '"]').show().css({
                     opacity: 1.0
                 });
             }
@@ -542,18 +550,34 @@ define([
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //
+        // settings
+        //
+        PubSub.subscribe(pubSubTable.updatePageClassSetting, function(msg, settings) {
+            // remove old, if any
+            // add new, if any
+            if(settings.previous) {
+                $('.grid-stack').removeClass(settings.previous);
+            }
+
+            if(settings.new) {
+                $('.grid-stack').addClass(settings.new);
+            }
+        });
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //
         // close
-        //  
+        //
         PubSub.subscribe(pubSubTable.close, function() {
             rcapLogger.info('gridManager: pubSubTable.close');
+            $('#no-items').appendTo('#inner-stage');
             $('#inner-stage .grid-stack').remove();
-            $('#no-items').hide();
         });
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //
         // close viewer
-        //  
+        //
         PubSub.subscribe(pubSubTable.closeViewer, function() {
             rcapLogger.info('gridManager: pubSubTable.closeViewer');
             $('#inner-stage .grid-stack').remove();
