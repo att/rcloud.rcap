@@ -15,8 +15,9 @@ define([
 
     };
 
-    var getDesignTimeControlOuterMarkup = function(control) {
-        return $('<div data-controlid="' + control.id + '"></div>').append(getDesignTimeControlInnerMarkup(control));
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    var getVisibleGrid = function() {
+        return $('.grid-stack:visible').data('gridstack');
     };
 
     var getDesignTimeControlInnerMarkup = function(control) {
@@ -45,6 +46,10 @@ define([
             '<button type="button" class="btn btn-primary btn-configure"><i class="icon-cog"></i></button></p>');
 
         return outer;
+    };
+
+    var getDesignTimeControlOuterMarkup = function(control) {
+        return $('<div data-controlid="' + control.id + '"></div>').append(getDesignTimeControlInnerMarkup(control));
     };
 
     var getViewerControlMarkup = function(control) {
@@ -228,11 +233,6 @@ define([
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    var getVisibleGrid = function() {
-        return $('.grid-stack:visible').data('gridstack');
-    };
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////
     var updateGridSizeMetrics = function(opts) {
 
         rcapLogger.info('gridManager: grid size metrics updated: ', opts);
@@ -316,34 +316,42 @@ define([
             //
             PubSub.subscribe(pubSubTable.flyoutActivated, function(msg, flyoutSettings) {
                 if(flyoutSettings.id === 'settings') {
+                    var shift = flyoutSettings.width - 20;
+                    $('#rcap-stage').css('overflow-x', 'hidden');
 
-                    $(rootElement).css({
-                        'margin-left': '10px',
-                        'margin-right': '0px'
-                    });
-
-                    $(rootElement).animate({
-                        width: '-=' + flyoutSettings.width,
-                        left: '+=' + flyoutSettings.width
-                    }, 500, function() {
-                        $(rootElement).data('widthdiff', flyoutSettings.width);
-                    });
+                    if(shift > $('#inner-stage').position().left) {
+                        $(rootElement).animate({
+                            marginLeft: '+=' + shift
+                        }, 500, function() {
+                            $(rootElement).data('shiftby', shift);
+                        });
+                    }
                 }
             });
 
             PubSub.subscribe(pubSubTable.flyoutClosed, function(msg, flyoutSettings) {
-                var widthDiff = $(rootElement).data('widthdiff');
+
                 if(flyoutSettings.id === 'settings') {
-                    $(rootElement).animate({
-                        width: '+=' + widthDiff,
-                        left: '-=' + widthDiff
-                    }, 500, function() {
-                        $(rootElement).removeData('widthDiff');
-                        $(rootElement).css({
-                            'margin-left': 'auto',
-                            'margin-right': 'auto'
+
+                    var shiftBy = $(rootElement).data('shiftby');
+
+                    if(shiftBy) {
+                        $(rootElement).animate({
+                            marginLeft: '-=' + shiftBy
+                        }, 500, function() {
+
+                            $(rootElement).removeData('shiftBy');
+
+                            $(rootElement).css({
+                                'margin-left': 'auto',
+                                'margin-right': 'auto'
+                            });
+
+                            $('#rcap-stage').css('overflow-x', 'auto');
                         });
-                    });
+                    } else {
+                        $('#rcap-stage').css('overflow-x', 'auto');
+                    }
                 }
             });
 

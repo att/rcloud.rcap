@@ -135,18 +135,31 @@ define([
             // flyout menu handler
             //
             $('body').on('click', '#main-menu a[data-flyoutid]', function() {
-                // hide all:
-                $('.menu-flyout').hide();
-                $('#main-menu li').removeClass('selected');
-                $(this).closest('li').addClass('selected');
 
-                var menu = $('.menu-flyout[data-flyoutid="' + $(this).attr('data-flyoutid') + '"]');
-                menu.show();
+                var menuToShow = $('.menu-flyout[data-flyoutid="' + $(this).attr('data-flyoutid') + '"]');
+                var menuToHide = $('.menu-flyout:visible');
 
-                PubSub.publish(pubSubTable.flyoutActivated, {
-                    width: menu.width() + 40,
-                    id: $(this).data('flyoutid')
-                });
+                if(!menuToShow.is(':visible')) {
+
+                    // hide all:
+                    $('.menu-flyout').hide();
+                    $('#main-menu li').removeClass('selected');
+                    $(this).closest('li').addClass('selected');
+
+                    menuToShow.show();
+
+                    if(menuToHide) {
+                        PubSub.publish(pubSubTable.flyoutClosed, {
+                            id: menuToHide.data('flyoutid')
+                        });
+                    }
+
+                    PubSub.publish(pubSubTable.flyoutActivated, {
+                        width: menuToShow.width() + $('#main-menu').width(),
+                        id: $(this).data('flyoutid')
+                    });    
+                }
+                
             });
 
             $('body').on('click', '#main-menu a[data-messageid]', function() {
