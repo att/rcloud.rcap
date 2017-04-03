@@ -22,7 +22,7 @@
     "requirejs-plugins": "~1.0.3",
     "requirejs-text": "~2.0.14",
     "select2": "~4.0.0",
-    "spectrum": "~1.7.1",
+    "spectrum": "~1.8",
     "jslider": "*",
     "ionrangeslider": "~2.1.2",
     "datatables.net": "~1.10.10",
