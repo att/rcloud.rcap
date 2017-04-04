@@ -443,12 +443,12 @@ define([
             //
             // grid options
             //
-            PubSub.subscribe(pubSubTable.gridSettingsUpdated, function(msg, gridSettings) {
+            // PubSub.subscribe(pubSubTable.gridSettingsUpdated, function(msg, gridSettings) {
 
-                rcapLogger.info('siteManager: pubSubTable.gridSettingsUpdated');
+            //     rcapLogger.info('siteManager: pubSubTable.gridSettingsUpdated');
 
-                setSite(getSite().updateGridOptions(gridSettings));
-            });
+            //     setSite(getSite().updateGridOptions(gridSettings));
+            // });
 
             // site settings
             //
@@ -466,6 +466,8 @@ define([
 
                 // update the site settings:
                 setSite(getSite().updateSettings(settings));
+
+                PubSub.publish(pubSubTable.gridSettingsUpdated, settings.getSettingValue('gridControlPadding'));
             });
 
         }

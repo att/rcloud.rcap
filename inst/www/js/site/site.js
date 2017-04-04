@@ -50,12 +50,6 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'site/siteSettings', 'rca
             // timers:
             this.timers = options.timers || [];
 
-            // grid options:
-            this.gridOptions = options.gridOptions || {
-                controlPadding: 20
-                // TODO: add further settings here:
-            };
-
             // settings:
             this.settings = options.settings || new SiteSettings();
 
@@ -75,8 +69,7 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'site/siteSettings', 'rca
                 'theme': this.theme,
                 'pages': this.pages,
                 'dataSources': this.dataSources,
-                'timers': this.timers,
-                'gridOptions': this.gridOptions
+                'timers': this.timers
             };
 
         },
@@ -344,15 +337,6 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'site/siteSettings', 'rca
             existingTimer.variable = timer.variable;
             existingTimer.interval = timer.interval;
             return this;
-        },
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //
-        // grid options
-        //
-        //
-        updateGridOptions: function(gridOptions) {
-            this.gridOptions = gridOptions;
         },
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -233,16 +233,16 @@ define([
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    var updateGridSizeMetrics = function(opts) {
+    var updateGridSizeMetrics = function(padding) {
 
-        rcapLogger.info('gridManager: grid size metrics updated: ', opts);
+        rcapLogger.info('gridManager: grid size metrics updated: ', padding);
 
         var styleId = 'grid-metrics',
             styleElement = $('#' + styleId),
             styleInfo = '';
 
-        opts = opts || {};
-        opts.controlPadding = _.isUndefined(opts.controlPadding) ? 20 : opts.controlPadding;
+        var opts = opts || {};
+        opts.controlPadding = _.isUndefined(padding) ? 20 : padding;
 
         ['top', 'right', 'bottom', 'left'].forEach(function(side) {
             styleInfo += '.grid-stack .grid-stack-placeholder > .placeholder-content { ' + side + ': ' + (opts.controlPadding / 2) + 'px; }';
@@ -359,8 +359,8 @@ define([
             //
             // grid settings updated
             //
-            PubSub.subscribe(pubSubTable.gridSettingsUpdated, function(msg, gridSettings) {
-                updateGridSizeMetrics(gridSettings);
+            PubSub.subscribe(pubSubTable.gridSettingsUpdated, function(msg, padding) {
+                updateGridSizeMetrics(padding);
             });
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////

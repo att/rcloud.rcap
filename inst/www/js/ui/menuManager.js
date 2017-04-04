@@ -11,21 +11,20 @@ define([
 
     'use strict';
 
-
     var controlFactory = new ControlFactory(),
         rcapLogger = new RcapLogger();
 
-    var getGridSettings = function() {
-        var prefix = 'gridoptions-', gridOptions = {};
-        $(':input[id^="' + prefix + '"]').each(function() {
-            gridOptions[$(this).attr('id').substr(prefix.length)] = $(this).val();
-        });
-        return gridOptions;
-    }, setGridSettings = function(gridOptions) {
-        Object.keys(gridOptions).forEach(function(prop) {
-            $('#gridoptions-' + prop).val(gridOptions[prop]);
-        });
-    };
+    // var getGridSettings = function() {
+    //     var prefix = 'gridoptions-', gridOptions = {};
+    //     $(':input[id^="' + prefix + '"]').each(function() {
+    //         gridOptions[$(this).attr('id').substr(prefix.length)] = $(this).val();
+    //     });
+    //     return gridOptions;
+    // }, setGridSettings = function(gridOptions) {
+    //     Object.keys(gridOptions).forEach(function(prop) {
+    //         $('#gridoptions-' + prop).val(gridOptions[prop]);
+    //     });
+    // };
 
     // :::: TODO: refactor code below - both methods are very similar ::::
 
@@ -111,7 +110,8 @@ define([
                 });
 
                 // and set the grid settings:
-                setGridSettings(site.gridOptions);
+                //setGridSettings(site.gridOptions);
+                PubSub.publish(pubSubTable.gridSettingsUpdated, site.settings.getSettingValue('gridControlPadding'));
 
                 //
                 PubSub.publish(pubSubTable.pageCountChanged, site.pages.length);
@@ -157,9 +157,9 @@ define([
                     PubSub.publish(pubSubTable.flyoutActivated, {
                         width: menuToShow.width() + $('#main-menu').width(),
                         id: $(this).data('flyoutid')
-                    });    
+                    });
                 }
-                
+
             });
 
             $('body').on('click', '#main-menu a[data-messageid]', function() {
@@ -188,16 +188,16 @@ define([
             });
 
             // update grid settings:
-            $('body').on('change', '.settings-menu :input', function() {
-                rcapLogger.info('menuManager: pubSubTable.gridSettingsUpdated');
-                PubSub.publish(pubSubTable.gridSettingsUpdated, getGridSettings());
-            });
+            // $('body').on('change', '.settings-menu :input', function() {
+            //     rcapLogger.info('menuManager: pubSubTable.gridSettingsUpdated');
+            //     PubSub.publish(pubSubTable.gridSettingsUpdated, getGridSettings());
+            // });
 
             // $('body').on('change', '.settings-menu select', function() {
             //     rcapLogger.info('menuManager: pubSubTable.gridSettingsUpdated');
             //     PubSub.publish(pubSubTable.gridSettingsUpdated, +$(this).val());
             // });
-            
+
             PubSub.subscribe(pubSubTable.startControlDrag, function() {
                 // hide all:
                 $('.menu-flyout').hide();
@@ -320,7 +320,7 @@ define([
             PubSub.subscribe(pubSubTable.updateDataSource, function(msg, dataSource) {
 
                 rcapLogger.info('menuManager: pubSubTable.updateDataSource');
-                
+
                 // find the item in the menu and update:
                 var existingItem = $('#dataSources li[data-datasourceid="' + dataSource.id + '"]');
 
@@ -374,7 +374,7 @@ define([
             PubSub.subscribe(pubSubTable.updateTimer, function(msg, timer) {
 
                 console.info('menuManager: pubSubTable.updateTimer');
-                
+
                 // find the item in the menu and update:
                 var existingItem = $('#timers li[data-timerid="' + timer.id + '"]');
 

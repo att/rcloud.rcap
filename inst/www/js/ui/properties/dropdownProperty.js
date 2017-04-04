@@ -1,5 +1,5 @@
 define(['rcap/js/ui/properties/baseProperty', 'text!templates/dropdownControl.tpl'], function(BaseProperty, tpl) {
-	
+
 	'use strict';
 
 	var DropdownProperty = BaseProperty.extend({
@@ -23,11 +23,11 @@ define(['rcap/js/ui/properties/baseProperty', 'text!templates/dropdownControl.tp
 		render: function(childIndex) {
 
 			var template = _.template(tpl);
-            
-            return template({
-            	property : this,
-            	childIndex : childIndex
-            });
+
+      return template({
+        property : this,
+        childIndex : childIndex
+      });
 
 		},
 		getDialogValue : function() {

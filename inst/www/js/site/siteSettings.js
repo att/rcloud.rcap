@@ -5,6 +5,18 @@ define(['rcap/js/ui/properties/textProperty', 'rcap/js/ui/properties/dropdownPro
     var SiteSettings = Class.extend({
         init: function() {
             this.properties = [
+                new DropdownProperty({
+                    uid: 'gridControlPadding',
+                    label: 'Grid Control Padding',
+                    isRequired: false,
+                    availableOptions: _.map([0, 5, 10, 20], function(val) { return {
+                            text: val.toString(),
+                            value: val.toString()
+                        };
+                    }),
+                    value: '20',
+                    helpText: 'The amount of padding around each control (in pixels)'
+                }),
                 new TextProperty({
                     uid: 'pageClass',
                     label : 'Page class',
@@ -16,7 +28,7 @@ define(['rcap/js/ui/properties/textProperty', 'rcap/js/ui/properties/dropdownPro
                     uid: 'siteThemePackage',
                     label: 'Site Theme Package',
                     isRequired: false,
-                    availableOptions: window.RCAP.getRCAPStyles ? window.RCAP.getRCAPStyles().map(function(style) { 
+                    availableOptions: window.RCAP.getRCAPStyles ? window.RCAP.getRCAPStyles().map(function(style) {
                         return {
                             text: style.package,
                             value: style.package
@@ -26,26 +38,6 @@ define(['rcap/js/ui/properties/textProperty', 'rcap/js/ui/properties/dropdownPro
                 })
             ];
         },
-        // getAvailableThemes: function() {
-        //     // ascertain the theme options, based on set theme (if any) unioned with available themes:
-        //     var selectedTheme = this.getSettingValue('siteThemePackage');
-
-        //     var availableThemes = window.RCAP.getRCAPStyles ? window.RCAP.getRCAPStyles().map(function(style) { 
-        //                 return {
-        //                     text: style.package,
-        //                     value: style.package
-        //                 };
-        //             }) : [];
-
-        //     if(selectedTheme && !_.findWhere(availableThemes, { value : selectedTheme })) {
-        //         availableThemes.push({
-        //             text: selectedTheme,
-        //             value: selectedTheme
-        //         });
-        //     }
-
-        //     return availableThemes;
-        // },
         getSettingValue: function(uid) {
             return _.findWhere(this.properties, {
                 uid: uid

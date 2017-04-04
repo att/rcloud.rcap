@@ -147,19 +147,16 @@
 }
 
 #rcap-message.warning {
-    @include background-opacity($attYellow, 0.9);   
+    @include background-opacity($attYellow, 0.9);
     color: black;
 }
 
 #rcap-message.error {
-    @include background-opacity($attFunctionalRed, 0.9);   
+    @include background-opacity($attFunctionalRed, 0.9);
     color: white;
 }
 
 #rcap-designer {
-    & * {
-        //font-family: $defaultFont;
-    }
     background: $bg;
     color: $mainNavColor;
     font-family: $defaultFont;
@@ -664,7 +661,7 @@
         padding-top: 15px;
         margin-top: 30px;
 
-        & h3 { 
+        & h3 {
             font-size: 14px;
             text-transform: uppercase;
             padding: 7px 0;
@@ -751,8 +748,16 @@
         display: block;
         width: 100%;
     }
+    & select {
+      -webkit-appearance: menulist;
+    }
     & form .form-group:not(:first-child) {
         margin-top: 10px;
+    }
+    & .description {
+      margin-top: 3px;
+      color: #555;
+      font-style: italic;
     }
     /*
     & .form-group h3 {
@@ -1006,7 +1011,7 @@ nav.accordion {
         position: static;
     }
 
-    a { 
+    a {
         position: relative;
 
         .toggler {
@@ -1175,7 +1180,7 @@ nav.horizontal {
         & li ul li {
             display: block;
             font-size: 0.9em;
-        }    
+        }
     }
 
     /* overrides for left, right alignment */

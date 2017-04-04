@@ -71,6 +71,8 @@ $attDarkBlueHighlight:          #020bb3;
   background: #f2f2f2; }
   .jqmwindow .label {
     padding-top: 6px; }
+  .jqmwindow label {
+    padding-top: 9px; }
   .jqmwindow .header, .jqmwindow .body {
     padding: 15px; }
   .jqmwindow .header {
@@ -2680,8 +2682,14 @@ table.dataTable td {
   #rcap-viewer textarea, #rcap-designer textarea {
     display: block;
     width: 100%; }
+  #rcap-viewer select, #rcap-designer select {
+    -webkit-appearance: menulist; }
   #rcap-viewer form .form-group:not(:first-child), #rcap-designer form .form-group:not(:first-child) {
     margin-top: 10px; }
+  #rcap-viewer .description, #rcap-designer .description {
+    margin-top: 3px;
+    color: #555;
+    font-style: italic; }
   #rcap-viewer .form-group label, #rcap-designer .form-group label {
     display: block; }
   #rcap-viewer .form-group .description, #rcap-designer .form-group .description {
