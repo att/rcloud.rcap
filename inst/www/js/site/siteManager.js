@@ -142,7 +142,7 @@ define([
                 var newPage = site.createPage(options);
 
                 site.pages.push(newPage);
-                
+
                 site.currentPageID = newPage.id;
                 setSite(site);
 
@@ -441,6 +441,15 @@ define([
 
             ////////////////////////////////////////////////////////////////////////////////////
             //
+            // grid options
+            //
+            // PubSub.subscribe(pubSubTable.gridSettingsUpdated, function(msg, gridSettings) {
+
+            //     rcapLogger.info('siteManager: pubSubTable.gridSettingsUpdated');
+
+            //     setSite(getSite().updateGridOptions(gridSettings));
+            // });
+
             // site settings
             //
             PubSub.subscribe(pubSubTable.editSiteSettings, function() {
@@ -457,6 +466,8 @@ define([
 
                 // update the site settings:
                 setSite(getSite().updateSettings(settings));
+
+                PubSub.publish(pubSubTable.gridSettingsUpdated, settings.getSettingValue('gridControlPadding'));
             });
 
         }

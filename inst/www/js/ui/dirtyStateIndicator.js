@@ -14,14 +14,14 @@ define(['pubsub', 'site/pubSubTable', 'rcap/js/utils/rcapLogger'], function(PubS
                 // only update the dirty flag if this wasn't a theme save:
                 if(!assetDetails.wasTheme) {
                     isDirty = false;
-                    el.hide();  
-                    PubSub.publish(pubSubTable.clearModified);   
+                    el.hide();
+                    PubSub.publish(pubSubTable.clearModified);
                 }
             });
 
             PubSub.subscribe(pubSubTable.closeDesignerConfirm, function() {
               isDirty = false;
-              el.hide(); 
+              el.hide();
             });
 
             PubSub.subscribe(pubSubTable.gridInitComplete, function() {
@@ -50,8 +50,8 @@ define(['pubsub', 'site/pubSubTable', 'rcap/js/utils/rcapLogger'], function(PubS
                         if(_.isUndefined(msgInfo) || (!_.isUndefined(msgInfo.isDirty) && msgInfo.isDirty) || _.isUndefined(msgInfo.isDirty)) {
                             rcapLogger.info('dirtyStateIndicator, setting modified after receiving: pubSubTable.' + msg);
                             isDirty = true;
-                            el.show();  
-                            PubSub.publish(pubSubTable.setModified); 
+                            el.show();
+                            PubSub.publish(pubSubTable.setModified);
                         }
                     });
                 });

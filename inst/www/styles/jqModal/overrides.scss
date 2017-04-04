@@ -12,6 +12,10 @@ $borderColor: #cdcdcd;
 		padding-top: 6px;
 	}
 
+  & label {
+    padding-top: 9px;
+  }
+
 	& .header, & .body {
 		padding: 15px;
 	}
@@ -51,7 +55,7 @@ $borderColor: #cdcdcd;
 	}
 
 	& .row {
-		margin-bottom: 10px;	
+		margin-bottom: 10px;
 	}
 
 	& .jqm-footer {

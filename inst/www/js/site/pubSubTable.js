@@ -16,6 +16,8 @@ define(['pubsub', 'rcap/js/Class'], function() {
         showMessage: 'showMessage',
         showConfirmDialog : 'showConfirmDialog',
         showPageFlyout: 'showPageFlyout',
+        flyoutActivated: 'flyoutActivated',
+        flyoutClosed: 'flyoutClosed',
         setModified: 'setModified',
         clearModified: 'clearModified',
         closeDesigner: 'closeDesigner',
@@ -56,12 +58,14 @@ define(['pubsub', 'rcap/js/Class'], function() {
         timerSettingsClicked: 'timerSettingsClicked',
         showTimerSettingsDialog: 'showTimerSettingsDialog',
         timerCountChanged: 'timerCountChanged',
+        updateTimer: 'updateTimer',
 
         // grid:
         gridInitComplete : 'gridInitComplete',
         gridItemAdded : 'gridItemAdded',
         gridItemAddedInit : 'gridItemAddedInit',
         gridItemsChanged : 'gridItemsChanged',
+        gridSettingsUpdated: 'gridSettingsUpdated',
 
         // control/form:
         startControlDrag: 'startControlDrag',

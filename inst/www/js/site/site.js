@@ -13,7 +13,7 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'site/siteSettings', 'rca
             };
 
         for (;; index++) {
-            // naming convention is for 
+            // naming convention is for
             // 'Home Page' -> 'Home Page(n)', where n is positive integer and unique to existing page collection:
 
             // case insensitive:
@@ -110,7 +110,7 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'site/siteSettings', 'rca
 
             _.each(pages, function(p) {
                 p.isEnabled = pageObj.isEnabled;
-            });           
+            });
 
             return this;
         },
@@ -156,7 +156,7 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'site/siteSettings', 'rca
                 newPages = [];
 
             // generate, rename and push:
-            _.each(pagesToCopy, function(pageToCopy) { 
+            _.each(pagesToCopy, function(pageToCopy) {
                 // if this is the root page, retain its parent ID,
                 // otherwise reassign:
                 newPage = pageToCopy.duplicate();
@@ -169,14 +169,14 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'site/siteSettings', 'rca
 
                 // update the page name:
                 newPage.navigationTitle = generateCopiedPageName(me.pages, newPage.navigationTitle);
-                
+
                 // does this new page's parent ID need to be updated? (based on the mappings that have
                 // been collated):
                 if(pageToCopy.id !== rootPageId) { // root page should stay the same since it will have the same parent!
                     var foundMapping = _.findWhere(mappings, { oldId : newPage.parentId });
 
                     if(foundMapping) {
-                        newPage.parentId = foundMapping.newId;  
+                        newPage.parentId = foundMapping.newId;
                     }
                 }
 
@@ -343,7 +343,7 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'site/siteSettings', 'rca
         //
         // themes
         //
-        //  
+        //
         updateTheme: function(theme) {
             this.theme = theme;
         },
@@ -365,10 +365,10 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'site/siteSettings', 'rca
         //
         // dirty
         //
-        //    
+        //
         setModified: function() {
             this.modified = true;
-        },   
+        },
 
         clearModified: function() {
             this.modified = false;
@@ -376,7 +376,7 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'site/siteSettings', 'rca
 
         isModified: function() {
             return this.modified === true;
-        } 
+        }
 
     });
 

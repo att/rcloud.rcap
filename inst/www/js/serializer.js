@@ -11,8 +11,8 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
 
         this.initialise = function(startTimers) {
 
-    	if (_.isUndefined(startTimers)) { 
-            startTimers = false; 
+    	  if (_.isUndefined(startTimers)) {
+            startTimers = false;
         }
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -26,6 +26,7 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
             new AssetManager().save(data);
         });
 
+
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             //
             // deserialize
@@ -37,10 +38,11 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
                 var controls,
                     control,
                     jsonControl,
+                    jsonControlProperty,
                     jsonProperty,
                     jsonStyleProperty,
                     currentPage,
-                    jsonPageProperty,
+                    //jsonPageProperty,
                     controlLoop,
                     propertyLoop,
                     currentDataSource,
@@ -81,7 +83,7 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
                 // loop through each page:
                 if (data.pages) {
 
-                    // we have at least a single page, so get rid of the pages we started with and 
+                    // we have at least a single page, so get rid of the pages we started with and
                     // replace with what's coming in:
                     site.pages = [];
 
@@ -97,9 +99,9 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
 
                             controls = [];
 
-                            // assign all properties, but ignore 
+                            // assign all properties, but ignore
                             // controls and pages:
-                            for (jsonPageProperty in jsonPage) {
+                            for (var jsonPageProperty in jsonPage) {
                                 if (jsonPage.hasOwnProperty(jsonPageProperty) && ['controls', 'styleProperties'].indexOf(jsonPageProperty) === -1) {
                                     currentPage[jsonPageProperty] = jsonPage[jsonPageProperty];
                                 }
@@ -125,18 +127,19 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
 
                                 // loop through each specific controlProperties property:
                                 for (propertyLoop = 0; propertyLoop < jsonControl.controlProperties.length; ++propertyLoop) {
+
+                                    jsonControlProperty = jsonControl.controlProperties[propertyLoop];
                                     jsonProperty = jsonControl.controlProperties[propertyLoop];
 
                                     // uid, value, id:
-
                                     // get the property:
                                     currProp = _.findWhere(control.controlProperties, {
-                                        uid: jsonProperty.uid
+                                        uid: jsonControlProperty.uid
                                     });
 
                                     if (currProp !== undefined) {
-                                        currProp.value = jsonProperty.value;
-                                        currProp.id = jsonProperty.id;
+                                        currProp.value = jsonControlProperty.value;
+                                        currProp.id = jsonControlProperty.id;
                                     }
                                 }
 
@@ -154,11 +157,12 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
                                     }
                                 }
 
-
                                 // loop through each child control:
                                 if (jsonControl.hasOwnProperty('childControls')) {
 
                                     for (propertyLoop = 0; propertyLoop < jsonControl.childControls.length; ++propertyLoop) {
+
+                                        jsonControlProperty = jsonControl.childControls[propertyLoop];
                                         jsonProperty = jsonControl.childControls[propertyLoop];
 
                                         // what type is it?
@@ -229,9 +233,14 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
                         if (startTimers){
                             currentTimer.start();
                         }
-                        
+
                         site.timers.push(currentTimer);
                     });
+                }
+
+                if (data.gridOptions) {
+                    // load grid options:
+                    site.gridOptions = data.gridOptions;
                 }
 
                 site.themeExists = msgData.themeExists;
