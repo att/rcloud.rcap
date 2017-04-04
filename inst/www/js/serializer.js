@@ -42,7 +42,7 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
                     jsonProperty,
                     jsonStyleProperty,
                     currentPage,
-                    jsonPageProperty,
+                    //jsonPageProperty,
                     controlLoop,
                     propertyLoop,
                     currentDataSource,
@@ -157,16 +157,13 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
                                     }
                                 }
 
-
                                 // loop through each child control:
                                 if (jsonControl.hasOwnProperty('childControls')) {
 
                                     for (propertyLoop = 0; propertyLoop < jsonControl.childControls.length; ++propertyLoop) {
-<<<<<<< HEAD
+
                                         jsonControlProperty = jsonControl.childControls[propertyLoop];
-=======
                                         jsonProperty = jsonControl.childControls[propertyLoop];
->>>>>>> b692533ace4b70e77cd66ab3d5ce239bba850ba7
 
                                         // what type is it?
                                         currentChild = controlFactory.getChildByKey(jsonControl.childControls[propertyLoop].type);

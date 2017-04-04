@@ -448,7 +448,7 @@ define([
                 rcapLogger.info('siteManager: pubSubTable.gridSettingsUpdated');
 
                 setSite(getSite().updateGridOptions(gridSettings));
-
+            });
 
             // site settings
             //

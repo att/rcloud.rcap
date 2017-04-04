@@ -1,5 +1,5 @@
 define(['rcap/js/ui/properties/baseProperty', 'text!templates/autocomplete.tpl'], function(BaseProperty, tpl) {
-	
+
 	'use strict';
 
 	var AutocompleteProperty = BaseProperty.extend({
@@ -22,7 +22,7 @@ define(['rcap/js/ui/properties/baseProperty', 'text!templates/autocomplete.tpl']
 		render: function(childIndex) {
 
 			var template = _.template(tpl);
-            
+
             return template({
             	property : this,
             	childIndex : childIndex
