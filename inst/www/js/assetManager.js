@@ -6,7 +6,7 @@ define(['pubsub',
     var AssetManager = function() {
 
         var assetIdentifier = 'rcap_designer.json',
-            themeAssetIdentifier = 'rcap_designer.css',
+            cssAssetIdentifier = 'rcap_designer.css',
             shell = window.shell;
 
         var getNotebookAsset = function(filename) {
@@ -18,19 +18,23 @@ define(['pubsub',
             });
         };
 
+        var cacheBustUrl = function(url) {
+            return url + '?cachebuster=' + Math.random().toString(16).slice(2);
+        };
+
         this.initialise = function() {
 
             var me = this;
-            
+
             // subscribe to theme change:
             PubSub.subscribe(pubSubTable.updateTheme, function(msg, content) {
-                me.save(content, themeAssetIdentifier, 'css');
+                me.save(content, cssAssetIdentifier, 'css');
                 PubSub.publish(pubSubTable.updateDomTheme, me.getThemeUrl());
             });
 
             PubSub.subscribe(pubSubTable.editTheme, function() {
                 // get the asset, show the dialog:
-                var asset = getNotebookAsset(themeAssetIdentifier);
+                var asset = getNotebookAsset(cssAssetIdentifier);
 
                 PubSub.publish(pubSubTable.showThemeEditorDialog, asset ? asset.content() : '');
             });
@@ -50,7 +54,7 @@ define(['pubsub',
             }
 
             PubSub.publish(pubSubTable.saved, {
-                wasTheme: filename === themeAssetIdentifier
+                wasTheme: filename === cssAssetIdentifier
             });
         };
 
@@ -59,24 +63,23 @@ define(['pubsub',
             return existingAsset ? existingAsset.content() : '';
         };
 
-        this.getThemeUrl = function(designTime, themeExists) {
+        this.getThemeUrl = function(designTime, cssAssetExists) {
             if(designTime) {
-                var theme = getNotebookAsset(themeAssetIdentifier);
+                var theme = getNotebookAsset(cssAssetIdentifier);
                 if(theme) {
-                    return '/notebook.R/' + shell.gistname() + '/' + themeAssetIdentifier + '?cachebuster=' + Math.random().toString(16).slice(2);
+                    return cacheBustUrl('/notebook.R/' + shell.gistname() + '/' + cssAssetIdentifier);
                 } else {
                     return undefined;
-                }    
-            } else if(themeExists) {
+                }
+            } else if(cssAssetExists) {
                 var getNotebookId = function(name) {
                     return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null; // jshint ignore: line
                 };
 
-                return '/notebook.R/' + getNotebookId('notebook') + '/' + themeAssetIdentifier + '?cachebuster=' + Math.random().toString(16).slice(2);
+                return cacheBustUrl('/notebook.R/' + getNotebookId('notebook') + '/' + cssAssetIdentifier);
             } else {
                 return undefined;
             }
-            
         };
     };
 
