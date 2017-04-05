@@ -11,7 +11,7 @@ define(['pubsub',
 
             // subscribe to theme change:
             PubSub.subscribe(pubSubTable.updateDomTheme, function(msg, themeUri) {
-                me.applyTheme(themeUri);
+                me.applyAssetTheme(themeUri);
             });
 
             PubSub.subscribe(pubSubTable.updateSiteThemePackage, function(msg, siteThemePackage) {
@@ -31,31 +31,55 @@ define(['pubsub',
             $('head > link.rcap').remove();
         };
 
-        this.addLink = function(themeUri, stylesheetClass) {
+        this.applyLink = function(themeUri, stylesheetClass) {
 
+            // first remove the link, if any:
             $('head > link.' + stylesheetClass).remove();
 
-            if(themeUri) {
-                $('head')
-                    .append($('<link />')
+            // validate stylesheetClass:
+            if(['package', 'asset'].indexOf(stylesheetClass) < 0 || !themeUri){
+                return;
+            }
+
+            var linkToInsert = $('<link />')
                     .attr({
                         'class': stylesheetClass,
                         'type': 'text/css',
                         'rel': 'stylesheet',
                         'href': themeUri
-                    }));
+                    });
+
+            // valid order is package, asset:
+            var selectorPrefix = 'head > link.';
+
+            if(stylesheetClass === 'asset') {
+                var packageLink = $(selectorPrefix + 'package');
+
+                if(packageLink.length) {
+                    linkToInsert.insertAfter(packageLink);
+                } else {
+                    $('head').append(linkToInsert);
+                }
+            } else if(stylesheetClass === 'package') {
+                var assetLink = $(selectorPrefix + 'asset');
+
+                if(assetLink.length) {
+                    linkToInsert.insertBefore(assetLink);
+                } else {
+                    $('head').append(linkToInsert);
+                }
             }
         };
 
-        this.applyTheme = function(themeUri) {
-            this.addLink(themeUri, 'rcap');
+        this.applyAssetTheme = function(themeUri) {
+            this.applyLink(themeUri, 'asset');
         };
 
         this.applyPackageTheme = function(siteThemePackage) {
             if(siteThemePackage) {
-                this.addLink('/shared.R/' + siteThemePackage + '/rcap-style.css', 'rcappackage');
+                this.applyLink('/shared.R/' + siteThemePackage + '/rcap-style.css', 'package');
             } else {
-                this.addLink(undefined, 'rcappackage');
+                this.applyLink(undefined, 'package');
             }
         };
 
