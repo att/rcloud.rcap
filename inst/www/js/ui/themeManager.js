@@ -8,7 +8,7 @@ define(['pubsub',
         this.initialise = function() {
 
             var me = this;
-            
+
             // subscribe to theme change:
             PubSub.subscribe(pubSubTable.updateDomTheme, function(msg, themeUri) {
                 me.applyTheme(themeUri);
@@ -28,20 +28,20 @@ define(['pubsub',
         };
 
         this.cleanUp = function() {
-            $('head > link.rcap').remove(); 
+            $('head > link.rcap').remove();
         };
 
         this.addLink = function(themeUri, stylesheetClass) {
 
-            $('head > link.' + stylesheetClass).remove(); 
+            $('head > link.' + stylesheetClass).remove();
 
             if(themeUri) {
                 $('head')
                     .append($('<link />')
-                    .attr({ 
-                        'class': 'rcap ' + stylesheetClass,
-                        'type': 'text/css', 
-                        'rel': 'stylesheet', 
+                    .attr({
+                        'class': stylesheetClass,
+                        'type': 'text/css',
+                        'rel': 'stylesheet',
                         'href': themeUri
                     }));
             }
