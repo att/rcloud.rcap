@@ -797,8 +797,10 @@
             display: inline-block;
         }
 
-        & input {
-            padding-top: 3px;
+        input[type="radio"], input[type="checkbox"] {
+          margin-top: -1px;
+          vertical-align: middle;
+          margin-right: 3px;
         }
     }
 }

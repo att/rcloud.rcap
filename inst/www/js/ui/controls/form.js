@@ -1,9 +1,9 @@
-define(['rcap/js/ui/controls/gridControl', 
-    'text!rcap/partials/dialogs/_formBuilder.htm', 
+define(['rcap/js/ui/controls/gridControl',
+    'text!rcap/partials/dialogs/_formBuilder.htm',
     'rcap/js/ui/properties/colorProperty',
     'rcap/js/ui/properties/dropdownProperty',
     'utils/variableHandler',
-    'rcap/js/utils/rcapLogger'], 
+    'rcap/js/utils/rcapLogger'],
     function(GridControl, tpl, ColorProperty, DropdownProperty, variableHandler, RcapLogger) {
 
     'use strict';
@@ -121,7 +121,7 @@ define(['rcap/js/ui/controls/gridControl',
                         }
 
                     } else {
-                        
+
                         var endDate = $('#' + controlId + '-end').val();
 
                         // validate:
@@ -135,7 +135,7 @@ define(['rcap/js/ui/controls/gridControl',
                 } else if( el.hasClass('checkbox-group')) {
                     // get all selected checkboxes:
                     value = [];
-                    el.find('input:checkbox:checked').each(function() 
+                    el.find('input:checkbox:checked').each(function()
                     {
                        value.push($(this).val());
                     });
@@ -144,7 +144,7 @@ define(['rcap/js/ui/controls/gridControl',
                     // get selected radio button:
                     value = el.find('input:checked').val();
                 } else {
-                    // either a checkbox list, radio buttons, or something 
+                    // either a checkbox list, radio buttons, or something
                     // that we can use val() with:
                     value = el.val();
                 }
@@ -189,14 +189,14 @@ define(['rcap/js/ui/controls/gridControl',
             });
         },
         updateControls : function(variableName, value, allValues) {
-            
+
             rcapLogger.log('%cR%c → %cJS%c: variable \'' + variableName + '\' with value: ' + JSON.stringify(value) + ', allValues: ' + JSON.stringify(allValues), 'font-weight: bold; color: blue; background-color: #eee', 'color: black', 'color: black; background-color: yellow; font-weight: bold', 'color: black');
 
             // convert to a string if it's a boolean:
             if(_.isBoolean(value)) {
                 value = value.toString();
             }
-            
+
             if (allValues && allValues.hasOwnProperty('selected') &&
                 allValues.hasOwnProperty('value')) {
                 value = allValues.selected;
@@ -226,10 +226,9 @@ define(['rcap/js/ui/controls/gridControl',
                         var groupType = $(e).hasClass('radiobutton-group') ?
                             'radio' : 'checkbox';
 
-                        _.each(allValues, function(value, index) {
+                        _.each(allValues, function(value/*, index*/) {
                             // fragment:
-                            var currentId = groupType + '-' + $(e).attr('id') + index;
-                            $(e).append('<div class="form-option"><label for="' + currentId + '">' + value + '</label><input type="' + groupType + '" name="' + $(e).attr('id') + '" id="' + currentId + '" value="' + value + '"></div>');
+                            $(e).append('<div class="form-option"><label><input type="' + groupType + '" name="' + $(e).attr('id') + '" value="' + value + '">' + value + '</label>');
                         });
                     }
                 }
@@ -268,7 +267,7 @@ define(['rcap/js/ui/controls/gridControl',
                             var cbItem = findByCaseInsensitiveValue($(e), value);
                             if(cbItem) {
                                 cbItem.prop('checked', true);
-                            } 
+                            }
                         }
                     } else if($(e).hasClass('daterange')) {
 
@@ -281,7 +280,7 @@ define(['rcap/js/ui/controls/gridControl',
                             $(e).find('input:eq(0)').val(value.from);
                             $(e).find('input:eq(1)').val(value.to);
                         }
-                        
+
                     } else {
                         // catch all:
                         $(e).val(value);
