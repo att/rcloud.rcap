@@ -6,4 +6,4 @@ attrcap.Rproj
 .vagrant
 /rcloud.rcap-develop
 output
-./vscode
+.vscode
