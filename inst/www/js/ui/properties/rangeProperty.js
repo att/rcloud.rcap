@@ -1,7 +1,7 @@
 define(['rcap/js/ui/properties/baseProperty', 'text!templates/rangeControl.tpl',
     'ionrangeslider/js/ion.rangeSlider',
     'css!ionrangeslider/css/ion.rangeSlider.css',
-    'css!ionrangeslider/css/ion.rangeSlider.skinFlat.css'
+    'css!ionrangeslider/css/ion.rangeSlider.skinHTML5.css'
     ], function(BaseProperty, tpl) {
 
     'use strict';

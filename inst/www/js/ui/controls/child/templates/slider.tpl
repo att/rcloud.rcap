@@ -15,7 +15,7 @@ $(function() {
 	$('#<%=controlId%>').ionRangeSlider({
 		keyboard: true,
 		grid: true,
-		hide_min_max: true,
+		force_edges: true,
 		from: <%=control.getPropertyValueOrDefault('value')%>,
 		min: <%=control.getPropertyValueOrDefault('min')%>,
 		max: <%=control.getPropertyValueOrDefault('max')%>,
