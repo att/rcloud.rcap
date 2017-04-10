@@ -3,7 +3,7 @@ define([
     'text!rcap/js/ui/controls/child/templates/slider.tpl',
     'ionrangeslider/js/ion.rangeSlider',
     'css!ionrangeslider/css/ion.rangeSlider.css',
-    'css!ionrangeslider/css/ion.rangeSlider.skinFlat.css'
+    'css!ionrangeslider/css/ion.rangeSlider.skinHTML5.css'
 ], function(BaseControl, TextProperty, tpl) {
 
     'use strict';
