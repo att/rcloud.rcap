@@ -23,7 +23,7 @@
 	$("#<%=property.id%>").ionRangeSlider({
 		keyboard: true,
 		grid: true,
-		hide_min_max: true,
+		force_edges: true,
 		from: <%=property.value === '' ? 0 : property.value %>,
 		min: <%=property.minValue%>,
 		max: <%=property.maxValue%>,
