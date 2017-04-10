@@ -20,7 +20,6 @@ $(function() {
 		min: <%=control.getPropertyValueOrDefault('min')%>,
 		max: <%=control.getPropertyValueOrDefault('max')%>,
 		step: <%=control.getPropertyValueOrDefault('step')%>
-
     });
 	
 });

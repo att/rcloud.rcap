@@ -177,12 +177,32 @@ define(['rcap/js/ui/controls/gridControl',
                         variableHandler.submitChange(data);
                     });
                 } else {
-                    $(this).find('[data-variablename]').change(function() {
 
-                        var value = getVarData($(this));
-
+                    var submitChange = function(control) {
+                        var value = getVarData(control);
                         if(value) {
                             variableHandler.submitChange(value);
+                        }
+                    };
+
+                    var controls = $(this).find('[data-variablename]');
+
+                    $.each(controls, function() {
+
+                        // special handling for slider:
+                        if($(this).hasClass('irs-hidden-input')) {
+                            var sliderControl = $(this);
+                            var slider = $(this).data('ionRangeSlider');
+                            slider.update({
+                                onFinish: function(data) {
+                                    submitChange(sliderControl);
+                                    console.log('onFinish!', data);
+                                }
+                            });
+                        } else {
+                            $(this).on('change', function() {
+                                submitChange($(this));
+                            });
                         }
                     });
                 }
