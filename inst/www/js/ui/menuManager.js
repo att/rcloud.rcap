@@ -79,48 +79,22 @@ define([
 
                 rcapLogger.info('menuManager: pubSubTable.initSite');
 
-                var buildTree = function(pages, container) {
+                var buildTree = function(pages/*, container*/) {
                     _.each(pages, function(item) {
-
-                        var template = _.template(pageMenuItemTemplate);
-                        var markup = template({
-                            p: item,
-                            canAddChild: item.depth < 3
-                        });
-
-                        var newContainer = $(markup);
-
-                        if (item.depth === 1) {
-                            container.append(newContainer);
-                        } else {
-                            container.find('li[data-pageid="' + item.parentId + '"] ol:first').append(newContainer);
-                        }
+                        pagesTree.tree('appendNode', {
+                          name: item.navigationTitle,
+                          id: item.id
+                        }, item.parentId ? pagesTree.tree('getNodeById', item.parentId) : null);
                     });
                 };
-
-                buildTree(site.pages, $('#pages'));
-
-                $('#pages').hide();
 
                 pagesTree = $('#pages-tree');
 
                 pagesTree.tree({
-                  data: [
-                      {
-                          name: 'node1',
-                          children: [
-                              { name: 'child1' },
-                              { name: 'child2' }
-                          ]
-                      },
-                      {
-                          name: 'node2',
-                          children: [
-                              { name: 'child3' }
-                          ]
-                      }
-                  ]
+                  data: []
                 });
+
+                buildTree(site.pages);
 
                 // build the data sources:
                 _.each(site.dataSources, function(dataSource) {
