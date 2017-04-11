@@ -83,15 +83,25 @@ define([
                     _.each(pages, function(item) {
                         pagesTree.tree('appendNode', {
                           name: item.navigationTitle,
-                          id: item.id
+                          id: item.id,
+                          canAddChild: item.depth < 3
                         }, item.parentId ? pagesTree.tree('getNodeById', item.parentId) : null);
                     });
                 };
 
                 pagesTree = $('#pages-tree');
 
+                var template = _.template(pageMenuItemTemplate);
+
                 pagesTree.tree({
-                  data: []
+                  data: [],
+                  onCreateLi: function(node, $li) {
+                    $li.find('.jqtree-element').append(
+                      template({
+                        p: node
+                      })
+                    );
+                  }
                 });
 
                 buildTree(site.pages);
