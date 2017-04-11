@@ -96,7 +96,21 @@ define([
 
                 buildTree(site.pages);
 
+                // auto-select first page:
                 pagesTree.tree('selectNode', pagesTree.tree('getNodeById', site.pages[0].id));
+
+                // page click:
+                pagesTree.bind('tree.select', function(e) {
+                  if(e.node) {
+                    rcapLogger.info('menuManager: PUBLISH : pubSubTable.changeSelectedPageId');
+
+                    $('.menu-flyout').hide();
+
+                    // just the id:
+                    PubSub.publish(pubSubTable.changeSelectedPageId, e.node.id);
+                  }
+                });
+
 
                 // build the data sources:
                 _.each(site.dataSources, function(dataSource) {
@@ -278,23 +292,23 @@ define([
             //
             //
             // click handler for page:
-            $('body').on('click', '#pages a', function(e) {
+            // $('body').on('click', '#pages a', function(e) {
 
-                // ignore the span elements, which shouldn't invoke a change page:
-                if(!$(e.target).is('span')) {
-                    $('#pages li').removeClass('selected');
-                    var li = $(this).closest('li');
-                    li.addClass('selected');
+            //     // ignore the span elements, which shouldn't invoke a change page:
+            //     if(!$(e.target).is('span')) {
+            //         $('#pages li').removeClass('selected');
+            //         var li = $(this).closest('li');
+            //         li.addClass('selected');
 
-                    rcapLogger.info('menuManager: PUBLISH : pubSubTable.changeSelectedPageId');
+            //         rcapLogger.info('menuManager: PUBLISH : pubSubTable.changeSelectedPageId');
 
-                    $('.menu-flyout').hide();
+            //         $('.menu-flyout').hide();
 
-                    // just the id:
-                    PubSub.publish(pubSubTable.changeSelectedPageId, li.data('pageid'));
-                }
+            //         // just the id:
+            //         PubSub.publish(pubSubTable.changeSelectedPageId, li.data('pageid'));
+            //     }
 
-            });
+            // });
 
             // data sources:
             $('body').on('click', '.menu-flyout[data-flyoutid="datasources"] h4 a.add', function() {
