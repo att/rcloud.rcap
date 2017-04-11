@@ -12,7 +12,8 @@ define([
     'use strict';
 
     var controlFactory = new ControlFactory(),
-        rcapLogger = new RcapLogger();
+        rcapLogger = new RcapLogger(),
+        pagesTree;
 
     // var getGridSettings = function() {
     //     var prefix = 'gridoptions-', gridOptions = {};
@@ -98,6 +99,28 @@ define([
                 };
 
                 buildTree(site.pages, $('#pages'));
+
+                $('#pages').hide();
+
+                pagesTree = $('#pages-tree');
+
+                pagesTree.tree({
+                  data: [
+                      {
+                          name: 'node1',
+                          children: [
+                              { name: 'child1' },
+                              { name: 'child2' }
+                          ]
+                      },
+                      {
+                          name: 'node2',
+                          children: [
+                              { name: 'child3' }
+                          ]
+                      }
+                  ]
+                });
 
                 // build the data sources:
                 _.each(site.dataSources, function(dataSource) {
