@@ -96,6 +96,8 @@ define([
 
                 buildTree(site.pages);
 
+                pagesTree.tree('selectNode', pagesTree.tree('getNodeById', site.pages[0].id));
+
                 // build the data sources:
                 _.each(site.dataSources, function(dataSource) {
                     $('#dataSources').append(_.template(dataSourceMenuItemTemplate)({ ds : dataSource }));
