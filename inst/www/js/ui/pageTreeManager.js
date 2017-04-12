@@ -22,19 +22,19 @@ define([
             //
             //
             //
-            PubSub.subscribe(pubSubTable.updatePage, function(/*msg, pageObj*/) {
-/*
-                rcapLogger.info('menuManager: pubSubTable.updatePage');
-                $('#pages li[data-pageid="' + pageObj.id + '"] .navigation-title:eq(0)').text(pageObj.navigationTitle);
+            PubSub.subscribe(pubSubTable.updatePage, function(msg, pageObj) {
 
-                var pagesSelector = $('#pages li[data-pageid="' + pageObj.id + '"], #pages li[data-pageid="' + pageObj.id + '"] li');
+                rcapLogger.info('pageTreeManager: pubSubTable.updatePage');
 
-                if (pageObj.isEnabled) {
-                    pagesSelector.removeClass('not-enabled');
-                } else {
-                    pagesSelector.addClass('not-enabled');
-                }
-*/
+                pagesTree.tree('updateNode', pagesTree.tree('getNodeById', pageObj.id), pageObj.navigationTitle);
+
+                // TODO: enabled status:
+                // if (pageObj.isEnabled) {
+                //     pagesSelector.removeClass('not-enabled');
+                // } else {
+                //     pagesSelector.addClass('not-enabled');
+                // }
+
             });
 
             //////////////////////////////////////////////////////////////////////////////////////////

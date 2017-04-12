@@ -29,25 +29,6 @@ define([
             //
             //
             //
-            PubSub.subscribe(pubSubTable.updatePage, function(msg, pageObj) {
-
-                rcapLogger.info('menuManager: pubSubTable.updatePage');
-                $('#pages li[data-pageid="' + pageObj.id + '"] .navigation-title:eq(0)').text(pageObj.navigationTitle);
-
-                var pagesSelector = $('#pages li[data-pageid="' + pageObj.id + '"], #pages li[data-pageid="' + pageObj.id + '"] li');
-
-                if (pageObj.isEnabled) {
-                    pagesSelector.removeClass('not-enabled');
-                } else {
-                    pagesSelector.addClass('not-enabled');
-                }
-
-            });
-
-            //////////////////////////////////////////////////////////////////////////////////////////
-            //
-            //
-            //
             PubSub.subscribe(pubSubTable.deletePageConfirm, function(msg, pageId) {
 
                 rcapLogger.info('menuManager: pubSubTable.deletePageConfirm');
