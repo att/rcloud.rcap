@@ -177,23 +177,10 @@ define([
             //
             // click handler for add page (both 'root' level and child):
             //
-            $('body').on('click', '.menu-flyout[data-flyoutid="pages"] h4 a.add, .page-addchild', function() {
-
-                var parentPageId;
-
-                // child page:
-                if ($(this).hasClass('page-addchild')) {
-                    parentPageId = $(this).parent().closest('li').data('pageid');
-                }
-
+            $('body').on('click', '.menu-flyout[data-flyoutid="pages"] h4 a.add', function() {
                 PubSub.publish(pubSubTable.addPage, {
-                    parentPageId: parentPageId
+                    parentPageId: undefined
                 });
-
-                // verify that this a child can be added.
-                // var maxLevels = $(this).closest('ol').data('maxlevels');
-                //$(this).parent().siblings('ol').append('<li><a href="#">' + new Date().toString().substr(16, 8) + ' <span class="page-addchild">+</span></a> <ol></ol></li>');
-
             });
 
             //////////////////////////////////////////////////////////////////////////////////////////

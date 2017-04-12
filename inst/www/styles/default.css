@@ -2475,6 +2475,8 @@ table.dataTable td {
         content: "" !important; }
       #rcap-designer div[data-flyoutid="pages"] #pages-tree .page-tree-settings span.page-addchild::after {
         content: "" !important; }
+    #rcap-designer div[data-flyoutid="pages"] #pages-tree .jqtree-element, #rcap-designer div[data-flyoutid="pages"] #pages-tree .jqtree-toggler {
+      padding-bottom: 8px; }
     #rcap-designer div[data-flyoutid="pages"] #pages-tree .jqtree-element:hover .page-tree-settings span::after {
       display: block; }
   #rcap-designer #main-menu {

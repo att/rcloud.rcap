@@ -517,6 +517,10 @@
           }
         }
 
+        .jqtree-element, .jqtree-toggler {
+          padding-bottom: 8px;
+        }
+
         .jqtree-element:hover {
           & .page-tree-settings span::after {
             display: block;

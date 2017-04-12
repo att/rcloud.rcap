@@ -103,34 +103,47 @@ define([
                 pagesTree.tree('selectNode', pagesTree.tree('getNodeById', site.pages[0].id));
 
                 // page click:
-                pagesTree.bind('tree.select', function(e) {
-                  if(e.node) {
-                    rcapLogger.info('pageTreeManager: PUBLISH : pubSubTable.changeSelectedPageId');
+                pagesTree.bind('tree.click', function(e) {
+                  // clicking on a page modification span should not select the node:
+                  var target = $(e.click_event.target); // jshint ignore:line
 
-                    $('.menu-flyout').hide();
+                  if(target.parent().hasClass('page-tree-settings')) {
 
-                    // just the id:
-                    PubSub.publish(pubSubTable.changeSelectedPageId, e.node.id);
+                    if(target.hasClass('page-duplicate')) {
+                      // show confirmation:
+                      PubSub.publish(pubSubTable.showConfirmDialog, {
+                          heading: 'Duplicate Page?',
+                          message: 'Are you sure you wish to duplicate this page?',
+                          pubSubMessage: pubSubTable.duplicatePageConfirm,
+                          dataItem: e.node.id
+                      });
+                    } else if(target.hasClass('page-addchild')) {
+                      PubSub.publish(pubSubTable.addPage, {
+                          parentPageId: e.node.id
+                      });
+                    } else if(target.hasClass('page-settings')) {
+                      PubSub.publish(pubSubTable.pageSettingsClicked, e.node.id);
+                    }
+
+                    return false;
+
+                  } else {
+
+                    if(e.node) {
+                      //rcapLogger.info('pageTreeManager: PUBLISH : pubSubTable.changeSelectedPageId');
+
+                      $('.menu-flyout').hide();
+
+                      // just the id:
+                      PubSub.publish(pubSubTable.changeSelectedPageId, e.node.id);
+                    } else {
+                      return false;
+                    }
                   }
                 });
 
                 PubSub.publish(pubSubTable.pageCountChanged, site.pages.length);
             });
-
-            // PubSub.subscribe(pubSubTable.flyoutActivated, function(msg, msgData) {
-            //     if(msgData.id === 'pages') {
-            //         var tree = pagesTree.tree('getTree');
-            //         tree.iterate(
-            //           function(node) {
-            //               if (node.hasChildren()) {
-            //                   pagesTree.tree('openNode', node);
-            //                   return true;
-            //               }
-
-            //               return false;
-            //           });
-            //     }
-            // });
 
             //////////////////////////////////////////////////////////////////////////////////////////
             //
@@ -153,24 +166,6 @@ define([
                 var message = $(this).attr('data-messageid');
                 rcapLogger.info('pageTreeManager: pubSubTable dynamic: ' + message);
                 PubSub.publish(pubSubTable[message]);
-            });
-
-            //////////////////////////////////////////////////////////////////////////////////////////
-            //
-            // click handler for add page:
-            //
-            $('body').on('click', '.menu-flyout[data-flyoutid="pages"] h4 a.add, .page-addchild', function() {
-
-                var parentPageId;
-
-                // child page:
-                if ($(this).hasClass('page-addchild')) {
-                    parentPageId = $(this).parent().closest('li').data('pageid');
-                }
-
-                PubSub.publish(pubSubTable.addPage, {
-                    parentPageId: parentPageId
-                });
             });
 
             //////////////////////////////////////////////////////////////////////////////////////////
