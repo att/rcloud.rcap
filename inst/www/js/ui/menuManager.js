@@ -1,4 +1,5 @@
 define([
+    'rcap/js/ui/pageTreeManager',
     'rcap/js/utils/rcapLogger',
     'text!ui/templates/pageMenuItem.tpl',
     'text!ui/templates/controlsMenu.tpl',
@@ -7,33 +8,20 @@ define([
     'pubsub',
     'site/pubSubTable',
     'controls/factories/controlFactory'
-], function(RcapLogger, pageMenuItemTemplate, controlsMenuTemplate, dataSourceMenuItemTemplate, timerMenuItemTemplate, PubSub, pubSubTable, ControlFactory) {
+], function(PageTreeManager, RcapLogger, pageMenuItemTemplate, controlsMenuTemplate, dataSourceMenuItemTemplate, timerMenuItemTemplate, PubSub, pubSubTable, ControlFactory) {
 
     'use strict';
 
     var controlFactory = new ControlFactory(),
-        rcapLogger = new RcapLogger(),
-        pagesTree;
-
-    // var getGridSettings = function() {
-    //     var prefix = 'gridoptions-', gridOptions = {};
-    //     $(':input[id^="' + prefix + '"]').each(function() {
-    //         gridOptions[$(this).attr('id').substr(prefix.length)] = $(this).val();
-    //     });
-    //     return gridOptions;
-    // }, setGridSettings = function(gridOptions) {
-    //     Object.keys(gridOptions).forEach(function(prop) {
-    //         $('#gridoptions-' + prop).val(gridOptions[prop]);
-    //     });
-    // };
-
-    // :::: TODO: refactor code below - both methods are very similar ::::
+        rcapLogger = new RcapLogger();
 
     var MenuManager = Class.extend({
         init: function() {
 
         },
         initialise: function() {
+
+            new PageTreeManager().initialise();
 
             rcapLogger.info('MenuManager: initialise');
 
@@ -79,49 +67,6 @@ define([
 
                 rcapLogger.info('menuManager: pubSubTable.initSite');
 
-                var buildTree = function(pages/*, container*/) {
-                    _.each(pages, function(item) {
-                        pagesTree.tree('appendNode', {
-                          name: item.navigationTitle,
-                          id: item.id,
-                          canAddChild: item.depth < 3
-                        }, item.parentId ? pagesTree.tree('getNodeById', item.parentId) : null);
-                    });
-                };
-
-                pagesTree = $('#pages-tree');
-
-                var template = _.template(pageMenuItemTemplate);
-
-                pagesTree.tree({
-                  data: [],
-                  onCreateLi: function(node, $li) {
-                    $li.find('.jqtree-element').append(
-                      template({
-                        p: node
-                      })
-                    );
-                  }
-                });
-
-                buildTree(site.pages);
-
-                // auto-select first page:
-                pagesTree.tree('selectNode', pagesTree.tree('getNodeById', site.pages[0].id));
-
-                // page click:
-                pagesTree.bind('tree.select', function(e) {
-                  if(e.node) {
-                    rcapLogger.info('menuManager: PUBLISH : pubSubTable.changeSelectedPageId');
-
-                    $('.menu-flyout').hide();
-
-                    // just the id:
-                    PubSub.publish(pubSubTable.changeSelectedPageId, e.node.id);
-                  }
-                });
-
-
                 // build the data sources:
                 _.each(site.dataSources, function(dataSource) {
                     $('#dataSources').append(_.template(dataSourceMenuItemTemplate)({ ds : dataSource }));
@@ -135,14 +80,8 @@ define([
                 // and set the grid settings:
                 //setGridSettings(site.gridOptions);
                 PubSub.publish(pubSubTable.gridSettingsUpdated, site.settings.getSettingValue('gridControlPadding'));
-
-                //
-                PubSub.publish(pubSubTable.pageCountChanged, site.pages.length);
                 PubSub.publish(pubSubTable.dataSourceCountChanged, site.dataSources.length);
                 PubSub.publish(pubSubTable.timerCountChanged, site.timers.length);
-
-                // the first is as good as any:
-                $('#pages a:eq(0)').trigger('click');
             });
 
             //////////////////////////////////////////////////////////////////////////////////////////
@@ -150,7 +89,7 @@ define([
             //
             //
             PubSub.subscribe(pubSubTable.close, function() {
-                $('#pages li, #dataSources li, #timers li').remove();
+                $(/*#pages li,*/ '#dataSources li, #timers li').remove();
             });
 
             //////////////////////////////////////////////////////////////////////////////////////////
