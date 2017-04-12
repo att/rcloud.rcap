@@ -2435,6 +2435,10 @@ table.dataTable td {
     padding-left: 16px; }
     #rcap-designer div[data-flyoutid="pages"] #pages-tree div, #rcap-designer div[data-flyoutid="pages"] #pages-tree a, #rcap-designer div[data-flyoutid="pages"] #pages-tree li, #rcap-designer div[data-flyoutid="pages"] #pages-tree span {
       color: white; }
+    #rcap-designer div[data-flyoutid="pages"] #pages-tree ul {
+      margin-left: 22px; }
+    #rcap-designer div[data-flyoutid="pages"] #pages-tree > ul {
+      margin-left: 0; }
     #rcap-designer div[data-flyoutid="pages"] #pages-tree .page-tree-settings {
       display: inline-block;
       float: right; }
