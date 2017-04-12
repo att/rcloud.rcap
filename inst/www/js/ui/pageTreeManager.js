@@ -84,6 +84,7 @@ define([
 
                 pagesTree.tree({
                   data: [],
+                  dragAndDrop: true,
                   // autoOpen doesn't work here because data is empty
                   onCreateLi: function(node, $li) {
                     $li.find('.jqtree-element').append(
