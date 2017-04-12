@@ -42,11 +42,14 @@ define([
 
                 rcapLogger.info('pageTreeManager: pubSubTable.deletePageConfirm');
 
+                var nodeToDelete = pagesTree.tree('getNodeById', pageId);
+
+                pagesTree.tree('removeNode', nodeToDelete);
+
                 $('#pages li[data-pageid="' + pageId + '"]').remove();
 
-                // select the first item:
-                $('#pages li').removeClass('selected');
-                $('#pages li:eq(0)').addClass('selected');
+                // select first node:
+                pagesTree.tree('selectNode', pagesTree.tree('getNodeByCallback', function() { return true; }));
             });
 
             //////////////////////////////////////////////////////////////////////////////////////////
@@ -177,6 +180,18 @@ define([
 
                 rcapLogger.info('pageTreeManager: pubSubTable.addPage');
 
+                _.each(msgData.pageData, function(item) {
+                    pagesTree.tree('appendNode', {
+                          name: item.navigationTitle,
+                          id: item.id,
+                          canAddChild: item.depth < 3,
+                          isEnabled: item.isEnabled
+                    }, item.parentId ? pagesTree.tree('getNodeById', item.parentId) : null);
+                });
+
+                pagesTree.tree('selectNode', pagesTree.tree('getNodeById', msgData.pageData[0].id));
+
+/*
                 _.each(msgData.pageData, function(page) {
 
                     var template = _.template(pageMenuItemTemplate),
@@ -195,6 +210,7 @@ define([
 
                 // select the newly added page:
                 $('#pages li[data-pageid="' + msgData.pageData[0].id + '"] a').trigger('click');
+                */
             });
 
             PubSub.subscribe(pubSubTable.pageCountChanged, function(msg, pageCount) {
