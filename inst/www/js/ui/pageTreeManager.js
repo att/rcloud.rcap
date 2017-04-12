@@ -47,7 +47,7 @@ define([
                 pagesTree.tree('removeNode', nodeToDelete);
 
                 // select first node:
-                pagesTree.tree('selectNode', $('#pages-tree').tree('getTree'));
+                pagesTree.tree('selectNode', pagesTree.tree('getTree'));
             });
 
             //////////////////////////////////////////////////////////////////////////////////////////
@@ -152,7 +152,8 @@ define([
             //
             //
             PubSub.subscribe(pubSubTable.close, function() {
-
+              // clear up the tree:
+              pagesTree.tree('destroy');
             });
 
             //////////////////////////////////////////////////////////////////////////////////////////
