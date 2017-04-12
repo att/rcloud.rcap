@@ -93,7 +93,8 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
                     _.each(data.pages, function(jsonPage) {
 
                         // this page isn't enabled, so carry on:
-                        if (jsonPage.hasOwnProperty('isEnabled') && jsonPage.isEnabled) {
+                        // load all pages in design time, however:
+                        if (msgData.isDesignTime || (!msgData.isDesignTime && jsonPage.hasOwnProperty('isEnabled') && jsonPage.isEnabled)) {
 
                             currentPage = site.createPage();
 
@@ -196,10 +197,9 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
                             }
 
                             currentPage.controls = controls;
+
+                            site.pages.push(currentPage);
                         }
-
-                        site.pages.push(currentPage);
-
                     });
                 }
 
