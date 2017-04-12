@@ -2431,6 +2431,8 @@ table.dataTable td {
     font-family: "Open Sans", sans-serif;
     text-decoration: none;
     padding: 0; }
+  #rcap-designer div[data-flyoutid="pages"] a.panel-close {
+    padding: 10px 0 5px 15px; }
   #rcap-designer div[data-flyoutid="pages"] #pages-tree {
     padding-left: 16px; }
     #rcap-designer div[data-flyoutid="pages"] #pages-tree div, #rcap-designer div[data-flyoutid="pages"] #pages-tree a, #rcap-designer div[data-flyoutid="pages"] #pages-tree li, #rcap-designer div[data-flyoutid="pages"] #pages-tree span {
