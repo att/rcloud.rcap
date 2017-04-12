@@ -204,29 +204,6 @@ define([
                 }
             });
 
-            //////////////////////////////////////////////////////////////////////////////////////////
-            //
-            //
-            //
-            // click handler for page:
-            // $('body').on('click', '#pages a', function(e) {
-
-            //     // ignore the span elements, which shouldn't invoke a change page:
-            //     if(!$(e.target).is('span')) {
-            //         $('#pages li').removeClass('selected');
-            //         var li = $(this).closest('li');
-            //         li.addClass('selected');
-
-            //         rcapLogger.info('menuManager: PUBLISH : pubSubTable.changeSelectedPageId');
-
-            //         $('.menu-flyout').hide();
-
-            //         // just the id:
-            //         PubSub.publish(pubSubTable.changeSelectedPageId, li.data('pageid'));
-            //     }
-
-            // });
-
             // data sources:
             $('body').on('click', '.menu-flyout[data-flyoutid="datasources"] h4 a.add', function() {
                 rcapLogger.info('menuManager: pubSubTable.addDataSource');

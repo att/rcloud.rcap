@@ -18,6 +18,14 @@ define([
 
             rcapLogger.info('PageTreeManager: initialise');
 
+            var selectRootNode = function() {
+                // select first node:
+                var rootNode = pagesTree.tree('getTree').children[0];
+                pagesTree.tree('selectNode', rootNode);
+
+                PubSub.publish(pubSubTable.changeSelectedPage, rootNode);
+            };
+
             //////////////////////////////////////////////////////////////////////////////////////////
             //
             //
@@ -46,8 +54,8 @@ define([
 
                 pagesTree.tree('removeNode', nodeToDelete);
 
-                // select first node:
-                pagesTree.tree('selectNode', pagesTree.tree('getTree'));
+                selectRootNode();
+
             });
 
             //////////////////////////////////////////////////////////////////////////////////////////
@@ -64,7 +72,8 @@ define([
                           name: item.navigationTitle,
                           id: item.id,
                           canAddChild: item.depth < 3,
-                          isEnabled: item.isEnabled
+                          isEnabled: item.isEnabled,
+                          navigationTitle: item.navigationTitle // for some events
                         }, item.parentId ? pagesTree.tree('getNodeById', item.parentId) : null);
                     });
                 };
@@ -102,7 +111,7 @@ define([
                 });
 
                 // auto-select first page:
-                pagesTree.tree('selectNode', pagesTree.tree('getNodeById', site.pages[0].id));
+                selectRootNode();
 
                 // page click:
                 pagesTree.bind('tree.click', function(e) {
