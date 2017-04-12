@@ -472,6 +472,10 @@
           margin-left: 0;
         }
 
+        & li.not-enabled .jqtree-title {
+            color: #aaa;
+        }
+
         & .page-tree-settings {
           //text-indent: -9999px;
           display: inline-block;

@@ -26,15 +26,12 @@ define([
 
                 rcapLogger.info('pageTreeManager: pubSubTable.updatePage');
 
-                pagesTree.tree('updateNode', pagesTree.tree('getNodeById', pageObj.id), pageObj.navigationTitle);
+                var nodeToUpdate = pagesTree.tree('getNodeById', pageObj.id);
 
-                // TODO: enabled status:
-                // if (pageObj.isEnabled) {
-                //     pagesSelector.removeClass('not-enabled');
-                // } else {
-                //     pagesSelector.addClass('not-enabled');
-                // }
+                pagesTree.tree('updateNode', nodeToUpdate, pageObj.navigationTitle);
 
+                // enabled status:
+                $(nodeToUpdate.element)[pageObj.isEnabled ? 'removeClass' : 'addClass']('not-enabled');
             });
 
             //////////////////////////////////////////////////////////////////////////////////////////
@@ -65,7 +62,8 @@ define([
                         pagesTree.tree('appendNode', {
                           name: item.navigationTitle,
                           id: item.id,
-                          canAddChild: item.depth < 3
+                          canAddChild: item.depth < 3,
+                          isEnabled: item.isEnabled
                         }, item.parentId ? pagesTree.tree('getNodeById', item.parentId) : null);
                     });
                 };
@@ -83,6 +81,9 @@ define([
                         p: node
                       })
                     );
+                    if(!node.isEnabled) {
+                      $li.addClass('not-enabled');
+                    }
                   }
                 });
 

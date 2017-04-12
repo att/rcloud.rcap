@@ -2441,6 +2441,8 @@ table.dataTable td {
       margin-left: 22px; }
     #rcap-designer div[data-flyoutid="pages"] #pages-tree > ul {
       margin-left: 0; }
+    #rcap-designer div[data-flyoutid="pages"] #pages-tree li.not-enabled .jqtree-title {
+      color: #aaa; }
     #rcap-designer div[data-flyoutid="pages"] #pages-tree .page-tree-settings {
       display: inline-block;
       float: right; }
