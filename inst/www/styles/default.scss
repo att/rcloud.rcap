@@ -270,8 +270,6 @@
             text-decoration: none;
             padding: 10px 0 5px 15px;
         }
-        & a:hover {}
-        & li.selected > a {}
         & a span::after {
             display: block;
         }
@@ -289,7 +287,7 @@
             font: normal normal normal 16px/1 FontAwesome;
             content: "\f067";
         }
-        & ol#pages, & .controls-menu {
+        & .controls-menu {
             max-height: calc(100% - 25px);
             overflow: auto;
             &::-webkit-scrollbar-track {
@@ -303,12 +301,6 @@
                 background-color: lighten($mainNavBackgroundColor, 40%);
             }
         }
-        & ol#pages,
-        & ol#pages ol {
-            list-style-type: none;
-            padding-left: 0;
-        }
-        & ol#pages a::before,
         & ul.controls a::before,
         & ul.settings a::before {
             text-align: left;
@@ -321,47 +313,12 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
-        & ol#pages a::before {
-            content: "\f0f6";
-            font-size: 16pt;
-        }
-        & ol#pages a.add-page::before {
-            content: "\f055";
-        }
-        & ol#pages em {
-            font-style: normal;
-            /*
-            position: absolute;
-            padding-top: 3px;
-            max-width: 270px;
-            */
-        }
         .dragged {
             z-index: 2000;
             position: absolute;
             opacity: 0.8;
         }
-        & ol#pages li.not-enabled > a {
-            color: #aaa;
-        }
-        & ol#pages li.placeholder {
-            position: relative;
-            margin: 0;
-            padding: 0;
-            border: none;
-        }
-        & ol#pages li.placeholder:before {
-            position: absolute;
-            content: "";
-            width: 0;
-            height: 0;
-            margin-top: -5px;
-            left: -5px;
-            top: -4px;
-            border: 5px solid transparent;
-            border-left-color: black;
-            border-right: none;
-        }
+        /*
         & ol li ol {
             margin-left: 19px!important;
         }
@@ -373,6 +330,7 @@
         & ol li ol li:last-child > a {
             background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAsCAYAAACpOaImAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuNvyMY98AAAAkSURBVDhPY7Czs/vPgAuMSgLBqCQQUCaJC0OVjIJRQHfAwAAAplYwPfTIX0YAAAAASUVORK5CYII=');
         }
+        */
         & ul.controls a i {
             font-size: 17pt;
             width: 26px;
@@ -387,52 +345,47 @@
                 height: 14px;
             }
         }
-        & a span {
-            display: block;
-            float: right;
-            text-indent: -9999px;
-            opacity: 0.5;
-            width: 20px;
-            transition: opacity .25s ease-in-out;
-            -moz-transition: opacity .25s ease-in-out;
-            -webkit-transition: opacity .25s ease-in-out;
-            margin-top: 5px;
+
+        .js-rcap-dynamic {
+          & a span {
+              display: block;
+              float: right;
+              text-indent: -9999px;
+              opacity: 0.5;
+              width: 20px;
+              transition: opacity .25s ease-in-out;
+              -moz-transition: opacity .25s ease-in-out;
+              -webkit-transition: opacity .25s ease-in-out;
+              margin-top: 5px;
+          }
+          & a span::after {
+              text-align: right;
+              color: $mainNavColor;
+              padding: 2px 3px 0 0;
+              margin: 0;
+              font: normal normal normal 10px/1 FontAwesome;
+              font-size: 12pt;
+              text-rendering: auto;
+              -webkit-font-smoothing: antialiased;
+              -moz-osx-font-smoothing: grayscale;
+              float: right;
+              display: none;
+          }
+          & a span::after:hover {
+              display: block;
+          }
+          & a span:hover {
+              opacity: 1.0;
+          }
+          & span.datasource-settings::after, span.timer-settings::after {
+              content: "\f013";
+          }
         }
-        & a span::after {
-            text-align: right;
-            color: $mainNavColor;
-            padding: 2px 3px 0 0;
-            margin: 0;
-            font: normal normal normal 10px/1 FontAwesome;
-            font-size: 12pt;
-            text-rendering: auto;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            float: right;
-            display: none;
-        }
-        & a span::after:hover {
-            display: block;
-        }
-        & a span:hover {
-            opacity: 1.0;
-        }
-        & a span.page-settings::after, a span.datasource-settings::after, a span.timer-settings::after {
-            content: "\f013";
-        }
-        & a span.page-duplicate::after {
-            content: "\f08b";
-        }
-        & a span.page-addchild::after {
-            content: "\f055";
-        }
-        & a span.page-add::after {
-            content: "\f055";
-        }
+
         & ul.form-controls a {
             cursor: move;
         }
-        & a span::after {
+        & span::after {
             display: block;
             text-align: right;
             color: $mainNavColor;
@@ -474,8 +427,6 @@
                 position: absolute;
             }
         }
-
-
         &[data-flyoutid="settings"] {
             & h5 {
                 border-bottom: 1px solid white;
@@ -489,6 +440,87 @@
             }
         }
     }
+
+
+    div[data-flyoutid="pages"] {
+
+      & a:link,
+      a:visited,
+      a:hover,
+      a:active {
+          display: block;
+          color: $mainNavColor;
+          font-family: $defaultFont;
+          text-decoration: none;
+          padding: 0;
+      }
+
+      #pages-tree {
+        padding-left: 16px;
+
+        div, a, li, span {
+          color: white;
+        }
+
+        & .page-tree-settings {
+          //text-indent: -9999px;
+          display: inline-block;
+          float: right;
+
+          & span {
+              display: block;
+              float: right;
+              text-indent: -9999px;
+              opacity: 0.5;
+              width: 20px;
+              transition: opacity .25s ease-in-out;
+              -moz-transition: opacity .25s ease-in-out;
+              -webkit-transition: opacity .25s ease-in-out;
+          }
+          & span::after {
+              text-align: right;
+              color: $mainNavColor;
+              padding: 2px 3px 0 0;
+              margin: 0;
+              font: normal normal normal 10px/1 FontAwesome;
+              font-size: 12pt;
+              text-rendering: auto;
+              -webkit-font-smoothing: antialiased;
+              -moz-osx-font-smoothing: grayscale;
+              float: right;
+              display: none;
+          }
+          & span::after:hover {
+              display: block;
+          }
+          & span:hover {
+              opacity: 1.0;
+          }
+          & span.page-settings::after {
+              content: "\f013"!important;
+          }
+          & span.page-duplicate::after {
+              content: "\f08b"!important;
+          }
+          & span.page-addchild::after {
+              content: "\f055"!important;
+          }
+
+          // &:hover {
+
+          // }
+        }
+
+        .jqtree-element:hover {
+          //& .page-tree-settings:hover {
+            & .page-tree-settings span::after {
+              display: block;
+            }
+          //}
+        }
+      }
+    }
+
     & #main-menu {
         overflow: auto;
         background-color: $mainNavBackgroundColor;
