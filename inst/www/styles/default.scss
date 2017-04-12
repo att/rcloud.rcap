@@ -441,9 +441,7 @@
         }
     }
 
-
     div[data-flyoutid="pages"] {
-
       & a:link,
       a:visited,
       a:hover,
@@ -505,18 +503,12 @@
           & span.page-addchild::after {
               content: "\f055"!important;
           }
-
-          // &:hover {
-
-          // }
         }
 
         .jqtree-element:hover {
-          //& .page-tree-settings:hover {
-            & .page-tree-settings span::after {
-              display: block;
-            }
-          //}
+          & .page-tree-settings span::after {
+            display: block;
+          }
         }
       }
     }
