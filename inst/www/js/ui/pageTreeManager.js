@@ -46,10 +46,8 @@ define([
 
                 pagesTree.tree('removeNode', nodeToDelete);
 
-                $('#pages li[data-pageid="' + pageId + '"]').remove();
-
                 // select first node:
-                pagesTree.tree('selectNode', pagesTree.tree('getNodeByCallback', function() { return true; }));
+                pagesTree.tree('selectNode', $('#pages-tree').tree('getTree'));
             });
 
             //////////////////////////////////////////////////////////////////////////////////////////
