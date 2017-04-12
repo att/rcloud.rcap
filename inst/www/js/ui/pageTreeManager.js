@@ -76,6 +76,7 @@ define([
 
                 pagesTree.tree({
                   data: [],
+                  // autoOpen doesn't work here because data is empty
                   onCreateLi: function(node, $li) {
                     $li.find('.jqtree-element').append(
                       template({
@@ -86,6 +87,17 @@ define([
                 });
 
                 buildTree(site.pages);
+
+                var tree = pagesTree.tree('getTree');
+                    tree.iterate(
+                    function(node) {
+                        if (node.hasChildren()) {
+                            pagesTree.tree('openNode', node);
+                            return true;
+                        }
+
+                        return false;
+                });
 
                 // auto-select first page:
                 pagesTree.tree('selectNode', pagesTree.tree('getNodeById', site.pages[0].id));
@@ -104,6 +116,21 @@ define([
 
                 PubSub.publish(pubSubTable.pageCountChanged, site.pages.length);
             });
+
+            // PubSub.subscribe(pubSubTable.flyoutActivated, function(msg, msgData) {
+            //     if(msgData.id === 'pages') {
+            //         var tree = pagesTree.tree('getTree');
+            //         tree.iterate(
+            //           function(node) {
+            //               if (node.hasChildren()) {
+            //                   pagesTree.tree('openNode', node);
+            //                   return true;
+            //               }
+
+            //               return false;
+            //           });
+            //     }
+            // });
 
             //////////////////////////////////////////////////////////////////////////////////////////
             //
