@@ -460,6 +460,10 @@
       #pages-tree {
         padding-left: 16px;
 
+        ul.jqtree-tree li.jqtree-ghost span.jqtree-circle {
+          background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH2wgMFBo5OozLSgAAAHxJREFUGNNNz7ENwgAMBMALBRIjUDAJM0QZiEloEANkh+xBTxeooIqip4gDWHrJ1vv/bUAO5EpeZCYDOZIveSchI7lVP5NWKUMu5daQ7idYbMciC5CeZIMdnotyrTR4rMNQdt1fxJ68yaSunWupJ+ciQ05rblsfpDAtZLYfFUtXJJAw00MAAAAASUVORK5CYII=');
+        }
+
         div, a, li, span {
           color: white;
         }
