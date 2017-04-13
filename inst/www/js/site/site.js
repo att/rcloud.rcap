@@ -191,8 +191,79 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'site/siteSettings', 'rca
             return newPages;
         },
 
-        movePage: function(/*pageMoveData*/) {
+        movePage: function(pageMoveData) {
 
+          //                 _____                   _______                   _____                   _______
+          //      /\    \                 /::\    \                 /\    \                 /::\    \
+          //     /::\    \               /::::\    \               /::\    \               /::::\    \
+          //     \:::\    \             /::::::\    \             /::::\    \             /::::::\    \
+          //      \:::\    \           /::::::::\    \           /::::::\    \           /::::::::\    \
+          //       \:::\    \         /:::/~~\:::\    \         /:::/\:::\    \         /:::/~~\:::\    \
+          //        \:::\    \       /:::/    \:::\    \       /:::/  \:::\    \       /:::/    \:::\    \
+          //        /::::\    \     /:::/    / \:::\    \     /:::/    \:::\    \     /:::/    / \:::\    \
+          //       /::::::\    \   /:::/____/   \:::\____\   /:::/    / \:::\    \   /:::/____/   \:::\____\
+          //      /:::/\:::\    \ |:::|    |     |:::|    | /:::/    /   \:::\ ___\ |:::|    |     |:::|    |
+          //     /:::/  \:::\____\|:::|____|     |:::|    |/:::/____/     \:::|    ||:::|____|     |:::|    |
+          //    /:::/    \::/    / \:::\    \   /:::/    / \:::\    \     /:::|____| \:::\    \   /:::/    /
+          //   /:::/    / \/____/   \:::\    \ /:::/    /   \:::\    \   /:::/    /   \:::\    \ /:::/    /
+          //  /:::/    /             \:::\    /:::/    /     \:::\    \ /:::/    /     \:::\    /:::/    /
+          // /:::/    /               \:::\__/:::/    /       \:::\    /:::/    /       \:::\__/:::/    /
+          // \::/    /                 \::::::::/    /         \:::\  /:::/    /         \::::::::/    /
+          //  \/____/                   \::::::/    /           \:::\/:::/    /           \::::::/    /
+          //                             \::::/    /             \::::::/    /             \::::/    /
+          //                              \::/____/               \::::/    /               \::/____/
+          //                               ~~                      \::/____/                 ~~
+          //                                                        ~~
+          // update the depth
+          //
+
+          var movedPage = this.getPageByID(pageMoveData.movedPage),
+              targetPage = this.getPageByID(pageMoveData.targetPage),
+              position,
+              depthAdjust = (targetPage.depth ? targetPage.depth : 1) - (movedPage.depth ? movedPage.depth : 1);
+
+          if(pageMoveData.position === 'before') {
+
+          } else if(pageMoveData.position === 'after') {
+
+            this.pages = _.without(this.pages, _.findWhere(this.pages, {
+              id: movedPage.id
+            }));
+
+            // same level??
+            // move so it's just after the targetPage:
+            position = this.pages.findIndex(function(page) { return page.id === pageMoveData.targetPage; });
+
+            this.pages.splice(position + 1, 0, movedPage);
+
+            // different parent?
+            if(movedPage.parentId !== targetPage.parentId) {
+              movedPage.parentId = targetPage.parentId;
+
+              // update depth of affected pages:
+              new PageWalker(this.pages).getDescendantsAndSelf(movedPage.id).forEach(function(page) {
+                page.depth += depthAdjust;
+              });
+            }
+
+          } else if(pageMoveData.position === 'inside') {
+            // set the parent node of the movedPage:
+            movedPage.parentId = pageMoveData.targetPage;
+
+            this.pages = _.without(this.pages, _.findWhere(this.pages, {
+              id: movedPage.id
+            }));
+
+            // move so it's just after the targetPage:
+            position = this.pages.findIndex(function(page) { return page.id === pageMoveData.targetPage; });
+
+            this.pages.splice(position + 1, 0, movedPage);
+
+            // update the depth of the affected pages:
+            new PageWalker(this.pages).getDescendantsAndSelf(movedPage.id).forEach(function(page) {
+              page.depth += depthAdjust;
+            });
+          }
         },
 
         updateControl: function(control) {

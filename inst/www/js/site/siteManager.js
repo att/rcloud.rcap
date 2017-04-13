@@ -222,13 +222,13 @@ define([
             //
             //
             //
-            PubSub.subscribe(pubSubTable.pageMoved, function(/*msg, pageMoveData*/) {
+            PubSub.subscribe(pubSubTable.pageMoved, function(msg, pageMoveData) {
 
                 rcapLogger.info('siteManager: pubSubTable.pageMoved');
 
                 var site = getSite();
 
-                //site.movePage(pageMoveData);
+                site.movePage(pageMoveData);
 
                 setSite(site);
             });

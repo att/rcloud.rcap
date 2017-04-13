@@ -95,6 +95,8 @@ define([
                     if(!node.isEnabled) {
                       $li.addClass('not-enabled');
                     }
+
+                    $li.attr('title', node.id);
                   }
                 });
 
