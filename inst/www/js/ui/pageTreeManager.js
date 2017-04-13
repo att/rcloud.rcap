@@ -23,7 +23,7 @@ define([
                 var rootNode = pagesTree.tree('getTree').children[0];
                 pagesTree.tree('selectNode', rootNode);
 
-                PubSub.publish(pubSubTable.changeSelectedPage, rootNode);
+                PubSub.publish(pubSubTable.changeSelectedPageId, rootNode.id);
             };
 
             //////////////////////////////////////////////////////////////////////////////////////////
@@ -114,6 +114,16 @@ define([
                 // auto-select first page:
                 selectRootNode();
 
+                pagesTree.bind(
+                    'tree.move',
+                    function(event) {
+                        console.log('moved_node', event.move_info.moved_node); // jshint ignore:line
+                        console.log('target_node', event.move_info.target_node); // jshint ignore:line
+                        console.log('position', event.move_info.position); // jshint ignore:line
+                        console.log('previous_parent', event.move_info.previous_parent); // jshint ignore:line
+                    }
+                );
+
                 // page click:
                 pagesTree.bind('tree.click', function(e) {
                   // clicking on a page modification span should not select the node:
@@ -142,7 +152,6 @@ define([
                   } else {
 
                     if(e.node) {
-                      //rcapLogger.info('pageTreeManager: PUBLISH : pubSubTable.changeSelectedPageId');
 
                       $('.menu-flyout').hide();
 
