@@ -191,6 +191,10 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'site/siteSettings', 'rca
             return newPages;
         },
 
+        movePage: function(/*pageMoveData*/) {
+
+        },
+
         updateControl: function(control) {
             var controlToUpdate = this.getPageByID(this.currentPageID).getControlByID(control.id);
             controlToUpdate = control;

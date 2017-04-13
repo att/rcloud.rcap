@@ -114,16 +114,6 @@ define([
                 // auto-select first page:
                 selectRootNode();
 
-                pagesTree.bind(
-                    'tree.move',
-                    function(event) {
-                        console.log('moved_node', event.move_info.moved_node); // jshint ignore:line
-                        console.log('target_node', event.move_info.target_node); // jshint ignore:line
-                        console.log('position', event.move_info.position); // jshint ignore:line
-                        console.log('previous_parent', event.move_info.previous_parent); // jshint ignore:line
-                    }
-                );
-
                 // page click:
                 pagesTree.bind('tree.click', function(e) {
                   // clicking on a page modification span should not select the node:
@@ -162,6 +152,24 @@ define([
                     }
                   }
                 });
+
+                // page move:
+                pagesTree.bind(
+                    'tree.move',
+                    function(event) {
+
+                      var pageMovedDetails = {
+                        movedPage: event.move_info.moved_node.id, // jshint ignore:line
+                        targetPage: event.move_info.target_node.id, // jshint ignore:line
+                        position: event.move_info.position, // jshint ignore:line
+                        previousParent: event.move_info.previous_parent.id // jshint ignore:line
+                      };
+
+                      console.info('page moved details: ', pageMovedDetails);
+
+                      PubSub.publish(pubSubTable.pageMoved, pageMovedDetails);
+                    }
+                );
 
                 PubSub.publish(pubSubTable.pageCountChanged, site.pages.length);
             });

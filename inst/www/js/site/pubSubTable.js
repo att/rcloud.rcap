@@ -39,6 +39,7 @@ define(['pubsub', 'rcap/js/Class'], function() {
         pageSettingsClicked : 'pageSettingsClicked',
         showPageSettingsDialog : 'showPageSettingsDialog',
         pageCountChanged : 'pageCountChanged',
+        pageMoved: 'pageMoved',
 
         // data source:
         addDataSource : 'addDataSource',
