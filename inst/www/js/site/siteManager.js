@@ -222,6 +222,21 @@ define([
             //
             //
             //
+            PubSub.subscribe(pubSubTable.pageMoved, function(msg, pageMoveData) {
+
+                rcapLogger.info('siteManager: pubSubTable.pageMoved');
+
+                var site = getSite();
+
+                site.movePage(pageMoveData);
+
+                setSite(site);
+            });
+
+            ////////////////////////////////////////////////////////////////////////////////////
+            //
+            //
+            //
             PubSub.subscribe(pubSubTable.changeSelectedPageId, function(msg, pageId) {
 
                 rcapLogger.info('siteManager: pubSubTable.changeSelectedPageId');

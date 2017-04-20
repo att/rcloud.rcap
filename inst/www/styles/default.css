@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* https://vt.vtp-media.com/ecp/documents/product_Product/521/Logos/4546/att_gdl_glance.pdf */
 /*
 $attNewOrange:                  #ff7200;
@@ -2232,7 +2233,20 @@ table.dataTable td {
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none; }
+    user-select: none;
+    /*
+        & ol li ol {
+            margin-left: 19px!important;
+        }
+        & ol li ol li > a {
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAsCAYAAACpOaImAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuNvyMY98AAAApSURBVDhPY7Czs/vPgAuMSgLBqCQQUCaJCw+Yg6BMTDAqCQQjQpKBAQCQtlYjLZtnNQAAAABJRU5ErkJggg==');
+            background-position: 0 0;
+            background-repeat: no-repeat!important;
+        }
+        & ol li ol li:last-child > a {
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAsCAYAAACpOaImAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuNvyMY98AAAAkSURBVDhPY7Czs/vPgAuMSgLBqCQQUCaJC0OVjIJRQHfAwAAAplYwPfTIX0YAAAAASUVORK5CYII=');
+        }
+        */ }
     #rcap-designer .menu-flyout h5 {
       clear: left;
       text-transform: uppercase;
@@ -2303,21 +2317,16 @@ table.dataTable td {
     #rcap-designer .menu-flyout h4 a.add::before {
       font: normal normal normal 16px/1 FontAwesome;
       content: "\f067"; }
-    #rcap-designer .menu-flyout ol#pages, #rcap-designer .menu-flyout .controls-menu {
+    #rcap-designer .menu-flyout .controls-menu {
       max-height: calc(100% - 25px);
       overflow: auto; }
-      #rcap-designer .menu-flyout ol#pages::-webkit-scrollbar-track, #rcap-designer .menu-flyout .controls-menu::-webkit-scrollbar-track {
+      #rcap-designer .menu-flyout .controls-menu::-webkit-scrollbar-track {
         background-color: #222; }
-      #rcap-designer .menu-flyout ol#pages::-webkit-scrollbar, #rcap-designer .menu-flyout .controls-menu::-webkit-scrollbar {
+      #rcap-designer .menu-flyout .controls-menu::-webkit-scrollbar {
         width: 10px;
         background-color: #222; }
-      #rcap-designer .menu-flyout ol#pages::-webkit-scrollbar-thumb, #rcap-designer .menu-flyout .controls-menu::-webkit-scrollbar-thumb {
+      #rcap-designer .menu-flyout .controls-menu::-webkit-scrollbar-thumb {
         background-color: #888888; }
-    #rcap-designer .menu-flyout ol#pages,
-    #rcap-designer .menu-flyout ol#pages ol {
-      list-style-type: none;
-      padding-left: 0; }
-    #rcap-designer .menu-flyout ol#pages a::before,
     #rcap-designer .menu-flyout ul.controls a::before,
     #rcap-designer .menu-flyout ul.settings a::before {
       text-align: left;
@@ -2329,48 +2338,10 @@ table.dataTable td {
       text-rendering: auto;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale; }
-    #rcap-designer .menu-flyout ol#pages a::before {
-      content: "\f0f6";
-      font-size: 16pt; }
-    #rcap-designer .menu-flyout ol#pages a.add-page::before {
-      content: "\f055"; }
-    #rcap-designer .menu-flyout ol#pages em {
-      font-style: normal;
-      /*
-            position: absolute;
-            padding-top: 3px;
-            max-width: 270px;
-            */ }
     #rcap-designer .menu-flyout .dragged {
       z-index: 2000;
       position: absolute;
       opacity: 0.8; }
-    #rcap-designer .menu-flyout ol#pages li.not-enabled > a {
-      color: #aaa; }
-    #rcap-designer .menu-flyout ol#pages li.placeholder {
-      position: relative;
-      margin: 0;
-      padding: 0;
-      border: none; }
-    #rcap-designer .menu-flyout ol#pages li.placeholder:before {
-      position: absolute;
-      content: "";
-      width: 0;
-      height: 0;
-      margin-top: -5px;
-      left: -5px;
-      top: -4px;
-      border: 5px solid transparent;
-      border-left-color: black;
-      border-right: none; }
-    #rcap-designer .menu-flyout ol li ol {
-      margin-left: 19px !important; }
-    #rcap-designer .menu-flyout ol li ol li > a {
-      background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAsCAYAAACpOaImAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuNvyMY98AAAApSURBVDhPY7Czs/vPgAuMSgLBqCQQUCaJCw+Yg6BMTDAqCQQjQpKBAQCQtlYjLZtnNQAAAABJRU5ErkJggg==");
-      background-position: 0 0;
-      background-repeat: no-repeat !important; }
-    #rcap-designer .menu-flyout ol li ol li:last-child > a {
-      background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAsCAYAAACpOaImAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuNvyMY98AAAAkSURBVDhPY7Czs/vPgAuMSgLBqCQQUCaJC0OVjIJRQHfAwAAAplYwPfTIX0YAAAAASUVORK5CYII="); }
     #rcap-designer .menu-flyout ul.controls a i {
       font-size: 17pt;
       width: 26px;
@@ -2382,7 +2353,7 @@ table.dataTable td {
       margin-right: 6px; }
       #rcap-designer .menu-flyout ul.controls a.control-submitbutton i::before {
         height: 14px; }
-    #rcap-designer .menu-flyout a span {
+    #rcap-designer .menu-flyout .js-rcap-dynamic a span {
       display: block;
       float: right;
       text-indent: -9999px;
@@ -2392,7 +2363,7 @@ table.dataTable td {
       -moz-transition: opacity .25s ease-in-out;
       -webkit-transition: opacity .25s ease-in-out;
       margin-top: 5px; }
-    #rcap-designer .menu-flyout a span::after {
+    #rcap-designer .menu-flyout .js-rcap-dynamic a span::after {
       text-align: right;
       color: #efefef;
       padding: 2px 3px 0 0;
@@ -2404,21 +2375,15 @@ table.dataTable td {
       -moz-osx-font-smoothing: grayscale;
       float: right;
       display: none; }
-    #rcap-designer .menu-flyout a span::after:hover {
+    #rcap-designer .menu-flyout .js-rcap-dynamic a span::after:hover {
       display: block; }
-    #rcap-designer .menu-flyout a span:hover {
+    #rcap-designer .menu-flyout .js-rcap-dynamic a span:hover {
       opacity: 1.0; }
-    #rcap-designer .menu-flyout a span.page-settings::after, #rcap-designer .menu-flyout a span.datasource-settings::after, #rcap-designer .menu-flyout a span.timer-settings::after {
+    #rcap-designer .menu-flyout .js-rcap-dynamic span.datasource-settings::after, #rcap-designer .menu-flyout .js-rcap-dynamic span.timer-settings::after {
       content: "\f013"; }
-    #rcap-designer .menu-flyout a span.page-duplicate::after {
-      content: "\f08b"; }
-    #rcap-designer .menu-flyout a span.page-addchild::after {
-      content: "\f055"; }
-    #rcap-designer .menu-flyout a span.page-add::after {
-      content: "\f055"; }
     #rcap-designer .menu-flyout ul.form-controls a {
       cursor: move; }
-    #rcap-designer .menu-flyout a span::after {
+    #rcap-designer .menu-flyout span::after {
       display: block;
       text-align: right;
       color: #efefef;
@@ -2457,6 +2422,67 @@ table.dataTable td {
     #rcap-designer .menu-flyout[data-flyoutid="settings"] select {
       width: 150px;
       padding: 5px; }
+  #rcap-designer div[data-flyoutid="pages"] a:link,
+  #rcap-designer div[data-flyoutid="pages"] a:visited,
+  #rcap-designer div[data-flyoutid="pages"] a:hover,
+  #rcap-designer div[data-flyoutid="pages"] a:active {
+    display: block;
+    color: #efefef;
+    font-family: "Open Sans", sans-serif;
+    text-decoration: none;
+    padding: 0; }
+  #rcap-designer div[data-flyoutid="pages"] a.panel-close {
+    padding: 10px 0 5px 15px; }
+  #rcap-designer div[data-flyoutid="pages"] #pages-tree {
+    padding-left: 16px; }
+    #rcap-designer div[data-flyoutid="pages"] #pages-tree ul.jqtree-tree li.jqtree-ghost span.jqtree-circle {
+      background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH2wgMFBo5OozLSgAAAHxJREFUGNNNz7ENwgAMBMALBRIjUDAJM0QZiEloEANkh+xBTxeooIqip4gDWHrJ1vv/bUAO5EpeZCYDOZIveSchI7lVP5NWKUMu5daQ7idYbMciC5CeZIMdnotyrTR4rMNQdt1fxJ68yaSunWupJ+ciQ05rblsfpDAtZLYfFUtXJJAw00MAAAAASUVORK5CYII="); }
+    #rcap-designer div[data-flyoutid="pages"] #pages-tree div, #rcap-designer div[data-flyoutid="pages"] #pages-tree a, #rcap-designer div[data-flyoutid="pages"] #pages-tree li, #rcap-designer div[data-flyoutid="pages"] #pages-tree span {
+      color: white; }
+    #rcap-designer div[data-flyoutid="pages"] #pages-tree ul {
+      margin-left: 22px; }
+    #rcap-designer div[data-flyoutid="pages"] #pages-tree > ul {
+      margin-left: 0; }
+    #rcap-designer div[data-flyoutid="pages"] #pages-tree li.not-enabled .jqtree-title {
+      color: #aaa; }
+    #rcap-designer div[data-flyoutid="pages"] #pages-tree .page-tree-settings {
+      display: inline-block;
+      float: right; }
+      #rcap-designer div[data-flyoutid="pages"] #pages-tree .page-tree-settings span {
+        display: block;
+        float: right;
+        text-indent: -9999px;
+        opacity: 0.5;
+        width: 20px;
+        transition: opacity .25s ease-in-out;
+        -moz-transition: opacity .25s ease-in-out;
+        -webkit-transition: opacity .25s ease-in-out; }
+      #rcap-designer div[data-flyoutid="pages"] #pages-tree .page-tree-settings span::after {
+        text-align: right;
+        color: #efefef;
+        padding: 2px 3px 0 0;
+        margin: 0;
+        font: normal normal normal 10px/1 FontAwesome;
+        font-size: 12pt;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        float: right;
+        display: none; }
+      #rcap-designer div[data-flyoutid="pages"] #pages-tree .page-tree-settings span::after:hover {
+        display: block; }
+      #rcap-designer div[data-flyoutid="pages"] #pages-tree .page-tree-settings span:hover {
+        opacity: 1.0; }
+      #rcap-designer div[data-flyoutid="pages"] #pages-tree .page-tree-settings span.page-settings::after {
+        content: "" !important; }
+      #rcap-designer div[data-flyoutid="pages"] #pages-tree .page-tree-settings span.page-duplicate::after {
+        content: "" !important; }
+      #rcap-designer div[data-flyoutid="pages"] #pages-tree .page-tree-settings span.page-addchild::after {
+        content: "" !important; }
+    #rcap-designer div[data-flyoutid="pages"] #pages-tree .jqtree-element, #rcap-designer div[data-flyoutid="pages"] #pages-tree .jqtree-toggler {
+      padding-bottom: 8px; }
+    #rcap-designer div[data-flyoutid="pages"] #pages-tree .jqtree-element:hover .page-tree-settings span::after {
+      display: block; }
   #rcap-designer #main-menu {
     overflow: auto;
     background-color: #222;

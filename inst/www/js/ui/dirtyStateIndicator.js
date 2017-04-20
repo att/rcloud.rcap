@@ -31,6 +31,7 @@ define(['pubsub', 'site/pubSubTable', 'rcap/js/utils/rcapLogger'], function(PubS
                     pubSubTable.pageAdded,
                     pubSubTable.deletePageConfirm,
                     pubSubTable.duplicatePageConfirm,
+                    pubSubTable.pageMoved,
                     pubSubTable.dataSourceAdded,
                     pubSubTable.deleteDataSourceConfirm,
                     pubSubTable.updateDataSource,

@@ -15,7 +15,7 @@ define([
     'site/pubSubTable',
     'parsley',
     'rcap/js/vendor/jqModal.min'
-], function(RcapLogger, FormBuilder, Page, addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, 
+], function(RcapLogger, FormBuilder, Page, addPagePartial, pageSettingsPartial, dataSourceSettingsPartial,
     timerSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, siteSettingsPartial, confirmDialogPartial, PubSub, pubSubTable) {
 
     'use strict';
@@ -123,7 +123,7 @@ define([
                             $modalBody.height(maxHeight + 'px');
                         } else {
                             $modalBody.height(availableHeight + 'px');
-                        }                        
+                        }
                     }
 
                 }
@@ -172,22 +172,6 @@ define([
             formBuilder
                 .intialiseFormBuilderMenu()
                 .initialise();
-
-            // page settings:
-            $('body').on('click', '.page-settings', function() {
-                PubSub.publish(pubSubTable.pageSettingsClicked, $(this).closest('li').data('pageid'));
-            });
-
-            // duplicate page:
-            $('body').on('click', '.page-duplicate', function() {
-                // show confirmation:
-                PubSub.publish(pubSubTable.showConfirmDialog, {
-                    heading: 'Duplicate Page?',
-                    message: 'Are you sure you wish to duplicate this page?',
-                    pubSubMessage: pubSubTable.duplicatePageConfirm,
-                    dataItem: $(this).closest('li').data('pageid')
-                });
-            });
 
             // confirmation 'confirm':
             $('body').on('click', '#dialog-confirm .approve', function() {
@@ -346,7 +330,7 @@ define([
                     });
 
                 // update the details for 'delete page'
-                // deregister the event first, otherwise, it'll add another, the result being that 
+                // deregister the event first, otherwise, it'll add another, the result being that
                 // it'll fire multiple times:
                 if (pageInfo.canDelete) {
 
@@ -507,7 +491,7 @@ define([
             // theme editor:
             //
             var getStyleEditor = function() {
-                return window.ace.edit('rcap-style-editor'); 
+                return window.ace.edit('rcap-style-editor');
             };
 
             PubSub.subscribe(pubSubTable.showThemeEditorDialog, function(msg, themeContent) {
@@ -547,7 +531,7 @@ define([
 
                 // set the markup and the data object:
                 $('#dialog-controlSettings').data('settings', settings);
-                
+
                 // $('#dialog-siteSettings form')
                 //     .find('input')
                 //     .keydown(function(e) {
@@ -600,9 +584,9 @@ define([
                     $('.jqmWindow').jqmHide();
                     return false;
                 }
-                
+
             });
-            
+
         };
     };
 

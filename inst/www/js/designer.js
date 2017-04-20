@@ -56,11 +56,11 @@ define([
         $('#rcap-view').click(function() {
             window.open(rcloud.getRcapViewUrl());
         });
-            
+
         // theme manager:
         themeManager.initialise();
 
-        // site manager: 
+        // site manager:
         new SiteManager().initialise();
 
         // menu manager:

@@ -1,4 +1,5 @@
 define([
+    'rcap/js/ui/pageTreeManager',
     'rcap/js/utils/rcapLogger',
     'text!ui/templates/pageMenuItem.tpl',
     'text!ui/templates/controlsMenu.tpl',
@@ -7,26 +8,12 @@ define([
     'pubsub',
     'site/pubSubTable',
     'controls/factories/controlFactory'
-], function(RcapLogger, pageMenuItemTemplate, controlsMenuTemplate, dataSourceMenuItemTemplate, timerMenuItemTemplate, PubSub, pubSubTable, ControlFactory) {
+], function(PageTreeManager, RcapLogger, pageMenuItemTemplate, controlsMenuTemplate, dataSourceMenuItemTemplate, timerMenuItemTemplate, PubSub, pubSubTable, ControlFactory) {
 
     'use strict';
 
     var controlFactory = new ControlFactory(),
         rcapLogger = new RcapLogger();
-
-    // var getGridSettings = function() {
-    //     var prefix = 'gridoptions-', gridOptions = {};
-    //     $(':input[id^="' + prefix + '"]').each(function() {
-    //         gridOptions[$(this).attr('id').substr(prefix.length)] = $(this).val();
-    //     });
-    //     return gridOptions;
-    // }, setGridSettings = function(gridOptions) {
-    //     Object.keys(gridOptions).forEach(function(prop) {
-    //         $('#gridoptions-' + prop).val(gridOptions[prop]);
-    //     });
-    // };
-
-    // :::: TODO: refactor code below - both methods are very similar ::::
 
     var MenuManager = Class.extend({
         init: function() {
@@ -34,26 +21,9 @@ define([
         },
         initialise: function() {
 
+            new PageTreeManager().initialise();
+
             rcapLogger.info('MenuManager: initialise');
-
-            //////////////////////////////////////////////////////////////////////////////////////////
-            //
-            //
-            //
-            PubSub.subscribe(pubSubTable.updatePage, function(msg, pageObj) {
-
-                rcapLogger.info('menuManager: pubSubTable.updatePage');
-                $('#pages li[data-pageid="' + pageObj.id + '"] .navigation-title:eq(0)').text(pageObj.navigationTitle);
-
-                var pagesSelector = $('#pages li[data-pageid="' + pageObj.id + '"], #pages li[data-pageid="' + pageObj.id + '"] li');
-
-                if (pageObj.isEnabled) {
-                    pagesSelector.removeClass('not-enabled');
-                } else {
-                    pagesSelector.addClass('not-enabled');
-                }
-
-            });
 
             //////////////////////////////////////////////////////////////////////////////////////////
             //
@@ -78,27 +48,6 @@ define([
 
                 rcapLogger.info('menuManager: pubSubTable.initSite');
 
-                var buildTree = function(pages, container) {
-                    _.each(pages, function(item) {
-
-                        var template = _.template(pageMenuItemTemplate);
-                        var markup = template({
-                            p: item,
-                            canAddChild: item.depth < 3
-                        });
-
-                        var newContainer = $(markup);
-
-                        if (item.depth === 1) {
-                            container.append(newContainer);
-                        } else {
-                            container.find('li[data-pageid="' + item.parentId + '"] ol:first').append(newContainer);
-                        }
-                    });
-                };
-
-                buildTree(site.pages, $('#pages'));
-
                 // build the data sources:
                 _.each(site.dataSources, function(dataSource) {
                     $('#dataSources').append(_.template(dataSourceMenuItemTemplate)({ ds : dataSource }));
@@ -112,14 +61,8 @@ define([
                 // and set the grid settings:
                 //setGridSettings(site.gridOptions);
                 PubSub.publish(pubSubTable.gridSettingsUpdated, site.settings.getSettingValue('gridControlPadding'));
-
-                //
-                PubSub.publish(pubSubTable.pageCountChanged, site.pages.length);
                 PubSub.publish(pubSubTable.dataSourceCountChanged, site.dataSources.length);
                 PubSub.publish(pubSubTable.timerCountChanged, site.timers.length);
-
-                // the first is as good as any:
-                $('#pages a:eq(0)').trigger('click');
             });
 
             //////////////////////////////////////////////////////////////////////////////////////////
@@ -127,7 +70,7 @@ define([
             //
             //
             PubSub.subscribe(pubSubTable.close, function() {
-                $('#pages li, #dataSources li, #timers li').remove();
+                $(/*#pages li,*/ '#dataSources li, #timers li').remove();
             });
 
             //////////////////////////////////////////////////////////////////////////////////////////
@@ -215,23 +158,10 @@ define([
             //
             // click handler for add page (both 'root' level and child):
             //
-            $('body').on('click', '.menu-flyout[data-flyoutid="pages"] h4 a.add, .page-addchild', function() {
-
-                var parentPageId;
-
-                // child page:
-                if ($(this).hasClass('page-addchild')) {
-                    parentPageId = $(this).parent().closest('li').data('pageid');
-                }
-
+            $('body').on('click', '.menu-flyout[data-flyoutid="pages"] h4 a.add', function() {
                 PubSub.publish(pubSubTable.addPage, {
-                    parentPageId: parentPageId
+                    parentPageId: undefined
                 });
-
-                // verify that this a child can be added.
-                // var maxLevels = $(this).closest('ol').data('maxlevels');
-                //$(this).parent().siblings('ol').append('<li><a href="#">' + new Date().toString().substr(16, 8) + ' <span class="page-addchild">+</span></a> <ol></ol></li>');
-
             });
 
             //////////////////////////////////////////////////////////////////////////////////////////
@@ -272,29 +202,6 @@ define([
                 } else {
                     countEl.fadeIn();
                 }
-            });
-
-            //////////////////////////////////////////////////////////////////////////////////////////
-            //
-            //
-            //
-            // click handler for page:
-            $('body').on('click', '#pages a', function(e) {
-
-                // ignore the span elements, which shouldn't invoke a change page:
-                if(!$(e.target).is('span')) {
-                    $('#pages li').removeClass('selected');
-                    var li = $(this).closest('li');
-                    li.addClass('selected');
-
-                    rcapLogger.info('menuManager: PUBLISH : pubSubTable.changeSelectedPageId');
-
-                    $('.menu-flyout').hide();
-
-                    // just the id:
-                    PubSub.publish(pubSubTable.changeSelectedPageId, li.data('pageid'));
-                }
-
             });
 
             // data sources:
