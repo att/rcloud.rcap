@@ -1,7 +1,8 @@
-define(['rcap/js/ui/properties/baseProperty', 
-	'text!templates/wysiwyg.tpl', 
-	'wysiwyg/standalone'
-	], function(BaseProperty, tpl) {
+define(['rcap/js/ui/properties/baseProperty',
+	'text!templates/wysiwyg.tpl',
+	'quill/quill',
+  'css!quill/quill.snow.css'
+	], function(BaseProperty, tpl, Quill) { // jshint ignore:line
 	'use strict';
 
 	var WysiwygProperty = BaseProperty.extend({
@@ -22,20 +23,24 @@ define(['rcap/js/ui/properties/baseProperty',
 		},
 		render: function(childIndex) {
 
+      if(!window.Quill) {
+        window.Quill = Quill;
+      }
+
 			var template = _.template(tpl);
 
 			// replace stuff:
-			this.value = this.value.replace(/'/g, '\\\'');
-			this.value = this.value.replace(/"/g, '\"');
-            
-            return template({
-            	property : this,
-            	childIndex : childIndex
-            });
+			// this.value = this.value.replace(/'/g, '\\\'');
+			// this.value = this.value.replace(/"/g, '\"');
+
+      return template({
+        property : this,
+        childIndex : childIndex
+      });
 
 		},
 		getDialogValue : function() {
-			return $('#' + this.id).wysiwyg('shell').getHTML();
+		  return $('#' + this.id).find('.ql-editor').html();
 		}
 	});
 
