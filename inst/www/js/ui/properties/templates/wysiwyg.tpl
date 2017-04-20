@@ -51,7 +51,7 @@
     modules: {
       toolbar: '#toolbar-container-<%=property.id%>'
     },
-    placeholder: '',
+    placeholder: ' ',
     theme: 'snow'
   });
 </script>

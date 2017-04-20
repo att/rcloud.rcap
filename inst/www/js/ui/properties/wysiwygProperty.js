@@ -1,7 +1,7 @@
 define(['rcap/js/ui/properties/baseProperty',
 	'text!templates/wysiwyg.tpl',
 	'quill/quill',
-  'css!quill/quill.snow.css'
+  //'css!quill/quill.snow.css'
 	], function(BaseProperty, tpl, Quill) { // jshint ignore:line
 	'use strict';
 
