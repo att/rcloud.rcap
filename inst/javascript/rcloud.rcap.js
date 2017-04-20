@@ -64,13 +64,18 @@
                         modes: ['edit'],
                         action: function() {
 
+                          if(window.shell.notebook.model.read_only()) { // jshint ignore:line
+                            alert('RCAP cannot be used with read-only notebooks.');
+                            return;
+                          }
+
                             po.getRFunctions().then(function(res) {
                                 window.RCAP = window.RCAP || {};
                                 window.RCAP.getRFunctions = function() {
                                     if(typeof res === 'string') {
                                       return [res];
                                     }
-                                    
+
                                     return res;
                                 };
                             });
@@ -163,7 +168,7 @@
                 $('[data-variablename="' + variableName + '"]').each(function() {
                     require(['controls/form'], function(FormControl) {
                         new FormControl().updateControls(variableName, value, allValues);
-                    });                    
+                    });
                 });
             }
 
@@ -188,7 +193,7 @@
                 require(['controls/rText'], function(RTextControl) {
                     new RTextControl().updateData(controlId, data);
                 });
-            } 
+            }
 
             k();
         },
