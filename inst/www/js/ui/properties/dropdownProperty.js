@@ -19,6 +19,7 @@ define(['rcap/js/ui/properties/baseProperty', 'text!templates/dropdownControl.tp
 			// additional assignments go here:
 			this.availableOptions = options.availableOptions || [];
 			this.isHorizontal = _.isUndefined(options.isHorizontal) ? true : options.isHorizontal;
+      this.defaultOptionText = options.defaultOptionText || 'Select an option';
 		},
 		render: function(childIndex) {
 
