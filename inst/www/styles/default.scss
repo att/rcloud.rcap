@@ -1354,6 +1354,12 @@ body.rcap-viewer {
     text-align: center; /* Centered text/links */
     margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
     margin-bottom: 10%;
+
+    h2 {
+      font-size: 36px;
+      color: white;
+      margin-bottom: 50px;
+    }
 }
 
 .overlay-content a.selected {

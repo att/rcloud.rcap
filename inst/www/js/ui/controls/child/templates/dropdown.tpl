@@ -6,7 +6,7 @@ if(typeof control.controlProperties[0].value !== 'undefined' && control.controlP
   </label>
 <% } %>
 
-<select id="<%=control.id%>" data-variablename="<%=control.controlProperties[1].value%>" data-selectiontype="<%= control.getPropertyValue('selectionStyle') %>">
+<select id="<%=control.id%>" data-variablename="<%=control.controlProperties[1].value%>" data-label="<%= control.getPropertyValue('label') %>" data-selectiontype="<%= control.getPropertyValue('selectionStyle') %>">
 <%
 	if( control.controlProperties[2].optionType == 'manual') {
 %>

@@ -103,7 +103,8 @@ define(['rcap/js/ui/controls/gridControl',
                     value: option.value,
                     selected: $(option).is(':selected')
                   };
-                })
+                }),
+                label: $select.attr('data-label')
               }));
 
               $('#select-options').css('width', '100%');
