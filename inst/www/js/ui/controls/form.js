@@ -1,10 +1,11 @@
 define(['rcap/js/ui/controls/gridControl',
     'text!rcap/partials/dialogs/_formBuilder.htm',
+    'text!ui/templates/selectOptions.tpl',
     'rcap/js/ui/properties/colorProperty',
     'rcap/js/ui/properties/dropdownProperty',
     'utils/variableHandler',
     'rcap/js/utils/rcapLogger'],
-    function(GridControl, tpl, ColorProperty, DropdownProperty, variableHandler, RcapLogger) {
+    function(GridControl, tpl, selectOptionsTpl, ColorProperty, DropdownProperty, variableHandler, RcapLogger) {
 
     'use strict';
 
@@ -88,9 +89,48 @@ define(['rcap/js/ui/controls/gridControl',
                     return cp.isRequired && (typeof cp.value === 'undefined' || cp.value.length === 0);
                 }).length === 0) && this.childControls.length > 0;
         },
+        initialiseForm: function() {
+
+          // dialog based selections for select html elements:
+          $('select[data-selectiontype="dialog"]').each(function() {
+            var $select = $(this);
+            $(this).mousedown(function() {
+              // get options, present in dialog:
+              var template = _.template(selectOptionsTpl);
+              $('body').append(template({
+                values: $.map($(this).find('option'), function(option) {
+                  return {
+                    value: option.value,
+                    selected: $(option).is(':selected')
+                  };
+                }),
+                label: $select.attr('data-label')
+              }));
+
+              $('#select-options').css('width', '100%');
+              $('#select-options a').click(function() {
+                $('#select-options').css('width', '0%');
+
+                if(!$(this).hasClass('close')) {
+
+                  if($select.val() !== $(this).html()) {
+                    $select.val($(this).html()).trigger('change');
+                  }
+                }
+
+                $('#select-options').remove();
+              });
+
+              return false;
+            });
+          });
+
+        },
         initialiseViewerItems: function() {
 
             var data;
+
+            this.initialiseForm();
 
             var getVarData = function(el) {
 

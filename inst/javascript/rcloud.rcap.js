@@ -17,7 +17,7 @@
             'parsley': '../../shared.R/rcloud.rcap/bower_components/parsleyjs/dist/parsley.min',
             'spectrum': '../../shared.R/rcloud.rcap/bower_components/spectrum',
             'select2': '../../shared.R/rcloud.rcap/bower_components/select2/dist',
-            'wysiwyg': '../../shared.R/rcloud.rcap/bower_components/wysiwyg.js/dist',
+            'quill': '../../shared.R/rcloud.rcap/js/vendor/quill',
             'ionrangeslider': '../../shared.R/rcloud.rcap/bower_components/ionrangeslider',
             'datatables': '../../shared.R/rcloud.rcap/bower_components/datatables.net/js',
             'datatablesbuttons': '../../shared.R/rcloud.rcap/bower_components/datatables.net-buttons/js',
@@ -64,13 +64,18 @@
                         modes: ['edit'],
                         action: function() {
 
+                          if(window.shell.notebook.model.read_only()) { // jshint ignore:line
+                            alert('RCAP cannot be used with read-only notebooks.');
+                            return;
+                          }
+
                             po.getRFunctions().then(function(res) {
                                 window.RCAP = window.RCAP || {};
                                 window.RCAP.getRFunctions = function() {
                                     if(typeof res === 'string') {
                                       return [res];
                                     }
-                                    
+
                                     return res;
                                 };
                             });
@@ -163,7 +168,7 @@
                 $('[data-variablename="' + variableName + '"]').each(function() {
                     require(['controls/form'], function(FormControl) {
                         new FormControl().updateControls(variableName, value, allValues);
-                    });                    
+                    });
                 });
             }
 
@@ -188,7 +193,7 @@
                 require(['controls/rText'], function(RTextControl) {
                     new RTextControl().updateData(controlId, data);
                 });
-            } 
+            }
 
             k();
         },

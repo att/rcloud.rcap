@@ -8,7 +8,6 @@
         'pubsub': 'bower_components/pubsub-js/src/pubsub',
         'parsley': 'bower_components/parsleyjs/dist/parsley.min',
         'spectrum': 'bower_components/spectrum',
-        'wysiwyg': 'bower_components/wysiwyg.js/dist',
         'vendor': 'bower_components',
         'jquery': 'empty:'
     },
