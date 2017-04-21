@@ -45,12 +45,13 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/properties/textProperty',
           new DropdownProperty({
               uid: 'selectionStyle',
               label: 'Selection style',
-              helpText: 'Specify "dialog" for options shown in a dialog',
+              helpText: 'Use default style or show options in a dialog',
               isRequired: false,
               availableOptions: [{
                   text: 'Dialog',
                   value: 'dialog'
               }],
+              defaultOptionText: 'Default',
               isHorizontal: false
           }),
 				]
