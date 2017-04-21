@@ -13,7 +13,8 @@ define([
     'pubsub',
     'site/pubSubTable',
     'text!rcap/partials/designer.htm',
-    'css!rcap/styles/default.css'
+    'css!rcap/styles/default.css',
+    'css!quill/quill.snow.css'
 ], function(rcloud, Serializer, MenuManager, InfoBarManager, DialogManager, MessageManager, DirtyStateIndicator, GridManager, ThemeManager, AssetManager, SiteManager, PubSub, pubSubTable, mainPartial) {
 
     'use strict';

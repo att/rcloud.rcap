@@ -643,7 +643,7 @@ $attDarkBlueHighlight:          #020bb3;
     -webkit-transform: rotate(90deg);
     transform: rotate(90deg); }
 
-.grid-stack .grid-stack-item-content p:last-child {
+.grid-stack .grid-stack-item-content p.configure-cog {
   position: absolute;
   pointer-events: all;
   top: 50%;
@@ -660,6 +660,9 @@ $attDarkBlueHighlight:          #020bb3;
 
 .grid-stack .grid-stack-item-content.valid:hover .valid-overlay {
   background-color: rgba(255, 255, 255, 0.7); }
+
+.grid-stack .ql-viewer {
+  padding: 0; }
 
 .grid-stack[data-pageid='header'] {
   background-color: rgba(255, 255, 0, 0.3);

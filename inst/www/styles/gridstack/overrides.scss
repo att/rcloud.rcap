@@ -82,7 +82,7 @@
         width: 100%;
         position: absolute;
     }
-    // , .configure.valid 
+    // , .configure.valid
     .valid .configure iframe {
         height: 100%;
         width: 100%;
@@ -109,7 +109,7 @@
             transform: rotate(90deg);
         }
     }
-    .grid-stack-item-content p:last-child {
+    .grid-stack-item-content p.configure-cog /*p:last-child */{
         position: absolute;
         pointer-events: all;
         top: 50%;
@@ -128,9 +128,10 @@
         & .valid-overlay {
             background-color: rgba(255, 255, 255, 0.7);
         }
-        & p:last-child {
-            //background-color: rgba(255, 255, 255, 0.2);
-        }
+    }
+
+    .ql-viewer {
+      padding: 0;
     }
 }
 
@@ -186,7 +187,7 @@
             padding: 10px;
             background: white;
         }
-        
+
 
         & .js-rcap-dynamic {
             @include cover();

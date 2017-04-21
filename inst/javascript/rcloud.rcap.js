@@ -17,7 +17,7 @@
             'parsley': '../../shared.R/rcloud.rcap/bower_components/parsleyjs/dist/parsley.min',
             'spectrum': '../../shared.R/rcloud.rcap/bower_components/spectrum',
             'select2': '../../shared.R/rcloud.rcap/bower_components/select2/dist',
-            'wysiwyg': '../../shared.R/rcloud.rcap/bower_components/wysiwyg.js/dist',
+            'quill': '../../shared.R/rcloud.rcap/js/vendor/quill',
             'ionrangeslider': '../../shared.R/rcloud.rcap/bower_components/ionrangeslider',
             'datatables': '../../shared.R/rcloud.rcap/bower_components/datatables.net/js',
             'datatablesbuttons': '../../shared.R/rcloud.rcap/bower_components/datatables.net-buttons/js',
