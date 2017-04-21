@@ -1,7 +1,7 @@
 define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/properties/textProperty',
     'rcap/js/ui/properties/dropdownProperty',
     'text!rcap/js/ui/controls/child/templates/dateRange.tpl'], function(BaseControl, TextProperty, DropdownProperty, tpl) {
-    
+
     'use strict';
 
     var DatePickerControl = BaseControl.extend({
