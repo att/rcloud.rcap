@@ -36,7 +36,11 @@ define([
 
                 var nodeToUpdate = pagesTree.tree('getNodeById', pageObj.id);
 
-                pagesTree.tree('updateNode', nodeToUpdate, pageObj.navigationTitle);
+                //pagesTree.tree('updateNode', nodeToUpdate, pageObj.navigationTitle);
+
+                // title:
+                $(nodeToUpdate.element).find('.jqtree-title').html(pageObj.navigationTitle);
+
 
                 // enabled status:
                 $(nodeToUpdate.element)[pageObj.isEnabled ? 'removeClass' : 'addClass']('not-enabled');
@@ -74,7 +78,7 @@ define([
                           canAddChild: item.depth < 3,
                           isEnabled: item.isEnabled,
                           navigationTitle: item.navigationTitle // for some events
-                        }, item.parentId ? pagesTree.tree('getNodeById', item.parentId) : null);
+                        }, item.parentId ? pagesTree.tree('getNodeById', item.parentId) : undefined);
                     });
                 };
 
@@ -95,7 +99,6 @@ define([
                     if(!node.isEnabled) {
                       $li.addClass('not-enabled');
                     }
-
                     $li.attr('title', node.id);
                   }
                 });
