@@ -36,11 +36,8 @@ define([
 
                 var nodeToUpdate = pagesTree.tree('getNodeById', pageObj.id);
 
-                //pagesTree.tree('updateNode', nodeToUpdate, pageObj.navigationTitle);
-
                 // title:
                 $(nodeToUpdate.element).find('.jqtree-title').html(pageObj.navigationTitle);
-
 
                 // enabled status:
                 $(nodeToUpdate.element)[pageObj.isEnabled ? 'removeClass' : 'addClass']('not-enabled');
