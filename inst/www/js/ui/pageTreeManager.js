@@ -39,7 +39,7 @@ define([
                 //pagesTree.tree('updateNode', nodeToUpdate, pageObj.navigationTitle);
 
                 // title:
-                $(nodeToUpdate.element).find('.jqtree-title').html(pageObj.navigationTitle);
+                $(nodeToUpdate.element).find('.jqtree-title:eq(0)').html(pageObj.navigationTitle);
 
 
                 // enabled status:
