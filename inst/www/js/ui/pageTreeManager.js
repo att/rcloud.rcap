@@ -103,7 +103,6 @@ define([
                   dragAndDrop: true,
                   // autoOpen doesn't work here because data is empty
                   onCreateLi: function(node, $li) {
-                    console.log('creating li...');
                     $li.find('.jqtree-element').append(
                       template({
                         p: node
