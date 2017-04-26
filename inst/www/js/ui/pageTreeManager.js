@@ -54,7 +54,6 @@ define([
                 // title:
                 $(nodeToUpdate.element).find('.jqtree-title:eq(0)').html(pageObj.navigationTitle);
 
-
                 // enabled status:
                 $(nodeToUpdate.element)[pageObj.isEnabled ? 'removeClass' : 'addClass']('not-enabled');
             });

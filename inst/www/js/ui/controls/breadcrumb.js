@@ -15,7 +15,7 @@ define(['rcap/js/ui/controls/gridControl',
                 var items = new PageWalker(control.pages).getAncestorsAndSelf(control.currentPageID);
 
                 // publish the required event if required; if render method has been called
-                // directly, let its caller handle the returned markup, otherwise fire the 
+                // directly, let its caller handle the returned markup, otherwise fire the
                 // event:
                 if (publishEvent) {
                     // this 'updateControl' is for visual invalidation only;
@@ -139,6 +139,34 @@ define(['rcap/js/ui/controls/gridControl',
                         me.currentPageID = pageObj.id;
 
                         renderControl(me, true);
+                    }
+
+                });
+
+                //////////////////////////////////////////////////////////////////////////////////////////
+                //
+                //
+                //
+                PubSub.subscribe(pubSubTable.pageMoved, function(/*msg, movedPageDetails*/) {
+
+/*
+                    if (me.isOnGrid) {
+
+                        // update the page's details:
+                        var page = _.findWhere(me.pages, {
+                            id: pageObj.id
+                        });
+
+                        page.navigationTitle = pageObj.navigationTitle;
+                        page.isEnabled = pageObj.isEnabled;
+
+                        me.currentPageID = pageObj.id;
+
+                        renderControl(me, true);
+                    }
+*/
+                    if(me.isOnGrid) {
+                      renderControl(me, true);
                     }
 
                 });
