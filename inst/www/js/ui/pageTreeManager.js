@@ -36,7 +36,20 @@ define([
 
                 var nodeToUpdate = pagesTree.tree('getNodeById', pageObj.id);
 
-                //pagesTree.tree('updateNode', nodeToUpdate, pageObj.navigationTitle);
+                // want to, but it doesn't work:
+                // pagesTree.tree('updateNode', nodeToUpdate, pageObj.navigationTitle);
+
+                // so, addnodebefore, remove initial node.
+                // <hack>
+                pagesTree.tree('addNodeBefore', {
+                    name: pageObj.navigationTitle,
+                    id: nodeToUpdate.id,
+                    canAddChild: nodeToUpdate.depth < 3,
+                    isEnabled: nodeToUpdate.isEnabled,
+                    navigationTitle: pageObj.navigationTitle }, nodeToUpdate);
+
+                pagesTree.tree('removeNode', nodeToUpdate);
+                //</hack>
 
                 // title:
                 $(nodeToUpdate.element).find('.jqtree-title:eq(0)').html(pageObj.navigationTitle);
@@ -91,6 +104,7 @@ define([
                   dragAndDrop: true,
                   // autoOpen doesn't work here because data is empty
                   onCreateLi: function(node, $li) {
+                    console.log('creating li...');
                     $li.find('.jqtree-element').append(
                       template({
                         p: node
