@@ -177,7 +177,7 @@ define(['rcap/js/ui/controls/gridControl',
                 $('#' + controlId).empty();
             }
 
-            var controlData = $('#' + controlId).datcsvFilenamePrefixa();
+            var controlData = $('#' + controlId).data();
 
             var dtProperties = {
                 dom: 'Blfrtip',
