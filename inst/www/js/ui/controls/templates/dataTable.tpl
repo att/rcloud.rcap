@@ -3,7 +3,7 @@
 
 <%if(designTimeDescription.length && isDesignTime) {%>
 	<pre><%=designTimeDescription%></pre>
-<%}%>	
+<%}%>
 
 <% if(isDesignTime) { %>
 <script type="text/javascript">
@@ -25,7 +25,7 @@
     };
 
 	$('#<%=control.id%>').DataTable(opts);
-    
+
 </script>
 <% } %>
 
@@ -37,6 +37,7 @@
         'info': <%=info%>,
         'searching': <%=searching%>,
         'downloadAsCsv': <%=downloadAsCsv%>,
+        'csvFilenamePrefix': '<%=csvFilenamePrefix%>',
         'pageLength': <%=pageLength%>
     });
 </script>
