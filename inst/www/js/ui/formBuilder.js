@@ -10,7 +10,7 @@ define(['controls/factories/controlFactory', 'pubsub', 'site/pubSubTable'], func
 
                 $('#formbuilder-form-no-item').hide();
 
-                $('#formbuilder-form .js-rcap-dynamic').html(control.getDialogMarkup());
+                $('#formbuilder-form .js-rcap-dynamic').html(control.getDialogMarkup() + control.getStyleDialogMarkup());
 
                 // don't forget the 'save' button, if there are control properties:
                 if (control.controlProperties.length > 0) {
@@ -84,6 +84,10 @@ define(['controls/factories/controlFactory', 'pubsub', 'site/pubSubTable'], func
                         originatingControl.controlProperties[index].value = dialogValue;
                     });
 
+                    $.each(originatingControl.styleProperties, function(index, prop) {
+                      originatingControl.styleProperties[index].value = prop.getDialogValue();
+                    });
+
                     // set:
                     $('#dialog-form-builder .form-item.selected').effect('highlight', {
                         color: '#f7a24d'
@@ -98,24 +102,16 @@ define(['controls/factories/controlFactory', 'pubsub', 'site/pubSubTable'], func
                         isInFormBuilder: true
                     }));
 
-                    //console.log('VALID');
-
                     return false;
-
-                } else {
-
-                    //console.log('INVALID');
-
                 }
             });
-
 
             $('#dialog-form-builder .approve').on('click', function() {
 
                 var formControl = $('#dialog-form-builder').data('control');
 
                 // update the control with styling information:
-                // get style properties:
+                // get formbuilder-form-style properties:
                 $.each(formControl.styleProperties, function(index, prop) {
                     formControl.styleProperties[index].value = prop.getDialogValue();
                 });

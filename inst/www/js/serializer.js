@@ -188,6 +188,19 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverter
                                             }
                                         }
 
+                                        if(jsonControl.childControls[propertyLoop].styleProperties) {
+                                          for(stylePropertyLoop = 0; stylePropertyLoop < jsonControl.childControls[propertyLoop].styleProperties.length; ++stylePropertyLoop) {
+                                            currStyleProp = _.findWhere(currentChild.styleProperties, {
+                                                uid: jsonControl.childControls[propertyLoop].styleProperties[stylePropertyLoop].uid
+                                            });
+
+                                            if (currStyleProp !== undefined) {
+                                                currStyleProp.value = jsonControl.childControls[propertyLoop].styleProperties[stylePropertyLoop].value;
+                                                currStyleProp.id = jsonControl.childControls[propertyLoop].styleProperties[stylePropertyLoop].id;
+                                            }
+                                          }
+                                        }
+
                                         control.childControls.push(currentChild);
                                     }
                                 }

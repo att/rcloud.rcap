@@ -1,8 +1,8 @@
 define(['rcap/js/ui/controls/baseControl',
     'rcap/js/ui/properties/colorProperty',
     'rcap/js/ui/properties/rangeProperty',
-    'rcap/js/ui/properties/textProperty'
-], function(BaseControl, ColorProperty, RangeProperty, TextProperty) {
+    //'rcap/js/ui/properties/textProperty'
+], function(BaseControl, ColorProperty, RangeProperty/*, TextProperty*/) {
 
     'use strict';
 
@@ -19,7 +19,7 @@ define(['rcap/js/ui/controls/baseControl',
             this.x = +options.x;
             this.y = +options.y;
 
-            this.styleProperties = [
+            this.styleProperties = this.styleProperties.concat([
                 new RangeProperty({
                     uid: 'padding',
                     label: 'Padding',
@@ -46,14 +46,15 @@ define(['rcap/js/ui/controls/baseControl',
                     helpText: 'Border will only be shown if it has a width',
                     defaultValue: '0'
                 }),
+                /*
                 new TextProperty({
                     uid: 'cssclass',
                     label : 'CSS Class',
                     defaultValue : '',
                     helpText : 'Additional CSS class to be applied to this control. Will be prefixed with rcap-custom- to prevent collisions.',
                     isRequired: false
-                })
-            ];
+                })*/
+            ]);
 
             this.initialSize = options.initialSize || [2, 2];
             this.width = +this.initialSize[0];
@@ -76,11 +77,11 @@ define(['rcap/js/ui/controls/baseControl',
                 throw new Error('style property ' + identifier + ' not found.');
             }
         },
-        getCssClass: function() {
-            var cssClass = this.getStylePropertyValueOrDefault('cssclass');
+        // getCssClass: function() {
+        //     var cssClass = this.getStylePropertyValueOrDefault('cssclass');
 
-            return cssClass.length > 0 ? 'rcap-custom-' + cssClass : undefined;
-        },
+        //     return cssClass.length > 0 ? 'rcap-custom-' + cssClass : undefined;
+        // },
         getStyleProperties: function() {
             var styleInfo = {
                 'background-color': this.getStylePropertyByName('backgroundColor').value,
@@ -112,7 +113,7 @@ define(['rcap/js/ui/controls/baseControl',
             return '<p><i class="icon-' + this.icon + '"></i>' + this.label + ': RENDER</p>';
         },
         getDialogMarkup: function() {
-            
+
             var html = '';
 
             $.each(this.controlProperties, function(key, prop) {
@@ -124,19 +125,19 @@ define(['rcap/js/ui/controls/baseControl',
 
             return html;
         },
-        getStyleDialogMarkup: function() {
-            // general style information controls:
+        // getStyleDialogMarkup: function() {
+        //     // general style information controls:
 
-            var markup = '<div class="style-details"><h3><i class="icon-adjust"></i>Styling</h3>';
+        //     var markup = '<div class="style-details"><h3><i class="icon-adjust"></i>Styling</h3>';
 
-            _.each(this.styleProperties, function(prop, index) {
-                markup += prop.render(index);
-            });
+        //     _.each(this.styleProperties, function(prop, index) {
+        //         markup += prop.render(index);
+        //     });
 
-            markup += '<div style="clear:both" /></div>';
+        //     markup += '<div style="clear:both" /></div>';
 
-            return markup;
-        },
+        //     return markup;
+        // },
         getDialogValue: function() {
             return '';
         },
