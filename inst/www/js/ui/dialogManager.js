@@ -61,10 +61,6 @@ define([
 
             var page = $('#page-form').data('page');
 
-            //$.each(page.styleProperties, function(index, prop) {
-            //    page.styleProperties[index].value = prop.getDialogValue();
-            //});
-
             // push the updated event:
             PubSub.publish(pubSubTable.updatePage, {
                 id: $('#page-form').data('pageid'),
@@ -92,11 +88,6 @@ define([
             });
 
             var sizeModalBodyHeight = function(modal) {
-                //var height = $(document).height() - 170;
-                //height = height < 200 ? 200 : height;
-                //modal.find('.body').height(height + 'px');
-
-                //modal.find('.body').height(($(document).height() - 170) + 'px');
 
                 var availableHeight = $(document).height() - 170;
                 var maxHeight = modal.find('.body').data('maxheight');
@@ -195,10 +186,6 @@ define([
                 // set confirmation dialog properties:
                 $('#dialog-confirm h1').text(data.heading);
                 $('#dialog-confirm p').text(data.message);
-                // $('#dialog-confirm .approve').attr({
-                //     'data-message': data.pubSubMessage,
-                //     'data-dataitem': data.dataItem
-                // });
 
                 $('#dialog-confirm .approve').data({
                     message: data.pubSubMessage,

@@ -10,9 +10,9 @@ define(['rcap/js/ui/controls/baseControl',
         init: function() {
 
             this._super({
-				type : 'checkboxlist',
-				label : 'Checkbox Group',
-				icon: 'check',
+                type : 'checkboxlist',
+                label : 'Checkbox Group',
+                icon: 'check',
                 controlProperties: [
                     new TextProperty({
                         uid: 'description',
