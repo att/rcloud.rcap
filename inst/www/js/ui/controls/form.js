@@ -54,17 +54,29 @@ define(['rcap/js/ui/controls/gridControl',
         },
         render: function(options) {
 
-            var html = '<form action="" style="display: flex;align-self:' + this.getStylePropertyValueOrDefault('verticalalignment') + '"><div id="' + this.id + '" class="rcap-form' + '">';
+            var childParent,
+                that = this,
+                html = '<form action="" style="display: flex;align-self:' + this.getStylePropertyValueOrDefault('verticalalignment') + '"><div id="' + this.id + '" class="rcap-form' + '">';
 
             $.each(this.childControls, function(key, child) {
-                html += '<div class="form-group">';
-                html += child.render(options);
-                html += '</div>';
+
+                childParent = $('<div />').attr('class', 'form-group').html(child.render(options));
+
+                var cssClass = that.getChildCssClass(child);
+                if(cssClass.length) {
+                  childParent.addClass('rcap-custom-' + cssClass);
+                }
+
+                html += $(childParent)[0].outerHTML;
             });
 
             html += '</div></form>';
 
             return html;
+        },
+        getChildCssClass: function(child) {
+          var cssClassStyleProperty = _.findWhere(child.styleProperties, { uid : 'cssclass' });
+          return cssClassStyleProperty ? cssClassStyleProperty.value : '';
         },
         getDialogMarkup: function() {
             return tpl;
