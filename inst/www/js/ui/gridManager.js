@@ -498,7 +498,7 @@ define([
             }
         });
 
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
         PubSub.subscribe(pubSubTable.initSite, function(msg, site) {
 
             rcapLogger.log('gridManager: pubSubTable.initSite');
@@ -507,13 +507,22 @@ define([
             updateGridSizeMetrics(site.gridOptions);
 
             // extract the settings:
-            var settings = site.settings.extract();
+            var settings = site.settings.extract(),
+                getViewerPageHeight = function(page) {
+                  var height = 0;
+                  _.each(page.controls, function(control) {
+                    if((control.y + control.height) > height) {
+                      height = control.y + control.height;
+                    }
+                  });
+                  return height;
+                };
 
             // each page has its own grid:
             _.each(site.pages, function(page) {
                 addGrid(page, {
                     isDesignTime: site.isDesignTime,
-                    height: 48,
+                    height: site.isDesignTime ? 48 : getViewerPageHeight(page),
                     pageClass: settings.pageClass
                 });
             });
