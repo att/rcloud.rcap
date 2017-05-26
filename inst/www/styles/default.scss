@@ -852,6 +852,25 @@
     }
 }
 
+#dialog-profileSettings {
+  table {
+    width: 100%;
+
+    th {
+      font-size: 13px;
+      font-weight: normal;
+    }
+
+    label {
+      font-size: normal;
+    }
+
+    input {
+      width: 100%;
+    }
+  }
+}
+
 #dialog-controlSettings {
     & .description {
         color: #222;

@@ -483,6 +483,17 @@ define([
         PubSub.publish(pubSubTable.gridSettingsUpdated, settings.getSettingValue('gridControlPadding'));
       });
 
+      ////////////////////////////////////////////////////////////////////////////////////
+      //
+      // profile variables
+      //
+      PubSub.subscribe(pubSubTable.updateProfile, function (msg, profileVariables) {
+
+        rcapLogger.info('siteManager: pubSubTable.updateProfile');
+
+        setSite(getSite().updateProfileVariables(profileVariables));
+      });
+
     }
   });
 

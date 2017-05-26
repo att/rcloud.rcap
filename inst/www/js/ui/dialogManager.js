@@ -12,13 +12,14 @@ define([
     'text!rcap/partials/dialogs/_siteSettings.htm',
     'text!rcap/partials/dialogs/_profileSettings.htm',
     'text!rcap/partials/dialogs/_confirmDialog.htm',
+    'text!rcap/partials/dialogs/templates/profileVariables.tpl',
     'pubsub',
     'site/pubSubTable',
     'parsley',
     'rcap/js/vendor/jqModal.min'
 ], function(RcapLogger, FormBuilder, Page, addPagePartial, pageSettingsPartial, dataSourceSettingsPartial,
     timerSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, siteSettingsPartial,
-    profileSettingsPartial, confirmDialogPartial, PubSub, pubSubTable) {
+    profileSettingsPartial, confirmDialogPartial, profileVariablesTpl, PubSub, pubSubTable) {
 
     'use strict';
 
@@ -100,7 +101,7 @@ define([
 
                 //modal.find('.body').height(($(document).height() - 170) + 'px');
 
-                var availableHeight = $(document).height() - 170;
+                var availableHeight = $(document).height() - 165;
                 var maxHeight = modal.find('.body').data('maxheight');
 
                 var $modalBody = modal.find('.body');
@@ -592,22 +593,35 @@ define([
             //
             // profile settings:
             //
-            PubSub.subscribe(pubSubTable.showProfileDialog, function(/*msg*/) {
+            PubSub.subscribe(pubSubTable.showProfileDialog, function(msg, profileVariables) {
 
                 rcapLogger.info('dialogManager: pubSubTable.showProfileDialog');
-/*
-                var html = '';
 
-                $.each(settings.properties, function(key, prop) {
-                    html += prop.render(key);
-                });
+                var template = _.template(profileVariablesTpl);
 
-                $('#dialog-siteSettings form').html(html);
-*/
+                var html = (template({
+                  profileVariables: profileVariables
+                }));
+
+                $('#dialog-profileSettings form').html(html);
                 $('#dialog-profileSettings').jqmShow();
             });
 
+            $('#dialog-profileSettings .approve').on('click', function() {
+              // push the updated details:
+              var profileVariables = [];
 
+              $('#dialog-profileSettings input').each(function() {
+                profileVariables.push({
+                  name: $(this).data('name'),
+                  value: $(this).val()
+                });
+              });
+
+              PubSub.publish(pubSubTable.updateProfile, profileVariables);
+
+              $('.jqmWindow').jqmHide();
+            });
         };
     };
 

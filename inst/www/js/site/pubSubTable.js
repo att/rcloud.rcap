@@ -97,6 +97,7 @@ define(['pubsub', 'rcap/js/Class'], function() {
         // profile management:
         configureProfile: 'configureProfile',
         showProfileDialog: 'showProfileDialog',
+        updateProfile: 'updateProfile',
 
         // state management:
         stateModified: 'stateModified'

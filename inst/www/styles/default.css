@@ -2732,6 +2732,16 @@ table.dataTable td {
       vertical-align: middle;
       margin-right: 3px; }
 
+#dialog-profileSettings table {
+  width: 100%; }
+  #dialog-profileSettings table th {
+    font-size: 13px;
+    font-weight: normal; }
+  #dialog-profileSettings table label {
+    font-size: normal; }
+  #dialog-profileSettings table input {
+    width: 100%; }
+
 #dialog-controlSettings {
   /* RCAP would like its selects to look like selects */ }
   #dialog-controlSettings .description {

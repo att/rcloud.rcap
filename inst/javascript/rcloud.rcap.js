@@ -54,7 +54,8 @@
                     ['getDummyFunctions'],
                     ['getRTime'],    // not currently used
                     ['getRCAPVersion'],
-                    ['getRCAPStyles']
+                    ['getRCAPStyles'],
+                    //['getVariables']
                 ], true);
 
                 RCloud.UI.advanced_menu.add({ // jshint ignore:line
@@ -103,6 +104,12 @@
                                 };
                             });
 
+                            //po.getVariables().then(function(variables) {
+                              window.RCAP.getVariables = function() {
+                                return ['myVar1', 'myVar2', 'myVar3'];
+                              };
+                            //});
+
                             require(['rcap/js/designer'], function(Designer) {
                                 new Designer().initialise(extractSessionInfo(sessionInfo));
                             });
@@ -123,7 +130,8 @@
                 var mini = RCloud.promisify_paths(ocaps, [  // jshint ignore:line
                         ['updateControls'],    // updateControls (called when a form value changes, or a form is submitted)
                         ['updateAllControls'],  // kicks off R plot rendering
-                        ['getRCAPStyles']
+                        ['getRCAPStyles'],
+                        //['getVariables']
                     ], true);
 
                 window.RCAP = window.RCAP || {};
