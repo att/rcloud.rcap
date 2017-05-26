@@ -10,13 +10,15 @@ define([
     'text!rcap/partials/dialogs/_formBuilder.htm',
     'text!rcap/partials/dialogs/_styleEditorDialog.htm',
     'text!rcap/partials/dialogs/_siteSettings.htm',
+    'text!rcap/partials/dialogs/_profileSettings.htm',
     'text!rcap/partials/dialogs/_confirmDialog.htm',
     'pubsub',
     'site/pubSubTable',
     'parsley',
     'rcap/js/vendor/jqModal.min'
 ], function(RcapLogger, FormBuilder, Page, addPagePartial, pageSettingsPartial, dataSourceSettingsPartial,
-    timerSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, siteSettingsPartial, confirmDialogPartial, PubSub, pubSubTable) {
+    timerSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, siteSettingsPartial,
+    profileSettingsPartial, confirmDialogPartial, PubSub, pubSubTable) {
 
     'use strict';
 
@@ -87,7 +89,7 @@ define([
         this.initialise = function() {
 
             // append the dialogs to the root of the designer:
-            _.each([addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, timerSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, siteSettingsPartial, confirmDialogPartial], function(partial) {
+            _.each([addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, timerSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, siteSettingsPartial, profileSettingsPartial, confirmDialogPartial], function(partial) {
                 $('#rcap-designer').append(partial);
             });
 
@@ -512,8 +514,7 @@ define([
                 $('#dialog-styleSettings').jqmShow();
             });
 
-
-             $('#dialog-styleSettings .approve').on('click', function() {
+            $('#dialog-styleSettings .approve').on('click', function() {
                 // push the updated event:
                 PubSub.publish(pubSubTable.updateTheme, getStyleEditor().getValue());  // jshint ignore:line
                 $('.jqmWindow').jqmHide();
@@ -586,6 +587,26 @@ define([
                 }
 
             });
+
+            ////////////////////////////////////////////////////////////////////////////////
+            //
+            // profile settings:
+            //
+            PubSub.subscribe(pubSubTable.showProfileDialog, function(/*msg*/) {
+
+                rcapLogger.info('dialogManager: pubSubTable.showProfileDialog');
+/*
+                var html = '';
+
+                $.each(settings.properties, function(key, prop) {
+                    html += prop.render(key);
+                });
+
+                $('#dialog-siteSettings form').html(html);
+*/
+                $('#dialog-profileSettings').jqmShow();
+            });
+
 
         };
     };

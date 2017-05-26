@@ -1,5 +1,5 @@
-define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/versionConverters/versionConverter', 'site/pubSubTable', 'rcap/js/ui/message', 'controls/factories/controlFactory', 'rcap/js/utils/rcapLogger'],
-  function (PubSub, Site, AssetManager, VersionConverter, pubSubTable, Message, ControlFactory, RcapLogger) {
+define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/profileManager', 'rcap/js/versionConverters/versionConverter', 'site/pubSubTable', 'rcap/js/ui/message', 'controls/factories/controlFactory', 'rcap/js/utils/rcapLogger'],
+  function (PubSub, Site, AssetManager, ProfileManager, VersionConverter, pubSubTable, Message, ControlFactory, RcapLogger) {
 
     'use strict';
 

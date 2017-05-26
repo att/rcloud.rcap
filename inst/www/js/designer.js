@@ -9,13 +9,15 @@ define([
     'rcap/js/ui/gridManager',
     'rcap/js/ui/themeManager',
     'rcap/js/assetManager',
+    'rcap/js/profileManager',
     'site/siteManager',
     'pubsub',
     'site/pubSubTable',
     'text!rcap/partials/designer.htm',
     'css!rcap/styles/default.css',
     'css!quill/quill.snow.css'
-], function(rcloud, Serializer, MenuManager, InfoBarManager, DialogManager, MessageManager, DirtyStateIndicator, GridManager, ThemeManager, AssetManager, SiteManager, PubSub, pubSubTable, mainPartial) {
+], function(rcloud, Serializer, MenuManager, InfoBarManager, DialogManager, MessageManager, DirtyStateIndicator, GridManager,
+    ThemeManager, AssetManager, ProfileManager, SiteManager, PubSub, pubSubTable, mainPartial) {
 
     'use strict';
 
@@ -88,6 +90,9 @@ define([
 
         // asset manager:
         new AssetManager().initialise();
+
+        // profile manager:
+        new ProfileManager().initialise();
 
         /*
         $.getJSON('https://api.github.com/users/' + rcloud.getLoggedInUser(), function(data) {
