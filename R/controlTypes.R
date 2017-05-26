@@ -301,13 +301,14 @@ HtmlWidgetControl <- R6Class("HtmlWidgetControl",
           list(viewer = function(...) invisible()),
           widget <- do.call(func, list(), envir = rcloudEnv())
         )
-
-        if (!inherits(widget, "htmlwidget")) {
-          stop("Function ", func, " did not produce an htmlwidget object")
+        
+        if (!inherits(widget, "htmlwidget") && !inherits(widget, "shiny.tag")) {
+          stop("Function ", func, " did not produce an htmlwidget nor shiny.tag object")
         }
 
         div <- paste0("#", private$id)
-        rcw.set(div, as.character(widget, ocaps = FALSE))
+        rcw.set(div, as.character(widget, rcloud_htmlwidgets_print = TRUE, ocaps = FALSE))
+        
         rcap.resizeHtmlwidget(private$id, private$width, private$height);
 
       } else {
