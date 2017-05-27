@@ -424,6 +424,10 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'site/siteSettings', 'rca
       this.profile.variables = profileVariables;
     },
 
+    getProfileVariables: function () {
+      return this.profile.variables;
+    },
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // settings

@@ -487,6 +487,29 @@ define([
       //
       // profile variables
       //
+      PubSub.subscribe(pubSubTable.configureProfile, function () {
+
+        // get the data for the variables
+
+        // 1: variables returned from R,
+        // 2: JSON deserialized vars.
+        //var notebookVariables = window.RCAP.getVariables();
+        //var savedVariables = getSite().getProfileVariables();
+
+        // TODO: merge the two variables, above, with notebookVariables as the source of truth,
+        // assigning the values of those variables:
+
+        var dummy = _.map(window.RCAP.getVariables(), function(variable) {
+          return {
+            name: variable,
+            value: Math.random().toString(36).substring(7)  // TEMP, needs to come from JSON, where appropriate
+          };
+        });
+
+        // get the asset, show the dialog:
+        PubSub.publish(pubSubTable.showProfileDialog, dummy);
+      });
+
       PubSub.subscribe(pubSubTable.updateProfile, function (msg, profileVariables) {
 
         rcapLogger.info('siteManager: pubSubTable.updateProfile');
