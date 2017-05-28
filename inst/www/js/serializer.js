@@ -240,6 +240,12 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/profileManager',
             });
           }
 
+          if(data.profile) {
+            if(data.profile.variables) {
+              site.profile.variables = data.profile.variables;
+            }
+          }
+
           if (data.gridOptions) {
             // load grid options:
             site.gridOptions = data.gridOptions;

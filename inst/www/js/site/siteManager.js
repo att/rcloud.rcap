@@ -493,21 +493,31 @@ define([
 
         // 1: variables returned from R,
         // 2: JSON deserialized vars.
-        //var notebookVariables = window.RCAP.getVariables();
-        //var savedVariables = getSite().getProfileVariables();
+        var notebookVariables = window.RCAP.getVariables();
+        var savedVariables = getSite().getProfileVariables();
+        var profileVariables = [];
 
-        // TODO: merge the two variables, above, with notebookVariables as the source of truth,
+        // the notebookVariables is the source of truth,
         // assigning the values of those variables:
+        // [{ name: 'xyz', value: 'xyz_value' }, ...]
+        _.each(notebookVariables, function(notebookVariable) {
+          var saved = _.findWhere(savedVariables, { name: notebookVariable });
 
-        var dummy = _.map(window.RCAP.getVariables(), function(variable) {
-          return {
-            name: variable,
-            value: Math.random().toString(36).substring(7)  // TEMP, needs to come from JSON, where appropriate
-          };
+          profileVariables.push({
+            name: notebookVariable,
+            value: saved ? saved.value : undefined
+          });
         });
 
+        // var dummy = _.map(window.RCAP.getVariables(), function(variable) {
+        //   return {
+        //     name: variable,
+        //     value: Math.random().toString(36).substring(7)  // TEMP, needs to come from JSON, where appropriate
+        //   };
+        // });
+
         // get the asset, show the dialog:
-        PubSub.publish(pubSubTable.showProfileDialog, dummy);
+        PubSub.publish(pubSubTable.showProfileDialog, profileVariables);
       });
 
       PubSub.subscribe(pubSubTable.updateProfile, function (msg, profileVariables) {
