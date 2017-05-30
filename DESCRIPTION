@@ -33,6 +33,7 @@ Collate:
     'getControls.R'
     'ocaps.R'
     'rcap.result.R'
+    'rcap.user.profile.R'
     'showUpdates.R'
     'styles.R'
     'topo-sort.R'
