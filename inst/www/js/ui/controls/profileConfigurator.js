@@ -25,6 +25,11 @@ define(['rcap/js/ui/controls/gridControl',
                 control: this
             });
 
+        },
+        initialiseViewerItems: function() {
+          $('.grid-stack-item-content.rcap-controltype-profileconfigurator').click(function() {
+            alert('a profile configurator');
+          });
         }
     });
 
