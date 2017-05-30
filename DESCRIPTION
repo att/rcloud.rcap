@@ -30,6 +30,7 @@ Collate:
     'dataTableControl.R'
     'controlTypes.R'
     'controllerR6.R'
+    'profileVariableR6.R'
     'getControls.R'
     'ocaps.R'
     'rcap.result.R'
