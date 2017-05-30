@@ -574,6 +574,12 @@ $attDarkBlueHighlight:          #020bb3;
   cursor: move; }
   .grid-stack-item-content:hover {
     border-style: solid; }
+  .grid-stack-item-content .profile {
+    text-align: center; }
+    .grid-stack-item-content .profile i {
+      font-size: 40px; }
+    .grid-stack-item-content .profile a:active, .grid-stack-item-content .profile a:hover, .grid-stack-item-content .profile a:visited, .grid-stack-item-content .profile a:link {
+      text-decoration: none !important; }
 
 .grid-stack-readonly .grid-stack-item-content {
   cursor: default; }
