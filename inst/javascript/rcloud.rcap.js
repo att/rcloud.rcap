@@ -158,7 +158,7 @@
                         });
                     });
                 };
-                window.RCAP.getUserProfileValue = function(name, value) {
+                window.RCAP.getUserProfileValue = function(name/*, value*/) {
                     return mini.getUserProfileValue(name).then(function(variables) {
                         return variables;
                     });
