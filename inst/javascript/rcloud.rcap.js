@@ -105,7 +105,12 @@
                             });
                             window.RCAP.getVariables = function() {
                               return po.getProfileVariables().then(function(variables) {
-                                  return variables;
+                                    return _.map(variables, function(variable) {
+                                        return {
+                                            name: variable.name,
+                                            label: variable.label
+                                        };
+                                    });
                               });
                             };
 
@@ -145,7 +150,12 @@
                 };
                 window.RCAP.getVariables = function() {
                     return mini.getProfileVariables().then(function(variables) {
-                        return variables;
+                        return _.map(variables, function(variable) {
+                              return {
+                                  name: variable.name,
+                                  label: variable.label
+                              };
+                        });
                     });
                 };
                 window.RCAP.getUserProfileValue = function(name, value) {

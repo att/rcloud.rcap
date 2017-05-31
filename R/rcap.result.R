@@ -61,7 +61,7 @@ haveController <- function() {
 getProfileVariables <- function() {
   if(haveController()) {
     cnt <- get("rcapController", envir = rcapEnv)
-    cnt$getProfileVariables()
+    return(lapply(cnt$getProfileVariables(), function(x) { x$getJson() }))
   } else {
     return(list())
   }

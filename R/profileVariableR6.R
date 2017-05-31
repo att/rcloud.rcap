@@ -33,7 +33,10 @@ ProfileVariable <- R6::R6Class("ProfileVariable",
                            private$name %||% NA_character_,
                          
                          getLabel = function() 
-                           private$label %||% NA_character_
+                           private$label %||% NA_character_,
+                         
+                         getJson = function() 
+                           private$json %||% NA_character_
                          
                        ),
                          

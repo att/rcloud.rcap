@@ -491,33 +491,33 @@ define([
 
         // get the data for the variables
 
+        // TODO:
+        // Shane, in RCAP designer mode, JSON file is not loaded by R, so  this call will always return an empty list.
+        // Just modified this function so it processes a Promise that is returned by getVariables function.
         // 1: variables returned from R,
         // 2: JSON deserialized vars.
         var notebookVariables = window.RCAP.getVariables();
         var savedVariables = getSite().getProfileVariables();
-        var profileVariables = [];
-
-        // the notebookVariables is the source of truth,
-        // assigning the values of those variables:
-        // [{ name: 'xyz', value: 'xyz_value' }, ...]
-        _.each(notebookVariables, function(notebookVariable) {
-          var saved = _.findWhere(savedVariables, { name: notebookVariable });
-
-          profileVariables.push({
-            name: notebookVariable,
-            value: saved ? saved.value : undefined
-          });
+        
+        notebookVariables.then(function(notebookVariables) {
+            // the notebookVariables is the source of truth,
+            // assigning the values of those variables:
+            // [{ name: 'xyz', value: 'xyz_value' }, ...]
+            var profileVariables = [];
+            _.each(notebookVariables, function(notebookVariable) {
+              var saved = _.findWhere(savedVariables, { name: notebookVariable });
+    
+              profileVariables.push({
+                name: notebookVariable,
+                value: saved ? saved.value : undefined
+              });
+            });
+            return profileVariables;
+        }).then(function(profileVariables) {
+          // get the asset, show the dialog:
+          PubSub.publish(pubSubTable.showProfileDialog, profileVariables);
         });
 
-        // var dummy = _.map(window.RCAP.getVariables(), function(variable) {
-        //   return {
-        //     name: variable,
-        //     value: Math.random().toString(36).substring(7)  // TEMP, needs to come from JSON, where appropriate
-        //   };
-        // });
-
-        // get the asset, show the dialog:
-        PubSub.publish(pubSubTable.showProfileDialog, profileVariables);
       });
 
       PubSub.subscribe(pubSubTable.updateProfile, function (msg, profileVariables) {
