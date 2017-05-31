@@ -40,11 +40,15 @@ Controller <- R6::R6Class("Controller",
       controllerInitUpdate(self, private, controls),
 
     getUpdateGraph = function()
-      controllerGetUpdateGraph(self, private)
+      controllerGetUpdateGraph(self, private),
+    
+    getProfileVariables = function()
+      controllerGetProfileVariables(self, private)
   ),
 
   private = list(
     controls = NULL,                    # controls
+    profileVariables = NULL,            # profile variables
     succList = list(),                  # dependency graph
     topoSort = character(),             # update order of controls
 
@@ -96,8 +100,16 @@ controllerInitialize <- function(self, private, rcapConfig) {
   private$topoSort <- topologicalSort(private$succList)
 
   # Wait until the front end reports sizes before updating everything
+  
+  if(!is.null(rcapConfig$profile) && !is.null(rcapConfig$profile$variables)) {
+    private$profileVariables <- lapply(rcapConfig$profile$variables, ProfileVariable$new)
+  }
 
   invisible(self)
+}
+
+controllerGetProfileVariables <- function(self, private) {
+  private$profileVariables
 }
 
 controllerUpdate <- function(self, private, controls) {

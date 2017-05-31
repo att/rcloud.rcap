@@ -57,6 +57,16 @@ haveController <- function() {
   exists("rcapController", envir = rcapEnv)
 }
 
+
+getProfileVariables <- function() {
+  if(haveController()) {
+    cnt <- get("rcapController", envir = rcapEnv)
+    return(lapply(cnt$getProfileVariables(), function(x) { x$getJson() }))
+  } else {
+    return(list())
+  }
+}
+
 updateController <- function(controls) {
   cnt <- get("rcapController", envir = rcapEnv)
   cnt$update(controls)

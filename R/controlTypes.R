@@ -329,6 +329,14 @@ HtmlWidgetControl <- R6Class("HtmlWidgetControl",
   )
 )
 
+ProfileConfiguratorControl <- R6Class("ProfileConfiguratorControl",
+                         inherit = Control,
+                         public = list(
+                           update = function(new_value = NULL) {
+                           }
+                         )
+)
+
 #' Front-end control types and matching back-end classes
 
 control_classes <- list(
@@ -358,7 +366,8 @@ control_classes <- list(
   "leaflet"          = LeafletControl,
   "timer"            = TimerControl,
   "htmlwidget"       = HtmlWidgetControl,
-  "daterange"        = DateRangeContol
+  "daterange"        = DateRangeContol,
+  "profileconfigurator" = ProfileConfiguratorControl
 )
 
 controlFactory <- function(cl, type = cl$type) {
