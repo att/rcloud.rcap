@@ -130,7 +130,6 @@ controlInitialize <- function(self, private, cl) {
 }
 
 controlSetVariable <- function(self, private, new_value) {
-
   if (!is.null(new_value) && !is.null(private$variableName)) {
     assign(private$variableName, new_value, envir = rcloudEnv())
   }

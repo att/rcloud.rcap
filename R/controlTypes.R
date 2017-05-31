@@ -337,6 +337,33 @@ ProfileConfiguratorControl <- R6Class("ProfileConfiguratorControl",
                          )
 )
 
+ProfileVariableControl <- R6Class("ProfileVariableControl",
+                                      inherit = Control,
+                                      public = list(
+                                        setVariable = function(new_value = NULL) {
+                                          if (!is.null(new_value) && !is.null(private$variableName)) {
+                                            rcap.setUserProfileValue(private$variableName, new_value)
+                                            has_possible_values <- !is.null(private$controlFunction)
+                                            pos_values <- if (has_possible_values) {
+                                              do.call(private$controlFunction, list(), envir = rcloudEnv())
+                                            }
+                                            assign(private$variableName, rcap.getUserProfileValue(private$variableName, pos_values), envir = rcloudEnv())
+                                          }
+                                          
+                                          invisible(self)
+                                        },
+                                        update = function(new_value = NULL) {
+                                          has_possible_values <- !is.null(private$controlFunction)
+                                          pos_values <- if (has_possible_values) {
+                                            do.call(private$controlFunction, list(), envir = rcloudEnv())
+                                          }
+                                          assign(private$variableName, rcap.getUserProfileValue(private$variableName, pos_values), envir = rcloudEnv())
+                                          
+                                          invisible(self)
+                                        }
+                                      )
+)
+
 #' Front-end control types and matching back-end classes
 
 control_classes <- list(
@@ -367,6 +394,7 @@ control_classes <- list(
   "timer"            = TimerControl,
   "htmlwidget"       = HtmlWidgetControl,
   "daterange"        = DateRangeContol,
+  "profileVariable"  = ProfileVariableControl,
   "profileconfigurator" = ProfileConfiguratorControl
 )
 
