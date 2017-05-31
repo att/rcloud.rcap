@@ -100,16 +100,12 @@ controllerInitialize <- function(self, private, rcapConfig) {
   private$topoSort <- topologicalSort(private$succList)
 
   # Wait until the front end reports sizes before updating everything
-  
-  if(!is.null(rcapConfig$profile) && !is.null(rcapConfig$profile$variables)) {
-    private$profileVariables <- lapply(rcapConfig$profile$variables, ProfileVariable$new)
-  }
 
   invisible(self)
 }
 
 controllerGetProfileVariables <- function(self, private) {
-  private$profileVariables
+  Filter(function(x) { x$getType() == 'profileVariable'}, lapply(getControls(resp), controlFactory))
 }
 
 controllerUpdate <- function(self, private, controls) {
@@ -178,7 +174,7 @@ controllerGetUpdateGraph <- function(self, private) {
 
   edges <- dataFrame(
     row.names = NULL,
-    from = rep(vertices$name, vapply(private$succList, length, 1L)),
+    from = rep(names(private$succList), vapply(private$succList, length, 1L)),
     to   = unlist(private$succList)
   )
 
