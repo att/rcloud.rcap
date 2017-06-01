@@ -490,6 +490,14 @@ define([
       PubSub.subscribe(pubSubTable.configureProfile, function () {
 
         // get the data for the variables
+        var savedVariables = getSite().getProfileVariables();
+        PubSub.publish(pubSubTable.showProfileDialog, savedVariables);
+
+      });
+      /*
+      PubSub.subscribe(pubSubTable.configureProfile, function () {
+
+        // get the data for the variables
 
         // TODO:
         // Shane, in RCAP designer mode, JSON file is not loaded by R, so  this call will always return an empty list.
@@ -498,7 +506,7 @@ define([
         // 2: JSON deserialized vars.
         var notebookVariables = window.RCAP.getVariables();
         var savedVariables = getSite().getProfileVariables();
-        
+
         notebookVariables.then(function(notebookVariables) {
             // the notebookVariables is the source of truth,
             // assigning the values of those variables:
@@ -506,7 +514,7 @@ define([
             var profileVariables = [];
             _.each(notebookVariables, function(notebookVariable) {
               var saved = _.findWhere(savedVariables, { name: notebookVariable });
-    
+
               profileVariables.push({
                 name: notebookVariable,
                 value: saved ? saved.value : undefined
@@ -519,6 +527,7 @@ define([
         });
 
       });
+      */
 
       PubSub.subscribe(pubSubTable.updateProfile, function (msg, profileVariables) {
 
