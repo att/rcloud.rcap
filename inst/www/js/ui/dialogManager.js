@@ -13,13 +13,14 @@ define([
     'text!rcap/partials/dialogs/_profileSettings.htm',
     'text!rcap/partials/dialogs/_confirmDialog.htm',
     'text!rcap/partials/dialogs/templates/profileVariables.tpl',
+    'text!rcap/partials/dialogs/templates/newProfileVariable.tpl',
     'pubsub',
     'site/pubSubTable',
     'parsley',
     'rcap/js/vendor/jqModal.min'
 ], function(RcapLogger, FormBuilder, Page, addPagePartial, pageSettingsPartial, dataSourceSettingsPartial,
     timerSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, siteSettingsPartial,
-    profileSettingsPartial, confirmDialogPartial, profileVariablesTpl, PubSub, pubSubTable) {
+    profileSettingsPartial, confirmDialogPartial, profileVariablesTpl, newProfileVariableTpl, PubSub, pubSubTable) {
 
     'use strict';
 
@@ -526,7 +527,6 @@ define([
             //
             // site settings:
             //
-
             PubSub.subscribe(pubSubTable.showSiteSettingsDialog, function(msg, settings) {
 
                 rcapLogger.info('dialogManager: pubSubTable.showSiteSettingsDialog');
@@ -593,6 +593,18 @@ define([
             //
             // profile settings:
             //
+            var addProfileVariableRow = function(focus) {
+              $('#dialog-profileSettings tbody tr input').removeAttr('data-last');
+              var newRow = $(newProfileVariableTpl);
+              $('#dialog-profileSettings tbody').append(newRow);
+
+              newRow.fadeIn(function() {
+                if(focus) {
+                  newRow.find('input:eq(0)').focus();
+                }
+              });
+            };
+
             PubSub.subscribe(pubSubTable.showProfileDialog, function(msg, profileVariables) {
 
                 rcapLogger.info('dialogManager: pubSubTable.showProfileDialog');
@@ -605,6 +617,30 @@ define([
 
                 $('#dialog-profileSettings form').html(html);
                 $('#dialog-profileSettings').jqmShow();
+
+                // add an initial row:
+                addProfileVariableRow(true);
+            });
+
+            // initialise events:
+            $('#dialog-profileSettings').on('keypress', 'input', function(e) {
+
+              if($(e.target).attr('data-last')) {
+                addProfileVariableRow();
+              }
+            });
+
+            $('#dialog-profileSettings').on('click', '.remove-row', function() {
+              // remove the row, and if it's the last one, add a new 'last one':
+              var row = $(this).closest('tr');
+              if(row.find('input[data-last]').length) {
+                addProfileVariableRow(true);
+              } else {
+                // get the next row and focus the first:
+                row.next().find('input:eq(0)').focus();
+              }
+
+              row.remove();
             });
 
             $('#dialog-profileSettings .approve').on('click', function() {
