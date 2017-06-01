@@ -647,10 +647,11 @@ define([
               // push the updated details:
               var profileVariables = [];
 
-              $('#dialog-profileSettings input').each(function() {
+              $('#dialog-profileSettings tbody tr').each(function() {
                 profileVariables.push({
-                  name: $(this).data('name'),
-                  value: $(this).val()
+                  variablename: $(this).find('input:eq(0)').val(),
+                  code: $(this).find('input:eq(1)').val(),
+                  description: $(this).find('input:eq(2)').val(),
                 });
               });
 
