@@ -2739,14 +2739,20 @@ table.dataTable td {
       margin-right: 3px; }
 
 #dialog-profileSettings table {
-  width: 100%; }
+  width: 720px;
+  font-size: 14px; }
+  #dialog-profileSettings table td, #dialog-profileSettings table th {
+    padding: 5px; }
   #dialog-profileSettings table th {
     font-size: 13px;
     font-weight: normal; }
   #dialog-profileSettings table label {
     font-size: normal; }
   #dialog-profileSettings table input {
-    width: 100%; }
+    width: 100%;
+    font-size: 14px; }
+  #dialog-profileSettings table i {
+    font-size: 20px; }
 
 #dialog-controlSettings {
   /* RCAP would like its selects to look like selects */ }
