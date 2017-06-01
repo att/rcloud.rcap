@@ -648,11 +648,26 @@ define([
               var profileVariables = [];
 
               $('#dialog-profileSettings tbody tr').each(function() {
-                profileVariables.push({
-                  variablename: $(this).find('input:eq(0)').val(),
-                  code: $(this).find('input:eq(1)').val(),
-                  description: $(this).find('input:eq(2)').val(),
-                });
+
+                // only interested with rows where all info has been filled in:
+                if($($(this).find('input')).filter(function() { return $(this).val(); }).length === 3){
+                  var profileVariable = {
+                    type: 'profileVariable',
+                    id: Math.random().toString(16).slice(2),
+                    controlProperties: []
+                  };
+
+                  $.each($(this).find('input'), function(index, item) {
+                    profileVariable.controlProperties.push({
+                      uid: ['variablename', 'code', 'description'][index],
+                      value: $(item).val(),
+                      id: Math.random().toString(16).slice(2)
+                    });
+
+                  });
+
+                  profileVariables.push(profileVariable);
+                }
               });
 
               PubSub.publish(pubSubTable.updateProfile, profileVariables);

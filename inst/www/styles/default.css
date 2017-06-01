@@ -2744,8 +2744,7 @@ table.dataTable td {
   #dialog-profileSettings table td, #dialog-profileSettings table th {
     padding: 5px; }
   #dialog-profileSettings table th {
-    font-size: 13px;
-    font-weight: normal; }
+    font-size: 13px; }
   #dialog-profileSettings table label {
     font-size: normal; }
   #dialog-profileSettings table input {
