@@ -9,9 +9,10 @@ define(['text!rcap/partials/viewer.htm',
     'site/siteManager',
     'rcap/js/utils/rcapLogger',
     'rcap/js/utils/request',
+    'rcap/js/ui/viewerDialogManager',
     'css!rcap/styles/default.css',
     'css!quill/quill.snow.css'
-], function(mainPartial, GridManager, ThemeManager, HistoryManager, PubSub, pubSubTable, ControlFactory, Serializer, SiteManager, RcapLogger, Request) {
+], function(mainPartial, GridManager, ThemeManager, HistoryManager, PubSub, pubSubTable, ControlFactory, Serializer, SiteManager, RcapLogger, Request, ViewerDialogManager) {
 
     'use strict';
 
@@ -23,7 +24,6 @@ define(['text!rcap/partials/viewer.htm',
 
         this.setup = function() {
 
-
             // TEMP
             // var ss = document.createElement('link');
             // ss.type = 'text/css';
@@ -32,10 +32,12 @@ define(['text!rcap/partials/viewer.htm',
             // document.getElementsByTagName('head')[0].appendChild(ss);
             // TEMP
 
-
             $('body')
                 .addClass('rcap-viewer')
                 .append(mainPartial);
+
+            // dialog manager:
+            new ViewerDialogManager().initialise();
 
             // theme manager:
             themeManager.initialise();

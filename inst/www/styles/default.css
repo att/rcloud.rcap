@@ -64,29 +64,29 @@ $attDarkBlueHighlight:          #020bb3;
   position: absolute;
   top: expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(17 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px'); }
 
-.jqmwindow {
+.jqmWindow {
   padding: 0;
   right: 10px !important;
   top: 10px !important;
   left: auto !important;
   background: #f2f2f2; }
-  .jqmwindow .label {
+  .jqmWindow .label {
     padding-top: 6px; }
-  .jqmwindow label {
+  .jqmWindow label {
     padding-top: 9px; }
-  .jqmwindow .header, .jqmwindow .body {
+  .jqmWindow .header, .jqmWindow .body {
     padding: 15px; }
-  .jqmwindow .header {
+  .jqmWindow .header {
     border-bottom: 1px solid #cdcdcd;
     position: relative;
     background: #71c5e8;
     color: white; }
-    .jqmwindow .header .top-level-tabs {
+    .jqmWindow .header .top-level-tabs {
       position: absolute;
       right: 30px;
       top: 24px;
       letter-spacing: 0.1em; }
-      .jqmwindow .header .top-level-tabs a {
+      .jqmWindow .header .top-level-tabs a {
         font-size: 13px;
         text-transform: uppercase;
         margin-left: 10px;
@@ -95,21 +95,21 @@ $attDarkBlueHighlight:          #020bb3;
         top: 23px;
         right: 15px;
         color: #ddd; }
-        .jqmwindow .header .top-level-tabs a.active, .jqmwindow .header .top-level-tabs a:hover {
+        .jqmWindow .header .top-level-tabs a.active, .jqmWindow .header .top-level-tabs a:hover {
           color: #fff; }
-        .jqmwindow .header .top-level-tabs a:not(:first-child) {
+        .jqmWindow .header .top-level-tabs a:not(:first-child) {
           border-left: 1px solid white;
           padding-left: 10px; }
-  .jqmwindow .row {
+  .jqmWindow .row {
     margin-bottom: 10px; }
-  .jqmwindow .jqm-footer {
+  .jqmWindow .jqm-footer {
     border-top: 1px solid #cdcdcd;
     display: flex;
     height: 45px !important; }
-  .jqmwindow .jqm-footer a:link,
-  .jqmwindow .jqm-footer a:visited,
-  .jqmwindow .jqm-footer a:hover,
-  .jqmwindow .jqm-footer a:active {
+  .jqmWindow .jqm-footer a:link,
+  .jqmWindow .jqm-footer a:visited,
+  .jqmWindow .jqm-footer a:hover,
+  .jqmWindow .jqm-footer a:active {
     flex: 1;
     text-transform: uppercase;
     display: flex;
@@ -125,16 +125,16 @@ $attDarkBlueHighlight:          #020bb3;
     -webkit-transition: color .1s ease-in-out;
     color: #3e3e3e;
     border-left: 1px solid #cdcdcd; }
-  .jqmwindow .jqm-footer a:first-child {
+  .jqmWindow .jqm-footer a:first-child {
     border-left: none; }
-  .jqmwindow .jqm-footer a:hover {
+  .jqmWindow .jqm-footer a:hover {
     background-color: white; }
-  .jqmwindow .jqm-footer a.delete:hover {
+  .jqmWindow .jqm-footer a.delete:hover {
     background-color: #f0523d;
     color: white; }
-  .jqmwindow .jqm-footer a.approve:hover {
+  .jqmWindow .jqm-footer a.approve:hover {
     background-color: #c2ce89; }
-  .jqmwindow .header h3 {
+  .jqmWindow .header h3 {
     font-size: 14px;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -142,7 +142,7 @@ $attDarkBlueHighlight:          #020bb3;
     padding-top: 9px;
     font-weight: bold;
     letter-spacing: 0.1em; }
-  .jqmwindow .body {
+  .jqmWindow .body {
     overflow: auto; }
 
 #dialog-confirm {

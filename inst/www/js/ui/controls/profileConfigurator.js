@@ -1,7 +1,8 @@
 define(['rcap/js/ui/controls/gridControl',
-    'text!controlTemplates/profileConfigurator.tpl'
-
-], function(GridControl, tpl) {
+    'text!controlTemplates/profileConfigurator.tpl',
+    'pubsub',
+    'site/pubSubTable',
+], function(GridControl, tpl, PubSub, pubSubTable) {
 
     'use strict';
 
@@ -12,9 +13,7 @@ define(['rcap/js/ui/controls/gridControl',
                 controlCategory: 'Dynamic',
                 label: 'Profile',
                 icon: 'user',
-                controlProperties: [
-
-                ]
+                controlProperties: []
             });
         },
         render: function() {
@@ -28,7 +27,7 @@ define(['rcap/js/ui/controls/gridControl',
         },
         initialiseViewerItems: function() {
           $('.grid-stack-item-content.rcap-controltype-profileconfigurator').click(function() {
-            alert('a profile configurator');
+            PubSub.publish(pubSubTable.showViewerProfileDialog);
           });
         }
     });
