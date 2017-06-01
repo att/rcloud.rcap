@@ -13,7 +13,7 @@
         <td><input type="text" value="<%=o.controlProperties[0].value%>" /></td>
         <td><input type="text" value="<%=o.controlProperties[1].value%>" /></td>
         <td><input type="text" value="<%=o.controlProperties[2].value%>" /></td>
-        <td><i class="icon-remove-sign"></i></td>
+        <td><i class="icon-remove-sign remove-row"></i></td>
       </tr>
     <% }); %>
   </tbody>
