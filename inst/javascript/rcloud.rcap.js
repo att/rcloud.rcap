@@ -137,7 +137,7 @@
                 };
                 window.RCAP.getUserProfileVariableValues = function(variableName) {
                     return mini.getUserProfileVariableValues(variableName).then(function(variables) {
-                      if(typeof(variables)=="object") {
+                      if(typeof(variables) === 'object') {
                          return _.map(variables, function(variable) {
                               return {
                                   value: variable
@@ -150,7 +150,7 @@
                 };
                 window.RCAP.getUserProfileValue = function(name) {
                     return mini.getUserProfileValue(name).then(function(variables) {
-                      if(typeof(variables)=="object") {
+                      if(typeof(variables) === 'object') {
                          return _.map(variables, function(variable) {
                               return {
                                   value: variable
