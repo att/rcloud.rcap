@@ -137,11 +137,15 @@
                 };
                 window.RCAP.getUserProfileVariableValues = function(variableName) {
                     return mini.getUserProfileVariableValues(variableName).then(function(variables) {
-                        return _.map(variables, function(variable) {
+                      if(typeof(variables)=="object") {
+                         return _.map(variables, function(variable) {
                               return {
                                   value: variable
                               };
                         });
+                      } else {
+                        return [ {value : variables} ];
+                        }
                     });
                 };
                 window.RCAP.getUserProfileValue = function(name) {
