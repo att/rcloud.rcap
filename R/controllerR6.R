@@ -105,7 +105,7 @@ controllerInitialize <- function(self, private, rcapConfig) {
 }
 
 controllerGetProfileVariables <- function(self, private) {
-  Filter(function(x) { x$getType() == 'profileVariable'}, lapply(getControls(resp), controlFactory))
+  Filter(function(x) { x$getType() == 'profileVariable'}, private$controls)
 }
 
 controllerUpdate <- function(self, private, controls) {

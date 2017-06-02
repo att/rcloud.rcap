@@ -58,10 +58,22 @@ haveController <- function() {
 }
 
 
-getProfileVariables <- function() {
+getUserProfileVariableValues <- function(variableName) {
   if(haveController()) {
     cnt <- get("rcapController", envir = rcapEnv)
-    return(lapply(cnt$getProfileVariables(), function(x) { x$getJson() }))
+    control <- Filter(function(x) {x$getVariableName()==variableName}, cnt$getProfileVariables())
+    if(length(control)!=1) {
+      stop(paste0("Control for profile variable '", variableName, "' not found!"));
+    }
+    control <- control[[1]]
+    has_possible_values <- !is.null(control$getControlFunctionName())
+    pos_values <- if (has_possible_values) {
+      do.call(control$getControlFunctionName(), list(), envir = rcloudEnv())
+    }
+    if(has_possible_values) {
+      return(pos_values)
+    }
+    return(list())
   } else {
     return(list())
   }

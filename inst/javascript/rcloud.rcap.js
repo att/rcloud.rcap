@@ -55,7 +55,6 @@
                     ['getRTime'],    // not currently used
                     ['getRCAPVersion'],
                     ['getRCAPStyles'],
-                    ['getProfileVariables']
                 ], true);
 
                 RCloud.UI.advanced_menu.add({ // jshint ignore:line
@@ -103,16 +102,6 @@
                                     });
                                 };
                             });
-                            window.RCAP.getVariables = function() {
-                              return po.getProfileVariables().then(function(variables) {
-                                    return _.map(variables, function(variable) {
-                                        return {
-                                            name: variable.name,
-                                            label: variable.label
-                                        };
-                                    });
-                              });
-                            };
 
                             require(['rcap/js/designer'], function(Designer) {
                                 new Designer().initialise(extractSessionInfo(sessionInfo));
@@ -135,10 +124,8 @@
                         ['updateControls'],    // updateControls (called when a form value changes, or a form is submitted)
                         ['updateAllControls'],  // kicks off R plot rendering
                         ['getRCAPStyles'],
-                        ['getProfileVariables'],
-                        ['setUserProfileValue'],
-                        ['getUserProfileValue'],
-                        ['deleteUserProfileValue']
+                        ['getUserProfileVariableValues'],
+                        ['getUserProfileValue']
                     ], true);
 
                 window.RCAP = window.RCAP || {};
@@ -148,26 +135,27 @@
                 window.RCAP.updateAllControls = function(dataToSubmit) {
                     mini.updateAllControls(dataToSubmit).then(function() {});
                 };
-                window.RCAP.getVariables = function() {
-                    return mini.getProfileVariables().then(function(variables) {
+                window.RCAP.getUserProfileVariableValues = function(variableName) {
+                    return mini.getUserProfileVariableValues(variableName).then(function(variables) {
                         return _.map(variables, function(variable) {
                               return {
-                                  name: variable.name,
-                                  label: variable.label
+                                  value: variable
                               };
                         });
                     });
                 };
-                window.RCAP.getUserProfileValue = function(name/*, value*/) {
+                window.RCAP.getUserProfileValue = function(name) {
                     return mini.getUserProfileValue(name).then(function(variables) {
-                        return variables;
+                      if(typeof(variables)=="object") {
+                         return _.map(variables, function(variable) {
+                              return {
+                                  value: variable
+                              };
+                        });
+                      } else {
+                        return [ {value : variables} ];
+                        }
                     });
-                };
-                window.RCAP.setUserProfileValue = function(name, value) {
-                    return mini.setUserProfileValue(name, value).then(function() {});
-                };
-                window.RCAP.deleteUserProfileValue = function(name) {
-                    return mini.deleteUserProfileValue(name).then(function() {});
                 };
             }
 
