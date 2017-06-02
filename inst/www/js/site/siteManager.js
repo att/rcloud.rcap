@@ -529,10 +529,16 @@ define([
       });
       */
 
+      PubSub.subscribe(pubSubTable.getViewerProfile, function(){
+        PubSub.publish(pubSubTable.showViewerProfileDialog, _.map(getSite().getProfileVariables(),
+          function(variable) {
+            return _.findWhere(variable.controlProperties, { 'uid': 'variablename' }).value;
+          })
+        );
+      });
+
       PubSub.subscribe(pubSubTable.updateProfile, function (msg, profileVariables) {
-
         rcapLogger.info('siteManager: pubSubTable.updateProfile');
-
         setSite(getSite().updateProfileVariables(profileVariables));
       });
 

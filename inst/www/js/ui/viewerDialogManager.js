@@ -20,7 +20,29 @@ define([
         //
         // designer profile settings:
         //
-        PubSub.subscribe(pubSubTable.showViewerProfileDialog, function(/*msg, profileVariables*/) {
+        PubSub.subscribe(pubSubTable.showViewerProfileDialog, function(msg, profileVariables) {
+
+          // for each profile variable, get the possible and user saved values:
+          var promises = _.flatten(_.map(profileVariables, function(profileVariable) {
+            return [
+              window.RCAP.getUserProfileVariableValues(profileVariable),
+              window.RCAP.getUserProfileValue(profileVariable)
+            ];
+          }));
+
+          var profileData = [];
+
+          Promise.all(promises).then(function(res) {
+            for(var loop = 0; loop < res.length / 2; loop++) {
+              profileData.push({
+                // name, all, user
+                name: profileVariables[loop],
+                all: _.pluck(res[loop * 2], 'value'),
+                user: _.pluck(res[(loop * 2) + 1], 'value')
+              });
+            }
+          });
+
           $('#dialog-viewerProfileSettings').jqmShow();
         });
       }

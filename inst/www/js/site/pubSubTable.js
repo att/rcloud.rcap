@@ -98,6 +98,7 @@ define(['pubsub', 'rcap/js/Class'], function() {
         configureProfile: 'configureProfile',
         showProfileDialog: 'showProfileDialog',
         updateProfile: 'updateProfile',
+        getViewerProfileInfo: 'getViewerProfile',
         showViewerProfileDialog: 'showViewerProfileDialog',
 
         // state management:

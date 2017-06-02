@@ -27,7 +27,7 @@ define(['rcap/js/ui/controls/gridControl',
         },
         initialiseViewerItems: function() {
           $('.grid-stack-item-content.rcap-controltype-profileconfigurator').click(function() {
-            PubSub.publish(pubSubTable.showViewerProfileDialog);
+            PubSub.publish(pubSubTable.getViewerProfile);
           });
         }
     });
