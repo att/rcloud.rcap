@@ -33,10 +33,8 @@ rcloud.rcap.caps <- NULL
       getRTime = make_oc(function() { Sys.time() }),
       updateControls = make_oc(updateController),
       updateAllControls = make_oc(updateAllControls),
-      getProfileVariables = make_oc(getProfileVariables),
-      setUserProfileValue = make_oc(rcap.setUserProfileValue),
+      getUserProfileVariableValues = make_oc(getUserProfileVariableValues),
       getUserProfileValue = make_oc(rcap.getUserProfileValue),
-      deleteUserProfileValue = make_oc(rcap.deleteUserProfileValue),
       getRCAPVersion = make_oc(getRCAPVersion),
       getRCAPStyles = make_oc(getRCAPStyles)
    )
