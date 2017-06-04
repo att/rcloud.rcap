@@ -22,10 +22,26 @@ define([
       // designer profile settings:
       //
 
-      // TODO: initialise the event for the select onchange event (showing only one '.options-panel' at any one time)
       $('#dialog-viewerProfileSettings').on('change', 'select', function() {
         $('#dialog-viewerProfileSettings .options-panel').hide();
         $('#dialog-viewerProfileSettings .options-panel:eq(' + $(this)[0].selectedIndex + ')').show();
+      });
+
+      $('#dialog-viewerProfileSettings .approve').on('click', function() {
+          //$('#profile-form').parsley().validate();
+
+          var selectedVariableValues = [];
+
+          $.each($('.options-panel'), function(index, div) {
+            selectedVariableValues.push({
+              variableName: $(div).data('variablename'),
+              controlId: $(div).data('id'),
+              value: _.map($(div).find(':checkbox:checked'), function(cb) { return cb.value; })
+            });
+          });
+
+          console.log('updating with: ', selectedVariableValues);
+          $('.jqmWindow').jqmHide();
       });
 
       PubSub.subscribe(pubSubTable.showViewerProfileDialog, function (msg, profileVariables) {
@@ -33,8 +49,8 @@ define([
         // for each profile variable, get the possible and user saved values:
         var promises = _.flatten(_.map(profileVariables, function (profileVariable) {
           return [
-            window.RCAP.getUserProfileVariableValues(profileVariable),
-            window.RCAP.getUserProfileValue(profileVariable)
+            window.RCAP.getUserProfileVariableValues(_.findWhere(profileVariable.controlProperties, { 'uid': 'variablename' }).value),
+            window.RCAP.getUserProfileValue(_.findWhere(profileVariable.controlProperties, { 'uid': 'variablename' }).value)
           ];
         }));
 
@@ -54,17 +70,18 @@ define([
 
         function getOptions(allValues, userValues) {
           return _.map(allValues, function(item) { return {
-                  value: item.value,
-                  selected: _.pluck(userValues, 'value').indexOf(item.value) !== -1
-                };
-              });
+              value: item.value,
+              selected: _.pluck(userValues, 'value').indexOf(item.value) !== -1
+            };
+          });
         }
 
         Promise.all(promises).then(function (res) {
           for (var loop = 0; loop < res.length / 2; loop++) {
             profileDataItems.push({
               // name, all, user
-              name: profileVariables[loop],
+              name: _.findWhere(profileVariables[loop].controlProperties, { 'uid': 'variablename' }).value,
+              id: profileVariables[loop].id,
               options: getOptions(res[loop * 2], res[(loop * 2) + 1])
             });
           }

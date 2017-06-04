@@ -2753,6 +2753,26 @@ table.dataTable td {
   #dialog-profileSettings table i {
     font-size: 20px; }
 
+#dialog-viewerProfileSettings body {
+  font-size: 120%; }
+
+#dialog-viewerProfileSettings .options-panel label {
+  display: inline-block;
+  padding-left: 15px;
+  text-indent: -15px;
+  margin-right: 25px; }
+
+#dialog-viewerProfileSettings .options-panel input {
+  width: 13px;
+  height: 13px;
+  padding: 0;
+  margin: 0;
+  margin-right: 3px;
+  vertical-align: bottom;
+  position: relative;
+  top: -1px;
+  *overflow: hidden; }
+
 #dialog-controlSettings {
   /* RCAP would like its selects to look like selects */ }
   #dialog-controlSettings .description {

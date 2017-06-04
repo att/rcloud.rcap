@@ -529,12 +529,8 @@ define([
       });
       */
 
-      PubSub.subscribe(pubSubTable.getViewerProfile, function(){
-        PubSub.publish(pubSubTable.showViewerProfileDialog, _.map(getSite().getProfileVariables(),
-          function(variable) {
-            return _.findWhere(variable.controlProperties, { 'uid': 'variablename' }).value;
-          })
-        );
+      PubSub.subscribe(pubSubTable.getViewerProfile, function() {
+        PubSub.publish(pubSubTable.showViewerProfileDialog, getSite().getProfileVariables());
       });
 
       PubSub.subscribe(pubSubTable.updateProfile, function (msg, profileVariables) {
