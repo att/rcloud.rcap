@@ -40,7 +40,10 @@ define([
             });
           });
 
-          console.log('updating with: ', selectedVariableValues);
+          //console.log('updating with: ', selectedVariableValues);
+
+          window.RCAP.updateControls(JSON.stringify(selectedVariableValues));
+
           $('.jqmWindow').jqmHide();
       });
 
