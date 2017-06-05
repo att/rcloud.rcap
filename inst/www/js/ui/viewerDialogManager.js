@@ -60,9 +60,11 @@ define([
             });
 
             window.RCAP.updateControls(JSON.stringify(selectedVariableValues));
-            console.log(selectedVariableValues);
+            //console.log(selectedVariableValues);
 
             $('.jqmWindow').jqmHide();
+          } else {
+            $('.jqmWindow .body').animate({ scrollTop: 0 }, 'fast');
           }
       });
 
