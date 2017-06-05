@@ -4,10 +4,13 @@ define([
   'rcap/js/ui/dialogUtils',
   'text!rcap/partials/dialogs/_viewerProfileSettings.htm',
   'text!rcap/partials/dialogs/templates/viewerProfileVariables.tpl',
+  'site/profileVariableManager',
   'parsley',
-], function (PubSub, pubSubTable, DialogUtils, configuratorPartial, viewerProfileVariablesTpl) {
+], function (PubSub, pubSubTable, DialogUtils, configuratorPartial, viewerProfileVariablesTpl, ProfileVariableManager) {
 
   'use strict';
+
+  var profileManager = new ProfileVariableManager();
 
   var ViewerDialogManager = Class.extend({
     initialise: function () {
@@ -59,8 +62,7 @@ define([
               });
             });
 
-            window.RCAP.updateControls(JSON.stringify(data));
-            console.log(data);
+            profileManager.updateProfileVariables(data);
 
             $('.jqmWindow').jqmHide();
           } else {
@@ -69,16 +71,6 @@ define([
       });
 
       PubSub.subscribe(pubSubTable.showViewerProfileDialog, function (msg, profileVariables) {
-
-        // for each profile variable, get the possible and user saved values:
-        var promises = _.flatten(_.map(profileVariables, function (profileVariable) {
-          return [
-            window.RCAP.getUserProfileVariableValues(_.findWhere(profileVariable.controlProperties, { 'uid': 'variablename' }).value),
-            window.RCAP.getUserProfileValue(_.findWhere(profileVariable.controlProperties, { 'uid': 'variablename' }).value)
-          ];
-        }));
-
-        var profileDataItems = [];
 
         var initViewerProfileDialog = function(items) {
           var template = _.template(viewerProfileVariablesTpl);
@@ -100,32 +92,7 @@ define([
           $('#dialog-viewerProfileSettings').jqmShow();
         };
 
-        function getOptions(allValues, userValues) {
-
-          // if there are no common values between allValues and userValues,
-          // this is either a new setup for this variable, or the data is 'old'
-          // and has changed so much that it's effectively a new setup:
-          var commonValuesLength = _.intersection(allValues, userValues).length;
-
-          return _.map(allValues, function(item) { return {
-              value: item.value,
-              // if user has no values, select to 'all':
-              // TODO : CORRECT THIS!, NEED TO FIND 'CROSSOVER, COMMON VALUES LENGTH':
-              selected: !commonValuesLength ? true : _.pluck(userValues, 'value').indexOf(item.value) !== -1
-            };
-          });
-        }
-
-        Promise.all(promises).then(function (res) {
-          for (var loop = 0; loop < res.length / 2; loop++) {
-            profileDataItems.push({
-              // name, all, user
-              name: _.findWhere(profileVariables[loop].controlProperties, { 'uid': 'variablename' }).value,
-              id: profileVariables[loop].id,
-              options: getOptions(res[loop * 2], res[(loop * 2) + 1])
-            });
-          }
-
+        profileManager.getProfileVariableData(profileVariables).then(function(profileDataItems) {
           initViewerProfileDialog(profileDataItems);
         });
       });
