@@ -16,7 +16,6 @@
         <button data-action="all">Select all</button>
         <button data-action="none">Select none</button>
       </div>
-
       <% _.each(o.options, function(option, i) { %>
           <label><input type="checkbox" <%= i === 0 ? ' data-parsley-required ' : ''%> id="<%=o.name%><%=option.value%>" name="<%=o.name%>[]" value="<%=option.value%>" <%= option.selected ? ' checked="checked"' : ''%>><%=option.value%></label>
         <% }); %>

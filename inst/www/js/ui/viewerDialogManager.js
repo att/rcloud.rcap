@@ -48,10 +48,10 @@ define([
           $('#profile-form').parsley().validate();
 
           if ($('#profile-form').parsley().isValid()) {
-            var selectedVariableValues = [];
+            var data = { updatedVariables: [] };
 
             $.each($('.options-panel'), function(index, div) {
-              selectedVariableValues.push({
+              data.updatedVariables.push({
                 variableName: $(div).data('variablename'),
                 controlId: $(div).data('id'),
                 // if all are selected, set to '[]' (counter-intuitive, but it implies that they want 'all'):
@@ -59,8 +59,8 @@ define([
               });
             });
 
-            window.RCAP.updateControls(JSON.stringify(selectedVariableValues));
-            //console.log(selectedVariableValues);
+            window.RCAP.updateControls(JSON.stringify(data));
+            console.log(data);
 
             $('.jqmWindow').jqmHide();
           } else {
