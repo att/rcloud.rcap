@@ -2753,14 +2753,15 @@ table.dataTable td {
   #dialog-profileSettings table i {
     font-size: 20px; }
 
-#dialog-viewerProfileSettings body {
-  font-size: 120%; }
-
-#dialog-viewerProfileSettings .options-panel label {
-  display: inline-block;
-  padding-left: 15px;
-  text-indent: -15px;
-  margin-right: 25px; }
+#dialog-viewerProfileSettings .body {
+  font-size: 115%; }
+  #dialog-viewerProfileSettings .body label {
+    display: inline-block;
+    padding-left: 15px;
+    text-indent: -15px;
+    margin-right: 25px; }
+  #dialog-viewerProfileSettings .body select {
+    margin-left: 5px; }
 
 #dialog-viewerProfileSettings .options-panel input {
   width: 13px;
@@ -2770,8 +2771,17 @@ table.dataTable td {
   margin-right: 3px;
   vertical-align: bottom;
   position: relative;
-  top: -1px;
+  top: -2px;
   *overflow: hidden; }
+
+#dialog-viewerProfileSettings .options-panel fieldset {
+  margin-top: 20px; }
+
+#dialog-viewerProfileSettings .options-panel legend {
+  font-size: 14px;
+  margin-bottom: 12px;
+  padding-bottom: 3px;
+  font-weight: bold; }
 
 #dialog-controlSettings {
   /* RCAP would like its selects to look like selects */ }

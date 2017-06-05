@@ -27,6 +27,15 @@ define([
         $('#dialog-viewerProfileSettings .options-panel:eq(' + $(this)[0].selectedIndex + ')').show();
       });
 
+      $('#dialog-viewerProfileSettings .body').on('click', 'button', function(e) {
+
+        $(this).closest('fieldset').find(':checkbox')
+          .prop('checked', $(this).data('action') === 'all');
+
+        e.preventDefault();
+        return false;
+      });
+
       $('#dialog-viewerProfileSettings .approve').on('click', function() {
           //$('#profile-form').parsley().validate();
 

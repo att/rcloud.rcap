@@ -881,11 +881,9 @@
 }
 
 #dialog-viewerProfileSettings {
-  body {
-    font-size: 120%;
-  }
+  .body {
+    font-size: 115%;
 
-  .options-panel {
     label {
       display: inline-block;
       padding-left: 15px;
@@ -893,6 +891,12 @@
       margin-right: 25px;
     }
 
+    select {
+      margin-left: 5px;
+    }
+  }
+
+  .options-panel {
     input {
       width: 13px;
       height: 13px;
@@ -901,8 +905,19 @@
       margin-right: 3px;
       vertical-align: bottom;
       position: relative;
-      top: -1px;
+      top: -2px;
       *overflow: hidden;
+    }
+
+    fieldset {
+      margin-top: 20px;
+    }
+
+    legend {
+      font-size: 14px;
+      margin-bottom: 12px;
+      padding-bottom: 3px;
+      font-weight: bold;
     }
   }
 }
