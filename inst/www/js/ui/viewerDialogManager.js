@@ -4,6 +4,7 @@ define([
   'rcap/js/ui/dialogUtils',
   'text!rcap/partials/dialogs/_viewerProfileSettings.htm',
   'text!rcap/partials/dialogs/templates/viewerProfileVariables.tpl',
+  'parsley',
 ], function (PubSub, pubSubTable, DialogUtils, configuratorPartial, viewerProfileVariablesTpl) {
 
   'use strict';
@@ -23,8 +24,15 @@ define([
       //
 
       $('#dialog-viewerProfileSettings').on('change', 'select', function() {
-        $('#dialog-viewerProfileSettings .options-panel').hide();
-        $('#dialog-viewerProfileSettings .options-panel:eq(' + $(this)[0].selectedIndex + ')').show();
+        $('#profile-form').parsley().validate();
+        if($('#profile-form').parsley().isValid()) {
+          // set new value:
+          $(this).data('value', $(this).val());
+          $('#dialog-viewerProfileSettings .options-panel').hide();
+          $('#dialog-viewerProfileSettings .options-panel:eq(' + $(this)[0].selectedIndex + ')').show();
+        } else {
+          $(this).val($(this).data('value'));
+        }
       });
 
       $('#dialog-viewerProfileSettings .body').on('click', 'button', function(e) {
@@ -37,23 +45,25 @@ define([
       });
 
       $('#dialog-viewerProfileSettings .approve').on('click', function() {
-          //$('#profile-form').parsley().validate();
+          $('#profile-form').parsley().validate();
 
-          var selectedVariableValues = [];
+          if ($('#profile-form').parsley().isValid()) {
+            var selectedVariableValues = [];
 
-          $.each($('.options-panel'), function(index, div) {
-            selectedVariableValues.push({
-              variableName: $(div).data('variablename'),
-              controlId: $(div).data('id'),
-              value: _.map($(div).find(':checkbox:checked'), function(cb) { return cb.value; })
+            $.each($('.options-panel'), function(index, div) {
+              selectedVariableValues.push({
+                variableName: $(div).data('variablename'),
+                controlId: $(div).data('id'),
+                value: _.map($(div).find(':checkbox:checked'), function(cb) { return cb.value; })
+              });
             });
-          });
 
-          //console.log('updating with: ', selectedVariableValues);
+            //console.log('updating with: ', selectedVariableValues);
 
-          window.RCAP.updateControls(JSON.stringify(selectedVariableValues));
+            window.RCAP.updateControls(JSON.stringify(selectedVariableValues));
 
-          $('.jqmWindow').jqmHide();
+            $('.jqmWindow').jqmHide();
+          }
       });
 
       PubSub.subscribe(pubSubTable.showViewerProfileDialog, function (msg, profileVariables) {
@@ -76,6 +86,11 @@ define([
           }));
 
           $('#dialog-viewerProfileSettings form').html(html);
+          $('#dialog-viewerProfileSettings form').parsley({
+            errorsContainer: function(parsleyField) {
+              return parsleyField.$element.closest('fieldset').find('.errors');
+            }
+          });
           $('#dialog-viewerProfileSettings form .options-panel:eq(0)').show();
           $('#dialog-viewerProfileSettings').jqmShow();
         };

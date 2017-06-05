@@ -2783,6 +2783,10 @@ table.dataTable td {
   padding-bottom: 3px;
   font-weight: bold; }
 
+#dialog-viewerProfileSettings .options-panel .errors {
+  margin-top: 5px;
+  margin-bottom: 15px; }
+
 #dialog-controlSettings {
   /* RCAP would like its selects to look like selects */ }
   #dialog-controlSettings .description {
