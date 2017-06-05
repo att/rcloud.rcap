@@ -10,7 +10,7 @@ define([/*'pubsub',
       // if there are no common values between allValues and userValues,
       // this is either a new setup for this variable, or the data is 'old'
       // and has changed so much that it's effectively a new setup:
-      var commonValuesLength = _.intersection(allValues, userValues).length;
+      var commonValuesLength = _.intersection(_.pluck(allValues, 'value'), _.pluck(userValues, 'value')).length;
 
       return _.map(allValues, function(item) { return {
           value: item.value,
@@ -58,7 +58,7 @@ define([/*'pubsub',
             return {
               controlId: dataItem.id,
               variableName: dataItem.name,
-              value: dataItem.options.length ? _.pluck(_.where(dataItem, { selected: true}), 'value') : []
+              value: dataItem.options.length ? _.pluck(_.where(dataItem.options, { selected: true}), 'value') : []
             };
           })
         };
