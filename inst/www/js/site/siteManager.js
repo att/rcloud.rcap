@@ -1,15 +1,17 @@
 define([
   'rcap/js/assetManager',
+  'site/profileVariableManager',
   'pubsub',
   'site/pubSubTable',
   'rcap/js/utils/rcapLogger'
-], function (AssetManager, PubSub, pubSubTable, RcapLogger) {
+], function (AssetManager, ProfileVariableManager, PubSub, pubSubTable, RcapLogger) {
 
   'use strict';
 
   var el = 'body';
   var rcapLogger = new RcapLogger();
   var assetManager = new AssetManager();
+  var profileManager = new ProfileVariableManager();
 
   // get the site:
   var getSite = function () {
@@ -94,6 +96,10 @@ define([
         var themeUrl = assetManager.getThemeUrl(site.isDesignTime, site.themeExists);
         if (themeUrl) {
           PubSub.publish(pubSubTable.updateDomTheme, themeUrl);
+        }
+
+        if(!site.isDesignTime) {
+          profileManager.initialiseUserProfile(getSite().getProfileVariables());
         }
       });
 
@@ -492,42 +498,7 @@ define([
         // get the data for the variables
         var savedVariables = getSite().getProfileVariables();
         PubSub.publish(pubSubTable.showProfileDialog, savedVariables);
-
       });
-      /*
-      PubSub.subscribe(pubSubTable.configureProfile, function () {
-
-        // get the data for the variables
-
-        // TODO:
-        // Shane, in RCAP designer mode, JSON file is not loaded by R, so  this call will always return an empty list.
-        // Just modified this function so it processes a Promise that is returned by getVariables function.
-        // 1: variables returned from R,
-        // 2: JSON deserialized vars.
-        var notebookVariables = window.RCAP.getVariables();
-        var savedVariables = getSite().getProfileVariables();
-
-        notebookVariables.then(function(notebookVariables) {
-            // the notebookVariables is the source of truth,
-            // assigning the values of those variables:
-            // [{ name: 'xyz', value: 'xyz_value' }, ...]
-            var profileVariables = [];
-            _.each(notebookVariables, function(notebookVariable) {
-              var saved = _.findWhere(savedVariables, { name: notebookVariable });
-
-              profileVariables.push({
-                name: notebookVariable,
-                value: saved ? saved.value : undefined
-              });
-            });
-            return profileVariables;
-        }).then(function(profileVariables) {
-          // get the asset, show the dialog:
-          PubSub.publish(pubSubTable.showProfileDialog, profileVariables);
-        });
-
-      });
-      */
 
       PubSub.subscribe(pubSubTable.getViewerProfile, function() {
         PubSub.publish(pubSubTable.showViewerProfileDialog, getSite().getProfileVariables());
@@ -537,7 +508,6 @@ define([
         rcapLogger.info('siteManager: pubSubTable.updateProfile');
         setSite(getSite().updateProfileVariables(profileVariables));
       });
-
     }
   });
 

@@ -6,9 +6,19 @@ define([/*'pubsub',
 
   var ProfileVariableManager = function() {
 
-    // read
-    // write
-    // auto-update
+    var getOptions = function(allValues, userValues) {
+      // if there are no common values between allValues and userValues,
+      // this is either a new setup for this variable, or the data is 'old'
+      // and has changed so much that it's effectively a new setup:
+      var commonValuesLength = _.intersection(allValues, userValues).length;
+
+      return _.map(allValues, function(item) { return {
+          value: item.value,
+          selected: !commonValuesLength ? true : _.pluck(userValues, 'value').indexOf(item.value) !== -1
+        };
+      });
+    };
+
     this.getProfileVariableData = function(profileVariables) {
 
       var profileDataItems = [];
@@ -20,21 +30,6 @@ define([/*'pubsub',
           window.RCAP.getUserProfileValue(_.findWhere(profileVariable.controlProperties, { 'uid': 'variablename' }).value)
         ];
       }));
-
-      var getOptions = function(allValues, userValues) {
-        // if there are no common values between allValues and userValues,
-        // this is either a new setup for this variable, or the data is 'old'
-        // and has changed so much that it's effectively a new setup:
-        var commonValuesLength = _.intersection(allValues, userValues).length;
-
-        return _.map(allValues, function(item) { return {
-            value: item.value,
-            // if user has no values, select to 'all':
-            // TODO : CORRECT THIS!, NEED TO FIND 'CROSSOVER, COMMON VALUES LENGTH':
-            selected: !commonValuesLength ? true : _.pluck(userValues, 'value').indexOf(item.value) !== -1
-          };
-        });
-      };
 
       return new Promise(function(resolve) {
         Promise.all(promises).then(function (res) {
@@ -50,11 +45,28 @@ define([/*'pubsub',
         });
       });
     };
-  };
 
-  this.updateProfileVariables = function(data) {
-    window.RCAP.updateControls(JSON.stringify(data));
-    console.log(data);
+    this.updateProfileVariables = function(data) {
+      window.RCAP.updateControls(JSON.stringify(data));
+    };
+
+    this.initialiseUserProfile = function(profileVariables) {
+      this.getProfileVariableData(profileVariables).then(function(profileData) {
+        // trasnform profileData to expected updateControls format:
+        var data = {
+          updatedVariables: _.map(profileData, function(dataItem) {
+            return {
+              controlId: dataItem.id,
+              variableName: dataItem.name,
+              value: dataItem.options.length ? _.pluck(_.where(dataItem, { selected: true}), 'value') : []
+            };
+          })
+        };
+
+        window.RCAP.updateControls(JSON.stringify(data));
+      });
+    };
+
   };
 
   return ProfileVariableManager;
