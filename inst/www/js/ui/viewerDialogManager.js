@@ -83,6 +83,8 @@ define([
         var initViewerProfileDialog = function(items) {
           var template = _.template(viewerProfileVariablesTpl);
 
+          console.log('passing into the template: ', items);
+
           var html = (template({
             profileDataItems: items
           }));
@@ -99,9 +101,17 @@ define([
         };
 
         function getOptions(allValues, userValues) {
+
+          // if there are no common values between allValues and userValues,
+          // this is either a new setup for this variable, or the data is 'old'
+          // and has changed so much that it's effectively a new setup:
+          var commonValuesLength = _.intersection(allValues, userValues).length;
+
           return _.map(allValues, function(item) { return {
               value: item.value,
-              selected: _.pluck(userValues, 'value').indexOf(item.value) !== -1
+              // if user has no values, select to 'all':
+              // TODO : CORRECT THIS!, NEED TO FIND 'CROSSOVER, COMMON VALUES LENGTH':
+              selected: !commonValuesLength ? true : _.pluck(userValues, 'value').indexOf(item.value) !== -1
             };
           });
         }
