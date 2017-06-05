@@ -54,13 +54,13 @@ define([
               selectedVariableValues.push({
                 variableName: $(div).data('variablename'),
                 controlId: $(div).data('id'),
-                value: _.map($(div).find(':checkbox:checked'), function(cb) { return cb.value; })
+                // if all are selected, set to '[]' (counter-intuitive, but it implies that they want 'all'):
+                value: $(div).find(':checkbox:checked').length === $(div).find(':checkbox').length ? [] : _.map($(div).find(':checkbox:checked'), function(cb) { return cb.value; })
               });
             });
 
-            //console.log('updating with: ', selectedVariableValues);
-
             window.RCAP.updateControls(JSON.stringify(selectedVariableValues));
+            console.log(selectedVariableValues);
 
             $('.jqmWindow').jqmHide();
           }
