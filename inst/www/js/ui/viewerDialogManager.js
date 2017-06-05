@@ -94,6 +94,7 @@ define([
             }
           });
           $('#dialog-viewerProfileSettings form .options-panel:eq(0)').show();
+          $('.jqmWindow .body').animate({ scrollTop: 0 }, 'fast');
           $('#dialog-viewerProfileSettings').jqmShow();
         };
 
