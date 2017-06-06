@@ -2,7 +2,7 @@
   Variable:
   <select>
     <% _.each(profileDataItems, function(o, i){ %>
-      <option value="<%o.name%>" data-value="<%o.name%>"><%=o.name%></option>
+      <option value="<%o.name%>" data-value="<%o.name%>"><%=o.description%></option>
     <% }); %>
   </select>
 </label>
