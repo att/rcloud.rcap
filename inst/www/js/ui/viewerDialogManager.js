@@ -75,8 +75,7 @@ define([
         var initViewerProfileDialog = function(items) {
           var template = _.template(viewerProfileVariablesTpl);
 
-          console.log('passing into the template: ', items);
-
+          //console.log('passing into the template: ', items);
           var html = (template({
             profileDataItems: items
           }));

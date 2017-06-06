@@ -525,6 +525,12 @@ define([
               var newRow = $(newProfileVariableTpl);
               $('#dialog-profileSettings tbody').append(newRow);
 
+              newRow.find('[data-autocomplete]').autocomplete({
+                  source: function(request, response) {
+                      response(window.RCAP.getRFunctions());
+                  }
+              });
+
               newRow.fadeIn(function() {
                 if(focus) {
                   newRow.find('input:eq(0)').focus();
@@ -543,6 +549,13 @@ define([
                 }));
 
                 $('#dialog-profileSettings form').html(html);
+
+                $('#dialog-profileSettings form input[data-autocomplete]').autocomplete({
+                    source: function(request, response) {
+                        response(window.RCAP.getRFunctions());
+                    }
+                });
+
                 $('#dialog-profileSettings').jqmShow();
 
                 // add an initial row:
