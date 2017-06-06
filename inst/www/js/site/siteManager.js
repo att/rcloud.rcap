@@ -100,6 +100,7 @@ define([
 
         if(!site.isDesignTime) {
           profileManager.initialiseUserProfile(getSite().getProfileVariables());
+          PubSub.publish(pubSubTable.gridSettingsUpdated, site.getSettings().getSettingValue('gridControlPadding'));
         }
       });
 

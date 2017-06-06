@@ -356,14 +356,6 @@ define([
             });
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            //
-            // grid settings updated
-            //
-            PubSub.subscribe(pubSubTable.gridSettingsUpdated, function(msg, padding) {
-                updateGridSizeMetrics(padding);
-            });
-
-            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
             //$('body').off('click').on('click', '.ui-remove', function() {
             $('body').on('click', '.ui-remove', function() {
                 PubSub.publish(pubSubTable.showConfirmDialog, {
@@ -430,6 +422,14 @@ define([
                 grid.remove_widget(gridItem, true); // jshint ignore:line
             });
         }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //
+        // grid settings updated
+        //
+        PubSub.subscribe(pubSubTable.gridSettingsUpdated, function(msg, padding) {
+            updateGridSizeMetrics(padding);
+        });
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //
