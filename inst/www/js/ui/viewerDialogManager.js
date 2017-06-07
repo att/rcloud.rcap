@@ -25,40 +25,22 @@ define([
       //
       // designer profile settings:
       //
-
-      $('#dialog-viewerProfileSettings').on('change', 'select', function() {
-        $('#profile-form').parsley().validate();
-        if($('#profile-form').parsley().isValid()) {
-          // set new value:
-          $(this).data('value', $(this).val());
-          $('#dialog-viewerProfileSettings .options-panel').hide();
-          $('#dialog-viewerProfileSettings .options-panel:eq(' + $(this)[0].selectedIndex + ')').show();
-        } else {
-          $(this).val($(this).data('value'));
-        }
-      });
-
-      $('#dialog-viewerProfileSettings .body').on('click', 'button', function(e) {
-
-        $(this).closest('fieldset').find(':checkbox')
-          .prop('checked', $(this).data('action') === 'all');
-
-        e.preventDefault();
-        return false;
+      $('#dialog-viewerProfileSettings').on('change', '.selection-method select', function() {
+        $(this).closest('tr').find('.values select')[$(this).val() === 'all' ? 'hide' : 'show']();
       });
 
       $('#dialog-viewerProfileSettings .approve').on('click', function() {
-          $('#profile-form').parsley().validate();
+
+          //$('#profile-form').parsley().validate();
 
           if ($('#profile-form').parsley().isValid()) {
             var data = { updatedVariables: [] };
 
-            $.each($('.options-panel'), function(index, div) {
+            $.each($('#profile-form tbody tr'), function(index, row) {
               data.updatedVariables.push({
-                variableName: $(div).data('variablename'),
-                controlId: $(div).data('id'),
-                // if all are selected, set to '[]' (counter-intuitive, but it implies that they want 'all'):
-                value: $(div).find(':checkbox:checked').length === $(div).find(':checkbox').length ? [] : _.map($(div).find(':checkbox:checked'), function(cb) { return cb.value; })
+                variableName: $(row).data('variablename'),
+                controlId: $(row).data('id'),
+                value: $(row).find('.selection-method').val() === 'all' ? [] : $(row).find('.values select').val()
               });
             });
 
@@ -81,12 +63,16 @@ define([
           }));
 
           $('#dialog-viewerProfileSettings form').html(html);
+          /*
           $('#dialog-viewerProfileSettings form').parsley({
             errorsContainer: function(parsleyField) {
               return parsleyField.$element.closest('fieldset').find('.errors');
             }
-          });
-          $('#dialog-viewerProfileSettings form .options-panel:eq(0)').show();
+          });*/
+          //$('#dialog-viewerProfileSettings form .options-panel:eq(0)').show();
+
+          //$('.js-example-basic-multiple:eq(0)').select2();
+
           $('.jqmWindow .body').animate({ scrollTop: 0 }, 'fast');
           $('#dialog-viewerProfileSettings').jqmShow();
         };

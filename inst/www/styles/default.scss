@@ -882,6 +882,18 @@
 
 #dialog-viewerProfileSettings {
   .body {
+    table {
+      width: 100%;
+    }
+/*
+    select {
+      -webkit-appearance: none;
+    }
+
+    selection-method select {
+      -webkit-appearance: menulist;
+    }*/
+    /*
     font-size: 115%;
 
     label {
@@ -894,9 +906,11 @@
     select {
       margin-left: 5px;
     }
+    */
   }
 
   .options-panel {
+    /*
     input {
       width: 13px;
       height: 13px;
@@ -923,7 +937,7 @@
     .errors {
       margin-top: 5px;
       margin-bottom: 15px;
-    }
+    }*/
   }
 }
 
