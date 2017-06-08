@@ -341,7 +341,8 @@ ProfileVariableControl <- R6Class("ProfileVariableControl",
                                       inherit = Control,
                                       public = list(
                                         setVariable = function(new_value = NULL) {
-                                          if (!is.null(new_value) && !is.null(private$variableName)) {
+                                          
+                                          if (!is.null(private$variableName)) {
                                             rcap.setUserProfileValue(private$variableName, new_value)
                                             has_possible_values <- !is.null(private$controlFunction)
                                             pos_values <- if (has_possible_values) {
@@ -353,12 +354,14 @@ ProfileVariableControl <- R6Class("ProfileVariableControl",
                                           invisible(self)
                                         },
                                         update = function(new_value = NULL) {
-                                          has_possible_values <- !is.null(private$controlFunction)
-                                          pos_values <- if (has_possible_values) {
-                                            do.call(private$controlFunction, list(), envir = rcloudEnv())
-                                          }
-                                          assign(private$variableName, rcap.getUserProfileValue(private$variableName, pos_values), envir = rcloudEnv())
                                           
+                                          if (!is.null(private$variableName)) {
+                                            has_possible_values <- !is.null(private$controlFunction)
+                                            pos_values <- if (has_possible_values) {
+                                              do.call(private$controlFunction, list(), envir = rcloudEnv())
+                                            }
+                                            assign(private$variableName, rcap.getUserProfileValue(private$variableName, pos_values), envir = rcloudEnv())
+                                          }
                                           invisible(self)
                                         }
                                       )
