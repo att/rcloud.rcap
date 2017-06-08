@@ -43,19 +43,19 @@
             nodeNameUserName: sessionInfo.user[0] + '@' + sessionInfo.nodename[0]
         };
     };
-            var getNotebook = function() {
-                      return getURLParameter("notebook");
-                  };
-            var getURLParameter = function(name) {
-                      return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
-                  };
-            var userProfileKey = function(variable) {
-                  var varname = variable;
-                  if(variable === null || variable === undefined) {
-                    varname = "";
-                  }
-                  return "rcap.notebook." + getNotebook() + ".userProfile." + varname;
-                };
+    var getNotebook = function() {
+        return getURLParameter("notebook");
+    };
+    var getURLParameter = function(name) {
+        return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
+    };
+    var userProfileKey = function(variable) {
+        var varname = variable;
+        if(variable === null || variable === undefined) {
+            varname = "";
+        }
+        return "rcap.notebook." + getNotebook() + ".userProfile." + varname;
+    };
 
     return {
         init: function(ocaps, sessionInfo, k) {
