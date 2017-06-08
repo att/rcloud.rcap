@@ -43,10 +43,22 @@
             nodeNameUserName: sessionInfo.user[0] + '@' + sessionInfo.nodename[0]
         };
     };
+    var getNotebook = function() {
+        return getURLParameter("notebook");
+    };
+    var getURLParameter = function(name) {
+        return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
+    };
+    var userProfileKey = function(variable) {
+        var varname = variable;
+        if(variable === null || variable === undefined) {
+            varname = "";
+        }
+        return "rcap.notebook." + getNotebook() + ".userProfile." + varname;
+    };
 
     return {
         init: function(ocaps, sessionInfo, k) {
-
             if (RCloud.UI.advanced_menu.add) {  // jshint ignore:line
 
                 var po = RCloud.promisify_paths(ocaps, [  // jshint ignore:line
@@ -83,7 +95,7 @@
                             window.RCAP = window.RCAP || {};
                             window.RCAP.updateAllControls = function(dataToSubmit) {
                                 po.updateAllControls(dataToSubmit).then(function(){});
-                            };
+                            };      
 
                             po.getRCAPVersion().then(function(version) {
                                 window.RCAP.getRCAPVersion = function() {
@@ -117,6 +129,8 @@
                     }
                 });
 
+                window.RCAP = window.RCAP || {};
+                window.RCAP.userProfileKey = userProfileKey; 
             } else {
 
                 // this code is executed in 'mini' mode:
@@ -135,6 +149,7 @@
                 window.RCAP.updateAllControls = function(dataToSubmit) {
                     mini.updateAllControls(dataToSubmit).then(function() {});
                 };
+                window.RCAP.userProfileKey = userProfileKey;     
                 window.RCAP.getUserProfileVariableValues = function(variableName) {
                     return mini.getUserProfileVariableValues(variableName).then(function(variables) {
                       if(typeof(variables) === 'object') {
@@ -148,19 +163,17 @@
                         }
                     });
                 };
-                window.RCAP.getUserProfileValue = function(name) {
-                    return mini.getUserProfileValue(name).then(function(variables) {
-                      if(typeof(variables) === 'object') {
-                         return _.map(variables, function(variable) {
-                              return {
-                                  value: variable
-                              };
-                        });
-                      } else {
-                        return [ {value : variables} ];
-                        }
-                    });
-                };
+                window.RCAP.getUserProfileValue = function(variable) {
+                      if (typeof(Storage) !== "undefined") {
+                          var key = window.RCAP.userProfileKey(variable);
+                          var val = localStorage.getItem(key);
+                          if(val === null) {
+                            return Promise.resolve([]);
+                          }
+                          return Promise.resolve(JSON.parse(val));
+                      }
+                      return Promise.resolve([]);
+                };      
             }
 
             k();
@@ -224,6 +237,57 @@
             }
 
             k();
+        },
+        
+        getUserProfileValue: function(variable, k) {
+          var result = null;
+          if (typeof(Storage) !== "undefined") {
+              var key = window.RCAP.userProfileKey(variable);
+              result = localStorage.getItem(key);
+              if( result !== null ) {
+                 result = JSON.stringify(_.map(JSON.parse(result), function(val) {
+                          return val.value;
+                    }));
+              }
+          }
+          k(result); // JSON representation of array on NULL
+        },
+        
+        setUserProfileValue: function(variable, values, k) {
+          if (typeof(Storage) !== "undefined") {
+            var key = window.RCAP.userProfileKey(variable);
+            if(values === null) {
+              localStorage.removeItem(key);
+            } else {
+              var newValue = null;
+              if(typeof(values) === 'object') {
+                  newValue = _.map(values, function(val) {
+                          return {
+                              value: val
+                          };
+                    });
+              } else {
+                  newValue = [ {value : values} ];
+              }
+              localStorage.setItem(key, JSON.stringify(newValue));
+            }
+          }
+          k();
+        },
+        
+        listUserProfileVariables : function(k) {
+          var res = null;
+          if (typeof(Storage) !== "undefined") {
+            var result = [];
+            var userProfileKey = window.RCAP.userProfileKey(null);
+            for(var key in localStorage) {
+              if(key.startsWith(userProfileKey)) {
+                result.push(key.replace(userProfileKey, ""));
+              }
+            }
+            res = JSON.stringify(result);
+          }
+          k(res);
         },
 
         consoleMsg: function(content, k) {
