@@ -25,6 +25,7 @@
               <% }); %>
             </select>
           </div>
+          <div class="errors" />
         </td>
       </tr>
     <% }); %>

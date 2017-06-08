@@ -75,20 +75,20 @@ define([
           }));
 
           $('#dialog-viewerProfileSettings form').html(html);
-          //$('#dialog-viewerProfileSettings td.values select').select2({
-          $('#dialog-viewerProfileSettings select').select2({
-            width : '250px',
+
+          $('#dialog-viewerProfileSettings tr > td:nth-child(3) select').select2({
+            width: '600px',
             placeholder: 'Select a value'
           });
-          //$('#dialog-viewerProfileSettings td.values .select2').find('.select2-search__field').removeAttr('style');
 
-          /*
+          $('#dialog-viewerProfileSettings td.values .select2').find('.select2-search__field').removeAttr('style');
+
+
           $('#dialog-viewerProfileSettings form').parsley({
             errorsContainer: function(parsleyField) {
               return parsleyField.$element.closest('fieldset').find('.errors');
             }
-          });*/
-          //$('#dialog-viewerProfileSettings form .options-panel:eq(0)').show();
+          });
 
           $('.jqmWindow .body').animate({ scrollTop: 0 }, 'fast');
           $('#dialog-viewerProfileSettings').jqmShow();

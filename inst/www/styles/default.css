@@ -2756,7 +2756,16 @@ table.dataTable td {
 #dialog-viewerProfileSettings {
   min-width: 50%; }
   #dialog-viewerProfileSettings td {
-    width: 10px; }
+    padding: 5px 3px;
+    border-bottom: 1px solid #cdcdcd;
+    font-size: 115%; }
+  #dialog-viewerProfileSettings td:nth-child(1) {
+    width: 270px; }
+  #dialog-viewerProfileSettings td:nth-child(2) {
+    width: 150px; }
+  #dialog-viewerProfileSettings thead td {
+    border-color: #444;
+    font-weight: bold; }
   #dialog-viewerProfileSettings .body {
     /*
     select {

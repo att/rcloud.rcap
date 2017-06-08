@@ -885,7 +885,22 @@
   min-width: 50%;
 
   td {
-    width: 10px;
+    padding: 5px 3px;
+    border-bottom: 1px solid #cdcdcd;
+    font-size: 115%;
+  }
+
+  td:nth-child(1) {
+    width: 270px;
+  }
+
+  td:nth-child(2) {
+    width: 150px;
+  }
+
+  thead td {
+    border-color: #444;
+    font-weight: bold;
   }
 
   .body {
