@@ -1,11 +1,4 @@
 
-user.profile.variable.key <- function(variable)
-{
-  user <- rcloud.session.info()$user
-  notebook <- rcloud.session.notebook.id()
-  rcs.key(".notebook", notebook, "user.profile", user, variable)
-}
-
 is.empty.or.null <- function(x) {
   is.null(x) || x == "" || length(x) == 0
 }
@@ -15,7 +8,7 @@ rcap.getUserProfileValue <- function(var=NULL, val=NULL) {
   if(is.empty.or.null(var)) {
     return (invisible(NULL))
   }
-  profileVal <- rcs.get(user.profile.variable.key(var))
+  profileVal <- user.profile.store.getValue(var)
   if(is.empty.or.null(profileVal)) {
     return (val)
   }
@@ -25,16 +18,29 @@ rcap.getUserProfileValue <- function(var=NULL, val=NULL) {
   return(intersect(profileVal, val))
 }
 
+user.profile.store.getValue <- function(var) {
+  json <- rcap.user.profile.store.getValue(var)
+  if(!is.null(json)) {
+    return (fromJSON(json, simplifyVector = FALSE))
+  }
+  return(NULL);
+}
+
+user.profile.store.setValue <- function(var, value) {
+  rcap.user.profile.store.setValue(var, value)
+  return(NULL);
+}
+
 #' @export
 rcap.setUserProfileValue <- function(var=NULL, val=NULL) {
   if(is.empty.or.null(var)) {
     return (invisible(NULL))
   }
   if(is.empty.or.null(val)) {
-    rcs.rm(user.profile.variable.key(var))
+    user.profile.store.setValue(var, NULL)
     return (invisible(NULL))
   }
-  rcs.set(user.profile.variable.key(var), val)
+  user.profile.store.setValue(var, val)
   return (invisible(NULL))
 }
 
@@ -43,14 +49,15 @@ rcap.deleteUserProfileValue <- function(var=NULL) {
   if(is.empty.or.null(var)) {
     return (invisible(NULL))
   }
-  rcs.rm(user.profile.variable.key(var))
+  user.profile.store.setValue(var, NULL)
   return (invisible(NULL))
 }
 
-#' @export
+#' export
 rcap.listUserProfileVariables <- function() {
-  user <- rcloud.session.info()$user
-  notebook <- rcloud.session.notebook.id()
-  gsub(rcs.key(".notebook", notebook, "user.profile", user, ""), '', 
-       rcs.list(rcs.key(".notebook", notebook, "user.profile", user, "*")))
+  json <- rcap.user.profile.store.list.variables()
+  if(!is.null(json)) {
+    return (fromJSON(json, simplifyVector = FALSE))
+  }
+  return(c())
 }

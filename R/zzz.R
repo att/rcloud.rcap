@@ -34,7 +34,6 @@ rcloud.rcap.caps <- NULL
       updateControls = make_oc(updateController),
       updateAllControls = make_oc(updateAllControls),
       getUserProfileVariableValues = make_oc(getUserProfileVariableValues),
-      getUserProfileValue = make_oc(rcap.getUserProfileValue),
       getRCAPVersion = make_oc(getRCAPVersion),
       getRCAPStyles = make_oc(getRCAPStyles)
    )
@@ -56,3 +55,6 @@ rcap.updateControlAttribute <- function(controlId, attributeName, attributeValue
 }
 rcap.resizeHtmlwidget <- function(...) rcloud.rcap.caps$resizeHtmlwidget(...)
 rcap.getRCAPVersion <- function() rcloud.rcap.caps$getRCAPVersion()
+rcap.user.profile.store.getValue <- function(...) rcloud.rcap.caps$getUserProfileValue(...)
+rcap.user.profile.store.setValue <- function(...) rcloud.rcap.caps$setUserProfileValue(...)
+rcap.user.profile.store.list.variables <- function(...) rcloud.rcap.caps$listUserProfileVariables(...)
