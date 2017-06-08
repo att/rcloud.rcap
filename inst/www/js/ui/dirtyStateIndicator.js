@@ -39,7 +39,8 @@ define(['pubsub', 'site/pubSubTable', 'rcap/js/utils/rcapLogger'], function(PubS
                     pubSubTable.deleteTimerConfirm,
                     pubSubTable.updateTimer,
                     pubSubTable.updateControl,
-                    pubSubTable.gridItemsChanged
+                    pubSubTable.gridItemsChanged,
+                    pubSubTable.updateProfile,
                     // updating themes does not invoke the dirty flag because
                     // they are saved when the save button on the theme editor
                     // dialog is clicked

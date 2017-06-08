@@ -330,6 +330,44 @@ HtmlWidgetControl <- R6Class("HtmlWidgetControl",
   )
 )
 
+ProfileConfiguratorControl <- R6Class("ProfileConfiguratorControl",
+                         inherit = Control,
+                         public = list(
+                           update = function(new_value = NULL) {
+                           }
+                         )
+)
+
+ProfileVariableControl <- R6Class("ProfileVariableControl",
+                                      inherit = Control,
+                                      public = list(
+                                        setVariable = function(new_value = NULL) {
+                                          
+                                          if (!is.null(private$variableName)) {
+                                            rcap.setUserProfileValue(private$variableName, new_value)
+                                            has_possible_values <- !is.null(private$controlFunction)
+                                            pos_values <- if (has_possible_values) {
+                                              do.call(private$controlFunction, list(), envir = rcloudEnv())
+                                            }
+                                            assign(private$variableName, rcap.getUserProfileValue(private$variableName, pos_values), envir = rcloudEnv())
+                                          }
+                                          
+                                          invisible(self)
+                                        },
+                                        update = function(new_value = NULL) {
+                                          
+                                          if (!is.null(private$variableName)) {
+                                            has_possible_values <- !is.null(private$controlFunction)
+                                            pos_values <- if (has_possible_values) {
+                                              do.call(private$controlFunction, list(), envir = rcloudEnv())
+                                            }
+                                            assign(private$variableName, rcap.getUserProfileValue(private$variableName, pos_values), envir = rcloudEnv())
+                                          }
+                                          invisible(self)
+                                        }
+                                      )
+)
+
 #' Front-end control types and matching back-end classes
 
 control_classes <- list(
@@ -359,7 +397,9 @@ control_classes <- list(
   "leaflet"          = LeafletControl,
   "timer"            = TimerControl,
   "htmlwidget"       = HtmlWidgetControl,
-  "daterange"        = DateRangeContol
+  "daterange"        = DateRangeContol,
+  "profileVariable"  = ProfileVariableControl,
+  "profileconfigurator" = ProfileConfiguratorControl
 )
 
 controlFactory <- function(cl, type = cl$type) {

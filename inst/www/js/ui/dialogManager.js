@@ -10,13 +10,18 @@ define([
     'text!rcap/partials/dialogs/_formBuilder.htm',
     'text!rcap/partials/dialogs/_styleEditorDialog.htm',
     'text!rcap/partials/dialogs/_siteSettings.htm',
+    'text!rcap/partials/dialogs/_profileSettings.htm',
     'text!rcap/partials/dialogs/_confirmDialog.htm',
+    'text!rcap/partials/dialogs/templates/profileVariables.tpl',
+    'text!rcap/partials/dialogs/templates/newProfileVariable.tpl',
     'pubsub',
     'site/pubSubTable',
+    'rcap/js/ui/dialogUtils',
     'parsley',
     'rcap/js/vendor/jqModal.min'
 ], function(RcapLogger, FormBuilder, Page, addPagePartial, pageSettingsPartial, dataSourceSettingsPartial,
-    timerSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, siteSettingsPartial, confirmDialogPartial, PubSub, pubSubTable) {
+    timerSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, siteSettingsPartial,
+    profileSettingsPartial, confirmDialogPartial, profileVariablesTpl, newProfileVariableTpl, PubSub, pubSubTable, DialogUtils) {
 
     'use strict';
 
@@ -83,80 +88,11 @@ define([
         this.initialise = function() {
 
             // append the dialogs to the root of the designer:
-            _.each([addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, timerSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, siteSettingsPartial, confirmDialogPartial], function(partial) {
+            _.each([addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, timerSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, siteSettingsPartial, profileSettingsPartial, confirmDialogPartial], function(partial) {
                 $('#rcap-designer').append(partial);
             });
 
-            var sizeModalBodyHeight = function(modal) {
-
-                var availableHeight = $(document).height() - 170;
-                var maxHeight = modal.find('.body').data('maxheight');
-
-                var $modalBody = modal.find('.body');
-
-                if (!maxHeight) {
-                    var initialHeight = modal.find('.body').height();
-
-                    if (initialHeight > availableHeight) {
-                        $modalBody.height(availableHeight + 'px');
-                    } else {
-                        $modalBody.height(initialHeight + 'px');
-                    }
-
-                    modal.find('.body').data('maxheight', initialHeight);
-
-                } else {
-
-                    if(maxHeight === 'useavailable') {
-                        $modalBody.height(availableHeight + 'px');
-                    } else {
-                        if (availableHeight > maxHeight) {
-                            $modalBody.height(maxHeight + 'px');
-                        } else {
-                            $modalBody.height(availableHeight + 'px');
-                        }
-                    }
-
-                }
-            };
-
-            // initialise each of the dialogs:
-            $('.jqmWindow').each(function() {
-                $(this).jqm({
-                    modal: true,
-                    onShow: function(hash) {
-
-                        // display the overlay (prepend to body) if not disabled
-                        if (hash.c.overlay > 0) {
-                            hash.o.prependTo('body');
-                        }
-
-                        // make modal visible
-                        hash.w.show();
-
-                        // call focusFunc (attempts to focus on first input in modal)
-                        $.jqm.focusFunc(hash.w, null);
-
-                        sizeModalBodyHeight(hash.w);
-
-                        return true;
-                    },
-                    onHide: function(hash) {
-
-                        // hide modal and if overlay, remove overlay.
-                        hash.w.hide();
-                        hash.o.remove();
-
-                        hash.w.find('body').removeData('maxheight');
-
-                        return true;
-                    }
-                });
-            });
-
-            $(window).resize(function() {
-                sizeModalBodyHeight($('.jqmWindow:visible'));
-            });
+            new DialogUtils().initialise();
 
             // initialise the form builder dialog:
             var formBuilder = new FormBuilder();
@@ -499,8 +435,7 @@ define([
                 $('#dialog-styleSettings').jqmShow();
             });
 
-
-             $('#dialog-styleSettings .approve').on('click', function() {
+            $('#dialog-styleSettings .approve').on('click', function() {
                 // push the updated event:
                 PubSub.publish(pubSubTable.updateTheme, getStyleEditor().getValue());  // jshint ignore:line
                 $('.jqmWindow').jqmHide();
@@ -511,7 +446,6 @@ define([
             //
             // site settings:
             //
-
             PubSub.subscribe(pubSubTable.showSiteSettingsDialog, function(msg, settings) {
 
                 rcapLogger.info('dialogManager: pubSubTable.showSiteSettingsDialog');
@@ -574,6 +508,104 @@ define([
 
             });
 
+            ////////////////////////////////////////////////////////////////////////////////
+            //
+            // profile settings:
+            //
+            var addProfileVariableRow = function(focus) {
+              $('#dialog-profileSettings tbody tr input').removeAttr('data-last');
+              var newRow = $(newProfileVariableTpl);
+              $('#dialog-profileSettings tbody').append(newRow);
+
+              newRow.find('[data-autocomplete]').autocomplete({
+                  source: function(request, response) {
+                      response(window.RCAP.getRFunctions());
+                  }
+              });
+
+              newRow.fadeIn(function() {
+                if(focus) {
+                  newRow.find('input:eq(0)').focus();
+                }
+              });
+            };
+
+            PubSub.subscribe(pubSubTable.showProfileDialog, function(msg, profileVariables) {
+
+                rcapLogger.info('dialogManager: pubSubTable.showProfileDialog');
+
+                var template = _.template(profileVariablesTpl);
+
+                var html = (template({
+                  profileVariables: profileVariables
+                }));
+
+                $('#dialog-profileSettings form').html(html);
+
+                $('#dialog-profileSettings form input[data-autocomplete]').autocomplete({
+                    source: function(request, response) {
+                        response(window.RCAP.getRFunctions());
+                    }
+                });
+
+                $('#dialog-profileSettings').jqmShow();
+
+                // add an initial row:
+                addProfileVariableRow(true);
+            });
+
+            // initialise events:
+            $('#dialog-profileSettings').on('keypress', 'input', function(e) {
+
+              if($(e.target).attr('data-last')) {
+                addProfileVariableRow();
+              }
+            });
+
+            $('#dialog-profileSettings').on('click', '.remove-row', function() {
+              // remove the row, and if it's the last one, add a new 'last one':
+              var row = $(this).closest('tr');
+              if(row.find('input[data-last]').length) {
+                addProfileVariableRow(true);
+              } else {
+                // get the next row and focus the first:
+                row.next().find('input:eq(0)').focus();
+              }
+
+              row.remove();
+            });
+
+            $('#dialog-profileSettings .approve').on('click', function() {
+              // push the updated details:
+              var profileVariables = [];
+
+              $('#dialog-profileSettings tbody tr').each(function() {
+
+                // only interested with rows where all info has been filled in:
+                if($($(this).find('input')).filter(function() { return $(this).val(); }).length === 3){
+                  var profileVariable = {
+                    type: 'profileVariable',
+                    id: Math.random().toString(16).slice(2),
+                    controlProperties: []
+                  };
+
+                  $.each($(this).find('input'), function(index, item) {
+                    profileVariable.controlProperties.push({
+                      uid: ['variablename', 'code', 'description'][index],
+                      value: $(item).val(),
+                      id: Math.random().toString(16).slice(2)
+                    });
+
+                  });
+
+                  profileVariables.push(profileVariable);
+                }
+              });
+
+              PubSub.publish(pubSubTable.updateProfile, profileVariables);
+
+              $('.jqmWindow').jqmHide();
+            });
         };
     };
 
