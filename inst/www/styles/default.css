@@ -2753,8 +2753,12 @@ table.dataTable td {
   #dialog-profileSettings table i {
     font-size: 20px; }
 
-#dialog-viewerProfileSettings .body {
-  /*
+#dialog-viewerProfileSettings {
+  min-width: 50%; }
+  #dialog-viewerProfileSettings td {
+    width: 10px; }
+  #dialog-viewerProfileSettings .body {
+    /*
     select {
       -webkit-appearance: none;
     }
@@ -2762,7 +2766,7 @@ table.dataTable td {
     selection-method select {
       -webkit-appearance: menulist;
     }*/
-  /*
+    /*
     font-size: 115%;
 
     label {
@@ -2776,11 +2780,10 @@ table.dataTable td {
       margin-left: 5px;
     }
     */ }
-  #dialog-viewerProfileSettings .body table {
-    width: 100%; }
-
-#dialog-viewerProfileSettings .options-panel {
-  /*
+    #dialog-viewerProfileSettings .body table {
+      width: 100%; }
+  #dialog-viewerProfileSettings .options-panel {
+    /*
     input {
       width: 13px;
       height: 13px;
@@ -3217,3 +3220,6 @@ body.rcap-viewer {
     font-size: 40px;
     top: 15px;
     right: 35px; } }
+
+.select2-dropdown {
+  z-index: 10000 !important; }

@@ -54,7 +54,7 @@ define([/*'pubsub',
 
     this.initialiseUserProfile = function(profileVariables) {
       this.getProfileVariableData(profileVariables).then(function(profileData) {
-        // trasnform profileData to expected updateControls format:
+        // transform profileData to expected updateControls format:
         var data = {
           updatedVariables: _.map(profileData, function(dataItem) {
             return {

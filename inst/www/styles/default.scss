@@ -881,10 +881,20 @@
 }
 
 #dialog-viewerProfileSettings {
+
+  min-width: 50%;
+
+  td {
+    width: 10px;
+  }
+
   .body {
+
     table {
       width: 100%;
     }
+
+
 /*
     select {
       -webkit-appearance: none;
@@ -1337,16 +1347,6 @@ nav.horizontal {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
 .rcap-breadcrumb {
     font-size: 16px;
     align-self: center;
@@ -1486,4 +1486,8 @@ body.rcap-viewer {
         top: 15px;
         right: 35px;
     }
+}
+
+.select2-dropdown {
+  z-index: 10000!important; //
 }

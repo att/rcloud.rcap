@@ -21,17 +21,30 @@ define([
 
       new DialogUtils().initialise();
 
+      // custom validation:
+      // window.Parsley.addValidator('selection', {
+
+      // });
+
+      window.ParsleyValidator.addValidator('variablevalidator',
+      function (value, requirement) {
+        if($(requirement).parsley().$element.val() === 'selected' && !value.length){
+          return false;
+        }
+      }, 32).addMessage('en', 'variablevalidator', 'You must select at least one variable value');
+
       ////////////////////////////////////////////////////////////////////////////////
       //
       // designer profile settings:
       //
       $('#dialog-viewerProfileSettings').on('change', '.selection-method select', function() {
-        $(this).closest('tr').find('.values select')[$(this).val() === 'all' ? 'hide' : 'show']();
+        $(this).closest('tr').find('[data-selectionmethod]').hide();
+        $(this).closest('tr').find('[data-selectionmethod="' + $(this).val() + '"]').show();
       });
 
       $('#dialog-viewerProfileSettings .approve').on('click', function() {
 
-          //$('#profile-form').parsley().validate();
+          $('#profile-form').parsley().validate();
 
           if ($('#profile-form').parsley().isValid()) {
             var data = { updatedVariables: [] };
@@ -57,12 +70,18 @@ define([
         var initViewerProfileDialog = function(items) {
           var template = _.template(viewerProfileVariablesTpl);
 
-          //console.log('passing into the template: ', items);
           var html = (template({
             profileDataItems: items
           }));
 
           $('#dialog-viewerProfileSettings form').html(html);
+          //$('#dialog-viewerProfileSettings td.values select').select2({
+          $('#dialog-viewerProfileSettings select').select2({
+            width : '250px',
+            placeholder: 'Select a value'
+          });
+          //$('#dialog-viewerProfileSettings td.values .select2').find('.select2-search__field').removeAttr('style');
+
           /*
           $('#dialog-viewerProfileSettings form').parsley({
             errorsContainer: function(parsleyField) {
@@ -70,8 +89,6 @@ define([
             }
           });*/
           //$('#dialog-viewerProfileSettings form .options-panel:eq(0)').show();
-
-          //$('.js-example-basic-multiple:eq(0)').select2();
 
           $('.jqmWindow .body').animate({ scrollTop: 0 }, 'fast');
           $('#dialog-viewerProfileSettings').jqmShow();
