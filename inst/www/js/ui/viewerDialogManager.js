@@ -53,9 +53,11 @@ define([
               data.updatedVariables.push({
                 variableName: $(row).data('variablename'),
                 controlId: $(row).data('id'),
-                value: $(row).find('.selection-method').val() === 'all' ? [] : $(row).find('.values select').val()
+                value: $(row).find('.selection-method select').val() === 'all' ? null : $(row).find('.values select').val()
               });
             });
+
+            console.log('updating profile variables with: ', data);
 
             profileManager.updateProfileVariables(data);
 

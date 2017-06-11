@@ -12,13 +12,13 @@
         <td><%=o.description%></td>
         <td class="selection-method">
           <select id="<%=o.id%>">
-            <option value="all">All values</option>
-            <option value="selected"<%= _.findWhere(o.options, { selected: true }).length !== 0 ? ' selected="selected"' : ''%>>Selection</option>
+            <option value="all"<%= o.all ? ' selected="selected"' : ''%>>All values</option>
+            <option value="selected"<%= !o.all ? ' selected="selected"' : ''%>>Selection</option>
           </select>
         </td>
         <td class="values">
-          <div data-selectionmethod="all" <%= _.findWhere(o.options, { selected: true }).length !== 0 ? ' style="display:none"' : ''%>">All</div>
-          <div data-selectionmethod="selected">
+          <div data-selectionmethod="all" <%= !o.all ? ' style="display:none"' : ''%>">All</div>
+          <div data-selectionmethod="selected" <%= o.all ? ' style="display:none"' : ''%>>
             <select data-parsley-variablevalidator="#<%=o.id%>" required multiple="multiple"<%= _.findWhere(o.options, { selected: true }).length === 0 ? ' style="display:none"' : ''%>>
               <% _.each(o.options, function(option, i) { %>
                 <option value="<%=option.value%>" <%= option.selected ? ' selected="selected"' : ''%>><%=option.value%></option>

@@ -40,7 +40,8 @@ define([/*'pubsub',
               name: _.findWhere(profileVariables[loop].controlProperties, { 'uid': 'variablename' }).value,
               description: _.findWhere(profileVariables[loop].controlProperties, { 'uid': 'description' }).value,
               id: profileVariables[loop].id,
-              options: getOptions(res[loop * 2], res[(loop * 2) + 1])
+              options: getOptions(res[loop * 2], res[(loop * 2) + 1]),
+              all: !res[(loop * 2) + 1]
             });
           }
           resolve(profileDataItems);
