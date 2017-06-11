@@ -49,6 +49,21 @@ define([/*'pubsub',
       });
     };
 
+    this.hashValues = function(values) {
+      var str = _.sortBy(values).join('-');
+      var hash = 0, i, chr;
+      if (str.length === 0) {
+        return hash;
+      }
+
+      for (i = 0; i < str.length; i++) {
+        chr   = str.charCodeAt(i);
+        hash  = ((hash << 5) - hash) + chr; /* jshint ignore:line */
+        hash |= 0; /* jshint ignore:line */
+      }
+      return hash >>> 0; /* jshint ignore:line */
+    };
+
     this.updateProfileVariables = function(data) {
       window.RCAP.updateControls(JSON.stringify(data));
     };

@@ -85,7 +85,6 @@ define([
 
           $('#dialog-viewerProfileSettings td.values .select2').find('.select2-search__field').removeAttr('style');
 
-
           $('#dialog-viewerProfileSettings form').parsley({
             errorsContainer: function(parsleyField) {
               return parsleyField.$element.closest('fieldset').find('.errors');
