@@ -168,11 +168,11 @@
                           var key = window.RCAP.userProfileKey(variable);
                           var val = localStorage.getItem(key);
                           if(val === null) {
-                            return Promise.resolve([]);
+                            return Promise.resolve(null);
                           }
                           return Promise.resolve(JSON.parse(val));
                       }
-                      return Promise.resolve([]);
+                      return Promise.resolve(null);
                 };
             }
 
