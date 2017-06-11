@@ -50,16 +50,27 @@ define([
             var data = { updatedVariables: [] };
 
             $.each($('#profile-form tbody tr'), function(index, row) {
-              data.updatedVariables.push({
-                variableName: $(row).data('variablename'),
-                controlId: $(row).data('id'),
-                value: $(row).find('.selection-method select').val() === 'all' ? null : $(row).find('.values select').val()
-              });
+
+              var value = $(row).find('.selection-method select').val() === 'all' ? null : $(row).find('.values select').val(),
+                  previousHash = $(row).data('valuehash'),
+                  newHash = profileManager.hashValues(value);
+
+              // if something's changed, push the updated variable:
+              if(previousHash !== newHash) {
+                data.updatedVariables.push({
+                  variableName: $(row).data('variablename'),
+                  controlId: $(row).data('id'),
+                  value: $(row).find('.selection-method select').val() === 'all' ? null : $(row).find('.values select').val()
+                });
+              }
             });
 
             console.log('updating profile variables with: ', data);
 
-            profileManager.updateProfileVariables(data);
+            // only update if there's something to update:
+            if(data.updatedVariables.length) {
+              profileManager.updateProfileVariables(data);
+            }
 
             $('.jqmWindow').jqmHide();
           } else {
