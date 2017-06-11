@@ -20,9 +20,29 @@ define([/*'pubsub',
       });
     };
 
+    this.hashValues = function(values) {
+
+      if(!values){
+        return 0;
+      }
+
+      var str = _.sortBy(values).join('-');
+      var hash = 0, i, chr;
+      if (str.length === 0) {
+        return hash;
+      }
+
+      for (i = 0; i < str.length; i++) {
+        chr   = str.charCodeAt(i);
+        hash  = ((hash << 5) - hash) + chr; /* jshint ignore:line */
+        hash |= 0; /* jshint ignore:line */
+      }
+      return hash >>> 0; /* jshint ignore:line */
+    };
+
     this.getProfileVariableData = function(profileVariables) {
 
-      var profileDataItems = [];
+      var that = this, profileDataItems = [];
 
       // for each profile variable, get the possible and user saved values:
       var promises = _.flatten(_.map(profileVariables, function (profileVariable) {
@@ -41,27 +61,13 @@ define([/*'pubsub',
               description: _.findWhere(profileVariables[loop].controlProperties, { 'uid': 'description' }).value,
               id: profileVariables[loop].id,
               options: getOptions(res[loop * 2], res[(loop * 2) + 1]),
-              all: !res[(loop * 2) + 1]
+              all: !res[(loop * 2) + 1],
+              valueHash: that.hashValues(!res[(loop * 2) + 1] ? undefined : _.pluck(res[(loop * 2) + 1], 'value'))
             });
           }
           resolve(profileDataItems);
         });
       });
-    };
-
-    this.hashValues = function(values) {
-      var str = _.sortBy(values).join('-');
-      var hash = 0, i, chr;
-      if (str.length === 0) {
-        return hash;
-      }
-
-      for (i = 0; i < str.length; i++) {
-        chr   = str.charCodeAt(i);
-        hash  = ((hash << 5) - hash) + chr; /* jshint ignore:line */
-        hash |= 0; /* jshint ignore:line */
-      }
-      return hash >>> 0; /* jshint ignore:line */
     };
 
     this.updateProfileVariables = function(data) {

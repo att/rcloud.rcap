@@ -8,7 +8,7 @@
   </thead>
   <tbody>
     <% _.each(profileDataItems, function(o, i){ %>
-      <tr data-variablename="<%=o.name%>" data-id="<%=o.id%>">
+      <tr data-variablename="<%=o.name%>" data-id="<%=o.id%>" data-valuehash="<%=o.valueHash%>">
         <td><%=o.description%></td>
         <td class="selection-method">
           <select id="<%=o.id%>">
