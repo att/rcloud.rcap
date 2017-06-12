@@ -73,24 +73,6 @@ define([/*'pubsub',
     this.updateProfileVariables = function(data) {
       window.RCAP.updateControls(JSON.stringify(data));
     };
-
-    this.initialiseUserProfile = function(profileVariables) {
-      this.getProfileVariableData(profileVariables).then(function(profileData) {
-        // transform profileData to expected updateControls format:
-        var data = {
-          updatedVariables: _.map(profileData, function(dataItem) {
-            return {
-              controlId: dataItem.id,
-              variableName: dataItem.name,
-              value: dataItem.options.length ? _.pluck(_.where(dataItem.options, { selected: true}), 'value') : []
-            };
-          })
-        };
-
-        window.RCAP.updateControls(JSON.stringify(data));
-      });
-    };
-
   };
 
   return ProfileVariableManager;
