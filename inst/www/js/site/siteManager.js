@@ -11,6 +11,7 @@ define([
   var el = 'body';
   var rcapLogger = new RcapLogger();
   var assetManager = new AssetManager();
+  var profileManager = new ProfileVariableManager();
 
   // get the site:
   var getSite = function () {
@@ -99,6 +100,13 @@ define([
 
         if(!site.isDesignTime) {
           PubSub.publish(pubSubTable.gridSettingsUpdated, site.getSettings().getSettingValue('gridControlPadding'));
+
+          var profileVariables = getSite().getProfileVariables();
+          profileManager.isProfileVariableDataStale(profileVariables).then(function(staleDataExists) {
+            if(staleDataExists) {
+              PubSub.publish(pubSubTable.showViewerProfileDialog, profileVariables);
+            }
+          });
         }
       });
 
