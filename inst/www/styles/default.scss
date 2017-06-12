@@ -884,6 +884,21 @@
 
   min-width: 50%;
 
+  .warning {
+    font-size: 115%;
+    background: wheat;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+
+    .stale {
+      background-color: #e4e4e4;
+      border: 1px solid #aaa;
+      border-radius: 4px;
+      padding: 0 5px;
+    }
+  }
+
   td {
     padding: 5px 3px;
     border-bottom: 1px solid #cdcdcd;

@@ -2755,6 +2755,17 @@ table.dataTable td {
 
 #dialog-viewerProfileSettings {
   min-width: 50%; }
+  #dialog-viewerProfileSettings .warning {
+    font-size: 115%;
+    background: wheat;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc; }
+    #dialog-viewerProfileSettings .warning .stale {
+      background-color: #e4e4e4;
+      border: 1px solid #aaa;
+      border-radius: 4px;
+      padding: 0 5px; }
   #dialog-viewerProfileSettings td {
     padding: 5px 3px;
     border-bottom: 1px solid #cdcdcd;
