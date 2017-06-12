@@ -1,7 +1,4 @@
-define([/*'pubsub',
-  'site/pubSubTable',
-  'rcap/js/utils/rcapLogger'*/
-  'css!select2/css/select2.min.css'], function (/*PubSub, pubSubTable, RcapLogger*/) {
+define(['css!select2/css/select2.min.css'], function () {
 
   'use strict';
 
