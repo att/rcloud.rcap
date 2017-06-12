@@ -10,15 +10,23 @@ define(['css!select2/css/select2.min.css'], function () {
       });
     };
 
-    var getOptions = function(allValues, userValues) {
+    var getOptions = function(allValues, userValues, allStale) {
       // if there are no common values between allValues and userValues,
       // this is either a new setup for this variable, or the data is 'old'
       // and has changed so much that it's effectively a new setup:
       var commonValuesLength = _.intersection(_.pluck(allValues, 'value'), _.pluck(userValues, 'value')).length;
 
+      var getValue = function(item) {
+        if(allStale) {
+          return false;
+        } else {
+          return !commonValuesLength ? true : _.pluck(userValues, 'value').indexOf(item.value) !== -1;
+        }
+      };
+
       return _.map(allValues, function(item) { return {
           value: item.value,
-          selected: !commonValuesLength ? true : _.pluck(userValues, 'value').indexOf(item.value) !== -1
+          selected: getValue(item)
         };
       });
     };
@@ -64,7 +72,7 @@ define(['css!select2/css/select2.min.css'], function () {
             userValues = res[(loop * 2) + 1];
             staleValues = userValuesNotInAllValues(_.pluck(allValues, 'value'), _.pluck(userValues, 'value'));
             allStale = userValues && staleValues.length === userValues.length;
-            options = getOptions(allValues, userValues);
+            options = getOptions(allValues, userValues, allStale);
 
             profileDataItems.push({
               name: _.findWhere(profileVariables[loop].controlProperties, { 'uid': 'variablename' }).value,

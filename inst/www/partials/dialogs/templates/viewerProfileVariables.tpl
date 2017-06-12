@@ -32,7 +32,7 @@
         <td class="values">
           <div data-selectionmethod="all" <%= !o.all ? ' style="display:none"' : ''%>">All</div>
           <div data-selectionmethod="selected" <%= o.all ? ' style="display:none"' : ''%>>
-            <select data-parsley-variablevalidator="#<%=o.id%>" required multiple="multiple"<%= _.findWhere(o.options, { selected: true }).length === 0 ? ' style="display:none"' : ''%>>
+            <select data-parsley-variablevalidator="#<%=o.id%>" required multiple="multiple">
               <% _.each(o.options, function(option, i) { %>
                 <option value="<%=option.value%>" <%= option.selected ? ' selected="selected"' : ''%>><%=option.value%></option>
               <% }); %>
