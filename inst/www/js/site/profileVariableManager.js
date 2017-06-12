@@ -4,6 +4,12 @@ define(['css!select2/css/select2.min.css'], function () {
 
   var ProfileVariableManager = function() {
 
+    var userValuesNotInAllValues = function(allValues, userValues) {
+      return _.filter(userValues, function (value) {
+        return !_.contains(allValues, value);
+      });
+    };
+
     var getOptions = function(allValues, userValues) {
       // if there are no common values between allValues and userValues,
       // this is either a new setup for this variable, or the data is 'old'
@@ -50,16 +56,26 @@ define(['css!select2/css/select2.min.css'], function () {
       }));
 
       return new Promise(function(resolve) {
+        var allValues, userValues, staleValues, allStale;
         Promise.all(promises).then(function (res) {
           for (var loop = 0; loop < res.length / 2; loop++) {
+
+            allValues = res[loop * 2];
+            userValues = res[(loop * 2) + 1];
+            staleValues = userValuesNotInAllValues(_.pluck(allValues, 'value'), _.pluck(userValues, 'value'));
+            allStale = staleValues.length === userValues ? userValues.length : false;
+
+            console.log(staleValues);
+
             profileDataItems.push({
-              // name, all, user
               name: _.findWhere(profileVariables[loop].controlProperties, { 'uid': 'variablename' }).value,
               description: _.findWhere(profileVariables[loop].controlProperties, { 'uid': 'description' }).value,
               id: profileVariables[loop].id,
-              options: getOptions(res[loop * 2], res[(loop * 2) + 1]),
-              all: !res[(loop * 2) + 1],
-              valueHash: that.hashValues(!res[(loop * 2) + 1] ? undefined : _.pluck(res[(loop * 2) + 1], 'value'))
+              options: getOptions(allValues, userValues),
+              all: !userValues,
+              staleValues: staleValues,
+              allStale: allStale,
+              valueHash: allStale ? -1 : that.hashValues(!userValues ? undefined : _.pluck(userValues, 'value'))
             });
           }
           resolve(profileDataItems);

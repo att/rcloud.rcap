@@ -81,10 +81,17 @@ define([
       PubSub.subscribe(pubSubTable.showViewerProfileDialog, function (msg, profileVariables) {
 
         var initViewerProfileDialog = function(items) {
+
+          // are any values stale for any of the items?
+          var hasStaleItem = _.filter(items, function(item) {
+            return item.staleValues.length > 0;
+          }).length > 0;
+
           var template = _.template(viewerProfileVariablesTpl);
 
           var html = (template({
-            profileDataItems: items
+            profileDataItems: items,
+            hasStaleItem: hasStaleItem
           }));
 
           $('#dialog-viewerProfileSettings form').html(html);
