@@ -3,12 +3,9 @@
   <% _.each(profileDataItems, function(o, i){ %>
     <% if(o.staleValues.length) { %>
       <h4>
-
-      Your saved selection for variable <%=o.name%> <%= (o.allStale) ? ' has no valid values.' : ' has some values that are no longer valid.' %>
-
-      (<% _.each(o.staleValues, function(staleValue) { %>
+      Your saved selection (<% _.each(o.staleValues, function(staleValue) { %>
         <span class="stale"><%=staleValue%></span>
-      <% }); %>)
+      <% }); %>) for variable <%=o.name%> <%= (o.allStale) ? ' has no valid values.' : ' has some values that are no longer valid.' %>
       </h4>
     <% } %>
   <% }); %>

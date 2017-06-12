@@ -56,22 +56,21 @@ define(['css!select2/css/select2.min.css'], function () {
       }));
 
       return new Promise(function(resolve) {
-        var allValues, userValues, staleValues, allStale;
+        var allValues, userValues, staleValues, allStale, options;
         Promise.all(promises).then(function (res) {
           for (var loop = 0; loop < res.length / 2; loop++) {
 
             allValues = res[loop * 2];
             userValues = res[(loop * 2) + 1];
             staleValues = userValuesNotInAllValues(_.pluck(allValues, 'value'), _.pluck(userValues, 'value'));
-            allStale = staleValues.length === userValues ? userValues.length : false;
-
-            console.log(staleValues);
+            allStale = userValues && staleValues.length === userValues.length;
+            options = getOptions(allValues, userValues);
 
             profileDataItems.push({
               name: _.findWhere(profileVariables[loop].controlProperties, { 'uid': 'variablename' }).value,
               description: _.findWhere(profileVariables[loop].controlProperties, { 'uid': 'description' }).value,
               id: profileVariables[loop].id,
-              options: getOptions(allValues, userValues),
+              options: options,
               all: !userValues,
               staleValues: staleValues,
               allStale: allStale,
