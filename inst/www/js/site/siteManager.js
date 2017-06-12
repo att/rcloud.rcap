@@ -11,7 +11,6 @@ define([
   var el = 'body';
   var rcapLogger = new RcapLogger();
   var assetManager = new AssetManager();
-  var profileManager = new ProfileVariableManager();
 
   // get the site:
   var getSite = function () {
