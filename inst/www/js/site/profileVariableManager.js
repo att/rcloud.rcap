@@ -55,7 +55,7 @@ define(['css!select2/css/select2.min.css'], function () {
       var that = this;
       return new Promise(function(resolve) {
         that.getProfileVariableData(profileVariables).then(function(profileDataItems) {
-          resolve(_.filter(profileDataItems, function(di) { return di.staleValues && di.staleValues.length > 0; }).length > 0);
+          resolve(_.filter(profileDataItems, function(di) { return di.allStale; }).length > 0);
         });
       });
     };
