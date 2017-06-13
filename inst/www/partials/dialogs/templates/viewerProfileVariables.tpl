@@ -6,7 +6,7 @@
         <h4>
         Your saved selection (<% _.each(o.staleValues, function(staleValue) { %>
           <span class="stale"><%=staleValue%></span>
-        <% }); %>) for variable '<%=o.description%>' <%= (o.allStale) ? ' has no valid values.' : ' has some values that are no longer valid.' %>
+        <% }); %>) for variable '<%=o.description%>' <%= (o.allStale) ? ' was not found in the currently available values.' : ' has some values that are no longer current.' %>
         </h4>
       <% } %>
     <% }); %>

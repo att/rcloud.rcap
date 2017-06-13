@@ -24,11 +24,24 @@ define(['css!select2/css/select2.min.css'], function () {
         }
       };
 
-      return _.map(allValues, function(item) { return {
+      var values =  _.map(allValues, function(item) { return {
           value: item.value,
           selected: getValue(item)
         };
       });
+
+      // get the user values that aren't already in allValues (we need to show those too):
+      _.each(userValues, function(userValue) {
+        if(_.filter(allValues, function(av) { return av.value === userValue.value; }).length === 0) {
+          // this user value isn't in the 'allValues':
+          values.push({
+            value: userValue.value,
+            selected: true  // they selected it, so show it
+          });
+        }
+      });
+
+      return values;
     };
 
     this.hashValues = function(values) {
