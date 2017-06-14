@@ -64,7 +64,7 @@ define([
               }
             });
 
-            console.log('updating profile variables with: ', data);
+            //console.log('updating profile variables with: ', data);
 
             // only update if there's something to update:
             if(data.updatedVariables.length) {
