@@ -21,25 +21,24 @@ define([
 
       new DialogUtils().initialise();
 
-      // custom validation:
-      // window.Parsley.addValidator('selection', {
-
-      // });
-
-      window.ParsleyValidator.addValidator('variablevalidator',
-      function (value, requirement) {
-        if($(requirement).parsley().$element.val() === 'selected' && !value.length){
-          return false;
-        }
-      }, 32).addMessage('en', 'variablevalidator', 'You must select at least one variable value');
-
       ////////////////////////////////////////////////////////////////////////////////
       //
       // designer profile settings:
       //
       $('#dialog-viewerProfileSettings').on('change', '.selection-method select', function() {
-        $(this).closest('tr').find('[data-selectionmethod]').hide();
-        $(this).closest('tr').find('[data-selectionmethod="' + $(this).val() + '"]').show();
+        var tr = $(this).closest('tr');
+        tr.find('[data-selectionmethod]').hide();
+        tr.find('[data-selectionmethod="' + $(this).val() + '"]').show();
+
+        if($(this).val() === 'all') {
+          tr.find('select')
+            .removeAttr('data-parsley-required')
+            .parsley('destroy');
+        } else {
+          tr.find('select')
+            .attr('data-parsley-required', 'true')
+            .parsley();
+        }
       });
 
       $('#dialog-viewerProfileSettings .approve').on('click', function() {
@@ -95,6 +94,14 @@ define([
           }));
 
           $('#dialog-viewerProfileSettings form').html(html);
+
+          $('#dialog-viewerProfileSettings form tr').each(function(index, tr) {
+            if($(tr).find('div[data-selectionmethod="selected"]:visible')) {
+              $(tr).find('select')
+                .attr('data-parsley-required', 'true')
+                .parsley();
+            }
+          });
 
           $('#dialog-viewerProfileSettings tr > td:nth-child(3) select').select2({
             width: '600px',
