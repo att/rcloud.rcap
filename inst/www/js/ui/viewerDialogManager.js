@@ -31,11 +31,11 @@ define([
         tr.find('[data-selectionmethod="' + $(this).val() + '"]').show();
 
         if($(this).val() === 'all') {
-          tr.find('select')
+          tr.find('select[multiple]')
             .removeAttr('data-parsley-required')
             .parsley('destroy');
         } else {
-          tr.find('select')
+          tr.find('select[multiple]')
             .attr('data-parsley-required', 'true')
             .parsley();
         }
@@ -97,7 +97,7 @@ define([
 
           $('#dialog-viewerProfileSettings form tr').each(function(index, tr) {
             if($(tr).find('div[data-selectionmethod="selected"]:visible')) {
-              $(tr).find('select')
+              $(tr).find('select[multiple]')
                 .attr('data-parsley-required', 'true')
                 .parsley();
             }
