@@ -307,7 +307,11 @@ define(['rcap/js/ui/controls/gridControl',
 
                 var findByCaseInsensitiveValue = function(parent, inputValue) {
                     return parent.find('input').filter(function() {
-                        return $(this).attr('value').toLowerCase() === inputValue;
+                      if(inputValue !== null && inputValue !== undefined) {
+                        return $(this).attr('value').toLowerCase() === inputValue.toLowerCase();
+                      } else {
+                        return false;
+                      }
                     });
                 };
 
