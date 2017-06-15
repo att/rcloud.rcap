@@ -19,7 +19,7 @@
                     color: '<%=property.getValueOrDefault()%>',
                     showInput: true,
                     allowEmpty: true,
-                    appendTo: '#dialog-controlSettings',
+                    // appendTo: '#dialog-form-builder',// '#dialog-controlSettings',
                     preferredFormat: 'name'
                 });
             </script>
@@ -38,16 +38,16 @@
     		$("#<%=property.id%>").spectrum({
     		    showPalette: true,
     		    showSelectionPalette: true,
-                showAlpha: <%=property.showAlpha%>,
+            showAlpha: <%=property.showAlpha%>,
     		    palette: [],
-                chooseText: 'Select',
-                cancelText: 'Cancel',
-                localStorageKey: 'rcap',
-                color: '<%=property.getValueOrDefault()%>',
-                showInput: true,
-                allowEmpty: true,
-                appendTo: '#dialog-controlSettings',
-                preferredFormat: 'name'
+            chooseText: 'Select',
+            cancelText: 'Cancel',
+            localStorageKey: 'rcap',
+            color: '<%=property.getValueOrDefault()%>',
+            showInput: true,
+            allowEmpty: true,
+            // appendTo: '#dialog-form-builder', // '#dialog-controlSettings',
+            preferredFormat: 'name'
     		});
         </script>
     </div>
