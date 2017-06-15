@@ -307,9 +307,13 @@ define(['rcap/js/ui/controls/gridControl',
             }
           }
 
-          var findByCaseInsensitiveValue = function (parent, inputValue) {
-            return parent.find('input').filter(function () {
-              return $(this).attr('value').toLowerCase() === inputValue;
+          var findByCaseInsensitiveValue = function(parent, inputValue) {
+            return parent.find('input').filter(function() {
+              if(inputValue !== null && inputValue !== undefined) {
+                return $(this).attr('value').toLowerCase() === inputValue.toLowerCase();
+              } else {
+                return false;
+              }
             });
           };
 
@@ -337,7 +341,6 @@ define(['rcap/js/ui/controls/gridControl',
                   if (cbItem) {
                     cbItem.prop('checked', true);
                   }
-
                 });
               } else {
                 var cbItem = findByCaseInsensitiveValue($(e), value);
