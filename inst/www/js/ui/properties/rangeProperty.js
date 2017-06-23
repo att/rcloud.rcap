@@ -1,12 +1,12 @@
-define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/rangeControl.tpl',
+define(['rcap/js/ui/properties/baseProperty', 'text!templates/rangeControl.tpl',
     'ionrangeslider/js/ion.rangeSlider',
     'css!ionrangeslider/css/ion.rangeSlider.css',
-    'css!ionrangeslider/css/ion.rangeSlider.skinFlat.css'
-    ], function(BaseControlProperty, tpl) {
+    'css!ionrangeslider/css/ion.rangeSlider.skinHTML5.css'
+    ], function(BaseProperty, tpl) {
 
     'use strict';
 
-    var RangeControlProperty = BaseControlProperty.extend({
+    var RangeProperty = BaseProperty.extend({
         init: function(options) {
             options = options || {};
             this._super({
@@ -41,6 +41,6 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/ra
         }
     });
 
-    return RangeControlProperty;
+    return RangeProperty;
 
 });

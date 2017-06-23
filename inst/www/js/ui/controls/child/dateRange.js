@@ -1,7 +1,7 @@
-define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textControlProperty',
-    'rcap/js/ui/controls/properties/dropdownControlProperty',
-    'text!rcap/js/ui/controls/child/templates/dateRange.tpl'], function(BaseControl, TextControlProperty, DropdownControlProperty, tpl) {
-    
+define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/properties/textProperty',
+    'rcap/js/ui/properties/dropdownProperty',
+    'text!rcap/js/ui/controls/child/templates/dateRange.tpl'], function(BaseControl, TextProperty, DropdownProperty, tpl) {
+
     'use strict';
 
     var DatePickerControl = BaseControl.extend({
@@ -11,14 +11,14 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
                 label : 'Date Range',
                 icon: 'tags',
                 controlProperties: [
-                    new TextControlProperty({
+                    new TextProperty({
                         uid: 'label',
                         label : 'Label',
                         defaultValue : 'Label',
                         helpText : 'The label for this range control',
                         isHorizontal: false
                     }),
-                    new DropdownControlProperty({
+                    new DropdownProperty({
                         uid: 'intervalType',
                         label: 'Use interval',
                         helpText: 'If an interval type is specified, a start date plus interval will be shown rather than the start/end date',
@@ -38,7 +38,7 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
                         }],
                         isHorizontal: false
                     }),
-                    new TextControlProperty({
+                    new TextProperty({
                         uid: 'variablename',
                         label : 'Start/end date variable name',
                         defaultValue : 'variable',
@@ -50,7 +50,7 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
             });
         },
         singularInterval: function() {
-            var intervalType = this.getControlPropertyValue('intervalType');
+            var intervalType = this.getPropertyValue('intervalType');
             return intervalType ? intervalType.substring(0, intervalType.length - 1) : '';
         },
         render: function() {

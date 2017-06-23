@@ -4,11 +4,10 @@
     paths: {
         'rcap': 'app/inst/www',
         'controls': 'app/inst/www/js/ui/controls',
-        'templates': 'app/inst/www/js/ui/controls/properties/templates',
+        'templates': 'app/inst/www/js/ui/properties/templates',
         'pubsub': 'bower_components/pubsub-js/src/pubsub',
         'parsley': 'bower_components/parsleyjs/dist/parsley.min',
         'spectrum': 'bower_components/spectrum',
-        'wysiwyg': 'bower_components/wysiwyg.js/dist',
         'vendor': 'bower_components',
         'jquery': 'empty:'
     },

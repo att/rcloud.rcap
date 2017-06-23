@@ -1,5 +1,5 @@
-define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textControlProperty',
-	'rcap/js/ui/controls/properties/colorControlProperty', 'text!rcap/js/ui/controls/child/templates/datePicker.tpl'], function(BaseControl, TextControlProperty, ColorControlProperty, tpl) {
+define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/properties/textProperty',
+	'rcap/js/ui/properties/colorProperty', 'text!rcap/js/ui/controls/child/templates/datePicker.tpl'], function(BaseControl, TextProperty, ColorProperty, tpl) {
 	
 	'use strict';
 
@@ -10,14 +10,14 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
 				label : 'Date Picker',
 				icon: 'calendar',
 				controlProperties: [
-					new TextControlProperty({
+					new TextProperty({
 						uid: 'label',
 						label : 'Label',
 						defaultValue : 'Label',
 						helpText : 'The label for this control',
 						isHorizontal: false
 					}),
-					new TextControlProperty({
+					new TextProperty({
 						uid: 'variablename',
 						label : 'Variable name',
 						defaultValue : 'variable',

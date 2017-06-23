@@ -16,10 +16,12 @@
         <div class="menu" id="main-menu">
             <ul>
                 <li><a href="javascript:void(0)" data-flyoutid="pages"><i class="icon-file"></i><span>Pages</span><span class="count" style="display:none"></span></a></li>
-                <li><a href="javascript:void(0)" data-flyoutid="controls"><i class="icon-puzzle-piece"></i><span>Controls</span></a></li>                
+                <li><a href="javascript:void(0)" data-flyoutid="controls"><i class="icon-puzzle-piece"></i><span>Controls</span></a></li>
                 <li><a href="javascript:void(0)" data-flyoutid="datasources"><i class="icon-hdd"></i><span>Data Sources</span><span class="count" style="display:none"></span></a></li>
                 <li><a href="javascript:void(0)" data-flyoutid="timers"><i class="icon-time"></i><span>Timers</span><span class="count" style="display:none"></span></a></li>
-                <li><a href="javascript:void(0)" data-flyoutid="settings"><i class="icon-cog"></i><span>Settings</span></a></li>
+                <li><a href="javascript:void(0)" data-messageid="configureProfile"><i class="icon-user"></i><span>Profile Editor</span></a></li>
+                <li><a href="javascript:void(0)" data-messageid="editSiteSettings"><i class="icon-cog"></i><span>Settings</span></a></li>
+                <li><a href="javascript:void(0)" data-messageid="editTheme"><i class="icon-adjust"></i><span>Style Editor</span></a></li>
             </ul>
             <!-- <div id="rcap-userplaceholder" /> -->
         </div>
@@ -36,7 +38,7 @@
     <div class="menu-flyout" data-flyoutid="pages" style="display:none">
         <h4 id="page-header">Pages <a href="#" class="add" title="Add page"></a></h4>
         <a class="panel-close" href="#" title="close"><i class="icon-remove"></i></a>
-        <ol id="pages"></ol>
+        <div id="pages-tree"></div>
     </div>
     <div class="menu-flyout" data-flyoutid="controls" style="display:none">
         <h4>Controls</h4>
@@ -51,7 +53,7 @@
         <h4 id="timer-header">Timers <a href="#" class="add" title="Add Data Source"></a></h4>
         <a class="panel-close" href="#" title="close"><i class="icon-remove"></i></a>
         <ul id="timers"></ul>
-    </div>    
+    </div>
     <div class="menu-flyout" data-flyoutid="settings" style="display:none">
         <h4>Settings</h4>
         <a class="panel-close" href="#" title="close"><i class="icon-remove"></i></a>

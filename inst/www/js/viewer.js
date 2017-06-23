@@ -9,8 +9,10 @@ define(['text!rcap/partials/viewer.htm',
     'site/siteManager',
     'rcap/js/utils/rcapLogger',
     'rcap/js/utils/request',
-    'css!rcap/styles/default.css'
-], function(mainPartial, GridManager, ThemeManager, HistoryManager, PubSub, pubSubTable, ControlFactory, Serializer, SiteManager, RcapLogger, Request) {
+    'rcap/js/ui/viewerDialogManager',
+    'css!rcap/styles/default.css',
+    'css!quill/quill.snow.css'
+], function(mainPartial, GridManager, ThemeManager, HistoryManager, PubSub, pubSubTable, ControlFactory, Serializer, SiteManager, RcapLogger, Request, ViewerDialogManager) {
 
     'use strict';
 
@@ -22,7 +24,6 @@ define(['text!rcap/partials/viewer.htm',
 
         this.setup = function() {
 
-
             // TEMP
             // var ss = document.createElement('link');
             // ss.type = 'text/css';
@@ -31,10 +32,12 @@ define(['text!rcap/partials/viewer.htm',
             // document.getElementsByTagName('head')[0].appendChild(ss);
             // TEMP
 
-
             $('body')
                 .addClass('rcap-viewer')
                 .append(mainPartial);
+
+            // dialog manager:
+            new ViewerDialogManager().initialise();
 
             // theme manager:
             themeManager.initialise();
@@ -42,7 +45,7 @@ define(['text!rcap/partials/viewer.htm',
             // show the preloader whilst things are initialised:
             $('#rcap-preloader').show();
 
-            // site manager: 
+            // site manager:
             new SiteManager().initialise();
 
             // grid manager:
@@ -88,9 +91,9 @@ define(['text!rcap/partials/viewer.htm',
                                 'height' : plotSizeData.height
                             });
                     });
-                    
+
                     $('.rplot, .r-interactiveplot, .rhtmlwidget').each(function() {
-                        
+
                         var container = $(this).closest('.grid-stack-item-content');
                         var plotSizeData = getPlotSizeData($(this));
 
@@ -106,7 +109,7 @@ define(['text!rcap/partials/viewer.htm',
                     var dataToSubmit = JSON.stringify({
                         plotSizes : plotSizes
                     });
-                    
+
                     rcapLogger.log('%cJS%c → %cR%c: '  + dataToSubmit, 'color: black; background-color: yellow; font-weight: bold', 'color: black', 'font-weight: bold; color: blue; background-color: #eee', 'color: black');
                     window.RCAP.updateAllControls(dataToSubmit);
 
@@ -117,7 +120,7 @@ define(['text!rcap/partials/viewer.htm',
                     $('#rcap-preloader').fadeOut();
 
                 }, 500);
-                ///////////////////////////////////////////////////////                
+                ///////////////////////////////////////////////////////
 
             });
         };
@@ -146,7 +149,7 @@ define(['text!rcap/partials/viewer.htm',
                 'nodenameusername' : sessionInfo.nodeNameUserName,
                 'nodename' : sessionInfo.nodeName,
                 'user' : sessionInfo.user
-            }); 
+            });
 
             // and pub:
             PubSub.publish(pubSubTable.deserialize, {

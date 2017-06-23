@@ -9,12 +9,15 @@ define([
     'rcap/js/ui/gridManager',
     'rcap/js/ui/themeManager',
     'rcap/js/assetManager',
+    'rcap/js/profileManager',
     'site/siteManager',
     'pubsub',
     'site/pubSubTable',
     'text!rcap/partials/designer.htm',
-    'css!rcap/styles/default.css'
-], function(rcloud, Serializer, MenuManager, InfoBarManager, DialogManager, MessageManager, DirtyStateIndicator, GridManager, ThemeManager, AssetManager, SiteManager, PubSub, pubSubTable, mainPartial) {
+    'css!rcap/styles/default.css',
+    'css!quill/quill.snow.css'
+], function(rcloud, Serializer, MenuManager, InfoBarManager, DialogManager, MessageManager, DirtyStateIndicator, GridManager,
+    ThemeManager, AssetManager, ProfileManager, SiteManager, PubSub, pubSubTable, mainPartial) {
 
     'use strict';
 
@@ -56,17 +59,16 @@ define([
         $('#rcap-view').click(function() {
             window.open(rcloud.getRcapViewUrl());
         });
-            
+
         // theme manager:
         themeManager.initialise();
 
-        // site manager: 
+        // site manager:
         new SiteManager().initialise();
 
         // menu manager:
         new MenuManager().initialise()
-            .initialiseControlsMenu()
-            .initialiseSettingsMenu();
+            .initialiseControlsMenu();
 
         // info bar manager:
         new InfoBarManager().initialise();
@@ -88,6 +90,9 @@ define([
 
         // asset manager:
         new AssetManager().initialise();
+
+        // profile manager:
+        new ProfileManager().initialise();
 
         /*
         $.getJSON('https://api.github.com/users/' + rcloud.getLoggedInUser(), function(data) {
@@ -127,9 +132,9 @@ define([
             PubSub.subscribe(pubSubTable.gridInitComplete, function() {
 
                 $('#inner-stage').css({
-                    'width': (screen.width - 140).toString() + 'px',
-                    'margin-top': '40px',
-                    'margin-bottom': '40px',
+                    'width': (screen.availWidth - 100).toString() + 'px',
+                    'margin-top': '20px',
+                    'margin-bottom': '20px',
                     'margin-left': 'auto',
                     'margin-right': 'auto'
                 });

@@ -11,13 +11,13 @@
             'ui': '../../shared.R/rcloud.rcap/js/ui',
             'utils': '../../shared.R/rcloud.rcap/js/utils',
             'controls': '../../shared.R/rcloud.rcap/js/ui/controls',
-            'templates': '../../shared.R/rcloud.rcap/js/ui/controls/properties/templates',
+            'templates': '../../shared.R/rcloud.rcap/js/ui/properties/templates',
             'controlTemplates': '../../shared.R/rcloud.rcap/js/ui/controls/templates',
             'pubsub': '../../shared.R/rcloud.rcap/bower_components/pubsub-js/src/pubsub',
             'parsley': '../../shared.R/rcloud.rcap/bower_components/parsleyjs/dist/parsley.min',
             'spectrum': '../../shared.R/rcloud.rcap/bower_components/spectrum',
             'select2': '../../shared.R/rcloud.rcap/bower_components/select2/dist',
-            'wysiwyg': '../../shared.R/rcloud.rcap/bower_components/wysiwyg.js/dist',
+            'quill': '../../shared.R/rcloud.rcap/js/vendor/quill',
             'ionrangeslider': '../../shared.R/rcloud.rcap/bower_components/ionrangeslider',
             'datatables': '../../shared.R/rcloud.rcap/bower_components/datatables.net/js',
             'datatablesbuttons': '../../shared.R/rcloud.rcap/bower_components/datatables.net-buttons/js',
@@ -43,17 +43,30 @@
             nodeNameUserName: sessionInfo.user[0] + '@' + sessionInfo.nodename[0]
         };
     };
+    var getURLParameter = function(name) {
+        return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,''])[1].replace(/\+/g, '%20'))||null; // jshint ignore:line
+    };
+    var getNotebook = function() {
+        return getURLParameter('notebook');
+    };
+    var userProfileKey = function(variable) {
+        var varname = variable;
+        if(variable === null || variable === undefined) {
+            varname = '';
+        }
+        return 'rcap.notebook.' + getNotebook() + '.userProfile.' + varname;
+    };
 
     return {
         init: function(ocaps, sessionInfo, k) {
-
             if (RCloud.UI.advanced_menu.add) {  // jshint ignore:line
 
                 var po = RCloud.promisify_paths(ocaps, [  // jshint ignore:line
                     ['getRFunctions'],
                     ['getDummyFunctions'],
                     ['getRTime'],    // not currently used
-                    ['getRCAPVersion']
+                    ['getRCAPVersion'],
+                    ['getRCAPStyles'],
                 ], true);
 
                 RCloud.UI.advanced_menu.add({ // jshint ignore:line
@@ -63,13 +76,18 @@
                         modes: ['edit'],
                         action: function() {
 
+                          if(window.shell.notebook.model.read_only()) { // jshint ignore:line
+                            alert('RCAP cannot be used with read-only notebooks.');
+                            return;
+                          }
+
                             po.getRFunctions().then(function(res) {
                                 window.RCAP = window.RCAP || {};
                                 window.RCAP.getRFunctions = function() {
                                     if(typeof res === 'string') {
                                       return [res];
                                     }
-                                    
+
                                     return res;
                                 };
                             });
@@ -82,6 +100,18 @@
                             po.getRCAPVersion().then(function(version) {
                                 window.RCAP.getRCAPVersion = function() {
                                     return version;
+                                };
+                            });
+
+                            po.getRCAPStyles().then(function(styles) {
+                                window.RCAP.getRCAPStyles = function() {
+                                    return _.map(styles, function(style) {
+                                        return {
+                                            package: style[0],
+                                            title: style[1],
+                                            description: style[2]
+                                        };
+                                    });
                                 };
                             });
 
@@ -99,12 +129,17 @@
                     }
                 });
 
+                window.RCAP = window.RCAP || {};
+                window.RCAP.userProfileKey = userProfileKey;
             } else {
 
                 // this code is executed in 'mini' mode:
                 var mini = RCloud.promisify_paths(ocaps, [  // jshint ignore:line
                         ['updateControls'],    // updateControls (called when a form value changes, or a form is submitted)
-                        ['updateAllControls']  // kicks off R plot rendering
+                        ['updateAllControls'],  // kicks off R plot rendering
+                        ['getRCAPStyles'],
+                        ['getUserProfileVariableValues'],
+                        ['getUserProfileValue']
                     ], true);
 
                 window.RCAP = window.RCAP || {};
@@ -113,6 +148,31 @@
                 };
                 window.RCAP.updateAllControls = function(dataToSubmit) {
                     mini.updateAllControls(dataToSubmit).then(function() {});
+                };
+                window.RCAP.userProfileKey = userProfileKey;
+                window.RCAP.getUserProfileVariableValues = function(variableName) {
+                    return mini.getUserProfileVariableValues(variableName).then(function(variables) {
+                      if(typeof(variables) === 'object') {
+                         return _.map(variables, function(variable) {
+                              return {
+                                  value: variable
+                              };
+                        });
+                      } else {
+                        return [ {value : variables} ];
+                        }
+                    });
+                };
+                window.RCAP.getUserProfileValue = function(variable) {
+                      if (typeof(Storage) !== 'undefined') {
+                          var key = window.RCAP.userProfileKey(variable);
+                          var val = localStorage.getItem(key);
+                          if(val === null) {
+                            return Promise.resolve(null);
+                          }
+                          return Promise.resolve(JSON.parse(val));
+                      }
+                      return Promise.resolve(null);
                 };
             }
 
@@ -149,7 +209,7 @@
                 $('[data-variablename="' + variableName + '"]').each(function() {
                     require(['controls/form'], function(FormControl) {
                         new FormControl().updateControls(variableName, value, allValues);
-                    });                    
+                    });
                 });
             }
 
@@ -174,9 +234,60 @@
                 require(['controls/rText'], function(RTextControl) {
                     new RTextControl().updateData(controlId, data);
                 });
-            } 
+            }
 
             k();
+        },
+
+        getUserProfileValue: function(variable, k) {
+          var result = null;
+          if (typeof(Storage) !== 'undefined') {
+              var key = window.RCAP.userProfileKey(variable);
+              result = localStorage.getItem(key);
+              if( result !== null ) {
+                 result = JSON.stringify(_.map(JSON.parse(result), function(val) {
+                          return val.value;
+                    }));
+              }
+          }
+          k(result); // JSON representation of array on NULL
+        },
+
+        setUserProfileValue: function(variable, values, k) {
+          if (typeof(Storage) !== 'undefined') {
+            var key = window.RCAP.userProfileKey(variable);
+            if(values === null) {
+              localStorage.removeItem(key);
+            } else {
+              var newValue = null;
+              if(typeof(values) === 'object') {
+                  newValue = _.map(values, function(val) {
+                          return {
+                              value: val
+                          };
+                    });
+              } else {
+                  newValue = [ {value : values} ];
+              }
+              localStorage.setItem(key, JSON.stringify(newValue));
+            }
+          }
+          k();
+        },
+
+        listUserProfileVariables : function(k) {
+          var res = null;
+          if (typeof(Storage) !== 'undefined') {
+            var result = [];
+            var userProfileKey = window.RCAP.userProfileKey(null);
+            for(var key in localStorage) {
+              if(key.startsWith(userProfileKey)) {
+                result.push(key.replace(userProfileKey, ''));
+              }
+            }
+            res = JSON.stringify(result);
+          }
+          k(res);
         },
 
         consoleMsg: function(content, k) {

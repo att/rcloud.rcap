@@ -1,7 +1,7 @@
 $jqmColor: #3e3e3e;
 $borderColor: #cdcdcd;
 
-.jqmwindow {
+.jqmWindow {
 	padding: 0;
 	right: 10px!important;
 	top: 10px!important;
@@ -11,6 +11,10 @@ $borderColor: #cdcdcd;
 	& .label {
 		padding-top: 6px;
 	}
+
+  & label {
+    padding-top: 9px;
+  }
 
 	& .header, & .body {
 		padding: 15px;
@@ -51,7 +55,7 @@ $borderColor: #cdcdcd;
 	}
 
 	& .row {
-		margin-bottom: 10px;	
+		margin-bottom: 10px;
 	}
 
 	& .jqm-footer {

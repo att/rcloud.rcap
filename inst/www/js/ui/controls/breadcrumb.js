@@ -1,11 +1,11 @@
 define(['rcap/js/ui/controls/gridControl',
-        'rcap/js/ui/controls/properties/textControlProperty',
-        'rcap/js/ui/controls/properties/colorControlProperty',
+        'rcap/js/ui/properties/textProperty',
+        'rcap/js/ui/properties/colorProperty',
         'pubsub',
         'site/pubSubTable',
         'rcap/js/utils/pageWalker'
     ],
-    function(GridControl, TextControlProperty, ColorControlProperty, PubSub, pubSubTable, PageWalker) {
+    function(GridControl, TextProperty, ColorProperty, PubSub, pubSubTable, PageWalker) {
 
         'use strict';
 
@@ -15,7 +15,7 @@ define(['rcap/js/ui/controls/gridControl',
                 var items = new PageWalker(control.pages).getAncestorsAndSelf(control.currentPageID);
 
                 // publish the required event if required; if render method has been called
-                // directly, let its caller handle the returned markup, otherwise fire the 
+                // directly, let its caller handle the returned markup, otherwise fire the
                 // event:
                 if (publishEvent) {
                     // this 'updateControl' is for visual invalidation only;
@@ -44,26 +44,26 @@ define(['rcap/js/ui/controls/gridControl',
                     label: 'Breadcrumb',
                     icon: 'ellipsis-horizontal',
                     controlProperties: [
-                        new TextControlProperty({
+                        new TextProperty({
                             uid: 'textPrefix',
                             label: 'Prefix',
                             defaultValue: 'You are here: ',
                             helpText: 'A helpful text prefix for the breadcrumb',
                             isRequired: false
                         }),
-                        new ColorControlProperty({
+                        new ColorProperty({
                             uid: 'linkColor',
                             label: 'Link color',
                             helpText: '',
                             defaultValue: '#336699'
                         }),
-                        new ColorControlProperty({
+                        new ColorProperty({
                             uid: 'separatorColor',
                             label: 'Separator color',
                             helpText: '',
                             defaultValue: '#666666'
                         }),
-                        new ColorControlProperty({
+                        new ColorProperty({
                             uid: 'currentPageColor',
                             label: 'Current page color',
                             helpText: '',
@@ -139,6 +139,34 @@ define(['rcap/js/ui/controls/gridControl',
                         me.currentPageID = pageObj.id;
 
                         renderControl(me, true);
+                    }
+
+                });
+
+                //////////////////////////////////////////////////////////////////////////////////////////
+                //
+                //
+                //
+                PubSub.subscribe(pubSubTable.pageMoved, function(/*msg, movedPageDetails*/) {
+
+/*
+                    if (me.isOnGrid) {
+
+                        // update the page's details:
+                        var page = _.findWhere(me.pages, {
+                            id: pageObj.id
+                        });
+
+                        page.navigationTitle = pageObj.navigationTitle;
+                        page.isEnabled = pageObj.isEnabled;
+
+                        me.currentPageID = pageObj.id;
+
+                        renderControl(me, true);
+                    }
+*/
+                    if(me.isOnGrid) {
+                      renderControl(me, true);
                     }
 
                 });

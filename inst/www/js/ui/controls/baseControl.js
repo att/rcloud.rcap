@@ -1,4 +1,4 @@
-define(['rcap/js/Class'], function() {
+define(['rcap/js/ui/properties/textProperty', 'rcap/js/Class'], function(TextProperty) {
 
     'use strict';
 
@@ -16,6 +16,16 @@ define(['rcap/js/Class'], function() {
             this.controlProperties = options.controlProperties;
             // generate a random ID:
             this.id = generateId();
+
+            this.styleProperties = [
+                new TextProperty({
+                    uid: 'cssclass',
+                    label : 'CSS Class',
+                    defaultValue : '',
+                    helpText : 'Additional CSS class to be applied to this control. Will be prefixed with rcap-custom- to prevent collisions.',
+                    isRequired: false
+                })
+            ];
         },
         regenerateId: function() {
             this.id = generateId();
@@ -43,17 +53,41 @@ define(['rcap/js/Class'], function() {
 
             return html;
         },
+        getStyleDialogMarkup: function() {
+            // general style information controls:
+
+            var markup = '<div class="style-details"><h3><i class="icon-adjust"></i>Styling</h3>';
+
+            _.each(this.styleProperties, function(prop, index) {
+                markup += prop.render(index);
+            });
+
+            markup += '<div style="clear:both" /></div>';
+
+            return markup;
+        },
         getDialogValue: function() {
             return '';
         },
         toJSON: function() {
-            return {
+            var res = {
                 'type': this.type,
                 'id': this.id,
                 'controlProperties': this.controlProperties
             };
+
+            if(this.styleProperties && this.styleProperties.length) {
+              res.styleProperties = this.styleProperties;
+            }
+
+            return res;
         },
-        getControlPropertyValue: function(uid) {
+        getCssClass: function() {
+            var cssClass = this.getStylePropertyValueOrDefault('cssclass');
+
+            return cssClass.length > 0 ? 'rcap-custom-' + cssClass : undefined;
+        },
+        getPropertyValue: function(uid) {
 
             var prop = _.findWhere(this.controlProperties, {
                 'uid': uid
@@ -66,9 +100,9 @@ define(['rcap/js/Class'], function() {
             }
 
         },
-        getControlPropertyValueOrDefault: function(uid) {
+        getPropertyValueOrDefault: function(uid) {
 
-            var propValue = this.getControlPropertyValue(uid);
+            var propValue = this.getPropertyValue(uid);
 
             if (propValue !== undefined && propValue.length > 0) {
                 return propValue;

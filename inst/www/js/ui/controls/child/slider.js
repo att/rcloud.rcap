@@ -1,10 +1,10 @@
 define([
-    'rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textControlProperty',
+    'rcap/js/ui/controls/baseControl', 'rcap/js/ui/properties/textProperty',
     'text!rcap/js/ui/controls/child/templates/slider.tpl',
     'ionrangeslider/js/ion.rangeSlider',
     'css!ionrangeslider/css/ion.rangeSlider.css',
-    'css!ionrangeslider/css/ion.rangeSlider.skinFlat.css'
-], function(BaseControl, TextControlProperty, tpl) {
+    'css!ionrangeslider/css/ion.rangeSlider.skinHTML5.css'
+], function(BaseControl, TextProperty, tpl) {
 
     'use strict';
 
@@ -15,14 +15,14 @@ define([
                 label: 'Slider',
                 icon: 'sort-up',
                 controlProperties: [
-                    new TextControlProperty({
+                    new TextProperty({
                         uid: 'label',
                         label: 'Label',
                         defaultValue: 'Label',
                         helpText: 'The label for this control',
                         isHorizontal: false
                     }),
-                    new TextControlProperty({
+                    new TextProperty({
                         uid: 'variablename',
                         label: 'Variable name',
                         defaultValue: 'variable',
@@ -30,7 +30,7 @@ define([
                         isRequired: true,
                         isHorizontal: false
                     }),
-                    new TextControlProperty({
+                    new TextProperty({
                         uid: 'value',
                         label: 'The value for the control',
                         defaultValue: '5',
@@ -38,7 +38,7 @@ define([
                         isRequired: true,
                         isHorizontal: false
                     }),
-                    new TextControlProperty({
+                    new TextProperty({
                         uid: 'min',
                         label: 'Minimum',
                         defaultValue: '1',
@@ -46,7 +46,7 @@ define([
                         isRequired: true,
                         isHorizontal: false
                     }),
-                    new TextControlProperty({
+                    new TextProperty({
                         uid: 'max',
                         label: 'Maximum',
                         defaultValue: '10',
@@ -54,7 +54,7 @@ define([
                         isRequired: true,
                         isHorizontal: false
                     }),
-                    new TextControlProperty({
+                    new TextProperty({
                         uid: 'step',
                         label: 'Increment',
                         defaultValue: '1',

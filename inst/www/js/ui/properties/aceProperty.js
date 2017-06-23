@@ -1,8 +1,8 @@
-define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/ace.tpl'], function(BaseControlProperty, tpl) {
+define(['rcap/js/ui/properties/baseProperty', 'text!templates/ace.tpl'], function(BaseProperty, tpl) {
 
     'use strict';
 
-    var AceControlProperty = BaseControlProperty.extend({
+    var AceProperty = BaseProperty.extend({
         init: function(options) {
             options = options || {};
             this._super({
@@ -30,10 +30,10 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/ac
         getDialogValue: function() {
             //return $('#' + this.id).val();
 
-            return 'aceControlProperty.js TODO';
+            return 'AceProperty.js TODO';
         }
     });
 
-    return AceControlProperty;
+    return AceProperty;
 
 });

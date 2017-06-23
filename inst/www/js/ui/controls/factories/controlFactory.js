@@ -13,6 +13,7 @@ define([
     'controls/leaflet',
     'controls/htmlWidget',
     'controls/actionButton',
+    'controls/profileConfigurator',
     //////////////////////
     'controls/child/textField',
     'controls/child/datePicker',
@@ -26,20 +27,21 @@ define([
     'controls/child/slider',
     'controls/child/submitButton',
 
-], function(IFrameControl, 
-    ImageControl, 
-    RTextControl, 
-    RPlotControl, 
+], function(IFrameControl,
+    ImageControl,
+    RTextControl,
+    RPlotControl,
     RPrintControl,
-    TextControl, 
-    PageMenuControl, 
-    BreadcrumbControl, 
-    InteractivePlotControl, 
-    FormControl, 
+    TextControl,
+    PageMenuControl,
+    BreadcrumbControl,
+    InteractivePlotControl,
+    FormControl,
     DataTableControl,
     LeafletControl,
     HtmlWidgetControl,
     ActionButtonControl,
+    ProfileConfiguratorControl,
     ///////////////////////
     TextFieldControl,
     DatePickerControl,
@@ -70,7 +72,8 @@ define([
             new PageMenuControl(),
             new BreadcrumbControl(),
             new TextControl(),
-            new ActionButtonControl()
+            new ActionButtonControl(),
+            new ProfileConfiguratorControl(),
         ];
 
         this.childControls = [
@@ -93,7 +96,7 @@ define([
     };
 
     ControlFactory.prototype.getGridControlsByCategory = function() {
-        
+
         // with rudimentary category sort:
         return _
             .chain(this.gridControls)
@@ -142,7 +145,7 @@ define([
             case 'leaflet':
                 control = new LeafletControl();
                 break;
-            case 'htmlwidget': 
+            case 'htmlwidget':
                 control = new HtmlWidgetControl();
                 break;
             case 'text':
@@ -157,8 +160,11 @@ define([
             case 'form':
                 control = new FormControl();
                 break;
-            case 'actionbutton': 
+            case 'actionbutton':
                 control = new ActionButtonControl();
+                break;
+            case 'profileconfigurator':
+                control = new ProfileConfiguratorControl();
                 break;
             default:
                 control = undefined;
@@ -173,7 +179,7 @@ define([
         var control;
 
         switch (key) {
-            case 'textfield': 
+            case 'textfield':
                 control = new TextFieldControl();
                 break;
             case 'datepicker':
@@ -203,7 +209,7 @@ define([
             case 'submitbutton':
                 control = new SubmitButtonControl();
                 break;
-            case 'slider': 
+            case 'slider':
                 control = new SliderControl();
                 break;
             default:

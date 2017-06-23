@@ -8,14 +8,16 @@ define([
 
     'use strict';
 
-    var rcapLogger = new RcapLogger();
+    var rcapLogger = new RcapLogger(),
+        rootElement = '#inner-stage';
 
     var GridManager = function() {
 
     };
 
-    var getDesignTimeControlOuterMarkup = function(control) {
-        return $('<div data-controlid="' + control.id + '"></div>').append(getDesignTimeControlInnerMarkup(control));
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    var getVisibleGrid = function() {
+        return $('.grid-stack:visible').data('gridstack');
     };
 
     var getDesignTimeControlInnerMarkup = function(control) {
@@ -39,11 +41,15 @@ define([
         }
 
         // append button (and icon if the state is not valid):
-        outer.append('<p style="margin-bottom:0">' +
+        outer.append('<p style="margin-bottom:0;" class="configure-cog">' +
             (control.isValid() ? '' : '<i class="config-icon icon-' + control.icon + '"></i>') +
             '<button type="button" class="btn btn-primary btn-configure"><i class="icon-cog"></i></button></p>');
 
         return outer;
+    };
+
+    var getDesignTimeControlOuterMarkup = function(control) {
+        return $('<div data-controlid="' + control.id + '"></div>').append(getDesignTimeControlInnerMarkup(control));
     };
 
     var getViewerControlMarkup = function(control) {
@@ -65,7 +71,6 @@ define([
 
         options = options || {};
         var selector = '.grid-stack[data-pageid="' + page.id + '"]',
-            rootElement = '#inner-stage',
             gridstackOptions = {};
 
         if (options.isDesignTime === undefined) {
@@ -85,16 +90,18 @@ define([
         gridstackOptions.float = options.float || true;
         gridstackOptions.min_height_cellcount = options.minHeightCellcount || 48; // jshint ignore:line
         gridstackOptions.cell_height = options.cellHeight || 40; // jshint ignore:line
-        gridstackOptions.vertical_margin = options.verticalMargin || 20; // jshint ignore:line
+        gridstackOptions.vertical_margin = options.verticalMargin || 0; // jshint ignore:line
+        gridstackOptions.margin = _.isUndefined(options.margin) ? 10 : options.margin;
         gridstackOptions.static_grid = options.staticGrid || true; // jshint ignore:line
         gridstackOptions.height = options.height || 48;   // 0 -> no maximum rows
+        gridstackOptions.pageClass = options.pageClass;
 
-        var gridStackRoot = $('<div class="grid-stack" ' + 
+        var gridStackRoot = $('<div class="grid-stack" ' +
             'data-user="' + $('body').data('user') +
-            '" data-nodename="' + $('body').data('nodename') + 
-            '" data-nodenameusername="' + $('body').data('nodenameusername') + 
-            '" data-pageid="' + page.id + 
-            '" data-gs-height="' + (options.minHeight || 12) + 
+            '" data-nodename="' + $('body').data('nodename') +
+            '" data-nodenameusername="' + $('body').data('nodenameusername') +
+            '" data-pageid="' + page.id +
+            '" data-gs-height="' + (options.minHeight || 12) +
             '" data-gs-width="24"></div>');
 
         if (options.isGlobalPageItem) { // header or footer
@@ -103,6 +110,11 @@ define([
 
         if (!options.isDesignTime) {
             gridStackRoot.addClass('grid-stack-readonly');
+        }
+
+        //
+        if(gridstackOptions.pageClass) {
+            gridStackRoot.addClass(gridstackOptions.pageClass);
         }
 
         $(rootElement).append(gridStackRoot);
@@ -214,15 +226,40 @@ define([
 
         });
 
-        // has now been initialised, so any further changes to the grid's 
+        // has now been initialised, so any further changes to the grid's
         // items will result in a publish of a 'changed' event:
         $selector.addClass('initialised');
 
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    var getVisibleGrid = function() {
-        return $('.grid-stack:visible').data('gridstack');
+    var updateGridSizeMetrics = function(padding) {
+
+        rcapLogger.info('gridManager: grid size metrics updated: ', padding);
+
+        var styleId = 'grid-metrics',
+            styleElement = $('#' + styleId),
+            styleInfo = '';
+
+        var opts = opts || {};
+        opts.controlPadding = _.isUndefined(padding) ? 20 : padding;
+
+        ['top', 'right', 'bottom', 'left'].forEach(function(side) {
+            styleInfo += '.grid-stack .grid-stack-placeholder > .placeholder-content { ' + side + ': ' + (opts.controlPadding / 2) + 'px; }';
+            styleInfo += '.grid-stack > .grid-stack-item > .grid-stack-item-content { ' + side + ': ' + (opts.controlPadding / 2) + 'px; }';
+        });
+
+        // resize:
+        styleInfo += '.grid-stack > .grid-stack-item > .ui-resizable-se { bottom: ' + (opts.controlPadding / 2) + 'px;' + 'right: ' + (opts.controlPadding / 2) + 'px; }';
+
+        // remove
+        styleInfo += '.grid-stack > .grid-stack-item > .ui-remove { top: ' + (opts.controlPadding / 2) + 'px;' + 'right: ' + (opts.controlPadding / 2) + 'px; }';
+
+        if($(styleElement).length) {
+            $(styleElement).text(styleInfo);
+        } else {
+            $('<style />').attr('id', styleId).text(styleInfo).appendTo('head');
+        }
     };
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -252,7 +289,7 @@ define([
 
                     // fire off an event:
                     PubSub.publish(pubSubTable.startControlDrag);
-                    
+
                     var control = controlFactory.getByKey($(this).data('type'));
 
                     getVisibleGrid().init_placeholder(control.initialWidth(), control.initialHeight()); // jshint ignore:line
@@ -270,6 +307,51 @@ define([
                 },
                 helper: function() {
                     return $('<div style="background-color: #ddd; width: 75px; height: 75px;"></div>');
+                }
+            });
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //
+            // grid should shrink when settings flyout is shown:
+            //
+            PubSub.subscribe(pubSubTable.flyoutActivated, function(msg, flyoutSettings) {
+                if(flyoutSettings.id === 'settings') {
+                    var shift = flyoutSettings.width - 20;
+                    $('#rcap-stage').css('overflow-x', 'hidden');
+
+                    if(shift > $('#inner-stage').position().left) {
+                        $(rootElement).animate({
+                            marginLeft: '+=' + shift
+                        }, 500, function() {
+                            $(rootElement).data('shiftby', shift);
+                        });
+                    }
+                }
+            });
+
+            PubSub.subscribe(pubSubTable.flyoutClosed, function(msg, flyoutSettings) {
+
+                if(flyoutSettings.id === 'settings') {
+
+                    var shiftBy = $(rootElement).data('shiftby');
+
+                    if(shiftBy) {
+                        $(rootElement).animate({
+                            marginLeft: '-=' + shiftBy
+                        }, 500, function() {
+
+                            $(rootElement).removeData('shiftBy');
+
+                            $(rootElement).css({
+                                'margin-left': 'auto',
+                                'margin-right': 'auto'
+                            });
+
+                            $('#rcap-stage').css('overflow-x', 'auto');
+                        });
+                    } else {
+                        $('#rcap-stage').css('overflow-x', 'auto');
+                    }
                 }
             });
 
@@ -301,7 +383,7 @@ define([
             // PubSub.subscribe(pubSubTable.updatePage, function(msg, pageData) {
             //     $('.grid-stack[data-pageid="' + pageData.id + '"]').css('background-color', _.findWhere(pageData.styleProperties, { uid : 'backgroundColor' }).value);
             // });
-            
+
             /////////////////////////////////////////////////////////////////////////////////////////////////////////
             PubSub.subscribe(pubSubTable.pageAdded, function(msg, pageData) {
 
@@ -343,6 +425,14 @@ define([
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //
+        // grid settings updated
+        //
+        PubSub.subscribe(pubSubTable.gridSettingsUpdated, function(msg, padding) {
+            updateGridSizeMetrics(padding);
+        });
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //
         // update grid control after dialog update
         //
         PubSub.subscribe(pubSubTable.updateControl, function(msg, control) {
@@ -366,7 +456,7 @@ define([
 
             } else {
 
-                // update the control's data: 
+                // update the control's data:
                 var gridItem = $('.grid-stack-item[data-controlid="' + control.id + '"] .grid-stack-item-content');
 
                 // and get the new markup:
@@ -408,16 +498,32 @@ define([
             }
         });
 
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
         PubSub.subscribe(pubSubTable.initSite, function(msg, site) {
 
             rcapLogger.log('gridManager: pubSubTable.initSite');
+
+            // initialise the grid size metrics:
+            updateGridSizeMetrics(site.gridOptions);
+
+            // extract the settings:
+            var settings = site.settings.extract(),
+                getViewerPageHeight = function(page) {
+                  var height = 0;
+                  _.each(page.controls, function(control) {
+                    if((control.y + control.height) > height) {
+                      height = control.y + control.height;
+                    }
+                  });
+                  return height;
+                };
 
             // each page has its own grid:
             _.each(site.pages, function(page) {
                 addGrid(page, {
                     isDesignTime: site.isDesignTime,
-                    height: 48
+                    height: site.isDesignTime ? 48 : getViewerPageHeight(page),
+                    pageClass: settings.pageClass
                 });
             });
 
@@ -461,8 +567,24 @@ define([
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //
+        // settings
+        //
+        PubSub.subscribe(pubSubTable.updatePageClassSetting, function(msg, settings) {
+            // remove old, if any
+            // add new, if any
+            if(settings.previous) {
+                $('.grid-stack').removeClass(settings.previous);
+            }
+
+            if(settings.new) {
+                $('.grid-stack').addClass(settings.new);
+            }
+        });
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //
         // close
-        //  
+        //
         PubSub.subscribe(pubSubTable.close, function() {
             rcapLogger.info('gridManager: pubSubTable.close');
             $('#no-items').appendTo('#inner-stage');
@@ -472,7 +594,7 @@ define([
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //
         // close viewer
-        //  
+        //
         PubSub.subscribe(pubSubTable.closeViewer, function() {
             rcapLogger.info('gridManager: pubSubTable.closeViewer');
             $('#inner-stage .grid-stack').remove();

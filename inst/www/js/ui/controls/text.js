@@ -1,7 +1,7 @@
-define(['rcap/js/ui/controls/gridControl', 
-	'rcap/js/ui/controls/properties/textControlProperty',
-	'rcap/js/ui/controls/properties/wysiwygControlProperty'], function(GridControl, TextControlProperty, WysiwygControlProperty) {
-	
+define(['rcap/js/ui/controls/gridControl',
+	'rcap/js/ui/properties/textProperty',
+	'rcap/js/ui/properties/wysiwygProperty'], function(GridControl, TextProperty, WysiwygProperty) {
+
 	'use strict';
 
 	var TextControl = GridControl.extend({
@@ -12,7 +12,7 @@ define(['rcap/js/ui/controls/gridControl',
 				label : 'Text',
 				icon: 'pencil',
 				controlProperties: [
-					new WysiwygControlProperty({
+					new WysiwygProperty({
 						uid: 'content',
 						label : 'Content',
 						defaultValue : '',
@@ -22,7 +22,7 @@ define(['rcap/js/ui/controls/gridControl',
 			});
 		},
 		render: function() {
- 			return this.controlProperties[0].value;
+ 			return '<div class="text-control-content ql-editor ql-viewer">' + this.controlProperties[0].value + '</div>';
 		}
 	});
 

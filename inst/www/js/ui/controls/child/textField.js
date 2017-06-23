@@ -1,5 +1,5 @@
-define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textControlProperty', 
-	'text!rcap/js/ui/controls/child/templates/textField.tpl'], function(BaseControl, TextControlProperty, tpl) {
+define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/properties/textProperty', 
+	'text!rcap/js/ui/controls/child/templates/textField.tpl'], function(BaseControl, TextProperty, tpl) {
 
     'use strict';
 
@@ -10,14 +10,14 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
                 label: 'Text Field',
                 icon: 'check-empty',
                 controlProperties: [
-                    new TextControlProperty({
+                    new TextProperty({
                         uid: 'label',
                         label : 'Label',
                         defaultValue : 'Label',
                         helpText : 'The label for this control',
                         isHorizontal: false
                     }),
-                    new TextControlProperty({
+                    new TextProperty({
                         uid: 'variablename',
                         label : 'Variable name',
                         defaultValue : 'variable',
@@ -25,7 +25,7 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
                         isRequired: true,
                         isHorizontal: false
                     }),
-                    new TextControlProperty({
+                    new TextProperty({
                         uid: 'text',
                         label: 'Default text',
                         defaultValue: '',
@@ -38,7 +38,7 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/controls/properties/textC
 			var template = _.template(tpl);
 
             return template({
-                text: this.getControlPropertyValueOrDefault('text'),
+                text: this.getPropertyValueOrDefault('text'),
                 control: this
             });
 		}

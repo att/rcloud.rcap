@@ -10,13 +10,17 @@
             <script type="text/javascript">
                 $("#<%=property.id%>").spectrum({
                     showPalette: true,
-                    showSelectionPalette: true, 
+                    showSelectionPalette: true,
                     showAlpha: <%=property.showAlpha%>,
                     palette: [],
                     chooseText: 'Select',
                     cancelText: 'Cancel',
                     localStorageKey: 'rcap',
-                    color: '<%=property.getValueOrDefault()%>'
+                    color: '<%=property.getValueOrDefault()%>',
+                    showInput: true,
+                    allowEmpty: true,
+                    // appendTo: '#dialog-form-builder',// '#dialog-controlSettings',
+                    preferredFormat: 'name'
                 });
             </script>
         </div>
@@ -33,13 +37,17 @@
         <script type="text/javascript">
     		$("#<%=property.id%>").spectrum({
     		    showPalette: true,
-    		    showSelectionPalette: true, 
-                showAlpha: <%=property.showAlpha%>,
+    		    showSelectionPalette: true,
+            showAlpha: <%=property.showAlpha%>,
     		    palette: [],
-                chooseText: 'Select',
-                cancelText: 'Cancel',
-                localStorageKey: 'rcap',
-                color: '<%=property.getValueOrDefault()%>'
+            chooseText: 'Select',
+            cancelText: 'Cancel',
+            localStorageKey: 'rcap',
+            color: '<%=property.getValueOrDefault()%>',
+            showInput: true,
+            allowEmpty: true,
+            // appendTo: '#dialog-form-builder', // '#dialog-controlSettings',
+            preferredFormat: 'name'
     		});
         </script>
     </div>

@@ -6,7 +6,7 @@ if(typeof control.controlProperties[0].value !== 'undefined' && control.controlP
 </label>
 <% } %>
 
-<input type="text" id="<%=controlId%>" name="<%=control.getControlPropertyValueOrDefault('variablename')%>" data-variablename="<%=control.getControlPropertyValueOrDefault('variablename')%>" value=""></input>
+<input type="text" id="<%=controlId%>" name="<%=control.getPropertyValueOrDefault('variablename')%>" data-variablename="<%=control.getPropertyValueOrDefault('variablename')%>" value=""></input>
 
 <script type="text/javascript">
 
@@ -15,12 +15,11 @@ $(function() {
 	$('#<%=controlId%>').ionRangeSlider({
 		keyboard: true,
 		grid: true,
-		hide_min_max: true,
-		from: <%=control.getControlPropertyValueOrDefault('value')%>,
-		min: <%=control.getControlPropertyValueOrDefault('min')%>,
-		max: <%=control.getControlPropertyValueOrDefault('max')%>,
-		step: <%=control.getControlPropertyValueOrDefault('step')%>
-
+		force_edges: true,
+		from: <%=control.getPropertyValueOrDefault('value')%>,
+		min: <%=control.getPropertyValueOrDefault('min')%>,
+		max: <%=control.getPropertyValueOrDefault('max')%>,
+		step: <%=control.getPropertyValueOrDefault('step')%>
     });
 	
 });

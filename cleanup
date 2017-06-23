@@ -25,6 +25,6 @@
 
 	## FIXME: we should delete the dev pieces from the distribution!
 	## someone familiar with what's actually used please adjust the following
-	rm -rf node_modules bower_components
+	## rm -rf node_modules bower_components
     fi
 )

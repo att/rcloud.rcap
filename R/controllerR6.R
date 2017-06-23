@@ -40,11 +40,15 @@ Controller <- R6::R6Class("Controller",
       controllerInitUpdate(self, private, controls),
 
     getUpdateGraph = function()
-      controllerGetUpdateGraph(self, private)
+      controllerGetUpdateGraph(self, private),
+    
+    getProfileVariables = function()
+      controllerGetProfileVariables(self, private)
   ),
 
   private = list(
     controls = NULL,                    # controls
+    profileVariables = NULL,            # profile variables
     succList = list(),                  # dependency graph
     topoSort = character(),             # update order of controls
 
@@ -98,6 +102,10 @@ controllerInitialize <- function(self, private, rcapConfig) {
   # Wait until the front end reports sizes before updating everything
 
   invisible(self)
+}
+
+controllerGetProfileVariables <- function(self, private) {
+  Filter(function(x) { x$getType() == 'profileVariable'}, private$controls)
 }
 
 controllerUpdate <- function(self, private, controls) {
@@ -166,7 +174,7 @@ controllerGetUpdateGraph <- function(self, private) {
 
   edges <- dataFrame(
     row.names = NULL,
-    from = rep(vertices$name, vapply(private$succList, length, 1L)),
+    from = rep(names(private$succList), vapply(private$succList, length, 1L)),
     to   = unlist(private$succList)
   )
 

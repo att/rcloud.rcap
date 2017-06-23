@@ -1,8 +1,8 @@
 define(['rcap/js/ui/controls/baseControl',
-    'rcap/js/ui/controls/properties/textControlProperty',
-    'rcap/js/ui/controls/properties/multiOptionControlProperty',
+    'rcap/js/ui/properties/textProperty',
+    'rcap/js/ui/properties/multiOptionProperty',
     'text!rcap/js/ui/controls/child/templates/checkboxList.tpl'
-], function(BaseControl, TextControlProperty, MultiOptionControlProperty, tpl) {
+], function(BaseControl, TextProperty, MultiOptionProperty, tpl) {
 
     'use strict';
 
@@ -10,18 +10,18 @@ define(['rcap/js/ui/controls/baseControl',
         init: function() {
 
             this._super({
-				type : 'checkboxlist',
-				label : 'Checkbox Group',
-				icon: 'check',
+                type : 'checkboxlist',
+                label : 'Checkbox Group',
+                icon: 'check',
                 controlProperties: [
-                    new TextControlProperty({
+                    new TextProperty({
                         uid: 'description',
                         label: 'Description',
                         defaultValue: 'Description',
                         helpText: 'Instructions / help text for this control',
                         isHorizontal: false
                     }),
-                    new TextControlProperty({
+                    new TextProperty({
                         uid: 'variablename',
                         label : 'Variable name',
                         defaultValue : 'variable',
@@ -30,7 +30,7 @@ define(['rcap/js/ui/controls/baseControl',
                         isHorizontal: false
                     }),
                     // options:
-                    new MultiOptionControlProperty({
+                    new MultiOptionProperty({
                         uid: 'options',
                         label: 'Options',
                         helpText: 'Enter options, one per line',

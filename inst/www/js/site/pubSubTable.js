@@ -16,6 +16,8 @@ define(['pubsub', 'rcap/js/Class'], function() {
         showMessage: 'showMessage',
         showConfirmDialog : 'showConfirmDialog',
         showPageFlyout: 'showPageFlyout',
+        flyoutActivated: 'flyoutActivated',
+        flyoutClosed: 'flyoutClosed',
         setModified: 'setModified',
         clearModified: 'clearModified',
         closeDesigner: 'closeDesigner',
@@ -37,6 +39,7 @@ define(['pubsub', 'rcap/js/Class'], function() {
         pageSettingsClicked : 'pageSettingsClicked',
         showPageSettingsDialog : 'showPageSettingsDialog',
         pageCountChanged : 'pageCountChanged',
+        pageMoved: 'pageMoved',
 
         // data source:
         addDataSource : 'addDataSource',
@@ -56,12 +59,14 @@ define(['pubsub', 'rcap/js/Class'], function() {
         timerSettingsClicked: 'timerSettingsClicked',
         showTimerSettingsDialog: 'showTimerSettingsDialog',
         timerCountChanged: 'timerCountChanged',
+        updateTimer: 'updateTimer',
 
         // grid:
         gridInitComplete : 'gridInitComplete',
         gridItemAdded : 'gridItemAdded',
         gridItemAddedInit : 'gridItemAddedInit',
         gridItemsChanged : 'gridItemsChanged',
+        gridSettingsUpdated: 'gridSettingsUpdated',
 
         // control/form:
         startControlDrag: 'startControlDrag',
@@ -75,12 +80,26 @@ define(['pubsub', 'rcap/js/Class'], function() {
         showControlDialog : 'showControlDialog',
         showFormBuilderDialog : 'showFormBuilderDialog',
 
+        // site settings:
+        editSiteSettings: 'editSiteSettings',
+        showSiteSettingsDialog: 'showSiteSettingsDialog',
+        updateSiteSettings: 'updateSiteSettings',
+        updatePageClassSetting: 'updatePageClassSetting',
+
         // theme:
         updateTheme: 'updateTheme',
         updateDomTheme: 'updateDomTheme',
         intialiseDom: 'initialiseDom',
         editTheme: 'editTheme',
         showThemeEditorDialog: 'showThemeEditorDialog',
+        updateSiteThemePackage: 'updateSiteThemePackage',
+
+        // profile management:
+        configureProfile: 'configureProfile',
+        showProfileDialog: 'showProfileDialog',
+        updateProfile: 'updateProfile',
+        getViewerProfileInfo: 'getViewerProfile',
+        showViewerProfileDialog: 'showViewerProfileDialog',
 
         // state management:
         stateModified: 'stateModified'

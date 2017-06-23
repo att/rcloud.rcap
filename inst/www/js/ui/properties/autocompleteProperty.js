@@ -1,8 +1,8 @@
-define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/autocomplete.tpl'], function(BaseControlProperty, tpl) {
-	
+define(['rcap/js/ui/properties/baseProperty', 'text!templates/autocomplete.tpl'], function(BaseProperty, tpl) {
+
 	'use strict';
 
-	var AutocompleteControlProperty = BaseControlProperty.extend({
+	var AutocompleteProperty = BaseProperty.extend({
 		init: function(options) {
 			options = options || {};
 			this._super({
@@ -22,7 +22,7 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/au
 		render: function(childIndex) {
 
 			var template = _.template(tpl);
-            
+
             return template({
             	property : this,
             	childIndex : childIndex
@@ -34,6 +34,6 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/au
 		}
 	});
 
-	return AutocompleteControlProperty;
+	return AutocompleteProperty;
 
 });

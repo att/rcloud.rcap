@@ -1,22 +1,19 @@
 define([
+    'rcap/js/ui/pageTreeManager',
     'rcap/js/utils/rcapLogger',
     'text!ui/templates/pageMenuItem.tpl',
     'text!ui/templates/controlsMenu.tpl',
     'text!ui/templates/dataSourceMenuItem.tpl',
     'text!ui/templates/timerMenuItem.tpl',
-    'text!ui/templates/siteSettingsMenu.tpl',
     'pubsub',
     'site/pubSubTable',
     'controls/factories/controlFactory'
-], function(RcapLogger, pageMenuItemTemplate, controlsMenuTemplate, dataSourceMenuItemTemplate, timerMenuItemTemplate, siteSettingsMenuTemplate, PubSub, pubSubTable, ControlFactory) {
+], function(PageTreeManager, RcapLogger, pageMenuItemTemplate, controlsMenuTemplate, dataSourceMenuItemTemplate, timerMenuItemTemplate, PubSub, pubSubTable, ControlFactory) {
 
     'use strict';
 
-
     var controlFactory = new ControlFactory(),
         rcapLogger = new RcapLogger();
-
-    // :::: TODO: refactor code below - both methods are very similar ::::
 
     var MenuManager = Class.extend({
         init: function() {
@@ -24,26 +21,9 @@ define([
         },
         initialise: function() {
 
+            new PageTreeManager().initialise();
+
             rcapLogger.info('MenuManager: initialise');
-
-            //////////////////////////////////////////////////////////////////////////////////////////
-            //
-            //
-            //
-            PubSub.subscribe(pubSubTable.updatePage, function(msg, pageObj) {
-
-                rcapLogger.info('menuManager: pubSubTable.updatePage');
-                $('#pages li[data-pageid="' + pageObj.id + '"] .navigation-title:eq(0)').text(pageObj.navigationTitle);
-
-                var pagesSelector = $('#pages li[data-pageid="' + pageObj.id + '"], #pages li[data-pageid="' + pageObj.id + '"] li');
-
-                if (pageObj.isEnabled) {
-                    pagesSelector.removeClass('not-enabled');
-                } else {
-                    pagesSelector.addClass('not-enabled');
-                }
-
-            });
 
             //////////////////////////////////////////////////////////////////////////////////////////
             //
@@ -68,27 +48,6 @@ define([
 
                 rcapLogger.info('menuManager: pubSubTable.initSite');
 
-                var buildTree = function(pages, container) {
-                    _.each(pages, function(item) {
-
-                        var template = _.template(pageMenuItemTemplate);
-                        var markup = template({
-                            p: item,
-                            canAddChild: item.depth < 3
-                        });
-
-                        var newContainer = $(markup);
-
-                        if (item.depth === 1) {
-                            container.append(newContainer);
-                        } else {
-                            container.find('li[data-pageid="' + item.parentId + '"] ol:first').append(newContainer);
-                        }
-                    });
-                };
-
-                buildTree(site.pages, $('#pages'));
-
                 // build the data sources:
                 _.each(site.dataSources, function(dataSource) {
                     $('#dataSources').append(_.template(dataSourceMenuItemTemplate)({ ds : dataSource }));
@@ -99,13 +58,11 @@ define([
                     $('#timers').append(_.template(timerMenuItemTemplate) ({ t : timer }));
                 });
 
-                //
-                PubSub.publish(pubSubTable.pageCountChanged, site.pages.length);
+                // and set the grid settings:
+                //setGridSettings(site.gridOptions);
+                PubSub.publish(pubSubTable.gridSettingsUpdated, site.settings.getSettingValue('gridControlPadding'));
                 PubSub.publish(pubSubTable.dataSourceCountChanged, site.dataSources.length);
                 PubSub.publish(pubSubTable.timerCountChanged, site.timers.length);
-
-                // the first is as good as any:
-                $('#pages a:eq(0)').trigger('click');
             });
 
             //////////////////////////////////////////////////////////////////////////////////////////
@@ -113,7 +70,7 @@ define([
             //
             //
             PubSub.subscribe(pubSubTable.close, function() {
-                $('#pages li, #dataSources li, #timers li').remove();
+                $(/*#pages li,*/ '#dataSources li, #timers li').remove();
             });
 
             //////////////////////////////////////////////////////////////////////////////////////////
@@ -121,11 +78,42 @@ define([
             // flyout menu handler
             //
             $('body').on('click', '#main-menu a[data-flyoutid]', function() {
+
+                var menuToShow = $('.menu-flyout[data-flyoutid="' + $(this).attr('data-flyoutid') + '"]');
+                var menuToHide = $('.menu-flyout:visible');
+
+                if(!menuToShow.is(':visible')) {
+
+                    // hide all:
+                    $('.menu-flyout').hide();
+                    $('#main-menu li').removeClass('selected');
+                    $(this).closest('li').addClass('selected');
+
+                    menuToShow.show();
+
+                    if(menuToHide) {
+                        PubSub.publish(pubSubTable.flyoutClosed, {
+                            id: menuToHide.data('flyoutid')
+                        });
+                    }
+
+                    PubSub.publish(pubSubTable.flyoutActivated, {
+                        width: menuToShow.width() + $('#main-menu').width(),
+                        id: $(this).data('flyoutid')
+                    });
+                }
+
+            });
+
+            $('body').on('click', '#main-menu a[data-messageid]', function() {
                 // hide all:
                 $('.menu-flyout').hide();
                 $('#main-menu li').removeClass('selected');
-                $(this).closest('li').addClass('selected');
-                $('.menu-flyout[data-flyoutid="' + $(this).attr('data-flyoutid') + '"]').show();
+
+                // but this one isn't selected since it invokes something else:
+                var message = $(this).attr('data-messageid');
+                rcapLogger.info('menuManager: pubSubTable dynamic: ' + message);
+                PubSub.publish(pubSubTable[message]);
             });
 
             $('body').on('click', '.count', function() {
@@ -135,7 +123,23 @@ define([
             $('body').on('click', '.menu-flyout a.panel-close', function() {
                 $('.menu-flyout').hide();
                 $('#main-menu li').removeClass('selected');
+                var panelId = $(this).closest('.menu-flyout').data('flyoutid');
+
+                PubSub.publish(pubSubTable.flyoutClosed, {
+                    id: panelId
+                });
             });
+
+            // update grid settings:
+            // $('body').on('change', '.settings-menu :input', function() {
+            //     rcapLogger.info('menuManager: pubSubTable.gridSettingsUpdated');
+            //     PubSub.publish(pubSubTable.gridSettingsUpdated, getGridSettings());
+            // });
+
+            // $('body').on('change', '.settings-menu select', function() {
+            //     rcapLogger.info('menuManager: pubSubTable.gridSettingsUpdated');
+            //     PubSub.publish(pubSubTable.gridSettingsUpdated, +$(this).val());
+            // });
 
             PubSub.subscribe(pubSubTable.startControlDrag, function() {
                 // hide all:
@@ -154,23 +158,10 @@ define([
             //
             // click handler for add page (both 'root' level and child):
             //
-            $('body').on('click', '.menu-flyout[data-flyoutid="pages"] h4 a.add, .page-addchild', function() {
-
-                var parentPageId;
-
-                // child page:
-                if ($(this).hasClass('page-addchild')) {
-                    parentPageId = $(this).parent().closest('li').data('pageid');
-                }
-
+            $('body').on('click', '.menu-flyout[data-flyoutid="pages"] h4 a.add', function() {
                 PubSub.publish(pubSubTable.addPage, {
-                    parentPageId: parentPageId
+                    parentPageId: undefined
                 });
-
-                // verify that this a child can be added.
-                // var maxLevels = $(this).closest('ol').data('maxlevels');
-                //$(this).parent().siblings('ol').append('<li><a href="#">' + new Date().toString().substr(16, 8) + ' <span class="page-addchild">+</span></a> <ol></ol></li>');
-
             });
 
             //////////////////////////////////////////////////////////////////////////////////////////
@@ -213,29 +204,6 @@ define([
                 }
             });
 
-            //////////////////////////////////////////////////////////////////////////////////////////
-            //
-            //
-            //
-            // click handler for page:
-            $('body').on('click', '#pages a', function(e) {
-
-                // ignore the span elements, which shouldn't invoke a change page:
-                if(!$(e.target).is('span')) {
-                    $('#pages li').removeClass('selected');
-                    var li = $(this).closest('li');
-                    li.addClass('selected');
-
-                    rcapLogger.info('menuManager: PUBLISH : pubSubTable.changeSelectedPageId');
-
-                    $('.menu-flyout').hide();
-
-                    // just the id:
-                    PubSub.publish(pubSubTable.changeSelectedPageId, li.data('pageid'));
-                }
-
-            });
-
             // data sources:
             $('body').on('click', '.menu-flyout[data-flyoutid="datasources"] h4 a.add', function() {
                 rcapLogger.info('menuManager: pubSubTable.addDataSource');
@@ -259,7 +227,7 @@ define([
             PubSub.subscribe(pubSubTable.updateDataSource, function(msg, dataSource) {
 
                 rcapLogger.info('menuManager: pubSubTable.updateDataSource');
-                
+
                 // find the item in the menu and update:
                 var existingItem = $('#dataSources li[data-datasourceid="' + dataSource.id + '"]');
 
@@ -313,7 +281,7 @@ define([
             PubSub.subscribe(pubSubTable.updateTimer, function(msg, timer) {
 
                 console.info('menuManager: pubSubTable.updateTimer');
-                
+
                 // find the item in the menu and update:
                 var existingItem = $('#timers li[data-timerid="' + timer.id + '"]');
 
@@ -349,17 +317,6 @@ define([
                 $('.menu-flyout').hide();
             });
 
-            //////////////////////////////////////////////////////////////////////////////////////////
-            //
-            //
-            //
-            // theme:
-            // apply:
-            $('body').on('click', '.settings-menu button', function() {
-                rcapLogger.info('menuManager: pubSubTable.editTheme');
-                PubSub.publish(pubSubTable.editTheme);
-            });
-
             return this;
         },
         initialiseControlsMenu: function() {
@@ -372,16 +329,6 @@ define([
             var template = _.template(controlsMenuTemplate);
             $('.menu-flyout[data-flyoutid="controls"]').append(template({
                 controlCategories: categorisedControls
-            }));
-
-            return this;
-        },
-        initialiseSettingsMenu: function() {
-
-            var template = _.template(siteSettingsMenuTemplate);
-
-            $('.menu-flyout[data-flyoutid="settings"]').append(template({
-
             }));
 
             return this;

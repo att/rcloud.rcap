@@ -1,8 +1,8 @@
-define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/dropdownControl.tpl'], function(BaseControlProperty, tpl) {
-	
+define(['rcap/js/ui/properties/baseProperty', 'text!templates/dropdownControl.tpl'], function(BaseProperty, tpl) {
+
 	'use strict';
 
-	var DropdownControlProperty = BaseControlProperty.extend({
+	var DropdownProperty = BaseProperty.extend({
 		init: function(options) {
 			options = options || {};
 			this._super({
@@ -19,15 +19,16 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/dr
 			// additional assignments go here:
 			this.availableOptions = options.availableOptions || [];
 			this.isHorizontal = _.isUndefined(options.isHorizontal) ? true : options.isHorizontal;
+      this.defaultOptionText = options.defaultOptionText || 'Select an option';
 		},
 		render: function(childIndex) {
 
 			var template = _.template(tpl);
-            
-            return template({
-            	property : this,
-            	childIndex : childIndex
-            });
+
+      return template({
+        property : this,
+        childIndex : childIndex
+      });
 
 		},
 		getDialogValue : function() {
@@ -35,6 +36,6 @@ define(['rcap/js/ui/controls/properties/baseControlProperty', 'text!templates/dr
 		}
 	});
 
-	return DropdownControlProperty;
+	return DropdownProperty;
 
 });

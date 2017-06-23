@@ -44,12 +44,6 @@
         },
 
         insert_css_rule: function(sheet, selector, rules, index) {
-
-            // console.log(sheet);
-            // console.log(selector);
-            // console.log(rules);
-            // console.log(index);
-
             if (typeof sheet.insertRule === 'function') {
                 sheet.insertRule(selector + '{' + rules + '}', index);
             } else if (typeof sheet.addRule === 'function') {
@@ -636,11 +630,7 @@
             return;
         }
 
-
-this.opts.cell_height = 20;
-this.opts.vertical_margin = 20;
-
-
+        var that = this;
         var prefix = '.' + this.opts._class + ' .' + this.opts.item_class;
 
         if (typeof max_height == 'undefined') {
@@ -654,6 +644,7 @@ this.opts.vertical_margin = 20;
         }
 
         if (max_height > this._styles._max) {
+
             for (var i = this._styles._max; i < max_height; ++i) {
                 Utils.insert_css_rule(this._styles,
                     prefix + '[data-gs-height="' + (i + 1) + '"]',
@@ -1000,20 +991,6 @@ this.opts.vertical_margin = 20;
 
     GridStack.prototype.get_cell_from_pixel = function(position) {
         var containerPos = this.container.position();
-
-        //var containerPos = this.container.offset();
-
-
-        // var offset = this.container.offset();
-        // var position = this.container.position();
-
-        // var containerPos = {
-        //     top: offset.top + position.top,
-        //     left: offset.left + position.left
-        // };
-
-
-
         var relativeLeft = position.left - containerPos.left;
         var relativeTop = position.top - containerPos.top;
 

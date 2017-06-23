@@ -1,12 +1,12 @@
 define(['rcap/js/ui/controls/gridControl',
-    'rcap/js/ui/controls/properties/autocompleteControlProperty',
-    'rcap/js/ui/controls/properties/textControlProperty',
-    'rcap/js/ui/controls/properties/dropdownControlProperty',
+    'rcap/js/ui/properties/autocompleteProperty',
+    'rcap/js/ui/properties/textProperty',
+    'rcap/js/ui/properties/dropdownProperty',
     'pubsub',
     'site/pubSubTable',
     'text!controlTemplates/leaflet.tpl',
     'text!controlTemplates/leaflet-design.tpl'
-], function(GridControl, AutocompleteControlProperty, TextControlProperty, DropdownControlProperty, PubSub, pubSubTable, tpl, dtpl) {
+], function(GridControl, AutocompleteProperty, TextProperty, DropdownProperty, PubSub, pubSubTable, tpl, dtpl) {
 
     'use strict';
 
@@ -18,20 +18,20 @@ define(['rcap/js/ui/controls/gridControl',
                 label: 'Leaflet',
                 icon: 'map-marker',
                 controlProperties: [
-                    new AutocompleteControlProperty({
+                    new AutocompleteProperty({
                         uid: 'code',
                         label: 'R Function',
                         helpText: 'R Function for this control.',
                         isRequired: true
                     }),
-                    new TextControlProperty({
+                    new TextProperty({
                         uid: 'linkUrl',
                         label : 'Link url',
                         defaultValue : '',
                         helpText : 'Link url',
                         isRequired: false
                     }),
-                    new DropdownControlProperty({
+                    new DropdownProperty({
                         uid: 'linkTarget',
                         label: 'Link target',
                         isRequired: false,
