@@ -276,13 +276,15 @@ define([
 
                 // custom validator:
                 // only need to add once
-                if (!window.ParsleyValidator.validators.rcappagenamevalidator) {
+                //if (!window.ParsleyValidator.validators.rcappagenamevalidator) {
                     window.ParsleyValidator.addValidator('rcappagenamevalidator',
                             function(value) {
                                 return currentPageTitles.indexOf(value.toUpperCase()) === -1;
                             })
                         .addMessage('en', 'rcappagenamevalidator', 'This page already exists');
-                }
+                //}
+
+                $('#page-form').parsley().reset();
 
                 $('#dialog-pageSettings').jqmShow();
             });
