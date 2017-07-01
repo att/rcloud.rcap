@@ -19,7 +19,7 @@
                     color: '<%=property.getValueOrDefault()%>',
                     showInput: true,
                     allowEmpty: true,
-                    // appendTo: '#dialog-form-builder',// '#dialog-controlSettings',
+                    appendTo: $("#<%=property.id%>").closest('.jqmWindow'),
                     preferredFormat: 'name'
                 });
             </script>
@@ -46,7 +46,7 @@
             color: '<%=property.getValueOrDefault()%>',
             showInput: true,
             allowEmpty: true,
-            // appendTo: '#dialog-form-builder', // '#dialog-controlSettings',
+            appendTo: $("#<%=property.id%>").closest('.jqmWindow'),
             preferredFormat: 'name'
     		});
         </script>
