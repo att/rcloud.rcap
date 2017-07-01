@@ -71,6 +71,7 @@ define([
             //
             PubSub.subscribe(pubSubTable.close, function() {
                 $(/*#pages li,*/ '#dataSources li, #timers li').remove();
+                $('.menu-flyout').hide();
             });
 
             //////////////////////////////////////////////////////////////////////////////////////////
