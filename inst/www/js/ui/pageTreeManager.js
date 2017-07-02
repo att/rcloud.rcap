@@ -250,10 +250,11 @@ define([
                     }
 
                 });
+                */
 
                 // select the newly added page:
-                $('#pages li[data-pageid="' + msgData.pageData[0].id + '"] a').trigger('click');
-                */
+                PubSub.publish(pubSubTable.changeSelectedPageId, msgData.pageData[0].id);
+
             });
 
             PubSub.subscribe(pubSubTable.pageCountChanged, function(msg, pageCount) {
