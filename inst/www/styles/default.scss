@@ -763,12 +763,10 @@
   }
 }
 
-
 /* form controls */
-
 #rcap-viewer,
 #rcap-designer {
-  .rcap-form {
+  form, .rcap-form {
     width: 100%;
   }
   & .form-control {

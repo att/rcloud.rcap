@@ -2166,7 +2166,8 @@ table.dataTable td {
 #rcap-save {
   margin-left: 20px; }
 
-#rcap-save, #rcap-view {
+#rcap-save,
+#rcap-view {
   margin-right: 5px; }
 
 #rcap-message {
@@ -2315,13 +2316,17 @@ table.dataTable td {
       padding: 10px 0 5px 15px; }
     #rcap-designer .menu-flyout a span::after {
       display: block; }
-    #rcap-designer .menu-flyout h4#page-header a, #rcap-designer .menu-flyout h4#datasource-header a, #rcap-designer .menu-flyout h4#timer-header a {
+    #rcap-designer .menu-flyout h4#page-header a,
+    #rcap-designer .menu-flyout h4#datasource-header a,
+    #rcap-designer .menu-flyout h4#timer-header a {
       padding: 0;
       opacity: 0.5;
       margin-left: 3px;
       display: inline-block;
       color: #efefef; }
-    #rcap-designer .menu-flyout h4#page-header a:hover, #rcap-designer .menu-flyout h4#datasource-header a:hover, #rcap-designer .menu-flyout h4#timer-header a:hover {
+    #rcap-designer .menu-flyout h4#page-header a:hover,
+    #rcap-designer .menu-flyout h4#datasource-header a:hover,
+    #rcap-designer .menu-flyout h4#timer-header a:hover {
       opacity: 1.0; }
     #rcap-designer .menu-flyout h4 a.add::before {
       font: normal normal normal 16px/1 FontAwesome;
@@ -2388,7 +2393,8 @@ table.dataTable td {
       display: block; }
     #rcap-designer .menu-flyout .js-rcap-dynamic a span:hover {
       opacity: 1.0; }
-    #rcap-designer .menu-flyout .js-rcap-dynamic span.datasource-settings::after, #rcap-designer .menu-flyout .js-rcap-dynamic span.timer-settings::after {
+    #rcap-designer .menu-flyout .js-rcap-dynamic span.datasource-settings::after,
+    #rcap-designer .menu-flyout .js-rcap-dynamic span.timer-settings::after {
       content: "\f013"; }
     #rcap-designer .menu-flyout ul.form-controls a {
       cursor: move; }
@@ -2408,19 +2414,23 @@ table.dataTable td {
       display: none; }
     #rcap-designer .menu-flyout a:hover span::after {
       display: block; }
-    #rcap-designer .menu-flyout #dataSources li, #rcap-designer .menu-flyout #timers li {
+    #rcap-designer .menu-flyout #dataSources li,
+    #rcap-designer .menu-flyout #timers li {
       border: 1px solid #efefef;
       margin-bottom: 5px; }
-      #rcap-designer .menu-flyout #dataSources li i, #rcap-designer .menu-flyout #timers li i {
+      #rcap-designer .menu-flyout #dataSources li i,
+      #rcap-designer .menu-flyout #timers li i {
         position: absolute;
         left: 10px;
         top: 5px;
         font-size: 25px; }
-      #rcap-designer .menu-flyout #dataSources li > a, #rcap-designer .menu-flyout #timers li > a {
+      #rcap-designer .menu-flyout #dataSources li > a,
+      #rcap-designer .menu-flyout #timers li > a {
         position: relative;
         display: block;
         padding-left: 45px; }
-      #rcap-designer .menu-flyout #dataSources li .settings, #rcap-designer .menu-flyout #timers li .settings {
+      #rcap-designer .menu-flyout #dataSources li .settings,
+      #rcap-designer .menu-flyout #timers li .settings {
         top: 0;
         right: 2px;
         position: absolute; }
@@ -2446,7 +2456,10 @@ table.dataTable td {
     padding-left: 16px; }
     #rcap-designer div[data-flyoutid="pages"] #pages-tree ul.jqtree-tree li.jqtree-ghost span.jqtree-circle {
       background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH2wgMFBo5OozLSgAAAHxJREFUGNNNz7ENwgAMBMALBRIjUDAJM0QZiEloEANkh+xBTxeooIqip4gDWHrJ1vv/bUAO5EpeZCYDOZIveSchI7lVP5NWKUMu5daQ7idYbMciC5CeZIMdnotyrTR4rMNQdt1fxJ68yaSunWupJ+ciQ05rblsfpDAtZLYfFUtXJJAw00MAAAAASUVORK5CYII="); }
-    #rcap-designer div[data-flyoutid="pages"] #pages-tree div, #rcap-designer div[data-flyoutid="pages"] #pages-tree a, #rcap-designer div[data-flyoutid="pages"] #pages-tree li, #rcap-designer div[data-flyoutid="pages"] #pages-tree span {
+    #rcap-designer div[data-flyoutid="pages"] #pages-tree div,
+    #rcap-designer div[data-flyoutid="pages"] #pages-tree a,
+    #rcap-designer div[data-flyoutid="pages"] #pages-tree li,
+    #rcap-designer div[data-flyoutid="pages"] #pages-tree span {
       color: white; }
     #rcap-designer div[data-flyoutid="pages"] #pages-tree ul {
       margin-left: 22px; }
@@ -2488,7 +2501,8 @@ table.dataTable td {
         content: "" !important; }
       #rcap-designer div[data-flyoutid="pages"] #pages-tree .page-tree-settings span.page-addchild::after {
         content: "" !important; }
-    #rcap-designer div[data-flyoutid="pages"] #pages-tree .jqtree-element, #rcap-designer div[data-flyoutid="pages"] #pages-tree .jqtree-toggler {
+    #rcap-designer div[data-flyoutid="pages"] #pages-tree .jqtree-element,
+    #rcap-designer div[data-flyoutid="pages"] #pages-tree .jqtree-toggler {
       padding-bottom: 8px; }
     #rcap-designer div[data-flyoutid="pages"] #pages-tree .jqtree-element:hover .page-tree-settings span::after {
       display: block; }
@@ -2689,54 +2703,72 @@ table.dataTable td {
     margin-top: 15px; }
 
 /* form controls */
-form {
-  width: 100%; }
-
-#rcap-viewer, #rcap-designer {
+#rcap-viewer,
+#rcap-designer {
   /*
     & .form-group h3 {
         font-weight: bold;
         font-size: 95%;
     }
     */ }
-  #rcap-viewer .form-control, #rcap-designer .form-control {
+  #rcap-viewer form, #rcap-viewer .rcap-form,
+  #rcap-designer form,
+  #rcap-designer .rcap-form {
+    width: 100%; }
+  #rcap-viewer .form-control,
+  #rcap-designer .form-control {
     background: white;
     width: 100%;
     height: 34px;
     border: 1px solid #ddd; }
-  #rcap-viewer textarea, #rcap-designer textarea {
+  #rcap-viewer textarea,
+  #rcap-designer textarea {
     display: block;
     width: 100%; }
-  #rcap-viewer select, #rcap-designer select {
+  #rcap-viewer select,
+  #rcap-designer select {
     -webkit-appearance: menulist; }
-  #rcap-viewer form .form-group:not(:first-child), #rcap-designer form .form-group:not(:first-child) {
+  #rcap-viewer form .form-group:not(:first-child),
+  #rcap-designer form .form-group:not(:first-child) {
     margin-top: 10px; }
-  #rcap-viewer .description, #rcap-designer .description {
+  #rcap-viewer .description,
+  #rcap-designer .description {
     margin-top: 3px;
     color: #555;
     font-style: italic; }
-  #rcap-viewer .form-group label, #rcap-designer .form-group label {
+  #rcap-viewer .form-group label,
+  #rcap-designer .form-group label {
     display: block; }
-  #rcap-viewer .form-group .description, #rcap-designer .form-group .description {
+  #rcap-viewer .form-group .description,
+  #rcap-designer .form-group .description {
     color: #555;
     font-style: italic;
     padding-left: 3px;
     margin-top: 5px;
     max-width: 460px; }
-  #rcap-viewer .form-group textarea.code, #rcap-designer .form-group textarea.code {
+  #rcap-viewer .form-group textarea.code,
+  #rcap-designer .form-group textarea.code {
     font-family: Monaco, 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, monospace;
     height: 250px;
     font-size: 13px; }
-  #rcap-viewer .checkbox-group:after, #rcap-viewer .radiobutton-group:after, #rcap-designer .checkbox-group:after, #rcap-designer .radiobutton-group:after {
+  #rcap-viewer .checkbox-group:after,
+  #rcap-viewer .radiobutton-group:after,
+  #rcap-designer .checkbox-group:after,
+  #rcap-designer .radiobutton-group:after {
     content: "";
     display: table;
     clear: both; }
-  #rcap-viewer .form-option, #rcap-designer .form-option {
+  #rcap-viewer .form-option,
+  #rcap-designer .form-option {
     float: left;
     min-width: 150px; }
-    #rcap-viewer .form-option label, #rcap-designer .form-option label {
+    #rcap-viewer .form-option label,
+    #rcap-designer .form-option label {
       display: inline-block; }
-    #rcap-viewer .form-option input[type="radio"], #rcap-viewer .form-option input[type="checkbox"], #rcap-designer .form-option input[type="radio"], #rcap-designer .form-option input[type="checkbox"] {
+    #rcap-viewer .form-option input[type="radio"],
+    #rcap-viewer .form-option input[type="checkbox"],
+    #rcap-designer .form-option input[type="radio"],
+    #rcap-designer .form-option input[type="checkbox"] {
       margin-top: -1px;
       vertical-align: middle;
       margin-right: 3px; }
@@ -2744,7 +2776,8 @@ form {
 #dialog-profileSettings table {
   width: 720px;
   font-size: 14px; }
-  #dialog-profileSettings table td, #dialog-profileSettings table th {
+  #dialog-profileSettings table td,
+  #dialog-profileSettings table th {
     padding: 5px; }
   #dialog-profileSettings table th {
     font-size: 13px; }
@@ -2936,9 +2969,11 @@ a.wysiwyg-toolbar-icon:hover {
   padding: 100px;
   border: 1px solid #ccc; }
 
-.hamburger, .accordion {
+.hamburger,
+.accordion {
   top: 0; }
-  .hamburger button, .accordion button {
+  .hamburger button,
+  .accordion button {
     position: absolute;
     top: 50%;
     margin-top: -15px !important;
@@ -2954,18 +2989,21 @@ a.wysiwyg-toolbar-icon:hover {
     height: 30px;
     outline: none;
     z-index: 1000; }
-  .hamburger > div, .accordion > div {
+  .hamburger > div,
+  .accordion > div {
     z-index: 999;
     position: absolute;
     width: 100%;
     display: none; }
-  .hamburger button.expanded, .accordion button.expanded {
+  .hamburger button.expanded,
+  .accordion button.expanded {
     -webkit-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
     transform: rotate(90deg);
     background-color: transparent;
     border: 0; }
-  .hamburger a, .accordion a {
+  .hamburger a,
+  .accordion a {
     display: block;
     background: #eee;
     text-align: left;
@@ -2976,7 +3014,8 @@ a.wysiwyg-toolbar-icon:hover {
     font-weight: bold; }
   .hamburger a:hover,
   .hamburger a:active,
-  .hamburger a:focus, .accordion a:hover,
+  .hamburger a:focus,
+  .accordion a:hover,
   .accordion a:active,
   .accordion a:focus {
     background: #e7e7e7; }
@@ -3169,11 +3208,14 @@ body.rcap-viewer {
   .data-table th {
     background-color: #369;
     color: white; }
-  .data-table td, .data-table th {
+  .data-table td,
+  .data-table th {
     border: 1px solid #ccc;
     padding: 5px; }
 
-.rplot code, .r-interactiveplot code, .leaflet code {
+.rplot code,
+.r-interactiveplot code,
+.leaflet code {
   white-space: normal;
   display: block; }
 
@@ -3225,7 +3267,8 @@ body.rcap-viewer {
   /* Display block instead of inline */ }
 
 /* When you mouse over the navigation links, change their color */
-.overlay a:hover, .overlay a:focus {
+.overlay a:hover,
+.overlay a:focus {
   color: #f1f1f1; }
 
 /* Position the close button (top right corner) */
