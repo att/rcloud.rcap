@@ -2689,6 +2689,9 @@ table.dataTable td {
     margin-top: 15px; }
 
 /* form controls */
+form {
+  width: 100%; }
+
 #rcap-viewer, #rcap-designer {
   /*
     & .form-group h3 {
