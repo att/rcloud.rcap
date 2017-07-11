@@ -139,7 +139,6 @@ define(['rcap/js/ui/controls/gridControl',
             return false;
           });
         });
-
       },
       initialiseViewerItems: function () {
 
@@ -230,6 +229,15 @@ define(['rcap/js/ui/controls/gridControl',
 
               variableHandler.submitChange(data);
             });
+
+            $(this).find(':text').keydown(function(e) {
+              if(e.keyCode === 13) {
+                e.preventDefault();
+                $(this).closest('form').submit();
+                return false;
+              }
+            });
+
           } else {
 
             var submitChange = function (control) {
@@ -248,9 +256,17 @@ define(['rcap/js/ui/controls/gridControl',
                 var sliderControl = $(this);
                 var slider = $(this).data('ionRangeSlider');
                 slider.update({
-                  onFinish: function (data) {
+                  onFinish: function (/*data*/) {
                     submitChange(sliderControl);
-                    console.log('onFinish!', data);
+                    //console.log('onFinish!', data);
+                  }
+                });
+              } else if($(this).is(':text')) {
+                $(this).keydown(function(e) {
+                  if(e.keyCode === 13) {
+                    submitChange($(this));
+                    e.preventDefault();
+                    return false;
                   }
                 });
               } else {
@@ -307,9 +323,9 @@ define(['rcap/js/ui/controls/gridControl',
             }
           }
 
-          var findByCaseInsensitiveValue = function(parent, inputValue) {
-            return parent.find('input').filter(function() {
-              if(inputValue !== null && inputValue !== undefined) {
+          var findByCaseInsensitiveValue = function (parent, inputValue) {
+            return parent.find('input').filter(function () {
+              if (inputValue !== null && inputValue !== undefined) {
                 return $(this).attr('value').toLowerCase() === inputValue.toLowerCase();
               } else {
                 return false;
