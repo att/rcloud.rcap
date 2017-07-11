@@ -10,6 +10,7 @@ define([
     'controls/interactivePlot',
     'controls/form',
     'controls/dataTable',
+    'controls/dataUpload',
     'controls/leaflet',
     'controls/htmlWidget',
     'controls/actionButton',
@@ -38,6 +39,7 @@ define([
     InteractivePlotControl,
     FormControl,
     DataTableControl,
+    DataUploadControl,
     LeafletControl,
     HtmlWidgetControl,
     ActionButtonControl,
@@ -66,6 +68,7 @@ define([
             new HtmlWidgetControl(),
             new RTextControl(),
             new DataTableControl(),
+            new DataUploadControl(),
             new FormControl(),
             new IFrameControl(),
             new ImageControl(),
@@ -141,6 +144,9 @@ define([
                 break;
             case 'datatable':
                 control = new DataTableControl();
+                break;
+            case 'dataupload':
+                control = new DataUploadControl();
                 break;
             case 'leaflet':
                 control = new LeafletControl();
