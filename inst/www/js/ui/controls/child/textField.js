@@ -31,6 +31,13 @@ define(['rcap/js/ui/controls/baseControl', 'rcap/js/ui/properties/textProperty',
             label: 'Default text',
             defaultValue: '',
             isHorizontal: false
+          }),
+          new TextProperty({
+            uid: 'controlwidth',
+            label: 'Width',
+            defaultValue: '',
+            helpText: 'Specify as a percentage or pixels (e.g. 100% or 200px)',
+            isHorizontal: false
           })
         ]
       });
