@@ -3,10 +3,11 @@ define([
   'site/pubSubTable',
   'rcap/js/ui/dialogUtils',
   'text!rcap/partials/dialogs/_viewerProfileSettings.htm',
+  'text!rcap/partials/dialogs/_viewDataUpload.htm',
   'text!rcap/partials/dialogs/templates/viewerProfileVariables.tpl',
   'site/profileVariableManager',
   'parsley',
-], function (PubSub, pubSubTable, DialogUtils, configuratorPartial, viewerProfileVariablesTpl, ProfileVariableManager) {
+], function (PubSub, pubSubTable, DialogUtils, configuratorPartial, dataUploadPartial, viewerProfileVariablesTpl, ProfileVariableManager) {
 
   'use strict';
 
@@ -18,12 +19,13 @@ define([
       // configure the configurator dialog:
       // #dialog-viewerProfileSettings
       $('#rcap-viewer').append(configuratorPartial);
+      $('#rcap-viewer').append(dataUploadPartial);
 
       new DialogUtils().initialise();
 
       ////////////////////////////////////////////////////////////////////////////////
       //
-      // designer profile settings:
+      // viewer profile settings:
       //
       $('#dialog-viewerProfileSettings').on('change', '.selection-method select', function() {
         var tr = $(this).closest('tr');
@@ -124,6 +126,12 @@ define([
           initViewerProfileDialog(profileDataItems);
         });
       });
+
+      ////////////////////////////////////////////////////////////////////////////////
+      //
+      // viewer file upload:
+      //
+
     }
   });
 
