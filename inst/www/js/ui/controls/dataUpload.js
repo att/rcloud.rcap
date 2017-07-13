@@ -1,8 +1,10 @@
-define(['rcap/js/ui/controls/gridControl',
+define(['pubsub',
+  'site/pubSubTable',
+  'rcap/js/ui/controls/gridControl',
   'rcap/js/ui/properties/textProperty',
   'utils/variableHandler',
   'text!controlTemplates/dataUpload.tpl'
-], function (GridControl, TextProperty, variableHandler, tpl) {
+], function (PubSub, pubSubTable, GridControl, TextProperty, variableHandler, tpl) {
 
   'use strict';
 
@@ -46,11 +48,7 @@ define(['rcap/js/ui/controls/gridControl',
     initialiseViewerItems: function () {
 
       $('[data-controltype="dataupload"]').click(function () {
-        // variableHandler.submitChange({
-        //   variableName: $(this).attr('data-variablename'),
-        //   controlId: $(this).attr('id'),
-        //   value: Math.random().toString(16).slice(2).substring(0, 6)
-        // });
+        PubSub.publish(pubSubTable.showDataUploadDialog);
       });
     }
   });

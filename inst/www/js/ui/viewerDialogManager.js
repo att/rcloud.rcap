@@ -3,7 +3,7 @@ define([
   'site/pubSubTable',
   'rcap/js/ui/dialogUtils',
   'text!rcap/partials/dialogs/_viewerProfileSettings.htm',
-  'text!rcap/partials/dialogs/_viewDataUpload.htm',
+  'text!rcap/partials/dialogs/_viewerDataUpload.htm',
   'text!rcap/partials/dialogs/templates/viewerProfileVariables.tpl',
   'site/profileVariableManager',
   'parsley',
@@ -131,7 +131,9 @@ define([
       //
       // viewer file upload:
       //
-
+      PubSub.subscribe(pubSubTable.showDataUploadDialog, function () {
+          $('#dialog-viewerDataUpload').jqmShow();
+      });
     }
   });
 
