@@ -174,6 +174,10 @@ ActionButtonControl <- R6Class("ActionButtonControl",
   inherit = Control
 )
 
+DataUploadControl <- R6Class("DataUploadControl",
+  inherit = Control
+)
+
 DateRangeContol <- R6Class("DateRangeContol",
   inherit = Control,
   public = list(
@@ -387,6 +391,7 @@ control_classes <- list(
   "heading"          = HeadingControl,
   "submitbutton"     = SubmitButtonControl,
   "actionbutton"     = ActionButtonControl,
+  "dataupload"       = DataUploadControl,
   "iframe"           = IFrameControl,
   "image"            = ImageControl,
   "pagemenu"         = PageMenuControl,
