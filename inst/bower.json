@@ -32,7 +32,8 @@
     "datatables.net-fixedheader": "~3.1.2",
     "datatables.net-fixedheader-dt": "~3.1.2",
     "pubsub-js": "~1.5.2",
-    "parsleyjs": "~2.7.2"
+    "parsleyjs": "~2.7.2",
+    "jquery-uploadfile": "^4.0.2"
   },
   "devDependencies": {
     "jquery.hotkeys": "*",
