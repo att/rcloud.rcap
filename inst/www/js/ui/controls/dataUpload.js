@@ -47,6 +47,19 @@ define(['pubsub',
     },
     initialiseViewerItems: function () {
 
+      var uploader = $('#fileuploader').uploadFile({
+        url: 'YOUR_FILE_UPLOAD_URL',
+        fileName: 'myfile',
+        autoSubmit: false,
+        maxFileCount: 1,
+        dragdropWidth: '300px',
+        dragDropStr: 'Drag and drop file'
+      });
+
+      //console.log(uploader);
+
+      $('#upload-form').data('uploaderObj', uploader);
+
       $('[data-controltype="dataupload"]').click(function () {
         PubSub.publish(pubSubTable.showDataUploadDialog);
       });

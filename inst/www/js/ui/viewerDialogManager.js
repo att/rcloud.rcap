@@ -136,6 +136,25 @@ define([
       PubSub.subscribe(pubSubTable.showDataUploadDialog, function () {
           $('#dialog-viewerDataUpload').jqmShow();
       });
+
+      $('#dialog-viewerDataUpload .approve').on('click', function() {
+
+          $('#upload-form').parsley().validate();
+
+          // if ($('#upload-form').parsley().isValid()) {
+          //   $('.jqmWindow').jqmHide();
+          // } else {
+          //   $('.jqmWindow .body').animate({ scrollTop: 0 }, 'fast');
+          // }
+
+          var uploader = $('#upload-form').data('uploaderObj');
+
+          // do some stuff with the uploader:
+          if(uploader) {
+            uploader.startUpload();
+          }
+      });
+
     }
   });
 
