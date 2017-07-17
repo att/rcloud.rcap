@@ -133,7 +133,20 @@ define([
       //
       // viewer file upload:
       //
-      PubSub.subscribe(pubSubTable.showDataUploadDialog, function () {
+      PubSub.subscribe(pubSubTable.showDataUploadDialog, function (msg, options) {
+
+          var uploader = $('#fileuploader').uploadFile({
+            url: 'YOUR_FILE_UPLOAD_URL',
+            fileName: options.variablename,
+            autoSubmit: false,
+            maxFileCount: 1,
+            dragdropWidth: '300px',
+            dragDropStr: 'Drag and drop file',
+            allowedTypes: options.allowedtypes && options.allowedtypes.length ? options.allowedtypes : '*'
+          });
+
+          $('#upload-form').data('uploaderObj', uploader);
+
           $('#dialog-viewerDataUpload').jqmShow();
       });
 
@@ -141,18 +154,18 @@ define([
 
           $('#upload-form').parsley().validate();
 
-          // if ($('#upload-form').parsley().isValid()) {
-          //   $('.jqmWindow').jqmHide();
-          // } else {
-          //   $('.jqmWindow .body').animate({ scrollTop: 0 }, 'fast');
-          // }
-
           var uploader = $('#upload-form').data('uploaderObj');
 
           // do some stuff with the uploader:
           if(uploader) {
             uploader.startUpload();
           }
+
+          uploader.remove();
+      });
+
+      $('#dialog-viewerDataUpload .approve').on('click', function() {
+        $('#upload-form').data('uploaderObj').remove();
       });
 
     }

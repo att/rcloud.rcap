@@ -8,7 +8,7 @@ define(['pubsub',
 
   'use strict';
 
-  var RPlotControl = GridControl.extend({
+  var DataUploadControl = GridControl.extend({
     init: function () {
       this._super({
         type: 'dataupload',
@@ -24,7 +24,13 @@ define(['pubsub',
             isRequired: true
           }),
           new TextProperty({
-            uid: 'buttonText',
+            uid: 'allowedtypes',
+            label: 'Allowed types',
+            helpText: 'List of allowed file types, comma-separated, e.g. csv,tsv. Leave blank for "all"',
+            isRequired: false
+          }),
+          new TextProperty({
+            uid: 'buttontext',
             label: 'Button Text',
             defaultValue: '',
             helpText: 'The text that appears on the button',
@@ -46,27 +52,13 @@ define(['pubsub',
 
     },
     initialiseViewerItems: function () {
-
-      var uploader = $('#fileuploader').uploadFile({
-        url: 'YOUR_FILE_UPLOAD_URL',
-        fileName: 'myfile',
-        autoSubmit: false,
-        maxFileCount: 1,
-        dragdropWidth: '300px',
-        dragDropStr: 'Drag and drop file'
-      });
-
-      //console.log(uploader);
-
-      $('#upload-form').data('uploaderObj', uploader);
-
       $('[data-controltype="dataupload"]').click(function () {
-        PubSub.publish(pubSubTable.showDataUploadDialog);
+        PubSub.publish(pubSubTable.showDataUploadDialog, $(this).data());
       });
     }
   });
 
-  return RPlotControl;
+  return DataUploadControl;
 
 
 });
