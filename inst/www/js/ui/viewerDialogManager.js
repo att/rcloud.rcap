@@ -140,7 +140,8 @@ define([
             fileName: options.variablename,
             autoSubmit: false,
             maxFileCount: 1,
-            dragdropWidth: '300px',
+            dragdropWidth: '345px',
+            statusBarWidth: '345px',
             dragDropStr: 'Drag and drop file',
             allowedTypes: options.allowedtypes && options.allowedtypes.length ? options.allowedtypes : '*'
           });
