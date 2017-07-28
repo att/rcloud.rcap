@@ -152,6 +152,9 @@
                     mini.updateAllControls(dataToSubmit).then(function() {});
                 };
                 
+
+/* jshint ignore:start */
+
                 /*TODO callbacks is a structure as returned by the file_react(options) function below
                  Upload task, of structure:
                  {'variableName':'uplaodDataControlVariable', 
@@ -165,7 +168,7 @@
                    'uploaded.file.name' : 'name specified by the user'
                  }
                  */
-                
+
                 window.RCAP.uploadData = function(uploadTask, callbacks) {
                     var options = {};
                     options.upload_ocaps = rcloud._ocaps.file_upload;
@@ -211,7 +214,7 @@
                         })
                     };
                 };
-                
+/* jshint ignore:end */         
                 window.RCAP.userProfileKey = userProfileKey;
                 window.RCAP.getUserProfileVariableValues = function(variableName) {
                     return mini.getUserProfileVariableValues(variableName).then(function(variables) {
