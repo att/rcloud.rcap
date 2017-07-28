@@ -35,6 +35,7 @@ Collate:
     'ocaps.R'
     'rcap.result.R'
     'rcap.user.profile.R'
+    'rcap.upload.data.R'
     'showUpdates.R'
     'styles.R'
     'topo-sort.R'

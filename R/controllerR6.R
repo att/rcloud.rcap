@@ -43,7 +43,10 @@ Controller <- R6::R6Class("Controller",
       controllerGetUpdateGraph(self, private),
     
     getProfileVariables = function()
-      controllerGetProfileVariables(self, private)
+      controllerGetProfileVariables(self, private),
+    
+    getControls = function()
+      controllerGetControls(self, private)
   ),
 
   private = list(
@@ -106,6 +109,10 @@ controllerInitialize <- function(self, private, rcapConfig) {
 
 controllerGetProfileVariables <- function(self, private) {
   Filter(function(x) { x$getType() == 'profileVariable'}, private$controls)
+}
+
+controllerGetControls <- function(self, private) {
+  private$controls
 }
 
 controllerUpdate <- function(self, private, controls) {
