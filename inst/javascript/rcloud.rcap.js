@@ -140,7 +140,8 @@
                         ['updateAllControls'],  // kicks off R plot rendering
                         ['getRCAPStyles'],
                         ['getUserProfileVariableValues'],
-                        ['getUserProfileValue']
+                        ['getUserProfileValue'],
+                        ['getDataUploadPath']
                     ], true);
 
                 window.RCAP = window.RCAP || {};
@@ -150,6 +151,67 @@
                 window.RCAP.updateAllControls = function(dataToSubmit) {
                     mini.updateAllControls(dataToSubmit).then(function() {});
                 };
+                
+                /*TODO callbacks is a structure as returned by the file_react(options) function below
+                 Upload task, of structure:
+                 {'variableName':'uplaodDataControlVariable', 
+                 'dataSetName': 'name of the dataset', 
+                 'description' : 'not used currently', 
+                 'file' : jQuery selector for file input field}
+                 
+                 In callback.done(...) you need to invoke 'window.RCAP.updateControls' for upload data control, R expects the value to be a list, like this:
+                 { 'uploaded.file.path' : 'path to uploaded file',
+                   'uploaded.file.description' : 'description',
+                   'uploaded.file.name' : 'name specified by the user'
+                 }
+                 */
+                
+                window.RCAP.uploadData = function(uploadTask, callbacks) {
+                    var options = {};
+                    options.upload_ocaps = rcloud._ocaps.file_upload;
+                    options.upload_ocaps.upload_pathAsync = function() {
+                      return mini.getDataUploadPath(uploadTask.variableName).then(function(x) { x + "/" + uploadTask.dataSetName});
+                    };
+                    options.files = [uploadTask.file[0].files];
+                    RCloud.upload_files(options, callbacks);
+                };
+                window.RCAP.getDataUploadPath = function(variableName) {
+                    return mini.getDataUploadPath(variableName);
+                };
+                
+                var file_react = function(options) {
+                    return {
+                        start: function(filename) {
+//TODO                            options.$progress.show();
+//                            options.$progress_bar.css("width", "0%");
+//                            options.$progress_bar.attr("aria-valuenow", "0");
+                        },
+                        progress: function(read, size) {
+//TODO                            options.$progress_bar.attr("aria-valuenow", ~~(100 * (read / size)));
+//                            options.$progress_bar.css("width", (100 * (read / size)) + "%");
+                        },
+                        done: function(is_replace, filename) {
+//TODO                            result_success("File " + filename + " " + (is_replace ? "replaced." : "uploaded."));
+                        },
+                        confirm_replace: Promise.promisify(function(filename, callback) {
+/*TODO                            var overwrite_click = function() {
+                                alert_box.remove();
+                                callback(null, true);
+                            };
+                            var p = $("<p>File " + filename + " exists. </p>");
+                            var overwrite = bootstrap_utils
+                                    .button({"class": 'btn-danger'})
+                                    .click(overwrite_click)
+                                    .text("Overwrite");
+                            p.append(overwrite);
+                            var alert_box = result_alert(p);
+                            $('button.close', alert_box).click(function() {
+                                callback(new Error("Overwrite cancelled"), null);
+                            });*/
+                        })
+                    };
+                };
+                
                 window.RCAP.userProfileKey = userProfileKey;
                 window.RCAP.getUserProfileVariableValues = function(variableName) {
                     return mini.getUserProfileVariableValues(variableName).then(function(variables) {

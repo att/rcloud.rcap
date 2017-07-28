@@ -175,7 +175,51 @@ ActionButtonControl <- R6Class("ActionButtonControl",
 )
 
 DataUploadControl <- R6Class("DataUploadControl",
-  inherit = Control
+  inherit = Control,
+  public = list(
+      initialize = function(cl) {
+        super$initialize(cl)
+        if (!is.null(cl$controlProperties) &&
+            length(cl$controlProperties) > 0) {
+            for (cp in cl$controlProperties) {
+              if (cp$uid == "path") {
+                private$pathType = cp$valueType
+                if(cp$valueType == "code") {
+                  private$controlFunction = cp$value %||% NULL
+                } else {
+                  private$path <- cp$value %||% NULL
+                }
+              }
+            }
+        }
+      },
+      getPath = function() {
+        if (private$pathType == 'code') {
+          func <- private$controlFunction
+          return(do.call(func, list(), envir = rcloudEnv()))
+        } else {
+          return(private$path)
+        }
+      },
+      update = function(new_value = NULL) {
+        currentLocation <- self$getPath()
+        assign(private$variableName,
+               list("path" = currentLocation),
+               pos = rcloudEnv())
+      },
+      setVariable = function(new_value) {
+        if (!is.null(new_value) && !is.null(private$variableName)) {
+          currentLocation <- self$getPath()
+          newValue <- c(new_value, list("path" = currentLocation))
+          assign(private$variableName, new_value, envir = rcloudEnv())
+        }
+        invisible(self)
+      }
+    ),
+      private = list(
+        path = NULL,
+        pathType = "manual"
+        )
 )
 
 DateRangeContol <- R6Class("DateRangeContol",
