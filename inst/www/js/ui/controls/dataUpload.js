@@ -2,9 +2,10 @@ define(['pubsub',
   'site/pubSubTable',
   'rcap/js/ui/controls/gridControl',
   'rcap/js/ui/properties/textProperty',
+  'rcap/js/ui/properties/stringValueProperty',
   'utils/variableHandler',
   'text!controlTemplates/dataUpload.tpl'
-], function (PubSub, pubSubTable, GridControl, TextProperty, variableHandler, tpl) {
+], function (PubSub, pubSubTable, GridControl, TextProperty, StringValueProperty, variableHandler, tpl) {
 
   'use strict';
 
@@ -34,6 +35,14 @@ define(['pubsub',
             label: 'Button Text',
             defaultValue: '',
             helpText: 'The text that appears on the button',
+            isRequired: true
+          }),
+          new StringValueProperty({
+            uid: 'path',
+            label: 'Save path',
+            defaultValue: '',
+            helpText: 'The file path under which uploaded files will be saved',
+            codeHelpText: 'The R function that returns the path under which uploaded files will be saved',
             isRequired: true
           })
         ]

@@ -139,8 +139,12 @@ define(['pubsub', 'site/site', 'rcap/js/assetManager', 'rcap/js/profileManager',
                                     });
 
                                     if (currProp !== undefined) {
-                                        currProp.value = jsonControlProperty.value;
-                                        currProp.id = jsonControlProperty.id;
+
+                                        //
+                                        _.extend(currProp, jsonControlProperty);
+
+                                        // currProp.value = jsonControlProperty.value;
+                                        // currProp.id = jsonControlProperty.id;
                                     }
                                 }
 
