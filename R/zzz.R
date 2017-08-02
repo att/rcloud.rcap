@@ -36,7 +36,8 @@ rcloud.rcap.caps <- NULL
       getUserProfileVariableValues = make_oc(getUserProfileVariableValues),
       getRCAPVersion = make_oc(getRCAPVersion),
       getRCAPStyles = make_oc(getRCAPStyles),
-      getDataUploadPath = make_oc(rcap.getDataUploadPath)
+      getDataUploadPath = make_oc(rcap.getDataUploadPath),
+      createUploadDir = make_oc(rcap.createUploadDir)
    )
 
     rcloud.rcap.caps$init(ocaps, rcapSessionInfo())

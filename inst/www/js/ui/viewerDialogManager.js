@@ -5,11 +5,12 @@ define([
   'text!rcap/partials/dialogs/_viewerProfileSettings.htm',
   'text!rcap/partials/dialogs/_viewerDataUpload.htm',
   'text!rcap/partials/dialogs/templates/viewerProfileVariables.tpl',
+  'text!rcap/partials/dialogs/templates/viewerDataUpload.tpl',
   'site/profileVariableManager',
   'parsley',
   'css!upload/css/uploadfile.css',
   'upload/js/jquery.uploadfile.min'
-], function (PubSub, pubSubTable, DialogUtils, configuratorPartial, dataUploadPartial, viewerProfileVariablesTpl, ProfileVariableManager) {
+], function (PubSub, pubSubTable, DialogUtils, configuratorPartial, dataUploadPartial, viewerProfileVariablesTpl, viewerDataUploadTpl, ProfileVariableManager) {
 
   'use strict';
 
@@ -134,39 +135,63 @@ define([
       // viewer file upload:
       //
       PubSub.subscribe(pubSubTable.showDataUploadDialog, function (msg, options) {
+        
+          var template = _.template(viewerDataUploadTpl);
 
-          var uploader = $('#fileuploader').uploadFile({
-            url: 'YOUR_FILE_UPLOAD_URL',
-            fileName: options.variablename,
-            autoSubmit: false,
-            maxFileCount: 1,
-            dragdropWidth: '345px',
-            statusBarWidth: '345px',
-            dragDropStr: 'Drag and drop file',
-            allowedTypes: options.allowedtypes && options.allowedtypes.length ? options.allowedtypes : '*'
-          });
-
-          $('#upload-form').data('uploaderObj', uploader);
-
+          var html = (template({}));
+          $('#upload-form').html(html);
+          $('#upload-form').data('variableName', options.variablename);
+          $('#upload-form').data('id', options.controlId);
           $('#dialog-viewerDataUpload').jqmShow();
       });
 
       $('#dialog-viewerDataUpload .approve').on('click', function() {
 
           $('#upload-form').parsley().validate();
-
-          var uploader = $('#upload-form').data('uploaderObj');
-
-          // do some stuff with the uploader:
-          if(uploader) {
-            uploader.startUpload();
+          
+          if ($('#upload-form').parsley().isValid()) {
+            var uploadTask = {
+                   'variableName': $('#upload-form').data('variableName'), 
+                   'datasetName': $('#datasetName').val(), 
+                   'description' : $('#description').val(), 
+                   'file' : $('#file-upload-file')
+            };
+                   
+            var callbacks = {
+                          start: function(filename) {
+                                $('#progress').show();
+                                $('#progress_bar').css("width", "0%");
+                                $('#progress_bar').attr("aria-valuenow", "0");
+                          },
+                          progress: function(read, size) {
+                                $('#progress_bar').attr("aria-valuenow", ~~(100 * (read / size)));
+                                $('#progress_bar').css("width", (100 * (read / size)) + "%");
+                          },
+                          done: function(is_replace, filename) {
+                              console.debug("File uploaded " + filename);
+                              var data = { updatedVariables : []};
+                              data.updatedVariables.push(
+                                {
+                                  controlId : $('#upload-form').data('id'),
+                                  value : { 
+                                    'uploaded.file.name' : filename,
+                                    'uploaded.file.description' : uploadTask.description,
+                                    'uploaded.file.datasetName' : uploadTask.datasetName
+                                  }
+                                }
+                              );
+                              window.RCAP.updateControls(JSON.stringify(data));
+                              $('.jqmWindow').jqmHide();
+                          },
+                          confirm_replace: Promise.promisify(function(filename, callback) {
+                                callback(null, true);
+                          })
+              
+            };
+            window.RCAP.uploadData(uploadTask, callbacks);
+          } else {
+            $('.jqmWindow .body').animate({ scrollTop: 0 }, 'fast');
           }
-
-          uploader.remove();
-      });
-
-      $('#dialog-viewerDataUpload .approve').on('click', function() {
-        $('#upload-form').data('uploaderObj').remove();
       });
 
     }
