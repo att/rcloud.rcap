@@ -151,23 +151,6 @@
                 window.RCAP.updateAllControls = function(dataToSubmit) {
                     mini.updateAllControls(dataToSubmit).then(function() {});
                 };
-                
-
-/* jshint ignore:start */
-
-                /*TODO callbacks is a structure as returned by the file_react(options) function below
-                 Upload task, of structure:
-                 {'variableName':'uplaodDataControlVariable', 
-                 'datasetName': 'name of the dataset', 
-                 'description' : 'not used currently', 
-                 'file' : jQuery selector for file input field}
-                 
-                 In callback.done(...) you need to invoke 'window.RCAP.updateControls' for upload data control, R expects the value to be a list, like this:
-                 { 'uploaded.file.path' : 'path to uploaded file',
-                   'uploaded.file.description' : 'description',
-                   'uploaded.file.name' : 'name specified by the user'
-                 }
-                 */
 
                 window.RCAP.uploadData = function(uploadTask, callbacks) {
                     var options = {};
@@ -179,7 +162,6 @@
                     RCloud.upload_files(options, callbacks);
                 };
                 
-/* jshint ignore:end */         
                 window.RCAP.userProfileKey = userProfileKey;
                 window.RCAP.getUserProfileVariableValues = function(variableName) {
                     return mini.getUserProfileVariableValues(variableName).then(function(variables) {

@@ -103,6 +103,7 @@ define(['pubsub', 'rcap/js/Class'], function() {
 
         // data upload:
         showDataUploadDialog: 'showDataUploadDialog',
+        overwriteDataUploadConfirm: 'overwriteDataUploadConfirm',
 
         // state management:
         stateModified: 'stateModified'
