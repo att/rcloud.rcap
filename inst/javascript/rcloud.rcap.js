@@ -154,12 +154,12 @@
 
                 window.RCAP.uploadData = function(uploadTask, callbacks) {
                     var options = {};
-                    options.upload_ocaps = rcloud._ocaps.file_upload;
-                    options.upload_ocaps.upload_pathAsync = function() {
+                    options.upload_ocaps = rcloud._ocaps.file_upload; // jshint ignore:line
+                    options.upload_ocaps.upload_pathAsync = function() { // jshint ignore:line
                       return mini.createUploadDir(uploadTask.variableName, uploadTask.datasetName);
                     };
                     options.files = uploadTask.file[0].files;
-                    RCloud.upload_files(options, callbacks);
+                    RCloud.upload_files(options, callbacks); // jshint ignore:line
                 };
                 
                 window.RCAP.userProfileKey = userProfileKey;

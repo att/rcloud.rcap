@@ -38,7 +38,7 @@ define([
                 }
                 return requirement.length === 0 || 
                 ( file.length === 1 && 
-                requirement.split(",").indexOf(file[0].name.slice((Math.max(0, file[0].name.lastIndexOf(".")) || Infinity) + 1))>=0);
+                requirement.split(',').indexOf(file[0].name.slice((Math.max(0, file[0].name.lastIndexOf('.')) || Infinity) + 1))>=0);
               },
               messages: {
                 en: 'Invalid file type, only: %s files are allowed.'
@@ -87,7 +87,7 @@ define([
                       dataitem: data.cancelData.dataItem
                   });
                 } else {
-                  $('#dialog-confirm .jqmClose').removeData([ "message", "dataitem" ]);
+                  $('#dialog-confirm .jqmClose').removeData([ 'message', 'dataitem' ]);
                 }
                 $('#dialog-confirm').jqmShow();
             });
@@ -224,16 +224,16 @@ define([
                    'file' : file
             };
             var callbacks = {
-                          start: function(filename) {
+                          start: function(filename) { // jshint ignore:line
                                 $('#progress').show();
-                                $('#progress-bar').css("width", "0%");
-                                $('#progress-bar').attr("aria-valuenow", "0");
+                                $('#progress-bar').css('width', '0%');
+                                $('#progress-bar').attr('aria-valuenow', '0');
                           },
                           progress: function(read, size) {
-                                $('#progress-bar').attr("aria-valuenow", ~~(100 * (read / size)));
-                                $('#progress-bar').css("width", (100 * (read / size)) + "%");
+                                $('#progress-bar').attr('aria-valuenow', ~~(100 * (read / size))); // jshint ignore:line
+                                $('#progress-bar').css('width', (100 * (read / size)) + '%');
                           },
-                          done: function(is_replace, filename) {
+                          done: function(isReplace, filename) {
                               var data = { updatedVariables : []};
                               data.updatedVariables.push(
                                 {
@@ -248,7 +248,7 @@ define([
                               window.RCAP.updateControls(JSON.stringify(data));
                               $('.jqmWindow').jqmHide();
                           },
-                          confirm_replace: Promise.promisify(function(filename, callback) {
+                          confirm_replace: Promise.promisify(function(filename, callback) { // jshint ignore:line
                                 PubSub.publish(pubSubTable.showConfirmDialog, {
                                     heading: 'Replace dataset?',
                                     message: 'File in specified dataset already exists. Do you want to replace it?',
