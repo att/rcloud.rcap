@@ -211,7 +211,7 @@ DataUploadControl <- R6Class("DataUploadControl",
         if (!is.null(new_value) && !is.null(private$variableName)) {
           currentLocation <- self$getPath()
           newValue <- c(new_value, list("path" = currentLocation))
-          assign(private$variableName, new_value, envir = rcloudEnv())
+          assign(private$variableName, newValue, envir = rcloudEnv())
         }
         invisible(self)
       }

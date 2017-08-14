@@ -4,12 +4,14 @@ define([
   'rcap/js/ui/dialogUtils',
   'text!rcap/partials/dialogs/_viewerProfileSettings.htm',
   'text!rcap/partials/dialogs/_viewerDataUpload.htm',
+  'text!rcap/partials/dialogs/_confirmDialog.htm',
   'text!rcap/partials/dialogs/templates/viewerProfileVariables.tpl',
+  'text!rcap/partials/dialogs/templates/viewerDataUpload.tpl',
   'site/profileVariableManager',
   'parsley',
   'css!upload/css/uploadfile.css',
   'upload/js/jquery.uploadfile.min'
-], function (PubSub, pubSubTable, DialogUtils, configuratorPartial, dataUploadPartial, viewerProfileVariablesTpl, ProfileVariableManager) {
+], function (PubSub, pubSubTable, DialogUtils, configuratorPartial, dataUploadPartial, confirmDialogPartial, viewerProfileVariablesTpl, viewerDataUploadTpl, ProfileVariableManager) {
 
   'use strict';
 
@@ -22,9 +24,73 @@ define([
       // #dialog-viewerProfileSettings
       $('#rcap-viewer').append(configuratorPartial);
       $('#rcap-viewer').append(dataUploadPartial);
+      $('#rcap-viewer').append(confirmDialogPartial);
 
       new DialogUtils().initialise();
 
+          window.Parsley
+            .addValidator('allowedfileext', {
+              requirementType: 'string',
+              validateString: function(value, requirement, parsleyInstance) {
+                var file = parsleyInstance.$element[0].files;
+                if (file.length === 0) {
+                    return true;
+                }
+                return requirement.length === 0 || 
+                ( file.length === 1 && 
+                requirement.split(',').indexOf(file[0].name.slice((Math.max(0, file[0].name.lastIndexOf('.')) || Infinity) + 1))>=0);
+              },
+              messages: {
+                en: 'Invalid file type, only: %s files are allowed.'
+              }
+            });
+      
+            ////////////////////////////////////////////////////////////////////////////////
+            //
+            // general confirmation dialog:
+            //
+            PubSub.subscribe(pubSubTable.showConfirmDialog, function(msg, data) {
+                $('#dialog-confirm .jqmClose').off('click');
+                $('#dialog-confirm .approve').off('click');
+                
+                $('#dialog-confirm .approve').on('click', function() {
+                    var approveData = $(this).data();
+    
+                    // publish the appropriate message with the data:
+                    PubSub.publish(approveData.message, approveData.dataitem);
+    
+                    // and close all dialogs:
+                    $('#dialog-confirm').jqmHide();
+                });
+                
+                $('#dialog-confirm .jqmClose').on('click', function() {
+                    var cancelData = $(this).data();
+    
+                    if(cancelData.message) {
+                      // publish the appropriate message with the data:
+                      PubSub.publish(cancelData.message, cancelData.dataitem);
+                    }
+                    $('#dialog-confirm').jqmHide();
+                });
+                // set confirmation dialog properties:
+                $('#dialog-confirm h1').text(data.heading);
+                $('#dialog-confirm p').text(data.message);
+
+                $('#dialog-confirm .approve').data({
+                    message: data.pubSubMessage,
+                    dataitem: data.dataItem
+                });
+
+                if(data.cancelData) {
+                  $('#dialog-confirm .jqmClose').data({
+                      message: data.cancelData.pubSubMessage,
+                      dataitem: data.cancelData.dataItem
+                  });
+                } else {
+                  $('#dialog-confirm .jqmClose').removeData([ 'message', 'dataitem' ]);
+                }
+                $('#dialog-confirm').jqmShow();
+            });
       ////////////////////////////////////////////////////////////////////////////////
       //
       // viewer profile settings:
@@ -68,8 +134,6 @@ define([
               }
             });
 
-            //console.log('updating profile variables with: ', data);
-
             // only update if there's something to update:
             if(data.updatedVariables.length) {
               profileManager.updateProfileVariables(data);
@@ -77,7 +141,7 @@ define([
 
             $('.jqmWindow').jqmHide();
           } else {
-            $('.jqmWindow .body').animate({ scrollTop: 0 }, 'fast');
+            $('#dialog-viewerProfileSettings .jqmWindow .body').animate({ scrollTop: 0 }, 'fast');
           }
       });
 
@@ -120,7 +184,7 @@ define([
             }
           });
 
-          $('.jqmWindow .body').animate({ scrollTop: 0 }, 'fast');
+          $('#dialog-viewerProfileSettings .jqmWindow .body').animate({ scrollTop: 0 }, 'fast');
           $('#dialog-viewerProfileSettings').jqmShow();
         };
 
@@ -134,39 +198,81 @@ define([
       // viewer file upload:
       //
       PubSub.subscribe(pubSubTable.showDataUploadDialog, function (msg, options) {
+        
+          var template = _.template(viewerDataUploadTpl);
 
-          var uploader = $('#fileuploader').uploadFile({
-            url: 'YOUR_FILE_UPLOAD_URL',
-            fileName: options.variablename,
-            autoSubmit: false,
-            maxFileCount: 1,
-            dragdropWidth: '345px',
-            statusBarWidth: '345px',
-            dragDropStr: 'Drag and drop file',
-            allowedTypes: options.allowedtypes && options.allowedtypes.length ? options.allowedtypes : '*'
-          });
-
-          $('#upload-form').data('uploaderObj', uploader);
-
+          var html = (template({}));
+          $('#upload-form').html(html);
+          $('#upload-form').data('variableName', options.variablename);
+          $('#upload-form').data('id', options.controlId);
           $('#dialog-viewerDataUpload').jqmShow();
+            if(options.allowedtypes && options.allowedtypes.length > 0) {
+              $('#file-upload-file').attr('data-parsley-allowedfileext', options.allowedtypes);
+            }
       });
 
       $('#dialog-viewerDataUpload .approve').on('click', function() {
 
           $('#upload-form').parsley().validate();
-
-          var uploader = $('#upload-form').data('uploaderObj');
-
-          // do some stuff with the uploader:
-          if(uploader) {
-            uploader.startUpload();
+          
+          if ($('#upload-form').parsley().isValid()) {
+            var file = $('#file-upload-file');
+            var uploadTask = {
+                   'variableName': $('#upload-form').data('variableName'), 
+                   'datasetName': $('#datasetName').val(), 
+                   'description' : $('#description').val(), 
+                   'file' : file
+            };
+            var callbacks = {
+                          start: function(filename) { // jshint ignore:line
+                                $('#progress').show();
+                                $('#progress-bar').css('width', '0%');
+                                $('#progress-bar').attr('aria-valuenow', '0');
+                          },
+                          progress: function(read, size) {
+                                $('#progress-bar').attr('aria-valuenow', ~~(100 * (read / size))); // jshint ignore:line
+                                $('#progress-bar').css('width', (100 * (read / size)) + '%');
+                          },
+                          done: function(isReplace, filename) {
+                              var data = { updatedVariables : []};
+                              data.updatedVariables.push(
+                                {
+                                  controlId : $('#upload-form').data('id'),
+                                  value : { 
+                                    'uploaded.file.name' : filename,
+                                    'uploaded.file.description' : uploadTask.description,
+                                    'uploaded.file.datasetName' : uploadTask.datasetName
+                                  }
+                                }
+                              );
+                              window.RCAP.updateControls(JSON.stringify(data));
+                              $('.jqmWindow').jqmHide();
+                          },
+                          confirm_replace: Promise.promisify(function(filename, callback) { // jshint ignore:line
+                                PubSub.publish(pubSubTable.showConfirmDialog, {
+                                    heading: 'Replace dataset?',
+                                    message: 'File in specified dataset already exists. Do you want to replace it?',
+                                    pubSubMessage: pubSubTable.overwriteDataUploadConfirm,
+                                    // use general selector, applying to both form and 'general' control dialogs:
+                                    dataItem:  { callback : callback, overwrite: true},
+                                    cancelData:  {
+                                      pubSubMessage : pubSubTable.overwriteDataUploadConfirm,
+                                      dataItem:  { callback : callback, overwrite: false}
+                                    }
+                                });
+                          })
+              
+            };
+            window.RCAP.uploadData(uploadTask, callbacks);
+          } else {
+            $('#dialog-viewerDataUpload .jqmWindow .body').animate({ scrollTop: 0 }, 'fast');
           }
-
-          uploader.remove();
       });
-
-      $('#dialog-viewerDataUpload .approve').on('click', function() {
-        $('#upload-form').data('uploaderObj').remove();
+      
+      PubSub.subscribe(pubSubTable.overwriteDataUploadConfirm, function(msg, options) {
+        if(options.callback) {
+          options.callback(null, options.overwrite);
+        }
       });
 
     }

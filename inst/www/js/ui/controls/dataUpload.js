@@ -62,7 +62,9 @@ define(['pubsub',
     },
     initialiseViewerItems: function () {
       $('[data-controltype="dataupload"]').click(function () {
-        PubSub.publish(pubSubTable.showDataUploadDialog, $(this).data());
+        var params = $(this).data();
+        params.controlId = this.id;
+        PubSub.publish(pubSubTable.showDataUploadDialog, params);
       });
     }
   });
