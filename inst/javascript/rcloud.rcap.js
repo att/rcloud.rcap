@@ -139,7 +139,8 @@
                         ['updateAllControls'],  // kicks off R plot rendering
                         ['getRCAPStyles'],
                         ['getUserProfileVariableValues'],
-                        ['getUserProfileValue']
+                        ['getUserProfileValue'],
+                        ['createUploadDir']
                     ], true);
 
                 window.RCAP = window.RCAP || {};
@@ -149,6 +150,17 @@
                 window.RCAP.updateAllControls = function(dataToSubmit) {
                     mini.updateAllControls(dataToSubmit).then(function() {});
                 };
+
+                window.RCAP.uploadData = function(uploadTask, callbacks) {
+                    var options = {};
+                    options.upload_ocaps = rcloud._ocaps.file_upload; // jshint ignore:line
+                    options.upload_ocaps.upload_pathAsync = function() { // jshint ignore:line
+                      return mini.createUploadDir(uploadTask.variableName, uploadTask.datasetName);
+                    };
+                    options.files = uploadTask.file[0].files;
+                    RCloud.upload_files(options, callbacks); // jshint ignore:line
+                };
+                
                 window.RCAP.userProfileKey = userProfileKey;
                 window.RCAP.getUserProfileVariableValues = function(variableName) {
                     return mini.getUserProfileVariableValues(variableName).then(function(variables) {

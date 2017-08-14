@@ -101,6 +101,10 @@ define(['pubsub', 'rcap/js/Class'], function() {
         getViewerProfileInfo: 'getViewerProfile',
         showViewerProfileDialog: 'showViewerProfileDialog',
 
+        // data upload:
+        showDataUploadDialog: 'showDataUploadDialog',
+        overwriteDataUploadConfirm: 'overwriteDataUploadConfirm',
+
         // state management:
         stateModified: 'stateModified'
 
