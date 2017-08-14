@@ -8,10 +8,9 @@ define([
   'text!rcap/partials/dialogs/templates/viewerProfileVariables.tpl',
   'text!rcap/partials/dialogs/templates/viewerDataUpload.tpl',
   'site/profileVariableManager',
-  'parsley',
-  'css!upload/css/uploadfile.css',
-  'upload/js/jquery.uploadfile.min'
-], function (PubSub, pubSubTable, DialogUtils, configuratorPartial, dataUploadPartial, confirmDialogPartial, viewerProfileVariablesTpl, viewerDataUploadTpl, ProfileVariableManager) {
+  'parsley'
+], function (PubSub, pubSubTable, DialogUtils, configuratorPartial, dataUploadPartial, confirmDialogPartial, 
+  viewerProfileVariablesTpl, viewerDataUploadTpl, ProfileVariableManager) {
 
   'use strict';
 
