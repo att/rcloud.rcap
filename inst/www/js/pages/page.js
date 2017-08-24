@@ -52,17 +52,7 @@ define(['rcap/js/Class'], function() {
             });
         },
         duplicate: function() {
-            /*
             // returns a duplicate page, with new (unique) page ID and control IDs:
-            var dupe = $.extend(true, {}, this);
-            dupe.id = generateId();
-            dupe.controls = [];
-
-            _.each(this.controls, function(c) {
-                dupe.controls.push($.extend(true, {}, c).regenerateId());
-            });
-            */
-
             var dupe = JSON.parse(JSON.stringify(this));
             dupe.id = generateId();
             dupe.controls = [];
