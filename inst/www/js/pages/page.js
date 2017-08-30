@@ -34,7 +34,6 @@ define(['rcap/js/Class'], function() {
 
         },
         toJSON: function() {
-
             return {
                 'depth': this.depth,
                 'id': this.id,
@@ -44,7 +43,6 @@ define(['rcap/js/Class'], function() {
                 'controls': this.controls,
                 'pages': this.pages
             };
-
         },
         getControlByID: function(controlID) {
             return _.findWhere(this.controls, {
@@ -52,15 +50,14 @@ define(['rcap/js/Class'], function() {
             });
         },
         duplicate: function() {
-            // returns a duplicate page, with new (unique) page ID and control IDs:
-            var dupe = JSON.parse(JSON.stringify(this));
+            var dupe = $.extend(true, {}, this);
             dupe.id = generateId();
-            dupe.controls = [];
+            dupe.controls = [];     
 
             _.each(this.controls, function(c) {
-               var currentControl = JSON.parse(JSON.stringify(c));
-               currentControl.id = generateId();
-               dupe.controls.push(currentControl); 
+                var currentControl = $.extend(true, {}, c);
+                currentControl.id = generateId();
+                dupe.controls.push(currentControl);
             });
 
             return dupe;
@@ -68,7 +65,6 @@ define(['rcap/js/Class'], function() {
         canAddChild: function() {
             return this.depth <= 2;
         }
-
     });
 
     return Page;

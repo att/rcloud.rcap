@@ -141,7 +141,7 @@ define([
             $(selector).off('change').on('change', function() {
 
                 // don't fire an event if this grid hasn't been initialised
-                if ($('.grid-stack:visible').hasClass('initialised')) {
+                if ($(selector).hasClass('initialised')) {
 
                     var hasItem = false,
                         dataItems = [];
