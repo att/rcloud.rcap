@@ -195,6 +195,8 @@ define(['rcap/js/ui/controls/gridControl',
 
                     if (me.isOnGrid) {
 
+                        console.info('pagesChanged event handler breadcrumb for: ', me.id);
+
                         // verify that the pages' order has actually changed:
                         if (_.pluck(me.pages, 'id').join() !== _.pluck(pagesInfo.pages, 'id').join()) {
                             me.pages = pagesInfo.pages;
