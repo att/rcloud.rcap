@@ -35,7 +35,6 @@ define([
         // hide rcap:
         $(rcapSelector).hide();
 
-        console.info('designer: PUBLISH : pubSubTable.close');
         PubSub.publish(pubSubTable.close);
     };
 

@@ -182,8 +182,6 @@ define([
                         previousParent: event.move_info.previous_parent.id // jshint ignore:line
                       };
 
-                      console.info('page moved details: ', pageMovedDetails);
-
                       PubSub.publish(pubSubTable.pageMoved, pageMovedDetails);
                     }
                 );

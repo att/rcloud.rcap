@@ -394,8 +394,6 @@ define([
 
             PubSub.subscribe(pubSubTable.showTimerSettingsDialog, function(msg, timer) {
 
-                console.info('dialogManager: pubSubTable.showTimerSettingsDialog');
-
                 $('#timer-form').data('timerid', timer.id);
 
                 $('#inputTimerVariable').val(timer.variable);
