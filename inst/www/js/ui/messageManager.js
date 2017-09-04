@@ -12,7 +12,7 @@ define(['pubsub', 'site/pubSubTable'], function(PubSub, pubSubTable) {
 
             PubSub.subscribe(pubSubTable.showMessage, function(msg, message) {
 
-                console.info('messageManager: pubSubTable.showMessage');
+                //console.info('messageManager: pubSubTable.showMessage');
 
                 // set the text and show for a little while:
                 $(selector)
