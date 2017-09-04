@@ -1,6 +1,9 @@
-define(['rcap/js/Class'], function() {
+define(['controls/factories/controlFactory',
+'rcap/js/Class'], function(ControlFactory) {
 
     'use strict';
+    
+    var controlFactory = new ControlFactory();
 
     var generateId = function() {
         return 'rcap' + Math.random().toString(16).slice(2);
@@ -55,9 +58,20 @@ define(['rcap/js/Class'], function() {
             dupe.controls = [];     
 
             _.each(this.controls, function(c) {
+                /*
                 var currentControl = $.extend(true, {}, c);
                 currentControl.id = generateId();
                 dupe.controls.push(currentControl);
+                */
+
+                /*
+                var control = controlFactory.getByKey(c.type);
+                control.isOnGrid = true;
+                dupe.controls.push(control);
+                console.info('pushing control: ', control);
+                */
+
+                dupe.controls.push(controlFactory.duplicateControl(c));
             });
 
             return dupe;

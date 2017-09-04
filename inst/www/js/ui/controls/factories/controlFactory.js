@@ -1,4 +1,4 @@
-define([
+    define([
     'controls/iframe',
     'controls/image',
     'controls/rText',
@@ -117,6 +117,35 @@ define([
 
     ControlFactory.prototype.getChildControls = function() {
         return this.childControls;
+    };
+
+    ControlFactory.prototype.duplicateControl = function(control) {
+        var dupe = this.getByKey(control.type);
+        var props = $.extend(true, {}, control);
+
+        // don't copy the id; special handling for control and style properties:
+        var propsToExclude = ['id', 'controlProperties', 'styleProperties'];
+
+        for(var p in props) {
+            if(propsToExclude.indexOf(p) === -1) {
+                dupe[p] = props[p];
+            }
+        }
+
+        var assignValues = function(propName) {
+            _.each(props[propName], function(prop) { /* jshint ignore:line */
+                var curr = _.findWhere(dupe[propName], { uid: prop.uid }); /* jshint ignore:line */
+
+                if(curr) {
+                    curr.value = prop.value;
+                }
+            });
+        };
+
+        assignValues('controlProperties');
+        assignValues('styleProperties');
+
+        return dupe;
     };
 
     ControlFactory.prototype.getByKey = function(key) {
