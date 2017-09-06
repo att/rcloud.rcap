@@ -261,14 +261,10 @@ define([
 
             // timers:
             $('body').on('click', '.menu-flyout[data-flyoutid="timers"] h4 a.add', function() {
-                console.info('menuManager: pubSubTable.addTimer');
-
                 PubSub.publish(pubSubTable.addTimer);
             });
 
             PubSub.subscribe(pubSubTable.timerAdded, function(msg, timer) {
-                console.info('menuManager: pubSubTable.timerAdded');
-
                 // add the data source to the menu:
                 var template = _.template(timerMenuItemTemplate),
                     newItemMarkup = template({
@@ -280,9 +276,6 @@ define([
             });
 
             PubSub.subscribe(pubSubTable.updateTimer, function(msg, timer) {
-
-                console.info('menuManager: pubSubTable.updateTimer');
-
                 // find the item in the menu and update:
                 var existingItem = $('#timers li[data-timerid="' + timer.id + '"]');
 
@@ -295,9 +288,6 @@ define([
             });
 
             PubSub.subscribe(pubSubTable.deleteTimerConfirm, function(msg, timerId) {
-
-                console.info('menuManager: pubSubTable.deleteTimerConfirm');
-
                 $('#timers li[data-timerid="' + timerId + '"]').remove();
             });
 
