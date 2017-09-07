@@ -1,4 +1,5 @@
 ^app.Rproj$
+^.github$
 ^inst/bower_components$
 ^inst/bower.json$
 ^inst/build$
