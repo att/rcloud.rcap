@@ -18,11 +18,8 @@ module.exports = function(grunt) {
     };
 
     grunt.initConfig({
-
         pkg: grunt.file.readJSON('package.json'),
-
         appConfig: appConfig,
-
         sass: {
             all: {
                 options: {
@@ -34,7 +31,6 @@ module.exports = function(grunt) {
                 trace: true
             }
         },
-
         // Make sure code styles are up to par and there are no obvious mistakes
         jshint: {
             options: {
@@ -51,7 +47,6 @@ module.exports = function(grunt) {
                 ]
             }
         },
-
         watch: {
             css: {
                 files: '**/*.scss',
@@ -70,7 +65,6 @@ module.exports = function(grunt) {
                 }
             }
         },
-
         copy: {
             dev: {
                 files: [{
@@ -96,7 +90,8 @@ module.exports = function(grunt) {
                     ]
                 }]
             }
-        }
+        },
+        
     });
 
     grunt.loadNpmTasks('grunt-contrib-copy');
@@ -107,6 +102,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-newer');
+    grunt.loadNpmTasks('main-bower-files');
 
     require('time-grunt')(grunt);
 

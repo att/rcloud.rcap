@@ -15,6 +15,7 @@
     "grunt-sass": "^1.2.1",
     "grunt-shell": "^1.1.2",
     "jshint-stylish": "^2.0.1",
+    "main-bower-files": "^2.13.1",
     "time-grunt": "^1.2.1",
     "uglifyjs": "2.4.10"
   }
