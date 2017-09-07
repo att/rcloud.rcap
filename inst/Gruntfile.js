@@ -91,7 +91,30 @@ module.exports = function(grunt) {
                 }]
             }
         },
-        
+        bower: {
+            dev: {
+                base: 'bower_components', // the path to the bower_components directory
+                dest: 'web/bower_components',
+                options: {
+                    checkExistence: true,
+                    debugging: false,
+                    paths: {
+                        bowerDirectory: 'bower_components',
+                        bowerrc: '.bowerrc',
+                        bowerJson: 'bower.json'
+                    },
+                    dependencies: {
+                        jslider: '*'
+                    }
+                }
+            },
+            flat: { /* flat folder/file structure */
+                dest: 'public/vendor',
+                options: {
+                    debugging: false
+                }
+            }
+        }
     });
 
     grunt.loadNpmTasks('grunt-contrib-copy');
@@ -107,6 +130,6 @@ module.exports = function(grunt) {
     require('time-grunt')(grunt);
 
     // dev
-    grunt.registerTask('default', ['newer:jshint', 'sass', 'copy:dev']);
+    grunt.registerTask('default', ['newer:jshint', 'sass', /*'copy:dev', */ 'bower:dev', 'bower:flat']);
 
 };

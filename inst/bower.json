@@ -34,6 +34,14 @@
     "pubsub-js": "~1.5.2",
     "parsleyjs": "~2.7.2"
   },
+  "overrides": {
+    "jslider": {
+      "main": "**/*.*"
+    },
+    "jquery.sparkline": {
+      "main": "**/*.*"
+    }
+  },
   "devDependencies": {
     "jquery.hotkeys": "*",
     "requirejs-plugins": "~1.0.3",
