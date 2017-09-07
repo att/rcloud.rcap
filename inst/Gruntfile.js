@@ -94,7 +94,7 @@ module.exports = function(grunt) {
         bower: {
             dev: {
                 base: 'bower_components', // the path to the bower_components directory
-                dest: 'web/bower_components',
+                dest: 'public/vendor',
                 options: {
                     checkExistence: true,
                     debugging: false,
@@ -102,16 +102,7 @@ module.exports = function(grunt) {
                         bowerDirectory: 'bower_components',
                         bowerrc: '.bowerrc',
                         bowerJson: 'bower.json'
-                    },
-                    dependencies: {
-                        jslider: '*'
                     }
-                }
-            },
-            flat: { /* flat folder/file structure */
-                dest: 'public/vendor',
-                options: {
-                    debugging: false
                 }
             }
         }
@@ -130,6 +121,6 @@ module.exports = function(grunt) {
     require('time-grunt')(grunt);
 
     // dev
-    grunt.registerTask('default', ['newer:jshint', 'sass', /*'copy:dev', */ 'bower:dev', 'bower:flat']);
+    grunt.registerTask('default', ['newer:jshint', 'sass', 'bower:dev']);
 
 };

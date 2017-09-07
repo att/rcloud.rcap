@@ -23,7 +23,6 @@
     "requirejs-text": "~2.0.14",
     "select2": "~4.0.0",
     "spectrum": "~1.8",
-    "jslider": "*",
     "ionrangeslider": "~2.1.2",
     "datatables.net": "~1.10.10",
     "datatables.net-buttons": "~1.2.1",
@@ -35,11 +34,8 @@
     "parsleyjs": "~2.7.2"
   },
   "overrides": {
-    "jslider": {
-      "main": "**/*.*"
-    },
     "jquery.sparkline": {
-      "main": "**/*.*"
+      "main": "dist/jquery.sparkline.min.js" 
     }
   },
   "devDependencies": {

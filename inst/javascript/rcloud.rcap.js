@@ -13,6 +13,7 @@
             'controls': '../../shared.R/rcloud.rcap/js/ui/controls',
             'templates': '../../shared.R/rcloud.rcap/js/ui/properties/templates',
             'controlTemplates': '../../shared.R/rcloud.rcap/js/ui/controls/templates',
+            /*
             'pubsub': '../../shared.R/rcloud.rcap/bower_components/pubsub-js/src/pubsub',
             'parsley': '../../shared.R/rcloud.rcap/bower_components/parsleyjs/dist/parsley.min',
             'spectrum': '../../shared.R/rcloud.rcap/bower_components/spectrum',
@@ -24,6 +25,20 @@
             'datatables.net': '../../shared.R/rcloud.rcap/bower_components/datatables.net/js/jquery.dataTables',
             'datatables.net-buttons': '../../shared.R/rcloud.rcap/bower_components/datatables.net-buttons/js/dataTables.buttons',
             'jquery.sparkline': '../../shared.R/rcloud.rcap/bower_components/jquery.sparkline/dist'
+            */
+
+            'pubsub': '../../shared.R/rcloud.rcap/public/vendor/pubsub-js/src/pubsub',
+            'parsley': '../../shared.R/rcloud.rcap/public/vendor/parsleyjs/dist/parsley.min',
+            'spectrum': '../../shared.R/rcloud.rcap/public/vendor/spectrum',
+            'select2': '../../shared.R/rcloud.rcap/public/vendor/select2/dist',
+            'quill': '../../shared.R/rcloud.rcap/js/vendor/quill',
+            'ionrangeslider': '../../shared.R/rcloud.rcap/public/vendor/ionrangeslider',
+            'datatables': '../../shared.R/rcloud.rcap/public/vendor/datatables.net/js',
+            'datatablesbuttons': '../../shared.R/rcloud.rcap/public/vendor/datatables.net-buttons/js',
+            'datatables.net': '../../shared.R/rcloud.rcap/public/vendor/datatables.net/js/jquery.dataTables',
+            'datatables.net-buttons': '../../shared.R/rcloud.rcap/public/vendor/datatables.net-buttons/js/dataTables.buttons',
+            'jquery.sparkline': '../../shared.R/rcloud.rcap/public/vendor/jquery.sparkline/dist'
+            
         },
         map: {
             '*': {
