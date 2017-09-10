@@ -27,26 +27,36 @@
             'jquery.sparkline': '../../shared.R/rcloud.rcap/bower_components/jquery.sparkline/dist'
             */
 
-            'pubsub': '../../shared.R/rcloud.rcap/public/vendor/pubsub-js/src/pubsub',
-            'parsley': '../../shared.R/rcloud.rcap/public/vendor/parsleyjs/dist/parsley.min',
-            'spectrum': '../../shared.R/rcloud.rcap/public/vendor/spectrum',
-            'select2': '../../shared.R/rcloud.rcap/public/vendor/select2/dist',
+            'pubsub': '../../shared.R/rcloud.rcap/vendor/pubsub-js/src/pubsub',
+            'parsley': '../../shared.R/rcloud.rcap/vendor/parsleyjs/dist/parsley.min',
+            'spectrum': '../../shared.R/rcloud.rcap/vendor/spectrum',
+            'select2': '../../shared.R/rcloud.rcap/vendor/select2/dist',
             'quill': '../../shared.R/rcloud.rcap/js/vendor/quill',
-            'ionrangeslider': '../../shared.R/rcloud.rcap/public/vendor/ionrangeslider',
-            'datatables': '../../shared.R/rcloud.rcap/public/vendor/datatables.net/js',
-            'datatablesbuttons': '../../shared.R/rcloud.rcap/public/vendor/datatables.net-buttons/js',
-            'datatables.net': '../../shared.R/rcloud.rcap/public/vendor/datatables.net/js/jquery.dataTables',
-            'datatables.net-buttons': '../../shared.R/rcloud.rcap/public/vendor/datatables.net-buttons/js/dataTables.buttons',
-            'jquery.sparkline': '../../shared.R/rcloud.rcap/public/vendor/jquery.sparkline/dist'
+            'ionrangeslider': '../../shared.R/rcloud.rcap/vendor/ionrangeslider',
+            'datatables': '../../shared.R/rcloud.rcap/vendor/datatables.net/js',
+            'datatablesbuttons': '../../shared.R/rcloud.rcap/vendor/datatables.net-buttons/js',
+            'datatables.net': '../../shared.R/rcloud.rcap/vendor/datatables.net/js/jquery.dataTables',
+            'datatables.net-buttons': '../../shared.R/rcloud.rcap/vendor/datatables.net-buttons/js/dataTables.buttons',
+            'jquery.sparkline': '../../shared.R/rcloud.rcap/vendor/jquery.sparkline/dist',
             
+            'css': '../../shared.R/rcloud.rcap/vendor/require-css/css',
+            'text': '../../shared.R/rcloud.rcap/vendor/requirejs-text/text',
+            
+
         },
         map: {
             '*': {
-                'css': 'rcap/bower_components/require-css/css',
-                'text': 'rcap/bower_components/requirejs-text/text',
-                'json': 'rcap/bower_components/requirejs-plugins/src/json',
-                'font': 'rcap/bower_components/requirejs-plugins/src/font',
-                'propertyParser': 'rcap/bower_components/requirejs-plugins/src/propertyParser'
+                //'css': '../../shared.R/rcloud.rcap/vendor/require-css/css',
+                
+                //'css': '../../shared.R/rcloud.rcap/vendor/YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYrequire-css/css',
+
+                //'text': '../../shared.R/rcloud.rcap/vendor/requirejs-text/text',
+
+                //'text': '../../shared.R/rcloud.rcap/vendor/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXrequirejs-text/text',
+
+                'json': '../../shared.R/rcloud.rcap/vendor/requirejs-plugins/src/json',
+                'font': '../../shared.R/rcloud.rcap/vendor/requirejs-plugins/src/font',
+                'propertyParser': '../../shared.R/rcloud.rcap/vendor/requirejs-plugins/src/propertyParser'
             }
         }
     });

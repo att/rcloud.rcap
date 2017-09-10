@@ -43,7 +43,8 @@ module.exports = function(grunt) {
                     '<%= appConfig.appPath %>/javascript/**/*.js',
                     '<%= appConfig.appPath %>/www/**/*.js',
                     '!<%= appConfig.appPath %>/www/js/vendor/**/*.js',
-                    '!<%= appConfig.appPath %>/www/bower_components/**/*.js'
+                    '!<%= appConfig.appPath %>/www/bower_components/**/*.js',
+                    '!<%= appConfig.appPath %>/www/vendor/**/*.js'                    
                 ]
             }
         },
@@ -57,7 +58,8 @@ module.exports = function(grunt) {
                     '<%= appConfig.app %>/javascript/**/*.js', 
                     '<%= appConfig.app %>/www/**/*.js',
                     '!<%= appConfig.appPath %>/www/js/vendor/**/*.js',
-                    '!<%= appConfig.appPath %>/www/bower_components/**/*.js'
+                    '!<%= appConfig.appPath %>/www/bower_components/**/*.js',
+                    '!<%= appConfig.appPath %>/www/vendor/**/*.js'
                 ],
                 tasks: ['newer:jshint:all'],
                 options: {
@@ -94,7 +96,7 @@ module.exports = function(grunt) {
         bower: {
             dev: {
                 base: 'bower_components', // the path to the bower_components directory
-                dest: 'public/vendor',
+                dest: 'www/vendor',
                 options: {
                     checkExistence: true,
                     debugging: false,

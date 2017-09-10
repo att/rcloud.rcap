@@ -31,16 +31,43 @@
     "datatables.net-fixedheader": "~3.1.2",
     "datatables.net-fixedheader-dt": "~3.1.2",
     "pubsub-js": "~1.5.2",
-    "parsleyjs": "~2.7.2"
+    "parsleyjs": "~2.7.2",
+    "jquery.hotkeys": "*",
+    "require-css": "~0.1.8"
   },
   "overrides": {
     "jquery.sparkline": {
       "main": "dist/jquery.sparkline.min.js" 
+    },
+    "parsleyjs": {
+      "main": "dist/parsley.min.js"
+    },
+    "datatables.net": {
+      "main": ["js/jquery.dataTables.min.js", 
+        "js/jquery.dataTables.js"
+      ]
+    },
+    "datatables.net-buttons": {
+      "main": ["js/dataTables.buttons.js",
+        "js/buttons.colVis.js",
+        "js/buttons.flash.js",
+        "js/buttons.html5.min.js",
+        "js/buttons.print.js"
+      ]
+    },
+    "select2": {
+      "main": [
+        "dist/js/select2.js", "dist/css/select2.min.css"
+      ]
+    },
+    "ionrangeslider": {
+      "main": [
+        "js/ion.rangeSlider.js",
+        "css/ion.rangeSlider.css",
+        "css/ion.rangeSlider.skinFlat.css",
+        "css/ion.rangeSlider.skinHTML5.css",        
+        "img/sprite-skin-flat.png"
+      ]
     }
-  },
-  "devDependencies": {
-    "jquery.hotkeys": "*",
-    "requirejs-plugins": "~1.0.3",
-    "require-css": "~0.1.8"
   }
 }
