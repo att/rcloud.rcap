@@ -4,17 +4,6 @@ module.exports = function(grunt) {
 
     var appConfig = {
         appPath: require('./bower.json').appPath || '.',
-
-        /**************************************************************************
-        //
-        //  ::: TODO: modify dist settings :::
-        //
-        **************************************************************************/
-        devDeployDir: '.',
-        distFiles: [
-            'javascript/rcloud.rcap.js',
-            'www/js/initialiser.js',
-        ]
     };
 
     grunt.initConfig({
@@ -31,7 +20,6 @@ module.exports = function(grunt) {
                 trace: true
             }
         },
-        // Make sure code styles are up to par and there are no obvious mistakes
         jshint: {
             options: {
                 jshintrc: '.jshintrc',
@@ -61,10 +49,7 @@ module.exports = function(grunt) {
                     '!<%= appConfig.appPath %>/www/bower_components/**/*.js',
                     '!<%= appConfig.appPath %>/www/vendor/**/*.js'
                 ],
-                tasks: ['newer:jshint:all'],
-                options: {
-                    
-                }
+                tasks: ['newer:jshint:all']
             }
         },
         bower: {
