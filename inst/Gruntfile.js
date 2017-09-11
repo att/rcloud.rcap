@@ -67,35 +67,9 @@ module.exports = function(grunt) {
                 }
             }
         },
-        copy: {
-            dev: {
-                files: [{
-                    expand: true,
-                    cwd: 'bower_components/',
-                    dest: '<%= appConfig.devDeployDir%>/www/bower_components',
-                    src: [
-                        '**/*.js'
-                    ]
-                }, {
-                    expand: true,
-                    cwd: 'bower_components/',
-                    dest: '<%= appConfig.devDeployDir%>/www/bower_components',
-                    src: [
-                        '**/*.css'
-                    ]
-                }, {
-                    expand: true,
-                    cwd: 'bower_components/',
-                    dest: '<%= appConfig.devDeployDir%>/www/bower_components',
-                    src: [
-                        '**/*.png'
-                    ]
-                }]
-            }
-        },
         bower: {
             dev: {
-                base: 'bower_components', // the path to the bower_components directory
+                base: 'bower_components',
                 dest: 'www/vendor',
                 options: {
                     checkExistence: true,
@@ -111,9 +85,6 @@ module.exports = function(grunt) {
     });
 
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-shell');
-    grunt.loadNpmTasks('grunt-open');
-    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-jshint');
