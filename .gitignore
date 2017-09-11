@@ -1,3 +1,4 @@
+inst/www/vendor
 node_modules
 .sass-cache
 bower_components

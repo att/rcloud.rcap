@@ -4,25 +4,11 @@ module.exports = function(grunt) {
 
     var appConfig = {
         appPath: require('./bower.json').appPath || '.',
-
-        /**************************************************************************
-        //
-        //  ::: TODO: modify dist settings :::
-        //
-        **************************************************************************/
-        devDeployDir: '.',
-        distFiles: [
-            'javascript/rcloud.rcap.js',
-            'www/js/initialiser.js',
-        ]
     };
 
     grunt.initConfig({
-
         pkg: grunt.file.readJSON('package.json'),
-
         appConfig: appConfig,
-
         sass: {
             all: {
                 options: {
@@ -34,8 +20,6 @@ module.exports = function(grunt) {
                 trace: true
             }
         },
-
-        // Make sure code styles are up to par and there are no obvious mistakes
         jshint: {
             options: {
                 jshintrc: '.jshintrc',
@@ -47,11 +31,11 @@ module.exports = function(grunt) {
                     '<%= appConfig.appPath %>/javascript/**/*.js',
                     '<%= appConfig.appPath %>/www/**/*.js',
                     '!<%= appConfig.appPath %>/www/js/vendor/**/*.js',
-                    '!<%= appConfig.appPath %>/www/bower_components/**/*.js'
+                    '!<%= appConfig.appPath %>/www/bower_components/**/*.js',
+                    '!<%= appConfig.appPath %>/www/vendor/**/*.js'                    
                 ]
             }
         },
-
         watch: {
             css: {
                 files: '**/*.scss',
@@ -62,55 +46,39 @@ module.exports = function(grunt) {
                     '<%= appConfig.app %>/javascript/**/*.js', 
                     '<%= appConfig.app %>/www/**/*.js',
                     '!<%= appConfig.appPath %>/www/js/vendor/**/*.js',
-                    '!<%= appConfig.appPath %>/www/bower_components/**/*.js'
+                    '!<%= appConfig.appPath %>/www/bower_components/**/*.js',
+                    '!<%= appConfig.appPath %>/www/vendor/**/*.js'
                 ],
-                tasks: ['newer:jshint:all'],
-                options: {
-                    
-                }
+                tasks: ['newer:jshint:all']
             }
         },
-
-        copy: {
+        bower: {
             dev: {
-                files: [{
-                    expand: true,
-                    cwd: 'bower_components/',
-                    dest: '<%= appConfig.devDeployDir%>/www/bower_components',
-                    src: [
-                        '**/*.js'
-                    ]
-                }, {
-                    expand: true,
-                    cwd: 'bower_components/',
-                    dest: '<%= appConfig.devDeployDir%>/www/bower_components',
-                    src: [
-                        '**/*.css'
-                    ]
-                }, {
-                    expand: true,
-                    cwd: 'bower_components/',
-                    dest: '<%= appConfig.devDeployDir%>/www/bower_components',
-                    src: [
-                        '**/*.png'
-                    ]
-                }]
+                base: 'bower_components',
+                dest: 'www/vendor',
+                options: {
+                    checkExistence: true,
+                    debugging: false,
+                    paths: {
+                        bowerDirectory: 'bower_components',
+                        bowerrc: '.bowerrc',
+                        bowerJson: 'bower.json'
+                    }
+                }
             }
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-shell');
-    grunt.loadNpmTasks('grunt-open');
-    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-newer');
+    grunt.loadNpmTasks('main-bower-files');
 
     require('time-grunt')(grunt);
 
     // dev
-    grunt.registerTask('default', ['newer:jshint', 'sass', 'copy:dev']);
+    grunt.registerTask('default', ['newer:jshint', 'sass', 'bower:dev']);
 
 };
