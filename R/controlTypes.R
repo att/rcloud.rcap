@@ -174,6 +174,10 @@ ActionButtonControl <- R6Class("ActionButtonControl",
   inherit = Control
 )
 
+MessageControl <- R6Class("MessageControl",
+  inherit = Control
+)
+
 DataUploadControl <- R6Class("DataUploadControl",
   inherit = Control,
   public = list(
@@ -436,6 +440,7 @@ control_classes <- list(
   "submitbutton"     = SubmitButtonControl,
   "actionbutton"     = ActionButtonControl,
   "dataupload"       = DataUploadControl,
+  "message"          = MessageControl,
   "iframe"           = IFrameControl,
   "image"            = ImageControl,
   "pagemenu"         = PageMenuControl,

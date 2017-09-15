@@ -11,6 +11,7 @@
     'controls/form',
     'controls/dataTable',
     'controls/dataUpload',
+    'controls/message',
     'controls/leaflet',
     'controls/htmlWidget',
     'controls/actionButton',
@@ -40,6 +41,7 @@
     FormControl,
     DataTableControl,
     DataUploadControl,
+    MessageControl,
     LeafletControl,
     HtmlWidgetControl,
     ActionButtonControl,
@@ -69,6 +71,7 @@
             new RTextControl(),
             new DataTableControl(),
             new DataUploadControl(),
+            new MessageControl(),
             new FormControl(),
             new IFrameControl(),
             new ImageControl(),
@@ -176,6 +179,9 @@
                 break;
             case 'dataupload':
                 control = new DataUploadControl();
+                break;
+            case 'message':
+                control = new MessageControl();
                 break;
             case 'leaflet':
                 control = new LeafletControl();
