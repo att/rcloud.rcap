@@ -8,6 +8,8 @@
 ^inst/internals.md
 ^inst/node_modules$
 ^inst/package.json$
-^install.sh$
-^cleanup$
+^mkdist$
+^inst/npm-debug.log.*
 
+^.*\.Rproj$
+^\.Rproj\.user$

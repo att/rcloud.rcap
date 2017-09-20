@@ -1,0 +1,127 @@
+#!/bin/sh
+
+set -e
+
+: ${NO_CLEAN=""}
+: ${NO_JS=""}
+: ${NO_NPM=""}
+: ${INSTALL=""}
+
+while [ "$1" != "" ]; do
+    case $1 in
+        --no-npm) NO_NPM=1 ;;
+        --no-js) NO_JS=1 ;;
+        --no-clean) NO_CLEAN=1 ;;
+        --install) INSTALL=1 ;;
+        --help) cat <<EOF
+
+ Usage: $0 [{--no-npm | --no-js | --no-clean}] [install]
+ --no-clean - skips clean phase
+ --no-npm - skips npm processing step (implies --no-clean option)
+ --no-js - skips entire JavaScript processing step (implies --no-npm option)
+
+ --install - should package be installed after it has been built.
+EOF
+        exit 0 ;;
+        *) echo "unknown option" $1 && exit 1 ;;
+    esac
+    shift
+done
+
+# Make sure that flags don't clash
+if [ -n "$NO_NPM" -o -n "$NO_JS" ]; then
+  NO_CLEAN=1
+fi
+
+WD=`pwd`
+
+pkgdir=$(basename `pwd`)
+pkgname=$(sed -n 's/^Package: //p' DESCRIPTION)
+pkgversion=$(sed -n 's/^Version: //p' DESCRIPTION)
+
+if [ ! -e "$WD/DESCRIPTION" ]; then
+    echo ' ERROR: you must run this script from the RCAP root directory!' 1>&2
+    exit 1
+fi
+
+: ${BUILD_DIR="$WD/../$pkgdir-build"}
+: ${ARTIFACTS="$BUILD_DIR/artifacts"}
+: ${SRC="$BUILD_DIR/src"}
+: ${RBIN=R}
+
+if [ -z "$NO_CLEAN" ]; then
+    echo " --- Cleaning build directory"
+    rm -rf "$BUILD_DIR"
+fi
+
+echo " --- Creating build directory"
+if ! mkdir -p "$BUILD_DIR"; then
+    echo "ERROR: cannot create $BUILD_DIR, please set BUILD_DIR if other location is desired" 1>&2
+    exit 1
+fi
+
+echo " --- Copying sources"
+mkdir -p "$SRC"
+if ! cp -r "$WD" "$SRC"; then
+    echo "ERROR: cannot copy $WD to $SRC" 1>&2
+    exit 1
+fi
+
+if [ -z "$NO_JS" ]; then
+echo " --- Building bower dependencies"
+  if ! (
+      BROOT="$SRC/$pkgdir"
+      cd $BROOT/inst
+      if [ -z $NO_NPM ]; then
+  	     if npm version | grep npm: >/dev/null; then
+  	       echo npm ... OK
+  	     else
+  	       echo 'ERROR: cannot find npm - try "sudo apt-get install npm" first' 1>&2
+  	       exit 1
+  	     fi
+  	     # --no-bin-links fixes symlinks when build ran in VM
+    	   npm install --no-bin-links || exit 1
+      fi
+      	## some of the NJS/bower modules are brain-dead and make assumptions about
+      	## things being installed system-wide, so we have to use local paths and
+      	## add uglifyjs module to the PATH (eek)
+      	PATH="$BROOT/inst/node_modules/uglifyjs/bin:$PATH"
+      	export PATH
+      	node_modules/bower/bin/bower install --allow-root || exit 1
+      	( cd bower_components/jquery.sparkline && make ) || exit 1
+      	node_modules/grunt-cli/bin/grunt || exit 1
+  ); then
+  	 echo 'ERROR: cannot build bower dependencies.' 1>&2
+  	 echo 'WARN: npm install failed with "Error: EPERM: operation not permitted" try running the script again and specify --no-clean option, this is known issue when build is ran in VM' 1>&2
+  	 exit 1
+  fi
+fi
+
+echo " --- Creating RCAP repository $ARTIFACTS"
+if ! mkdir -p "$ARTIFACTS"; then
+    echo "ERROR: cannot create $ARTIFACTS," 1>&2
+    exit 1
+fi
+
+echo " --- Building RCAP package"
+( cd "$ARTIFACTS"; 
+  for srcd in `ls "$SRC/$pkgdir/DESCRIPTION" 2>/dev/null`; do 
+    "$RBIN" CMD build `dirname "$srcd"`; 
+  done; )
+
+echo "tools:::write_PACKAGES('$ARTIFACTS')" | "$RBIN" --vanilla --slave --no-save || exit 1
+
+if [ -n "$INSTALL" ]; then
+  echo " --- Installing package"
+  (cd $ARTIFACTS; 
+  "$RBIN" CMD INSTALL ${pkgname}_${pkgversion}.tar.gz)
+fi
+
+echo "Done."
+
+echo "Produced artifacts:"
+detail=`du -h $ARTIFACTS/${pkgname}_${pkgversion}.tar.gz`
+size=$(echo "$detail" | cut -f 1)
+file=$(echo "$detail" | cut -f 2)
+echo "Artifact: $file"
+echo "Size: $size"
