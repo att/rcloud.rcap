@@ -240,6 +240,10 @@ $attDarkBlueHighlight:          #020bb3;
   margin-right: 0;
   width: 100% !important; }
 
+.rcap-controltype-message {
+  font-family: monospace !important;
+  overflow-y: scroll; }
+
 .grid-stack > .grid-stack-item > .ui-resizable-handle {
   position: absolute;
   font-size: 0.1px;

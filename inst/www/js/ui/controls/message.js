@@ -29,12 +29,13 @@ var MessageControl = GridControl.extend({
       ]
     });
   },
-  render: function () {
+  render: function (options) {
 
     var template = _.template(tpl);
 
     return template({
-      control: this
+      control: this,
+      isDesignTime: options.isDesignTime || false
     });
 
   },
