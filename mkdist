@@ -62,7 +62,7 @@ fi
 
 echo " --- Copying sources"
 mkdir -p "$SRC"
-if ! cp -r "$WD" "$SRC"; then
+if ! rsync -a --exclude ".git" --exclude ".Rproj*" "$WD" "$SRC"; then
     echo "ERROR: cannot copy $WD to $SRC" 1>&2
     exit 1
 fi
