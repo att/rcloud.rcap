@@ -110,8 +110,6 @@ echo " --- Building RCAP package"
     "$RBIN" CMD build `dirname "$srcd"`; 
   done; )
 
-echo "tools:::write_PACKAGES('$ARTIFACTS')" | "$RBIN" --vanilla --slave --no-save || exit 1
-
 if [ -n "$INSTALL" ]; then
   echo " --- Installing package"
   (cd $ARTIFACTS; 
