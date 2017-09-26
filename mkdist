@@ -15,11 +15,12 @@ while [ "$1" != "" ]; do
         --install) INSTALL=1 ;;
         --help) cat <<EOF
 
- Usage: $0 [{--no-npm | --no-js | --no-clean}] [install]
+ Usage: $0 [{--no-npm | --no-js | --no-clean | --help}] [--install]
  --no-clean - skips clean phase
  --no-npm - skips npm processing step (implies --no-clean option)
  --no-js - skips entire JavaScript processing step (implies --no-npm option)
-
+ --help - displays usage information
+ 
  --install - should package be installed after it has been built.
 EOF
         exit 0 ;;
