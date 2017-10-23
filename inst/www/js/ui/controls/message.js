@@ -30,6 +30,7 @@ var MessageControl = GridControl.extend({
     });
   },
   render: function (options) {
+    options = options || {};
 
     var template = _.template(tpl);
 

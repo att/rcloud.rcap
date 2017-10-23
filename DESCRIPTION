@@ -33,6 +33,8 @@ Collate:
     'controllerR6.R'
     'getControls.R'
     'ocaps.R'
+    'rcap.events.R'
+    'rcap.messageWidget.R'
     'rcap.result.R'
     'rcap.user.profile.R'
     'rcap.upload.data.R'

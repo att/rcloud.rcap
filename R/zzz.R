@@ -52,6 +52,7 @@ rcap.initViewer <- function(content, themeExists, sessionInfo) rcloud.rcap.caps$
 rcap.consoleMsg <- function(content) rcloud.rcap.caps$consoleMsg(content)
 rcap.updateVariable <- function(...) rcloud.rcap.caps$updateVariable(...)
 rcap.updateControl <- function(...) rcloud.rcap.caps$updateControl(...)
+rcap.client.send <- function(...) rcloud.rcap.caps$receive(...)
 rcap.updateControlAttribute <- function(controlId, attributeName, attributeValue) {
   rcloud.rcap.caps$updateControlAttribute(controlId, attributeName, attributeValue)
 }

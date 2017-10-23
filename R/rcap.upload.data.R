@@ -2,7 +2,7 @@
 #' 
 #' @param variableName the name of the variable linked with data upload control
 #' @return path where datasets are uploaded to
-#' #' @export
+#' @export
 rcap.getDataUploadPath <- function(variableName) {
   if(haveController()) {
     cnt <- get("rcapController", envir = rcapEnv)

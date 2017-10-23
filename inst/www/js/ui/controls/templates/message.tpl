@@ -4,4 +4,4 @@
 	<% } else { %>
         <!-- runtime generated -->
 	<% } %>
-</button>
+</div>

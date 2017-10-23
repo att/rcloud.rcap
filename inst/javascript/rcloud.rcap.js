@@ -184,6 +184,27 @@
                       }
                       return Promise.resolve(null);
                 };
+                
+                var messageWidgetEventHandler = {
+                  supports: function(event) {
+                    return event.eventType === 'MessageWidgetWrite';
+                  },
+                  handle: function(event) {
+                    if(event.eventType !== 'MessageWidgetWrite') {
+                      return {status:'Failure', msg: 'Event is not supported by this event handler.'};
+                    } else {
+                      var msgWidgetDiv = $('#'+ event.controlId);
+                      if(!event.data.append) {
+                        msgWidgetDiv[0].innerText = '';
+                      }
+                      msgWidgetDiv[0].innerText = msgWidgetDiv[0].innerText + event.data.message;
+                      return {status:'Success'};
+                    }
+                  }
+                };
+                
+                window.RCAP.eventHandlers = [];
+                window.RCAP.eventHandlers.push(messageWidgetEventHandler);
             }
 
             k();
@@ -246,6 +267,17 @@
                 });
             }
 
+            k();
+        },
+
+        receive: function(event, k) {
+            console.log(event);
+            for (var i in window.RCAP.eventHandlers) {
+              var eventHandler = window.RCAP.eventHandlers[i];
+              if(eventHandler.supports(event)) {
+                eventHandler.handle(event);
+              }
+            }
             k();
         },
 
