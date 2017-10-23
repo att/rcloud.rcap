@@ -203,8 +203,53 @@
                   }
                 };
                 
+                var processingWidgetWriteEventHandler = {
+                  supports: function(event) {
+                    return event.eventType === 'ProcessingWidgetWrite';
+                  },
+                  handle: function(event) {
+                    if(event.eventType !== 'ProcessingWidgetWrite') {
+                      return {status:'Failure', msg: 'Event is not supported by this event handler.'};
+                    } else {
+                      var msgWidgetDiv = $('#'+ event.controlId);
+                      msgWidgetDiv[0].innerText = event.data.message;
+                      console.log('TODO: Implement Me! Change progress message of the progress spinner.');
+                      return {status:'Success'};
+                    }
+                  }
+                };
+                
+                var processingStartEventHandler = {
+                  supports: function(event) {
+                    return event.eventType === 'ProcessingStart';
+                  },
+                  handle: function(event) {
+                    if(event.eventType !== 'ProcessingStart') {
+                      return {status:'Failure', msg: 'Event is not supported by this event handler.'};
+                    } else {
+                      console.log('TODO: Implement Me! Show progress spinner here.');
+                    }
+                  }
+                };
+                
+                var processingEndEventHandler = {
+                  supports: function(event) {
+                    return event.eventType === 'ProcessingEnd';
+                  },
+                  handle: function(event) {
+                    if(event.eventType !== 'ProcessingEnd') {
+                      return {status:'Failure', msg: 'Event is not supported by this event handler.'};
+                    } else {
+                      console.log('TODO: Implement Me! Hide progress spinner here.');
+                    }
+                  }
+                };
+                
                 window.RCAP.eventHandlers = [];
                 window.RCAP.eventHandlers.push(messageWidgetEventHandler);
+                window.RCAP.eventHandlers.push(processingWidgetWriteEventHandler);
+                window.RCAP.eventHandlers.push(processingStartEventHandler);
+                window.RCAP.eventHandlers.push(processingEndEventHandler);
             }
 
             k();
@@ -270,15 +315,26 @@
             k();
         },
 
-        receive: function(event, k) {
+        /* Backend expects event handler to return result object with the following format:
+        * {
+          status: <'Failure'|'Success'>
+          msg: '<Error message>'
+          data: '<result object>'
+        }
+        or null, which is treated as 'Success' response
+        */
+        receive: function(eventString, k) {
+            var event = JSON.parse(eventString);
             console.log(event);
+            var result = null;
             for (var i in window.RCAP.eventHandlers) {
               var eventHandler = window.RCAP.eventHandlers[i];
               if(eventHandler.supports(event)) {
-                eventHandler.handle(event);
+                 result = eventHandler.handle(event);
+                 break;
               }
             }
-            k();
+            k(JSON.stringify(result));
         },
 
         getUserProfileValue: function(variable, k) {

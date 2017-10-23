@@ -26,13 +26,24 @@ rcloud.rcap.caps <- NULL
     caps
   }
   rcloud.rcap.caps <<- f("rcloud.rcap", "rcloud.rcap.js")
+  
+  processingAware <- function(FUN) {
+    function(...) {
+      tryCatch({ 
+        rcap.events.sendProcessingStart()
+        do.call(FUN, list(...))
+        }, 
+        finally = {rcap.events.sendProcessingEnd() })
+    }
+  }
+  
   if(!is.null(rcloud.rcap.caps)) {
     
     ocaps <- list(
       getRFunctions = make_oc(rcloud.rcap.global.functions),
       getRTime = make_oc(function() { Sys.time() }),
-      updateControls = make_oc(updateController),
-      updateAllControls = make_oc(updateAllControls),
+      updateControls = make_oc(processingAware("updateController")),
+      updateAllControls = make_oc(processingAware("updateAllControls")),
       getUserProfileVariableValues = make_oc(getUserProfileVariableValues),
       getRCAPVersion = make_oc(getRCAPVersion),
       getRCAPStyles = make_oc(getRCAPStyles),
