@@ -48,7 +48,8 @@ rcloud.rcap.caps <- NULL
       getRCAPVersion = make_oc(getRCAPVersion),
       getRCAPStyles = make_oc(getRCAPStyles),
       getDataUploadPath = make_oc(rcap.getDataUploadPath),
-      createUploadDir = make_oc(rcap.createUploadDir)
+      createUploadDir = make_oc(rcap.createUploadDir),
+      send = make_oc(rcap.events.receive)
    )
 
     rcloud.rcap.caps$init(ocaps, rcapSessionInfo())
@@ -72,3 +73,5 @@ rcap.getRCAPVersion <- function() rcloud.rcap.caps$getRCAPVersion()
 rcap.user.profile.store.getValue <- function(...) rcloud.rcap.caps$getUserProfileValue(...)
 rcap.user.profile.store.setValue <- function(...) rcloud.rcap.caps$setUserProfileValue(...)
 rcap.user.profile.store.list.variables <- function(...) rcloud.rcap.caps$listUserProfileVariables(...)
+
+rcap.eventHandlers <- c(DataDownloadListFilesEventHandler$new())

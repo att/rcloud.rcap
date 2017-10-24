@@ -138,10 +138,15 @@
                         ['getRCAPStyles'],
                         ['getUserProfileVariableValues'],
                         ['getUserProfileValue'],
-                        ['createUploadDir']
+                        ['createUploadDir'],
+                        ['send']
                     ], true);
 
                 window.RCAP = window.RCAP || {};
+                
+                window.RCAP.send = function(event) {
+                    return mini.send(JSON.stringify(event)).then(function(x) { return JSON.parse(x); });
+                };
                 window.RCAP.updateControls = function(dataToSubmit) {
                     mini.updateControls(dataToSubmit).then(function() {});
                 };
