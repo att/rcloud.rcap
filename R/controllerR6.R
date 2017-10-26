@@ -87,6 +87,16 @@ controllerInitialize <- function(self, private, rcapConfig) {
     private$controls,
     function(x) x$dependentVariables(unique(na.omit(variables)))
   )
+  userDefinedOrder <- lapply(
+    private$controls,
+    function(x) {
+      if(is.null(x$getOrder())) {
+        return(NA_character_)
+      } else {
+        return(x$getOrder())
+      }
+    }
+  )
   ## We have the dependency variables, but we need the control names,
   ## actually
   predList <- lapply(
@@ -97,6 +107,14 @@ controllerInitialize <- function(self, private, rcapConfig) {
   ## We reverse the order, so that plots/maps on the first
   ## page(s) show up first
   predList <- rev(predList)
+  userDefinedOrder <- rev(userDefinedOrder)
+  
+  rcap.consoleMsg(paste0("Reverse order ", paste(predList, collapse = ", ")))
+  rcap.consoleMsg(paste0("Reverse order ordering def", paste(userDefinedOrder, collapse = ", ")))
+  
+  # Consider ordering specified by dashboard designer
+  predList <- predList[sort.list(unlist(userDefinedOrder))]
+  rcap.consoleMsg(paste0("Ordered ", paste(predList, collapse = ", ")))
 
   private$succList <- twistAdjlist(predList)
 

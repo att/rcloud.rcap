@@ -42,6 +42,14 @@ define(['rcap/js/ui/controls/gridControl',
                         }],
                         helpText: 'Where should the link open',
                         value: '_self'
+                    }),
+                    new TextProperty({
+                        uid: 'order',
+                        label: 'Order',
+                        defaultValue: '',
+                        helpText: 'The order in which the control should be processed.',
+                        codeHelpText: 'The order in which the control should be processed.',
+                        isRequired: false
                     })
                 ]
             });

@@ -1,8 +1,9 @@
 define(['rcap/js/ui/controls/gridControl',
     'rcap/js/ui/properties/autocompleteProperty',
+    'rcap/js/ui/properties/stringValueProperty',
     'text!controlTemplates/rPrint.tpl',
     'text!controlTemplates/rPrint-design.tpl'
-], function(GridControl, AutocompleteProperty, tpl, dtpl) {
+], function(GridControl, AutocompleteProperty, TextProperty, tpl, dtpl) {
 
     'use strict';
 
@@ -19,6 +20,14 @@ define(['rcap/js/ui/controls/gridControl',
                         label: 'R Function',
                         helpText: 'R Function for this control.',
                         isRequired: true
+                    }),
+                    new TextProperty({
+                        uid: 'order',
+                        label: 'Order',
+                        defaultValue: '',
+                        helpText: 'The order in which the control should be processed.',
+                        codeHelpText: 'The order in which the control should be processed.',
+                        isRequired: false
                     })
                 ]
             });

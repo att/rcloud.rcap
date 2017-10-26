@@ -12,6 +12,10 @@
 #' \code{getVariableName()} get name of associated global variable.
 #'   If there is no such variable, then \code{NULL} is returned.
 #'   
+#' \code{getOrder()} get order defined by the designer in which the control should be processed.
+#'   If there is no such variable, then \code{NULL} is returned.
+#'   N.B. This order is just a hint, it may be overriden by backend if it is in conflict with default dependency resolution.
+#'   
 #' \code{setVariable(new_value = NULL)} set an R variable
 #'   of a control to the specified value, coming from a
 #'   front-end update.
@@ -53,6 +57,7 @@ Control <- R6::R6Class("Control",
     getType = function() private$type %||% NA_character_,
     getId = function() private$id %||% NA_character_,
     getVariableName = function() private$variableName %||% NA_character_,
+    getOrder = function() private$order %||% NA_character_,
     getControlFunctionName = function() {
       private$controlFunction %||% NA_character_
     },
@@ -77,6 +82,7 @@ Control <- R6::R6Class("Control",
     id = NULL,     # eg rcapac34a
     type = NULL,   # rplot etc
     json = NULL,   # The list as returned from JSON
+    order = NULL,   # The list as returned from JSON
 
     ## Control Properties
     controlFunction = NULL,
@@ -95,7 +101,7 @@ controlInitialize <- function(self, private, cl) {
   if (!is.null(cl$code)) private$controlFunction <- cl$code
   if (!is.null(cl$variable) &
       !identical(cl$variable, "")) private$variableName <- cl$variable
-
+  
   ## Grab the code if it's there
   if (!is.null(cl$controlProperties) &&
        length(cl$controlProperties) > 0) {
@@ -108,6 +114,10 @@ controlInitialize <- function(self, private, cl) {
       if (cp$uid == "options" &&
           identical(cp$optionsDerivedFrom, "code")) {
         private$controlFunction <- cp$value %||% NULL
+      }
+      
+      if (cp$uid == "order" && !identical(cp$value, "")) {
+        private$order <- cp$value
       }
       # Special addition for iframe
       if (cp$uid == "source") {
