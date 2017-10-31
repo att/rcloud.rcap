@@ -138,10 +138,15 @@
                         ['getRCAPStyles'],
                         ['getUserProfileVariableValues'],
                         ['getUserProfileValue'],
-                        ['createUploadDir']
+                        ['createUploadDir'],
+                        ['send']
                     ], true);
 
                 window.RCAP = window.RCAP || {};
+                
+                window.RCAP.send = function(event) {
+                    return mini.send(JSON.stringify(event)).then(function(x) { return JSON.parse(x); });
+                };
                 window.RCAP.updateControls = function(dataToSubmit) {
                     mini.updateControls(dataToSubmit).then(function() {});
                 };
@@ -184,6 +189,72 @@
                       }
                       return Promise.resolve(null);
                 };
+                
+                var messageWidgetEventHandler = {
+                  supports: function(event) {
+                    return event.eventType === 'MessageWidgetWrite';
+                  },
+                  handle: function(event) {
+                    if(event.eventType !== 'MessageWidgetWrite') {
+                      return {status:'Failure', msg: 'Event is not supported by this event handler.'};
+                    } else {
+                      var msgWidgetDiv = $('#'+ event.controlId);
+                      if(!event.data.append) {
+                        msgWidgetDiv[0].innerText = '';
+                      }
+                      msgWidgetDiv[0].innerText = msgWidgetDiv[0].innerText + event.data.message;
+                      return {status:'Success'};
+                    }
+                  }
+                };
+                
+                var processingWidgetWriteEventHandler = {
+                  supports: function(event) {
+                    return event.eventType === 'ProcessingWidgetWrite';
+                  },
+                  handle: function(event) {
+                    if(event.eventType !== 'ProcessingWidgetWrite') {
+                      return {status:'Failure', msg: 'Event is not supported by this event handler.'};
+                    } else {
+                      var msgWidgetDiv = $('#'+ event.controlId);
+                      msgWidgetDiv[0].innerText = event.data.message;
+                      console.log('TODO: Implement Me! Change progress message of the progress spinner.');
+                      return {status:'Success'};
+                    }
+                  }
+                };
+                
+                var processingStartEventHandler = {
+                  supports: function(event) {
+                    return event.eventType === 'ProcessingStart';
+                  },
+                  handle: function(event) {
+                    if(event.eventType !== 'ProcessingStart') {
+                      return {status:'Failure', msg: 'Event is not supported by this event handler.'};
+                    } else {
+                      console.log('TODO: Implement Me! Show progress spinner here.');
+                    }
+                  }
+                };
+                
+                var processingEndEventHandler = {
+                  supports: function(event) {
+                    return event.eventType === 'ProcessingEnd';
+                  },
+                  handle: function(event) {
+                    if(event.eventType !== 'ProcessingEnd') {
+                      return {status:'Failure', msg: 'Event is not supported by this event handler.'};
+                    } else {
+                      console.log('TODO: Implement Me! Hide progress spinner here.');
+                    }
+                  }
+                };
+                
+                window.RCAP.eventHandlers = [];
+                window.RCAP.eventHandlers.push(messageWidgetEventHandler);
+                window.RCAP.eventHandlers.push(processingWidgetWriteEventHandler);
+                window.RCAP.eventHandlers.push(processingStartEventHandler);
+                window.RCAP.eventHandlers.push(processingEndEventHandler);
             }
 
             k();
@@ -247,6 +318,28 @@
             }
 
             k();
+        },
+
+        /* Backend expects event handler to return result object with the following format:
+        * {
+          status: <'Failure'|'Success'>
+          msg: '<Error message>'
+          data: '<result object>'
+        }
+        or null, which is treated as 'Success' response
+        */
+        receive: function(eventString, k) {
+            var event = JSON.parse(eventString);
+            console.log(event);
+            var result = null;
+            for (var i in window.RCAP.eventHandlers) {
+              var eventHandler = window.RCAP.eventHandlers[i];
+              if(eventHandler.supports(event)) {
+                 result = eventHandler.handle(event);
+                 break;
+              }
+            }
+            k(JSON.stringify(result));
         },
 
         getUserProfileValue: function(variable, k) {
