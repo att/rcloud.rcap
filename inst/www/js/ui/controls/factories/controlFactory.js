@@ -12,6 +12,7 @@
     'controls/dataTable',
     'controls/dataUpload',
     'controls/message',
+    'controls/spinner',
     'controls/leaflet',
     'controls/htmlWidget',
     'controls/actionButton',
@@ -42,6 +43,7 @@
     DataTableControl,
     DataUploadControl,
     MessageControl,
+    SpinnerControl,
     LeafletControl,
     HtmlWidgetControl,
     ActionButtonControl,
@@ -72,6 +74,7 @@
             new DataTableControl(),
             new DataUploadControl(),
             new MessageControl(),
+            new SpinnerControl(),
             new FormControl(),
             new IFrameControl(),
             new ImageControl(),
@@ -182,6 +185,9 @@
                 break;
             case 'message':
                 control = new MessageControl();
+                break;
+            case 'spinner':
+                control = new SpinnerControl();
                 break;
             case 'leaflet':
                 control = new LeafletControl();
