@@ -145,8 +145,27 @@
                 window.RCAP = window.RCAP || {};
                 
                 window.RCAP.send = function(event) {
-                    return mini.send(JSON.stringify(event)).then(function(x) { return JSON.parse(x); });
+                    return mini.send(JSON.stringify(event));
                 };
+                
+                window.RCAP.downloadFile = function(controlId, filename) {
+                  window.RCAP.send({eventType : 'DataDownloadGetFileContents', 'controlId' : controlId, data: { 'filename' : filename}}).then(function(content) {
+                    console.log(content);
+                    console.log('TODO: save the content, and move this function to appropriate javascript file');
+                    require(['FileSaver'], function(_) {// jshint ignore:line
+                            var file = new Blob([content]);
+                            saveAs(file, filename); // jshint ignore:line
+                        });
+                  });
+                };
+                
+                window.RCAP.listFiles = function(controlId) {
+                  window.RCAP.send({eventType : 'DataDownloadListFiles', 'controlId' : controlId}).then(function(x) { return JSON.parse(x); }).then(function(response) {
+                    console.log(response);
+                    console.log('TODO: Handle the list of files. The status attribute holds the outcome (failure or success), msg holds error message, the data holds the result of the command (list of files). Move this function to appropriate javascript file');
+                  });
+                };
+                
                 window.RCAP.updateControls = function(dataToSubmit) {
                     mini.updateControls(dataToSubmit).then(function() {});
                 };
@@ -400,7 +419,7 @@
             console.log(content);
             k();
         },
-
+        
     	resizeHtmlwidget: function(controlId, width, height, k) {
     	    var control = $('#' + controlId);
     	    control.find('iframe').width(width);

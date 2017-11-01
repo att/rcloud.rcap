@@ -65,8 +65,7 @@ define(['pubsub',
         // var params = $(this).data();
         // params.controlId = this.id;
         // PubSub.publish(pubSubTable.showDataUploadDialog, params);
-
-        alert('TODO: show files to download');
+        window.RCAP.listFiles(this.id);
 
       });
     }

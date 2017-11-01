@@ -74,4 +74,4 @@ rcap.user.profile.store.getValue <- function(...) rcloud.rcap.caps$getUserProfil
 rcap.user.profile.store.setValue <- function(...) rcloud.rcap.caps$setUserProfileValue(...)
 rcap.user.profile.store.list.variables <- function(...) rcloud.rcap.caps$listUserProfileVariables(...)
 
-rcap.eventHandlers <- c(DataDownloadListFilesEventHandler$new())
+rcap.eventHandlers <- c(DataDownloadListFilesEventHandler$new(), DataDownloadGetFileContentsEventHandler$new())

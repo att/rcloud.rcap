@@ -259,7 +259,23 @@ DataDownloadControl <- R6Class("DataDownloadControl",
                                  }
                                },
                                listFiles = function() {
-                                 return(dir(getPath()))
+                                 return(dir(self$getPath()))
+                               },
+                               readFile = function(filename) {
+                                 if(length(grep("/", filename)) > 0) {
+                                   stop("File name invalid, it can't contain '/'")
+                                 }
+                                 fileToRead <- file.path(self$getPath(), filename)
+                                 fcon <- NULL
+                                 result <- tryCatch({
+                                   fcon <- file(fileToRead, "rb")
+                                   readBin(fcon, "raw", private$maxsize)
+                                 }, finally = {
+                                   if(!is.null(fcon)) {
+                                     close(fcon)
+                                   }
+                                 })
+                                 return(result)
                                },
                                setVariable = function(new_value) {
                                  if (!is.null(new_value) && !is.null(private$variableName)) {
@@ -272,6 +288,7 @@ DataDownloadControl <- R6Class("DataDownloadControl",
                              ),
                              private = list(
                                path = NULL,
+                               maxsize = 100000,
                                pathType = "manual"
                              )
 )

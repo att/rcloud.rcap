@@ -50,7 +50,11 @@ rcap.events.receive <- function(eventString = NULL) {
     if(is.null(result)) {
       invisible(toJSON(list("status" = "Success")))
     } else {
-      invisible(toJSON(result))
+      if(typeof(result) %in% c('character', 'list')) {
+        invisible(toJSON(result))
+      } else {
+        invisible(result)
+      }
     }
   }
 }

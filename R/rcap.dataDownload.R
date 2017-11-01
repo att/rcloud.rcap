@@ -16,7 +16,7 @@ DataDownloadListFilesEventHandler <- R6Class("DataDownloadListFilesEventHandler"
                                    if(! event$controlId %in% names(controls)) {
                                      return(list('status' = 'Failure', 'msg' = paste0('Control with id ', event$controlId, ' not found.')))
                                    }
-                                   control <- controls$controlId
+                                   control <- controls[[event$controlId]]
                                    result <- tryCatch(control$listFiles())
                                    if(typeof(result) == 'try-error') {
                                      return(list('status' = 'Failure', msg = as.character(result)))
@@ -27,4 +27,38 @@ DataDownloadListFilesEventHandler <- R6Class("DataDownloadListFilesEventHandler"
                              ),
                              private = list(
                              )
+)
+
+DataDownloadGetFileContentsEventHandler <- R6Class("DataDownloadGetFileContentsEventHandler",
+                                             inherit = EventHandler,
+                                             public = list(
+                                               supports = function(event = list()) {
+                                                 if(is.null(event) || !'eventType' %in% names(event)) {
+                                                   return(FALSE)
+                                                 }
+                                                 return(event$eventType == 'DataDownloadGetFileContents')
+                                               },
+                                               handle = function(event = list()) {
+                                                 cnt <- get("rcapController", envir = rcapEnv)
+                                                 controls <- cnt$getControls()
+                                                 if(! 'controlId' %in% names(event)) {
+                                                   return(list('status' = 'Failure', 'msg' = paste0('Control id not set on the event, please specify it using "controlId" attribute.')))
+                                                 }
+                                                 if(! event$controlId %in% names(controls)) {
+                                                   return(list('status' = 'Failure', 'msg' = paste0('Control with id ', event$controlId, ' not found.')))
+                                                 }
+                                                 if(! 'data' %in% names(event) || ! 'filename' %in% names(event$data)) {
+                                                   return(list('status' = 'Failure', 'msg' = paste0('File name missing, please specify it in "data" attribute using "filename" key, e.g. {data:{filename:"my-file.txt"}}.')))
+                                                 }
+                                                 control <- controls[[event$controlId]]
+                                                 result <- tryCatch(control$readFile(event$data$filename))
+                                                 if(typeof(result) == 'try-error') {
+                                                   return(list('status' = 'Failure', msg = as.character(result)))
+                                                 } else {
+                                                   return(result)
+                                                 }
+                                               }
+                                             ),
+                                             private = list(
+                                             )
 )
