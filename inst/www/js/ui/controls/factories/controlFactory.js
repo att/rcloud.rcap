@@ -11,6 +11,7 @@
     'controls/form',
     'controls/dataTable',
     'controls/dataUpload',
+    'controls/dataDownload',
     'controls/message',
     'controls/spinner',
     'controls/leaflet',
@@ -42,6 +43,7 @@
     FormControl,
     DataTableControl,
     DataUploadControl,
+    DataDownloadControl,
     MessageControl,
     SpinnerControl,
     LeafletControl,
@@ -73,6 +75,7 @@
             new RTextControl(),
             new DataTableControl(),
             new DataUploadControl(),
+            new DataDownloadControl(),
             new MessageControl(),
             new SpinnerControl(),
             new FormControl(),
@@ -182,6 +185,9 @@
                 break;
             case 'dataupload':
                 control = new DataUploadControl();
+                break;
+            case 'datadownload':
+                control = new DataDownloadControl();
                 break;
             case 'message':
                 control = new MessageControl();
