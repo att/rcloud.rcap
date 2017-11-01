@@ -208,12 +208,12 @@
                   }
                 };
                 
-                var processingWidgetWriteEventHandler = {
+                var progressSpinnerWidgetWriteEventHandler = {
                   supports: function(event) {
-                    return event.eventType === 'ProcessingWidgetWrite';
+                    return event.eventType === 'ProgressSpinnerWrite';
                   },
                   handle: function(event) {
-                    if(event.eventType !== 'ProcessingWidgetWrite') {
+                    if(event.eventType !== 'ProgressSpinnerWrite') {
                       return {status:'Failure', msg: 'Event is not supported by this event handler.'};
                     } else {
                       var msgWidgetDiv = $('#'+ event.controlId);
@@ -252,7 +252,7 @@
                 
                 window.RCAP.eventHandlers = [];
                 window.RCAP.eventHandlers.push(messageWidgetEventHandler);
-                window.RCAP.eventHandlers.push(processingWidgetWriteEventHandler);
+                window.RCAP.eventHandlers.push(progressSpinnerWidgetWriteEventHandler);
                 window.RCAP.eventHandlers.push(processingStartEventHandler);
                 window.RCAP.eventHandlers.push(processingEndEventHandler);
             }
@@ -338,6 +338,9 @@
                  result = eventHandler.handle(event);
                  break;
               }
+            }
+            if(!result) {
+              result = {status:'Failure', msg: 'No handler found for event ' + event.eventType };
             }
             k(JSON.stringify(result));
         },

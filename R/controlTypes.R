@@ -178,6 +178,11 @@ MessageControl <- R6Class("MessageControl",
   inherit = Control
 )
 
+ProgressSpinnerControl <- R6Class("ProgressSpinnerControl",
+                          inherit = Control
+)
+
+
 DataUploadControl <- R6Class("DataUploadControl",
   inherit = Control,
   public = list(
@@ -487,6 +492,7 @@ control_classes <- list(
   "dataupload"       = DataUploadControl,
   "datadownload"     = DataDownloadControl,
   "message"          = MessageControl,
+  "spinner"          = ProgressSpinnerControl,
   "iframe"           = IFrameControl,
   "image"            = ImageControl,
   "pagemenu"         = PageMenuControl,
@@ -503,5 +509,8 @@ control_classes <- list(
 )
 
 controlFactory <- function(cl, type = cl$type) {
+  if(!type %in% names(control_classes)) {
+    stop(paste0("Unsupported control type ", type))
+  }
   control_classes[[type]]$new(cl)
 }
