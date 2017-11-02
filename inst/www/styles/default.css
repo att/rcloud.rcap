@@ -2797,6 +2797,15 @@ table.dataTable td {
   #dialog-profileSettings table i {
     font-size: 20px; }
 
+#dialog-viewerDataDownload .body a {
+  display: block;
+  padding: 5px; }
+  #dialog-viewerDataDownload .body a:hover {
+    background: #efefef; }
+
+#dialog-viewerDataDownload .body p {
+  margin: 0; }
+
 #dialog-viewerProfileSettings {
   min-width: 50%; }
   #dialog-viewerProfileSettings .warning {

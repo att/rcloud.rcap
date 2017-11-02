@@ -160,10 +160,10 @@
                 };
                 
                 window.RCAP.listFiles = function(controlId) {
-                  window.RCAP.send({eventType : 'DataDownloadListFiles', 'controlId' : controlId}).then(function(x) { return JSON.parse(x); }).then(function(response) {
-                    console.log(response);
-                    console.log('TODO: Handle the list of files. The status attribute holds the outcome (failure or success), msg holds error message, the data holds the result of the command (list of files). Move this function to appropriate javascript file');
-                  });
+                    return new Promise(function(resolve) {
+                        window.RCAP.send({eventType : 'DataDownloadListFiles', 'controlId' : controlId})
+                            .then(function(json) { resolve(JSON.parse(json)); });
+                    });
                 };
                 
                 window.RCAP.updateControls = function(dataToSubmit) {
