@@ -17,9 +17,9 @@ DataDownloadListFilesEventHandler <- R6Class("DataDownloadListFilesEventHandler"
                                      return(list('status' = 'Failure', 'msg' = paste0('Control with id ', event$controlId, ' not found.')))
                                    }
                                    control <- controls[[event$controlId]]
-                                   result <- tryCatch(control$listFiles())
-                                   if(typeof(result) == 'try-error') {
-                                     return(list('status' = 'Failure', msg = as.character(result)))
+                                   result <- try({control$listFiles()}, silent = TRUE)
+                                   if(class(result) == 'try-error') {
+                                     return(list('status' = 'Failure', msg = as.character(conditionMessage(result))))
                                    } else {
                                      return(list('status' = 'Success', data = result))
                                    }
@@ -51,8 +51,8 @@ DataDownloadGetFileContentsEventHandler <- R6Class("DataDownloadGetFileContentsE
                                                    return(list('status' = 'Failure', 'msg' = paste0('File name missing, please specify it in "data" attribute using "filename" key, e.g. {data:{filename:"my-file.txt"}}.')))
                                                  }
                                                  control <- controls[[event$controlId]]
-                                                 result <- tryCatch(control$readFile(event$data$filename))
-                                                 if(typeof(result) == 'try-error') {
+                                                 result <- try({control$readFile(event$data$filename)}, silent = TRUE)
+                                                 if(class(result) == 'try-error') {
                                                    return(list('status' = 'Failure', msg = as.character(result)))
                                                  } else {
                                                    return(result)

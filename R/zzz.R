@@ -17,6 +17,9 @@ NULL
 
 rcloud.rcap.caps <- NULL
 
+rcloud.rcap.settings <- new.env()
+
+
 .onLoad <- function(libname, pkgname)
 {
   f <- function(module.name, module.path) {
@@ -54,6 +57,9 @@ rcloud.rcap.caps <- NULL
 
     rcloud.rcap.caps$init(ocaps, rcapSessionInfo())
   }
+  
+  # Maximum number of bytes that file can have to be downloaded
+  rcloud.rcap.settings$maxDownloadFileSize <- 50000000; 
 }
 
 make_oc <- function(...) {

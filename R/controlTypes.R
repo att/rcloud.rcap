@@ -266,10 +266,13 @@ DataDownloadControl <- R6Class("DataDownloadControl",
                                    stop("File name invalid, it can't contain '/'")
                                  }
                                  fileToRead <- file.path(self$getPath(), filename)
+                                 if(file.size(fileToRead) > rcloud.rcap.settings$maxDownloadFileSize) {
+                                   stop(paste0("The file size exceedes supported maximum of ", rcloud.rcap.settings$maxDownloadFileSize, " bytes."))
+                                 }
                                  fcon <- NULL
                                  result <- tryCatch({
                                    fcon <- file(fileToRead, "rb")
-                                   readBin(fcon, "raw", private$maxsize)
+                                   readBin(fcon, "raw", rcloud.rcap.settings$maxDownloadFileSize)
                                  }, finally = {
                                    if(!is.null(fcon)) {
                                      close(fcon)
@@ -288,7 +291,6 @@ DataDownloadControl <- R6Class("DataDownloadControl",
                              ),
                              private = list(
                                path = NULL,
-                               maxsize = 100000,
                                pathType = "manual"
                              )
 )
