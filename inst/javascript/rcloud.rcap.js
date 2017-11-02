@@ -269,11 +269,9 @@
                   }
                 };
                 
-                window.RCAP.eventHandlers = [];
-                window.RCAP.eventHandlers.push(messageWidgetEventHandler);
-                window.RCAP.eventHandlers.push(progressSpinnerWidgetWriteEventHandler);
-                window.RCAP.eventHandlers.push(processingStartEventHandler);
-                window.RCAP.eventHandlers.push(processingEndEventHandler);
+                // initialise event handlers array:
+                window.RCAP.eventHandlers = [messageWidgetEventHandler, progressSpinnerWidgetWriteEventHandler,
+                    processingStartEventHandler, processingEndEventHandler];
             }
 
             k();
