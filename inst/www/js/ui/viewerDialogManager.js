@@ -299,11 +299,10 @@ define([
 
           window.RCAP.downloadFile($('#dialog-viewerDataDownload').data('id'), 
             filename).then(function(content) {
-              console.log(content);
               require(['FileSaver'], function(_) {// jshint ignore:line
-                      var file = new Blob([content]);
-                      saveAs(file, filename); // jshint ignore:line
-                  });
+                var file = new Blob([content]);
+                saveAs(file, filename); // jshint ignore:line
+              });
             });
         });
       }
