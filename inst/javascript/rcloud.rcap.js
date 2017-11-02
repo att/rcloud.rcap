@@ -249,7 +249,7 @@
                     if(event.eventType !== 'ProcessingStart') {
                       return {status:'Failure', msg: 'Event is not supported by this event handler.'};
                     } else {
-                        $('.spinner', '#' + event.controlId).show();
+                        $('.rcap-controltype-spinner .spinner').show();
                     }
                   }
                 };
@@ -262,7 +262,8 @@
                     if(event.eventType !== 'ProcessingEnd') {
                       return {status:'Failure', msg: 'Event is not supported by this event handler.'};
                     } else {
-                        $('.spinner', '#' + event.controlId).hide();
+                        $('.rcap-controltype-spinner .spinner').hide();
+                        $('.rcap-controltype-spinner .message').text('');  
                     }
                   }
                 };
@@ -345,7 +346,7 @@
         */
         receive: function(eventString, k) {
             var event = JSON.parse(eventString);
-            console.log(event);
+            //console.log(event);
             var result = null;
             for (var i in window.RCAP.eventHandlers) {
               var eventHandler = window.RCAP.eventHandlers[i];
