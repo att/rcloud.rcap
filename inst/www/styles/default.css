@@ -2776,6 +2776,10 @@ table.dataTable td {
       margin-top: -1px;
       vertical-align: middle;
       margin-right: 3px; }
+  #rcap-viewer .spinner img,
+  #rcap-designer .spinner img {
+    width: auto;
+    height: auto; }
 
 #dialog-profileSettings table {
   width: 720px;

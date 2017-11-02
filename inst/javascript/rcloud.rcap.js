@@ -215,14 +215,14 @@
                   },
                   handle: function(event) {
                     if(event.eventType !== 'MessageWidgetWrite') {
-                      return {status:'Failure', msg: 'Event is not supported by this event handler.'};
+                        return {status:'Failure', msg: 'Event is not supported by this event handler.'};
                     } else {
-                      var msgWidgetDiv = $('#'+ event.controlId);
-                      if(!event.data.append) {
+                        var msgWidgetDiv = $('#'+ event.controlId);
+                        if(!event.data.append) {
                         msgWidgetDiv[0].innerText = '';
-                      }
-                      msgWidgetDiv[0].innerText = msgWidgetDiv[0].innerText + event.data.message;
-                      return {status:'Success'};
+                        }
+                        msgWidgetDiv[0].innerText = msgWidgetDiv[0].innerText + event.data.message;
+                        return {status:'Success'};
                     }
                   }
                 };
@@ -235,10 +235,8 @@
                     if(event.eventType !== 'ProgressSpinnerWrite') {
                       return {status:'Failure', msg: 'Event is not supported by this event handler.'};
                     } else {
-                      var msgWidgetDiv = $('#'+ event.controlId);
-                      msgWidgetDiv[0].innerText = event.data.message;
-                      console.log('TODO: Implement Me! Change progress message of the progress spinner.');
-                      return {status:'Success'};
+                      $('span', '#' + event.controlId).text(event.data.message);
+                      return {status:'Success'};    
                     }
                   }
                 };
@@ -251,7 +249,7 @@
                     if(event.eventType !== 'ProcessingStart') {
                       return {status:'Failure', msg: 'Event is not supported by this event handler.'};
                     } else {
-                      console.log('TODO: Implement Me! Show progress spinner here.');
+                        $('.spinner', '#' + event.controlId).show();
                     }
                   }
                 };
@@ -264,7 +262,7 @@
                     if(event.eventType !== 'ProcessingEnd') {
                       return {status:'Failure', msg: 'Event is not supported by this event handler.'};
                     } else {
-                      console.log('TODO: Implement Me! Hide progress spinner here.');
+                        $('.spinner', '#' + event.controlId).hide();
                     }
                   }
                 };

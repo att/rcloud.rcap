@@ -832,6 +832,12 @@
       margin-right: 3px;
     }
   }
+
+  .spinner img {
+    width: auto;
+    height: auto;
+  }
+  
 }
 
 #dialog-profileSettings {
@@ -1164,6 +1170,7 @@ nav.accordion {
     }
   }
 }
+
 
 nav.vertical {
   & ul {
