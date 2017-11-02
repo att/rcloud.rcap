@@ -149,14 +149,12 @@
                 };
                 
                 window.RCAP.downloadFile = function(controlId, filename) {
-                  window.RCAP.send({eventType : 'DataDownloadGetFileContents', 'controlId' : controlId, data: { 'filename' : filename}}).then(function(content) {
-                    console.log(content);
-                    console.log('TODO: save the content, and move this function to appropriate javascript file');
-                    require(['FileSaver'], function(_) {// jshint ignore:line
-                            var file = new Blob([content]);
-                            saveAs(file, filename); // jshint ignore:line
-                        });
-                  });
+                    return new Promise(function(resolve) {
+                        window.RCAP.send({eventType : 'DataDownloadGetFileContents', 'controlId' : controlId, 
+                        data: { 'filename' : filename}}).then(function(content) {
+                            resolve(content);
+                      });
+                    });
                 };
                 
                 window.RCAP.listFiles = function(controlId) {

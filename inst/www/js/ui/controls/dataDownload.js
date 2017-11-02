@@ -62,9 +62,13 @@ define(['pubsub',
     },
     initialiseViewerItems: function () {
       $('[data-controltype="datadownload"]').click(function () {
-        window.RCAP.listFiles(this.id).then(function(response) { 
+        var controlId = this.id;
+        window.RCAP.listFiles(controlId).then(function(response) { 
           if(response.status.toLowerCase() === 'success') {
-            PubSub.publish(pubSubTable.showDataDownloadDialog, response.data);
+            PubSub.publish(pubSubTable.showDataDownloadDialog, {
+              files: response.data,
+              id: controlId
+            });
           }
         });
       });
