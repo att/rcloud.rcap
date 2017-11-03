@@ -11,6 +11,7 @@ define([
     'text!rcap/partials/dialogs/_styleEditorDialog.htm',
     'text!rcap/partials/dialogs/_siteSettings.htm',
     'text!rcap/partials/dialogs/_profileSettings.htm',
+    'text!rcap/partials/dialogs/_executionOrderDialog.htm',    
     'text!rcap/partials/dialogs/_confirmDialog.htm',
     'text!rcap/partials/dialogs/templates/profileVariables.tpl',
     'text!rcap/partials/dialogs/templates/newProfileVariable.tpl',
@@ -21,7 +22,7 @@ define([
     'rcap/js/vendor/jqModal.min'
 ], function(RcapLogger, FormBuilder, Page, addPagePartial, pageSettingsPartial, dataSourceSettingsPartial,
     timerSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, siteSettingsPartial,
-    profileSettingsPartial, confirmDialogPartial, profileVariablesTpl, newProfileVariableTpl, PubSub, pubSubTable, DialogUtils) {
+    profileSettingsPartial, executionOrderPartial, confirmDialogPartial, profileVariablesTpl, newProfileVariableTpl, PubSub, pubSubTable, DialogUtils) {
 
     'use strict';
 
@@ -88,7 +89,10 @@ define([
         this.initialise = function() {
 
             // append the dialogs to the root of the designer:
-            _.each([addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, timerSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, siteSettingsPartial, profileSettingsPartial, confirmDialogPartial], function(partial) {
+            _.each([addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, 
+                timerSettingsPartial, controlSettingsPartial, formBuilderPartial, 
+                styleEditorPartial, siteSettingsPartial, profileSettingsPartial, 
+                executionOrderPartial, confirmDialogPartial], function(partial) {
                 $('#rcap-designer').append(partial);
             });
 
@@ -605,6 +609,23 @@ define([
               PubSub.publish(pubSubTable.updateProfile, profileVariables);
 
               $('.jqmWindow').jqmHide();
+            });
+
+            ////////////////////////////////////////////////////////////////////////////////
+            //
+            // execution order settings:
+            //
+            PubSub.subscribe(pubSubTable.showExecutionOrderDialog, function(/*msg, orderSettings*/) {
+                
+                rcapLogger.info('dialogManager: pubSubTable.showExecutionOrderDialog');
+
+                //var template = _.template(executionOrderPartial);
+
+                // var html = (template({
+                //     orderSettings: orderSettings
+                // }));
+
+                $('#dialog-executionOrderSettings').jqmShow();
             });
         };
     };
