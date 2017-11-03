@@ -4,13 +4,15 @@ define([
   'rcap/js/ui/dialogUtils',
   'text!rcap/partials/dialogs/_viewerProfileSettings.htm',
   'text!rcap/partials/dialogs/_viewerDataUpload.htm',
+  'text!rcap/partials/dialogs/_viewerDataDownload.htm',  
   'text!rcap/partials/dialogs/_confirmDialog.htm',
   'text!rcap/partials/dialogs/templates/viewerProfileVariables.tpl',
   'text!rcap/partials/dialogs/templates/viewerDataUpload.tpl',
+  'text!rcap/partials/dialogs/templates/viewerDataDownload.tpl',
   'site/profileVariableManager',
   'parsley'
-], function (PubSub, pubSubTable, DialogUtils, configuratorPartial, dataUploadPartial, confirmDialogPartial,
-  viewerProfileVariablesTpl, viewerDataUploadTpl, ProfileVariableManager) {
+], function (PubSub, pubSubTable, DialogUtils, configuratorPartial, dataUploadPartial, dataDownloadPartial,
+  confirmDialogPartial, viewerProfileVariablesTpl, viewerDataUploadTpl, viewerDataDownloadTpl, ProfileVariableManager) {
 
     'use strict';
 
@@ -23,6 +25,7 @@ define([
         // #dialog-viewerProfileSettings
         $('#rcap-viewer').append(configuratorPartial);
         $('#rcap-viewer').append(dataUploadPartial);
+        $('#rcap-viewer').append(dataDownloadPartial);
         $('#rcap-viewer').append(confirmDialogPartial);
 
         new DialogUtils().initialise();
@@ -274,6 +277,34 @@ define([
           }
         });
 
+        ////////////////////////////////////////////////////////////////////////////////
+        //
+        // viewer file upload:
+        //
+        PubSub.subscribe(pubSubTable.showDataDownloadDialog, function (msg, params) {
+          
+          var template = _.template(viewerDataDownloadTpl);
+
+          var html = (template({
+            files: params.files
+          }));
+          $('#dialog-viewerDataDownload').data('id', params.id);
+          $('#dialog-viewerDataDownload .body').html(html);
+          $('#dialog-viewerDataDownload').jqmShow();
+        });
+
+        $('#dialog-viewerDataDownload .body').on('click', 'a', function (e) {
+          e.preventDefault();
+          var filename = $(this).text();
+
+          window.RCAP.downloadFile($('#dialog-viewerDataDownload').data('id'), 
+            filename).then(function(content) {
+              require(['FileSaver'], function(_) {// jshint ignore:line
+                var file = new Blob([content]);
+                saveAs(file, filename); // jshint ignore:line
+              });
+            });
+        });
       }
     });
 

@@ -149,21 +149,19 @@
                 };
                 
                 window.RCAP.downloadFile = function(controlId, filename) {
-                  window.RCAP.send({eventType : 'DataDownloadGetFileContents', 'controlId' : controlId, data: { 'filename' : filename}}).then(function(content) {
-                    console.log(content);
-                    console.log('TODO: save the content, and move this function to appropriate javascript file');
-                    require(['FileSaver'], function(_) {// jshint ignore:line
-                            var file = new Blob([content]);
-                            saveAs(file, filename); // jshint ignore:line
-                        });
-                  });
+                    return new Promise(function(resolve) {
+                        window.RCAP.send({eventType : 'DataDownloadGetFileContents', 'controlId' : controlId, 
+                        data: { 'filename' : filename}}).then(function(content) {
+                            resolve(content);
+                      });
+                    });
                 };
                 
                 window.RCAP.listFiles = function(controlId) {
-                  window.RCAP.send({eventType : 'DataDownloadListFiles', 'controlId' : controlId}).then(function(x) { return JSON.parse(x); }).then(function(response) {
-                    console.log(response);
-                    console.log('TODO: Handle the list of files. The status attribute holds the outcome (failure or success), msg holds error message, the data holds the result of the command (list of files). Move this function to appropriate javascript file');
-                  });
+                    return new Promise(function(resolve) {
+                        window.RCAP.send({eventType : 'DataDownloadListFiles', 'controlId' : controlId})
+                            .then(function(json) { resolve(JSON.parse(json)); });
+                    });
                 };
                 
                 window.RCAP.updateControls = function(dataToSubmit) {
@@ -249,7 +247,7 @@
                     if(event.eventType !== 'ProcessingStart') {
                       return {status:'Failure', msg: 'Event is not supported by this event handler.'};
                     } else {
-                        $('.spinner', '#' + event.controlId).show();
+                        $('.rcap-controltype-spinner .spinner').show();
                     }
                   }
                 };
@@ -262,7 +260,8 @@
                     if(event.eventType !== 'ProcessingEnd') {
                       return {status:'Failure', msg: 'Event is not supported by this event handler.'};
                     } else {
-                        $('.spinner', '#' + event.controlId).hide();
+                        $('.rcap-controltype-spinner .spinner').hide();
+                        $('.rcap-controltype-spinner .message').text('');  
                     }
                   }
                 };
@@ -345,7 +344,7 @@
         */
         receive: function(eventString, k) {
             var event = JSON.parse(eventString);
-            console.log(event);
+            //console.log(event);
             var result = null;
             for (var i in window.RCAP.eventHandlers) {
               var eventHandler = window.RCAP.eventHandlers[i];

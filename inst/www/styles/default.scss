@@ -864,6 +864,22 @@
   }
 }
 
+#dialog-viewerDataDownload {
+  .body {
+    a {
+      display: block;
+      padding: 5px;
+
+      &:hover {
+        background: #efefef;
+      }
+    }
+    p {
+      margin: 0;
+    }
+  }
+}
+
 #dialog-viewerProfileSettings {
   min-width: 50%;
   .warning {

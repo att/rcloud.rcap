@@ -62,11 +62,15 @@ define(['pubsub',
     },
     initialiseViewerItems: function () {
       $('[data-controltype="datadownload"]').click(function () {
-        // var params = $(this).data();
-        // params.controlId = this.id;
-        // PubSub.publish(pubSubTable.showDataUploadDialog, params);
-        window.RCAP.listFiles(this.id);
-
+        var controlId = this.id;
+        window.RCAP.listFiles(controlId).then(function(response) { 
+          if(response.status.toLowerCase() === 'success') {
+            PubSub.publish(pubSubTable.showDataDownloadDialog, {
+              files: response.data,
+              id: controlId
+            });
+          }
+        });
       });
     }
   });
