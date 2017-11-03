@@ -259,13 +259,26 @@ DataDownloadControl <- R6Class("DataDownloadControl",
                                  }
                                },
                                listFiles = function() {
-                                 return(dir(self$getPath()))
+                                 return(
+                                   Filter(Negate(is.null),lapply(dir(self$getPath(), no.. = TRUE), 
+                                                                 function(x) { 
+                                                                   path <- file.path(self$getPath(), x)
+                                                                   finf = file.info(path)
+                                                                   if(finf$isdir) 
+                                                                     return(NULL)
+                                                                   list('filename' = x, 'filesize' = finf$size, 'lastmodified' = finf$mtime)
+                                                                   }
+                                                                 ))
+                                        )
                                },
                                readFile = function(filename) {
                                  if(length(grep("/", filename)) > 0) {
                                    stop("File name invalid, it can't contain '/'")
                                  }
                                  fileToRead <- file.path(self$getPath(), filename)
+                                 if(!file.exists(fileToRead)) {
+                                   stop(paste0("File '", fileToRead, "' does not exist."))
+                                 }
                                  if(file.size(fileToRead) > rcloud.rcap.settings$maxDownloadFileSize) {
                                    stop(paste0("The file size exceedes supported maximum of ", rcloud.rcap.settings$maxDownloadFileSize, " bytes."))
                                  }

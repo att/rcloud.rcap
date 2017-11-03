@@ -303,6 +303,8 @@ define([
                 var file = new Blob([content]);
                 saveAs(file, filename); // jshint ignore:line
               });
+            }).catch(function(error) { // jshint ignore:line
+              //TODO display error so it is not just printed on the console
             });
         });
       }

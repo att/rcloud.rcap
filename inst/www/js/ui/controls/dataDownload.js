@@ -65,11 +65,14 @@ define(['pubsub',
         var controlId = this.id;
         window.RCAP.listFiles(controlId).then(function(response) { 
           if(response.status.toLowerCase() === 'success') {
+            var filenames = [];
+            response.data.forEach(function(x) { filenames.push(x.filename); });
             PubSub.publish(pubSubTable.showDataDownloadDialog, {
-              files: response.data,
+              files: filenames,
               id: controlId
             });
           }
+          //TODO display error so it is not just printed on the console
         });
       });
     }
