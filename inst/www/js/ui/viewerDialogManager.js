@@ -289,23 +289,44 @@ define([
             files: params.files
           }));
           $('#dialog-viewerDataDownload').data('id', params.id);
-          $('#dialog-viewerDataDownload .body').html(html);
+          $('#dialog-viewerDataDownload .body .filelist').html(html);
           $('#dialog-viewerDataDownload').jqmShow();
         });
 
         $('#dialog-viewerDataDownload .body').on('click', 'a', function (e) {
           e.preventDefault();
-          var filename = $(this).text();
+          var filename = $(this).text(),
+              overlay = $('#dialog-viewerDataDownload .overlay'),
+              errorDiv = overlay.find('.error'),
+              downloadingDiv = overlay.find('.downloading'),
+              showDiv = function(div) {
+                errorDiv[div === 'error' ? 'show' : 'hide']();
+                downloadingDiv[div === 'downloading' ? 'show' : 'hide']();
+              };
 
           window.RCAP.downloadFile($('#dialog-viewerDataDownload').data('id'), 
             filename).then(function(content) {
               require(['FileSaver'], function(_) {// jshint ignore:line
                 var file = new Blob([content]);
+
+                showDiv('downloading');
+
+                overlay.css('display', 'table');
                 saveAs(file, filename); // jshint ignore:line
+
+                setTimeout(function() {
+                  overlay.hide();
+                }, 1000);
+        
               });
             }).catch(function(error) { // jshint ignore:line
-              //TODO display error so it is not just printed on the console
+              showDiv('error');
             });
+        });
+
+        $('#dialog-viewerDataDownload .jqmClose').on('click', function () {
+          $('#dialog-viewerDataDownload .overlay').hide();
+          $('#dialog-viewerDataDownload .overlay > div').hide();          
         });
       }
     });

@@ -2797,14 +2797,39 @@ table.dataTable td {
   #dialog-profileSettings table i {
     font-size: 20px; }
 
-#dialog-viewerDataDownload .body a {
-  display: block;
-  padding: 5px; }
-  #dialog-viewerDataDownload .body a:hover {
-    background: #efefef; }
-
-#dialog-viewerDataDownload .body p {
-  margin: 0; }
+#dialog-viewerDataDownload .body {
+  position: relative; }
+  #dialog-viewerDataDownload .body table {
+    width: 100%; }
+  #dialog-viewerDataDownload .body thead {
+    border-bottom: 1px solid #999; }
+  #dialog-viewerDataDownload .body th {
+    padding: 6px 6px 1px 6px; }
+  #dialog-viewerDataDownload .body a {
+    display: block;
+    padding: 5px; }
+    #dialog-viewerDataDownload .body a:hover {
+      background: #efefef; }
+  #dialog-viewerDataDownload .body p {
+    margin: 0; }
+  #dialog-viewerDataDownload .body .overlay {
+    background: rgba(255, 255, 255, 0.9);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: none;
+    padding: 20px; }
+    #dialog-viewerDataDownload .body .overlay .spinner {
+      display: inline-block !important;
+      margin-right: 10px; }
+    #dialog-viewerDataDownload .body .overlay > div {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      width: 150px;
+      display: table-cell;
+      vertical-align: middle;
+      font-size: 18px; }
 
 #dialog-viewerProfileSettings {
   min-width: 50%; }
