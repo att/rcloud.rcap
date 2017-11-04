@@ -427,6 +427,28 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'site/siteSettings', 'rca
     getProfileVariables: function () {
       return this.profile.variables;
     },
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // execution order
+    //
+    //
+    getExecutionOrderDetails: function() {
+      return _.map(this.pages, function(page) {
+        return {
+          navigationTitle: page.navigationTitle,
+          id: page.id,
+          controls: _.map(page.controls, function(control) {
+            return {
+              id: control.id,
+              controlType: control.label,
+              controlProperties: control.controlProperties,
+              childControls: control.childControls
+            };
+          })
+        };
+      });
+    },
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     //

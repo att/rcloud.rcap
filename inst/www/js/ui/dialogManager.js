@@ -627,6 +627,10 @@ define([
 
                 $('#dialog-executionOrderSettings').jqmShow();
             });
+
+            $('#dialog-executionOrderSettings .approve').on('click', function() {
+                // get the data, update the execution order:
+            });
         };
     };
 

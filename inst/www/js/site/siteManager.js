@@ -522,7 +522,10 @@ define([
       //
       PubSub.subscribe(pubSubTable.configureExecutionOrder, function () {
         // get the data for the execution order:
-        var executionOrderDetails = {}; // getSite().getExecutionOrderDetails();
+        var executionOrderDetails = getSite().getExecutionOrderDetails();
+
+        console.log(executionOrderDetails);
+        
         PubSub.publish(pubSubTable.showExecutionOrderDialog, executionOrderDetails);
       });
     }
