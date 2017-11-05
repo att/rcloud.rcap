@@ -2791,6 +2791,9 @@ table.dataTable td {
   #dialog-profileSettings table i, #dialog-executionOrderSettings table i {
     font-size: 20px; }
 
+#dialog-executionOrderSettings input {
+  width: 60px; }
+
 #dialog-viewerProfileSettings {
   min-width: 50%; }
   #dialog-viewerProfileSettings .warning {

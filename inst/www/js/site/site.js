@@ -434,19 +434,28 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'site/siteSettings', 'rca
     //
     //
     getExecutionOrderDetails: function() {
+      var dynamicPropNames = ['code', 'variablename'];
       return _.map(this.pages, function(page) {
         return {
           navigationTitle: page.navigationTitle,
           id: page.id,
-          controls: _.map(page.controls, function(control) {
+          controls: _.chain(page.controls).filter(function(control) {
+            return control.type.toLowerCase() === 'form' || _.filter(control.controlProperties, function(prop) {
+              return dynamicPropNames.indexOf(prop.uid) !== -1;
+            }).length;
+          }).map(function(control) {
             return {
               id: control.id,
-              controlType: control.label,
+              label: control.label,
               controlProperties: control.controlProperties,
-              childControls: control.childControls,
+              childControls: _.filter(control.childControls, function(child) {
+                return _.filter(child.controlProperties, function(prop) {
+                  return dynamicPropNames.indexOf(prop.uid) !== -1;
+                }).length;
+              }),
               executionOrder: control.executionOrder
             };
-          })
+          }).value()
         };
       });
     },
