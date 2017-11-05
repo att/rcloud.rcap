@@ -15,6 +15,7 @@ define([
     'text!rcap/partials/dialogs/_confirmDialog.htm',
     'text!rcap/partials/dialogs/templates/profileVariables.tpl',
     'text!rcap/partials/dialogs/templates/newProfileVariable.tpl',
+    'text!rcap/partials/dialogs/templates/executionOrderDetails.tpl',        
     'pubsub',
     'site/pubSubTable',
     'rcap/js/ui/dialogUtils',
@@ -22,7 +23,8 @@ define([
     'rcap/js/vendor/jqModal.min'
 ], function(RcapLogger, FormBuilder, Page, addPagePartial, pageSettingsPartial, dataSourceSettingsPartial,
     timerSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, siteSettingsPartial,
-    profileSettingsPartial, executionOrderPartial, confirmDialogPartial, profileVariablesTpl, newProfileVariableTpl, PubSub, pubSubTable, DialogUtils) {
+    profileSettingsPartial, executionOrderPartial, confirmDialogPartial, profileVariablesTpl, newProfileVariableTpl,
+    executionOrderDetails, PubSub, pubSubTable, DialogUtils) {
 
     'use strict';
 
@@ -615,15 +617,16 @@ define([
             //
             // execution order settings:
             //
-            PubSub.subscribe(pubSubTable.showExecutionOrderDialog, function(/*msg, orderSettings*/) {
+            PubSub.subscribe(pubSubTable.showExecutionOrderDialog, function(msg, orderDetails) {
                 
                 rcapLogger.info('dialogManager: pubSubTable.showExecutionOrderDialog');
+                var template = _.template(executionOrderDetails);
 
-                //var template = _.template(executionOrderPartial);
+                var tableBody = (template({
+                    orderDetails: orderDetails
+                }));
 
-                // var html = (template({
-                //     orderSettings: orderSettings
-                // }));
+                $('#dialog-executionOrderSettings').find('tbody').html(tableBody);
 
                 $('#dialog-executionOrderSettings').jqmShow();
             });

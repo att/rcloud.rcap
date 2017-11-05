@@ -443,7 +443,8 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'site/siteSettings', 'rca
               id: control.id,
               controlType: control.label,
               controlProperties: control.controlProperties,
-              childControls: control.childControls
+              childControls: control.childControls,
+              executionOrder: control.executionOrder
             };
           })
         };
