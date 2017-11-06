@@ -651,7 +651,7 @@ define([
             $('#dialog-executionOrderSettings .approve').on('click', function() {
 
                 // get data, send message:
-                var executionOrderDetails = _.map($(this).closest('.jqmwindow').find('input[type="number"]'), function(control) {
+                var executionOrderDetails = _.map($(this).closest('.jqmwindow').find('input'), function(control) {
                     return {
                         value: $(control).val(),
                         id: $(control).data('controlid')
