@@ -41,6 +41,7 @@ define(['pubsub', 'site/pubSubTable', 'rcap/js/utils/rcapLogger'], function(PubS
                     pubSubTable.updateControl,
                     pubSubTable.gridItemsChanged,
                     pubSubTable.updateProfile,
+                    pubSubTable.updateExecutionOrder
                     // updating themes does not invoke the dirty flag because
                     // they are saved when the save button on the theme editor
                     // dialog is clicked
