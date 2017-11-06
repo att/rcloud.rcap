@@ -110,7 +110,8 @@ define(['pubsub', 'rcap/js/Class'], function() {
 
         // execution order:
         configureExecutionOrder: 'configureExecutionOrder',
-        showEditExecutionOrderDialog: 'showEditExecutionOrderDialog'
+        showEditExecutionOrderDialog: 'showEditExecutionOrderDialog',
+        updateExecutionOrder: 'updateExecutionOrder'
 
     };
 

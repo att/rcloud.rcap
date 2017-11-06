@@ -460,6 +460,11 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'site/siteSettings', 'rca
       });
     },
 
+    updateExecutionOrder: function(executionOrder) {
+      // TODO: update execution order of controls
+      console.log(executionOrder);
+    },
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // settings

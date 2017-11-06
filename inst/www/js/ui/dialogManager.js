@@ -638,6 +638,14 @@ define([
 
             $('#dialog-executionOrderSettings .approve').on('click', function() {
                 // get the data, update the execution order:
+
+                //
+                // TODO: get execution order of controls:
+                //
+
+                PubSub.publish(pubSubTable.updateExecutionOrder, {});
+
+                $('.jqmWindow').jqmHide();                
             });
         };
     };
