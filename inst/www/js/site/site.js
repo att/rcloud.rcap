@@ -461,8 +461,22 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'site/siteSettings', 'rca
     },
 
     updateExecutionOrder: function(executionOrder) {
-      // TODO: update execution order of controls
-      console.log(executionOrder);
+
+      var getOrder = function(id) {
+        var order = _.findWhere(executionOrder, { id : id });
+        
+        return order ? order.value : undefined;
+      };
+
+      // loop through all the controls:
+      _.each(this.pages, function(page) {
+        _.each(page.controls, function(control) {
+          control.executionOrder = getOrder(control.id);          
+          _.each(control.childControls, function(childControl) {
+            childControl.executionOrder = getOrder(childControl.id);
+          });
+        });
+      });
     },
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
