@@ -627,6 +627,11 @@ define([
                 }));
 
                 $('#dialog-executionOrderSettings').find('tbody').html(tableBody);
+                $('#dialog-executionOrderSettings').find('input').on('keypress', function(e) {
+                    if(!(e.charCode >= 48 && e.charCode <= 57)) {
+                        e.preventDefault();
+                    }
+                });
 
                 $('#dialog-executionOrderSettings').jqmShow();
             });
