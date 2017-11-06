@@ -637,13 +637,16 @@ define([
             });
 
             $('#dialog-executionOrderSettings .approve').on('click', function() {
-                // get the data, update the execution order:
 
-                //
-                // TODO: get execution order of controls:
-                //
+                // get data, send message:
+                var executionOrderDetails = _.map($(this).closest('.jqmwindow').find('input[type="number"]'), function(control) {
+                    return {
+                        value: $(control).val(),
+                        id: $(control).data('controlid')
+                    };
+                });
 
-                PubSub.publish(pubSubTable.updateExecutionOrder, {});
+                PubSub.publish(pubSubTable.updateExecutionOrder, executionOrderDetails);
 
                 $('.jqmWindow').jqmHide();                
             });

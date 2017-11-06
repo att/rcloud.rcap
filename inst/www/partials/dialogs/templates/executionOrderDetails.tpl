@@ -7,7 +7,7 @@
                 <td><%= page.navigationTitle %></td>
                 <td>Form <%= childControl.label %></td>
                 <td><%= _.filter(childControl.controlProperties, function(prop) { return prop.uid == 'variablename' || prop.uid == 'code' })[0].value %></td>
-                <td><input type="number" min="1" step="1" /></td>
+                <td><input type="number" min="1" step="1" data-controlid="<%=childControl.id%>" /></td>
             </tr>
             <% }); %>
         <% } else { %>
@@ -15,7 +15,7 @@
                 <td><%= page.navigationTitle %></td>
                 <td><%= control.label %></td>
                 <td><%= _.filter(control.controlProperties, function(prop) { return prop.uid == 'variablename' || prop.uid == 'code' })[0].value %></td>
-                <td><input type="number" min="1" step="1" /></td>
+                <td><input type="number" min="1" step="1" data-controlid="<%=control.id%>" /></td>
             </tr>
         <% } %>
     <% }); %>    
