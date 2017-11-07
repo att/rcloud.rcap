@@ -90,10 +90,10 @@ controllerInitialize <- function(self, private, rcapConfig) {
   userDefinedOrder <- lapply(
     private$controls,
     function(x) {
-      if(is.null(x$getOrder())) {
+      if(is.null(x$getExecutionOrder())) {
         return(NA_character_)
       } else {
-        return(x$getOrder())
+        return(x$getExecutionOrder())
       }
     }
   )
@@ -109,12 +109,8 @@ controllerInitialize <- function(self, private, rcapConfig) {
   predList <- rev(predList)
   userDefinedOrder <- rev(userDefinedOrder)
   
-  rcap.consoleMsg(paste0("Reverse order ", paste(predList, collapse = ", ")))
-  rcap.consoleMsg(paste0("Reverse order ordering def", paste(userDefinedOrder, collapse = ", ")))
-  
   # Consider ordering specified by dashboard designer
   predList <- predList[sort.list(unlist(userDefinedOrder))]
-  rcap.consoleMsg(paste0("Ordered ", paste(predList, collapse = ", ")))
 
   private$succList <- twistAdjlist(predList)
 
