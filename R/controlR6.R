@@ -96,6 +96,7 @@ controlInitialize <- function(self, private, cl) {
 
   if (!is.null(cl$id)) private$id <- cl$id
   if (!is.null(cl$type)) private$type <- cl$type
+  if (!is.null(cl$executionOrder)) private$executionOrder <- cl$executionOrder
 
   ## This is only for data sources
   if (!is.null(cl$code)) private$controlFunction <- cl$code
@@ -116,9 +117,6 @@ controlInitialize <- function(self, private, cl) {
         private$controlFunction <- cp$value %||% NULL
       }
       
-      if (cp$uid == "executionOrder" && !identical(cp$value, "")) {
-        private$executionOrder <- cp$value
-      }
       # Special addition for iframe
       if (cp$uid == "source") {
         if (private$type == "iframe" && !is.null(cp$value)) {
