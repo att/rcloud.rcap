@@ -105,6 +105,10 @@ define(['pubsub', 'rcap/js/Class'], function() {
         showDataUploadDialog: 'showDataUploadDialog',
         overwriteDataUploadConfirm: 'overwriteDataUploadConfirm',
 
+        // data download:
+        showDataDownloadDialog: 'showDataDownloadDialog',
+        downloadResource: 'downloadResource',
+
         // state management:
         stateModified: 'stateModified',
 

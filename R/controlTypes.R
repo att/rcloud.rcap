@@ -174,6 +174,15 @@ ActionButtonControl <- R6Class("ActionButtonControl",
   inherit = Control
 )
 
+MessageControl <- R6Class("MessageControl",
+  inherit = Control
+)
+
+ProgressSpinnerControl <- R6Class("ProgressSpinnerControl",
+                          inherit = Control
+)
+
+
 DataUploadControl <- R6Class("DataUploadControl",
   inherit = Control,
   public = list(
@@ -220,6 +229,83 @@ DataUploadControl <- R6Class("DataUploadControl",
         path = NULL,
         pathType = "manual"
         )
+)
+
+DataDownloadControl <- R6Class("DataDownloadControl",
+                             inherit = Control,
+                             public = list(
+                               initialize = function(cl) {
+                                 super$initialize(cl)
+                                 if (!is.null(cl$controlProperties) &&
+                                     length(cl$controlProperties) > 0) {
+                                   for (cp in cl$controlProperties) {
+                                     if (cp$uid == "path") {
+                                       private$pathType = cp$valueType
+                                       if(cp$valueType == "code") {
+                                         private$controlFunction = cp$value %||% NULL
+                                       } else {
+                                         private$path <- cp$value %||% NULL
+                                       }
+                                     }
+                                   }
+                                 }
+                               },
+                               getPath = function() {
+                                 if (private$pathType == 'code') {
+                                   func <- private$controlFunction
+                                   return(do.call(func, list(), envir = rcloudEnv()))
+                                 } else {
+                                   return(private$path)
+                                 }
+                               },
+                               listFiles = function() {
+                                 return(
+                                   Filter(Negate(is.null),lapply(dir(self$getPath(), no.. = TRUE), 
+                                                                 function(x) { 
+                                                                   path <- file.path(self$getPath(), x)
+                                                                   finf = file.info(path)
+                                                                   if(finf$isdir) 
+                                                                     return(NULL)
+                                                                   list('filename' = x, 'filesize' = finf$size, 'lastmodified' = finf$mtime)
+                                                                   }
+                                                                 ))
+                                        )
+                               },
+                               readFile = function(filename) {
+                                 if(length(grep("/", filename)) > 0) {
+                                   stop("File name invalid, it can't contain '/'")
+                                 }
+                                 fileToRead <- file.path(self$getPath(), filename)
+                                 if(!file.exists(fileToRead)) {
+                                   stop(paste0("File '", fileToRead, "' does not exist."))
+                                 }
+                                 if(file.size(fileToRead) > rcloud.rcap.settings$maxDownloadFileSize) {
+                                   stop(paste0("The file size exceedes supported maximum of ", rcloud.rcap.settings$maxDownloadFileSize, " bytes."))
+                                 }
+                                 fcon <- NULL
+                                 result <- tryCatch({
+                                   fcon <- file(fileToRead, "rb")
+                                   readBin(fcon, "raw", rcloud.rcap.settings$maxDownloadFileSize)
+                                 }, finally = {
+                                   if(!is.null(fcon)) {
+                                     close(fcon)
+                                   }
+                                 })
+                                 return(result)
+                               },
+                               setVariable = function(new_value) {
+                                 if (!is.null(new_value) && !is.null(private$variableName)) {
+                                   currentLocation <- self$getPath()
+                                   newValue <- c(new_value, list("path" = currentLocation))
+                                   assign(private$variableName, newValue, envir = rcloudEnv())
+                                 }
+                                 invisible(self)
+                               }
+                             ),
+                             private = list(
+                               path = NULL,
+                               pathType = "manual"
+                             )
 )
 
 DateRangeContol <- R6Class("DateRangeContol",
@@ -436,6 +522,9 @@ control_classes <- list(
   "submitbutton"     = SubmitButtonControl,
   "actionbutton"     = ActionButtonControl,
   "dataupload"       = DataUploadControl,
+  "datadownload"     = DataDownloadControl,
+  "message"          = MessageControl,
+  "spinner"          = ProgressSpinnerControl,
   "iframe"           = IFrameControl,
   "image"            = ImageControl,
   "pagemenu"         = PageMenuControl,
@@ -452,5 +541,8 @@ control_classes <- list(
 )
 
 controlFactory <- function(cl, type = cl$type) {
+  if(!type %in% names(control_classes)) {
+    stop(paste0("Unsupported control type ", type))
+  }
   control_classes[[type]]$new(cl)
 }

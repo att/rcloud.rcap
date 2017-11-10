@@ -138,10 +138,32 @@
                         ['getRCAPStyles'],
                         ['getUserProfileVariableValues'],
                         ['getUserProfileValue'],
-                        ['createUploadDir']
+                        ['createUploadDir'],
+                        ['send']
                     ], true);
 
                 window.RCAP = window.RCAP || {};
+                
+                window.RCAP.send = function(event) {
+                    return mini.send(JSON.stringify(event));
+                };
+                
+                window.RCAP.downloadFile = function(controlId, filename) {
+                    return new Promise(function(resolve) {
+                        window.RCAP.send({eventType : 'DataDownloadGetFileContents', 'controlId' : controlId, 
+                        data: { 'filename' : filename}}).then(function(content) {
+                            resolve(content);
+                      });
+                    });
+                };
+                
+                window.RCAP.listFiles = function(controlId) {
+                    return new Promise(function(resolve) {
+                        window.RCAP.send({eventType : 'DataDownloadListFiles', 'controlId' : controlId})
+                            .then(function(json) { resolve(JSON.parse(json)); });
+                    });
+                };
+                
                 window.RCAP.updateControls = function(dataToSubmit) {
                     mini.updateControls(dataToSubmit).then(function() {});
                 };
@@ -184,6 +206,69 @@
                       }
                       return Promise.resolve(null);
                 };
+                
+                var messageWidgetEventHandler = {
+                  supports: function(event) {
+                    return event.eventType === 'MessageWidgetWrite';
+                  },
+                  handle: function(event) {
+                    if(event.eventType !== 'MessageWidgetWrite') {
+                        return {status:'Failure', msg: 'Event is not supported by this event handler.'};
+                    } else {
+                        var msgWidgetDiv = $('#'+ event.controlId);
+                        if(!event.data.append) {
+                        msgWidgetDiv[0].innerText = '';
+                        }
+                        msgWidgetDiv[0].innerText = msgWidgetDiv[0].innerText + event.data.message;
+                        return {status:'Success'};
+                    }
+                  }
+                };
+                
+                var progressSpinnerWidgetWriteEventHandler = {
+                  supports: function(event) {
+                    return event.eventType === 'ProgressSpinnerWrite';
+                  },
+                  handle: function(event) {
+                    if(event.eventType !== 'ProgressSpinnerWrite') {
+                      return {status:'Failure', msg: 'Event is not supported by this event handler.'};
+                    } else {
+                      $('span', '#' + event.controlId).text(event.data.message);
+                      return {status:'Success'};    
+                    }
+                  }
+                };
+                
+                var processingStartEventHandler = {
+                  supports: function(event) {
+                    return event.eventType === 'ProcessingStart';
+                  },
+                  handle: function(event) {
+                    if(event.eventType !== 'ProcessingStart') {
+                      return {status:'Failure', msg: 'Event is not supported by this event handler.'};
+                    } else {
+                        $('.rcap-controltype-spinner .spinner').show();
+                    }
+                  }
+                };
+                
+                var processingEndEventHandler = {
+                  supports: function(event) {
+                    return event.eventType === 'ProcessingEnd';
+                  },
+                  handle: function(event) {
+                    if(event.eventType !== 'ProcessingEnd') {
+                      return {status:'Failure', msg: 'Event is not supported by this event handler.'};
+                    } else {
+                        $('.rcap-controltype-spinner .spinner').hide();
+                        $('.rcap-controltype-spinner .message').text('');  
+                    }
+                  }
+                };
+                
+                // initialise event handlers array:
+                window.RCAP.eventHandlers = [messageWidgetEventHandler, progressSpinnerWidgetWriteEventHandler,
+                    processingStartEventHandler, processingEndEventHandler];
             }
 
             k();
@@ -249,6 +334,31 @@
             k();
         },
 
+        /* Backend expects event handler to return result object with the following format:
+        * {
+          status: <'Failure'|'Success'>
+          msg: '<Error message>'
+          data: '<result object>'
+        }
+        or null, which is treated as 'Success' response
+        */
+        receive: function(eventString, k) {
+            var event = JSON.parse(eventString);
+            //console.log(event);
+            var result = null;
+            for (var i in window.RCAP.eventHandlers) {
+              var eventHandler = window.RCAP.eventHandlers[i];
+              if(eventHandler.supports(event)) {
+                 result = eventHandler.handle(event);
+                 break;
+              }
+            }
+            if(!result) {
+              result = {status:'Failure', msg: 'No handler found for event ' + event.eventType };
+            }
+            k(JSON.stringify(result));
+        },
+
         getUserProfileValue: function(variable, k) {
           var result = null;
           if (typeof(Storage) !== 'undefined') {
@@ -304,7 +414,7 @@
             console.log(content);
             k();
         },
-
+        
     	resizeHtmlwidget: function(controlId, width, height, k) {
     	    var control = $('#' + controlId);
     	    control.find('iframe').width(width);
