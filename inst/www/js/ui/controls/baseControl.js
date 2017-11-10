@@ -76,6 +76,10 @@ define(['rcap/js/ui/properties/textProperty', 'rcap/js/Class'], function(TextPro
                 'controlProperties': this.controlProperties
             };
 
+            if(this.hasOwnProperty('executionOrder')) {
+                res.executionOrder = this.executionOrder;
+            }
+
             if(this.styleProperties && this.styleProperties.length) {
               res.styleProperties = this.styleProperties;
             }

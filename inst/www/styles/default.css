@@ -2781,20 +2781,22 @@ table.dataTable td {
     width: auto;
     height: auto; }
 
-#dialog-profileSettings table {
+#dialog-profileSettings table, #dialog-executionOrderSettings table {
   width: 720px;
   font-size: 14px; }
   #dialog-profileSettings table td,
-  #dialog-profileSettings table th {
+  #dialog-profileSettings table th, #dialog-executionOrderSettings table td,
+  #dialog-executionOrderSettings table th {
     padding: 5px; }
-  #dialog-profileSettings table th {
-    font-size: 13px; }
-  #dialog-profileSettings table label {
+  #dialog-profileSettings table th, #dialog-executionOrderSettings table th {
+    font-size: 13px;
+    font-weight: bold; }
+  #dialog-profileSettings table label, #dialog-executionOrderSettings table label {
     font-size: normal; }
-  #dialog-profileSettings table input {
+  #dialog-profileSettings table input, #dialog-executionOrderSettings table input {
     width: 100%;
     font-size: 14px; }
-  #dialog-profileSettings table i {
+  #dialog-profileSettings table i, #dialog-executionOrderSettings table i {
     font-size: 20px; }
 
 #dialog-viewerDataDownload .body {
@@ -2830,6 +2832,9 @@ table.dataTable td {
       display: table-cell;
       vertical-align: middle;
       font-size: 18px; }
+
+#dialog-executionOrderSettings table input {
+  width: 60px; }
 
 #dialog-viewerProfileSettings {
   min-width: 50%; }

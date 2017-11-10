@@ -11,9 +11,11 @@ define([
     'text!rcap/partials/dialogs/_styleEditorDialog.htm',
     'text!rcap/partials/dialogs/_siteSettings.htm',
     'text!rcap/partials/dialogs/_profileSettings.htm',
+    'text!rcap/partials/dialogs/_executionOrderDialog.htm',    
     'text!rcap/partials/dialogs/_confirmDialog.htm',
     'text!rcap/partials/dialogs/templates/profileVariables.tpl',
     'text!rcap/partials/dialogs/templates/newProfileVariable.tpl',
+    'text!rcap/partials/dialogs/templates/executionOrderDetails.tpl',        
     'pubsub',
     'site/pubSubTable',
     'rcap/js/ui/dialogUtils',
@@ -21,7 +23,8 @@ define([
     'rcap/js/vendor/jqModal.min'
 ], function(RcapLogger, FormBuilder, Page, addPagePartial, pageSettingsPartial, dataSourceSettingsPartial,
     timerSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, siteSettingsPartial,
-    profileSettingsPartial, confirmDialogPartial, profileVariablesTpl, newProfileVariableTpl, PubSub, pubSubTable, DialogUtils) {
+    profileSettingsPartial, executionOrderPartial, confirmDialogPartial, profileVariablesTpl, newProfileVariableTpl,
+    executionOrderDetails, PubSub, pubSubTable, DialogUtils) {
 
     'use strict';
 
@@ -88,7 +91,10 @@ define([
         this.initialise = function() {
 
             // append the dialogs to the root of the designer:
-            _.each([addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, timerSettingsPartial, controlSettingsPartial, formBuilderPartial, styleEditorPartial, siteSettingsPartial, profileSettingsPartial, confirmDialogPartial], function(partial) {
+            _.each([addPagePartial, pageSettingsPartial, dataSourceSettingsPartial, 
+                timerSettingsPartial, controlSettingsPartial, formBuilderPartial, 
+                styleEditorPartial, siteSettingsPartial, profileSettingsPartial, 
+                executionOrderPartial, confirmDialogPartial], function(partial) {
                 $('#rcap-designer').append(partial);
             });
 
@@ -605,6 +611,56 @@ define([
               PubSub.publish(pubSubTable.updateProfile, profileVariables);
 
               $('.jqmWindow').jqmHide();
+            });
+
+            ////////////////////////////////////////////////////////////////////////////////
+            //
+            // execution order settings:
+            //
+            PubSub.subscribe(pubSubTable.showExecutionOrderDialog, function(msg, orderDetails) {
+                
+                rcapLogger.info('dialogManager: pubSubTable.showExecutionOrderDialog');
+                var template = _.template(executionOrderDetails);
+
+                var tableBody = (template({
+                    orderDetails: orderDetails
+                }));
+
+                $('#dialog-executionOrderSettings').find('tbody').html(tableBody);
+                $('#dialog-executionOrderSettings').find('input').keypress(function(event) {
+                    // Backspace, tab, enter, end, home, left, right
+                    // We don't support the del key in Opera because del == . == 46.
+                    var controlKeys = [8, 9, 13, 35, 36, 37, 39];
+                    // IE doesn't support indexOf
+                    var isControlKey = controlKeys.join(',').match(new RegExp(event.which));
+                    // Some browsers just don't raise events for control keys. Easy.
+                    // e.g. Safari backspace.
+                    if (!event.which || // Control keys in most browsers. e.g. Firefox tab is 0
+                        (49 <= event.which && event.which <= 57) || // Always 1 through 9
+                        (48 === event.which && $(this).attr('value')) || // No 0 first digit
+                        isControlKey) { // Opera assigns values for control keys.
+                        return;
+                    } else {
+                        event.preventDefault();
+                    }
+                });
+
+                $('#dialog-executionOrderSettings').jqmShow();
+            });
+
+            $('#dialog-executionOrderSettings .approve').on('click', function() {
+
+                // get data, send message:
+                var executionOrderDetails = _.map($(this).closest('.jqmwindow').find('input'), function(control) {
+                    return {
+                        value: $(control).val(),
+                        id: $(control).data('controlid')
+                    };
+                });
+
+                PubSub.publish(pubSubTable.updateExecutionOrder, executionOrderDetails);
+
+                $('.jqmWindow').jqmHide();                
             });
         };
     };

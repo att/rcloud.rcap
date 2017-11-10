@@ -427,6 +427,57 @@ define(['pages/page', 'data/dataSource', 'data/timer', 'site/siteSettings', 'rca
     getProfileVariables: function () {
       return this.profile.variables;
     },
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // execution order
+    //
+    //
+    getExecutionOrderDetails: function() {
+      var dynamicPropNames = ['code', 'variablename'];
+      return _.map(this.pages, function(page) {
+        return {
+          navigationTitle: page.navigationTitle,
+          id: page.id,
+          controls: _.chain(page.controls).filter(function(control) {
+            return control.type.toLowerCase() === 'form' || _.filter(control.controlProperties, function(prop) {
+              return dynamicPropNames.indexOf(prop.uid) !== -1;
+            }).length;
+          }).map(function(control) {
+            return {
+              id: control.id,
+              label: control.label,
+              controlProperties: control.controlProperties,
+              childControls: _.filter(control.childControls, function(child) {
+                return _.filter(child.controlProperties, function(prop) {
+                  return dynamicPropNames.indexOf(prop.uid) !== -1;
+                }).length;
+              }),
+              executionOrder: control.executionOrder
+            };
+          }).value()
+        };
+      });
+    },
+
+    updateExecutionOrder: function(executionOrder) {
+
+      var getOrder = function(id) {
+        var order = _.findWhere(executionOrder, { id : id });
+        
+        return order ? order.value : undefined;
+      };
+
+      // loop through all the controls:
+      _.each(this.pages, function(page) {
+        _.each(page.controls, function(control) {
+          control.executionOrder = getOrder(control.id);          
+          _.each(control.childControls, function(childControl) {
+            childControl.executionOrder = getOrder(childControl.id);
+          });
+        });
+      });
+    },
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     //

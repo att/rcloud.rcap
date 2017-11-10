@@ -110,7 +110,12 @@ define(['pubsub', 'rcap/js/Class'], function() {
         downloadResource: 'downloadResource',
 
         // state management:
-        stateModified: 'stateModified'
+        stateModified: 'stateModified',
+
+        // execution order:
+        configureExecutionOrder: 'configureExecutionOrder',
+        showEditExecutionOrderDialog: 'showEditExecutionOrderDialog',
+        updateExecutionOrder: 'updateExecutionOrder'
 
     };
 
