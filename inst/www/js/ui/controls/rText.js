@@ -1,9 +1,8 @@
 define(['rcap/js/ui/controls/gridControl',
-    'rcap/js/ui/properties/textProperty',
     'rcap/js/ui/properties/autocompleteProperty',
     'text!controlTemplates/rText.tpl',
     'text!controlTemplates/rText-design.tpl'
-], function(GridControl, TextProperty, AutocompleteProperty, tpl, dtpl) {
+], function(GridControl, AutocompleteProperty, tpl, dtpl) {
 
     'use strict';
 
