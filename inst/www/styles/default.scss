@@ -834,7 +834,7 @@
   }
 }
 
-#dialog-profileSettings {
+#dialog-profileSettings, #dialog-executionOrderSettings {
   table {
     width: 720px;
     font-size: 14px;
@@ -844,6 +844,7 @@
     }
     th {
       font-size: 13px;
+      font-weight: bold;
     }
     label {
       font-size: normal;
@@ -854,6 +855,14 @@
     }
     i {
       font-size: 20px;
+    }
+  }
+}
+
+#dialog-executionOrderSettings {
+  table {
+    input {
+      width: 60px;
     }
   }
 }

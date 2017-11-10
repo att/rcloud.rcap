@@ -142,7 +142,7 @@ define(['rcap/js/ui/controls/baseControl',
             return '';
         },
         toJSON: function() {
-            return {
+            var json = {
                 'type': this.type,
                 'x': this.x,
                 'y': this.y,
@@ -151,8 +151,14 @@ define(['rcap/js/ui/controls/baseControl',
                 'id': this.id,
                 'styleProperties': this.styleProperties,
                 'controlProperties': this.controlProperties,
-                'isOnGrid': true
+                'isOnGrid': true,
             };
+
+            if(this.hasOwnProperty('executionOrder')) {
+                json.executionOrder = this.executionOrder;
+            }
+
+            return json;
         },
         isValid: function() {
             // ensure that the 'invalid' item count is 0:

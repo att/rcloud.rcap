@@ -515,6 +515,21 @@ define([
         rcapLogger.info('siteManager: pubSubTable.updateProfile');
         setSite(getSite().updateProfileVariables(profileVariables));
       });
+
+      ////////////////////////////////////////////////////////////////////////////////////
+      //
+      // profile variables
+      //
+      PubSub.subscribe(pubSubTable.configureExecutionOrder, function () {
+        // get the data for the execution order:
+        var executionOrderDetails = getSite().getExecutionOrderDetails();  
+        PubSub.publish(pubSubTable.showExecutionOrderDialog, executionOrderDetails);
+      });
+
+      PubSub.subscribe(pubSubTable.updateExecutionOrder, function(msg, executionOrder) {
+        rcapLogger.info('siteManager: pubSubTable.updateExecutionOrder');
+        setSite(getSite().updateExecutionOrder(executionOrder));
+      });
     }
   });
 
