@@ -320,7 +320,10 @@ define([
           showDiv('downloading');
 
           window.RCAP.downloadFile($('#dialog-viewerDataDownload').data('id'), 
-            filename).then(function(content) {
+            filename).catch(function(error) { // jshint ignore:line
+              showDiv('error');
+              throw error;
+            }).then(function(content) {
               require(['FileSaver'], function(_) {// jshint ignore:line
                 var file = new Blob([content]);
 
@@ -331,9 +334,7 @@ define([
                 setTimeout(function() {
                   overlay.hide();
                 }, 1000);
-              }).catch(function(error) { // jshint ignore:line
-              showDiv('error');
-            });
+              });
         });
 
         $('#dialog-viewerDataDownload .jqmClose').on('click', function () {

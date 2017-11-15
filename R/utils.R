@@ -76,6 +76,7 @@ pasteEmpty <- function(...) {
     paste0(...)
   }
 }
+
 with_options <- function(new, code) {
   old <- set_options(new)
   on.exit(set_options(old))
@@ -84,4 +85,20 @@ with_options <- function(new, code) {
 
 set_options <- function(opts) {
   do.call(options, as.list(opts))
+}
+
+rcap.settings.list <- function() {
+  ls(envir = rcloud.rcap.settings)
+}
+
+rcap.settings.set <- function(name, value) {
+  assign(name, value, envir = rcloud.rcap.settings)
+}
+
+rcap.settings.is_set <- function(name) {
+  exists(name, where = rcloud.rcap.settings)
+}
+
+rcap.settings.get <- function(name) {
+  get(name, envir = rcloud.rcap.settings)
 }

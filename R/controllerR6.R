@@ -91,9 +91,9 @@ controllerInitialize <- function(self, private, rcapConfig) {
     private$controls,
     function(x) {
       if(is.null(x$getExecutionOrder())) {
-        return(NA_character_)
+        return(NA_integer_)
       } else {
-        return(x$getExecutionOrder())
+        return(as.numeric(x$getExecutionOrder()))
       }
     }
   )
