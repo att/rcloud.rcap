@@ -266,7 +266,7 @@ DataDownloadControl <- R6Class("DataDownloadControl",
                                                                    finf = file.info(path)
                                                                    if(finf$isdir) 
                                                                      return(NULL)
-                                                                   list('filename' = x, 'filesize' = finf$size, 'lastmodified' = finf$mtime)
+                                                                    list('filename' = x, 'filesize' = finf$size, 'lastmodified' = format(finf$mtime,  "%a, %d %b %Y %H:%M:%S %z"))
                                                                    }
                                                                  ))
                                         )

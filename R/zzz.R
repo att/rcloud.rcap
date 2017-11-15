@@ -59,7 +59,7 @@ rcloud.rcap.settings <- new.env()
   }
   
   # Maximum number of bytes that file can have to be downloaded
-  rcloud.rcap.settings$maxDownloadFileSize <- 50000000; 
+  rcloud.rcap.settings$maxDownloadFileSize <- 500000000; 
 }
 
 make_oc <- function(...) {
