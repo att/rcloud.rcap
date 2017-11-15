@@ -277,6 +277,15 @@ define([
           }
         });
 
+        function bytesToSize(bytes) {
+           var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
+           if (bytes === 0) {
+             return '0 Byte';
+           }
+           var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+           return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+        }
+        
         ////////////////////////////////////////////////////////////////////////////////
         //
         // viewer file upload:
@@ -284,9 +293,12 @@ define([
         PubSub.subscribe(pubSubTable.showDataDownloadDialog, function (msg, params) {
           
           var template = _.template(viewerDataDownloadTpl);
-
+          var files = params.files.map(function(x) {
+            x.filesize = bytesToSize(x.filesize);
+            return x;
+          });
           var html = (template({
-            files: params.files
+            files: files
           }));
           $('#dialog-viewerDataDownload').data('id', params.id);
           $('#dialog-viewerDataDownload .body .filelist').html(html);
@@ -304,22 +316,22 @@ define([
                 downloadingDiv[div === 'downloading' ? 'show' : 'hide']();
               };
 
+          overlay.css('display', 'table');
+          showDiv('downloading');
+
           window.RCAP.downloadFile($('#dialog-viewerDataDownload').data('id'), 
             filename).then(function(content) {
               require(['FileSaver'], function(_) {// jshint ignore:line
                 var file = new Blob([content]);
 
-                showDiv('downloading');
-
-                overlay.css('display', 'table');
                 saveAs(file, filename); // jshint ignore:line
-
+        
+              });
+            }).then(function(x) { // jshint ignore:line
                 setTimeout(function() {
                   overlay.hide();
                 }, 1000);
-        
-              });
-            }).catch(function(error) { // jshint ignore:line
+              }).catch(function(error) { // jshint ignore:line
               showDiv('error');
             });
         });
