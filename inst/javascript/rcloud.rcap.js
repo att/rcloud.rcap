@@ -149,12 +149,8 @@
                 };
                 
                 window.RCAP.downloadFile = function(controlId, filename) {
-                    return new Promise(function(resolve) {
-                        window.RCAP.send({eventType : 'DataDownloadGetFileContents', 'controlId' : controlId, 
-                        data: { 'filename' : filename}}).then(function(content) {
-                            resolve(content);
-                      });
-                    });
+                    return window.RCAP.send({eventType : 'DataDownloadGetFileContents', 'controlId' : controlId, 
+                        data: { 'filename' : filename}});
                 };
                 
                 window.RCAP.listFiles = function(controlId) {

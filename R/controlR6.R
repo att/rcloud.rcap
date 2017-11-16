@@ -57,7 +57,7 @@ Control <- R6::R6Class("Control",
     getType = function() private$type %||% NA_character_,
     getId = function() private$id %||% NA_character_,
     getVariableName = function() private$variableName %||% NA_character_,
-    getExecutionOrder = function() private$executionOrder %||% NA_character_,
+    getExecutionOrder = function() private$executionOrder %||% NA_integer_,
     getControlFunctionName = function() {
       private$controlFunction %||% NA_character_
     },

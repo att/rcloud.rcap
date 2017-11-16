@@ -279,8 +279,11 @@ DataDownloadControl <- R6Class("DataDownloadControl",
                                  if(!file.exists(fileToRead)) {
                                    stop(paste0("File '", fileToRead, "' does not exist."))
                                  }
-                                 if(file.size(fileToRead) > rcloud.rcap.settings$maxDownloadFileSize) {
-                                   stop(paste0("The file size exceedes supported maximum of ", rcloud.rcap.settings$maxDownloadFileSize, " bytes."))
+                                 fileSizeLimit <- rcap.settings.get("maxDownloadFileSize")
+                                 if(fileSizeLimit > 0) {
+                                   if(file.size(fileToRead) > fileSizeLimit) {
+                                     stop(paste0("The file size exceedes supported maximum of ", fileSizeLimit, " bytes."))
+                                   }
                                  }
                                  fcon <- NULL
                                  result <- tryCatch({
