@@ -648,6 +648,12 @@ define([
                 $('#dialog-executionOrderSettings').jqmShow();
             });
 
+            $('#dialog-executionOrderSettings .clear').on('click', function() {
+                var inputs = $(this).closest('.jqmwindow').find('input');
+                inputs.val('');
+                inputs[0].focus();
+            });
+
             $('#dialog-executionOrderSettings .approve').on('click', function() {
 
                 // get data, send message:
