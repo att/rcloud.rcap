@@ -118,8 +118,12 @@ fi
 
 echo "Done."
 
+echo "Copying artifact to parent directory for RForge.net to pick it up"
+cd ${WD}
+cp ${ARTIFACTS}/${pkgname}_${pkgversion}.tar.gz ..
+
 echo "Produced artifacts:"
-detail=`du -h $ARTIFACTS/${pkgname}_${pkgversion}.tar.gz`
+detail=`du -h ../${pkgname}_${pkgversion}.tar.gz`
 size=$(echo "$detail" | cut -f 1)
 file=$(echo "$detail" | cut -f 2)
 echo "Artifact: $file"
