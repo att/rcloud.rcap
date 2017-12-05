@@ -118,7 +118,7 @@ fi
 
 echo "Done."
 
-echo "Copying artifact to parent directory for RForge.net to pick it up"
+echo "Copying artifact to parent directory"
 cd ${WD}
 cp ${ARTIFACTS}/${pkgname}_${pkgversion}.tar.gz ..
 
