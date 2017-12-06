@@ -229,7 +229,11 @@
                     if(event.eventType !== 'ProgressSpinnerWrite') {
                       return {status:'Failure', msg: 'Event is not supported by this event handler.'};
                     } else {
-                      $('span', '#' + event.controlId).text(event.data.message);
+                        var msgWidgetDiv = $('span', '#' + event.controlId);
+                        if(!event.data.append) {
+                        msgWidgetDiv[0].innerText = '';
+                        }
+                        msgWidgetDiv[0].innerText = msgWidgetDiv[0].innerText + event.data.message;
                       return {status:'Success'};    
                     }
                   }
