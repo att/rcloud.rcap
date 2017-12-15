@@ -44,17 +44,17 @@ define([
             return {             
                 columnDefs : [{
                     render: function(data){ 
-                        return '<span class=sparkbox>' + data + '</span>';
+                        return '<span class="sparkgraph sparkbox">' + data + '</span>';
                     },
                     targets: sparklineOptions.box
                 }, {
                     render: function(data){ 
-                        return '<span class=sparkline>' + data + '</span>';
+                        return '<span class="sparkgraph sparkline">' + data + '</span>';
                     },
                     targets: sparklineOptions.line                
                 },{
                     render: function(data){ 
-                        return '<span class=sparkbar>' + data + '</span>';
+                        return '<span class="sparkgraph sparkbar">' + data + '</span>';
                     },
                     targets: sparklineOptions.histogram
                 }],

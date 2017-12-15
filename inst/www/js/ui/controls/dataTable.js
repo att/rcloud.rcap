@@ -3,11 +3,13 @@ define(['rcap/js/ui/controls/gridControl',
     'rcap/js/ui/properties/autocompleteProperty',
     'rcap/js/ui/properties/dropdownProperty',
     'utils/translators/sparklinesTranslator',
+    'pubsub',
+    'site/pubSubTable',
     'text!controlTemplates/dataTable.tpl',
     'datatables/jquery.dataTables.min',
     'datatablesbuttons/buttons.html5.min',
     'jquery.sparkline/jquery.sparkline.min'
-], function(GridControl, TextProperty, AutocompleteProperty, DropdownProperty, SparklinesTranslator, tpl) {
+], function(GridControl, TextProperty, AutocompleteProperty, DropdownProperty, SparklinesTranslator, PubSub, pubSubTable, tpl) {
 
     'use strict';
 
@@ -138,6 +140,20 @@ define(['rcap/js/ui/controls/gridControl',
                         isHorizontal: true
                     })
                 ]
+            });
+            PubSub.subscribe(pubSubTable.changeSelectedPage, function(msg, page) {
+                if(page && page.controls && page.controls.length > 0) {
+                  page.controls.filter(function(ctl) { 
+                    return ctl.type === 'datatable'; 
+                  }).forEach(function(el) {
+                    var ctl = $('#' + el.id);
+                     if(ctl && ctl.length > 0 && ctl[0].children.length > 0) {
+                       if(ctl.find('.sparkgraph:not(:has(canvas))').length > 0) {
+                          ctl.DataTable().draw(); 
+                       }
+                     }
+                  });
+                }
             });
         },
         render: function(options) {
