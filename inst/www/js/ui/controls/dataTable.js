@@ -255,8 +255,8 @@ define(['rcap/js/ui/controls/gridControl',
             // cell classes
 
             // font sizes
-            $('#' + controlId + 'th').css('font-size', result.options.css.thSize);
-            $('#' + controlId + 'td').css('font-size', result.options.css.tdSize);
+            $('#' + controlId + ' th').css('font-size', result.options.css.thSize);
+            $('#' + controlId + ' td').css('font-size', result.options.css.tdSize);
 
         }
     });
