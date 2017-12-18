@@ -141,6 +141,14 @@
                         ['createUploadDir'],
                         ['send']
                     ], true);
+                
+                // upload api uses functions with 'Async' postfix
+                mini = jQuery.extend(mini, RCloud.promisify_paths(ocaps, [  // jshint ignore:line
+                        ['file_upload','upload_path'],
+                        ['file_upload','create'],
+                        ['file_upload','write'],
+                        ['file_upload','close']
+                    ], false));
 
                 window.RCAP = window.RCAP || {};
                 
@@ -169,7 +177,7 @@
 
                 window.RCAP.uploadData = function(uploadTask, callbacks) {
                     var options = {};
-                    options.upload_ocaps = rcloud._ocaps.file_upload; // jshint ignore:line
+                    options.upload_ocaps = mini.file_upload; // jshint ignore:line
                     options.upload_ocaps.upload_pathAsync = function() { // jshint ignore:line
                       return mini.createUploadDir(uploadTask.variableName, uploadTask.datasetName);
                     };

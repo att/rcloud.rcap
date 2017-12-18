@@ -52,7 +52,14 @@ rcloud.rcap.settings <- new.env()
       getRCAPStyles = make_oc(getRCAPStyles),
       getDataUploadPath = make_oc(rcap.getDataUploadPath),
       createUploadDir = make_oc(rcap.createUploadDir),
-      send = make_oc(rcap.events.receive)
+      send = make_oc(rcap.events.receive),
+      
+      file_upload = list(
+        create = make_oc(rcap.upload.create.file),
+        write = make_oc(rcloud.upload.write.file),
+        close = make_oc(rcap.upload.close.file),
+        upload_path = make_oc(rcloud.upload.path)
+      )
    )
 
     rcloud.rcap.caps$init(ocaps, rcapSessionInfo())
@@ -60,6 +67,9 @@ rcloud.rcap.settings <- new.env()
   
   # Maximum number of bytes that file can have to be downloaded
   rcloud.rcap.settings$maxDownloadFileSize <- 500000000; 
+  rcloud.rcap.settings$newDirectoryMode <- NULL;
+  rcloud.rcap.settings$newFileMode <- NULL;
+  rcloud.rcap.settings$useUmask <- TRUE;
 }
 
 make_oc <- function(...) {
