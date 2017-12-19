@@ -55,9 +55,28 @@ rcap.createUploadDir <- function(variableName, datasetName) {
       stop("Dataset name invalid, it can't contain '/'")
     }
     path <- file.path(parentPath, datasetName)
-    if(!dir.exists(path)) {
-      if(!dir.create(path, recursive = TRUE)) {
+    
+    if(!dir.exists(parentPath)) {
+      if(!dir.create(parentPath, recursive = TRUE )) {
         stop("Could not create directory.")
+      } else {
+        if(rcap.settings.is_set("newDirectoryMode") && !is.null(rcap.settings.get("newDirectoryMode"))) {
+          Sys.chmod(parentPath, mode = rcap.settings.get("newDirectoryMode"), use_umask = rcap.settings.get("useUmask"))
+        }
+      }
+    } else {
+      if(!file.info(parentPath)$isdir) {
+        stop("Location already exists and it is a file.")
+      }
+    }
+    
+    if(!dir.exists(path)) {
+      if(!dir.create(path, recursive = TRUE )) {
+        stop("Could not create directory.")
+      } else {
+        if(rcap.settings.is_set("newDirectoryMode") && !is.null(rcap.settings.get("newDirectoryMode"))) {
+          Sys.chmod(path, mode = rcap.settings.get("newDirectoryMode"), use_umask = rcap.settings.get("useUmask"))
+        }
       }
     } else {
       if(!file.info(path)$isdir) {
@@ -68,4 +87,20 @@ rcap.createUploadDir <- function(variableName, datasetName) {
   } else {
     stop("Illegal state, can't perform this operation outside RCAP view.")
   }
+}
+
+.rcap.upload.state <- new.env()
+
+rcap.upload.create.file <- function(filename, force=FALSE) {
+  .rcap.upload.state$file <- filename
+  rcloud.upload.create.file(filename, force)
+}
+
+rcap.upload.close.file <- function()
+{
+  rcloud.upload.close.file()
+  if(rcap.settings.is_set("newFileMode") && !is.null(rcap.settings.get("newFileMode")) && !is.null(.rcap.upload.state$file)) {
+    Sys.chmod(.rcap.upload.state$file, mode = rcap.settings.get("newFileMode"), use_umask = rcap.settings.get("useUmask"))
+  }
+  .rcap.upload.state$file <- NULL
 }
