@@ -1,12 +1,12 @@
 <div class="row">
     <div class="col-md-12">
-        <label for="datasetName">Dataset Name</label>
-        <span>(Please only use the following characters: letters, digits, spaces, hyphens and underscores)</span>
+        <label for="datasetName">Dataset Subject</label>
+        <span>(Please only use the following characters: letters, digits, hyphens and underscores)</span>
     </div>
 </div>
 <div class="row">
     <div class="col-md-12">
-        <input type="text" class="form-control" id="datasetName" placeholder="Enter Dataset Name" data-parsley-pattern="[\da-zA-Z0-9 _\-]+" data-parsley-spellcheck="false" data-parsley-required="" data-parsley-trigger="change">
+        <input type="text" class="form-control" id="datasetName" placeholder="Enter Dataset Subject" data-parsley-pattern="[\da-zA-Z0-9_\-]+" data-parsley-spellcheck="false" data-parsley-required="" data-parsley-trigger="change">
     </div>
 </div>
 
