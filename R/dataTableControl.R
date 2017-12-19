@@ -20,9 +20,9 @@ DataTableControl <- R6Class("DataTableControl",
         
         digits <- result$options$decimalPlaces
 
-        
-        result$options <- private$convertOptions(result)$options
-        result$data  <- private$convertOptions(result)$data
+        converted <- private$convertOptions(result)
+        result$options <- converted$options
+        result$data  <- converted$data
 
         # Convert the data.frame to JSON before returning
         # This gives us better control over what the client receives
@@ -52,14 +52,16 @@ DataTableControl <- R6Class("DataTableControl",
       # note: need to convert from R to javascipt counting
       # (start a 0 instead)
       possSparkColumns <- which(vapply(result$data, is.list, FUN.VALUE = TRUE))-1
-
+      
+      # Pass-through options
+      resOptions$sparklines$options <- options$sparkOptions[which(!names(options$sparkOptions) %in% c("box", "line"))]
       # set column types (histogram, line graph etc.)
       resOptions$sparklines$box <- match(options$sparkOptions$box, colNames)-1
       resOptions$sparklines$line <- match(options$sparkOptions$line, colNames)-1
       # the rest defaults to histograms
       usedColumns <- union(resOptions$columnDefs$box, resOptions$columnDefs$line)
       resOptions$sparklines$histogram <- setdiff(possSparkColumns, usedColumns)
-     
+      
       # Column css
       getClassNames <- createTableIdDf(options = options, colNames = colNames, id = private$id)
       getCellClassNames <- createCellColorId(options = options, colNames = colNames, id = private$id)

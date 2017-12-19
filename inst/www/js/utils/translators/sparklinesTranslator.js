@@ -11,25 +11,28 @@ define([
         // bar, line and box. 
         // The default is box.
         this.translate = function(sparklineOptions) {
-            var barFunc = function () { 
-                $('.sparkbar:not(:has(canvas))').sparkline('html', { 
+            var options = sparklineOptions.options;
+            var barFunc = function (options) { 
+                $('.sparkbar:not(:has(canvas))').sparkline('html', $.extend({ 
                     type: 'bar', 
                     barColor: 'orange', 
                     negBarColor: 'purple', 
-                    highlightColor: 'black'
-                }); 
+                    highlightColor: 'black',
+                    height: '18px'
+                }, options)); 
             };
-            var lineFunc = function () { 
-              $('.sparkline:not(:has(canvas))').sparkline('html', { 
+            var lineFunc = function (options) { 
+              $('.sparkline:not(:has(canvas))').sparkline('html', $.extend({ 
                 type: 'line', 
                 lineColor: 'black', 
                 fillColor: '#ccc', 
                 highlightLineColor: 'orange', 
-                highlightSpotColor: 'orange'
-              }); 
+                highlightSpotColor: 'orange',
+                height: '18px'
+              }, options)); 
             };
-            var boxFunc = function () {
-                $('.sparkbox:not(:has(canvas))').sparkline('html', { 
+            var boxFunc = function (options) {
+                $('.sparkbox:not(:has(canvas))').sparkline('html', $.extend({ 
                     type: 'box', 
                     lineColor: 'black', 
                     whiskerColor: 'black', 
@@ -37,8 +40,9 @@ define([
                     outlierLineColor: 'black', 
                     medianColor: 'black', 
                     boxFillColor: 'orange', 
-                    boxLineColor: 'black'
-                }); 
+                    boxLineColor: 'black',
+                    height: '18px'
+                }, options)); 
             };
 
             return {             
@@ -59,9 +63,9 @@ define([
                     targets: sparklineOptions.histogram
                 }],
                 fnDrawCallback: function () {
-                    barFunc();
-                    lineFunc();
-                    boxFunc();
+                    barFunc(options);
+                    lineFunc(options);
+                    boxFunc(options);
                 }
               };
         };
