@@ -49,7 +49,7 @@ rcap.progressSpinner.msg <- function(msg=NULL, append=FALSE, ...) {
     msg <- as.list(msg)
     for(p in 1:length(msg)) {
       if(!is.na(names(msg)[[p]])) { 
-        rcloud.rcap:::rcap.messageWidget.write(names(msg)[[p]], msg[[p]], append = appends[p])
+        rcloud.rcap:::rcap.progressSpinner.write(names(msg)[[p]], msg[[p]], append = appends[p])
       }
     }
   }
