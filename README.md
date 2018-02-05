@@ -22,6 +22,7 @@ To build RCAP package run the following command from package source:
 
 
     git clone https://github.com/att/rcloud.rcap
+    cd rcloud.rcap
     sh ./mkdist
 
 The 'mkdist' script accepts a number of optional parameters useful during development: 
