@@ -1,15 +1,13 @@
 
 # RCAP
 
-> Interactive dashboard builder for RCloud
-
 ## Introduction
 
-RCAP is an extension to [RCloud](https://github.com/att/rcloud#readme). It
-is an interactive dashboard builder tool. Each dashboard belongs to an
-RCloud notebook. The RCAP designer tool can be used to create and edit
-the dashboard, and the special `rcap.html` mode to view it.
+RCAP is an Interactive Dashboard Builder extension for [RCloud](https://github.com/att/rcloud#readme). 
+An RCAP dashboard is an RCloud asset associated with an RCloud notebook. Use RCAP to create and edit
+the dashboard, and `rcap.html` mode to view and share it.
 
+[![RCAP Example on YouTube](https://github.com/att/rcloud.rcap/blob/develop/youtube.png)](http://www.youtube.com/watch?v=h9ErbyvD_FA)
 
 ## Building
 
