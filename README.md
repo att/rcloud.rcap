@@ -43,7 +43,7 @@ The 'mkdist' script accepts a number of optional parameters useful during develo
 It is possible to install RCAP from R package bundle, which contains all JS dependencies.
 
 ```sh
-wget 'https://github.com/att/rcloud.rcap/releases/download/0.4/rcloud.rcap_0.4.7.1.tar.gz'
+wget 'https://github.com/att/rcloud.rcap/releases/download/0.4.7.1/rcloud.rcap_0.4.7.1.tar.gz'
 R CMD INSTALL rcloud.rcap_0.4.7.1.tar.gz
 ```
 
@@ -53,7 +53,7 @@ R CMD INSTALL rcloud.rcap_0.4.7.1.tar.gz
 To install the latest released build, you can use the `devtools` package:
 ```r
 devtools::install_url(
-  "https://github.com/att/rcloud.rcap/releases/download/0.4/rcloud.rcap_0.4.7.1.tar.gz"
+  "https://github.com/att/rcloud.rcap/releases/download/0.4.7.1/rcloud.rcap_0.4.7.1.tar.gz"
 )
 ```
 You can also run this from within an RCloud notebook, assuming you have
